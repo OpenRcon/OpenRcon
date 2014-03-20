@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/locale">
+        <file>openrcon_da_DA.qm</file>
+        <file>openrcon_de_DE.qm</file>
+        <file>openrcon_es_ES.qm</file>
+        <file>openrcon_fi_FI.qm</file>
+        <file>openrcon_fr_FR.qm</file>
+        <file>openrcon_nb_NO.qm</file>
+        <file>openrcon_ru_RU.qm</file>
+        <file>openrcon_se_SE.qm</file>
+    </qresource>
+</RCC>

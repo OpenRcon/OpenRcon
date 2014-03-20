@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=OpenRcon
+GenericName=OpenRcon
+Comment=OpenRcon is a cross-platform RCON administration tool.
+Icon=openrcon
+Exec=openrcon
+Terminal=false
+Type=Application
+Categories=Network;

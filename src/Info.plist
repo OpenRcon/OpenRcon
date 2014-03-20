@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>OpenRcon</string>
+	<key>CFBundleGetInfoString</key>
+	<string>OpenRcon is a cross-platform RCON administration tool.</string>
+	<key>CFBundleIconFile</key>
+	<string>openrcon.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.sourceforge.openrcon.OpenRcon</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>OPRC</string>
+	<key>CFBundleVersion</key>
+	<string>0.0.1</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2010-2011 The OpenRcon Project.</string>
+</dict>
+</plist>

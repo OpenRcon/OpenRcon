@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BF3</class>
+ <widget class="QTabWidget" name="BF3">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string/>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <property name="currentIndex">
+   <number>6</number>
+  </property>
+  <property name="documentMode">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="tab_pl">
+   <attribute name="title">
+    <string>Players</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTreeWidget" name="treeWidget_pl">
+      <column>
+       <property name="text">
+        <string>Id</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Name</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tab_op">
+   <attribute name="title">
+    <string>Options</string>
+   </attribute>
+  </widget>
+  <widget class="QWidget" name="tab_ml">
+   <attribute name="title">
+    <string>Maplist</string>
+   </attribute>
+  </widget>
+  <widget class="QWidget" name="tab_bl">
+   <attribute name="title">
+    <string>Banlist</string>
+   </attribute>
+  </widget>
+  <widget class="QWidget" name="tab_rs">
+   <attribute name="title">
+    <string>Reserved Slots</string>
+   </attribute>
+  </widget>
+  <widget class="QWidget" name="tab_ch">
+   <attribute name="title">
+    <string>Chat</string>
+   </attribute>
+  </widget>
+  <widget class="QWidget" name="tab_co">
+   <attribute name="title">
+    <string>Console</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="1" column="0">
+     <widget class="QLineEdit" name="lineEdit_co_input"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="pushButton_co_send">
+      <property name="text">
+       <string>Send</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QTextEdit" name="textEdit_co_output">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <action name="actionKick_custom">
+   <property name="text">
+    <string>Custom</string>
+   </property>
+   <property name="toolTip">
+    <string>Custom</string>
+   </property>
+  </action>
+  <action name="actionBan_byName">
+   <property name="text">
+    <string>By name</string>
+   </property>
+   <property name="toolTip">
+    <string>By name</string>
+   </property>
+  </action>
+  <action name="actionKill">
+   <property name="text">
+    <string>Kill</string>
+   </property>
+  </action>
+  <action name="actionMove">
+   <property name="text">
+    <string>Move</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>treeWidget_pl</tabstop>
+  <tabstop>lineEdit_co_input</tabstop>
+  <tabstop>pushButton_co_send</tabstop>
+  <tabstop>textEdit_co_output</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

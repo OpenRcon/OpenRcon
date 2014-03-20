@@ -1,0 +1,10 @@
+Package: openrcon
+Version: 0.1-1
+Architecture: all
+Maintainer: Halvor Lyche Strandvoll <halvors@openrcon.org>
+Depends: libqtcore4, libqtgui4, libqt4-network, libqtwebkit4, libphonon4
+Section: networking
+Priority: optional
+Homepage: http://openrcon.org/
+Description: OpenRcon
+ OpenRcon is a cross-platform RCON administration tool.
