@@ -47,7 +47,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 
     // Connect ui
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
-    connect(ui->actionPluginmanager, SIGNAL(triggered()), this, SLOT(actionPluginmanager_triggered()));
     connect(ui->actionDisconnect, SIGNAL(triggered()), this, SLOT(actionDisconnect_triggered()));
 
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(actionExit_triggered()));
@@ -78,8 +77,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     label_qc_port = new QLabel(tr("Port:"), this);
     label_qc_password = new QLabel(tr("Password:"), this);
     lineEdit_qc_host = new QLineEdit(this);
-    lineEdit_qc_port = new QLineEdit(this);
-    lineEdit_qc_port->setValidator(new QIntValidator(1, 65535, lineEdit_qc_port));
+    spinBox_qc_port = new QSpinBox(this);
+    spinBox_qc_port->setRange(1, 65535);
+    spinBox_qc_port->setValue(48888);
     lineEdit_qc_password = new QLineEdit(this);
     lineEdit_qc_password->setEchoMode(QLineEdit::Password);
     pushButton_qc_quickconnect = new QPushButton(tr("Quickconnect"), this);
@@ -88,7 +88,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     ui->toolBar_qc->addWidget(label_qc_host);
     ui->toolBar_qc->addWidget(lineEdit_qc_host);
     ui->toolBar_qc->addWidget(label_qc_port);
-    ui->toolBar_qc->addWidget(lineEdit_qc_port);
+    ui->toolBar_qc->addWidget(spinBox_qc_port);
     ui->toolBar_qc->addWidget(label_qc_password);
     ui->toolBar_qc->addWidget(lineEdit_qc_password);
     ui->toolBar_qc->addWidget(pushButton_qc_quickconnect);
@@ -96,7 +96,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     connect(comboBox_sm, SIGNAL(currentIndexChanged(int)), this, SLOT(connect_sm(int)));
 
     connect(lineEdit_qc_host, SIGNAL(returnPressed()), this, SLOT(connect_qc()));
-    connect(lineEdit_qc_port, SIGNAL(returnPressed()), this, SLOT(connect_qc()));
     connect(lineEdit_qc_password, SIGNAL(returnPressed()), this, SLOT(connect_qc()));
     connect(pushButton_qc_quickconnect, SIGNAL(clicked()), this, SLOT(connect_qc()));
 }
@@ -200,9 +199,9 @@ void OpenRcon::connect_sm(int index)
 
 void OpenRcon::connect_qc()
 {
-    if (!lineEdit_qc_host->text().isEmpty() || !lineEdit_qc_port->text().isEmpty() || !lineEdit_qc_password->text().isEmpty()) {
+    if (!lineEdit_qc_host->text().isEmpty() || !spinBox_qc_port->text().isEmpty() || !lineEdit_qc_password->text().isEmpty()) {
         QString host = lineEdit_qc_host->text();
-        int port = lineEdit_qc_port->text().toInt();
+        int port = spinBox_qc_port->value();
         QString password = lineEdit_qc_password->text();
         QString game = comboBox_qc_game->currentText();
 
@@ -219,7 +218,7 @@ void OpenRcon::webFrame(const QString &title, const QString &url)
         ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(tab_webView, title));
     }
 
-    tab_webView->load(url);    
+    tab_webView->load(url);
 }
 
 void OpenRcon::home()

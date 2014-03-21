@@ -33,6 +33,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QMessageBox>
+#include <QTime>
 
 #include "ui_BFBC2.h"
 

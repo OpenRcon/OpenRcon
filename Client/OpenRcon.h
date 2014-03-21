@@ -108,7 +108,7 @@ private:
     QLabel *label_qc_port;
     QLabel *label_qc_password;
     QLineEdit *lineEdit_qc_host;
-    QLineEdit *lineEdit_qc_port;
+    QSpinBox *spinBox_qc_port;
     QLineEdit *lineEdit_qc_password;
     QPushButton *pushButton_qc_quickconnect;
     QWebView *tab_webView;

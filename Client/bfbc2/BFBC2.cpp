@@ -420,6 +420,9 @@ void BFBC2::slotCommandServerInfo(QStringList si)
     <gameMod: GameModId>
     <mapPack: integer>
     <externalGameIpAndPort: IpPortPair>
+    <punkBusterVersion: PunkBusterVersion>
+    <joinQueueEnabled: boolean>
+    <region: Region>
     */
 
     currentMod = si.at(17);
@@ -443,7 +446,7 @@ void BFBC2::slotCommandServerInfo(QStringList si)
     ui->label_pl_address->setText(si.at(19));
     ui->label_pl_state->setText(si.at(11));
     ui->label_pl_roundtime->setText(si.at(16));
-    ui->label_pl_uptime->setText(si.at(15));
+    ui->label_pl_uptime->setText(QTime::fromString(si.at(15), "s").toString());
 
     // Maplist
     ui->label_ml_mod->setText(currentMod);
