@@ -178,6 +178,11 @@ void OpenRcon::newTab(const int &game, const QString &name, const QString &host,
     }
 }
 
+QList<GameEntry *> OpenRcon::getGameList()
+{
+    return gameList;
+}
+
 void OpenRcon::closeTab(int index)
 {
     if (ui->tabWidget->widget(index) == tab_webView) {
