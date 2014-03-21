@@ -24,12 +24,10 @@ OpenRcon *OpenRcon::m_Instance = 0;
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon), m_comboBox_sm_connect(true)
 {
     ui->setupUi(this);
-    dir = new Directory(this);
 
+    dir = new Directory(this);
     settingsDialog = new SettingsDialog(this);
     aboutDialog = new About(this);
-
-    connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
 
     tab_webView = 0;
 
@@ -45,12 +43,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     ui->actionAbout->setText(QString(tr("About %1")).arg(APP_NAME));
     ui->actionAbout->setIcon(QIcon(APP_ICON));
 
-    // Connect ui
-    connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
-    connect(ui->actionDisconnect, SIGNAL(triggered()), this, SLOT(actionDisconnect_triggered()));
-
-    connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(actionExit_triggered()));
-
     home();
 
 /*!
@@ -62,16 +54,20 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     ui->toolBar_sm->setMovable(false);
 #endif
 
+    // Adds all games to the list.
+    gameList = QList<GameEntry *>();
+    gameList.append(new GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/data/graphics/games/icons/bfbc2.png")));
+    gameList.append(new GameEntry(1, "Minecraft", QIcon(":/data/graphics/games/icons/minecraft.png")));
+
     // ServerManager
     comboBox_sm = new QComboBox(this);
-    ui->toolBar_sm->addWidget(comboBox_sm);
-
-    PopulateServerItems();
 
     // Quickconnect
     comboBox_qc_game = new QComboBox(this);
-    comboBox_qc_game->addItem(QIcon(GAME_BFBC2_ICON), GAME_BFBC2_TEXT);
-    comboBox_qc_game->addItem(QIcon(GAME_BF3_ICON), GAME_BF3_TEXT);
+
+    foreach (GameEntry *entry, gameList) {
+        comboBox_qc_game->addItem(entry->getIcon(), entry->getName());
+    }
 
     label_qc_host = new QLabel(tr("Host:"), this);
     label_qc_port = new QLabel(tr("Port:"), this);
@@ -84,6 +80,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     lineEdit_qc_password->setEchoMode(QLineEdit::Password);
     pushButton_qc_quickconnect = new QPushButton(tr("Quickconnect"), this);
 
+    ui->toolBar_sm->addWidget(comboBox_sm);
     ui->toolBar_qc->addWidget(comboBox_qc_game);
     ui->toolBar_qc->addWidget(label_qc_host);
     ui->toolBar_qc->addWidget(lineEdit_qc_host);
@@ -94,10 +91,18 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     ui->toolBar_qc->addWidget(pushButton_qc_quickconnect);
 
     connect(comboBox_sm, SIGNAL(currentIndexChanged(int)), this, SLOT(connect_sm(int)));
-
     connect(lineEdit_qc_host, SIGNAL(returnPressed()), this, SLOT(connect_qc()));
     connect(lineEdit_qc_password, SIGNAL(returnPressed()), this, SLOT(connect_qc()));
     connect(pushButton_qc_quickconnect, SIGNAL(clicked()), this, SLOT(connect_qc()));
+
+    // Tabwidget
+    connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
+
+    // Actions
+    connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
+    connect(ui->actionDisconnect, SIGNAL(triggered()), this, SLOT(actionDisconnect_triggered()));
+
+    connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(actionExit_triggered()));
 }
 
 OpenRcon::~OpenRcon()
@@ -163,16 +168,13 @@ void OpenRcon::writeSettings()
     settings->endGroup();
 }
 
-void OpenRcon::PopulateServerItems()
+void OpenRcon::newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password)
 {
-    // TODO: Make this work
-}
+    GameEntry *entry = gameList.at(game);
 
-void OpenRcon::newTab(const QString &game, const QString &name, const QString &host, const int port, const QString &password)
-{
-    if (game == GAME_BFBC2_TEXT) {
+    if (game == 0) {
         BFBC2 *tab_bfbc2 = new BFBC2(host, port, password);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(tab_bfbc2, QIcon(GAME_BFBC2_ICON), QString("%1 [%2]").arg(name).arg(GAME_BFBC2_TEXT)));
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(tab_bfbc2, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
     }
 }
 
@@ -203,7 +205,7 @@ void OpenRcon::connect_qc()
         QString host = lineEdit_qc_host->text();
         int port = spinBox_qc_port->value();
         QString password = lineEdit_qc_password->text();
-        QString game = comboBox_qc_game->currentText();
+        int game = comboBox_qc_game->currentIndex();
 
         newTab(game, QString("%1:%2").arg(host, port), host, port, password);
     } else {

@@ -54,17 +54,15 @@ private:
     ConnectionManager *connectionManager;
 
     QSettings *settings;
+    QMap<int, QIcon> m_IconMap;
+    QMap<int, QList<ServerEntry*>*> m_Data;
+    QList<ServerEntry> m_ServerEntries;
+    QList<QTreeWidgetItem*>* m_RootItems;
 
     QMenu *menu_sld_serverEntry;
 
-    QMap<QString, QString> m_IconMap;
-    QMap<QString, QList<ServerEntry*>*> m_Data;
-
     void createTreeData();
     void deleteTreeData();
-
-    QList<ServerEntry> m_ServerEntries;
-    QList<QTreeWidgetItem*>* m_RootItems;
 
 private slots:
     void treeWidget_customContextMenuRequested(QPoint pos);

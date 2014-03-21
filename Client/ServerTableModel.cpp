@@ -52,10 +52,11 @@ QVariant ServerTableModel::data(const QModelIndex &index, int role) const
     case Qt::DecorationRole:
         if (index.column() == 0) {
             entry = m_TableData->at(index.row());
-            if (entry.game == GAME_BF3_TEXT) {
-                return QVariant(QIcon(QPixmap(GAME_BF3_ICON)));
-            } else if (entry.game == GAME_BFBC2_TEXT) {
-                return QVariant(QIcon(QPixmap(GAME_BFBC2_ICON)));
+
+            if (entry.game == 0) {
+                //return QVariant(QIcon(QPixmap(GAME_BFBC2_ICON)));
+            } else if (entry.game == 1) {
+                //return QVariant(QIcon(QPixmap(GAME_BF3_ICON)));
             } else {
                 qDebug() << "Unexpected game type.";
                 Q_ASSERT(false);

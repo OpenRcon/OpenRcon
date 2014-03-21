@@ -42,8 +42,9 @@ ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialo
 
     ui->pushButton_sld_connect->setEnabled(false);
 
-    m_IconMap.insert(GAME_BF3_TEXT, GAME_BF3_ICON);
-    m_IconMap.insert(GAME_BFBC2_TEXT, GAME_BFBC2_ICON);
+    foreach (GameEntry *entry, qobject_cast<OpenRcon*>(parent)->getGameList()) {
+        m_IconMap.insert(entry->getId(), entry->getIcon());
+    }
 
     createTreeData();
 
@@ -87,7 +88,7 @@ void ServerListDialog::loadServerEntries(QList<ServerEntry> &entries)
         for (int i = 0; i < size; i++) {
             settings->setArrayIndex(i);
             ServerEntry entry = {
-                settings->value(SETTINGS_SERVERENTRY_GAME).toString(),
+                settings->value(SETTINGS_SERVERENTRY_GAME).toInt(),
                 settings->value(SETTINGS_SERVERENTRY_NAME).toString(),
                 settings->value(SETTINGS_SERVERENTRY_HOST).toString(),
                 settings->value(SETTINGS_SERVERENTRY_PORT).toInt(),
@@ -128,33 +129,34 @@ void ServerListDialog::createTreeData()
 
     loadServerEntries(m_ServerEntries);
 
-    QSet<QString> uniqueGames;
+    QSet<int> uniqueGames;
     for (QList<ServerEntry>::const_iterator it = m_ServerEntries.constBegin(); it != m_ServerEntries.constEnd(); it++) {
         uniqueGames.insert(it->game);
     }
 
-    for (QSet<QString>::const_iterator games_it = uniqueGames.constBegin(); games_it != uniqueGames.constEnd(); games_it++) {
-        QList<ServerEntry*> *sen = new QList<ServerEntry*>();
+    for (QSet<int>::const_iterator games_it = uniqueGames.constBegin(); games_it != uniqueGames.constEnd(); games_it++) {
+        QList<ServerEntry *> *sen = new QList<ServerEntry *>();
 
         for (QList<ServerEntry>::iterator entries_it = m_ServerEntries.begin(); entries_it != m_ServerEntries.end(); entries_it++) {
             if (*games_it == entries_it->game) {
                 sen->append(&(*entries_it));
             }
         }
+
         m_Data.insert(*games_it, sen);
     }
 
     m_RootItems = new QList<QTreeWidgetItem*>();
 
-    QList<QString> keys = m_Data.keys();
+    QList<int> keys = m_Data.keys();
 
-    for (QList<QString>::const_iterator key_it = keys.constBegin(); key_it != keys.constEnd(); key_it++) {
+    for (QList<int>::const_iterator key_it = keys.constBegin(); key_it != keys.constEnd(); key_it++) {
         QTreeWidgetItem* parent = new QTreeWidgetItem(ui->treeWidget);
-        parent->setText(0, *key_it);
+        parent->setText(0, QString(*key_it));
 
         if (m_IconMap.contains(*key_it)) {
-            QString iconPath = m_IconMap.value(*key_it);
-            parent->setIcon(0, QIcon(iconPath));
+            QIcon icon = m_IconMap.value(*key_it);
+            parent->setIcon(0, icon);
         }
 
         ui->treeWidget->addTopLevelItem(parent);
@@ -196,8 +198,8 @@ void ServerListDialog::deleteTreeData()
         m_RootItems = 0;
     }
 
-    QList<QString> keys = m_Data.keys();
-    for (QList<QString>::const_iterator key_it = keys.constBegin(); key_it != keys.constEnd(); key_it++) {
+    QList<int> keys = m_Data.keys();
+    for (QList<int>::const_iterator key_it = keys.constBegin(); key_it != keys.constEnd(); key_it++) {
         delete m_Data[*key_it];
     }
     m_Data.clear();
@@ -300,11 +302,11 @@ void ServerListDialog::accept()
 
     if (items.count() == 1 && ui->treeWidget->currentItem()->parent()) {
         QTreeWidgetItem* item = items[0];
-        QVariant v = item->data(3, Qt::UserRole);
-        ServerEntry* e = v.value<ServerEntry*>();
+        QVariant variant = item->data(3, Qt::UserRole);
+        ServerEntry* entry = variant.value<ServerEntry*>();
 
         OpenRcon *o = OpenRcon::getInstance();
-        o->newTab(e->game, e->name, e->host, e->port, e->password);
+        o->newTab(entry->game, entry->name, entry->host, entry->port, entry->password);
 
         //connectionManager->newConnection(e->name, e->host, e->port.toInt(), e->game, e->password);
 

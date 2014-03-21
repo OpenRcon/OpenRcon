@@ -29,8 +29,10 @@ ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialo
     setWindowIcon(QIcon(APP_ICON));
 
     ui->comboBox_sed_game->clear();
-    ui->comboBox_sed_game->addItem(QIcon(GAME_BFBC2_ICON), GAME_BFBC2_TEXT, GAME_BFBC2_TEXT);
-    ui->comboBox_sed_game->addItem(QIcon(GAME_BF3_ICON), GAME_BF3_TEXT, GAME_BF3_TEXT);
+
+    foreach (GameEntry *entry, qobject_cast<OpenRcon*>(parent)->getGameList()) {
+        ui->comboBox_sed_game->addItem(entry->getIcon(), entry->getName(), entry->getId());
+    }
 
     ui->spinBox_sed_port->setRange(1, 65535);
 
@@ -50,10 +52,10 @@ ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialo
     validate();
 }
 
-ServerEditDialog::ServerEditDialog(const QString &game, const QString &name, const QString &host, const int &port, const QString &password, QObject *parent) : ServerEditDialog(parent)
+ServerEditDialog::ServerEditDialog(const int &game, const QString &name, const QString &host, const int &port, const QString &password, QObject *parent) : ServerEditDialog(parent)
 {
-    if (!game.isEmpty()) {
-        ui->comboBox_sed_game->setCurrentIndex(ui->comboBox_sed_game->findData(game));
+    if (!game) {
+        ui->comboBox_sed_game->setCurrentIndex(game);
     }
 
     ui->lineEdit_sed_name->setText(name);
@@ -74,13 +76,13 @@ void ServerEditDialog::validate()
         ui->comboBox_sed_game->currentIndex() != -1 &&
         !ui->lineEdit_sed_name->text().isEmpty() &&
         !ui->lineEdit_sed_host->text().isEmpty() &&
-        !ui->spinBox_sed_port->text().isEmpty() &&
+        !ui->spinBox_sed_port->value() > 0 &&
         !ui->lineEdit_sed_password->text().isEmpty());
 }
 
-QString ServerEditDialog::getGame()
+int ServerEditDialog::getGame()
 {
-    return ui->comboBox_sed_game->itemData(ui->comboBox_sed_game->currentIndex()).toString();
+    return ui->comboBox_sed_game->currentIndex();
 }
 
 QString ServerEditDialog::getName()

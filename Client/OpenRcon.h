@@ -42,12 +42,12 @@
 #include "ui_OpenRcon.h"
 
 #include "Constants.h"
-
+#include "Directory.h"
+#include "GameEntry.h"
 #include "Connection.h"
 #include "ConnectionTabWidget.h"
-#include "ServerListDialog.h"
 #include "ServerEntry.h"
-#include "Directory.h"
+#include "ServerListDialog.h"
 
 #include "About.h"
 #include "SettingsDialog.h"
@@ -64,8 +64,8 @@ protected:
     explicit OpenRcon(QWidget *parent = 0);
     static OpenRcon* m_Instance;
 
-    void changeEvent(QEvent *e);
-    void closeEvent(QCloseEvent *e);
+private:
+
 
 public:
     static OpenRcon *getInstance(QWidget* parent = 0) {
@@ -78,27 +78,18 @@ public:
 
     ~OpenRcon();
 
-    void newTab(const QString &game, const QString &name, const QString &host, const int port, const QString &password);
-
-    void PopulateServerItems();
+    void newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
+    QList<GameEntry *> getGameList();
 
 private:
     Ui::OpenRcon *ui;
 
     Directory *dir;
-
     SettingsDialog *settingsDialog;
     About *aboutDialog;
 
     QSettings *settings;
-
-    void readSettings();
-    void writeSettings();
-
-    void webFrame(const QString &title, const QString &url);
-
-    bool m_comboBox_sm_connect;
-
+    QList<GameEntry *> gameList;
     QList<ServerEntry> m_serverEntries;
 
     QComboBox *comboBox_sm;
@@ -112,6 +103,16 @@ private:
     QLineEdit *lineEdit_qc_password;
     QPushButton *pushButton_qc_quickconnect;
     QWebView *tab_webView;
+
+    bool m_comboBox_sm_connect;
+
+    void changeEvent(QEvent *event);
+    void closeEvent(QCloseEvent *event);
+
+    void readSettings();
+    void writeSettings();
+
+    void webFrame(const QString &title, const QString &url);
 
 private slots:
 

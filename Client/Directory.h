@@ -38,10 +38,7 @@ public:
     explicit Directory(QObject *parent = 0);
     ~Directory();
 
-    void cd(const QString &folder);
-
-    QString getPath() const;
-    QStringList getList() const;
+    QString getPath();
 
 private:
     QDir *appDir;

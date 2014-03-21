@@ -34,6 +34,7 @@ Directory::Directory(QObject *parent) : QObject(parent)
             qDebug() << QString("Made directory %1 failed.").arg(APP_DIR);
         }
     }
+
     qDebug() << QString("Directory path is: %1").arg(getPath());
 }
 
@@ -42,7 +43,7 @@ Directory::~Directory()
     delete appDir;
 }
 
-QString Directory::getPath() const
+QString Directory::getPath()
 {
     return appDir->path();
 }

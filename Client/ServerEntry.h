@@ -21,11 +21,10 @@
 #define SERVERENTRY_H
 
 #include <QString>
-#include <QHostAddress>
 #include <QMetaType>
 
 struct ServerEntry {
-    QString game;
+    int game;
     QString name;
     QString host;
     int port;

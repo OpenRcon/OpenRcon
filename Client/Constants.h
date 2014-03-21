@@ -45,13 +45,6 @@ namespace Constants {
     const QString SETTINGS_SERVERENTRY_HOST = "Host";
     const QString SETTINGS_SERVERENTRY_PORT = "Port";
     const QString SETTINGS_SERVERENTRY_PASSWORD = "Password";
-
-    // Games
-    const QString GAME_BFBC2_TEXT = "Battlefield: Bad Company 2";
-    const QString GAME_BFBC2_ICON = ":/data/graphics/games/icons/bfbc2.png";
-
-    const QString GAME_BF3_TEXT = "Battlefield 3";
-    const QString GAME_BF3_ICON = ":/data/graphics/games/icons/bf3.png";
 }
 
 #endif // CONSTANTS_H

@@ -1,3 +1,9 @@
+include(Locale/Locale.pri)
+
+include(BFBC2/BFBC2.pri)
+include(BF3/bf3.pri)
+include(Minecraft/Minecraft.pri)
+
 QT += core \
       gui \
       network \
@@ -5,13 +11,18 @@ QT += core \
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = openrcon
+TARGET = OpenRcon
 TEMPLATE = app
 
 INCLUDEPATH += bfbc2 \
-               bf3
+               bf3 \
+               minecraft
 
-DEPENDPATH += bfbc2
+
+
+DEPENDPATH += bfbc2 \
+              bf3 \
+              minecraft
 
 HEADERS += OpenRcon.h \
     About.h \
@@ -27,7 +38,9 @@ HEADERS += OpenRcon.h \
     SettingsDialog.h \
     DragDropListWidget.h \
     DragDropTreeWidget.h \
-    SettingsManager.h
+    SettingsManager.h \
+    Game.h \
+    GameEntry.h
 
 SOURCES += OpenRcon.cpp \
     About.cpp \
@@ -41,7 +54,9 @@ SOURCES += OpenRcon.cpp \
     SettingsDialog.cpp \
     DragDropListWidget.cpp \
     DragDropTreeWidget.cpp \
-    SettingsManager.cpp
+    SettingsManager.cpp \
+    Game.cpp \
+    GameEntry.cpp
 
 FORMS += About.ui \
     OpenRcon.ui \
@@ -51,10 +66,6 @@ FORMS += About.ui \
 
 RESOURCES += openrcon.qrc \
              data/graphics/graphics.qrc
-
-include(locale/locale.pri)
-include(bfbc2/bfbc2.pri)
-include(bf3/bf3.pri)
 
 win32:RC_FILE = openrcon.rc
 

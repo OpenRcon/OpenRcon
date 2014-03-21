@@ -29,6 +29,7 @@
 #include "ui_ServerEditDialog.h"
 
 #include "Constants.h"
+#include "OpenRcon.h"
 
 using namespace Constants;
 
@@ -38,10 +39,10 @@ class ServerEditDialog : public QDialog
 
 public:
     explicit ServerEditDialog(QObject *parent = 0);
-    explicit ServerEditDialog(const QString &game, const QString &name, const QString &host, const int &port, const QString &password, QObject *parent = 0);
+    explicit ServerEditDialog(const int &game, const QString &name, const QString &host, const int &port, const QString &password, QObject *parent = 0);
     ~ServerEditDialog();
 
-    QString getGame();
+    int getGame();
     QString getName();
     QString getHost();
     int getPort();
