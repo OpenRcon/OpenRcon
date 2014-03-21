@@ -27,8 +27,9 @@ class BFBC2RconWord
 {
 
 public:
-    BFBC2RconWord();
+    explicit BFBC2RconWord();
     ~BFBC2RconWord();
+
     BFBC2RconWord(const BFBC2RconWord &word);
     BFBC2RconWord(const char* str);
     BFBC2RconWord &operator= (const BFBC2RconWord &word);

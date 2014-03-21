@@ -28,24 +28,6 @@
 using namespace Constants;
 using namespace BFBC2Constants;
 
-class LevelList;
-
-class BFBC2Levels
-{
-
-public:
-    BFBC2Levels(const QString &currentMod);
-
-    QList<LevelList*> levels()
-    {
-        return levellist;
-    }
-
-private:
-    QList<LevelList*> levellist;
-
-};
-
 struct Level {
     QString mod;
     QString name;
@@ -53,11 +35,12 @@ struct Level {
     QString image;
 
     Level(const QString &mod ,const QString &name, const QString &path, const QString &img) : mod(mod), name(name), path(path), image(img) {
-    }
 
+    }
 };
 
-class LevelList {
+class LevelList
+{
 
 public:
     LevelList(QList<Level *> lvs) : levels(lvs) {
@@ -98,6 +81,24 @@ public:
 private:
     QList<Level *> levels;
 
+};
+
+class BFBC2Levels
+{
+
+public:
+    BFBC2Levels(const QString &currentMod);
+
+    QList<LevelList*> levels() {
+        return levellist;
+    }
+
+private:
+    QList<LevelList*> levellist;
+    QList<Level *> rushLevel;
+    QList<Level *> conquestLevel;
+    QList<Level *> sqrushLevel;
+    QList<Level *> sqdmLevel;
 };
 
 #endif // BFBC2LEVELS_H

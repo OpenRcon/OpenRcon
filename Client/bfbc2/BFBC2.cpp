@@ -242,9 +242,9 @@ void BFBC2::slotIngameCommands(const QString &player, const QString &cmd)
         } else if (command == "!unban") {
             unbanPlayer("name", cmdList.at(1));
         } else if (command == "!restartmap") {
-            con->sendCommand(QString("\"admin.restartMap\""));
+            con->sendCommand("\"admin.restartMap\"");
         } else if (command == "!nextmap") {
-            con->sendCommand(QString("\"admin.runNextLevel\""));
+            con->sendCommand("\"admin.runNextLevel\"");
         } else if (command == "!yell") {
             sendYellMessage(cmdList.at(1), "5", "all", 0, 0);
         } else if (command == "!say") {

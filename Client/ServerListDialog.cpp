@@ -244,7 +244,6 @@ void ServerListDialog::editItem()
         ServerEditDialog *sed = new ServerEditDialog(e->game, e->name, e->host, e->port, e->password, this);
 
         if (sed->exec() == QDialog::Accepted) {
-
             ServerEntry entry = {
                 sed->getGame(),
                 sed->getName(),

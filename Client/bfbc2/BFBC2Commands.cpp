@@ -201,8 +201,8 @@ void BFBC2VersionCommand::exec()
     QString response(mPacket.getWord(0).getContent());
 
     if (response == "OK" && mPacket.getWordCount() == 3) {
-        QString version;
-        QString versionNumber = QString(mPacket.getWord(2).getContent()).toHtmlEscaped();
+        QString version = mPacket.getWord(2).getContent();
+        QString release;
 
         QMap<QString, QString> versionMap;
         versionMap.insert("571287", "R21");
@@ -213,15 +213,19 @@ void BFBC2VersionCommand::exec()
         versionMap.insert("609063", "R26");
         versionMap.insert("617877", "R27");
         versionMap.insert("621775", "R28");
+        versionMap.insert("638140", "R30");
+        versionMap.insert("720174", "R32");
+        versionMap.insert("851434", "R34");
 
-        if (versionMap.contains(versionNumber)) {
-            version = versionMap[versionNumber];
+        if (versionMap.contains(version)) {
+            release = versionMap.value(version);
         } else {
-            version = versionNumber;
+            release = version;
         }
-        mComSignals->signalLogMessage("info", QString("<b>%1</b> server version: <b>%2</b>.").arg(mPacket.getWord(1).getContent(), version));
+
+        mComSignals->signalLogMessage("info", QString("<b>%1</b> server version: <b>%2</b>.").arg(mPacket.getWord(1).getContent(), release));
     } else if (response == "InvalidArguments") {
-        mComSignals->signalLogMessage("error", tr("Invalid arguments."));
+        mComSignals->signalLogMessage("error", "Invalid arguments.");
     }
 }
 
@@ -243,9 +247,11 @@ void BFBC2ServerInfoCommand::exec()
 
     if (response == "OK" && mPacket.getWordCount() > 0) {
         QStringList si;
+
         for (quint32 i = 1; i < mPacket.getWordCount(); i++) {
             si << mPacket.getWord(i).getContent();
         }
+
         mComSignals->signalCommandServerInfo(si);
     }
 }
