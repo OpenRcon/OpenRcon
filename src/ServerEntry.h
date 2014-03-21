@@ -21,13 +21,14 @@
 #define SERVERENTRY_H
 
 #include <QString>
+#include <QHostAddress>
 #include <QMetaType>
 
 struct ServerEntry {
     QString game;
     QString name;
     QString host;
-    QString port;
+    int port;
     QString password;
 
     bool operator == (const ServerEntry &e) const {

@@ -35,92 +35,27 @@
    <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <layout class="QFormLayout" name="formLayout">
-     <property name="fieldGrowthPolicy">
-      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-     </property>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_sed_game">
-       <property name="text">
-        <string>Game:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QComboBox" name="comboBox_sed_game"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_sed_name">
-       <property name="text">
-        <string>Name:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_sed_host">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="frame">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_sed_port">
-       <property name="text">
-        <string>Port:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEdit_sed_port">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>5</number>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEdit_sed_password">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="echoMode">
-        <enum>QLineEdit::Normal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_sed_password">
-       <property name="text">
-        <string>Password:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_sed_host">
-       <property name="text">
-        <string>Server:</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::AutoText</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_sed_name">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="comboBox_sed_game"/>
    </item>
    <item row="2" column="0">
+    <widget class="QLabel" name="label_sed_host">
+     <property name="text">
+      <string>Address:</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::AutoText</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_sed_name">
+     <property name="text">
+      <string>Name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <spacer name="horizontalSpacer">
@@ -151,7 +86,69 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="lineEdit_sed_name">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_sed_game">
+     <property name="text">
+      <string>Game:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_sed_password">
+     <property name="text">
+      <string>Password:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="lineEdit_sed_password">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Normal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLineEdit" name="lineEdit_sed_host">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_sed_port">
+       <property name="text">
+        <string>Port:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinBox_sed_port">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>65535</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0" colspan="2">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -171,9 +168,6 @@
   <tabstop>pushButton_sed_cancel</tabstop>
   <tabstop>comboBox_sed_game</tabstop>
   <tabstop>lineEdit_sed_name</tabstop>
-  <tabstop>lineEdit_sed_host</tabstop>
-  <tabstop>lineEdit_sed_port</tabstop>
-  <tabstop>lineEdit_sed_password</tabstop>
  </tabstops>
  <resources/>
  <connections/>

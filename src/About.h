@@ -21,9 +21,10 @@
 #define ABOUT_H
 
 #include <QObject>
+#include <QString>
+#include <QDatetime>
 #include <QFile>
 #include <QTextStream>
-#include <QString>
 
 #include "ui_About.h"
 

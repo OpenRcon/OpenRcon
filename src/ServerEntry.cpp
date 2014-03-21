@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2011 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -12,20 +12,48 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ORCSS_GLOBAL_H
-#define ORCSS_GLOBAL_H
+#include "ServerEntry.h"
 
-#include <QtGlobal>
+ServerEntry::ServerEntry(const QString &game, const QString &name, const QHostAddress &host, const int &port, const QString &password)
+{
+    this->game = game;
+    this->name = name;
+    this->host = host;
+    this->port = port;
+    this->password = password;
+}
 
-#if defined(ORCSS_LIBRARY)
-#  define ORCSS_EXPORT Q_DECL_EXPORT
-#else
-#  define ORCSS_EXPORT Q_DECL_IMPORT
-#endif
+ServerEntry::~ServerEntry()
+{
 
-#endif // ORCSS_GLOBAL_H
+}
+
+QString ServerEntry::getGame()
+{
+    return game;
+}
+
+QString ServerEntry::getName()
+{
+    return name;
+}
+
+QHostAddress ServerEntry::getHost()
+{
+    return host;
+}
+
+int ServerEntry::getPort()
+{
+    return port;
+}
+
+QString ServerEntry::getPassword()
+{
+    return password;
+}

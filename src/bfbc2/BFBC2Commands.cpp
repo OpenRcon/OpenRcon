@@ -171,7 +171,7 @@ void BFBC2LoginHashedCommand::exec()
 
     if (mLastSentPacket.getWordCount() == 1) {
         if (response == "OK" && mPacket.getWordCount() == 2) {
-            mComSignals->signalLogMessage("info", QString(tr("We got salt: %1")).arg(Qt::escape(mPacket.getWord(1).getContent())));
+            mComSignals->signalLogMessage("info", QString(tr("We got salt: %1")).arg(mPacket.getWord(1).getContent()).toHtmlEscaped());
             QByteArray loginSalt = QByteArray::fromHex(QByteArray(mPacket.getWord(1).getContent()));
             mComSignals->signalGotSalt(loginSalt);
         }
@@ -202,7 +202,7 @@ void BFBC2VersionCommand::exec()
 
     if (response == "OK" && mPacket.getWordCount() == 3) {
         QString version;
-        QString versionNumber = Qt::escape(mPacket.getWord(2).getContent());
+        QString versionNumber = QString(mPacket.getWord(2).getContent()).toHtmlEscaped();
 
         QMap<QString, QString> versionMap;
         versionMap.insert("571287", "R21");
@@ -219,7 +219,7 @@ void BFBC2VersionCommand::exec()
         } else {
             version = versionNumber;
         }
-        mComSignals->signalLogMessage("info", QString("<b>%1</b> server version: <b>%2</b>.").arg(Qt::escape(mPacket.getWord(1).getContent()), version));
+        mComSignals->signalLogMessage("info", QString("<b>%1</b> server version: <b>%2</b>.").arg(mPacket.getWord(1).getContent(), version));
     } else if (response == "InvalidArguments") {
         mComSignals->signalLogMessage("error", tr("Invalid arguments."));
     }
@@ -291,7 +291,7 @@ void BFBC2VarsTextChatModerationModeCommand::exec()
     QString response(mPacket.getWord(0).getContent());
 
     if (response == "OK" && mPacket.getWordCount() > 1) {
-        QString tcmm = Qt::escape(mPacket.getWord(1).getContent());
+        QString tcmm = QString(mPacket.getWord(1).getContent()).toHtmlEscaped();
         mComSignals->signalCommandVarsTextChatModerationMode(tcmm);
     }
 }
@@ -305,7 +305,7 @@ void BFBC2VarsTextChatSpamTriggerCountCommand::exec()
     QString response(mPacket.getWord(0).getContent());
 
     if (response == "OK" && mPacket.getWordCount() > 1) {
-        QString tcst = Qt::escape(mPacket.getWord(1).getContent());
+        QString tcst = QString(mPacket.getWord(1).getContent()).toHtmlEscaped();
         mComSignals->signalCommandVarsTextChatSpamTriggerCount(tcst);
     }
 }
@@ -319,7 +319,7 @@ void BFBC2VarsTextChatSpamDetectionTimeCommand::exec()
     QString response(mPacket.getWord(0).getContent());
 
     if (response == "OK" && mPacket.getWordCount() > 1) {
-        QString tcsdt = Qt::escape(mPacket.getWord(1).getContent());
+        QString tcsdt = QString(mPacket.getWord(1).getContent()).toHtmlEscaped();
         mComSignals->signalCommandVarsTextChatModerationMode(tcsdt);
     }
 }
@@ -333,7 +333,7 @@ void BFBC2VarsTextChatSpamCoolDownTimeCommand::exec()
     QString response(mPacket.getWord(0).getContent());
 
     if (response == "OK" && mPacket.getWordCount() > 1) {
-        QString tcscdt = Qt::escape(mPacket.getWord(1).getContent());
+        QString tcscdt = QString(mPacket.getWord(1).getContent()).toHtmlEscaped();
         mComSignals->signalCommandVarsTextChatModerationMode(tcscdt);
     }
 }
@@ -408,7 +408,7 @@ void BFBC2MapListNextLevelIndexCommand::exec()
     QString response(mPacket.getWord(0).getContent());
 
     if (response == "OK" && mPacket.getWordCount() > 1) {
-        int mn = Qt::escape(mPacket.getWord(1).getContent()).toInt();
+        int mn = QString(mPacket.getWord(1).getContent()).toHtmlEscaped().toInt();
         mComSignals->signalCommandMapListNextLevelIndex(mn);
 
     }
@@ -423,7 +423,7 @@ void BFBC2VarsServerNameCommand::exec()
     QString response(mPacket.getWord(0).getContent());
 
     if (response == "OK" && mPacket.getWordCount() > 1) {
-        QString sn = Qt::escape(mPacket.getWord(1).getContent());
+        QString sn = mPacket.getWord(1).getContent();
         mComSignals->signalCommandVarsServerName(sn);
     }
 }
@@ -437,7 +437,7 @@ void BFBC2VarsServerDescriptionCommand::exec()
     QString response(mPacket.getWord(0).getContent());
 
     if (response == "OK" && mPacket.getWordCount() > 1) {
-        QString sd = Qt::escape(mPacket.getWord(1).getContent());
+        QString sd = mPacket.getWord(1).getContent();
         mComSignals->signalCommandVarsServerDescription(sd);
     }
 }
@@ -450,7 +450,7 @@ void BFBC2VarsBannerUrlCommand::exec()
 {
     QString response(mPacket.getWord(0).getContent());
     if (response == "OK" && mPacket.getWordCount() > 1) {
-        QString bu = Qt::escape(mPacket.getWord(1).getContent());
+        QString bu = mPacket.getWord(1).getContent();
         mComSignals->signalCommandVarsBannerUrl(bu);
     }
 }
@@ -461,7 +461,7 @@ BFBC2PlayerOnJoinCommand::BFBC2PlayerOnJoinCommand(BFBC2CommandSignals *comSigna
 
 void BFBC2PlayerOnJoinCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has joined the game.")).arg(Qt::escape(mPacket.getWord(1).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has joined the game.")).arg(mPacket.getWord(1).getContent()));
     mComSignals->signalRefresh();
 }
 
@@ -471,7 +471,7 @@ BFBC2PlayerOnAuthenticatedCommand::BFBC2PlayerOnAuthenticatedCommand(BFBC2Comman
 
 void BFBC2PlayerOnAuthenticatedCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has just authenticated, and has the GUID: <b>%2</b>.")).arg(Qt::escape(mPacket.getWord(1).getContent()), Qt::escape(mPacket.getWord(2).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has just authenticated, and has the GUID: <b>%2</b>.")).arg(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent()));
 }
 
 BFBC2PlayerOnLeaveCommand::BFBC2PlayerOnLeaveCommand(BFBC2CommandSignals *comSignals, const BFBC2RconPacket &packet) : BFBC2Command(comSignals, packet)
@@ -480,7 +480,7 @@ BFBC2PlayerOnLeaveCommand::BFBC2PlayerOnLeaveCommand(BFBC2CommandSignals *comSig
 
 void BFBC2PlayerOnLeaveCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has left the game.")).arg(Qt::escape(mPacket.getWord(1).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has left the game.")).arg(mPacket.getWord(1).getContent()));
     mComSignals->signalRefresh();
 }
 
@@ -490,8 +490,8 @@ BFBC2PlayerOnSpawnCommand::BFBC2PlayerOnSpawnCommand(BFBC2CommandSignals *comSig
 
 void BFBC2PlayerOnSpawnCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has spawned, with kit <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.")).arg(Qt::escape(mPacket.getWord(1).getContent()), Qt::escape(mPacket.getWord(2).getContent()), Qt::escape(mPacket.getWord(3).getContent()), Qt::escape(mPacket.getWord(4).getContent()), Qt::escape(mPacket.getWord(5).getContent())));
-    mComSignals->signalEventOnSpawn(Qt::escape(mPacket.getWord(1).getContent()), Qt::escape(mPacket.getWord(2).getContent()) /*, Qt::escape(mPacket.getWord(3).getContent()), Qt::escape(mPacket.getWord(4).getContent())*/);
+    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has spawned, with kit <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.")).arg(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent(), mPacket.getWord(3).getContent(), mPacket.getWord(4).getContent(), mPacket.getWord(5).getContent()));
+    mComSignals->signalEventOnSpawn(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent() /*, Qt::escape(mPacket.getWord(3).getContent()), Qt::escape(mPacket.getWord(4).getContent())*/);
 }
 
 BFBC2PlayerOnKillCommand::BFBC2PlayerOnKillCommand(BFBC2CommandSignals *comSignals, const BFBC2RconPacket &packet) : BFBC2Command(comSignals, packet)
@@ -500,9 +500,9 @@ BFBC2PlayerOnKillCommand::BFBC2PlayerOnKillCommand(BFBC2CommandSignals *comSigna
 
 void BFBC2PlayerOnKillCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has killed player <b>%2</b> with <b>%3</b>")).arg(Qt::escape(mPacket.getWord(1).getContent()), Qt::escape(mPacket.getWord(2).getContent()), Qt::escape(mPacket.getWord(3).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has killed player <b>%2</b> with <b>%3</b>")).arg(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent(), mPacket.getWord(3).getContent()));
     mComSignals->signalRefresh();
-    mComSignals->signalLogEvents("Event", QString(Qt::escape(mPacket.getWord(1).getContent()) + Qt::escape(mPacket.getWord(2).getContent()) + Qt::escape(mPacket.getWord(3).getContent())));
+    mComSignals->signalLogEvents("Event", QString("%1 %2 %3").arg(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent(), mPacket.getWord(3).getContent())); // TODO: Better way to do this?
 }
 
 BFBC2PlayerOnChatCommand::BFBC2PlayerOnChatCommand(BFBC2CommandSignals *comSignals, const BFBC2RconPacket &packet) : BFBC2Command(comSignals, packet)
@@ -511,8 +511,8 @@ BFBC2PlayerOnChatCommand::BFBC2PlayerOnChatCommand(BFBC2CommandSignals *comSigna
 
 void BFBC2PlayerOnChatCommand::exec()
 {
-    mComSignals->signalLogMessage("chat", QString(tr("<b>%1</b>: %2")).arg(Qt::escape(mPacket.getWord(1).getContent()), Qt::escape(mPacket.getWord(2).getContent())));
-    mComSignals->signalIngameCommands(Qt::escape(mPacket.getWord(1).getContent()), Qt::escape(mPacket.getWord(2).getContent()));
+    mComSignals->signalLogMessage("chat", QString(tr("<b>%1</b>: %2")).arg(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent()));
+    mComSignals->signalIngameCommands(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent());
 }
 
 BFBC2PlayerOnKickedCommand::BFBC2PlayerOnKickedCommand(BFBC2CommandSignals *comSignals, const BFBC2RconPacket &packet) : BFBC2Command(comSignals, packet)
@@ -521,7 +521,7 @@ BFBC2PlayerOnKickedCommand::BFBC2PlayerOnKickedCommand(BFBC2CommandSignals *comS
 
 void BFBC2PlayerOnKickedCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has been kicked from the game, reason: <b>%2</b>.")).arg(Qt::escape(mPacket.getWord(1).getContent()), Qt::escape(mPacket.getWord(2).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has been kicked from the game, reason: <b>%2</b>.")).arg(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent()));
     mComSignals->signalRefresh();
 }
 
@@ -531,7 +531,7 @@ BFBC2PlayerOnSquadChangeCommand::BFBC2PlayerOnSquadChangeCommand(BFBC2CommandSig
 
 void BFBC2PlayerOnSquadChangeCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has changed squad to <b>%2</b>.")).arg(Qt::escape(mPacket.getWord(1).getContent()), Qt::escape(mPacket.getWord(2).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has changed squad to <b>%2</b>.")).arg(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent()));
     mComSignals->signalRefresh();
 }
 
@@ -541,7 +541,7 @@ BFBC2PlayerOnTeamChangeCommand::BFBC2PlayerOnTeamChangeCommand(BFBC2CommandSigna
 
 void BFBC2PlayerOnTeamChangeCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has changed team to <b>%2</b>.")).arg(Qt::escape(mPacket.getWord(1).getContent()), Qt::escape(mPacket.getWord(2).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("Player <b>%1</b> has changed team to <b>%2</b>.")).arg(mPacket.getWord(1).getContent(), mPacket.getWord(2).getContent()));
     mComSignals->signalRefresh();
 }
 
@@ -551,7 +551,7 @@ BFBC2PunkBusterOnMessageCommand::BFBC2PunkBusterOnMessageCommand(BFBC2CommandSig
 
 void BFBC2PunkBusterOnMessageCommand::exec()
 {
-    mComSignals->signalLogMessage("pb", Qt::escape(mPacket.getWord(1).getContent()));
+    mComSignals->signalLogMessage("pb", mPacket.getWord(1).getContent());
 }
 
 BFBC2ServerOnLoadingLevelCommand::BFBC2ServerOnLoadingLevelCommand(BFBC2CommandSignals *comSignals, const BFBC2RconPacket &packet) : BFBC2Command(comSignals, packet)
@@ -560,7 +560,7 @@ BFBC2ServerOnLoadingLevelCommand::BFBC2ServerOnLoadingLevelCommand(BFBC2CommandS
 
 void BFBC2ServerOnLoadingLevelCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("Loading level: <b>%1</b>")).arg(Qt::escape(mPacket.getWord(1).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("Loading level: <b>%1</b>")).arg(mPacket.getWord(1).getContent()));
 }
 
 BFBC2ServerOnLevelStartedCommand::BFBC2ServerOnLevelStartedCommand(BFBC2CommandSignals *comSignals, const BFBC2RconPacket &packet) : BFBC2Command(comSignals, packet)
@@ -578,7 +578,7 @@ BFBC2ServerOnRoundOverCommand::BFBC2ServerOnRoundOverCommand(BFBC2CommandSignals
 
 void BFBC2ServerOnRoundOverCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("The round has just ended, and <b>%1</b> won")).arg(Qt::escape(mPacket.getWord(1).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("The round has just ended, and <b>%1</b> won")).arg(mPacket.getWord(1).getContent()));
 }
 
 BFBC2ServerOnRoundOverPlayersCommand::BFBC2ServerOnRoundOverPlayersCommand(BFBC2CommandSignals *comSignals, const BFBC2RconPacket &packet) : BFBC2Command(comSignals, packet)
@@ -587,7 +587,7 @@ BFBC2ServerOnRoundOverPlayersCommand::BFBC2ServerOnRoundOverPlayersCommand(BFBC2
 
 void BFBC2ServerOnRoundOverPlayersCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("The round has just ended, and <b>%1</b> is the final detailed player stats")).arg(Qt::escape(mPacket.getWord(1).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("The round has just ended, and <b>%1</b> is the final detailed player stats")).arg(mPacket.getWord(1).getContent()));
 }
 
 BFBC2ServerOnRoundOverTeamScoresCommand::BFBC2ServerOnRoundOverTeamScoresCommand(BFBC2CommandSignals *comSignals, const BFBC2RconPacket &packet) : BFBC2Command(comSignals, packet)
@@ -596,7 +596,7 @@ BFBC2ServerOnRoundOverTeamScoresCommand::BFBC2ServerOnRoundOverTeamScoresCommand
 
 void BFBC2ServerOnRoundOverTeamScoresCommand::exec()
 {
-    mComSignals->signalLogMessage("info", QString(tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team")).arg(Qt::escape(mPacket.getWord(1).getContent())));
+    mComSignals->signalLogMessage("info", QString(tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team")).arg(mPacket.getWord(1).getContent()));
 }
 
 BFBC2UnknownCommand::BFBC2UnknownCommand(BFBC2CommandSignals *comSignals, const BFBC2RconPacket &packet) : BFBC2Command(comSignals, packet)

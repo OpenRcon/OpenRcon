@@ -72,8 +72,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 
     // Quickconnect
     comboBox_qc_game = new QComboBox(this);
-    comboBox_qc_game->addItem(QIcon(GAME_BF3_ICON), GAME_BF3_TEXT);
     comboBox_qc_game->addItem(QIcon(GAME_BFBC2_ICON), GAME_BFBC2_TEXT);
+    comboBox_qc_game->addItem(QIcon(GAME_BF3_ICON), GAME_BF3_TEXT);
 
     label_qc_host = new QLabel(tr("Host:"), this);
     label_qc_port = new QLabel(tr("Port:"), this);
@@ -171,14 +171,11 @@ void OpenRcon::PopulateServerItems()
     // TODO: Make this work
 }
 
-void OpenRcon::newTab(const QString &name, const QString &host, const int port, const QString &password, const QString &game)
+void OpenRcon::newTab(const QString &game, const QString &name, const QString &host, const int port, const QString &password)
 {
-    if (game == GAME_BF3_TEXT) {
-        BF3 *tab_bf3 = new BF3(host, port, password);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(tab_bf3, QIcon(GAME_BF3_ICON), QString("%1 [%2]").arg(name, GAME_BF3_TEXT)));
-    } else if (game == GAME_BFBC2_TEXT) {
+    if (game == GAME_BFBC2_TEXT) {
         BFBC2 *tab_bfbc2 = new BFBC2(host, port, password);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(tab_bfbc2, QIcon(GAME_BFBC2_ICON), QString("%1 [%2]").arg(name, GAME_BFBC2_TEXT)));
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(tab_bfbc2, QIcon(GAME_BFBC2_ICON), QString("%1 [%2]").arg(name).arg(GAME_BFBC2_TEXT)));
     }
 }
 
@@ -205,13 +202,13 @@ void OpenRcon::connect_sm(int index)
 
 void OpenRcon::connect_qc()
 {
-    if (!lineEdit_qc_host->text().isEmpty() | !lineEdit_qc_port->text().isEmpty() | !lineEdit_qc_password->text().isEmpty()) {
+    if (!lineEdit_qc_host->text().isEmpty() || !lineEdit_qc_port->text().isEmpty() || !lineEdit_qc_password->text().isEmpty()) {
         QString host = lineEdit_qc_host->text();
         int port = lineEdit_qc_port->text().toInt();
         QString password = lineEdit_qc_password->text();
         QString game = comboBox_qc_game->currentText();
 
-        newTab(QString("%1:%2").arg(host, port), host, port, password, game);
+        newTab(game, QString("%1:%2").arg(host, port), host, port, password);
     } else {
         QMessageBox::warning(this, tr("Warning"), tr("Check server, port and password settings."));
     }

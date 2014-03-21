@@ -24,15 +24,14 @@
 #include <QIcon>
 
 namespace Constants {
-
     // Application
     const QString APP_NAME = "OpenRcon";
-    const QString APP_VERSION = "0.0.1";
+    const QString APP_VERSION = "0.2";
     const QString APP_ICON = ":/data/graphics/openrcon.png";
     const QString APP_URL = "http://openrcon.org/";
     const QString APP_DIR = ".openrcon";
     const QString APP_AUTHOR = "The OpenRcon Project";
-    const QString APP_YEAR = "2011";
+    const int APP_YEAR = 2011;
     const QString APP_BUG = "http://bugs.openrcon.org/";
     const QString APP_DOC = "http://doc.openrcon.org/";
 
@@ -48,12 +47,11 @@ namespace Constants {
     const QString SETTINGS_SERVERENTRY_PASSWORD = "Password";
 
     // Games
-    const QString GAME_BF3_TEXT = "Battlefield 3";
-    const QString GAME_BF3_ICON = ":/data/graphics/games/icons/bf3.png";
-
     const QString GAME_BFBC2_TEXT = "Battlefield: Bad Company 2";
     const QString GAME_BFBC2_ICON = ":/data/graphics/games/icons/bfbc2.png";
 
+    const QString GAME_BF3_TEXT = "Battlefield 3";
+    const QString GAME_BF3_ICON = ":/data/graphics/games/icons/bf3.png";
 }
 
 #endif // CONSTANTS_H

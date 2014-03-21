@@ -67,25 +67,25 @@ void Connection::displayError(QAbstractSocket::SocketError socketError)
     switch (socketError) {
     case QAbstractSocket::RemoteHostClosedError:
         QMessageBox::warning(0, tr("Error"), tr("The remote host closed the connection."));
-        qDebug() << QString("socketError = RemoteHostClosedError (%1)").arg(tcpSocket->errorString());
+        qDebug() << QString("RemoteHostClosedError (%1)").arg(tcpSocket->errorString());
         break;
     case QAbstractSocket::HostNotFoundError:
         QMessageBox::warning(0, tr("Error"), tr("The host address was not found."));
-        qDebug() << QString("socketError = HostNotFoundError (%1)").arg(tcpSocket->errorString());
+        qDebug() << QString("HostNotFoundError (%1)").arg(tcpSocket->errorString());
         break;
     case QAbstractSocket::ConnectionRefusedError:
         QMessageBox::warning(0, tr("Error"), tr("The connection was refused by the peer (or timed out)."));
-        qDebug() << QString("socketError = ConnectionRefusedError (%1)").arg(tcpSocket->errorString());
+        qDebug() << QString("ConnectionRefusedError (%1)").arg(tcpSocket->errorString());
         break;
     default:
         QMessageBox::information(0, tr("Error"), tr("The following error occurred: %1.").arg(tcpSocket->errorString()));
-        qDebug() << QString("socketError = Unknown (%1)").arg(tcpSocket->errorString());
+        qDebug() << QString("Unknown (%1)").arg(tcpSocket->errorString());
     }
 }
 
 void Connection::tcpSocketConnected()
 {
-    qDebug() << QString("Connected to %1:%2").arg(tcpSocket->peerAddress().toString(), int(tcpSocket->peerPort()));
+    qDebug() << QString("Connected to %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());
 }
 
 void Connection::tcpSocketDisconnected()

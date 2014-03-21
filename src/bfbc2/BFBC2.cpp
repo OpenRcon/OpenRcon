@@ -266,7 +266,7 @@ void BFBC2::slotGotSalt(const QByteArray &salt)
 {
     if (!con->isAuthenticated()) {
         if (!password.isEmpty()) {
-            authenticate(password.toAscii().constData(), salt);
+            authenticate(password.toUtf8().constData(), salt); // Check this, originally authenticate(password.toUtf8().constData(), salt);
         }
     }
 }

@@ -34,8 +34,8 @@ int main(int argc, char *argv[])
     app.setOrganizationName(APP_AUTHOR);
     app.setOrganizationDomain(APP_URL);
 
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
-    QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
+    //QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+    //QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
 
     // Check for saved translation or use system default
     QSettings settings(APP_NAME, APP_NAME);

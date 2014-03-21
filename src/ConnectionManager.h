@@ -38,7 +38,7 @@ public:
     void closeConnection();
 
 private:
-    Connection *connection;
+    Connection *con;
 
 };
 

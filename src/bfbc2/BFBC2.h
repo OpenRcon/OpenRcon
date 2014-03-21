@@ -34,10 +34,10 @@
 #include <QUrl>
 #include <QMessageBox>
 
+#include "ui_BFBC2.h"
+
 #include "Constants.h"
 #include "ConnectionTabWidget.h"
-
-#include "ui_BFBC2.h"
 
 #include "BFBC2Constants.h"
 #include "BFBC2Connection.h"
@@ -73,8 +73,8 @@ private:
 
     bool auth;
 
-    QString host;
-    QString port;
+    QHostAddress host;
+    int port;
     QString password;
 
     QString currentMod;

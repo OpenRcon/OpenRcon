@@ -46,6 +46,7 @@
 #include "PluginLoader.h"
 
 #include "Connection.h"
+#include "ConnectionTabWidget.h"
 #include "ServerListDialog.h"
 #include "ServerEntry.h"
 #include "Directory.h"
@@ -54,7 +55,6 @@
 #include "PluginDialog.h"
 #include "SettingsDialog.h"
 
-#include "BF3.h"
 #include "BFBC2.h"
 
 using namespace Constants;
@@ -81,7 +81,7 @@ public:
 
     ~OpenRcon();
 
-    void newTab(const QString &name, const QString &host, const int port, const QString &password, const QString &game);
+    void newTab(const QString &game, const QString &name, const QString &host, const int port, const QString &password);
 
     void PopulateServerItems();
 
@@ -126,6 +126,7 @@ private slots:
 
     void home();
 
+    // Application menu
     void actionServermanager_triggered();
     void actionPluginmanager_triggered();
     void actionDisconnect_triggered();

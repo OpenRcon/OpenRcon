@@ -1,20 +1,17 @@
-include(bf3/bf3.pri)
-include(bfbc2/bfbc2.pri)
-
-include(locale/locale.pri)
-
 QT += core \
-    gui \
-    network \
-    webkit
+      gui \
+      network \
+      webkitwidgets
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = openrcon
 TEMPLATE = app
 
-INCLUDEPATH += bf3 \
-    bfbc2
-DEPENDPATH += bf3 \
-    bfbc2
+INCLUDEPATH += bfbc2 \
+               bf3
+
+DEPENDPATH += bfbc2
 
 HEADERS += OpenRcon.h \
     About.h \
@@ -63,13 +60,16 @@ FORMS += About.ui \
     SettingsDialog.ui
 
 RESOURCES += openrcon.qrc \
-    data/data.qrc \
-    data/graphics/graphics.qrc \
-    locale/locale.qrc
+             data/data.qrc \
+             data/graphics/graphics.qrc
+
+include(locale/locale.pri)
+include(bfbc2/bfbc2.pri)
+include(bf3/bf3.pri)
 
 win32:RC_FILE = openrcon.rc
 
-macx { 
+macx {
     TARGET = OpenRcon
     ICON = openrcon.icns
     QMAKE_INFO_PLIST = Info.plist

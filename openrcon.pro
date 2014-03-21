@@ -1,8 +1,6 @@
 TEMPLATE = subdirs
 
-SUBDIRS += lib \
-    plugins \
-    src
+SUBDIRS += src
 
 OTHER_FILES += AUTHORS \
     CHANGES \

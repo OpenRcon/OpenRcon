@@ -90,11 +90,13 @@ void ServerListDialog::loadServerEntries(QList<ServerEntry> &entries)
                 settings->value(SETTINGS_SERVERENTRY_GAME).toString(),
                 settings->value(SETTINGS_SERVERENTRY_NAME).toString(),
                 settings->value(SETTINGS_SERVERENTRY_HOST).toString(),
-                settings->value(SETTINGS_SERVERENTRY_PORT).toString(),
+                settings->value(SETTINGS_SERVERENTRY_PORT).toInt(),
                 settings->value(SETTINGS_SERVERENTRY_PASSWORD).toString()
             };
+
             entries.append(entry);
         }
+
         settings->endArray();
     settings->endGroup();
 }
@@ -163,14 +165,14 @@ void ServerListDialog::createTreeData()
             ServerEntry* sep = *entries_it;
 
             QTreeWidgetItem* child = new QTreeWidgetItem(parent);
-
             child->setText(0, sep->name);
             child->setText(1, sep->host);
-            child->setText(2, QString(sep->port));
+            child->setText(2, QString::number(sep->port));
             child->setData(3, Qt::UserRole, qVariantFromValue(sep));
 
             parent->addChild(child);
         }
+
         m_RootItems->append(parent);
     }
 
@@ -204,7 +206,7 @@ void ServerListDialog::deleteTreeData()
 
 void ServerListDialog::addItem()
 {
-    ServerEditDialog *sed = new ServerEditDialog(0, 0, 0, 0, 0, this);
+    ServerEditDialog *sed = new ServerEditDialog(this);
 
     if (sed->exec() == QDialog::Accepted) {
 
@@ -303,7 +305,7 @@ void ServerListDialog::accept()
         ServerEntry* e = v.value<ServerEntry*>();
 
         OpenRcon *o = OpenRcon::getInstance();
-        o->newTab(e->name, e->host, e->port.toInt(), e->password, e->game);
+        o->newTab(e->game, e->name, e->host, e->port, e->password);
 
         //connectionManager->newConnection(e->name, e->host, e->port.toInt(), e->game, e->password);
 

@@ -17,6 +17,9 @@ OpenRcon:
 
     BF3:
         - Implement support when DICE release BF3 RCON documentation.
+		
+	BF4:
+		- Support for this?
 
 LibOpenRcon:
 

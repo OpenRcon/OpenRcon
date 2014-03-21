@@ -21,12 +21,12 @@
 
 ConnectionManager::ConnectionManager(QObject *parent) : QObject(parent)
 {
-    connection = new Connection(this);
+    con = new Connection(this);
 }
 
 ConnectionManager::~ConnectionManager()
 {
-    delete connection;
+    delete con;
 }
 
 void ConnectionManager::openConnection()

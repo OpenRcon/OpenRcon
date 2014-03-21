@@ -26,21 +26,22 @@ About::About(QObject *parent) : ui(new Ui::About)
     ui->setupUi(this);
 
     // Sets application title and icon
-    setWindowTitle(QString(tr("About %1")).arg(APP_NAME));
+    setWindowTitle(tr("About %1 %2").arg(APP_NAME, APP_VERSION));
     setWindowIcon(QIcon(APP_ICON));
 
-    ui->label_ab_logo->setPixmap(QPixmap(":/data/graphics/icons/openrcon.png"));
-    ui->label_ab_name->setText(QString("<h3>%1 %2</h3>").arg(APP_NAME, APP_VERSION));
+    QDateTime current = QDateTime::currentDateTime();
+    QString description = tr("<p>%1 is a cross-platform RCON administration tool.</p>"
+                             "<p>Built on %2 at %3</p>"
+                             "Copyright &copy; %4 %5</p>"
 
-    QString description = QString(tr("%1 is a cross-platform RCON administration tool.<br />"
-                            "<br />"
-                            "Built on %2 at %3<br />"
-                            "<br/>"
-                            "Copyright &copy; %4 %5<br />"
-                            "<br />"
-                            "The program is provided AS IS with NO WARRANTY OF ANY KIND, <br />"
-                            "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND <br />"
-                            "FITNESS FOR A PARTICULAR PURPOSE.<br/>")).arg(APP_NAME, __DATE__, __TIME__, APP_YEAR, APP_AUTHOR);
+                             "<p>The program is provided AS IS with NO WARRANTY OF ANY KIND, <br />"
+                             "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND <br />"
+                             "FITNESS FOR A PARTICULAR PURPOSE.</p>"
+                             ).arg(APP_NAME)
+                              .arg(current.toString("dd MMMM yyyy"))
+                              .arg(current.toString("hh:mm:ss"))
+                              .arg(APP_YEAR)
+                              .arg(APP_AUTHOR);
 
     ui->label_ab->setText(description);
 
@@ -49,8 +50,8 @@ About::About(QObject *parent) : ui(new Ui::About)
     ui->textBrowser_tr->setText(getFile(":/TRANSLATORS"));
     ui->textBrowser_li->setText(getFile(":/COPYING"));
 
-    QString thanksto = QString(tr("We would like to thanks sourceforge.net for their services and support.<br />"));
-    ui->label_th->setText(thanksto);
+    QString thanksTo = QString(tr("<p>We would like to thanks sourceforge.net for their services and support.</p>"));
+    ui->label_th->setText(thanksTo);
 
     connect(ui->pushButton_ab_close, SIGNAL(clicked()), this, SLOT(reject()));
 }

@@ -18,11 +18,8 @@
  */
 
 #include "ServerEditDialog.h"
-#include "Constants.h"
 
-using namespace Constants;
-
-ServerEditDialog::ServerEditDialog(const QString &game, const QString &name, const QString &host, const QString &port, const QString &password, QObject *parent) : ui(new Ui::ServerEditDialog)
+ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialog)
 {
     Q_UNUSED(parent);
 
@@ -32,29 +29,19 @@ ServerEditDialog::ServerEditDialog(const QString &game, const QString &name, con
     setWindowIcon(QIcon(APP_ICON));
 
     ui->comboBox_sed_game->clear();
-    ui->comboBox_sed_game->addItem(QIcon(GAME_BF3_ICON), GAME_BF3_TEXT, GAME_BF3_TEXT);
     ui->comboBox_sed_game->addItem(QIcon(GAME_BFBC2_ICON), GAME_BFBC2_TEXT, GAME_BFBC2_TEXT);
+    ui->comboBox_sed_game->addItem(QIcon(GAME_BF3_ICON), GAME_BF3_TEXT, GAME_BF3_TEXT);
 
-    if (!game.isEmpty()) {
-        ui->comboBox_sed_game->setCurrentIndex(ui->comboBox_sed_game->findData(game));
-    }
-
-    ui->lineEdit_sed_name->setText(name);
-    ui->lineEdit_sed_host->setText(host);
-    ui->lineEdit_sed_port->setText(QString(port));
-    ui->lineEdit_sed_port->setValidator(new QIntValidator(1, 65535, ui->lineEdit_sed_port));
-    ui->lineEdit_sed_password->setText(password);
-    ui->lineEdit_sed_password->setEchoMode(QLineEdit::Password);
+    ui->spinBox_sed_port->setRange(1, 65535);
 
     connect(ui->comboBox_sed_game, SIGNAL(currentIndexChanged(int)), this, SLOT(validate()));
     connect(ui->lineEdit_sed_name, SIGNAL(textChanged(QString)), this, SLOT(validate()));
     connect(ui->lineEdit_sed_host, SIGNAL(textChanged(QString)), this, SLOT(validate()));
-    connect(ui->lineEdit_sed_port, SIGNAL(textChanged(QString)), this, SLOT(validate()));
+    connect(ui->spinBox_sed_port, SIGNAL(valueChanged(int)), this, SLOT(validate()));
     connect(ui->lineEdit_sed_password, SIGNAL(textChanged(QString)), this, SLOT(validate()));
 
     connect(ui->lineEdit_sed_name, SIGNAL(returnPressed()), this, SLOT(accept()));
     connect(ui->lineEdit_sed_host, SIGNAL(returnPressed()), this, SLOT(accept()));
-    connect(ui->lineEdit_sed_port, SIGNAL(returnPressed()), this, SLOT(accept()));
     connect(ui->lineEdit_sed_password, SIGNAL(returnPressed()), this, SLOT(accept()));
 
     connect(ui->pushButton_sed_ok, SIGNAL(clicked()), this, SLOT(accept()));
@@ -63,12 +50,55 @@ ServerEditDialog::ServerEditDialog(const QString &game, const QString &name, con
     validate();
 }
 
+ServerEditDialog::ServerEditDialog(const QString &game, const QString &name, const QString &host, const int &port, const QString &password, QObject *parent) : ServerEditDialog(parent)
+{
+    if (!game.isEmpty()) {
+        ui->comboBox_sed_game->setCurrentIndex(ui->comboBox_sed_game->findData(game));
+    }
+
+    ui->lineEdit_sed_name->setText(name);
+    ui->lineEdit_sed_host->setText(host);
+    ui->spinBox_sed_port->setValue(port);
+    ui->lineEdit_sed_password->setText(password);
+    ui->lineEdit_sed_password->setEchoMode(QLineEdit::Password);
+}
+
 ServerEditDialog::~ServerEditDialog()
 {
     delete ui;
 }
 
 void ServerEditDialog::validate()
+{   
+    ui->pushButton_sed_ok->setEnabled(
+        ui->comboBox_sed_game->currentIndex() != -1 &&
+        !ui->lineEdit_sed_name->text().isEmpty() &&
+        !ui->lineEdit_sed_host->text().isEmpty() &&
+        !ui->spinBox_sed_port->text().isEmpty() &&
+        !ui->lineEdit_sed_password->text().isEmpty());
+}
+
+QString ServerEditDialog::getGame()
 {
-    ui->pushButton_sed_ok->setEnabled(ui->comboBox_sed_game->currentIndex() != -1 && !ui->lineEdit_sed_name->text().isEmpty() && !ui->lineEdit_sed_host->text().isEmpty() && !ui->lineEdit_sed_port->text().isEmpty() && !ui->lineEdit_sed_password->text().isEmpty());
+    return ui->comboBox_sed_game->itemData(ui->comboBox_sed_game->currentIndex()).toString();
+}
+
+QString ServerEditDialog::getName()
+{
+    return ui->lineEdit_sed_name->text();
+}
+
+QString ServerEditDialog::getHost()
+{
+    return ui->lineEdit_sed_host->text();
+}
+
+int ServerEditDialog::getPort()
+{
+    return ui->spinBox_sed_port->value();
+}
+
+QString ServerEditDialog::getPassword()
+{
+    return ui->lineEdit_sed_password->text();
 }

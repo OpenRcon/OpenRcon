@@ -25,6 +25,8 @@
 #include <QMouseEvent>
 #include <QApplication>
 #include <QDebug>
+#include <QMimeData>
+#include <QDrag>
 
 class DragDropListWidget : public QListWidget
 {

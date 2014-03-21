@@ -46,7 +46,10 @@ public:
 
     BFBC2CommandSignals *commandSignals();
 
-    enum { PacketReadingHeader = 0, PacketReadingData = 1 };
+    enum {
+        PacketReadingHeader = 0,
+        PacketReadingData = 1
+    };
 
 public slots:
     void hostConnect(const QString &host, const int &port);

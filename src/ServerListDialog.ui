@@ -32,7 +32,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Server</string>
+       <string>Address</string>
       </property>
      </column>
      <column>
@@ -44,6 +44,13 @@
    </item>
    <item row="1" column="0" colspan="3">
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_sld_add">
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -58,9 +65,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_sld_add">
+      <widget class="QPushButton" name="pushButton_sld_connect">
        <property name="text">
-        <string>Add</string>
+        <string>Connect</string>
        </property>
       </widget>
      </item>
@@ -68,13 +75,6 @@
       <widget class="QPushButton" name="pushButton_sld_cancel">
        <property name="text">
         <string>Cancel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_sld_connect">
-       <property name="text">
-        <string>Connect</string>
        </property>
       </widget>
      </item>
@@ -94,8 +94,6 @@
  </widget>
  <tabstops>
   <tabstop>pushButton_sld_connect</tabstop>
-  <tabstop>pushButton_sld_cancel</tabstop>
-  <tabstop>pushButton_sld_add</tabstop>
   <tabstop>treeWidget</tabstop>
  </tabstops>
  <resources/>

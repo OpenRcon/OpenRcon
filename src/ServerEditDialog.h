@@ -20,10 +20,11 @@
 #ifndef SERVEREDITDIALOG_H
 #define SERVEREDITDIALOG_H
 
+#include <QObject>
 #include <QDebug>
 #include <QDialog>
 #include <QPushButton>
-#include <QObject>
+#include <QHostAddress>
 
 #include "ui_ServerEditDialog.h"
 
@@ -36,14 +37,15 @@ class ServerEditDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ServerEditDialog(const QString &game, const QString &name, const QString &host, const QString &port, const QString &password, QObject *parent = 0);
+    explicit ServerEditDialog(QObject *parent = 0);
+    explicit ServerEditDialog(const QString &game, const QString &name, const QString &host, const int &port, const QString &password, QObject *parent = 0);
     ~ServerEditDialog();
 
-    QString getGame() const;
-    QString getName() const;
-    QString getHost() const;
-    QString getPort() const;
-    QString getPassword() const;
+    QString getGame();
+    QString getName();
+    QString getHost();
+    int getPort();
+    QString getPassword();
 
 private:
     Ui::ServerEditDialog *ui;
@@ -52,30 +54,5 @@ private slots:
     void validate();
 
 };
-
-inline QString ServerEditDialog::getGame() const
-{
-    return ui->comboBox_sed_game->itemData(ui->comboBox_sed_game->currentIndex()).toString();
-}
-
-inline QString ServerEditDialog::getName() const
-{
-    return ui->lineEdit_sed_name->text();
-}
-
-inline QString ServerEditDialog::getHost() const
-{
-    return ui->lineEdit_sed_host->text();
-}
-
-inline QString ServerEditDialog::getPort() const
-{
-    return ui->lineEdit_sed_port->text();
-}
-
-inline QString ServerEditDialog::getPassword() const
-{
-    return ui->lineEdit_sed_password->text();
-}
 
 #endif // SERVEREDITDIALOG_H
