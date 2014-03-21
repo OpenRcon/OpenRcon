@@ -18,3 +18,5 @@ SOURCES += BFBC2/BFBC2.cpp \
            BFBC2/BFBC2CommandList.cpp
 
 FORMS += BFBC2/BFBC2.ui
+
+RESOURCES += BFBC2/BFBC2.qrc

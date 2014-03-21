@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/data">
-        <file>index.html</file>
-    </qresource>
-</RCC>

@@ -43,8 +43,6 @@
 
 #include "Constants.h"
 
-#include "PluginLoader.h"
-
 #include "Connection.h"
 #include "ConnectionTabWidget.h"
 #include "ServerListDialog.h"
@@ -52,7 +50,6 @@
 #include "Directory.h"
 
 #include "About.h"
-#include "PluginDialog.h"
 #include "SettingsDialog.h"
 
 #include "BFBC2.h"
@@ -90,7 +87,6 @@ private:
 
     Directory *dir;
 
-    PluginDialog *pluginDialog;
     SettingsDialog *settingsDialog;
     About *aboutDialog;
 
@@ -128,7 +124,6 @@ private slots:
 
     // Application menu
     void actionServermanager_triggered();
-    void actionPluginmanager_triggered();
     void actionDisconnect_triggered();
     void actionExit_triggered();
 

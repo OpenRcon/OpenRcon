@@ -26,7 +26,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     ui->setupUi(this);
     dir = new Directory(this);
 
-    pluginDialog = new PluginDialog(this);
     settingsDialog = new SettingsDialog(this);
     aboutDialog = new About(this);
 
@@ -108,7 +107,6 @@ OpenRcon::~OpenRcon()
     delete dir;
     delete settings;
 
-    delete pluginDialog;
     delete settingsDialog;
     delete aboutDialog;
 }
@@ -236,11 +234,6 @@ void OpenRcon::actionServermanager_triggered()
     dlg->exec();
 
     delete dlg;
-}
-
-void OpenRcon::actionPluginmanager_triggered()
-{
-    pluginDialog->exec();
 }
 
 void OpenRcon::actionDisconnect_triggered()

@@ -20,7 +20,6 @@ HEADERS += OpenRcon.h \
     ConnectionTabWidget.h \
     Constants.h \
     Directory.h \
-    PluginManager.h \
     ServerListDialog.h \
     ServerEditDialog.h \
     ServerEntry.h \
@@ -28,10 +27,6 @@ HEADERS += OpenRcon.h \
     SettingsDialog.h \
     DragDropListWidget.h \
     DragDropTreeWidget.h \
-    PluginInterface.h \
-    Plugin.h \
-    PluginLoader.h \
-    PluginDialog.h \
     SettingsManager.h
 
 SOURCES += OpenRcon.cpp \
@@ -46,21 +41,15 @@ SOURCES += OpenRcon.cpp \
     SettingsDialog.cpp \
     DragDropListWidget.cpp \
     DragDropTreeWidget.cpp \
-    Plugin.cpp \
-    PluginLoader.cpp \
-    PluginManager.cpp \
-    PluginDialog.cpp \
     SettingsManager.cpp
 
 FORMS += About.ui \
     OpenRcon.ui \
-    PluginDialog.ui \
     ServerListDialog.ui \
     ServerEditDialog.ui \
     SettingsDialog.ui
 
 RESOURCES += openrcon.qrc \
-             data/data.qrc \
              data/graphics/graphics.qrc
 
 include(locale/locale.pri)

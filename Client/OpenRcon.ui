@@ -42,7 +42,16 @@
     <string notr="true"/>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
      <number>0</number>
     </property>
     <property name="spacing">
@@ -97,7 +106,6 @@
     <addaction name="actionReport_bug"/>
     <addaction name="actionDocumentation"/>
     <addaction name="separator"/>
-    <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -266,29 +274,18 @@
     <string>About Qt</string>
    </property>
   </action>
-  <action name="actionAbout">
-   <property name="text">
-    <string>About</string>
-   </property>
-   <property name="iconText">
-    <string>About</string>
-   </property>
-   <property name="toolTip">
-    <string>About</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="shortcutContext">
-    <enum>Qt::WidgetShortcut</enum>
-   </property>
-   <property name="softKeyRole">
-    <enum>QAction::NoSoftKey</enum>
-   </property>
-  </action>
   <action name="actionPluginmanager">
    <property name="text">
     <string>Pluginmanager</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="data/graphics/graphics.qrc">
+     <normaloff>:/data/graphics/openrcon.png</normaloff>:/data/graphics/openrcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

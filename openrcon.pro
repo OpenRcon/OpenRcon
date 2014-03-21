@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-SUBDIRS += src
+SUBDIRS += Client
 
 OTHER_FILES += AUTHORS \
     CHANGES \
