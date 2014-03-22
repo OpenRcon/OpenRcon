@@ -42,7 +42,7 @@ ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialo
 
     ui->pushButton_sld_connect->setEnabled(false);
 
-    foreach (GameEntry *entry, qobject_cast<OpenRcon*>(parent)->getGameList()) {
+    foreach (GameEntry *entry, OpenRcon::getInstance()->getGameList()) {
         m_IconMap.insert(entry->getId(), entry->getIcon());
     }
 
@@ -135,7 +135,7 @@ void ServerListDialog::createTreeData()
     }
 
     for (QSet<int>::const_iterator games_it = uniqueGames.constBegin(); games_it != uniqueGames.constEnd(); games_it++) {
-        QList<ServerEntry *> *sen = new QList<ServerEntry *>();
+        QList<ServerEntry*> *sen = new QList<ServerEntry*>();
 
         for (QList<ServerEntry>::iterator entries_it = m_ServerEntries.begin(); entries_it != m_ServerEntries.end(); entries_it++) {
             if (*games_it == entries_it->game) {
@@ -152,7 +152,7 @@ void ServerListDialog::createTreeData()
 
     for (QList<int>::const_iterator key_it = keys.constBegin(); key_it != keys.constEnd(); key_it++) {
         QTreeWidgetItem* parent = new QTreeWidgetItem(ui->treeWidget);
-        parent->setText(0, QString(*key_it));
+        parent->setText(0, OpenRcon::getInstance()->getGameList().at(*key_it)->getName());
 
         if (m_IconMap.contains(*key_it)) {
             QIcon icon = m_IconMap.value(*key_it);

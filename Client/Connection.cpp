@@ -39,10 +39,10 @@ void Connection::hostConnect(const QString &host, const int &port)
 {
     if (tcpSocket && tcpSocket->state() == QAbstractSocket::UnconnectedState) {
         tcpSocket->connectToHost(host, port);
-        qDebug() << QString("Connection started: %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());
+        qDebug() << QString("Connection started: %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
     } else {
-        if (tcpSocket) {
-            qDebug() << QString("Already connected to %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());
+        if (tcpSocket) { // TODO: Check this?
+            qDebug() << QString("Already connected to %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
         } else {
             qDebug() << "ERROR: Connection::hostConnect() tcpSocket = 0";
         }

@@ -25,7 +25,7 @@
 namespace BFBC2Constants {
     const QString PLAYER_STATS_URL = "http://bfbcs.com/stats_pc/";
 
-    const QString RESOURCE_IMAGE_LEVELS = ":/bfbc2/data/levels/";
+    const QString RESOURCE_IMAGE_LEVELS = ":/bfbc2/images/levels/";
 
     const QString SETTINGS_INGAMECOMMANDS = "BFBC2/IngameCommands";
     const QString SETTINGS_INGAMECOMMANDS_USERS = "IngameCommandsUsers";

@@ -21,7 +21,7 @@
 
 MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent)
 {
-    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(tcpSocketReadyRead()));
+    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
 
 MinecraftConnection::~MinecraftConnection()
@@ -34,7 +34,14 @@ void MinecraftConnection::hostConnect(const QString &host, const int &port)
     tcpSocket->connectToHost(host, port);
 }
 
-void MinecraftConnection::tcpSocketReadyRead()
+void MinecraftConnection::readyRead()
+{
+    QString packet = tcpSocket->readAll();
+
+    qDebug() << "Data is: " << packet;
+}
+
+void MinecraftConnection::sendCommand(const QString &command)
 {
 
 }

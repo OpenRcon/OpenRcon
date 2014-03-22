@@ -1,8 +1,8 @@
 include(Locale/Locale.pri)
 
-include(BFBC2/BFBC2.pri)
-include(BF3/bf3.pri)
-include(Minecraft/Minecraft.pri)
+include(bfbc2/BFBC2.pri)
+include(bf3/BF3.pri)
+include(minecraft/Minecraft.pri)
 
 QT += core \
       gui \
@@ -17,8 +17,6 @@ TEMPLATE = app
 INCLUDEPATH += bfbc2 \
                bf3 \
                minecraft
-
-
 
 DEPENDPATH += bfbc2 \
               bf3 \

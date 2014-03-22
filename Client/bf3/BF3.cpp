@@ -19,13 +19,11 @@
 
 #include "BF3.h"
 
-BF3::BF3(const QString &host, const int &port, const QString &password) : ui(new Ui::BF3), host(host), port(port), password(password)
+BF3::BF3(const QString &host, const int &port, const QString &password) : Game(host, port, password), ui(new Ui::BF3)
 {
     ui->setupUi(this);
 
     con = new BF3Connection(this);
-    connect(con, SIGNAL(logMessage(const QString&, const QString&)), this, SLOT(slotLogMessage(const QString&, const QString&)));
-
     con->hostConnect(host, port);
 
     // Player menu
@@ -143,6 +141,7 @@ BF3::BF3(const QString &host, const int &port, const QString &password) : ui(new
     completer = new QCompleter(commandList, this);
     ui->lineEdit_co_input->setCompleter(completer);
 
+    connect(con, SIGNAL(logMessage(const QString&, const QString&)), this, SLOT(slotLogMessage(const QString&, const QString&)));
     connect(ui->treeWidget_pl, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_pl_customContextMenuRequested(QPoint)));
     connect(ui->lineEdit_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_send_clicked()));
 }

@@ -24,13 +24,12 @@
 #include <QCompleter>
 #include <QMenu>
 
-#include "ConnectionTabWidget.h"
+#include "Game.h"
 
 #include "ui_BF3.h"
-
 #include "BF3Connection.h"
 
-class BF3 : public ConnectionTabWidget {
+class BF3 : public Game {
     Q_OBJECT
 
 public:

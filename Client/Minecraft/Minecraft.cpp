@@ -22,6 +22,9 @@
 Minecraft::Minecraft(const QString &host, const int &port, const QString &password) : Game(host, port, password), ui(new Ui::Minecraft)
 {
     ui->setupUi(this);
+
+    con = new MinecraftConnection(this);
+    con->hostConnect(host, port);
 }
 
 Minecraft::~Minecraft()

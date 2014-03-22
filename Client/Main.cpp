@@ -19,8 +19,9 @@
 
 #include <QApplication>
 #include <QSettings>
+#include <QString>
 #include <QTranslator>
-#include <QTextCodec>
+#include <QLocale>
 
 #include <OpenRcon.h>
 
@@ -33,9 +34,6 @@ int main(int argc, char *argv[])
     app.setApplicationVersion(APP_VERSION);
     app.setOrganizationName(APP_AUTHOR);
     app.setOrganizationDomain(APP_URL);
-
-    //QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
-    //QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
 
     // Check for saved translation or use system default
     QSettings settings(APP_NAME, APP_NAME);

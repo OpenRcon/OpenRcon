@@ -30,7 +30,7 @@ ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialo
 
     ui->comboBox_sed_game->clear();
 
-    foreach (GameEntry *entry, qobject_cast<OpenRcon*>(parent)->getGameList()) {
+    foreach (GameEntry *entry, OpenRcon::getInstance()->getGameList()) {
         ui->comboBox_sed_game->addItem(entry->getIcon(), entry->getName(), entry->getId());
     }
 
@@ -73,11 +73,11 @@ ServerEditDialog::~ServerEditDialog()
 void ServerEditDialog::validate()
 {   
     ui->pushButton_sed_ok->setEnabled(
-        ui->comboBox_sed_game->currentIndex() != -1 &&
-        !ui->lineEdit_sed_name->text().isEmpty() &&
-        !ui->lineEdit_sed_host->text().isEmpty() &&
-        !ui->spinBox_sed_port->value() > 0 &&
-        !ui->lineEdit_sed_password->text().isEmpty());
+    ui->comboBox_sed_game->currentIndex() != -1 &&
+    !ui->lineEdit_sed_name->text().isEmpty() &&
+    !ui->lineEdit_sed_host->text().isEmpty() &&
+    !ui->spinBox_sed_port->text().isEmpty() &&
+    !ui->lineEdit_sed_password->text().isEmpty());
 }
 
 int ServerEditDialog::getGame()

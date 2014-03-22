@@ -38,6 +38,8 @@ public:
     explicit Minecraft(const QString &host, const int &port, const QString &password);
     ~Minecraft();
 
+    virtual Connection *getConnection() { return con; }
+
 private:
     Ui::Minecraft *ui;
 

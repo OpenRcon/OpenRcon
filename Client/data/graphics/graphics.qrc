@@ -79,5 +79,6 @@
         <file>flags/united_arab_emirates.png</file>
         <file>flags/united_kingdom.png</file>
         <file>flags/usa.png</file>
+        <file>games/icons/minecraft.png</file>
     </qresource>
 </RCC>

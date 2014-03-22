@@ -35,8 +35,11 @@ public:
 public slots:
     void hostConnect(const QString &host, const int &port);
 
+private:
+    void sendCommand(const QString &command);
+
 private slots:
-    void tcpSocketReadyRead();
+    void readyRead();
 
 };
 
