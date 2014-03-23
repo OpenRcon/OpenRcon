@@ -248,7 +248,7 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
 
 BFBC2Widget::~BFBC2Widget()
 {
-
+    delete ui;
 }
 
 void BFBC2Widget::readSettings()
@@ -293,8 +293,6 @@ void BFBC2Widget::slotLogMessage(const QString &type, const QString &msg)
     } else {
         ui->textEdit_co_co_output->append(QString("%1 %2").arg(currentTime, msg));
     }
-
-    qDebug() << msg;
 }
 
 void BFBC2Widget::slotLogEvents(const QString &event, const QString &msg)
@@ -634,7 +632,6 @@ void BFBC2Widget::action_pl_reservedslots_triggered()
 }
 
 // Options
-
 void BFBC2Widget::on_pushButton_op_so_servername_apply_clicked()
 {
     QString servername = ui->lineEdit_op_so_servername->text();

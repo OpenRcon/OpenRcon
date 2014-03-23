@@ -25,7 +25,7 @@
 #include "Constants.h"
 #include "Game.h"
 
-#include "ui_Minecraft.h"
+#include "MinecraftWidget.h"
 #include "MinecraftConnection.h"
 
 using namespace Constants;
@@ -40,11 +40,16 @@ public:
 
     virtual Connection *getConnection() { return con; }
 
-private:
-    Ui::Minecraft *ui;
-
     MinecraftConnection *con;
 
+private:
+    MinecraftWidget *widget;
+
+private slots:
+    void authenticate();
+
+    void slotAuthenticated(bool auth);
+    void slotPacket(const QString &packet);
 };
 
 #endif // MINECRAFT_H

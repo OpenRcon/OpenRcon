@@ -24,6 +24,9 @@
 
 #include "Connection.h"
 
+#define RCON_LOGIN 3
+#define RCON_COMMAND 2
+
 class MinecraftConnection : public Connection
 {
     Q_OBJECT
@@ -35,11 +38,20 @@ public:
 public slots:
     void hostConnect(const QString &host, const int &port);
 
-private:
+    void sendPacket(const int &type, const char* payload);
     void sendCommand(const QString &command);
+
+private:
+    void handlePacket(const QString& command);
+
+    int requestId;
 
 private slots:
     void readyRead();
+
+signals:
+    void signalAuthenticated(bool auth);
+    void signalPacket(const QString &packet);
 
 };
 

@@ -280,7 +280,7 @@
    <item row="1" column="0" colspan="2">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>8</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>

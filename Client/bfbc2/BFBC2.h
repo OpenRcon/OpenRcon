@@ -28,7 +28,6 @@
 #include "BFBC2Constants.h"
 #include "BFBC2Connection.h"
 #include "BFBC2Levels.h"
-#include "BFBC2CommandList.h"
 
 using namespace Constants;
 using namespace BFBC2Constants;
@@ -69,7 +68,6 @@ private slots:
 
     // Events
     void slotEventOnSpawn(const QString &player, const QString &kit);
-
 
     void slotCommandMapListListRounds(QStringList ml);
 

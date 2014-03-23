@@ -19,15 +19,40 @@
 
 #include "Minecraft.h"
 
-Minecraft::Minecraft(const QString &host, const int &port, const QString &password) : Game(host, port, password), ui(new Ui::Minecraft)
+Minecraft::Minecraft(const QString &host, const int &port, const QString &password) : Game(host, port, password)
 {
-    ui->setupUi(this);
-
+    widget = new MinecraftWidget(this);
     con = new MinecraftConnection(this);
     con->hostConnect(host, port);
+
+    connect(con->tcpSocket, SIGNAL(connected()), this, SLOT(authenticate()));
+
+    connect(con, SIGNAL(signalAuthenticated(bool)), this, SLOT(slotAuthenticated(bool)));
+    connect(con, SIGNAL(signalPacket(QString)), this, SLOT(slotPacket(QString)));
 }
 
 Minecraft::~Minecraft()
 {
-    delete ui;
+
+}
+
+void Minecraft::authenticate()
+{
+    con->sendPacket(3, password.toLatin1());
+}
+
+void Minecraft::slotAuthenticated(bool auth)
+{
+    if (auth) {
+        widget->logMessage(0, "Successfully logged in!");
+    } else {
+        widget->logMessage(1, "Login failed!");
+    }
+
+    con->sendCommand("help 2");
+}
+
+void Minecraft::slotPacket(const QString &packet)
+{
+    widget->logMessage(2, packet);
 }

@@ -85,10 +85,10 @@ void Connection::displayError(QAbstractSocket::SocketError socketError)
 
 void Connection::tcpSocketConnected()
 {
-    qDebug() << QString("Connected to %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());
+    qDebug() << QString("Connected to %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
 }
 
 void Connection::tcpSocketDisconnected()
 {
-    qDebug() << QString("Disconnected from host %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());
+    qDebug() << QString("Disconnected from host %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
 }

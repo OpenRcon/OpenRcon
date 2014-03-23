@@ -1,8 +1,10 @@
 HEADERS += Minecraft/Minecraft.h \
-           Minecraft/MinecraftConnection.h
+           Minecraft/MinecraftConnection.h \
+    minecraft/MinecraftWidget.h
 
 SOURCES += Minecraft/Minecraft.cpp \
-           Minecraft/MinecraftConnection.cpp
+           Minecraft/MinecraftConnection.cpp \
+    minecraft/MinecraftWidget.cpp
 
 FORMS += Minecraft/Minecraft.ui
 
