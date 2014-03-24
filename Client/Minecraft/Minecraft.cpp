@@ -34,5 +34,5 @@ Minecraft::~Minecraft()
 
 void Minecraft::authenticate()
 {
-    con->sendPacket(3, password.toLatin1());
+    con->sendPacket(1, 3, password.toLatin1());
 }

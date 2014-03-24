@@ -665,6 +665,7 @@ void BFBC2Widget::on_checkbox_hardcore_mode_clicked()
 {
     con->sendCommand(QString("\"vars.hardCore\" \"%1\"").arg(ui->checkBox_hardcore_mode->isChecked()));
 }
+
 void BFBC2Widget::on_checkbox_crosshair_clicked()
 {
     con->sendCommand(QString("\"vars.crossHair\" \"%1\"").arg(ui->checkBox_crosshair->isChecked()));
@@ -739,8 +740,6 @@ void BFBC2Widget::on_pushButton_so_tcm_spamcooldowntime_clicked()
 // Maplist
 void BFBC2Widget::comboBox_ml_gamemode_currentIndexChanged(int index)
 {
-
-
     // Stop the current item changed signal from being emitted
     ui->listWidget_ml_avaliablemaps->blockSignals(true);
     ui->listWidget_ml_avaliablemaps->clear();
