@@ -149,7 +149,6 @@ private slots:
     void on_checkbox_killcam_clicked();
     void on_checkbox_3rd_person_vehicle_cameras_clicked();
     void on_checkbox_minimap_clicked();
-    void on_checkBox_hardcore_mode_clicked();
 };
 
 #endif // BFBC2WIDGET_H

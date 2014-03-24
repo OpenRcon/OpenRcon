@@ -12,9 +12,8 @@ class FrostbiteCommandHandler : public QObject
 
 public:
     explicit FrostbiteCommandHandler(QObject *parent = 0);
-    ~FrostbiteCommandHandler();
+    virtual ~FrostbiteCommandHandler();
 
-    // TODO: Why is this crashing?
     virtual void exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket, PlayerList &playerList);
 
 protected:

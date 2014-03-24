@@ -59,8 +59,8 @@ private:
     void handlePacket(const FrostbiteRconPacket &packet);
 
     enum {
-        PacketReadingHeader,
-        PacketReadingData
+        PacketReadingHeader = 0,
+        PacketReadingData = 1
     };
 
 private slots:

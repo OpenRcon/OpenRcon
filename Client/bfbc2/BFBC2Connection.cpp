@@ -19,8 +19,10 @@
 
 #include "BFBC2Connection.h"
 
-BFBC2Connection::BFBC2Connection(QObject *parent) : FrostbiteConnection(commandHandler, parent), commandHandler(new BFBC2CommandHandler(this))
+BFBC2Connection::BFBC2Connection(QObject *parent) : FrostbiteConnection(commandHandler, parent)
 {
+    commandHandler = new BFBC2CommandHandler(this);
+
     connect(tcpSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(stateChanged(QAbstractSocket::SocketState)));
 }
 

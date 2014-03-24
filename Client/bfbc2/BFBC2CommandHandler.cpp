@@ -110,9 +110,9 @@ void BFBC2CommandHandler::commandLoginHashed(const FrostbiteRconPacket &packet, 
 
     if (lastSentPacket.getWordCount() == 1) {
         if (response == "OK" && packet.getWordCount() == 2) {
-            emit(onLogMessage(0, QString(tr("We got salt: %1")).arg(packet.getWord(1).getContent()).toHtmlEscaped()));
+            //emit(onLogMessage(0, QString(tr("We got salt: %1")).arg(packet.getWord(1).getContent())));
             QByteArray loginSalt = QByteArray::fromHex(QByteArray(packet.getWord(1).getContent()));
-            emit(onGotSalt(loginSalt));
+            //emit(onGotSalt(loginSalt));
         }
     } else if (lastSentPacket.getWordCount() == 2) {
         QString response(packet.getWord(0).getContent());
