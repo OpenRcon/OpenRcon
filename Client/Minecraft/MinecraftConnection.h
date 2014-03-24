@@ -23,6 +23,7 @@
 #include <QObject>
 
 #include "Connection.h"
+#include "MinecraftCommandHandler.h"
 
 #define RCON_LOGIN 3
 #define RCON_COMMAND 2
@@ -35,21 +36,20 @@ public:
     explicit MinecraftConnection(QObject *parent = 0);
     ~MinecraftConnection();
 
-public slots:
-    void sendPacket(const int &type, const char* payload);
+    void sendPacket(const int &id, const int &type, const char* payload);
     void sendCommand(const QString &command);
 
 private:
-    void handlePacket(const QString& command);
+    MinecraftCommandHandler *commandHandler;
 
-    int requestId;
+    void handlePacket(const int &type, const QString& command);
 
 private slots:
     void readyRead();
 
 signals:
-    void signalAuthenticated(bool auth);
-    void signalPacket(const QString &packet);
+    void onAuthenticated(bool auth);
+    void onPacket(const QString &packet);
 
 };
 

@@ -1,11 +1,13 @@
-HEADERS += Minecraft/Minecraft.h \
-           Minecraft/MinecraftConnection.h \
-    minecraft/MinecraftWidget.h
+HEADERS += minecraft/Minecraft.h \
+           minecraft/MinecraftConnection.h \
+           minecraft/MinecraftCommandHandler.h \
+           minecraft/MinecraftWidget.h
 
-SOURCES += Minecraft/Minecraft.cpp \
-           Minecraft/MinecraftConnection.cpp \
-    minecraft/MinecraftWidget.cpp
+SOURCES += minecraft/Minecraft.cpp \
+           minecraft/MinecraftConnection.cpp \
+           minecraft/MinecraftCommandHandler.cpp \
+           minecraft/MinecraftWidget.cpp
 
-FORMS += Minecraft/Minecraft.ui
+FORMS += minecraft/Minecraft.ui
 
-RESOURCES += Minecraft/Minecraft.qrc
+RESOURCES += minecraft/Minecraft.qrc

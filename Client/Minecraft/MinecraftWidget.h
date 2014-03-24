@@ -20,8 +20,9 @@ public:
 private slots:
     void slotAuthenticated(bool auth);
     void slotPacket(const QString &packet);
+    void slotUnknownCommand();
 
-    void on_pushButton_co_co_send_clicked();
+    void on_pushButton_co_send_clicked();
 
 private:
     Ui::Minecraft *ui;
