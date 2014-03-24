@@ -20,7 +20,7 @@
    <item row="0" column="0" colspan="2">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -297,6 +297,23 @@
       </widget>
       <zorder>treeWidget_pl</zorder>
       <zorder>label_pl_servername_text</zorder>
+      <zorder>label_pl_mod_text</zorder>
+      <zorder>label_pl_players_text</zorder>
+      <zorder>label_pl_address_text</zorder>
+      <zorder>label_pl_uptime_text</zorder>
+      <zorder>label_pl_servername</zorder>
+      <zorder>label_pl_mod</zorder>
+      <zorder>label_pl_players</zorder>
+      <zorder>label_pl_address</zorder>
+      <zorder>label_pl_uptime</zorder>
+      <zorder>label_pl_servername_text</zorder>
+      <zorder>label_pl_servername</zorder>
+      <zorder>label_pl_players_text</zorder>
+      <zorder>label_pl_players</zorder>
+      <zorder>label_pl_address_text</zorder>
+      <zorder>label_pl_address</zorder>
+      <zorder>label_pl_uptime_text</zorder>
+      <zorder>label_pl_servername_text</zorder>
       <zorder>label_pl_servername</zorder>
       <zorder>label_pl_players_text</zorder>
       <zorder>label_pl_players</zorder>
@@ -359,7 +376,7 @@
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <property name="usesScrollButtons">
           <bool>true</bool>
@@ -655,7 +672,7 @@
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
              <item row="0" column="0">
-              <widget class="QCheckBox" name="checkBox_hardcore_mode">
+              <widget class="QCheckBox" name="check_box_hardcore_mode">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -665,7 +682,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QCheckBox" name="checkBox_crosshair">
+              <widget class="QCheckBox" name="check_box_crosshair">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -675,7 +692,7 @@
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QCheckBox" name="checkBox_auto_balance">
+              <widget class="QCheckBox" name="check_box_auto_balance">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -685,7 +702,7 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QCheckBox" name="checkBox_3d_spotting">
+              <widget class="QCheckBox" name="check_box_3d_spotting">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -695,7 +712,7 @@
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QCheckBox" name="checkBox_friendly_fire">
+              <widget class="QCheckBox" name="check_box_friendly_fire">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -705,7 +722,7 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QCheckBox" name="checkBox_minimap_spotting">
+              <widget class="QCheckBox" name="check_box_minimap_spotting">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -715,7 +732,7 @@
               </widget>
              </item>
              <item row="3" column="0">
-              <widget class="QCheckBox" name="checkBox_kill_cam">
+              <widget class="QCheckBox" name="check_box_kill_cam">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -725,7 +742,7 @@
               </widget>
              </item>
              <item row="3" column="1">
-              <widget class="QCheckBox" name="checkBox_3rd_person_vehicle_cameras">
+              <widget class="QCheckBox" name="check_box_3rd_person_vehicle_cameras">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -735,7 +752,7 @@
               </widget>
              </item>
              <item row="4" column="0">
-              <widget class="QCheckBox" name="checkBox_minimap">
+              <widget class="QCheckBox" name="check_box_minimap">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>

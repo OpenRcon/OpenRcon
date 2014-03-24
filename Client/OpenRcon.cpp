@@ -176,7 +176,7 @@ void OpenRcon::newTab(const int &game, const QString &name, const QString &host,
         BFBC2Widget *bfbc2 = new BFBC2Widget(host, port, password);
         ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(bfbc2, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
     } else if (game == 1) {
-        Minecraft *minecraft = new Minecraft(host, port, password);
+        MinecraftWidget *minecraft = new MinecraftWidget(host, port, password);
         ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(minecraft, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
     }
 }

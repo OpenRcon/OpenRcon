@@ -4,19 +4,23 @@
 #include <QTime>
 
 #include "ui_Minecraft.h"
+#include "Minecraft.h"
 
-class MinecraftWidget : public QWidget
+class MinecraftWidget : public Minecraft
 {
     Q_OBJECT
 
 public:
-    explicit MinecraftWidget(QWidget *parent = 0);
+    explicit MinecraftWidget(const QString &host, const int &port, const QString &password);
     ~MinecraftWidget();
 
     void logMessage(const int &type, const QString &message);
-    void logEvents(const int &event, const QString &message);
+    void logEvent(const int &event, const QString &message);
 
 private slots:
+    void slotAuthenticated(bool auth);
+    void slotPacket(const QString &packet);
+
     void on_pushButton_co_co_send_clicked();
 
 private:

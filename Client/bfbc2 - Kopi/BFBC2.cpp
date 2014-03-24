@@ -27,14 +27,14 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
     gamemodes << "RUSH" << "CONQUEST" << "SQRUSH" << "SQDM";
     levelsObject = 0;
 
-    connect(con->commandHandler, SIGNAL(onRefresh()), this, SLOT(slotRefreshCommands()));
-    connect(con->commandHandler, SIGNAL(onIngameCommands(const QString&, const QString&)), this, SLOT(slotIngameCommands(const QString&, const QString&)));
-    connect(con->commandHandler, SIGNAL(onStartConnection()), this, SLOT(slotStartConnection()));
-    connect(con->commandHandler, SIGNAL(onGotSalt(const QByteArray&)), this, SLOT(slotGotSalt(const QByteArray&)));
-    connect(con->commandHandler, SIGNAL(onAuthenticated()), this, SLOT(slotAuthenticated()));
+    connect(con->commandSignals(), SIGNAL(refresh()), this, SLOT(slotRefreshCommands()));
+    connect(con->commandSignals(), SIGNAL(ingameCommands(const QString&, const QString&)), this, SLOT(slotIngameCommands(const QString&, const QString&)));
+    connect(con->commandSignals(), SIGNAL(startConnection()), this, SLOT(slotStartConnection()));
+    connect(con->commandSignals(), SIGNAL(gotSalt(const QByteArray&)), this, SLOT(slotGotSalt(const QByteArray&)));
+    connect(con->commandSignals(), SIGNAL(authenticated()), this, SLOT(slotAuthenticated()));
 
     // Events
-    connect(con->commandHandler, SIGNAL(onEventOnSpawn(const QString&, const QString&)), this, SLOT(slotEventOnSpawn(const QString&, const QString&)));
+    connect(con->commandSignals(), SIGNAL(eventOnSpawn(const QString&, const QString&)), this, SLOT(slotEventOnSpawn(const QString&, const QString&)));
 }
 
 BFBC2::~BFBC2()

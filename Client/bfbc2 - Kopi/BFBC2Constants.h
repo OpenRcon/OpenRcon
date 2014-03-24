@@ -17,22 +17,19 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Minecraft.h"
+#ifndef BFBC2CONSTANTS_H
+#define BFBC2CONSTANTS_H
 
-Minecraft::Minecraft(const QString &host, const int &port, const QString &password) : Game(host, port, password)
-{
-    con = new MinecraftConnection(this);
-    con->hostConnect(host, port);
+#include <QString>
 
-    connect(con->tcpSocket, SIGNAL(connected()), this, SLOT(authenticate()));
+namespace BFBC2Constants {
+    const QString PLAYER_STATS_URL = "http://bfbcs.com/stats_pc/";
+
+    const QString RESOURCE_IMAGE_LEVELS = ":/bfbc2/images/levels/";
+
+    const QString SETTINGS_INGAMECOMMANDS = "BFBC2/IngameCommands";
+    const QString SETTINGS_INGAMECOMMANDS_USERS = "IngameCommandsUsers";
+
 }
 
-Minecraft::~Minecraft()
-{
-
-}
-
-void Minecraft::authenticate()
-{
-    con->sendPacket(3, password.toLatin1());
-}
+#endif // BFBC2CONSTANTS_H

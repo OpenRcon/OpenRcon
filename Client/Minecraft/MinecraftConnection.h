@@ -36,8 +36,6 @@ public:
     ~MinecraftConnection();
 
 public slots:
-    void hostConnect(const QString &host, const int &port);
-
     void sendPacket(const int &type, const char* payload);
     void sendCommand(const QString &command);
 

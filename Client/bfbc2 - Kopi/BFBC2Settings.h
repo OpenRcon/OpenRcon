@@ -17,22 +17,30 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Minecraft.h"
+#ifndef BFBC2SETTINGS_H
+#define BFBC2SETTINGS_H
 
-Minecraft::Minecraft(const QString &host, const int &port, const QString &password) : Game(host, port, password)
+#include "Constants.h"
+
+#include <QObject>
+#include <QSettings>
+
+using namespace Constants;
+
+class BFBC2Settings : public QObject
 {
-    con = new MinecraftConnection(this);
-    con->hostConnect(host, port);
+    Q_OBJECT
 
-    connect(con->tcpSocket, SIGNAL(connected()), this, SLOT(authenticate()));
-}
+public:
+    BFBC2Settings(QObject *parent = 0);
+    ~BFBC2Settings();
 
-Minecraft::~Minecraft()
-{
+    void writeSettings();
+    void readSettings();
 
-}
+private:
+    QSettings *settings;
 
-void Minecraft::authenticate()
-{
-    con->sendPacket(3, password.toLatin1());
-}
+};
+
+#endif // BFBC2SETTINGS_H

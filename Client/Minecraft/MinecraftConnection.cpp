@@ -19,7 +19,7 @@
 
 #include "MinecraftConnection.h"
 
-MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent), requestId(0)
+MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent), requestId(42)
 {
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
@@ -27,11 +27,6 @@ MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent), 
 MinecraftConnection::~MinecraftConnection()
 {
     delete tcpSocket;
-}
-
-void MinecraftConnection::hostConnect(const QString &host, const int &port)
-{
-    tcpSocket->connectToHost(host, port);
 }
 
 /*
@@ -44,24 +39,28 @@ void MinecraftConnection::hostConnect(const QString &host, const int &port)
 
 void MinecraftConnection::sendPacket(const int &type, const char* payload)
 {
-    int length = 10 + strlen(payload);
+    if (strlen(payload) < 1460 - 10) {
+        int length = 10 + strlen(payload);
 
-    QDataStream out(tcpSocket);
-    out.setByteOrder(QDataStream::LittleEndian);
-    out << length;
-    out << requestId;
-    out << type;
-    out.writeRawData(payload, strlen(payload));
-    out << (qint8) 0;
-    out << (qint8) 0;
+        QDataStream out(tcpSocket);
+        out.setByteOrder(QDataStream::LittleEndian);
+        out << length;
+        out << requestId;
+        out << type;
+        out.writeRawData(payload, strlen(payload));
+        out << (qint8) 0;
+        out << (qint8) 0;
 
-    requestId = rand();
+        // requestId++;
 
-    qDebug() << "Sent data is: ";
-    qDebug() << "Length: " << length;
-    qDebug() << "Request ID: " << requestId;
-    qDebug() << "Type: " << type;
-    qDebug() << "Payload:" << payload;
+        qDebug() << "Sent packet: ";
+        qDebug() << "Length: " << length;
+        qDebug() << "Request ID: " << requestId;
+        qDebug() << "Type: " << type;
+        qDebug() << "Payload:" << payload << "\n";
+    } else {
+        qDebug() << "Payload data too long.";
+    }
 }
 
 void MinecraftConnection::sendCommand(const QString &command)
@@ -80,22 +79,26 @@ void MinecraftConnection::sendCommand(const QString &command)
 void MinecraftConnection::readyRead()
 {
     int length, id, type;
-    char* payload;
-    int pad1, pad2;
+    qint8 pad1, pad2;
 
     QDataStream in(tcpSocket);
     in.setByteOrder(QDataStream::LittleEndian);
     in >> length;
     in >> id;
     in >> type;
+
+    char* payload = new char[length - 10];
     in.readRawData(payload, length - 10);
     in >> pad1;
     in >> pad2;
 
-    //qDebug() << "Read packet with length " << length << " and type " << type;
-    qDebug() << "Data: " << payload;
+    qDebug() << "Read packet:";
+    qDebug() << "Length: " << length;
+    qDebug() << "Request ID: " << requestId;
+    qDebug() << "Type: " << type;
+    qDebug() << "Payload:" << payload << "\n";
 
-    if (id == 0 && type == 2) {
+    if (id == 1 && type == 2) {
         qDebug() << "You are successfully logged in!";
 
         emit (signalAuthenticated(true));
@@ -105,10 +108,18 @@ void MinecraftConnection::readyRead()
         emit (signalAuthenticated(false));
     }
 
-    handlePacket(payload);
+    if (type == 0) {
+        qDebug() << "Invalid packet type: 0";
+    }
+
+    if (length > 10) {
+        handlePacket(payload);
+    }
 }
 
 void MinecraftConnection::handlePacket(const QString &packet)
 {
-    emit (signalPacket(packet));
+    if (packet.isEmpty()) {
+        emit (signalPacket(packet));
+    }
 }

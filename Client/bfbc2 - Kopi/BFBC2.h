@@ -20,8 +20,7 @@
 #ifndef BFBC2_H
 #define BFBC2_H
 
-#include <QTimer>
-#include <QCryptographicHash>
+#include "QTimer"
 
 #include "Constants.h"
 #include "Game.h"

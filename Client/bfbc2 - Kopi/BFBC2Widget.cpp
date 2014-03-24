@@ -225,25 +225,25 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(ui->lineEdit_co_pb_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_pb_send_clicked()));
 
     // Messages and events.
-    connect(con->commandHandler, SIGNAL(onLogMessage(const int&, const QString&)), this, SLOT(slotLogMessage(const int&, const QString&)));
-    connect(con->commandHandler, SIGNAL(onLogEvent(const QString&, const QString&)), this, SLOT(slotLogEvent(const QString&, const QString&)));
+    connect(con->commandSignals(), SIGNAL(logMessage(const QString&, const QString&)), this, SLOT(slotLogMessage(const QString&, const QString&)));
+    connect(con->commandSignals(), SIGNAL(logEvents(const QString&, const QString&)), this, SLOT(slotLogEvents(const QString&, const QString&)));
 
-    connect(con->commandHandler, SIGNAL(onPlayerListChange()), this, SLOT(slotPlayerListChange())); // TODO: Change to adminListPlayersAll
+    connect(con->commandSignals(), SIGNAL(playerListChange()), this, SLOT(slotPlayerListChange())); // TODO: Change to adminListPlayersAll
 
     // Commands
-    connect(con->commandHandler, SIGNAL(onCommandServerInfo(QStringList)), this, SLOT(slotCommandServerInfo(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsTextChatModerationMode(const QString&)), this, SLOT(slotCommandVarsTextChatModerationMode(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsTextChatSpamTriggerCount(const QString&)), this, SLOT(slotCommandVarsTextChatSpamTriggerCount(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsTextChatSpamDetectionTime(const QString&)), this, SLOT(slotCommandVarsTextChatSpamDetectionTime(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsTextChatSpamCoolDownTime(const QString&)), this, SLOT(slotCommandVarsTextChatSpamCoolDownTime(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandBanListList(QStringList)), this, SLOT(slotCommandBanListList(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandReservedSlotsList(QStringList)), this, SLOT(slotCommandReservedSlotsList(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandMapListNextLevelIndex(int&)), this, SLOT(slotCommandMapListNextLevelIndex(int&)));
-    connect(con->commandHandler, SIGNAL(onCommandMapListList(QStringList)), this, SLOT(slotCommandMapListList(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandMapListListRounds(QStringList)), this, SLOT(slotCommandMapListListRounds(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsServerName(const QString&)), this, SLOT(slotCommandVarsServerName(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsServerDescription(const QString&)), this, SLOT(slotCommandVarsServerDescription(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsBannerUrl(const QString&)), this, SLOT(slotCommandVarsBannerUrl(const QString&)));
+    connect(con->commandSignals(), SIGNAL(commandServerInfo(QStringList)), this, SLOT(slotCommandServerInfo(QStringList)));
+    connect(con->commandSignals(), SIGNAL(commandVarsTextChatModerationMode(const QString&)), this, SLOT(slotCommandVarsTextChatModerationMode(const QString&)));
+    connect(con->commandSignals(), SIGNAL(commandVarsTextChatSpamTriggerCount(const QString&)), this, SLOT(slotCommandVarsTextChatSpamTriggerCount(const QString&)));
+    connect(con->commandSignals(), SIGNAL(commandVarsTextChatSpamDetectionTime(const QString&)), this, SLOT(slotCommandVarsTextChatSpamDetectionTime(const QString&)));
+    connect(con->commandSignals(), SIGNAL(commandVarsTextChatSpamCoolDownTime(const QString&)), this, SLOT(slotCommandVarsTextChatSpamCoolDownTime(const QString&)));
+    connect(con->commandSignals(), SIGNAL(commandBanListList(QStringList)), this, SLOT(slotCommandBanListList(QStringList)));
+    connect(con->commandSignals(), SIGNAL(commandReservedSlotsList(QStringList)), this, SLOT(slotCommandReservedSlotsList(QStringList)));
+    connect(con->commandSignals(), SIGNAL(commandMapListNextLevelIndex(int&)), this, SLOT(slotCommandMapListNextLevelIndex(int&)));
+    connect(con->commandSignals(), SIGNAL(commandMapListList(QStringList)), this, SLOT(slotCommandMapListList(QStringList)));
+    connect(con->commandSignals(), SIGNAL(commandMapListListRounds(QStringList)), this, SLOT(slotCommandMapListListRounds(QStringList)));
+    connect(con->commandSignals(), SIGNAL(commandVarsServerName(const QString&)), this, SLOT(slotCommandVarsServerName(const QString&)));
+    connect(con->commandSignals(), SIGNAL(commandVarsServerDescription(const QString&)), this, SLOT(slotCommandVarsServerDescription(const QString&)));
+    connect(con->commandSignals(), SIGNAL(commandVarsBannerUrl(const QString&)), this, SLOT(slotCommandVarsBannerUrl(const QString&)));
 }
 
 BFBC2Widget::~BFBC2Widget()
@@ -274,30 +274,31 @@ void BFBC2Widget::writeSettings()
 
 }
 
-void BFBC2Widget::slotLogMessage(const int &type, const QString &message)
+void BFBC2Widget::slotLogMessage(const QString &type, const QString &msg)
 {
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
-    if (type == 0) { // Error
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
-    } else if (type == 1) { // Info
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime, message));
-    } else if (type == 2) { // Server send
-        ui->textEdit_co_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
-    } else if (type == 3) { // Server receive
-        ui->textEdit_co_co_output->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime, message));
-    } else if (type == 4) { // Chat
-        ui->textEdit_ch_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
-    } else if (type == 5) { // Punkbuster
-        ui->textEdit_co_pb_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+    if (type == "error") {
+        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime, msg));
+    } else if (type == "info") {
+        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, msg));
+    } else if (type == "server_send") {
+        ui->textEdit_co_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, msg));
+    } else if (type == "server_receive") {
+        ui->textEdit_co_co_output->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime, msg));
+    } else if (type == "chat") {
+        ui->textEdit_ch_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, msg));
+    } else if (type == "pb") {
+        ui->textEdit_co_pb_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, msg));
+    } else {
+        ui->textEdit_co_co_output->append(QString("%1 %2").arg(currentTime, msg));
     }
 }
 
-void BFBC2Widget::slotLogEvent(const QString &event, const QString &message)
+void BFBC2Widget::slotLogEvents(const QString &event, const QString &msg)
 {
-    QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
-
-    ui->textEdit_ev_output->append(QString("%1 %2").arg(currentTime, message));
+    Q_UNUSED(event);
+    Q_UNUSED(msg);
 }
 
 void BFBC2Widget::slotPlayerListChange()
@@ -362,7 +363,7 @@ void BFBC2Widget::slotPlayerListChange()
 
     QAction *teamAction = new QAction("Switch Sides", menu_pl_move);
     menu_pl_move->addAction (teamAction);
-    connect(teamAction, SIGNAL(ontriggered()), this, SLOT(slotMovePlayerTeam()));
+    connect(teamAction, SIGNAL(triggered()), this, SLOT(slotMovePlayerTeam()));
 
     // Expand all player rows
     ui->treeWidget_pl->expandAll();
@@ -660,45 +661,48 @@ void BFBC2Widget::on_pushButton_op_so_bannerurl_apply_clicked()
 
 // Game Options
 
-void BFBC2Widget::on_checkbox_hardcore_mode_clicked()
+void BFBC2Widget::on_checkbox_hardcore_mode()
 {
-    con->sendCommand(QString("\"vars.hardCore\" \"%1\"").arg(ui->checkBox_hardcore_mode->isChecked()));
-}
-void BFBC2Widget::on_checkbox_crosshair_clicked()
-{
-    con->sendCommand(QString("\"vars.crossHair\" \"%1\"").arg(ui->checkBox_crosshair->isChecked()));
+
+    con->sendCommand(QString("\"vars.hardCore\" \"%1\"").arg(ui->check_box_hardcore_mode->isChecked()));
 
 }
-void BFBC2Widget::on_checkbox_team_auto_balance_clicked()
+void BFBC2Widget::on_checkbox_crosshair()
 {
-con->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(ui->checkBox_auto_balance->isChecked()));
+    con->sendCommand(QString("\"vars.crossHair\" \"%1\"").arg(ui->check_box_crosshair->isChecked()));
+
 }
-void BFBC2Widget::on_checkbox_3D_spotting_clicked()
+void BFBC2Widget::on_checkbox_team_auto_balance()
 {
-con->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(ui->checkBox_3d_spotting->isChecked()));
+con->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(ui->check_box_auto_balance->isChecked()));
 }
-void BFBC2Widget::on_checkbox_friendly_fire_clicked()
+void BFBC2Widget::on_checkbox_3D_spotting()
 {
-con->sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(ui->checkBox_friendly_fire->isChecked()));
+con->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(ui->check_box_3d_spotting->isChecked()));
 }
-void BFBC2Widget::on_checkbox_minimap_spotting_clicked()
+void BFBC2Widget::on_checkbox_friendly_fire()
 {
-con->sendCommand(QString("\"vars.miniMapSpotting\" \"%1\"").arg(ui->checkBox_minimap_spotting->isChecked()));
+con->sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(ui->check_box_friendly_fire->isChecked()));
 }
-void BFBC2Widget::on_checkbox_killcam_clicked()
+void BFBC2Widget::on_checkbox_minimap_spotting()
 {
-con->sendCommand(QString("\"vars.killCam\" \"%1\"").arg(ui->checkBox_kill_cam->isChecked()));
+con->sendCommand(QString("\"vars.miniMapSpotting\" \"%1\"").arg(ui->check_box_minimap_spotting->isChecked()));
 }
-void BFBC2Widget::on_checkbox_3rd_person_vehicle_cameras_clicked()
+void BFBC2Widget::on_checkbox_killcam()
 {
-con->sendCommand(QString("\"vars.thirdPersonVehicleCameras\" \"%1\"").arg(ui->checkBox_3rd_person_vehicle_cameras->isChecked()));
+con->sendCommand(QString("\"vars.killCam\" \"%1\"").arg(ui->check_box_kill_cam->isChecked()));
 }
-void BFBC2Widget::on_checkbox_minimap_clicked()
+void BFBC2Widget::on_checkbox_3rd_person_vehicle_cameras()
 {
-con->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(ui->checkBox_minimap->isChecked()));
+con->sendCommand(QString("\"vars.thirdPersonVehicleCameras\" \"%1\"").arg(ui->check_box_3rd_person_vehicle_cameras->isChecked()));
+}
+void BFBC2Widget::on_checkbox_minimap()
+{
+con->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(ui->check_box_minimap->isChecked()));
 }
 
 // Text Chat Moderation
+
 void BFBC2Widget::on_radioButton_op_tcm_free_clicked()
 {
     con->sendCommand(QString("\"vars.textChatModerationMode\" \"free\""));
@@ -1165,12 +1169,12 @@ void BFBC2Widget::slotChangePlayerTeam(const QString &player, const QString &alt
 void BFBC2Widget::refreshPlayerList()
 {
     con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
-    connect(con->commandHandler, SIGNAL(onplayerListChange()), this, SLOT(slotPlayerListChange())); // TODO: Change to adminListPlayersAll
+    connect(con->commandSignals(), SIGNAL(playerListChange()), this, SLOT(slotPlayerListChange())); // TODO: Change to adminListPlayersAll
 }
 
 void BFBC2Widget::blockPlayerList()
 {
-    disconnect(con->commandHandler, SIGNAL(onplayerListChange()), this, SLOT(slotPlayerListChange()));
+    disconnect(con->commandSignals(), SIGNAL(playerListChange()), this, SLOT(slotPlayerListChange()));
 }
 
 void BFBC2Widget::playerListUpdate(int oldRow)

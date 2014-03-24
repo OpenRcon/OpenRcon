@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/bfbc2">
+        <file>images/levels/arica_harbor.png</file>
+        <file>images/levels/atacama_desert.png</file>
+        <file>images/levels/cao_son_temple.png</file>
+        <file>images/levels/cold_war.png</file>
+        <file>images/levels/harvest_day.png</file>
+        <file>images/levels/heavy_metal.png</file>
+        <file>images/levels/hill_137.png</file>
+        <file>images/levels/isla_inocentes.png</file>
+        <file>images/levels/laguna_alta.png</file>
+        <file>images/levels/laguna_presa.png</file>
+        <file>images/levels/nelson_bay.png</file>
+        <file>images/levels/oasis.png</file>
+        <file>images/levels/operation_hastings.png</file>
+        <file>images/levels/panama_canal.png</file>
+        <file>images/levels/phu_bai_valley.png</file>
+        <file>images/levels/port_valdez.png</file>
+        <file>images/levels/valparaiso.png</file>
+        <file>images/levels/vantage_point.png</file>
+        <file>images/levels/white_pass.png</file>
+    </qresource>
+</RCC>

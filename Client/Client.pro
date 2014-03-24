@@ -1,5 +1,6 @@
-include(Locale/Locale.pri)
+include(locale/Locale.pri)
 
+include(frostbite/Frostbite.pri)
 include(bfbc2/BFBC2.pri)
 include(bf3/BF3.pri)
 include(minecraft/Minecraft.pri)
@@ -14,11 +15,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = OpenRcon
 TEMPLATE = app
 
-INCLUDEPATH += bfbc2 \
+INCLUDEPATH += frostbite \
+               bfbc2 \
                bf3 \
                minecraft
 
-DEPENDPATH += bfbc2 \
+DEPENDPATH += frostbite \
+              bfbc2 \
               bf3 \
               minecraft
 

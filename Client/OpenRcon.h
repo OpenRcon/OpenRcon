@@ -53,7 +53,7 @@
 #include "SettingsDialog.h"
 
 #include "BFBC2Widget.h"
-#include "Minecraft.h"
+#include "MinecraftWidget.h"
 
 using namespace Constants;
 

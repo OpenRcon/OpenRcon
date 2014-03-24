@@ -20,61 +20,22 @@
 #ifndef BFBC2CONNECTION_H
 #define BFBC2CONNECTION_H
 
-#include "Connection.h"
-#include "BFBC2Commands.h"
-#include "BFBC2RconPacket.h"
+#include "FrostbiteConnection.h"
 
-#include <QObject>
-#include <QCryptographicHash>
-#include <QDataStream>
-#include <QTextDocument>
-#include <QVector>
-#include <QMap>
+#include "BFBC2CommandHandler.h"
 
-#define MIN_PACKET_SIZE 12
-
-typedef QMap<QString, QString> PlayerListItem;
-typedef QVector<PlayerListItem> PlayerList;
-
-class BFBC2Connection : public Connection
+class BFBC2Connection : public FrostbiteConnection
 {
     Q_OBJECT
 
 public:
-    BFBC2Connection(QObject *parent = 0);
+    explicit BFBC2Connection(QObject *parent = 0);
     ~BFBC2Connection();
 
-    BFBC2CommandSignals *commandSignals();
-
-    enum {
-        PacketReadingHeader = 0,
-        PacketReadingData = 1
-    };
-
-public slots:
-    void hostConnect(const QString &host, const int &port);
-    void send(const BFBC2RconPacket &packet, bool response = false);
-    void sendCommand(const QString &cmd);
-    bool isAuthenticated();
-    const PlayerList& getPlayerList();
-
-private:
-    BFBC2CommandSignals *mCommandSignals;
-
-    void handlePacket(const BFBC2RconPacket &packet);
-    int packetReadState;
-    char lastHeader[MIN_PACKET_SIZE];
-    bool auth;
-    QByteArray loginSalt;
-    QString gameName;
-    QVector<BFBC2RconPacket> packetSendQueue;
-    quint32 nextPacketSeq;
-    PlayerList players;
+    BFBC2CommandHandler *commandHandler;
 
 private slots:
-    void tcpSocketReadyRead();
-    void tcpSocketStateChanged(QAbstractSocket::SocketState state);
-    void authenticateSlot();
+    void stateChanged(QAbstractSocket::SocketState state);
 
 };
 

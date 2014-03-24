@@ -22,13 +22,8 @@
 
 #include <QObject>
 
-#include "Constants.h"
 #include "Game.h"
-
-#include "MinecraftWidget.h"
 #include "MinecraftConnection.h"
-
-using namespace Constants;
 
 class Minecraft : public Game
 {
@@ -40,16 +35,12 @@ public:
 
     virtual Connection *getConnection() { return con; }
 
-    MinecraftConnection *con;
-
-private:
-    MinecraftWidget *widget;
-
 private slots:
     void authenticate();
 
-    void slotAuthenticated(bool auth);
-    void slotPacket(const QString &packet);
+protected:
+    MinecraftConnection *con;
+
 };
 
 #endif // MINECRAFT_H

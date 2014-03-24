@@ -60,8 +60,8 @@ private:
     void writeSettings();
 
 private slots:
-    void slotLogMessage(const int &type, const QString &message);
-    void slotLogEvent(const QString &event, const QString &message);
+    void slotLogMessage(const QString &type, const QString &msg);
+    void slotLogEvents(const QString &event, const QString &msg);
 
     void slotMovePlayerTeam();
     void slotPlayerListChange();
@@ -140,16 +140,15 @@ private slots:
     void on_radioButton_op_tcm_moderated_clicked();
     void on_radioButton_op_tcm_muted_clicked();
 
-    void on_checkbox_hardcore_mode_clicked();
-    void on_checkbox_crosshair_clicked();
-    void on_checkbox_team_auto_balance_clicked();
-    void on_checkbox_3D_spotting_clicked();
-    void on_checkbox_friendly_fire_clicked();
-    void on_checkbox_minimap_spotting_clicked();
-    void on_checkbox_killcam_clicked();
-    void on_checkbox_3rd_person_vehicle_cameras_clicked();
-    void on_checkbox_minimap_clicked();
-    void on_checkBox_hardcore_mode_clicked();
+    void on_checkbox_hardcore_mode();
+    void on_checkbox_crosshair();
+    void on_checkbox_team_auto_balance();
+    void on_checkbox_3D_spotting();
+    void on_checkbox_friendly_fire();
+    void on_checkbox_minimap_spotting();
+    void on_checkbox_killcam();
+    void on_checkbox_3rd_person_vehicle_cameras();
+    void on_checkbox_minimap();
 };
 
 #endif // BFBC2WIDGET_H
