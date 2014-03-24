@@ -191,7 +191,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                         //commandHandler->actionLogMessage(3, QString("%1").arg(messager));
                         qDebug() << messager;
 
-                        commandHandler->exec(command, packet, lastSentPacket, playerList);
+                        qobject_cast<BFBC2CommandHandler*>(commandHandler)->exec(command, packet, lastSentPacket, playerList);
                     }
                 }
             }
@@ -216,7 +216,11 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
 
         //mCommandSignals->signalLogMessage("server_receive", QString("%1").arg(message));
 
-        commandHandler->exec(command, packet, FrostbiteRconPacket(), playerList);
+        if (commandHandler) {
+            qDebug() << "All ok here";
+        }
+
+        qobject_cast<BFBC2CommandHandler*>(commandHandler)->exec(command, packet, FrostbiteRconPacket(), playerList);
     }
 }
 

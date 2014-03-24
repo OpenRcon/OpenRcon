@@ -312,6 +312,7 @@ void BFBC2Widget::slotPlayerListChange()
     QStringList playerNames;
     QMap<QString, QString> teamItems;
     QMap<QString, QTreeWidgetItem *> playerItems;
+
     foreach (PlayerListItem playerItem, list) {
         QStringList playerInfo;
         QString teamId = playerItem["teamId"];

@@ -24,6 +24,8 @@
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteCommandHandler.h"
 
+#include "BFBC2CommandHandler.h"
+
 #define MIN_PACKET_SIZE 12
 
 typedef QMap<QString, QString> PlayerListItem;
@@ -34,7 +36,7 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    explicit FrostbiteConnection(FrostbiteCommandHandler* commandHandler, QObject *parent = 0);
+    explicit FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent = 0);
     ~FrostbiteConnection();
 
 public slots:
