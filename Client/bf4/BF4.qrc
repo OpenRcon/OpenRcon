@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/bf4">
+        <file>images/icons/bf4.png</file>
+    </qresource>
+</RCC>

@@ -56,8 +56,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 
     // Adds all games to the list.
     gameList = QList<GameEntry *>();
-    gameList.append(new GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/data/graphics/games/icons/bfbc2.png")));
-    gameList.append(new GameEntry(1, "Minecraft", QIcon(":/data/graphics/games/icons/minecraft.png")));
+    gameList.append(new GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/bfbc2/images/icons/bfbc2.png")));
+    gameList.append(new GameEntry(1, "Minecraft", QIcon(":/minecraft/images/icons/minecraft.png")));
 
     // ServerManager
     comboBox_sm = new QComboBox(this);

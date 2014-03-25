@@ -416,12 +416,6 @@ void BFBC2CommandHandler::eventOnServerRoundOverTeamScores(const FrostbiteRconPa
     emit(onLogMessage(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team").arg(teamScores)));
 }
 
-// TODO: Check this;
-void BFBC2CommandHandler::startConnection()
-{
-    emit(onStartConnection());
-}
-
 /* Commands */
 void BFBC2CommandHandler::commandLoginPlainText(const FrostbiteRconPacket &packet)
 {

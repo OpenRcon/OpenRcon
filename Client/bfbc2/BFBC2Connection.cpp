@@ -36,7 +36,7 @@ void BFBC2Connection::stateChanged(QAbstractSocket::SocketState state)
     switch (state) {
     case QAbstractSocket::ConnectedState:
         commandHandler->onLogMessage(0, "Connected.");
-        commandHandler->onStartConnection();
+        //commandHandler->onStartConnection();
         break;
     case QAbstractSocket::UnconnectedState:
         commandHandler->onLogMessage(0, "Disconnected.");

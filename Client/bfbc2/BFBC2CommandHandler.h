@@ -128,19 +128,13 @@ private:
     void commandLevelVarsList(const FrostbiteRconPacket &packet);
     void commandUnknown(const FrostbiteRconPacket &packet);
 
-    // TODO: Move this.
-    void startConnection();
-
 signals:
-    void onStartConnection();
-
     void onLogMessage(const int &type, const QString &message);
     void onAuthenticated();
     void onGotSalt(QByteArray loginSalt);
     void onRefresh();
     void onLogEvent(const QString &event, const QString &message);
     void onIngameCommands(const QString &player, const QString &command);
-    void onEventOnSpawn(const QString &player, const QString &kit);
     void onPlayerListChange();
 
     void onDataSent(const QString &command);

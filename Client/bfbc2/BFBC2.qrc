@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/bfbc2">
+        <file>images/icons/bfbc2.png</file>
         <file>images/levels/arica_harbor.png</file>
         <file>images/levels/atacama_desert.png</file>
         <file>images/levels/cao_son_temple.png</file>

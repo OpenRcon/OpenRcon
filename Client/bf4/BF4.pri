@@ -1,0 +1,7 @@
+HEADERS += 
+
+SOURCES += 
+
+FORMS += 
+
+RESOURCES += bf4/BF4.qrc

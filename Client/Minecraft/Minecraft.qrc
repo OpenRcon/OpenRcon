@@ -1,3 +1,5 @@
 <RCC>
-    <qresource prefix="/minecraft"/>
+    <qresource prefix="/minecraft">
+        <file>images/icons/minecraft.png</file>
+    </qresource>
 </RCC>

@@ -5,3 +5,6 @@ SOURCES += BF3/BF3.cpp \
            BF3/BF3Connection.cpp
 
 FORMS += BF3/BF3.ui
+
+RESOURCES += \
+    bf3/BF3.qrc

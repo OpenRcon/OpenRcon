@@ -27,6 +27,8 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
     gamemodes << "RUSH" << "CONQUEST" << "SQRUSH" << "SQDM";
     levelsObject = 0;
 
+    connect(con, SIGNAL(connected()), this, SLOT(slotStartConnection()));
+
     connect(con->commandHandler, SIGNAL(onRefresh()), this, SLOT(slotRefreshCommands()));
     connect(con->commandHandler, SIGNAL(onStartConnection()), this, SLOT(slotStartConnection()));
     connect(con->commandHandler, SIGNAL(onGotSalt(const QByteArray&)), this, SLOT(slotGotSalt(const QByteArray&)));
@@ -141,12 +143,6 @@ void BFBC2::slotIngameCommands(const QString &player, const QString &cmd)
             //con->sendCommand(QString("admin.movePlayer %1").arg(value));
         }
     }
-}
-
-void BFBC2::slotEventOnSpawn(const QString &player, const QString &kit)
-{
-    Q_UNUSED(player);
-    Q_UNUSED(kit);
 }
 
 void BFBC2::authenticate(const QByteArray &pwd, const QByteArray &salt)

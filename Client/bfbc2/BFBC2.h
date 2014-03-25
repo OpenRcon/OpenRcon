@@ -68,8 +68,6 @@ private slots:
     void slotIngameCommands(const QString &player, const QString &cmd);
 
     // Events
-    void slotEventOnSpawn(const QString &player, const QString &kit);
-
     void slotCommandMapListListRounds(QStringList ml);
 
 protected:
