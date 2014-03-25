@@ -27,11 +27,15 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
     gamemodes << "RUSH" << "CONQUEST" << "SQRUSH" << "SQDM";
     levelsObject = 0;
 
-    connect(con, SIGNAL(connected()), this, SLOT(slotStartConnection()));
+    connect(con, SIGNAL(onConnected()), this, SLOT(slotOnConnected()));
+    connect(con, SIGNAL(onDisconnected()), this, SLOT(slotOnDisconnected()));
+
+    // Commands
+    connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(slotOnLoginHashedCommand(const QByteArray&)));
+
 
     connect(con->commandHandler, SIGNAL(onRefresh()), this, SLOT(slotRefreshCommands()));
     connect(con->commandHandler, SIGNAL(onStartConnection()), this, SLOT(slotStartConnection()));
-    connect(con->commandHandler, SIGNAL(onGotSalt(const QByteArray&)), this, SLOT(slotGotSalt(const QByteArray&)));
     connect(con->commandHandler, SIGNAL(onAuthenticated()), this, SLOT(slotAuthenticated()));
 
     // Events
@@ -45,59 +49,23 @@ BFBC2::~BFBC2()
     delete levelsObject;
 }
 
-void BFBC2::slotStartConnection()
+void BFBC2::onConnected()
 {
     if (!con->isAuthenticated()) {        
         con->sendCommand("\"login.hashed\"");
     }
 }
 
-void BFBC2::slotGotSalt(const QByteArray &salt)
+void BFBC2::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!con->isAuthenticated()) {
         if (!password.isEmpty()) {
-            authenticate(password.toUtf8().constData(), salt); // Check this, originally authenticate(password.toUtf8().constData(), salt);
+            QCryptographicHash hash(QCryptographicHash::Md5);
+            hash.addData(salt);
+            hash.addData(password.toUtf8().constData());
+
+            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
         }
-    }
-}
-
-void BFBC2::slotAuthenticated()
-{   
-    // Call commands on startup.
-    slotStartupCommands();
-
-    // Find a better way to do this.
-    commandRefreshTimer = new QTimer(this);
-    connect(commandRefreshTimer, SIGNAL(timeout()), this, SLOT(slotRefreshCommands()));
-    commandRefreshTimer->start(10000);
-}
-
-void BFBC2::slotStartupCommands()
-{
-    QStringList commandList;
-    commandList.append("\"serverInfo\"");
-    commandList.append("\"admin.listPlayers\" \"all\"");
-
-    commandList.append("\"vars.serverName\"");
-    commandList.append("\"vars.serverDescription\"");
-    commandList.append("\"vars.bannerUrl\"");
-
-    commandList.append("\"eventsEnabled\" \"true\"");
-    commandList.append("\"version\"");
-
-    commandList.append("\"vars.textChatModerationMode\"");
-    commandList.append("\"vars.textChatSpamTriggerCount\"");
-    commandList.append("\"vars.textChatSpamDetectionTime\"");
-    commandList.append("\"vars.textChatSpamCoolDownTime\"");
-
-    commandList.append("\"mapList.list\"");
-    commandList.append("\"mapList.nextLevelIndex\"");
-
-    commandList.append("\"banList.list\"");
-    commandList.append("\"reservedSlots.list\"");
-
-    foreach (QString command, commandList) {
-        con->sendCommand(command);
     }
 }
 
@@ -143,15 +111,6 @@ void BFBC2::slotIngameCommands(const QString &player, const QString &cmd)
             //con->sendCommand(QString("admin.movePlayer %1").arg(value));
         }
     }
-}
-
-void BFBC2::authenticate(const QByteArray &pwd, const QByteArray &salt)
-{
-    QCryptographicHash hash(QCryptographicHash::Md5);
-    hash.addData(salt);
-    hash.addData(pwd);
-
-    con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
 }
 
 void BFBC2::slotCommandMapListListRounds(QStringList ml)

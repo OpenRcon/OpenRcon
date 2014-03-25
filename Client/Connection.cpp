@@ -25,9 +25,9 @@ Connection::Connection(QObject *parent)
 
     tcpSocket = new QTcpSocket(this);
 
+    connect(tcpSocket, SIGNAL(connected()), this, SLOT(connected()));
+    connect(tcpSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
     connect(tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));
-    connect(tcpSocket, SIGNAL(connected()), this, SLOT(tcpSocketConnected()));
-    connect(tcpSocket, SIGNAL(disconnected()), this, SLOT(tcpSocketDisconnected()));
 }
 
 Connection::~Connection()
@@ -39,7 +39,6 @@ void Connection::hostConnect(const QString &host, const int &port)
 {
     if (tcpSocket && tcpSocket->state() == QAbstractSocket::UnconnectedState) {
         tcpSocket->connectToHost(host, port);
-        qDebug() << QString("Connection started: %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
     } else {
         if (tcpSocket) { // TODO: Check this?
             qDebug() << QString("Already connected to %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
@@ -62,6 +61,20 @@ void Connection::hostDisconnect()
     }
 }
 
+void Connection::connected()
+{
+    qDebug() << QString("Connected to %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
+
+    emit(onConnected());
+}
+
+void Connection::disconnected()
+{
+    qDebug() << QString("Disconnected from host %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
+
+    emit(onDisconnected());
+}
+
 void Connection::displayError(QAbstractSocket::SocketError socketError)
 {
     switch (socketError) {
@@ -81,14 +94,4 @@ void Connection::displayError(QAbstractSocket::SocketError socketError)
         QMessageBox::information(0, tr("Error"), tr("The following error occurred: %1.").arg(tcpSocket->errorString()));
         qDebug() << QString("Unknown (%1)").arg(tcpSocket->errorString());
     }
-}
-
-void Connection::tcpSocketConnected()
-{
-    qDebug() << QString("Connected to %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
-}
-
-void Connection::tcpSocketDisconnected()
-{
-    qDebug() << QString("Disconnected from host %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
 }

@@ -6,3 +6,5 @@ TRANSLATIONS += locale/openrcon_da_DA.ts \
                 locale/openrcon_nb_NO.ts \
                 locale/openrcon_ru_RU.ts \
                 locale/openrcon_se_SE.ts
+
+RESOURCES += locale/Locale.qrc

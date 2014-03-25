@@ -160,7 +160,7 @@ signals:
 
     // Command signals.
     void onLoginPlainTextCommand(const QString &response);
-    void onLoginHashedCommand(const QString &response);
+    void onLoginHashedCommand(const QByteArray &salt);
     void onLogoutCommand(const QString &response);
     void onQuitCommand(const QString &response);
     void onVersionCommand(const QString &type, const int &buildId, const QString &version);

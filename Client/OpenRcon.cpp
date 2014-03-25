@@ -59,6 +59,18 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     gameList.append(new GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/bfbc2/images/icons/bfbc2.png")));
     gameList.append(new GameEntry(1, "Minecraft", QIcon(":/minecraft/images/icons/minecraft.png")));
 
+    // Actions
+    #if QT_VERSION < 0x050000
+        actionAboutQt = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
+    #else
+        actionAboutQt = new QAction(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
+    #endif
+
+    actionAbout = new QAction(QIcon(":/images/icons/openrcon.png"), tr("About &%1").arg(APP_NAME), this);
+
+    ui->menuHelp->addAction(actionAboutQt);
+    ui->menuHelp->addAction(actionAbout);
+
     // ServerManager
     comboBox_sm = new QComboBox(this);
 
@@ -103,6 +115,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     connect(ui->actionDisconnect, SIGNAL(triggered()), this, SLOT(actionDisconnect_triggered()));
 
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(actionExit_triggered()));
+
+    connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
+    connect(actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 }
 
 OpenRcon::~OpenRcon()
@@ -181,11 +196,6 @@ void OpenRcon::newTab(const int &game, const QString &name, const QString &host,
     }
 }
 
-QList<GameEntry *> OpenRcon::getGameList()
-{
-    return gameList;
-}
-
 void OpenRcon::closeTab(int index)
 {
     if (ui->tabWidget->widget(index) == tab_webView) {
@@ -197,6 +207,11 @@ void OpenRcon::closeTab(int index)
     }
 
     ui->tabWidget->removeTab(index);
+}
+
+QList<GameEntry *> OpenRcon::getGameList()
+{
+    return gameList;
 }
 
 void OpenRcon::connect_sm(int index)
@@ -307,17 +322,12 @@ void OpenRcon::on_actionDocumentation_triggered()
     webFrame(tr("Documentation"), APP_DOC);
 }
 
-void OpenRcon::on_actionAbout_triggered()
-{
-    aboutDialog->exec();
-}
-
-void OpenRcon::on_actionAbout_Qt_triggered()
+void OpenRcon::aboutQt()
 {
     QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
-void OpenRcon::on_actionHome_triggered()
+void OpenRcon::about()
 {
-    home();
+    aboutDialog->exec();
 }

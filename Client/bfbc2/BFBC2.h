@@ -56,13 +56,9 @@ private:
     bool auth;
 
 private slots: 
-    void slotStartConnection();
-    void slotGotSalt(const QByteArray &salt);
-    void slotAuthenticated();
+    void onConnected();
+    void onLoginHashedCommand(const QByteArray &salt);
 
-    void authenticate(const QByteArray& pwd, const QByteArray& salt);
-
-    void slotStartupCommands();
     void slotRefreshCommands();
 
     void slotIngameCommands(const QString &player, const QString &cmd);

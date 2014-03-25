@@ -441,13 +441,16 @@ void BFBC2CommandHandler::commandLoginHashed(const FrostbiteRconPacket &packet, 
 
     if (lastSentPacket.getWordCount() == 1) {
         if (response == "OK" && packet.getWordCount() == 2) {
-            emit(onLogMessage(0, (tr("We got salt: %1").arg(packet.getWord(1).getContent()))));
+            emit(onDataReceived(tr("We got salt: %1").arg(packet.getWord(1).getContent())));
 
-            QByteArray loginSalt = QByteArray::fromHex(QByteArray(packet.getWord(1).getContent()));
-            emit(onGotSalt(loginSalt));
+            QByteArray salt = QByteArray::fromHex(QByteArray(packet.getWord(1).getContent()));
+
+            emit(onLoginHashedCommand(salt));
         }
     } else if (lastSentPacket.getWordCount() == 2) {
         // QString response = packet.getWord(0).getContent(); TODO: Isn't this redundant?
+
+        qDebug() << "Logged in";
 
         if (response == "OK") {
             emit(onLogMessage(0, tr("You have successfully logged in.")));

@@ -62,26 +62,27 @@ private:
     void logMessage(const int &type, const QString &message);
 
 private slots:
-    void slotOnDataSent(const QString &command);
-    void slotOnDataReceived(const QString &response);
+    void onDataSent(const QString &command);
+    void onDataReceived(const QString &response);
+    void onAuthenticated();
 
     /* Event signals */
-    void slotOnPlayerJoin(const QString &player);
-    void slotOnPlayerAuthenticated(const QString &player, const QString &guid);
-    void slotOnPlayerLeave(const QString &player, const QString &info);
-    void slotOnPlayerSpawn(const QString &player, const QString &kit, const QStringList &weapons);
-    void slotOnPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
-    void slotOnPlayerChat(const QString &player, const QString &message, const QString &target);
-    void slotOnPlayerKicked(const QString &player, const QString &reason);
-    void slotOnPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
-    void slotOnPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
-    void slotOnPunkBusterMessage(const QString &message);
-    void slotOnPunkBusterVersion(const QString &version);
-    void slotOnServerLoadingLevel(const QString &levelName, const int &roundsPlayed, const int &roundsTotal);
-    void slotOnServerLevelStarted();
-    void slotOnServerRoundOver(const int &winningTeamId);
-    void slotOnServerRoundOverPlayers(const QString &playerInfo);
-    void slotOnServerRoundOverTeamScores(const QString &teamScores);
+    void onPlayerJoin(const QString &player);
+    void onPlayerAuthenticated(const QString &player, const QString &guid);
+    void onPlayerLeave(const QString &player, const QString &info);
+    void onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weapons);
+    void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
+    void onPlayerChat(const QString &player, const QString &message, const QString &target);
+    void onPlayerKicked(const QString &player, const QString &reason);
+    void onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
+    void onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
+    void onPunkBusterMessage(const QString &message);
+    void onPunkBusterVersion(const QString &version);
+    void onServerLoadingLevel(const QString &levelName, const int &roundsPlayed, const int &roundsTotal);
+    void onServerLevelStarted();
+    void onServerRoundOver(const int &winningTeamId);
+    void onServerRoundOverPlayers(const QString &playerInfo);
+    void onServerRoundOverTeamScores(const QString &teamScores);
 
     // TODO: Look over this.
     void slotMovePlayerTeam();
@@ -94,21 +95,23 @@ private slots:
     void playerListUpdate(int);
 
     // Commands
-    void slotServerInfoCommand(const QStringList &serverInfo);
+    void onServerInfoCommand(const QStringList &serverInfo);
 
-    void slotVarsServerNameCommand(const QString &serverName);
-    void slotVarsServerDescriptionCommand(const QString &serverDescription);
-    void slotVarsBannerUrlCommand(const QString &bannerUrl);
+    void onVarsServerNameCommand(const QString &serverName);
+    void onVarsServerDescriptionCommand(const QString &serverDescription);
+    void onVarsBannerUrlCommand(const QString &bannerUrl);
 
-    void slotMapListListCommand(const QStringList &mapList);
-    void slotMapListNextLevelIndexCommand(const int &index);
-    void slotBanListListCommand(const QStringList &banList);
-    void slotReservedSlotsListCommand(const QStringList &reservedSlotList);
+    void onMapListListCommand(const QStringList &mapList);
+    void onMapListNextLevelIndexCommand(const int &index);
+    void onBanListListCommand(const QStringList &banList);
+    void onReservedSlotsListCommand(const QStringList &reservedSlotList);
 
-    void slotVarsTextChatModerationModeCommand(const QString &mode);
-    void slotVarsTextChatSpamTriggerCountCommand(const int &count);
-    void slotVarsTextChatSpamDetectionTimeCommand(const int &count);
-    void slotVarsTextChatSpamCoolDownTimeCommand(const int &count);
+    void onVarsTextChatModerationModeCommand(const QString &mode);
+    void onVarsTextChatSpamTriggerCountCommand(const int &count);
+    void onVarsTextChatSpamDetectionTimeCommand(const int &count);
+    void onVarsTextChatSpamCoolDownTimeCommand(const int &count);
+
+    void startupCommands();
 
     // Other stuff.
     void setMapList(const QString &gamemode);

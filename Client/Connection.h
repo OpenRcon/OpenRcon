@@ -41,10 +41,13 @@ public slots:
     virtual void hostDisconnect();
 
 private slots:
+    void connected();
+    void disconnected();
     void displayError(QAbstractSocket::SocketError socketError);
-    void tcpSocketConnected();
-    void tcpSocketDisconnected();
 
+signals:
+    void onConnected();
+    void onDisconnected();
 };
 
 #endif // CONNECTION_H

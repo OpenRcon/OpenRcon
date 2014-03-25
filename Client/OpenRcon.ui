@@ -106,7 +106,6 @@
     <addaction name="actionReport_bug"/>
     <addaction name="actionDocumentation"/>
     <addaction name="separator"/>
-    <addaction name="actionAbout_Qt"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -127,7 +126,6 @@
      <string>Application</string>
     </property>
     <addaction name="actionServermanager"/>
-    <addaction name="actionDisconnect"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -230,24 +228,6 @@
     <string>Report bug</string>
    </property>
   </action>
-  <action name="actionExit">
-   <property name="icon">
-    <iconset resource="data/graphics/graphics.qrc">
-     <normaloff>:/data/graphics/icons/application-exit.png</normaloff>:/data/graphics/icons/application-exit.png</iconset>
-   </property>
-   <property name="text">
-    <string>Exit</string>
-   </property>
-   <property name="toolTip">
-    <string>Exit</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
-   </property>
-  </action>
   <action name="actionServermanager">
    <property name="icon">
     <iconset resource="data/graphics/graphics.qrc">
@@ -268,11 +248,6 @@
     <string>Ctrl+D</string>
    </property>
   </action>
-  <action name="actionAbout_Qt">
-   <property name="text">
-    <string>About Qt</string>
-   </property>
-  </action>
   <action name="actionPluginmanager">
    <property name="text">
     <string>Pluginmanager</string>
@@ -285,6 +260,11 @@
    </property>
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>

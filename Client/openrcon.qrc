@@ -5,4 +5,7 @@
         <file>../COPYING</file>
         <file>../TRANSLATORS</file>
     </qresource>
+    <qresource prefix="/images/icons">
+        <file>images/icons/openrcon.png</file>
+    </qresource>
 </RCC>

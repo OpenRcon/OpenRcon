@@ -93,6 +93,10 @@ private:
     QList<GameEntry *> gameList;
     QList<ServerEntry> m_serverEntries;
 
+    // Actions
+    QAction *actionAboutQt;
+    QAction *actionAbout;
+
     QComboBox *comboBox_sm;
     QComboBox *comboBox_qc_game;
     QGridLayout *gridLayout_webView;
@@ -116,7 +120,6 @@ private:
     void webFrame(const QString &title, const QString &url);
 
 private slots:
-
     void closeTab(int);
 
     void connect_sm(int index);
@@ -129,16 +132,16 @@ private slots:
     void actionDisconnect_triggered();
     void actionExit_triggered();
 
+    // Setting menu
     void actionSettings_triggered();
-
-    void on_actionHome_triggered();
 
     void on_actionConnection_triggered();
     void on_actionQuickconnect_triggered();
     void on_actionReport_bug_triggered();
     void on_actionDocumentation_triggered();
-    void on_actionAbout_triggered();
-    void on_actionAbout_Qt_triggered();
+
+    void aboutQt();
+    void about();
 
 };
 
