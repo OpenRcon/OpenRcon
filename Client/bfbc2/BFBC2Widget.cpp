@@ -225,25 +225,49 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(ui->lineEdit_co_pb_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_pb_send_clicked()));
 
     // Messages and events.
-    connect(con->commandHandler, SIGNAL(onLogMessage(const int&, const QString&)), this, SLOT(slotLogMessage(const int&, const QString&)));
-    connect(con->commandHandler, SIGNAL(onLogEvent(const QString&, const QString&)), this, SLOT(slotLogEvent(const QString&, const QString&)));
+    connect(con->commandHandler, SIGNAL(onDataSent(const QString&)), this, SLOT(slotOnDataSent(const QString&)));
+    connect(con->commandHandler, SIGNAL(onDataReceived(const QString&)), this, SLOT(slotOnDataReceived(const QString&)));
 
-    connect(con->commandHandler, SIGNAL(onPlayerListChange()), this, SLOT(slotPlayerListChange())); // TODO: Change to adminListPlayersAll
+    //connect(con->commandHandler, SIGNAL(onLogMessage(const int&, const QString&)), this, SLOT(slotLogMessage(const int&, const QString&)));
+    //connect(con->commandHandler, SIGNAL(onPlayerListChange()), this, SLOT(slotPlayerListChange())); // TODO: Change to adminListPlayersAll
+
+    /* Events */
+    connect(con->commandHandler, SIGNAL(onPlayerJoin(const QString &player)), this, SLOT(slotOnPlayerJoin(const QString &player)));
+    connect(con->commandHandler, SIGNAL(onPlayerAuthenticated(const QString &player, const QString &guid)), this, SLOT(slotOnPlayerAuthenticated(const QString &player, const QString &guid)));
+    connect(con->commandHandler, SIGNAL(onPlayerLeave(const QString &player, const QString &info)), this, SLOT(slotOnPlayerLeave(const QString &player, const QString &info)));
+    connect(con->commandHandler, SIGNAL(onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weaponList)), this, SLOT(slotOnPlayerSpawn(const QString &player, const QString &kit, const QStringList &weaponList)));
+    connect(con->commandHandler, SIGNAL(onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot)), this, SLOT(slotOnPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot)));
+    connect(con->commandHandler, SIGNAL(onPlayerChat(const QString &player, const QString &message, const QString &target)), this, SLOT(slotOnPlayerChat(const QString &player, const QString &message, const QString &target)));
+    connect(con->commandHandler, SIGNAL(onPlayerKicked(const QString &player, const QString &reason)), this, SLOT(slotOnPlayerKicked(const QString &player, const QString &reason)));
+    connect(con->commandHandler, SIGNAL(onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId)), this, SLOT(slotOnPlayerSquadChange(const QString &player, const int &teamId, const int &squadId)));
+    connect(con->commandHandler, SIGNAL(onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId)), this, SLOT(slotOnPlayerTeamChange(const QString &player, const int &teamId, const int &squadId)));
+    connect(con->commandHandler, SIGNAL(onPunkBusterMessage(const QString &message)), this, SLOT(slotOnPunkBusterMessage(const QString &message)));
+    connect(con->commandHandler, SIGNAL(onPunkBusterVersion(const QString &version)), this, SLOT(slotOnPunkBusterVersion(const QString &version)));
+    connect(con->commandHandler, SIGNAL(onServerLoadingLevel(const QString &levelName, const int &roundsPlayed, const int &roundsTotal)), this, SLOT(slotOnServerLoadingLevel(const QString &levelName, const int &roundsPlayed, const int &roundsTotal)));
+    connect(con->commandHandler, SIGNAL(onServerLevelStarted()), this, SLOT(slotOnServerLevelStarted()));
+    connect(con->commandHandler, SIGNAL(onServerRoundOver(const int &winningTeamId)), this, SLOT(slotOnServerRoundOver(const int &winningTeamId)));
+    connect(con->commandHandler, SIGNAL(onServerRoundOverPlayers(const QString &playerInfo)), this, SLOT(slotOnServerRoundOverPlayers(const QString &playerInfo)));
+    connect(con->commandHandler, SIGNAL(onServerRoundOverTeamScores(const QString &teamScores)), this, SLOT(slotOnServerRoundOverTeamScores(const QString &teamScores)));
 
     // Commands
-    connect(con->commandHandler, SIGNAL(onCommandServerInfo(QStringList)), this, SLOT(slotCommandServerInfo(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsTextChatModerationMode(const QString&)), this, SLOT(slotCommandVarsTextChatModerationMode(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsTextChatSpamTriggerCount(const QString&)), this, SLOT(slotCommandVarsTextChatSpamTriggerCount(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsTextChatSpamDetectionTime(const QString&)), this, SLOT(slotCommandVarsTextChatSpamDetectionTime(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsTextChatSpamCoolDownTime(const QString&)), this, SLOT(slotCommandVarsTextChatSpamCoolDownTime(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandBanListList(QStringList)), this, SLOT(slotCommandBanListList(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandReservedSlotsList(QStringList)), this, SLOT(slotCommandReservedSlotsList(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandMapListNextLevelIndex(int&)), this, SLOT(slotCommandMapListNextLevelIndex(int&)));
-    connect(con->commandHandler, SIGNAL(onCommandMapListList(QStringList)), this, SLOT(slotCommandMapListList(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandMapListListRounds(QStringList)), this, SLOT(slotCommandMapListListRounds(QStringList)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsServerName(const QString&)), this, SLOT(slotCommandVarsServerName(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsServerDescription(const QString&)), this, SLOT(slotCommandVarsServerDescription(const QString&)));
-    connect(con->commandHandler, SIGNAL(onCommandVarsBannerUrl(const QString&)), this, SLOT(slotCommandVarsBannerUrl(const QString&)));
+    connect(con->commandHandler, SIGNAL(onServerInfoCommand(const QStringList&)), this, SLOT(slotServerInfoCommand(const QStringList&)));
+
+    connect(con->commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(slotVarsServerNameCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(slotVarsServerDescriptionCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsBannerUrlCommand(const QString&)), this, SLOT(slotVarsBannerUrlCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsTextChatModerationModeCommand(const QString&)), this, SLOT(slotVarsTextChatModerationModeCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsTextChatSpamTriggerCountCommand(const QString&)), this, SLOT(slotVarsTextChatSpamTriggerCountCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsTextChatSpamDetectionTimeCommand(const QString&)), this, SLOT(slotVarsTextChatSpamDetectionTimeCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsTextChatSpamCoolDownTimeCommand(const QString&)), this, SLOT(slotVarsTextChatSpamCoolDownTimeCommand(const QString&)));
+
+    connect(con->commandHandler, SIGNAL(onMapListListCommand(const QStringList&)), this, SLOT(slotMapListListCommand(const QStringList&)));
+    connect(con->commandHandler, SIGNAL(onMapListNextLevelIndexCommand(int&)), this, SLOT(slotMapListNextLevelIndexCommand(int&)));
+    //connect(con->commandHandler, SIGNAL(onMapListListRoundsCommand(QStringList)), this, SLOT(slotCommandMapListListRoundsCommand(QStringList))); // TODO: Check this.
+
+    connect(con->commandHandler, SIGNAL(onBanListListCommand(const QStringList&)), this, SLOT(slotBanListListCommand(const QStringList&)));
+    connect(con->commandHandler, SIGNAL(onReservedSlotsListCommand(const QStringList&)), this, SLOT(slotReservedSlotsListCommand(const QStringList&)));
+
+
 }
 
 BFBC2Widget::~BFBC2Widget()
@@ -251,6 +275,7 @@ BFBC2Widget::~BFBC2Widget()
     delete ui;
 }
 
+// TODO: Move this to BFBC2Settings
 void BFBC2Widget::readSettings()
 {
     QStringList users;
@@ -274,13 +299,13 @@ void BFBC2Widget::writeSettings()
 
 }
 
-void BFBC2Widget::slotLogMessage(const int &type, const QString &message)
+void BFBC2Widget::logMessage(const int &type, const QString &message)
 {
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
-    if (type == 0) { // Error
+    if (type == 0) { // Info
         ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
-    } else if (type == 1) { // Info
+    } else if (type == 1) { // Error
         ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime, message));
     } else if (type == 2) { // Server send
         ui->textEdit_co_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
@@ -293,11 +318,233 @@ void BFBC2Widget::slotLogMessage(const int &type, const QString &message)
     }
 }
 
-void BFBC2Widget::slotLogEvent(const QString &event, const QString &message)
+void BFBC2Widget::slotOnDataSent(const QString &command)
 {
-    QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
+    logMessage(2, command);
+}
 
-    ui->textEdit_ev_output->append(QString("%1 %2").arg(currentTime, message));
+void BFBC2Widget::slotOnDataReceived(const QString &response)
+{
+    logMessage(3, response);
+}
+
+/* Events */
+void BFBC2Widget::slotOnPlayerJoin(const QString &player)
+{
+    logMessage(0, tr("Player <b>%1</b> has joined the game.").arg(player));
+}
+
+void BFBC2Widget::slotOnPlayerAuthenticated(const QString &player, const QString &guid)
+{
+    logMessage(0, tr("Player <b>%1</b> has just authenticated (GUID: <b>%2</b>).").arg(player).arg(guid));
+}
+
+void BFBC2Widget::slotOnPlayerLeave(const QString &player, const QString &info)
+{
+    logMessage(0, tr("Player <b>%1</b> has left the game.").arg(player).arg(info)); // TODO: Impelment score stuffs here?
+}
+
+void BFBC2Widget::slotOnPlayerSpawn(const QString &player, const QString &kit, const QStringList &weaponList)
+{
+    logMessage(0, tr("Player <b>%1</b> has spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(player).arg(kit).arg(weaponList.at(0)).arg(weaponList.at(1)).arg(weaponList.at(2))); // TODO: Implement dynamic length on selected weapons.
+}
+
+void BFBC2Widget::slotOnPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot)
+{
+    if (headshot) {
+        logMessage(0, tr("Player <b>%1</b> headshoted player <b>%2</b> using <b>%3</b>").arg(killer).arg(victim).arg(weapon));
+    } else {
+        logMessage(0, tr("Player <b>%1</b> has killed player <b>%2</b> with <b>%3</b>").arg(killer).arg(victim).arg(weapon));
+    }
+}
+
+void BFBC2Widget::slotOnPlayerChat(const QString &player, const QString &message, const QString &target)
+{
+    logMessage(4, tr("<b>%1</b>: %2").arg(player).arg(message));
+}
+
+void BFBC2Widget::slotOnPlayerKicked(const QString &player, const QString &reason)
+{
+    logMessage(0, tr("Player <b>%1</b> has been kicked from the game, the reason was reason: <b>%2</b>.").arg(player).arg(reason));
+}
+
+void BFBC2Widget::slotOnPlayerSquadChange(const QString &player, const int &teamId, const int &squadId)
+{
+    logMessage(0, tr("Player <b>%1</b> has changed squad to <b>%3</b>.").arg(player).arg(squadId));
+}
+
+void BFBC2Widget::slotOnPlayerTeamChange(const QString &player, const int &teamId, const int &squadId)
+{
+    logMessage(0, tr("Player <b>%1</b> has changed team to <b>%2</b>.").arg(player, teamId));
+}
+
+void BFBC2Widget::slotOnPunkBusterMessage(const QString &message)
+{
+    logMessage(5, message);
+}
+
+void BFBC2Widget::slotOnPunkBusterVersion(const QString &version)
+{
+    logMessage(5, version);
+}
+
+void BFBC2Widget::slotOnServerLoadingLevel(const QString &levelName, const int &roundsPlayed, const int &roundsTotal)
+{
+    logMessage(0, tr("Loading level: <b>%1</b>").arg(levelName)); // TODO: Transelate internal level name to human readable.
+}
+
+void BFBC2Widget::slotOnServerLevelStarted()
+{
+    logMessage(0, tr("Level started"));
+}
+
+void BFBC2Widget::slotOnServerRoundOver(const int &winningTeamId)
+{
+    logMessage(0, tr("The round has just ended, and <b>%1</b> won").arg(winningTeamId));
+}
+
+void BFBC2Widget::slotOnServerRoundOverPlayers(const QString &playerInfo)
+{
+    logMessage(0, tr("The round has just ended, and <b>%1</b> is the final detailed player stats").arg(playerInfo)); // TODO: Check what this actually outputs.
+}
+
+void BFBC2Widget::slotOnServerRoundOverTeamScores(const QString &teamScores)
+{
+    logMessage(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team").arg(teamScores));
+}
+
+void BFBC2Widget::slotServerInfoCommand(const QStringList &serverInfo)
+{
+    /*
+    <serverName: string>
+    <current playercount: integer>
+    <max playercount: integer>
+    <current gamemode: string>
+    <current map: string>
+    <roundsPlayed: integer>
+    <roundsTotal: string>
+    <scores: team scores>
+    <onlineState: online state>
+    <ranked: boolean>
+    <punkBuster: boolean>
+    <hasGamePassword: boolean>
+    <serverUpTime: seconds>
+    <roundTime: seconds>
+    <gameMod: GameModId>
+    <mapPack: integer>
+    <externalGameIpAndPort: IpPortPair>
+    <punkBusterVersion: PunkBusterVersion>
+    <joinQueueEnabled: boolean>
+    <region: Region>
+    */
+
+    currentMod = serverInfo.at(17);
+    currentGamemode = serverInfo.at(3);
+
+    if (!levelsObject) {
+        levelsObject = new BFBC2Levels(currentMod);
+        this->comboBox_ml_gamemode_currentIndexChanged(0);
+    }
+
+    QString mapName = getMapName(serverInfo.at(4), serverInfo.at(3));
+    QString mapImage = getMapImage(serverInfo.at(4), serverInfo.at(3));
+
+    // Players
+    ui->label_pl_servername->setText(serverInfo.at(0));
+    ui->label_pl_map->setText(mapName);
+    ui->label_pl_mod->setText(serverInfo.at(17));
+    ui->label_pl_gamemode->setText(serverInfo.at(3));
+    ui->label_pl_players->setText(QString("%1/%2").arg(serverInfo.at(1), serverInfo.at(2)));
+    ui->label_pl_round->setText(QString("%1/%2").arg(serverInfo.at(6), serverInfo.at(7)));
+    ui->label_pl_address->setText(serverInfo.at(19));
+    ui->label_pl_state->setText(serverInfo.at(11));
+    ui->label_pl_uptime->setText(QTime::fromString(serverInfo.at(15), "s").toString());
+
+    // Maplist
+    ui->label_ml_mod->setText(currentMod);
+    ui->label_ml_currentmap_name->setText(mapName);
+    ui->label_ml_currentmap_image->setPixmap(QPixmap(mapImage));
+}
+
+void BFBC2Widget::slotVarsServerNameCommand(const QString &serverName)
+{
+    ui->lineEdit_op_so_servername->setText(serverName);
+}
+
+void BFBC2Widget::slotVarsServerDescriptionCommand(const QString &serverDescription)
+{
+    ui->lineEdit_op_so_serverdescription->setText(serverDescription);
+}
+
+void BFBC2Widget::slotVarsBannerUrlCommand(const QString &bannerUrl)
+{
+    ui->lineEdit_op_so_bannerurl->setText(bannerUrl);
+    ui->label_op_so_bannerurl_image->setPixmap(QPixmap(bannerUrl));
+}
+
+void BFBC2Widget::slotMapListListCommand(const QStringList &mapList)
+{
+    // Sets currentmaps.
+    QStringList mapNames;
+
+    for (int i = 0; i < mapList.size(); i++) {
+        mapNames << getMapName(mapList.at(i), currentGamemode);
+    }
+
+    ui->listWidget_ml_currentmaps->blockSignals(true);
+    ui->listWidget_ml_currentmaps->clear();
+    ui->listWidget_ml_currentmaps->blockSignals(false);
+    ui->listWidget_ml_currentmaps->addItems(mapNames);
+    // Sets nextMap
+
+    if (nextLevelIndex >=0 && mapList.count() > 0) {
+        QString nextMapPath = mapList.at(nextLevelIndex);
+        ui->label_ml_nextmap_name->setText(getMapName(nextMapPath, currentGamemode));
+        ui->label_ml_nextmap_image->setPixmap(QPixmap(getMapImage(nextMapPath, currentGamemode)));
+    }
+}
+
+void BFBC2Widget::slotMapListNextLevelIndexCommand(const int &index)
+{
+    nextLevelIndex = index;
+}
+
+void BFBC2Widget::slotBanListListCommand(const QStringList &banList)
+{
+    ui->tableWidget_bl->clearContents();
+    ui->tableWidget_bl->setRowCount(banList.size());
+}
+
+void BFBC2Widget::slotReservedSlotsListCommand(const QStringList &reservedSlotList)
+{
+    ui->listWidget_rs->clear();
+    ui->listWidget_rs->addItems(reservedSlotList);
+}
+
+void BFBC2Widget::slotVarsTextChatModerationModeCommand(const QString &mode)
+{
+    if (mode == "free") {
+        ui->radioButton_op_tcm_free->setChecked(true);
+    } else if (mode == "moderated") {
+        ui->radioButton_op_tcm_moderated->setChecked(true);
+    } else if (mode == "muted") {
+        ui->radioButton_op_tcm_muted->setChecked(true);
+    }
+}
+
+void BFBC2Widget::slotVarsTextChatSpamTriggerCountCommand(const int &count)
+{
+    ui->spinBox_op_tcm_spamtriggercount->setValue(count);
+}
+
+void BFBC2Widget::slotVarsTextChatSpamDetectionTimeCommand(const int &count)
+{
+    ui->spinBox_op_tcm_spamdetectiontime->setValue(count);
+}
+
+void BFBC2Widget::slotVarsTextChatSpamCoolDownTimeCommand(const int &count)
+{
+    ui->spinBox_op_tcm_spamcooldowntime->setValue(count);
 }
 
 void BFBC2Widget::slotPlayerListChange()
@@ -382,140 +629,6 @@ void BFBC2Widget::slotMovePlayerTeam()
         movePlayer(player->text(1), altTeam, "0", "true");
         con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
     }
-}
-
-void BFBC2Widget::slotCommandServerInfo(QStringList si)
-{
-    /*
-    <serverName: string>
-    <current playercount: integer>
-    <max playercount: integer>
-    <current gamemode: string>
-    <current map: string>
-    <roundsPlayed: integer>
-    <roundsTotal: string>
-    <scores: team scores>
-    <onlineState: online state>
-    <ranked: boolean>
-    <punkBuster: boolean>
-    <hasGamePassword: boolean>
-    <serverUpTime: seconds>
-    <roundTime: seconds>
-    <gameMod: GameModId>
-    <mapPack: integer>
-    <externalGameIpAndPort: IpPortPair>
-    <punkBusterVersion: PunkBusterVersion>
-    <joinQueueEnabled: boolean>
-    <region: Region>
-    */
-
-    currentMod = si.at(17);
-    currentGamemode = si.at(3);
-
-    if (!levelsObject) {
-        levelsObject = new BFBC2Levels(currentMod);
-        this->comboBox_ml_gamemode_currentIndexChanged(0);
-    }
-
-    QString mapName = getMapName(si.at(4), si.at(3));
-    QString mapImage = getMapImage(si.at(4), si.at(3));
-
-    // Players
-    ui->label_pl_servername->setText(si.at(0));
-    ui->label_pl_map->setText(mapName);
-    ui->label_pl_mod->setText(si.at(17));
-    ui->label_pl_gamemode->setText(si.at(3));
-    ui->label_pl_players->setText(QString("%1/%2").arg(si.at(1), si.at(2)));
-    ui->label_pl_round->setText(QString("%1/%2").arg(si.at(6), si.at(7)));
-    ui->label_pl_address->setText(si.at(19));
-    ui->label_pl_state->setText(si.at(11));
-    ui->label_pl_uptime->setText(QTime::fromString(si.at(15), "s").toString());
-
-    // Maplist
-    ui->label_ml_mod->setText(currentMod);
-    ui->label_ml_currentmap_name->setText(mapName);
-    ui->label_ml_currentmap_image->setPixmap(QPixmap(mapImage));
-}
-
-void BFBC2Widget::slotCommandVarsTextChatModerationMode(const QString &tcmm)
-{
-    if (tcmm == "free") {
-        ui->radioButton_op_tcm_free->setChecked(true);
-    } else if (tcmm == "moderated") {
-        ui->radioButton_op_tcm_moderated->setChecked(true);
-    } else if (tcmm == "muted") {
-        ui->radioButton_op_tcm_muted->setChecked(true);
-    }
-}
-
-void BFBC2Widget::slotCommandVarsTextChatSpamTriggerCount(const QString &tcstc)
-{
-    ui->spinBox_op_tcm_spamtriggercount->setValue(tcstc.toInt());
-}
-
-void BFBC2Widget::slotCommandVarsTextChatSpamDetectionTime(const QString &tcsdt)
-{
-    ui->spinBox_op_tcm_spamdetectiontime->setValue(tcsdt.toInt());
-}
-
-void BFBC2Widget::slotCommandVarsTextChatSpamCoolDownTime(const QString &tcscdt)
-{
-    ui->spinBox_op_tcm_spamcooldowntime->setValue(tcscdt.toInt());
-}
-
-void BFBC2Widget::slotCommandBanListList(QStringList bl)
-{
-    ui->tableWidget_bl->clearContents();
-    ui->tableWidget_bl->setRowCount(bl.size());
-}
-
-void BFBC2Widget::slotCommandReservedSlotsList(QStringList rl)
-{
-    ui->listWidget_rs->clear();
-    ui->listWidget_rs->addItems(rl);
-}
-
-void BFBC2Widget::slotCommandMapListList(QStringList ml)
-{
-    // Sets currentmaps.
-    QStringList mapNames;
-
-    for (int i = 0; i < ml.size(); i++) {
-        mapNames << getMapName(ml.at(i), currentGamemode);
-    }
-
-    ui->listWidget_ml_currentmaps->blockSignals(true);
-    ui->listWidget_ml_currentmaps->clear();
-    ui->listWidget_ml_currentmaps->blockSignals(false);
-    ui->listWidget_ml_currentmaps->addItems(mapNames);
-    // Sets nextMap
-
-    if (nextLevelIndex >=0 && ml.count() > 0) {
-        QString nextMapPath = ml.at(nextLevelIndex);
-        ui->label_ml_nextmap_name->setText(getMapName(nextMapPath, currentGamemode));
-        ui->label_ml_nextmap_image->setPixmap(QPixmap(getMapImage(nextMapPath, currentGamemode)));
-    }
-}
-
-void BFBC2Widget::slotCommandMapListNextLevelIndex(int &nm)
-{
-    nextLevelIndex = nm;
-}
-
-void BFBC2Widget::slotCommandVarsServerName(const QString &sn)
-{
-    ui->lineEdit_op_so_servername->setText(sn);
-}
-
-void BFBC2Widget::slotCommandVarsServerDescription(const QString &sd)
-{
-    ui->lineEdit_op_so_serverdescription->setText(sd);
-}
-
-void BFBC2Widget::slotCommandVarsBannerUrl(const QString &bu)
-{
-    ui->lineEdit_op_so_bannerurl->setText(bu);
-    ui->label_op_so_bannerurl_image->setPixmap(QPixmap(bu));
 }
 
 void BFBC2Widget::setMapList(const QString &gamemode)

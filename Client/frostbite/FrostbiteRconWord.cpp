@@ -41,6 +41,11 @@ FrostbiteRconWord::FrostbiteRconWord(const FrostbiteRconWord &word) : wordSize(0
     }
 }
 
+FrostbiteRconWord::~FrostbiteRconWord()
+{
+    clear();
+}
+
 FrostbiteRconWord &FrostbiteRconWord::operator = (const FrostbiteRconWord &word)
 {
     if (&word != this) {
@@ -89,7 +94,7 @@ void FrostbiteRconWord::loadString(const char* str)
     }
 }
 
-void FrostbiteRconWord::loadData(const char* data, quint32 size)
+void FrostbiteRconWord::loadData(const char* data, unsigned int size)
 {
     clear();
     wordTerminator = 0;
@@ -113,7 +118,4 @@ void FrostbiteRconWord::clear()
     wordTerminator = 0;
 }
 
-FrostbiteRconWord::~FrostbiteRconWord()
-{
-    clear();
-}
+

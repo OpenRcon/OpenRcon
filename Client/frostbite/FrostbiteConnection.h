@@ -36,8 +36,10 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    explicit FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent = 0);
+    explicit FrostbiteConnection(BFBC2CommandHandler *commandHandler, QObject *parent = 0);
     ~FrostbiteConnection();
+
+    BFBC2CommandHandler *commandHandler;
 
 public slots:
     void hostConnect(const QString &host, const int &port);
@@ -47,8 +49,6 @@ public slots:
     PlayerList getPlayerList();
 
 private:
-    FrostbiteCommandHandler *commandHandler;
-
     int packetReadState;
     char lastHeader[MIN_PACKET_SIZE];
     bool auth;

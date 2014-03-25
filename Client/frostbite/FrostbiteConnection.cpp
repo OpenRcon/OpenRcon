@@ -19,7 +19,7 @@
 
 #include "FrostbiteConnection.h"
 
-FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent) : Connection(parent), commandHandler(commandHandler), packetReadState(PacketReadingHeader), auth(false), nextPacketSeq(0)
+FrostbiteConnection::FrostbiteConnection(BFBC2CommandHandler *commandHandler, QObject *parent) : Connection(parent), packetReadState(PacketReadingHeader), auth(false), nextPacketSeq(0)
 {
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
@@ -91,7 +91,6 @@ bool FrostbiteConnection::isAuthenticated()
 
 void FrostbiteConnection::readyRead()
 {
-    qDebug() << "Data ready.";
     bool exit = false;
 
     while (!exit) {
@@ -120,7 +119,7 @@ void FrostbiteConnection::readyRead()
 
             if (tcpSocket->bytesAvailable() >= len - MIN_PACKET_SIZE) {
                 if (len >= MIN_PACKET_SIZE) {
-                    char * data = new char[len];
+                    char* data = new char[len];
                     memcpy(data, lastHeader, MIN_PACKET_SIZE);
                     if (tcpSocket->read(data + MIN_PACKET_SIZE, len - MIN_PACKET_SIZE) == len - MIN_PACKET_SIZE) {
                         QDataStream pstream(QByteArray(data, len));
@@ -169,7 +168,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                     QString command(lastSentPacket.getWord(0).getContent());
 
                     if (packet.getWordCount() > 0) {
-                        quint32 lastPacketWordCount= lastSentPacket.getWordCount();
+                        quint32 lastPacketWordCount = lastSentPacket.getWordCount();
                         QString messages = command + " ";
 
                         for (quint32 i = 1; i < lastPacketWordCount; i++) {
@@ -177,7 +176,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messages += " ";
                         }
 
-                        //commandHandler->actionLogMessage(2, QString("%1").arg(messages));
+                        commandHandler->eventOnDataSent(messages);
                         qDebug() << messages;
 
                         QString messager;
@@ -188,10 +187,11 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messager += " ";
                         }
 
-                        //commandHandler->actionLogMessage(3, QString("%1").arg(messager));
+
+                        commandHandler->eventOnDataReceived(messager);
                         qDebug() << messager;
 
-                        qobject_cast<BFBC2CommandHandler*>(commandHandler)->exec(command, packet, lastSentPacket, playerList);
+                        commandHandler->exec(command, packet, lastSentPacket, playerList);
                     }
                 }
             }
@@ -214,13 +214,8 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
             message += " ";
         }
 
-        //mCommandSignals->signalLogMessage("server_receive", QString("%1").arg(message));
-
-        if (commandHandler) {
-            qDebug() << "All ok here";
-        }
-
-        qobject_cast<BFBC2CommandHandler*>(commandHandler)->exec(command, packet, FrostbiteRconPacket(), playerList);
+        commandHandler->eventOnDataReceived(message);
+        commandHandler->exec(command, packet, FrostbiteRconPacket(), playerList);
     }
 }
 

@@ -28,13 +28,13 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
     levelsObject = 0;
 
     connect(con->commandHandler, SIGNAL(onRefresh()), this, SLOT(slotRefreshCommands()));
-    connect(con->commandHandler, SIGNAL(onIngameCommands(const QString&, const QString&)), this, SLOT(slotIngameCommands(const QString&, const QString&)));
     connect(con->commandHandler, SIGNAL(onStartConnection()), this, SLOT(slotStartConnection()));
     connect(con->commandHandler, SIGNAL(onGotSalt(const QByteArray&)), this, SLOT(slotGotSalt(const QByteArray&)));
     connect(con->commandHandler, SIGNAL(onAuthenticated()), this, SLOT(slotAuthenticated()));
 
     // Events
-    connect(con->commandHandler, SIGNAL(onEventOnSpawn(const QString&, const QString&)), this, SLOT(slotEventOnSpawn(const QString&, const QString&)));
+    connect(con->commandHandler, SIGNAL(onPlayerSpawn(const QString&, const QString&)), this, SLOT(slotEventOnSpawn(const QString&, const QString&)));
+    connect(con->commandHandler, SIGNAL(onPlayerChat(const QString&, const QString&)), this, SLOT(slotIngameCommands(const QString&, const QString&)));
 }
 
 BFBC2::~BFBC2()
@@ -72,21 +72,31 @@ void BFBC2::slotAuthenticated()
 
 void BFBC2::slotStartupCommands()
 {
-    con->sendCommand(QString("\"eventsEnabled\" \"true\""));
-    con->sendCommand(QString("\"version\""));
-    con->sendCommand(QString("\"serverInfo\""));
-    con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
-    con->sendCommand(QString("\"vars.textChatModerationMode\""));
-    con->sendCommand(QString("\"vars.textChatSpamTriggerCount\""));
-    con->sendCommand(QString("\"vars.textChatSpamDetectionTime\""));
-    con->sendCommand(QString("\"vars.textChatSpamCoolDownTime\""));
-    con->sendCommand(QString("\"mapList.nextLevelIndex\""));
-    con->sendCommand(QString("\"mapList.list\""));
-    con->sendCommand(QString("\"reservedSlots.list\""));
-    con->sendCommand(QString("\"banList.list\""));
-    con->sendCommand(QString("\"vars.serverName\""));
-    con->sendCommand(QString("\"vars.serverDescription\""));
-    con->sendCommand(QString("\"vars.bannerUrl\""));
+    QStringList commandList;
+    commandList.append("\"serverInfo\"");
+    commandList.append("\"admin.listPlayers\" \"all\"");
+
+    commandList.append("\"vars.serverName\"");
+    commandList.append("\"vars.serverDescription\"");
+    commandList.append("\"vars.bannerUrl\"");
+
+    commandList.append("\"eventsEnabled\" \"true\"");
+    commandList.append("\"version\"");
+
+    commandList.append("\"vars.textChatModerationMode\"");
+    commandList.append("\"vars.textChatSpamTriggerCount\"");
+    commandList.append("\"vars.textChatSpamDetectionTime\"");
+    commandList.append("\"vars.textChatSpamCoolDownTime\"");
+
+    commandList.append("\"mapList.list\"");
+    commandList.append("\"mapList.nextLevelIndex\"");
+
+    commandList.append("\"banList.list\"");
+    commandList.append("\"reservedSlots.list\"");
+
+    foreach (QString command, commandList) {
+        con->sendCommand(command);
+    }
 }
 
 void BFBC2::slotRefreshCommands()

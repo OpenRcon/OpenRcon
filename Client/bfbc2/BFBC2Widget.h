@@ -59,10 +59,31 @@ private:
     void readSettings();
     void writeSettings();
 
-private slots:
-    void slotLogMessage(const int &type, const QString &message);
-    void slotLogEvent(const QString &event, const QString &message);
+    void logMessage(const int &type, const QString &message);
 
+private slots:
+    void slotOnDataSent(const QString &command);
+    void slotOnDataReceived(const QString &response);
+
+    /* Event signals */
+    void slotOnPlayerJoin(const QString &player);
+    void slotOnPlayerAuthenticated(const QString &player, const QString &guid);
+    void slotOnPlayerLeave(const QString &player, const QString &info);
+    void slotOnPlayerSpawn(const QString &player, const QString &kit, const QStringList &weapons);
+    void slotOnPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
+    void slotOnPlayerChat(const QString &player, const QString &message, const QString &target);
+    void slotOnPlayerKicked(const QString &player, const QString &reason);
+    void slotOnPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
+    void slotOnPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
+    void slotOnPunkBusterMessage(const QString &message);
+    void slotOnPunkBusterVersion(const QString &version);
+    void slotOnServerLoadingLevel(const QString &levelName, const int &roundsPlayed, const int &roundsTotal);
+    void slotOnServerLevelStarted();
+    void slotOnServerRoundOver(const int &winningTeamId);
+    void slotOnServerRoundOverPlayers(const QString &playerInfo);
+    void slotOnServerRoundOverTeamScores(const QString &teamScores);
+
+    // TODO: Look over this.
     void slotMovePlayerTeam();
     void slotPlayerListChange();
     void slotAddMapToServer(const QString &map);
@@ -73,20 +94,23 @@ private slots:
     void playerListUpdate(int);
 
     // Commands
-    void slotCommandServerInfo(QStringList si);
-    void slotCommandVarsTextChatModerationMode(const QString &tcmm);
-    void slotCommandVarsTextChatSpamTriggerCount(const QString &tcstc);
-    void slotCommandVarsTextChatSpamDetectionTime(const QString &tcsdt);
-    void slotCommandVarsTextChatSpamCoolDownTime(const QString &tcscdt);
-    void slotCommandBanListList(QStringList bl);
-    void slotCommandReservedSlotsList(QStringList rl);
-    void slotCommandMapListList(QStringList ml);
+    void slotServerInfoCommand(const QStringList &serverInfo);
 
-    void slotCommandMapListNextLevelIndex(int &nm);
-    void slotCommandVarsServerName(const QString &sn);
-    void slotCommandVarsServerDescription(const QString &sd);
-    void slotCommandVarsBannerUrl(const QString &bu);
+    void slotVarsServerNameCommand(const QString &serverName);
+    void slotVarsServerDescriptionCommand(const QString &serverDescription);
+    void slotVarsBannerUrlCommand(const QString &bannerUrl);
 
+    void slotMapListListCommand(const QStringList &mapList);
+    void slotMapListNextLevelIndexCommand(const int &index);
+    void slotBanListListCommand(const QStringList &banList);
+    void slotReservedSlotsListCommand(const QStringList &reservedSlotList);
+
+    void slotVarsTextChatModerationModeCommand(const QString &mode);
+    void slotVarsTextChatSpamTriggerCountCommand(const int &count);
+    void slotVarsTextChatSpamDetectionTimeCommand(const int &count);
+    void slotVarsTextChatSpamCoolDownTimeCommand(const int &count);
+
+    // Other stuff.
     void setMapList(const QString &gamemode);
 
     void treeWidget_pl_customContextMenuRequested(QPoint pos);
@@ -149,6 +173,7 @@ private slots:
     void on_checkbox_killcam_clicked();
     void on_checkbox_3rd_person_vehicle_cameras_clicked();
     void on_checkbox_minimap_clicked();
+
 };
 
 #endif // BFBC2WIDGET_H

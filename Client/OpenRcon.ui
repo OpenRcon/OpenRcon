@@ -127,7 +127,6 @@
      <string>Application</string>
     </property>
     <addaction name="actionServermanager"/>
-    <addaction name="actionPluginmanager"/>
     <addaction name="actionDisconnect"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>

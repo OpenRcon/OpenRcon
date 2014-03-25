@@ -31,26 +31,23 @@ class FrostbiteRconPacket : QObject
     Q_OBJECT
 
 public:
-    enum { ServerOrigin = 0, ClientOrigin = 1 };
-    enum { Request = 0, Response = 1 };
-
     explicit FrostbiteRconPacket(QObject *parent = 0);
-    ~FrostbiteRconPacket();
-
-    FrostbiteRconPacket(int origin, int type, quint32 initseq = 0);
+    FrostbiteRconPacket(int origin, int type, unsigned int initseq = 0);
     FrostbiteRconPacket(const FrostbiteRconPacket &packet);
     FrostbiteRconPacket &operator= (const FrostbiteRconPacket &packet);
+    ~FrostbiteRconPacket();
+
     void packWord(const FrostbiteRconWord &word);
-    quint32 getSequence() const;
-    quint32 getSequenceNum() const;
-    quint32 getSize() const;
-    quint32 getFullSize() const;
-    quint32 getWordCount() const;
+    unsigned int getSequence() const;
+    unsigned int getSequenceNum() const;
+    unsigned int getSize() const;
+    unsigned int getFullSize() const;
+    unsigned int getWordCount() const;
     bool isResponse() const;
     bool isRequest() const;
-    const FrostbiteRconWord &getWord(quint32 i) const;
-    void setSequence(quint32 seq);
-    void setSequenceNum(quint32 seq);
+    const FrostbiteRconWord &getWord(unsigned int i) const;
+    void setSequence(unsigned int seq);
+    void setSequenceNum(unsigned int seq);
     void clear();
 
     // Packet
@@ -63,14 +60,23 @@ public:
         transmission)
     */
 
-    quint32 packetSequence;
+    unsigned int packetSequence;
 
-    quint32 packetSize; // Total size of packet, in bytes
-    quint32 packetWordCount; // Number of words following the packet header
+    unsigned int packetSize; // Total size of packet, in bytes
+    unsigned int packetWordCount; // Number of words following the packet header
     //RconWord packetWords[MAX_WORDS];
 
     QVector<FrostbiteRconWord> packetWords;
 
+    enum {
+        ServerOrigin,
+        ClientOrigin
+    };
+
+    enum {
+        Request,
+        Response
+    };
 };
 
 inline QDataStream &operator >> (QDataStream &in, FrostbiteRconPacket &packet)

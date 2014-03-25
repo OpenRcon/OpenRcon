@@ -24,7 +24,7 @@ FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent), pac
 
 }
 
-FrostbiteRconPacket::FrostbiteRconPacket(int origin, int type, quint32 initseq) : packetSequence(initseq & 0x3FFFFFFF), packetSize(0), packetWordCount(0)
+FrostbiteRconPacket::FrostbiteRconPacket(int origin, int type, unsigned int initseq) : packetSequence(initseq & 0x3FFFFFFF), packetSize(0), packetWordCount(0)
 {
     if (origin == ClientOrigin) {
         packetSequence |= 0x80000000;
@@ -39,9 +39,14 @@ FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet) : pa
 {
     packetSequence = packet.getSequence();
 
-    for (quint32 i = 0; i < packet.getWordCount(); i++) {
+    for (unsigned int i = 0; i < packet.getWordCount(); i++) {
         packWord(packet.getWord(i));
     }
+}
+
+FrostbiteRconPacket::~FrostbiteRconPacket()
+{
+    clear();
 }
 
 bool FrostbiteRconPacket::isResponse() const
@@ -49,6 +54,7 @@ bool FrostbiteRconPacket::isResponse() const
     if (packetSequence & 0x40000000) {
         return true;
     }
+
     return false;
 }
 
@@ -57,7 +63,7 @@ bool FrostbiteRconPacket::isRequest() const
     return !isResponse();
 }
 
-quint32 FrostbiteRconPacket::getSequenceNum() const
+unsigned int FrostbiteRconPacket::getSequenceNum() const
 {
     return packetSequence & 0x3FFFFFFF;
 }
@@ -69,27 +75,27 @@ void FrostbiteRconPacket::packWord(const FrostbiteRconWord &word)
     packetWords.push_back(word);
 }
 
-quint32 FrostbiteRconPacket::getSequence() const
+unsigned int FrostbiteRconPacket::getSequence() const
 {
     return packetSequence;
 }
 
-quint32 FrostbiteRconPacket::getSize() const
+unsigned int FrostbiteRconPacket::getSize() const
 {
     return packetSize;
 }
 
-quint32 FrostbiteRconPacket::getFullSize() const
+unsigned int FrostbiteRconPacket::getFullSize() const
 {
     return 4 + 4 + 4 + packetSize;
 }
 
-quint32 FrostbiteRconPacket::getWordCount() const
+unsigned int FrostbiteRconPacket::getWordCount() const
 {
     return packetWordCount;
 }
 
-const FrostbiteRconWord& FrostbiteRconPacket::getWord(quint32 i) const
+const FrostbiteRconWord& FrostbiteRconPacket::getWord(unsigned int i) const
 {
     if (i < packetWordCount) {
         return packetWords[i];
@@ -99,12 +105,12 @@ const FrostbiteRconWord& FrostbiteRconPacket::getWord(quint32 i) const
     return *((FrostbiteRconWord *) 0);
 }
 
-void FrostbiteRconPacket::setSequence(quint32 seq)
+void FrostbiteRconPacket::setSequence(unsigned int seq)
 {
     packetSequence = seq;
 }
 
-void FrostbiteRconPacket::setSequenceNum(quint32 seq)
+void FrostbiteRconPacket::setSequenceNum(unsigned int seq)
 {
     packetSequence = (packetSequence & 0xC0000000) | (seq & 0x3FFFFFFF);
 }
@@ -122,7 +128,8 @@ FrostbiteRconPacket &FrostbiteRconPacket::operator= (const FrostbiteRconPacket &
     if (&packet != this) {
         clear();
         packetSequence = packet.getSequence();
-        for (quint32 i = 0; i < packet.getWordCount(); i++) {
+
+        for (unsigned int i = 0; i < packet.getWordCount(); i++) {
             packWord(packet.getWord(i));
         }
     } else {
@@ -130,9 +137,4 @@ FrostbiteRconPacket &FrostbiteRconPacket::operator= (const FrostbiteRconPacket &
     }
 
     return *this;
-}
-
-FrostbiteRconPacket::~FrostbiteRconPacket()
-{
-    clear();
 }
