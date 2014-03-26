@@ -31,7 +31,6 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
 
     // Commands
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    //connect(con->commandHandler, SIGNAL(onRefresh()), this, SLOT(slotRefreshCommands()));
 
     // Events
     connect(con->commandHandler, SIGNAL(onPlayerChat(const QString&, const QString&, const QString&)), this, SLOT(ingameCommands(const QString&, const QString&)));

@@ -87,15 +87,6 @@ private slots:
     void onServerRoundOverPlayers(const QString &playerInfo);
     void onServerRoundOverTeamScores(const QString &teamScores);
 
-    // TODO: Look over this.
-    void slotMovePlayerTeam();
-    void slotAddMapToServer(const QString &map);
-    void slotRemoveMapFromServer(const QString &map);
-    void slotChangePlayerTeam(const QString &player, const QString &alTeam);
-    void refreshPlayerList();
-    void blockPlayerList();
-    void playerListUpdate(int);
-
     // Commands
     void onServerInfoCommand(const QStringList &serverInfo);
     void onAdminListPlayersCommand(const PlayerList &playerList);
@@ -115,12 +106,41 @@ private slots:
     QString getSquadName(const int &id);
 
     void startupCommands();
+    // TODO: Look over this.
+    void slotMovePlayerTeam();
+    void slotAddMapToServer(const QString &map);
+    void slotRemoveMapFromServer(const QString &map);
+    void slotChangePlayerTeam(const QString &player, const QString &alTeam);
+    void refreshPlayerList();
+    void playerListUpdate(int);
 
     // Other stuff.
     void setMapList(const QString &gamemode);
 
-    void treeWidget_pl_customContextMenuRequested(QPoint pos);
+    /* User Interface */
 
+    /* Options Tab */
+
+    /* Server Options */
+    void lineEdit_op_so_serverName_editingFinished();
+    void lineEdit_op_so_serverDescription_editingFinished();
+    void lineEdit_op_so_bannerUrl_editingFinished();
+
+    /* Game Options */
+    void checkbox_op_go_hardcore_clicked();
+    void checkbox_op_go_crossHair_clicked();
+    void checkbox_op_go_teamBalance_clicked();
+    void checkbox_op_go_3dSpotting_clicked();
+    void checkbox_op_go_friendlyFire_clicked();
+    void checkbox_op_go_miniMapSpotting_clicked();
+    void checkbox_op_go_killCam_clicked();
+    void checkbox_op_go_thirdPersonVehicleCameras_clicked();
+    void checkbox_op_go_miniMap_clicked();
+
+    /* Gameplay Options */
+    void on_spinBox_op_gpo_idleTimeout_editingFinished();
+
+    void treeWidget_pl_customContextMenuRequested(QPoint pos);
     void action_pl_sendmessage_triggered();
     void action_pl_textchatmoderation_muted_triggered();
     void action_pl_textchatmoderation_normal_triggered();
@@ -142,10 +162,6 @@ private slots:
     void action_rs_remove_triggered();
     void listWidget_ic_customContextMenuRequested(QPoint);
     void action_ic_remove_triggered();
-
-    void on_pushButton_op_so_servername_apply_clicked();
-    void on_pushButton_op_so_serverdescription_apply_clicked();
-    void on_pushButton_op_so_bannerurl_apply_clicked();
     void on_pushButton_so_tcm_spamtriggercount_clicked();
     void on_pushButton_so_tcm_spamdetectiontime_clicked();
     void on_pushButton_so_tcm_spamcooldowntime_clicked();
@@ -170,18 +186,6 @@ private slots:
     void on_radioButton_op_tcm_moderated_clicked();
     void on_radioButton_op_tcm_muted_clicked();
 
-    void on_checkbox_hardcore_mode_clicked();
-    void on_checkbox_crosshair_clicked();
-    void on_checkbox_team_auto_balance_clicked();
-    void on_checkbox_3D_spotting_clicked();
-    void on_checkbox_friendly_fire_clicked();
-    void on_checkbox_minimap_spotting_clicked();
-    void on_checkbox_killcam_clicked();
-    void on_checkbox_3rd_person_vehicle_cameras_clicked();
-    void on_checkbox_minimap_clicked();
-
-    /* Options Tab */
-    void on_spinBox_op_gp_idleTimeout_editingFinished();
 };
 
 #endif // BFBC2WIDGET_H

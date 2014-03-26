@@ -353,7 +353,7 @@
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>1</number>
          </property>
          <property name="usesScrollButtons">
           <bool>true</bool>
@@ -371,44 +371,11 @@
           <attribute name="title">
            <string>Server Options</string>
           </attribute>
-          <layout class="QGridLayout" name="gridLayout_6">
-           <item row="2" column="1">
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="3" column="0" colspan="2">
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="0">
-            <layout class="QGridLayout" name="gridLayout_2">
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit_op_so_servername">
-               <property name="locale">
-                <locale language="English" country="UnitedStates"/>
-               </property>
-              </widget>
-             </item>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <layout class="QFormLayout" name="formLayout_2">
              <item row="0" column="0">
-              <widget class="QLabel" name="label_op_so_servername_text">
+              <widget class="QLabel" name="label_op_so_serverName">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -417,15 +384,15 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="2">
-              <widget class="QPushButton" name="pushButton_op_so_servername_apply">
-               <property name="text">
-                <string>Apply</string>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEdit_op_so_serverName">
+               <property name="locale">
+                <locale language="English" country="UnitedStates"/>
                </property>
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_op_so_serverdescription_text">
+              <widget class="QLabel" name="label_op_so_serverDescription">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -435,21 +402,14 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit_op_so_serverdescription">
+              <widget class="QLineEdit" name="lineEdit_op_so_serverDescription">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
               </widget>
              </item>
-             <item row="1" column="2">
-              <widget class="QPushButton" name="pushButton_op_so_serverdescription_apply">
-               <property name="text">
-                <string>Apply</string>
-               </property>
-              </widget>
-             </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="label_op_so_bannerurl_text">
+              <widget class="QLabel" name="label_op_so_bannerUrl">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -459,28 +419,27 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QLineEdit" name="lineEdit_op_so_bannerurl">
+              <widget class="QLineEdit" name="lineEdit_op_so_bannerUrl">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
               </widget>
              </item>
-             <item row="2" column="2">
-              <widget class="QPushButton" name="pushButton_op_so_bannerurl_apply">
-               <property name="text">
-                <string>Apply</string>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_op_so_adminPassword">
+               <property name="locale">
+                <locale language="English" country="UnitedStates"/>
                </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLabel" name="label_op_so_bannerurl_image">
                <property name="text">
-                <string/>
+                <string>Admin password:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
              <item row="4" column="1">
-              <widget class="QLineEdit" name="lineEdit_op_so_adminpassword">
+              <widget class="QLineEdit" name="lineEdit_op_so_adminPassword">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -498,21 +457,8 @@
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="label_op_so_adminpassword">
-               <property name="locale">
-                <locale language="English" country="UnitedStates"/>
-               </property>
-               <property name="text">
-                <string>Admin password:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
              <item row="5" column="0">
-              <widget class="QLabel" name="label_so_gamepassword">
+              <widget class="QLabel" name="label_so_gamePassword">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -525,7 +471,7 @@
               </widget>
              </item>
              <item row="5" column="1">
-              <widget class="QLineEdit" name="lineEdit_op_so_gamepassword">
+              <widget class="QLineEdit" name="lineEdit_op_so_gamePassword">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -546,7 +492,69 @@
                </property>
               </widget>
              </item>
-             <item row="7" column="0">
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_so_playerLimit">
+               <property name="locale">
+                <locale language="English" country="UnitedStates"/>
+               </property>
+               <property name="text">
+                <string>Player limit:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QSpinBox" name="spinBox_op_so_playerLimit">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="locale">
+                <locale language="English" country="UnitedStates"/>
+               </property>
+               <property name="maximum">
+                <number>32</number>
+               </property>
+               <property name="value">
+                <number>32</number>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="label_op_so_bannerImage">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="1">
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>502</width>
+               <height>88</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <item>
               <widget class="QCheckBox" name="checkBox_op_so_ranked">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
@@ -556,7 +564,7 @@
                </property>
               </widget>
              </item>
-             <item row="8" column="0">
+             <item>
               <widget class="QCheckBox" name="checkBox_op_so_punkbuster">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
@@ -566,7 +574,7 @@
                </property>
               </widget>
              </item>
-             <item row="9" column="0">
+             <item>
               <widget class="QCheckBox" name="checkBox_op_so_profanityFilter">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
@@ -576,62 +584,20 @@
                </property>
               </widget>
              </item>
-             <item row="6" column="0" colspan="3">
-              <layout class="QHBoxLayout" name="horizontalLayout_3">
-               <item>
-                <widget class="QLabel" name="label_so_playerlimit">
-                 <property name="locale">
-                  <locale language="English" country="UnitedStates"/>
-                 </property>
-                 <property name="text">
-                  <string>Player limit:</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QSpinBox" name="spinBox_op_so_playerlimit">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="locale">
-                  <locale language="English" country="UnitedStates"/>
-                 </property>
-                 <property name="maximum">
-                  <number>32</number>
-                 </property>
-                 <property name="value">
-                  <number>32</number>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_4">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
             </layout>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -649,17 +615,17 @@
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
              <item row="0" column="0">
-              <widget class="QCheckBox" name="checkBox_hardcore_mode">
+              <widget class="QCheckBox" name="checkBox_op_go_hardcore">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
                <property name="text">
-                <string>Hardcore mode</string>
+                <string>Hardcore</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QCheckBox" name="checkBox_crosshair">
+              <widget class="QCheckBox" name="checkBox_op_go_crossHair">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -669,17 +635,17 @@
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QCheckBox" name="checkBox_auto_balance">
+              <widget class="QCheckBox" name="checkBox_op_go_teamBalance">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
                <property name="text">
-                <string>Team auto-balance</string>
+                <string>Team balance</string>
                </property>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QCheckBox" name="checkBox_3d_spotting">
+              <widget class="QCheckBox" name="checkBox_op_go_3dSpotting">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -689,7 +655,7 @@
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QCheckBox" name="checkBox_friendly_fire">
+              <widget class="QCheckBox" name="checkBox_op_go_friendlyFire">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -699,7 +665,7 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QCheckBox" name="checkBox_minimap_spotting">
+              <widget class="QCheckBox" name="checkBox_op_go_miniMapSpotting">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -709,7 +675,7 @@
               </widget>
              </item>
              <item row="3" column="0">
-              <widget class="QCheckBox" name="checkBox_kill_cam">
+              <widget class="QCheckBox" name="checkBox_op_go_killCam">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -719,7 +685,7 @@
               </widget>
              </item>
              <item row="3" column="1">
-              <widget class="QCheckBox" name="checkBox_3rd_person_vehicle_cameras">
+              <widget class="QCheckBox" name="checkBox_op_go_thirdPersonVehicleCameras">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -729,7 +695,7 @@
               </widget>
              </item>
              <item row="4" column="0">
-              <widget class="QCheckBox" name="checkBox_minimap">
+              <widget class="QCheckBox" name="checkBox_op_go_miniMap">
                <property name="locale">
                 <locale language="English" country="UnitedStates"/>
                </property>
@@ -741,7 +707,7 @@
              <item row="4" column="1">
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QSpinBox" name="spinBox_op_go_ranklimit">
+                <widget class="QSpinBox" name="spinBox_op_go_rankLimit">
                  <property name="locale">
                   <locale language="English" country="UnitedStates"/>
                  </property>
@@ -751,7 +717,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="label_op_go_ranklimit">
+                <widget class="QLabel" name="label_op_go_rankLimit">
                  <property name="locale">
                   <locale language="English" country="UnitedStates"/>
                  </property>
@@ -973,50 +939,37 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="tab_gameplay">
+         <widget class="QWidget" name="tab_op_gpo">
           <attribute name="title">
-           <string>Gameplay</string>
+           <string>Gameplay Options</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_10">
-           <item row="0" column="1">
-            <spacer name="horizontalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
            <item row="0" column="0">
             <layout class="QFormLayout" name="formLayout">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+             </property>
              <item row="0" column="0">
-              <widget class="QLabel" name="label_op_gp_idleTimeout">
+              <widget class="QLabel" name="label_op_gpo_idleTimeout">
                <property name="text">
-                <string>Idle kick:</string>
+                <string>Idle timeout:</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QSpinBox" name="spinBox_op_gp_idleTimeout"/>
+              <widget class="QSpinBox" name="spinBox_op_gpo_idleTimeout"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_op_gpo_teamKillCountForKick">
+               <property name="text">
+                <string>Number of teamkills before kick:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QSpinBox" name="spinBox_op_gpo_teamKillCountForKick"/>
              </item>
             </layout>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <spacer name="verticalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
