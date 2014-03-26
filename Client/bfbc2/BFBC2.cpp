@@ -87,9 +87,9 @@ void BFBC2::ingameCommands(const QString &player, const QString &cmd)
         } else if (command == "!nextmap") {
             con->sendCommand("\"admin.runNextLevel\"");
         } else if (command == "!yell") {
-            sendYellMessage(cmdList.at(1), "5", "all", 0, 0);
+            sendYellMessage(cmdList.at(1), 5, "all");
         } else if (command == "!say") {
-            sendSayMessage(cmdList.at(1), "all", 0, 0);
+            sendSayMessage(cmdList.at(1), "all");
         } else if (command == "!move") { // Not finished.
             //con->sendCommand(QString("admin.movePlayer %1").arg(value));
         }
@@ -135,25 +135,21 @@ QString BFBC2::getMapImage(const QString &mapPath, const QString &gamemode)
     return QString();
 }
 
-void BFBC2::sendSayMessage(const QString &msg, const QString &group, const QString &target1, const QString &target2)
+void BFBC2::sendSayMessage(const QString &msg, const QString &group)
 {
-    if (group == "all") {
-        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(msg, group));
-    } else if (group == "team" || "player") {
-        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(msg, group, target1));
-    } else if (group == "squad") {
-        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(msg, group, target1, target2));
+    if (!group.isEmpty()) {
+        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(msg).arg(group));
+    } else {
+        con->sendCommand(QString("\"admin.say\" \"%1\" \"all\"").arg(msg));
     }
 }
 
-void BFBC2::sendYellMessage(const QString &msg, const QString &duration, const QString &group, const QString &target1, const QString &target2)
+void BFBC2::sendYellMessage(const QString &message, const int &duration, const QString &group)
 {
-    if (group == "all") {
-        con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(msg, duration, group));
-    } else if (group == "team" || "player") {
-        con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(msg, duration, group, target1));
-    } else if (group == "squad") {
-        con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\" \"%5\"").arg(msg, duration, group, target1, target2));
+    if (!group.isEmpty()) {
+        con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(group));
+    } else {
+        con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"all\"").arg(message).arg(duration));
     }
 }
 

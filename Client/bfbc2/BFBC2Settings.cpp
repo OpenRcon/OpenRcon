@@ -76,4 +76,26 @@ void ServerListDialog::saveServerEntries(QList<ServerEntry>& entries)
         settings->endArray();
     settings->endGroup();
 }
- */
+
+
+void BFBC2Widget::readSettings()
+{
+    QStringList users;
+    settings->beginGroup(SETTINGS_INGAMECOMMANDS);
+        int size = settings->beginReadArray(SETTINGS_INGAMECOMMANDS_USERS);
+            for (int i = 0; i < size; i++) {
+                settings->setArrayIndex(i);
+                    users << settings->value("User").toString();
+            }
+        settings->endArray();
+    settings->endGroup();
+
+    qDebug() << "readSettings() got this:" << users;
+    ui->listWidget_ic->addItems(users);
+}
+
+void BFBC2Widget::writeSettings()
+{
+
+}
+*/

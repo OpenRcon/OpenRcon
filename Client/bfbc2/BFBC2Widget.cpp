@@ -5,6 +5,7 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     ui->setupUi(this);
 
     ui->label_op_so_bannerImage->hide();
+    ui->spinBox_ch_duration->hide();
 
     action_pl_sendmessage = new QAction(tr("Send message"), this);
     action_pl_stats = new QAction(tr("Stats"), this);
@@ -58,9 +59,6 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     ui->tableWidget_bl->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->listWidget_rs->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->listWidget_ic->setContextMenuPolicy(Qt::CustomContextMenu);
-
-    // Hide the comboBox_ch_duration
-    ui->comboBox_ch_duration->hide();
 
     // Map squad names to id.
     squadNameList.append("Alpha");
@@ -311,30 +309,6 @@ BFBC2Widget::~BFBC2Widget()
     delete ui;
 }
 
-// TODO: Move this to BFBC2Settings
-void BFBC2Widget::readSettings()
-{
-    QStringList users;
-    settings->beginGroup(SETTINGS_INGAMECOMMANDS);
-        int size = settings->beginReadArray(SETTINGS_INGAMECOMMANDS_USERS);
-            for (int i = 0; i < size; i++) {
-                settings->setArrayIndex(i);
-                    users << settings->value("User").toString();
-            }
-        settings->endArray();
-    settings->endGroup();
-
-    qDebug() << "readSettings() got this:" << users;
-    ui->listWidget_ic->addItems(users);
-
-
-}
-
-void BFBC2Widget::writeSettings()
-{
-
-}
-
 void BFBC2Widget::logMessage(const int &type, const QString &message)
 {
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
@@ -354,6 +328,7 @@ void BFBC2Widget::logMessage(const int &type, const QString &message)
     }
 }
 
+/* Events */
 void BFBC2Widget::onDataSent(const QString &command)
 {
     logMessage(2, command);
@@ -375,7 +350,6 @@ void BFBC2Widget::onAuthenticated()
     commandRefreshTimer->start(10000);
 }
 
-/* Events */
 void BFBC2Widget::onPlayerJoin(const QString &player)
 {
     logMessage(0, tr("Player <b>%1</b> joined the game.").arg(player));
@@ -544,16 +518,16 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     QMap<QString, QString> teamItems;
     QMap<QString, QTreeWidgetItem *> playerItems;
 
-    foreach (PlayerListItem playerItem, playerList) {
+    foreach (PlayerListItem player, playerList) {
         QStringList playerInfo;
-        QString teamId = playerItem["teamId"];
-        QString clanTag = playerItem["clanTag"];
-        QString playerName = playerItem["name"];
-        QString kills = playerItem["kills"];
-        QString deaths = playerItem["deaths"];
-        QString score = playerItem["score"];
-        QString ping = playerItem["ping"];
-        QString guid = playerItem["guid"];
+        QString teamId = player.value("teamId");
+        QString clanTag = player.value("clanTag");
+        QString playerName = player.value("name");
+        QString kills = player.value("kills");
+        QString deaths = player.value("deaths");
+        QString score = player.value("score");
+        QString ping = player.value("ping");
+        QString guid = player.value("guid");
 
         playerInfo.append(clanTag);
         playerInfo.append(playerName);
@@ -682,69 +656,6 @@ void BFBC2Widget::onVarsIdleTimeoutCommand(const int &seconds)
     ui->spinBox_op_gpo_idleTimeout->setValue(seconds);
 }
 
-QString BFBC2Widget::getSquadName(const int &id)
-{
-    return squadNameList.at(id - 1);
-}
-
-void BFBC2Widget::startupCommands() {
-    QStringList commandList;
-    commandList.append("\"serverInfo\"");
-    commandList.append("\"admin.listPlayers\" \"all\"");
-
-    commandList.append("\"vars.serverName\"");
-    commandList.append("\"vars.serverDescription\"");
-    commandList.append("\"vars.bannerUrl\"");
-
-    commandList.append("\"vars.idleTimeout\"");
-
-    commandList.append("\"eventsEnabled\" \"true\"");
-    commandList.append("\"version\"");
-
-    commandList.append("\"vars.textChatModerationMode\"");
-    commandList.append("\"vars.textChatSpamTriggerCount\"");
-    commandList.append("\"vars.textChatSpamDetectionTime\"");
-    commandList.append("\"vars.textChatSpamCoolDownTime\"");
-
-    commandList.append("\"mapList.list\"");
-    commandList.append("\"mapList.nextLevelIndex\"");
-
-    commandList.append("\"banList.list\"");
-    commandList.append("\"reservedSlots.list\"");
-
-    foreach (QString command, commandList) {
-        con->sendCommand(command);
-    }
-}
-
-
-
-void BFBC2Widget::slotMovePlayerTeam()
-{
-    QAction *team = qobject_cast<QAction *>(sender());
-    if (team) {
-        QString altTeam = "1";
-        QTreeWidgetItem *player = ui->treeWidget_pl->currentItem();
-        if (player->data(0, Qt::UserRole) == "1") {
-            altTeam = "2";
-        }
-
-        movePlayer(player->text(1), altTeam, "0", "true");
-        con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
-    }
-}
-
-void BFBC2Widget::setMapList(const QString &gamemode)
-{
-    int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
-
-    if(gamemodeIndex != -1) {
-        QStringList mapNames = levelsObject->levels().at(gamemodeIndex)->mapNames();
-        ui->listWidget_ml_avaliablemaps->clear();
-        ui->listWidget_ml_avaliablemaps->addItems(mapNames);
-    }
-}
-
 // Player
 void BFBC2Widget::treeWidget_pl_customContextMenuRequested(QPoint pos)
 {
@@ -770,7 +681,7 @@ void BFBC2Widget::action_pl_sendmessage_triggered()
     QString msg = QInputDialog::getText(this, tr("Send message"), tr("Message:"), QLineEdit::Normal, 0, &ok);
 
     if (ok && !msg.isEmpty()) {
-        sendSayMessage(msg, "player", player, 0);
+        sendSayMessage(msg, player);
     }
 }
 
@@ -1114,93 +1025,6 @@ void BFBC2Widget::on_pushButton_ml_clear_clicked()
     con->sendCommand("\"mapList.clear\"");
 }
 
-void BFBC2Widget::slotAddMapToServer(const QString &mapName)
-{
-    Q_UNUSED(mapName);
-
-    /*
-    mapList.load Load list of map names from file
-    mapList.save Save maplist to file
-    mapList.list [rounds] Retrieve current maplist
-    mapList.clear Clears maplist
-    mapList.remove <index> Remove map from list
-    mapList.append <name, rounds> Add map with name <name> to end of maplist
-    mapList.insert <index, name, rounds> Add map with name at the specified index to the maplist
-    */
-
-
-    // get game mode from combo box
-    int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
-    int ret = 0;
-    if (currentGamemode != gamemodes[gameModeIndex])
-    {
-        commandRefreshTimer->blockSignals(true);
-        QMessageBox msgBox;
-        msgBox.setText("The gamemode selected is not the current gamemode on the server, this option will delete the maplist and change the gamemode on the server. Are you sure you want to continue?");
-        msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-        ret = msgBox.exec();
-
-        if (ret == QMessageBox::Yes)
-        {
-            con->sendCommand(QString("\"admin.setPlaylist\" \"%1\"").arg(gamemodes[gameModeIndex]));
-            con->sendCommand("\"mapList.clear\"");
-
-        }
-        else
-        {
-            delete ui->listWidget_ml_currentmaps->takeItem(ui->listWidget_ml_currentmaps->count()-1);
-        }
-    }
-    commandRefreshTimer->blockSignals(false);
-    // get a list of map mods and map names and select all map names with a particular mod
-    QStringList mapNames = levelsObject->levels().at(gameModeIndex)->mapNames();
-    QStringList mapPaths = levelsObject->levels().at(gameModeIndex)->mapPaths();
-
-    // find map name and map path for selected map
-    int avaliableMapIndex = mapNames.indexOf(mapName);
-    QString mapPath = mapPaths.at(avaliableMapIndex);
-
-    // get the amount of rounds from combo box
-    int rounds = ui->spinBox_ml_rounds->value();
-
-    // append the map to the server map list
-    con->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(mapPath).arg(rounds));
-
-
-    if (ret == QMessageBox::Yes)
-    {
-
-        con->sendCommand("\"mapList.save\"");
-        con->sendCommand("\"mapList.nextLevelIndex\" \"0\"");
-        con->sendCommand("\"admin.runNextLevel\"");
-
-    }
-    con->sendCommand("\"mapList.list\" \"rounds\"");
-
-}
-
-void BFBC2Widget::slotRemoveMapFromServer(const QString &mapName)
-{
-    Q_UNUSED(mapName);
-
-    // find selected map in current map list
-    int removedMap = ui->listWidget_ml_currentmaps->currentRow();
-
-    //remove map from server map list
-    con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(removedMap));
-
-    // fix to stop the drag event from creating a duplicate map item in avaliable maps
-    int cRemovedMap = ui->listWidget_ml_avaliablemaps->count();
-    cRemovedMap--;
-    delete ui->listWidget_ml_avaliablemaps->takeItem(cRemovedMap);
-
-    // stop the current item changed signal from being emitted
-    ui->listWidget_ml_currentmaps->blockSignals(true);
-    delete ui->listWidget_ml_currentmaps->takeItem(removedMap);
-    ui->listWidget_ml_currentmaps->blockSignals(false);
-    con->sendCommand("\"mapList.list\" \"rounds\"");
-}
-
 void BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem* current)
 {
     // get map name
@@ -1299,6 +1123,39 @@ void BFBC2Widget::on_pushButton_rs_clear_clicked()
     con->sendCommand("\"reservedSlots.clear\"");
 }
 
+// Chat
+void BFBC2Widget::pushButton_ch_send_clicked()
+{
+    int type = ui->comboBox_ch_type->currentIndex();
+
+    QString message = ui->lineEdit_ch_input->text();
+    int duration = ui->spinBox_ch_duration->value();
+    QString group = ui->comboBox_ch_target->currentText().toLower();
+
+    switch (type) {
+    case 0:
+        sendSayMessage(message, group);
+        break;
+    case 1:
+        sendYellMessage(message, duration, group);
+        break;
+    }
+
+    ui->lineEdit_ch_input->clear();
+}
+
+void BFBC2Widget::comboBox_ch_type_currentIndexChanged(int index)
+{
+    switch (index) {
+    case 0:
+        ui->spinBox_ch_duration->hide();
+        break;
+    case 1:
+        ui->spinBox_ch_duration->show();
+        break;
+    }
+}
+
 // Ingame Commands
 void BFBC2Widget::listWidget_ic_customContextMenuRequested(QPoint pos)
 {
@@ -1336,35 +1193,6 @@ void BFBC2Widget::action_ic_remove_triggered()
     settings->endGroup();
 }
 
-// Chat
-
-void BFBC2Widget::on_pushButton_ch_send_clicked()
-{
-    int type = ui->comboBox_ch_type->currentIndex();
-
-    QString msg = ui->lineEdit_ch_input->text();
-    QString duration = ui->comboBox_ch_duration->currentText();
-    QString group = ui->comboBox_ch_target->currentText().toLower();
-
-    if (type == 0) {
-        sendSayMessage(msg, group, 0, 0);
-    } else if (type == 1) {
-        sendYellMessage(msg, duration, group, 0, 0);
-    }
-    ui->lineEdit_ch_input->clear();
-}
-
-void BFBC2Widget::comboBox_ch_type_currentIndexChanged(int index)
-{
-    switch (index) {
-    case 0:
-        ui->comboBox_ch_duration->hide();
-        break;
-    case 1:
-        ui->comboBox_ch_duration->show();
-        break;
-    }
-}
 
 // Console
 void BFBC2Widget::on_pushButton_co_co_send_clicked()
@@ -1377,7 +1205,6 @@ void BFBC2Widget::on_pushButton_co_co_send_clicked()
     }
 }
 
-// PunkBuster
 void BFBC2Widget::on_pushButton_co_pb_send_clicked()
 {
     QString cmd = ui->lineEdit_co_pb_input->text();
@@ -1385,6 +1212,41 @@ void BFBC2Widget::on_pushButton_co_pb_send_clicked()
     if (!cmd.isEmpty()) {
         con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(cmd));
         ui->lineEdit_co_pb_input->clear();
+    }
+}
+
+QString BFBC2Widget::getSquadName(const int &id)
+{
+    return squadNameList.at(id - 1);
+}
+
+void BFBC2Widget::startupCommands() {
+    QStringList commandList;
+    commandList.append("\"serverInfo\"");
+    commandList.append("\"admin.listPlayers\" \"all\"");
+
+    commandList.append("\"vars.serverName\"");
+    commandList.append("\"vars.serverDescription\"");
+    commandList.append("\"vars.bannerUrl\"");
+
+    commandList.append("\"vars.idleTimeout\"");
+
+    commandList.append("\"eventsEnabled\" \"true\"");
+    commandList.append("\"version\"");
+
+    commandList.append("\"vars.textChatModerationMode\"");
+    commandList.append("\"vars.textChatSpamTriggerCount\"");
+    commandList.append("\"vars.textChatSpamDetectionTime\"");
+    commandList.append("\"vars.textChatSpamCoolDownTime\"");
+
+    commandList.append("\"mapList.list\"");
+    commandList.append("\"mapList.nextLevelIndex\"");
+
+    commandList.append("\"banList.list\"");
+    commandList.append("\"reservedSlots.list\"");
+
+    foreach (QString command, commandList) {
+        con->sendCommand(command);
     }
 }
 
@@ -1424,4 +1286,117 @@ void BFBC2Widget::playerListUpdate(int oldRow)
     con->sendCommand(QString("\"mapList.insert\" \"%1\" \"%2\" \"%3\"").arg(currentRow).arg(mapPath).arg(rounds));
 
     con->sendCommand("\"mapList.list\" \"rounds\"");
+}
+
+void BFBC2Widget::slotAddMapToServer(const QString &mapName)
+{
+    Q_UNUSED(mapName);
+
+    /*
+    mapList.load Load list of map names from file
+    mapList.save Save maplist to file
+    mapList.list [rounds] Retrieve current maplist
+    mapList.clear Clears maplist
+    mapList.remove <index> Remove map from list
+    mapList.append <name, rounds> Add map with name <name> to end of maplist
+    mapList.insert <index, name, rounds> Add map with name at the specified index to the maplist
+    */
+
+
+    // get game mode from combo box
+    int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
+    int ret = 0;
+    if (currentGamemode != gamemodes[gameModeIndex])
+    {
+        commandRefreshTimer->blockSignals(true);
+        QMessageBox msgBox;
+        msgBox.setText("The gamemode selected is not the current gamemode on the server, this option will delete the maplist and change the gamemode on the server. Are you sure you want to continue?");
+        msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+        ret = msgBox.exec();
+
+        if (ret == QMessageBox::Yes)
+        {
+            con->sendCommand(QString("\"admin.setPlaylist\" \"%1\"").arg(gamemodes[gameModeIndex]));
+            con->sendCommand("\"mapList.clear\"");
+
+        }
+        else
+        {
+            delete ui->listWidget_ml_currentmaps->takeItem(ui->listWidget_ml_currentmaps->count()-1);
+        }
+    }
+    commandRefreshTimer->blockSignals(false);
+    // get a list of map mods and map names and select all map names with a particular mod
+    QStringList mapNames = levelsObject->levels().at(gameModeIndex)->mapNames();
+    QStringList mapPaths = levelsObject->levels().at(gameModeIndex)->mapPaths();
+
+    // find map name and map path for selected map
+    int avaliableMapIndex = mapNames.indexOf(mapName);
+    QString mapPath = mapPaths.at(avaliableMapIndex);
+
+    // get the amount of rounds from combo box
+    int rounds = ui->spinBox_ml_rounds->value();
+
+    // append the map to the server map list
+    con->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(mapPath).arg(rounds));
+
+
+    if (ret == QMessageBox::Yes)
+    {
+
+        con->sendCommand("\"mapList.save\"");
+        con->sendCommand("\"mapList.nextLevelIndex\" \"0\"");
+        con->sendCommand("\"admin.runNextLevel\"");
+
+    }
+    con->sendCommand("\"mapList.list\" \"rounds\"");
+
+}
+
+void BFBC2Widget::slotRemoveMapFromServer(const QString &mapName)
+{
+    Q_UNUSED(mapName);
+
+    // find selected map in current map list
+    int removedMap = ui->listWidget_ml_currentmaps->currentRow();
+
+    //remove map from server map list
+    con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(removedMap));
+
+    // fix to stop the drag event from creating a duplicate map item in avaliable maps
+    int cRemovedMap = ui->listWidget_ml_avaliablemaps->count();
+    cRemovedMap--;
+    delete ui->listWidget_ml_avaliablemaps->takeItem(cRemovedMap);
+
+    // stop the current item changed signal from being emitted
+    ui->listWidget_ml_currentmaps->blockSignals(true);
+    delete ui->listWidget_ml_currentmaps->takeItem(removedMap);
+    ui->listWidget_ml_currentmaps->blockSignals(false);
+    con->sendCommand("\"mapList.list\" \"rounds\"");
+}
+
+void BFBC2Widget::slotMovePlayerTeam()
+{
+    QAction *team = qobject_cast<QAction *>(sender());
+    if (team) {
+        QString altTeam = "1";
+        QTreeWidgetItem *player = ui->treeWidget_pl->currentItem();
+        if (player->data(0, Qt::UserRole) == "1") {
+            altTeam = "2";
+        }
+
+        movePlayer(player->text(1), altTeam, "0", "true");
+        con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
+    }
+}
+
+void BFBC2Widget::setMapList(const QString &gamemode)
+{
+    int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
+
+    if(gamemodeIndex != -1) {
+        QStringList mapNames = levelsObject->levels().at(gamemodeIndex)->mapNames();
+        ui->listWidget_ml_avaliablemaps->clear();
+        ui->listWidget_ml_avaliablemaps->addItems(mapNames);
+    }
 }

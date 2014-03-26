@@ -59,10 +59,9 @@ private:
 
     QSettings *settings;
 
-    void readSettings();
-    void writeSettings();
-
     void logMessage(const int &type, const QString &message);
+    void startupCommands();
+    QString getSquadName(const int &id);
 
 private slots:
     void onDataSent(const QString &command);
@@ -103,43 +102,9 @@ private slots:
     void onVarsTextChatSpamCoolDownTimeCommand(const int &count);
     void onVarsIdleTimeoutCommand(const int &seconds);
 
-    QString getSquadName(const int &id);
-
-    void startupCommands();
-    // TODO: Look over this.
-    void slotMovePlayerTeam();
-    void slotAddMapToServer(const QString &map);
-    void slotRemoveMapFromServer(const QString &map);
-    void slotChangePlayerTeam(const QString &player, const QString &alTeam);
-    void refreshPlayerList();
-    void playerListUpdate(int);
-
-    // Other stuff.
-    void setMapList(const QString &gamemode);
-
     /* User Interface */
 
-    /* Options Tab */
-
-    /* Server Options */
-    void lineEdit_op_so_serverName_editingFinished();
-    void lineEdit_op_so_serverDescription_editingFinished();
-    void lineEdit_op_so_bannerUrl_editingFinished();
-
-    /* Game Options */
-    void checkbox_op_go_hardcore_clicked();
-    void checkbox_op_go_crossHair_clicked();
-    void checkbox_op_go_teamBalance_clicked();
-    void checkbox_op_go_3dSpotting_clicked();
-    void checkbox_op_go_friendlyFire_clicked();
-    void checkbox_op_go_miniMapSpotting_clicked();
-    void checkbox_op_go_killCam_clicked();
-    void checkbox_op_go_thirdPersonVehicleCameras_clicked();
-    void checkbox_op_go_miniMap_clicked();
-
-    /* Gameplay Options */
-    void on_spinBox_op_gpo_idleTimeout_editingFinished();
-
+    /* Players Tab */
     void treeWidget_pl_customContextMenuRequested(QPoint pos);
     void action_pl_sendmessage_triggered();
     void action_pl_textchatmoderation_muted_triggered();
@@ -152,39 +117,83 @@ private slots:
     void action_pl_ban_byname_triggered();
     void action_pl_reservedslots_triggered();
 
-    void comboBox_ml_gamemode_currentIndexChanged(int index);
-    void listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem*, QListWidgetItem*);
-    void listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem* current);
-    void listWidget_bl_customContextMenuRequested(QPoint);
-    void comboBox_ch_type_currentIndexChanged(int index);
-    void action_bl_remove_triggered();
-    void listWidget_rs_customContextMenuRequested(QPoint);
-    void action_rs_remove_triggered();
-    void listWidget_ic_customContextMenuRequested(QPoint);
-    void action_ic_remove_triggered();
+    /* Options Tab */
+
+    // Server Options
+    void lineEdit_op_so_serverName_editingFinished();
+    void lineEdit_op_so_serverDescription_editingFinished();
+    void lineEdit_op_so_bannerUrl_editingFinished();
+
+    // Game Options
+    void checkbox_op_go_hardcore_clicked();
+    void checkbox_op_go_crossHair_clicked();
+    void checkbox_op_go_teamBalance_clicked();
+    void checkbox_op_go_3dSpotting_clicked();
+    void checkbox_op_go_friendlyFire_clicked();
+    void checkbox_op_go_miniMapSpotting_clicked();
+    void checkbox_op_go_killCam_clicked();
+    void checkbox_op_go_thirdPersonVehicleCameras_clicked();
+    void checkbox_op_go_miniMap_clicked();
+
+    // Gameplay Options
+    void on_spinBox_op_gpo_idleTimeout_editingFinished();
+
+    // Text Chat Moderation
+    void on_radioButton_op_tcm_free_clicked();
+    void on_radioButton_op_tcm_moderated_clicked();
+    void on_radioButton_op_tcm_muted_clicked();
     void on_pushButton_so_tcm_spamtriggercount_clicked();
     void on_pushButton_so_tcm_spamdetectiontime_clicked();
     void on_pushButton_so_tcm_spamcooldowntime_clicked();
+
+    /* Maplist Tab */
+    void comboBox_ml_gamemode_currentIndexChanged(int index);
+    void listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem*, QListWidgetItem*);
+    void listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem* current);
     void on_pushButton_ml_add_clicked();
     void on_pushButton_ml_remove_clicked();
     void on_pushButton_ml_restart_clicked();
     void on_pushButton_ml_run_clicked();
     void on_pushButton_ml_clear_clicked();
     void on_pushButton_ml_save_clicked();
+
+    /* Banlist Tab*/
+    void listWidget_bl_customContextMenuRequested(QPoint);
+    void action_bl_remove_triggered();
     void on_pushButton_bl_ban_clicked();
     void on_pushButton_bl_clear_clicked();
     void on_pushButton_bl_save_clicked();
-    void on_pushButton_ch_send_clicked();
+
+    /* Reserved Slots Tab */
+    void listWidget_rs_customContextMenuRequested(QPoint);
+    void action_rs_remove_triggered();
     void on_pushButton_rs_reserve_clicked();
     void on_pushButton_rs_clear_clicked();
     void on_pushButton_rs_save_clicked();
+
+    /* Chat Tab */
+    void comboBox_ch_type_currentIndexChanged(int index);
+    void pushButton_ch_send_clicked();
+
+    /* Ingame Commands Tab */
+    void listWidget_ic_customContextMenuRequested(QPoint);
+    void action_ic_remove_triggered();
     void on_pushButton_ic_add_clicked();
+
+    /* Console Tab */
     void on_pushButton_co_co_send_clicked();
     void on_pushButton_co_pb_send_clicked();
 
-    void on_radioButton_op_tcm_free_clicked();
-    void on_radioButton_op_tcm_moderated_clicked();
-    void on_radioButton_op_tcm_muted_clicked();
+    // TODO: Look over this.
+    void slotMovePlayerTeam();
+    void slotAddMapToServer(const QString &map);
+    void slotRemoveMapFromServer(const QString &map);
+    void slotChangePlayerTeam(const QString &player, const QString &alTeam);
+    void refreshPlayerList();
+    void playerListUpdate(int);
+
+    // Other stuff.
+    void setMapList(const QString &gamemode);
 
 };
 
