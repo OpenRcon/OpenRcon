@@ -59,11 +59,8 @@ private slots:
     void onConnected();
     void onLoginHashedCommand(const QByteArray &salt);
 
-    void slotRefreshCommands();
+    void ingameCommands(const QString &player, const QString &cmd);
 
-    void slotIngameCommands(const QString &player, const QString &cmd);
-
-    // Events
     void slotCommandMapListListRounds(QStringList ml);
 
 protected:

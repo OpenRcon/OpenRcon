@@ -86,7 +86,6 @@ private slots:
 
     // TODO: Look over this.
     void slotMovePlayerTeam();
-    void slotPlayerListChange();
     void slotAddMapToServer(const QString &map);
     void slotRemoveMapFromServer(const QString &map);
     void slotChangePlayerTeam(const QString &player, const QString &alTeam);
@@ -96,20 +95,19 @@ private slots:
 
     // Commands
     void onServerInfoCommand(const QStringList &serverInfo);
-
+    void onAdminListPlayersCommand(const PlayerList &playerList);
     void onVarsServerNameCommand(const QString &serverName);
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsBannerUrlCommand(const QString &bannerUrl);
-
     void onMapListListCommand(const QStringList &mapList);
     void onMapListNextLevelIndexCommand(const int &index);
     void onBanListListCommand(const QStringList &banList);
     void onReservedSlotsListCommand(const QStringList &reservedSlotList);
-
     void onVarsTextChatModerationModeCommand(const QString &mode);
     void onVarsTextChatSpamTriggerCountCommand(const int &count);
     void onVarsTextChatSpamDetectionTimeCommand(const int &count);
     void onVarsTextChatSpamCoolDownTimeCommand(const int &count);
+    void onVarsIdleTimeoutCommand(const int &seconds);
 
     void startupCommands();
 
@@ -177,6 +175,8 @@ private slots:
     void on_checkbox_3rd_person_vehicle_cameras_clicked();
     void on_checkbox_minimap_clicked();
 
+    /* Options Tab */
+    void on_spinBox_op_gp_idleTimeout_editingFinished();
 };
 
 #endif // BFBC2WIDGET_H

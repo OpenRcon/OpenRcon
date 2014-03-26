@@ -28,9 +28,6 @@
 
 #define MIN_PACKET_SIZE 12
 
-typedef QMap<QString, QString> PlayerListItem;
-typedef QVector<PlayerListItem> PlayerList;
-
 class FrostbiteConnection : public Connection
 {
     Q_OBJECT

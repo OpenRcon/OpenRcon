@@ -99,7 +99,7 @@ void BFBC2CommandHandler::exec(const QString &command, const FrostbiteRconPacket
     } else if (command == "admin.kickPlayer") {
 		commandAdminKickPlayer(packet);
     } else if (command == "admin.listPlayers") {
-        commandAdminListPlayers(packet, lastSentPacket, playerList);
+        commandAdminListPlayers(packet, lastSentPacket);
     } else if (command == "admin.movePlayer") {
 		commandAdminMovePlayer(packet);
     } else if (command == "admin.killPlayer") {
@@ -235,9 +235,6 @@ void BFBC2CommandHandler::eventOnPlayerJoin(const FrostbiteRconPacket &packet)
     QString player = packet.getWord(1).getContent();
 
     emit(onPlayerJoin(player));
-
-    emit(onLogMessage(0, tr("Player <b>%1</b> has joined the game.").arg(player)));
-    emit(onRefresh());
 }
 
 void BFBC2CommandHandler::eventOnPlayerAuthenticated(const FrostbiteRconPacket &packet)
@@ -246,8 +243,6 @@ void BFBC2CommandHandler::eventOnPlayerAuthenticated(const FrostbiteRconPacket &
     QString guid = packet.getWord(2).getContent();
 
     emit(onPlayerAuthenticated(player, guid));
-
-    emit(onLogMessage(0, tr("Player <b>%1</b> has just authenticated (GUID: <b>%2</b>).").arg(player).arg(guid)));
 }
 
 void BFBC2CommandHandler::eventOnPlayerLeave(const FrostbiteRconPacket &packet)
@@ -256,9 +251,6 @@ void BFBC2CommandHandler::eventOnPlayerLeave(const FrostbiteRconPacket &packet)
     QString info = packet.getWord(2).getContent();
 
     emit(onPlayerLeave(player, info));
-
-    emit(onLogMessage(0, tr("Player <b>%1</b> has left the game.").arg(packet.getWord(1).getContent()))); // TODO: Impelment score stuffs here?
-    emit(onRefresh());
 }
 
 void BFBC2CommandHandler::eventOnPlayerSpawn(const FrostbiteRconPacket &packet)
@@ -271,8 +263,6 @@ void BFBC2CommandHandler::eventOnPlayerSpawn(const FrostbiteRconPacket &packet)
     weaponList.append(packet.getWord(5).getContent());
 
     emit(onPlayerSpawn(player, kit, weaponList));
-
-    emit(onLogMessage(0, tr("Player <b>%1</b> has spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(packet.getWord(1).getContent(), packet.getWord(2).getContent(), packet.getWord(3).getContent(), packet.getWord(4).getContent(), packet.getWord(5).getContent()))); // TODO: Implement dynamic length on selected weapons.
 }
 
 void BFBC2CommandHandler::eventOnPlayerKill(const FrostbiteRconPacket &packet)
@@ -280,17 +270,9 @@ void BFBC2CommandHandler::eventOnPlayerKill(const FrostbiteRconPacket &packet)
     QString killer = packet.getWord(1).getContent();
     QString victim = packet.getWord(2).getContent();
     QString weapon = packet.getWord(3).getContent();
-    bool headshot = packet.getWord(4).getContent();
+    bool headshot = packet.getWord(4).getContent() == "true" ? true : false;
 
     emit(onPlayerKill(killer, victim, weapon, headshot));
-
-    if (headshot) {
-        emit(onLogMessage(0, tr("Player <b>%1</b> got a headshot on player <b>%2</b> using <b>%3</b>").arg(killer).arg(victim).arg(weapon)));
-    } else {
-        emit(onLogMessage(0, tr("Player <b>%1</b> has killed player <b>%2</b> with <b>%3</b>").arg(killer).arg(victim).arg(weapon)));
-    }
-
-    emit(onRefresh());
 }
 
 void BFBC2CommandHandler::eventOnPlayerChat(const FrostbiteRconPacket &packet)
@@ -300,9 +282,6 @@ void BFBC2CommandHandler::eventOnPlayerChat(const FrostbiteRconPacket &packet)
     QString target = packet.getWord(3).getContent();
 
     emit(onPlayerChat(player, message, target));
-
-    emit(onLogMessage(4, tr("<b>%1</b>: %2").arg(player).arg(message)));
-    emit(onIngameCommands(player, message));
 }
 
 void BFBC2CommandHandler::eventOnPlayerKicked(const FrostbiteRconPacket &packet)
@@ -311,9 +290,6 @@ void BFBC2CommandHandler::eventOnPlayerKicked(const FrostbiteRconPacket &packet)
     QString reason = packet.getWord(2).getContent();
 
     emit(onPlayerKicked(player, reason));
-
-    emit(onLogMessage(0, tr("Player <b>%1</b> has been kicked from the game, reason: <b>%2</b>.").arg(player).arg(reason)));
-    emit(onRefresh());
 }
 
 void BFBC2CommandHandler::eventOnPlayerSquadChange(const FrostbiteRconPacket &packet)
@@ -323,9 +299,6 @@ void BFBC2CommandHandler::eventOnPlayerSquadChange(const FrostbiteRconPacket &pa
     int squadId = QString(packet.getWord(3).getContent()).toInt();
 
     emit(onPlayerSquadChange(player, teamId, squadId));
-
-    emit(onLogMessage(0, tr("Player <b>%1</b> has changed squad to <b>%3</b>.").arg(player).arg(squadId)));
-    emit(onRefresh());
 }
 
 void BFBC2CommandHandler::eventOnPlayerTeamChange(const FrostbiteRconPacket &packet)
@@ -335,9 +308,6 @@ void BFBC2CommandHandler::eventOnPlayerTeamChange(const FrostbiteRconPacket &pac
     int squadId = QString::fromLatin1(packet.getWord(3).getContent()).toInt();
 
     emit(onPlayerTeamChange(player, teamId, squadId));
-
-    emit(onLogMessage(0, tr("Player <b>%1</b> has changed team to <b>%2</b>.").arg(player, teamId)));
-    emit(onRefresh());
 }
 
 void BFBC2CommandHandler::eventOnPunkBusterMessage(const FrostbiteRconPacket &packet)
@@ -345,8 +315,6 @@ void BFBC2CommandHandler::eventOnPunkBusterMessage(const FrostbiteRconPacket &pa
     QString message = packet.getWord(1).getContent();
 
     emit(onPunkBusterMessage(message));
-
-    emit(onLogMessage(5, message));
 }
 
 void BFBC2CommandHandler::eventOnPunkBusterVersion(const FrostbiteRconPacket &packet)
@@ -354,8 +322,6 @@ void BFBC2CommandHandler::eventOnPunkBusterVersion(const FrostbiteRconPacket &pa
     QString version = packet.getWord(1).getContent();
 
     emit(onPunkBusterVersion(version));
-
-    emit(onLogMessage(5, packet.getWord(1).getContent()));
 }
 
 void BFBC2CommandHandler::eventOnServerLoadingLevel(const FrostbiteRconPacket &packet)
@@ -365,8 +331,6 @@ void BFBC2CommandHandler::eventOnServerLoadingLevel(const FrostbiteRconPacket &p
     int roundsTotal = QString(packet.getWord(3).getContent()).toInt();
 
     emit(onServerLoadingLevel(levelName, roundsPlayed, roundsTotal));
-
-    emit(onLogMessage(0, tr("Loading level: <b>%1</b>").arg(levelName)));
 }
 
 void BFBC2CommandHandler::eventOnServerLevelStarted(const FrostbiteRconPacket &packet)
@@ -374,8 +338,6 @@ void BFBC2CommandHandler::eventOnServerLevelStarted(const FrostbiteRconPacket &p
     Q_UNUSED(packet);
 
     emit(onServerLevelStarted());
-
-    emit(onLogMessage(0, tr("Level started")));
 }
 
 void BFBC2CommandHandler::eventOnServerRoundOver(const FrostbiteRconPacket &packet)
@@ -383,8 +345,6 @@ void BFBC2CommandHandler::eventOnServerRoundOver(const FrostbiteRconPacket &pack
     int winningTeamId = QString(packet.getWord(1).getContent()).toInt();
 
     emit(onServerRoundOver(winningTeamId));
-
-    emit(onLogMessage(0, tr("The round has just ended, and <b>%1</b> won").arg(winningTeamId)));
 }
 
 void BFBC2CommandHandler::eventOnServerRoundOverPlayers(const FrostbiteRconPacket &packet)
@@ -392,8 +352,6 @@ void BFBC2CommandHandler::eventOnServerRoundOverPlayers(const FrostbiteRconPacke
     QString playerInfo = packet.getWord(1).getContent();
 
     emit(onServerRoundOverPlayers(playerInfo));
-
-    emit(onLogMessage(0, tr("The round has just ended, and <b>%1</b> is the final detailed player stats").arg(packet.getWord(1).getContent()))); // TODO: Check what this actually outputs.
 }
 
 void BFBC2CommandHandler::eventOnServerRoundOverTeamScores(const FrostbiteRconPacket &packet)
@@ -401,8 +359,6 @@ void BFBC2CommandHandler::eventOnServerRoundOverTeamScores(const FrostbiteRconPa
     QString teamScores = packet.getWord(1).getContent();
 
     emit(onServerRoundOverTeamScores(teamScores));
-
-    emit(onLogMessage(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team").arg(teamScores)));
 }
 
 /* Commands */
@@ -649,32 +605,28 @@ void BFBC2CommandHandler::commandAdminKickPlayer(const FrostbiteRconPacket &pack
     Q_UNUSED(packet);
 }
 
-void BFBC2CommandHandler::commandAdminListPlayers(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket, PlayerList &playerList) // TODO: Check if subset group is correct.
+void BFBC2CommandHandler::commandAdminListPlayers(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    qDebug() << "LISTPLAYERS!!!";
-    qDebug() << QString(lastSentPacket.getWord(1).getContent());
+    QString response = packet.getWord(0).getContent();
 
-    if ((lastSentPacket.getWordCount() > 0) && (QString(lastSentPacket.getWord(1).getContent()) == "all")) {
-        QString response(packet.getWord(0).getContent());
-        if (response == "OK") {
-            qDebug() << "HANDLING PLAYERS!";
-            playerList.clear();
-            PlayerListItem pli;
-            quint32 paramcount = QString(packet.getWord(1).getContent()).toUInt();
-            quint32 playercount = QString(packet.getWord(2 + paramcount).getContent()).toUInt();
+    if (response == "OK" && packet.getWordCount() > 0) {
+        PlayerList playerList;
+        unsigned int parameterCount = QString(packet.getWord(1).getContent()).toUInt();
+        unsigned int playerCount = QString(packet.getWord(2 + parameterCount).getContent()).toUInt();
 
-            for (quint32 i = 0; i < playercount; i++) {
-                pli.clear();
-                for (quint32 j = 0; j < paramcount; j++) {
-                    pli[packet.getWord(2 + j).getContent()] = packet.getWord(2 + paramcount + 1 + i * paramcount + j).getContent();
-                }
+        for (unsigned int i = 0; i < playerCount; i++) {
+            PlayerListItem player;
 
-                playerList.push_back(pli);
+            for (unsigned int j = 0; j < parameterCount; j++) {
+                player.insert(packet.getWord(2 + j).getContent(), packet.getWord(2 + parameterCount + 1 + i * parameterCount + j).getContent());
             }
-            emit(onPlayerListChange());
-        } else if (response == "InvalidArguments") {
-            emit(onLogMessage(1, tr("Invalid arguments.")));
+
+            playerList.append(player);
         }
+
+        emit(onAdminListPlayersCommand(playerList));
+    } else if (response == "InvalidArguments") {
+        emit(onUnknownCommand());
     }
 }
 
@@ -1034,7 +986,13 @@ void BFBC2CommandHandler::commandVarsTeamKillValueDecreasePerSecond(const Frostb
 
 void BFBC2CommandHandler::commandVarsIdleTimeout(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int timeout = QString(packet.getWord(1).getContent()).toInt();
+
+        emit(onVarsIdleTimeoutCommand(timeout));
+    }
 }
 
 void BFBC2CommandHandler::commandVarsProfanityFilter(const FrostbiteRconPacket &packet)

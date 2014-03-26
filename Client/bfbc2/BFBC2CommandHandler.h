@@ -5,6 +5,10 @@
 
 #include "FrostbiteCommandHandler.h"
 
+
+typedef QMap<QString, QString> PlayerListItem;
+typedef QVector<PlayerListItem> PlayerList;
+
 class BFBC2CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT
@@ -60,7 +64,7 @@ private:
     void commandAdminGetPlaylist(const FrostbiteRconPacket &packet);
     void commandAdminGetPlaylists(const FrostbiteRconPacket &packet);
     void commandAdminKickPlayer(const FrostbiteRconPacket &packet);
-    void commandAdminListPlayers(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSendPacket, PlayerList &playerList);
+    void commandAdminListPlayers(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSendPacket);
     void commandAdminMovePlayer(const FrostbiteRconPacket &packet);
     void commandAdminKillPlayer(const FrostbiteRconPacket &packet);
     void commandVarsTextChatModerationMode(const FrostbiteRconPacket &packet);
@@ -130,7 +134,6 @@ signals:
     void onRefresh();
     void onLogEvent(const QString &event, const QString &message);
     void onIngameCommands(const QString &player, const QString &command);
-    void onPlayerListChange();
 
     void onAuthenticated();
 
@@ -178,7 +181,7 @@ signals:
     void onAdminGetPlaylistCommand();
     void onAdminGetPlaylistsCommand();
     void onAdminKickPlayerCommand();
-    void onAdminListPlayersCommand();
+    void onAdminListPlayersCommand(const PlayerList &playerList);
     void onAdminMovePlayerCommand();
     void onAdminKillPlayerCommand();
     void onVarsTextChatModerationModeCommand(const QString &mode);
@@ -234,7 +237,7 @@ signals:
     void onVarsTeamKillValueForKickCommand();
     void onVarsTeamKillValueIncreaseCommand();
     void onVarsTeamKillValueDecreasePerSecondCommand();
-    void onVarsIdleTimeoutCommand();
+    void onVarsIdleTimeoutCommand(const int &seconds);
     void onVarsProfanityFilterCommand();
     void onLevelVarsSetCommand();
     void onLevelVarsGetCommand();

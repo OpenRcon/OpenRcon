@@ -31,14 +31,10 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
 
     // Commands
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-
-    connect(con->commandHandler, SIGNAL(onRefresh()), this, SLOT(slotRefreshCommands()));
-    //connect(con->commandHandler, SIGNAL(onStartConnection()), this, SLOT(slotStartConnection()));
-    //connect(con->commandHandler, SIGNAL(onAuthenticated()), this, SLOT(onAuthenticated()));
+    //connect(con->commandHandler, SIGNAL(onRefresh()), this, SLOT(slotRefreshCommands()));
 
     // Events
-    connect(con->commandHandler, SIGNAL(onPlayerSpawn(const QString&, const QString&)), this, SLOT(slotEventOnSpawn(const QString&, const QString&)));
-    connect(con->commandHandler, SIGNAL(onPlayerChat(const QString&, const QString&)), this, SLOT(slotIngameCommands(const QString&, const QString&)));
+    connect(con->commandHandler, SIGNAL(onPlayerChat(const QString&, const QString&, const QString&)), this, SLOT(ingameCommands(const QString&, const QString&)));
 }
 
 BFBC2::~BFBC2()
@@ -67,17 +63,7 @@ void BFBC2::onLoginHashedCommand(const QByteArray &salt)
     }
 }
 
-void BFBC2::slotRefreshCommands()
-{
-    con->sendCommand(QString("\"serverInfo\""));
-    con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
-    con->sendCommand(QString("\"mapList.list\""));
-    con->sendCommand(QString("\"mapList.nextLevelIndex\""));
-    con->sendCommand(QString("\"reservedSlots.list\""));
-    con->sendCommand(QString("\"banList.list\""));
-}
-
-void BFBC2::slotIngameCommands(const QString &player, const QString &cmd)
+void BFBC2::ingameCommands(const QString &player, const QString &cmd)
 {
     QStringList users;
 
