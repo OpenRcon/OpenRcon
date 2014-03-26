@@ -17,7 +17,7 @@ public:
     explicit BFBC2CommandHandler(QObject *parent = 0);
     ~BFBC2CommandHandler();
 
-    void exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket, PlayerList &playerList);
+    void exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 private:
     // Call events.
@@ -64,7 +64,7 @@ private:
     void commandAdminGetPlaylist(const FrostbiteRconPacket &packet);
     void commandAdminGetPlaylists(const FrostbiteRconPacket &packet);
     void commandAdminKickPlayer(const FrostbiteRconPacket &packet);
-    void commandAdminListPlayers(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSendPacket);
+    void commandAdminListPlayers(const FrostbiteRconPacket &packet);
     void commandAdminMovePlayer(const FrostbiteRconPacket &packet);
     void commandAdminKillPlayer(const FrostbiteRconPacket &packet);
     void commandVarsTextChatModerationMode(const FrostbiteRconPacket &packet);

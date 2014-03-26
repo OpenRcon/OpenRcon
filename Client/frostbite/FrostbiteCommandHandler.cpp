@@ -2,7 +2,7 @@
 
 FrostbiteCommandHandler::FrostbiteCommandHandler(QObject *parent) : QObject(parent)
 {
-    qDebug() << "FrostbiteCommandHandler";
+
 }
 
 FrostbiteCommandHandler::~FrostbiteCommandHandler()
@@ -10,9 +10,9 @@ FrostbiteCommandHandler::~FrostbiteCommandHandler()
 
 }
 
-void FrostbiteCommandHandler::exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket, PlayerList &playerList)
+void FrostbiteCommandHandler::exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    qDebug() << "FrostbiteCommandHandler:exec()";
+
 }
 
 /* These events is triggered everytime the client sends or receives data. */

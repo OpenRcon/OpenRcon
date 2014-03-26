@@ -2,7 +2,7 @@
 
 BFBC2CommandHandler::BFBC2CommandHandler(QObject *parent) : FrostbiteCommandHandler(parent)
 { 
-    qDebug() << "BFBC2CommandHandler";
+
 }
 
 BFBC2CommandHandler::~BFBC2CommandHandler()
@@ -10,7 +10,7 @@ BFBC2CommandHandler::~BFBC2CommandHandler()
 
 }
 
-void BFBC2CommandHandler::exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket, PlayerList &playerList)
+void BFBC2CommandHandler::exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
 	// Parse and call events.
 	if (command == "player.onJoin") {
@@ -99,7 +99,7 @@ void BFBC2CommandHandler::exec(const QString &command, const FrostbiteRconPacket
     } else if (command == "admin.kickPlayer") {
 		commandAdminKickPlayer(packet);
     } else if (command == "admin.listPlayers") {
-        commandAdminListPlayers(packet, lastSentPacket);
+        commandAdminListPlayers(packet);
     } else if (command == "admin.movePlayer") {
 		commandAdminMovePlayer(packet);
     } else if (command == "admin.killPlayer") {
@@ -270,7 +270,9 @@ void BFBC2CommandHandler::eventOnPlayerKill(const FrostbiteRconPacket &packet)
     QString killer = packet.getWord(1).getContent();
     QString victim = packet.getWord(2).getContent();
     QString weapon = packet.getWord(3).getContent();
-    bool headshot = packet.getWord(4).getContent() == "true" ? true : false;
+    bool headshot = packet.getWord(4).getContent();
+
+    qDebug() << "Bool is: " << headshot;
 
     emit(onPlayerKill(killer, victim, weapon, headshot));
 }
@@ -481,7 +483,7 @@ void BFBC2CommandHandler::commandListPlayers(const FrostbiteRconPacket &packet) 
 
 void BFBC2CommandHandler::commandEventsEnabled(const FrostbiteRconPacket &packet)
 {
-
+    Q_UNUSED(packet);
 }
 
 void BFBC2CommandHandler::commandHelp(const FrostbiteRconPacket &packet)
@@ -605,7 +607,7 @@ void BFBC2CommandHandler::commandAdminKickPlayer(const FrostbiteRconPacket &pack
     Q_UNUSED(packet);
 }
 
-void BFBC2CommandHandler::commandAdminListPlayers(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BFBC2CommandHandler::commandAdminListPlayers(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 

@@ -189,7 +189,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                         commandHandler->eventOnDataReceived(messager);
                         qDebug() << messager;
 
-                        commandHandler->exec(command, packet, lastSentPacket, playerList);
+                        commandHandler->exec(command, packet, lastSentPacket);
                     }
                 }
             }
@@ -205,15 +205,14 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
     } else if (packet.getWordCount() > 0) {
         QString command(packet.getWord(0).getContent());
         QString message;
-        quint32 packetWordCount = packet.getWordCount();
 
-        for (quint32 i = 0; i < packetWordCount; i++) {
+        for (unsigned int i = 0; i < packet.getWordCount(); i++) {
             message += packet.getWord(i).getContent();
             message += " ";
         }
 
         commandHandler->eventOnDataReceived(message);
-        commandHandler->exec(command, packet, FrostbiteRconPacket(), playerList);
+        commandHandler->exec(command, packet, FrostbiteRconPacket());
     }
 }
 
