@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,14 +17,23 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BFBC2Connection.h"
+#ifndef BF3WIDGET_H
+#define BF3WIDGET_H
 
-BFBC2Connection::BFBC2Connection(QObject *parent) : FrostbiteConnection(new BFBC2CommandHandler(parent), parent)
+#include "ui_BF3.h"
+#include "BF3.h"
+
+class BF3Widget : public BF3
 {
+    Q_OBJECT
 
-}
+public:
+    explicit BF3Widget(const QString &host, const int &port, const QString &password);
+    ~BF3Widget();
 
-BFBC2Connection::~BFBC2Connection()
-{
+private:
+    Ui::BF3 *ui;
 
-}
+};
+
+#endif // BF3WIDGET_H

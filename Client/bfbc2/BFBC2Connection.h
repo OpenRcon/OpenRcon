@@ -32,9 +32,6 @@ public:
     explicit BFBC2Connection(QObject *parent = 0);
     ~BFBC2Connection();
 
-private slots:
-    void stateChanged(QAbstractSocket::SocketState state);
-
 };
 
 #endif // BFBC2CONNECTION_H

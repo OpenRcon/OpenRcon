@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -26,7 +26,6 @@
 
 #include "Game.h"
 
-#include "ui_BF3.h"
 #include "BF3Connection.h"
 
 class BF3 : public Game {
@@ -39,25 +38,13 @@ public:
     virtual Connection *getConnection() { return con; }
 
 private:
-    Ui::BF3 *ui;
-
     BF3Connection *con;
-
-    QString host;
-    QString port;
-    QString password;
 
     QCompleter *completer;
     QMenu *menu_pl_playerBan;
     QMenu *menu_pl_playerKick;
     QMenu *menu_pl_playerMove;
     QMenu *menu_pl_player;
-
-private slots:
-    void slotLogMessage(const QString &type, const QString &msg);
-    void treeWidget_pl_customContextMenuRequested(QPoint pos);
-    void on_pushButton_co_send_clicked();
-    void slotPlayerListChange();
 
 };
 

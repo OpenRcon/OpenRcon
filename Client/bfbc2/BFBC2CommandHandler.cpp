@@ -1,8 +1,8 @@
 #include "BFBC2CommandHandler.h"
 
-BFBC2CommandHandler::BFBC2CommandHandler(QObject *parent) : QObject(parent)
-{
-
+BFBC2CommandHandler::BFBC2CommandHandler(QObject *parent) : FrostbiteCommandHandler(parent)
+{ 
+    qDebug() << "BFBC2CommandHandler";
 }
 
 BFBC2CommandHandler::~BFBC2CommandHandler()
@@ -227,17 +227,6 @@ void BFBC2CommandHandler::exec(const QString &command, const FrostbiteRconPacket
     } else {
         commandUnknown(packet);
     }
-}
-
-/* These events is triggered everytime the client sends or receives data. */
-void BFBC2CommandHandler::eventOnDataSent(const QString &command)
-{
-    emit(onDataSent(command));
-}
-
-void BFBC2CommandHandler::eventOnDataReceived(const QString &response)
-{
-    emit(onDataReceived(response));
 }
 
 /* Events */

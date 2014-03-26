@@ -17,6 +17,14 @@ public:
     ~FrostbiteCommandHandler();
 
     virtual void exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket, PlayerList &playerList);
+
+    void eventOnDataSent(const QString &command);
+    void eventOnDataReceived(const QString &response);
+
+signals:
+    void onDataSent(const QString &command);
+    void onDataReceived(const QString &response);
+
 };
 
 #endif // FROSTBITECOMMANDHANDLER_H

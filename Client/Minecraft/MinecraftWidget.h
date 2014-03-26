@@ -15,7 +15,6 @@ public:
     ~MinecraftWidget();
 
     void logMessage(const int &type, const QString &message);
-    void logEvent(const int &event, const QString &message);
 
 private slots:
     void slotAuthenticated(bool auth);

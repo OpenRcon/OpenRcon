@@ -1,10 +1,13 @@
-HEADERS += BF3/BF3.h \
-           BF3/BF3Connection.h
+HEADERS += bf3/BF3.h \
+           bf3/BF3Connection.h \
+           bf3/BF3CommandHandler.h \
+           bf3/BF3Widget.h
 
-SOURCES += BF3/BF3.cpp \
-           BF3/BF3Connection.cpp
+SOURCES += bf3/BF3.cpp \
+           bf3/BF3Connection.cpp \
+           bf3/BF3CommandHandler.cpp \
+           bf3/BF3Widget.cpp
 
-FORMS += BF3/BF3.ui
+FORMS += bf3/BF3.ui
 
-RESOURCES += \
-    bf3/BF3.qrc
+RESOURCES += bf3/BF3.qrc

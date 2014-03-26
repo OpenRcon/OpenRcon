@@ -19,7 +19,7 @@
 
 #include "FrostbiteConnection.h"
 
-FrostbiteConnection::FrostbiteConnection(BFBC2CommandHandler *commandHandler, QObject *parent) : Connection(parent), packetReadState(PacketReadingHeader), auth(false), nextPacketSeq(0)
+FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent) : Connection(parent), commandHandler(commandHandler), packetReadState(PacketReadingHeader), auth(false), nextPacketSeq(0)
 {
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
@@ -39,8 +39,6 @@ void FrostbiteConnection::hostConnect(const QString &host, const int &port)
         auth = false;
 
         tcpSocket->connectToHost(host, port);
-
-        qDebug() << QString("Connection started: %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());
     } else {
         if (tcpSocket) {
             qDebug() << QString("Already connected to %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());

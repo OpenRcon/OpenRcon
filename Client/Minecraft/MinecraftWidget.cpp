@@ -8,7 +8,7 @@ MinecraftWidget::MinecraftWidget(const QString &host, const int &port, const QSt
     connect(con, SIGNAL(onPacket(QString)), this, SLOT(slotPacket(QString)));
     connect(con, SIGNAL(onUnknownCommand()), this, SLOT(slotUnknownCommand()));
 
-    connect(ui->lineEdit_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_co_send_clicked()));
+    connect(ui->lineEdit_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_send_clicked()));
 }
 
 MinecraftWidget::~MinecraftWidget()
@@ -31,11 +31,6 @@ void MinecraftWidget::logMessage(const int &type, const QString &message)
     } else if (type == 4) { // Chat
         ui->textEdit_ch_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     }
-}
-
-void MinecraftWidget::logEvent(const int &event, const QString &message)
-{
-
 }
 
 void MinecraftWidget::slotAuthenticated(bool auth)

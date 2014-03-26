@@ -21,8 +21,6 @@
 
 ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialog)
 {
-    Q_UNUSED(parent);
-
     ui->setupUi(this);
 
     setWindowTitle(tr("Server details"));
@@ -35,6 +33,7 @@ ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialo
     }
 
     ui->spinBox_sed_port->setRange(1, 65535);
+    ui->lineEdit_sed_password->setEchoMode(QLineEdit::Password);
 
     connect(ui->comboBox_sed_game, SIGNAL(currentIndexChanged(int)), this, SLOT(validate()));
     connect(ui->lineEdit_sed_name, SIGNAL(textChanged(QString)), this, SLOT(validate()));
@@ -54,15 +53,11 @@ ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialo
 
 ServerEditDialog::ServerEditDialog(const int &game, const QString &name, const QString &host, const int &port, const QString &password, QObject *parent) : ServerEditDialog(parent)
 {
-    if (!game) {
-        ui->comboBox_sed_game->setCurrentIndex(game);
-    }
-
+    ui->comboBox_sed_game->setCurrentIndex(game);
     ui->lineEdit_sed_name->setText(name);
     ui->lineEdit_sed_host->setText(host);
     ui->spinBox_sed_port->setValue(port);
     ui->lineEdit_sed_password->setText(password);
-    ui->lineEdit_sed_password->setEchoMode(QLineEdit::Password);
 }
 
 ServerEditDialog::~ServerEditDialog()

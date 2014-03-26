@@ -27,16 +27,14 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
     gamemodes << "RUSH" << "CONQUEST" << "SQRUSH" << "SQDM";
     levelsObject = 0;
 
-    connect(con, SIGNAL(onConnected()), this, SLOT(slotOnConnected()));
-    connect(con, SIGNAL(onDisconnected()), this, SLOT(slotOnDisconnected()));
+    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(slotOnLoginHashedCommand(const QByteArray&)));
-
+    connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
 
     connect(con->commandHandler, SIGNAL(onRefresh()), this, SLOT(slotRefreshCommands()));
-    connect(con->commandHandler, SIGNAL(onStartConnection()), this, SLOT(slotStartConnection()));
-    connect(con->commandHandler, SIGNAL(onAuthenticated()), this, SLOT(slotAuthenticated()));
+    //connect(con->commandHandler, SIGNAL(onStartConnection()), this, SLOT(slotStartConnection()));
+    //connect(con->commandHandler, SIGNAL(onAuthenticated()), this, SLOT(onAuthenticated()));
 
     // Events
     connect(con->commandHandler, SIGNAL(onPlayerSpawn(const QString&, const QString&)), this, SLOT(slotEventOnSpawn(const QString&, const QString&)));

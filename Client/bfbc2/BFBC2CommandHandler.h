@@ -5,7 +5,7 @@
 
 #include "FrostbiteCommandHandler.h"
 
-class BFBC2CommandHandler : public QObject
+class BFBC2CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT
 
@@ -14,9 +14,6 @@ public:
     ~BFBC2CommandHandler();
 
     void exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket, PlayerList &playerList);
-
-    void eventOnDataSent(const QString &command);
-    void eventOnDataReceived(const QString &response);
 
 private:
     // Call events.
@@ -130,15 +127,12 @@ private:
 
 signals:
     void onLogMessage(const int &type, const QString &message);
-    void onAuthenticated();
-    void onGotSalt(QByteArray loginSalt);
     void onRefresh();
     void onLogEvent(const QString &event, const QString &message);
     void onIngameCommands(const QString &player, const QString &command);
     void onPlayerListChange();
 
-    void onDataSent(const QString &command);
-    void onDataReceived(const QString &response);
+    void onAuthenticated();
 
     // Event signals.
     void onPlayerJoin(const QString &player);

@@ -36,10 +36,10 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    explicit FrostbiteConnection(BFBC2CommandHandler *commandHandler, QObject *parent = 0);
+    explicit FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent = 0);
     ~FrostbiteConnection();
 
-    BFBC2CommandHandler *commandHandler;
+    FrostbiteCommandHandler *commandHandler;
 
 public slots:
     void hostConnect(const QString &host, const int &port);

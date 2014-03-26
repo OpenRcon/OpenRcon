@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,55 +20,17 @@
 #ifndef BF3CONNECTION_H
 #define BF3CONNECTION_H
 
-#include "Connection.h"
+#include "FrostbiteConnection.h"
 
-#include <QObject>
-#include <QTimer>
-#include <QDataStream>
-#include <QAbstractSocket>
-#include <QDebug>
-#include <QStringList>
-#include <QCryptographicHash>
+#include "BF3CommandHandler.h"
 
-#define MIN_PACKET_SIZE 12
-
-typedef QMap<QString, QString> PlayerItem;
-typedef QVector<PlayerItem> PlayerList;
-    
-class BF3Connection : public Connection {
+class BF3Connection : public FrostbiteConnection
+{
     Q_OBJECT
 
 public:
-    BF3Connection(QObject *parent = 0);
+    explicit BF3Connection(QObject *parent = 0);
     ~BF3Connection();
-
-public slots:
-    void hostConnect(const QString &host, const int &port);
-    void sendCommand(const QString &cmd);
-    void authenticate();
-    
-    bool authenticated();
-    
-    const PlayerItem &getPlayerList();
-
-
-private:
-    // sbrohy: TODO: Left the 'private' keyword here because I'm new to Qt and not sure whether it affects the 'signals' keyword below.
-
-    QString digestSeed; // MD5 digest seed
-    QString digestSeedPassword;	// Digest seed and password in hexadecimal
-
-    bool m_auth;
-
-    PlayerItem playerList;
-
-private slots:
-    void tcpSocketReadyRead();
-    void tcpSocketStateChanged(QAbstractSocket::SocketState state);
-    void getDigestSeed(const QString &data); // Get digest seed
-
-signals:
-    void logMessage(const QString &type, const QString &msg);
 
 };
 
