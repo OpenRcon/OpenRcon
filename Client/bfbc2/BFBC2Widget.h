@@ -38,10 +38,13 @@ private:
     QAction *action_pl_ban_byname;
     QAction *action_pl_reservedslots;
     QAction *action_pl_admin;
+    QAction *action_pl_move;
+
     QAction *action_bl_remove;
     QAction *action_rs_remove;
     QAction *action_ic_remove;
 
+    QStringList squadNameList;
     QStringList commandList;
     QCompleter *completer;
 
@@ -108,6 +111,8 @@ private slots:
     void onVarsTextChatSpamDetectionTimeCommand(const int &count);
     void onVarsTextChatSpamCoolDownTimeCommand(const int &count);
     void onVarsIdleTimeoutCommand(const int &seconds);
+
+    QString getSquadName(const int &id);
 
     void startupCommands();
 

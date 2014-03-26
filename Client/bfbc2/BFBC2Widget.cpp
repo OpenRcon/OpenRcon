@@ -15,6 +15,7 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     action_pl_ban_byname = new QAction(tr("By name"), this);
     action_pl_reservedslots = new QAction(tr("Reserved Slots"), this);
     action_pl_admin = new QAction(tr("Admin"), this);
+    action_pl_move = new QAction("Switch Sides", this);
 
     action_bl_remove = new QAction(tr("Remove"), this);
     action_rs_remove = new QAction(tr("Remove"), this);
@@ -31,6 +32,7 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     menu_pl->addMenu(menu_pl_textchatmoderation);
     menu_pl->addAction(action_pl_kill);
     menu_pl_move = new QMenu(tr("Move"), this);
+    menu_pl_move->addAction(action_pl_move);
     menu_pl->addMenu(menu_pl_move);
     menu_pl_kick = new QMenu(tr("Kick"), this);
     menu_pl_kick->addAction(action_pl_kick_custom);
@@ -57,6 +59,16 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
 
     // Hide the comboBox_ch_duration
     ui->comboBox_ch_duration->hide();
+
+    // Map squad names to id.
+    squadNameList.append("Alpha");
+    squadNameList.append("Bravo");
+    squadNameList.append("Charlie");
+    squadNameList.append("Delta");
+    squadNameList.append("Echo");
+    squadNameList.append("Foxtrot");
+    squadNameList.append("Golf");
+    squadNameList.append("Hotel");
 
     // Adds all the commands to the commandList.
     commandList.append("login.plainText ");
@@ -199,6 +211,8 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(action_pl_kick_custom, SIGNAL(triggered()), this, SLOT(action_pl_kick_custom_triggered()));
     connect(action_pl_ban_byname, SIGNAL(triggered()), this, SLOT(action_pl_ban_byname_triggered()));
     connect(action_pl_reservedslots, SIGNAL(triggered()), this, SLOT(action_pl_reservedslots_triggered()));
+    connect(action_pl_move, SIGNAL(triggered()), this, SLOT(slotMovePlayerTeam()));
+
 
     connect(ui->listWidget_ml_avaliablemaps, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
     connect(ui->listWidget_ml_currentmaps, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem*)));
@@ -258,11 +272,11 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(con->commandHandler, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
     connect(con->commandHandler, SIGNAL(onVarsBannerUrlCommand(const QString&)), this, SLOT(onVarsBannerUrlCommand(const QString&)));
     connect(con->commandHandler, SIGNAL(onVarsTextChatModerationModeCommand(const QString&)), this, SLOT(onVarsTextChatModerationModeCommand(const QString&)));
-    connect(con->commandHandler, SIGNAL(onVarsTextChatSpamTriggerCountCommand(const QString&)), this, SLOT(onVarsTextChatSpamTriggerCountCommand(const QString&)));
-    connect(con->commandHandler, SIGNAL(onVarsTextChatSpamDetectionTimeCommand(const QString&)), this, SLOT(onVarsTextChatSpamDetectionTimeCommand(const QString&)));
-    connect(con->commandHandler, SIGNAL(onVarsTextChatSpamCoolDownTimeCommand(const QString&)), this, SLOT(onVarsTextChatSpamCoolDownTimeCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsTextChatSpamTriggerCountCommand(const int&)), this, SLOT(onVarsTextChatSpamTriggerCountCommand(const int&)));
+    connect(con->commandHandler, SIGNAL(onVarsTextChatSpamDetectionTimeCommand(const int&)), this, SLOT(onVarsTextChatSpamDetectionTimeCommand(const int&)));
+    connect(con->commandHandler, SIGNAL(onVarsTextChatSpamCoolDownTimeCommand(const int&)), this, SLOT(onVarsTextChatSpamCoolDownTimeCommand(const int&)));
     connect(con->commandHandler, SIGNAL(onMapListListCommand(const QStringList&)), this, SLOT(onMapListListCommand(const QStringList&)));
-    connect(con->commandHandler, SIGNAL(onMapListNextLevelIndexCommand(int&)), this, SLOT(onMapListNextLevelIndexCommand(int&)));
+    connect(con->commandHandler, SIGNAL(onMapListNextLevelIndexCommand(const int&)), this, SLOT(onMapListNextLevelIndexCommand(const int&)));
     connect(con->commandHandler, SIGNAL(onBanListListCommand(const QStringList&)), this, SLOT(onBanListListCommand(const QStringList&)));
     connect(con->commandHandler, SIGNAL(onReservedSlotsListCommand(const QStringList&)), this, SLOT(onReservedSlotsListCommand(const QStringList&)));
     connect(con->commandHandler, SIGNAL(onVarsIdleTimeoutCommand(const int &)), this, SLOT(onVarsIdleTimeoutCommand(const int &)));
@@ -342,26 +356,26 @@ void BFBC2Widget::onAuthenticated()
 /* Events */
 void BFBC2Widget::onPlayerJoin(const QString &player)
 {
-    logMessage(0, tr("Player <b>%1</b> has joined the game.").arg(player));
+    logMessage(0, tr("Player <b>%1</b> joined the game.").arg(player));
 
     con->sendCommand("\"admin.listPlayers\" \"all\"");
 }
 
 void BFBC2Widget::onPlayerAuthenticated(const QString &player, const QString &guid)
 {
-    logMessage(0, tr("Player <b>%1</b> has just authenticated (GUID: <b>%2</b>).").arg(player).arg(guid));
+    logMessage(0, tr("Player <b>%1</b> authenticated with GUID: <b>%2</b>.").arg(player).arg(guid));
 }
 
 void BFBC2Widget::onPlayerLeave(const QString &player, const QString &info)
 {
-    logMessage(0, tr("Player <b>%1</b> has left the game.").arg(player).arg(info)); // TODO: Impelment score stuffs here?
+    logMessage(0, tr("Player <b>%1</b> left the game.").arg(player).arg(info)); // TODO: Impelment score stuffs here?
 
     con->sendCommand("\"admin.listPlayers\" \"all\"");
 }
 
 void BFBC2Widget::onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weaponList)
 {
-    logMessage(0, tr("Player <b>%1</b> has spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(player).arg(kit).arg(weaponList.at(0)).arg(weaponList.at(1)).arg(weaponList.at(2))); // TODO: Implement dynamic length on selected weapons.
+    logMessage(0, tr("Player <b>%1</b> spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(player).arg(kit).arg(weaponList.at(0)).arg(weaponList.at(1)).arg(weaponList.at(2))); // TODO: Implement dynamic length on selected weapons.
 }
 
 void BFBC2Widget::onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot)
@@ -370,7 +384,7 @@ void BFBC2Widget::onPlayerKill(const QString &killer, const QString &victim, con
         if (headshot) {
             logMessage(0, tr("Player <b>%1</b> headshoted player <b>%2</b> using <b>%3</b>").arg(killer).arg(victim).arg(weapon));
         } else {
-            logMessage(0, tr("Player <b>%1</b> has killed player <b>%2</b> with <b>%3</b>").arg(killer).arg(victim).arg(weapon));
+            logMessage(0, tr("Player <b>%1</b> killed player <b>%2</b> with <b>%3</b>").arg(killer).arg(victim).arg(weapon));
         }
     } else {
         logMessage(0, tr("Player <b>%1</b> commited sucide using <b>%3</b>").arg(killer).arg(weapon));
@@ -379,26 +393,30 @@ void BFBC2Widget::onPlayerKill(const QString &killer, const QString &victim, con
 
 void BFBC2Widget::onPlayerChat(const QString &player, const QString &message, const QString &target)
 {
+    Q_UNUSED(target)
+
     logMessage(4, tr("<b>%2</b>: %3").arg(player).arg(message));
 }
 
 void BFBC2Widget::onPlayerKicked(const QString &player, const QString &reason)
 {
-    logMessage(0, tr("Player <b>%1</b> has been kicked from the game, the reason was reason: <b>%2</b>.").arg(player).arg(reason));
+    logMessage(0, tr("Player <b>%1</b> was kicked from the game, the reason was: <b>%2</b>.").arg(player).arg(reason));
 }
 
 void BFBC2Widget::onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId)
 {
     Q_UNUSED(teamId);
 
-    logMessage(0, tr("Player <b>%1</b> has changed to squad <b>%3</b>.").arg(player).arg(squadId));
+    if (squadId != 0) {
+        logMessage(0, tr("Player <b>%1</b> changed squad to <b>%3</b>.").arg(player).arg(getSquadName(squadId)));
+    }
 }
 
 void BFBC2Widget::onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId)
 {
     Q_UNUSED(squadId);
 
-    logMessage(0, tr("Player <b>%1</b> has changed to team <b>%2</b>.").arg(player).arg(teamId));
+    logMessage(0, tr("Player <b>%1</b> changed team to <b>%2</b>.").arg(player).arg(teamId));
 }
 
 void BFBC2Widget::onPunkBusterMessage(const QString &message)
@@ -536,10 +554,10 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     }
 
     teamIds.removeDuplicates();
-
     teamIds.sort();
     playerNames.sort();
     menu_pl_move->clear();
+
     foreach (QString id, teamIds) {
         QTreeWidgetItem *team = new QTreeWidgetItem(ui->treeWidget_pl);
         QString teamName = tr("Team %1").arg(id);
@@ -551,10 +569,6 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
             }
         }
     }
-
-    QAction *teamAction = new QAction("Switch Sides", menu_pl_move);
-    menu_pl_move->addAction (teamAction);
-    connect(teamAction, SIGNAL(ontriggered()), this, SLOT(slotMovePlayerTeam()));
 
     // Expand all player rows
     ui->treeWidget_pl->expandAll();
@@ -644,6 +658,11 @@ void BFBC2Widget::onVarsTextChatSpamCoolDownTimeCommand(const int &count)
 void BFBC2Widget::onVarsIdleTimeoutCommand(const int &seconds)
 {
     ui->spinBox_op_gp_idleTimeout->setValue(seconds);
+}
+
+QString BFBC2Widget::getSquadName(const int &id)
+{
+    return squadNameList.at(id - 1);
 }
 
 void BFBC2Widget::startupCommands() {
