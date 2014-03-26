@@ -21,6 +21,8 @@
 
 ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialog)
 {
+    Q_UNUSED(parent);
+
     ui->setupUi(this);
 
     setWindowTitle(tr("Server details"));
