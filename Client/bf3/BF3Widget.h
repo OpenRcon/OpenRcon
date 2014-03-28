@@ -31,6 +31,9 @@ public:
     explicit BF3Widget(const QString &host, const int &port, const QString &password);
     ~BF3Widget();
 
+private slots:
+    void pushButton_co_send_clicked();
+
 private:
     Ui::BF3 *ui;
 

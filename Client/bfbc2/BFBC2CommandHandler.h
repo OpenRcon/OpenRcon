@@ -5,7 +5,6 @@
 
 #include "FrostbiteCommandHandler.h"
 
-
 typedef QMap<QString, QString> PlayerListItem;
 typedef QVector<PlayerListItem> PlayerList;
 

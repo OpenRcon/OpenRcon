@@ -7,6 +7,11 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     ui->label_op_so_bannerImage->hide();
     ui->spinBox_ch_duration->hide();
 
+    ui->treeWidget_pl_playerList->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->tableWidget_bl->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->listWidget_rs->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->listWidget_ic->setContextMenuPolicy(Qt::CustomContextMenu);
+
     action_pl_sendmessage = new QAction(tr("Send message"), this);
     action_pl_stats = new QAction(tr("Stats"), this);
     action_pl_textchatmoderation_muted = new QAction(tr("Muted"), this);
@@ -54,11 +59,6 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
 
     menu_ic = new QMenu(tr("Ingame Commands"), this);
     menu_ic->addAction(action_ic_remove);
-
-    ui->treeWidget_pl->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->tableWidget_bl->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->listWidget_rs->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->listWidget_ic->setContextMenuPolicy(Qt::CustomContextMenu);
 
     // Map squad names to id.
     squadNameList.append("Alpha");
@@ -258,10 +258,10 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(ui->checkBox_op_go_thirdPersonVehicleCameras, SIGNAL(clicked()), this, SLOT(checkbox_op_go_thirdPersonVehicleCameras_clicked()));
 
     // Old.
-    connect(ui->treeWidget_pl, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_pl_customContextMenuRequested(QPoint)));
-    connect(ui->treeWidget_pl, SIGNAL(dragEvent()), this, SLOT(blockPlayerList()));
-    connect(ui->treeWidget_pl, SIGNAL(dropEvent(const QString&, const QString&)), this, SLOT(slotChangePlayerTeam(const QString&, const QString&)));
-    connect(ui->treeWidget_pl, SIGNAL(refresh()), this, SLOT(refreshPlayerList()));
+    connect(ui->treeWidget_pl_playerList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_pl_customContextMenuRequested(QPoint)));
+    connect(ui->treeWidget_pl_playerList, SIGNAL(dragEvent()), this, SLOT(blockPlayerList()));
+    connect(ui->treeWidget_pl_playerList, SIGNAL(dropEvent(const QString&, const QString&)), this, SLOT(slotChangePlayerTeam(const QString&, const QString&)));
+    connect(ui->treeWidget_pl_playerList, SIGNAL(refresh()), this, SLOT(refreshPlayerList()));
 
     connect(action_pl_sendmessage, SIGNAL(triggered()), this, SLOT(action_pl_sendmessage_triggered()));
     connect(action_pl_stats, SIGNAL(triggered()), this, SLOT(action_pl_stats_triggered()));
@@ -490,10 +490,10 @@ void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
     QString mapImage = getMapImage(serverInfo.at(4), serverInfo.at(3));
 
     // Players
-    ui->label_pl_servername->setText(serverInfo.at(0));
+    ui->label_pl_serverName->setText(serverInfo.at(0));
     ui->label_pl_map->setText(mapName);
     ui->label_pl_mod->setText(serverInfo.at(17));
-    ui->label_pl_gamemode->setText(serverInfo.at(3));
+    ui->label_pl_gameMode->setText(serverInfo.at(3));
     ui->label_pl_players->setText(QString("%1/%2").arg(serverInfo.at(1), serverInfo.at(2)));
     ui->label_pl_round->setText(QString("%1/%2").arg(serverInfo.at(6), serverInfo.at(7)));
     ui->label_pl_address->setText(serverInfo.at(19));
@@ -511,7 +511,7 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     qDebug() << "slotPlayerListChange called!";
 
     // Clear QTreeWidget
-    ui->treeWidget_pl->clear();
+    ui->treeWidget_pl_playerList->clear();
 
     QStringList teamIds;
     QStringList playerNames;
@@ -555,7 +555,7 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     menu_pl_move->clear();
 
     foreach (QString id, teamIds) {
-        QTreeWidgetItem *team = new QTreeWidgetItem(ui->treeWidget_pl);
+        QTreeWidgetItem *team = new QTreeWidgetItem(ui->treeWidget_pl_playerList);
         QString teamName = tr("Team %1").arg(id);
         team->setText(0, teamName);
         foreach (QString name, playerNames) {
@@ -567,7 +567,7 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     }
 
     // Expand all player rows
-    ui->treeWidget_pl->expandAll();
+    ui->treeWidget_pl_playerList->expandAll();
 }
 
 void BFBC2Widget::onVarsServerNameCommand(const QString &serverName)
@@ -659,24 +659,23 @@ void BFBC2Widget::onVarsIdleTimeoutCommand(const int &seconds)
 // Player
 void BFBC2Widget::treeWidget_pl_customContextMenuRequested(QPoint pos)
 {
-    if (ui->treeWidget_pl->itemAt(pos)) {
+    if (ui->treeWidget_pl_playerList->itemAt(pos)) {
         // Something crash here.
-        /*
-        QString hideTeam = ui->treeWidget_pl->itemAt(pos)->parent()->text(0);
+        QString hideTeam = ui->treeWidget_pl_playerList->itemAt(pos)->parent()->text(0);
         foreach (QAction *team, menu_pl_move->actions()) {
             qDebug () << team->text();
             if (team->text () == hideTeam) {
                 menu_pl_move->removeAction(team);
             }
         }
-        */
+
         menu_pl->exec(QCursor::pos());
     }
 }
 
 void BFBC2Widget::action_pl_sendmessage_triggered()
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
     bool ok;
     QString msg = QInputDialog::getText(this, tr("Send message"), tr("Message:"), QLineEdit::Normal, 0, &ok);
 
@@ -687,48 +686,48 @@ void BFBC2Widget::action_pl_sendmessage_triggered()
 
 void BFBC2Widget::action_pl_stats_triggered()
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
 
     QDesktopServices::openUrl(QUrl(PLAYER_STATS_URL + player));
 }
 
 void BFBC2Widget::action_pl_kill_triggered()
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
     killPlayer(player);
 }
 
 void BFBC2Widget::action_pl_textchatmoderation_muted_triggered() // Get this work
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
 
     con->sendCommand(QString("\"textChatModerationList.addPlayer\" \"muted\" \"%1\"").arg(player));
 }
 
 void BFBC2Widget::action_pl_textchatmoderation_normal_triggered() // Get this work
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
 
     con->sendCommand(QString("\"textChatModerationList.addPlayer\" \"normal\" \"%1\"").arg(player));
 }
 
 void BFBC2Widget::action_pl_textchatmoderation_voice_triggered() // Get this work
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
 
     con->sendCommand(QString("\"textChatModerationList.addPlayer\" \"voice\" \"%1\"").arg(player));
 }
 
 void BFBC2Widget::action_pl_textchatmoderation_admin_triggered() // Get this work
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
 
     con->sendCommand(QString("\"textChatModerationList.addPlayer\" \"admin\" \"%1\"").arg(player));
 }
 
 void BFBC2Widget::action_pl_kick_custom_triggered()
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
     bool ok;
     QString reason = QInputDialog::getText(this, tr("Kick"), tr("Kick reason:"), QLineEdit::Normal, 0, &ok);
 
@@ -739,7 +738,7 @@ void BFBC2Widget::action_pl_kick_custom_triggered()
 
 void BFBC2Widget::action_pl_ban_byname_triggered()
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
     bool ok;
     QString reason = QInputDialog::getText(this, tr("Ban"), tr("Ban reason:"), QLineEdit::Normal, 0, &ok);
 
@@ -750,7 +749,7 @@ void BFBC2Widget::action_pl_ban_byname_triggered()
 
 void BFBC2Widget::action_pl_reservedslots_triggered()
 {
-    QString player = ui->treeWidget_pl->currentItem()->text(1);
+    QString player = ui->treeWidget_pl_playerList->currentItem()->text(1);
 
     if (!player.isEmpty()) {
         reserveSlotForPlayer(player, true);
@@ -1380,7 +1379,7 @@ void BFBC2Widget::slotMovePlayerTeam()
     QAction *team = qobject_cast<QAction *>(sender());
     if (team) {
         QString altTeam = "1";
-        QTreeWidgetItem *player = ui->treeWidget_pl->currentItem();
+        QTreeWidgetItem *player = ui->treeWidget_pl_playerList->currentItem();
         if (player->data(0, Qt::UserRole) == "1") {
             altTeam = "2";
         }

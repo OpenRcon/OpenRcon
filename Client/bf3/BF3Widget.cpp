@@ -22,9 +22,20 @@
 BF3Widget::BF3Widget(const QString &host, const int &port, const QString &password) : BF3(host, port, password), ui(new Ui::BF3)
 {
     ui->setupUi(this);
+
+    connect(ui->pushButton_co_send, SIGNAL(clicked()), this, SLOT(pushButton_co_send_clicked()));
+    connect(ui->lineEdit_co_input, SIGNAL(editingFinished()), this, SLOT(pushButton_co_send_clicked()));
 }
 
 BF3Widget::~BF3Widget()
 {
     delete ui;
+}
+
+void BF3Widget::pushButton_co_send_clicked()
+{
+    QString command = ui->lineEdit_co_input->text();
+    ui->lineEdit_co_input->clear();
+
+    con->sendCommand(command);
 }

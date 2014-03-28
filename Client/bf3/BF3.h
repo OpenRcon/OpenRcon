@@ -37,14 +37,8 @@ public:
 
     virtual Connection *getConnection() { return con; }
 
-private:
+protected:
     BF3Connection *con;
-
-    QCompleter *completer;
-    QMenu *menu_pl_playerBan;
-    QMenu *menu_pl_playerKick;
-    QMenu *menu_pl_playerMove;
-    QMenu *menu_pl_player;
 
 };
 

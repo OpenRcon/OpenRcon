@@ -43,15 +43,6 @@ public:
 
     virtual Connection *getConnection() { return con; }
 
-    void sendSayMessage(const QString &msg, const QString &group);
-    void sendYellMessage(const QString &message, const int &duration, const QString &group);
-    void killPlayer(const QString &player);
-    void kickPlayer(const QString &player, const QString &reason);
-    void banPlayer(const QString &type, const QString &id, const QString &timeout, const QString &reason);
-    void unbanPlayer(const QString &type, const QString &id);
-    void movePlayer(const QString &player, const QString &teamId, const QString &squadId, const QString &fk);
-    void reserveSlotForPlayer(const QString &player, const bool &action);
-
 private:
     bool auth;
 
@@ -74,6 +65,15 @@ protected:
     QStringList gamemodes;
     int nextLevelIndex;
     QStringList mapListU;
+
+    void sendSayMessage(const QString &msg, const QString &group);
+    void sendYellMessage(const QString &message, const int &duration, const QString &group);
+    void killPlayer(const QString &player);
+    void kickPlayer(const QString &player, const QString &reason);
+    void banPlayer(const QString &type, const QString &id, const QString &timeout, const QString &reason);
+    void unbanPlayer(const QString &type, const QString &id);
+    void movePlayer(const QString &player, const QString &teamId, const QString &squadId, const QString &fk);
+    void reserveSlotForPlayer(const QString &player, const bool &action);
 
     QString getMapName(const QString &mapPath, const QString &gamemode);
     QString getMapImage(const QString &mapPath, const QString &gamemode);
