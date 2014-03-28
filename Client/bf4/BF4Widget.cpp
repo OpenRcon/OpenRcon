@@ -367,6 +367,69 @@ void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const 
     logMessage(0, tr("<b>%1</b> server running version: <b>%2</b>.").arg(type, version));
 }
 
+void BF4Widget::onAdminListPlayersCommand(const PlayerList &playerList)
+{
+    // Clear QTreeWidget
+    ui->treeWidget_pl_playerList->clear();
+
+    QStringList teamIds;
+    QStringList playerNames;
+    QMap<QString, QString> teamItems;
+    QMap<QString, QTreeWidgetItem *> playerItems;
+
+    foreach (PlayerListItem player, playerList) {
+        QStringList playerInfo;
+        QString teamId = player.value("teamId");
+        QString clanTag = player.value("clanTag");
+        QString playerName = player.value("name");
+        QString kills = player.value("kills");
+        QString deaths = player.value("deaths");
+        QString score = player.value("score");
+        QString ping = player.value("ping");
+        QString guid = player.value("guid");
+
+        playerInfo.append(clanTag);
+        playerInfo.append(playerName);
+        playerInfo.append(kills);
+        playerInfo.append(deaths);
+        playerInfo.append(score);
+        playerInfo.append(ping);
+        playerInfo.append(guid);
+
+        playerNames.append(playerName);
+
+        // add player to parent teamItem
+        QTreeWidgetItem *item = new QTreeWidgetItem(playerInfo);
+        item->setData(0, Qt::UserRole, teamId);
+        playerItems.insert(playerName, item);
+
+        // add team item and team id into map with key player name
+        teamItems.insert(playerName, teamId);
+        teamIds.append(teamId);
+    }
+
+    teamIds.removeDuplicates();
+    teamIds.sort();
+    playerNames.sort();
+    //menu_pl_move->clear();
+
+    foreach (QString id, teamIds) {
+        QTreeWidgetItem *team = new QTreeWidgetItem(ui->treeWidget_pl_playerList);
+        QString teamName = tr("Team %1").arg(id);
+        team->setText(0, teamName);
+        foreach (QString name, playerNames) {
+            QTreeWidgetItem *player = playerItems.value(name);
+            if (id == player->data(0, Qt::UserRole)) {
+                team->addChild(player);
+            }
+        }
+    }
+
+    // Expand all player rows
+    ui->treeWidget_pl_playerList->expandAll();
+}
+
+/* User Interface */
 void BF4Widget::pushButton_ch_send_clicked()
 {
     int type = ui->comboBox_ch_mode->currentIndex();

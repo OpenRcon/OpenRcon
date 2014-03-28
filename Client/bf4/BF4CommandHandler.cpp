@@ -309,7 +309,7 @@ void BF4CommandHandler::eventOnPunkBusterMessage(const FrostbiteRconPacket &pack
 
 void BF4CommandHandler::eventOnServerMaxPlayerCountChange(const FrostbiteRconPacket &packet)
 {
-
+    Q_UNUSED(packet);
 }
 
 void BF4CommandHandler::eventOnServerLevelLoaded(const FrostbiteRconPacket &packet)

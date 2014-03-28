@@ -69,6 +69,7 @@ private slots:
 
     /* Commands */
     void onVersionCommand(const QString &type, const int &buildId, const QString &version);
+    void onAdminListPlayersCommand(const PlayerList &playerList);
 
     void pushButton_ch_send_clicked();
     void pushButton_co_send_clicked();

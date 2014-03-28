@@ -508,8 +508,6 @@ void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
 
 void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
 {
-    qDebug() << "slotPlayerListChange called!";
-
     // Clear QTreeWidget
     ui->treeWidget_pl_playerList->clear();
 

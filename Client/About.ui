@@ -42,7 +42,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="tab_ab">
       <attribute name="title">
@@ -290,9 +290,10 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButton_ab_close</tabstop>
   <tabstop>tabWidget</tabstop>
+  <tabstop>pushButton_ab_close</tabstop>
   <tabstop>textBrowser_au</tabstop>
+  <tabstop>textBrowser_cb</tabstop>
   <tabstop>textBrowser_tr</tabstop>
   <tabstop>textBrowser_li</tabstop>
  </tabstops>

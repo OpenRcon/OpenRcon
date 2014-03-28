@@ -39,7 +39,9 @@ int MinecraftCommandHandler::getRequestIdForCommand(const QString &command)
 
 void MinecraftCommandHandler::helpCommand(const QString &packet)
 {
-//    emit (onHelpCommand(packet));
+    Q_UNUSED(packet);
+
+    //emit (onHelpCommand(packet));
 }
 
 void MinecraftCommandHandler::listCommand(const QString &packet)
@@ -51,5 +53,7 @@ void MinecraftCommandHandler::listCommand(const QString &packet)
 
 void MinecraftCommandHandler::unknownCommand(const QString &packet)
 {
+    Q_UNUSED(packet);
+
     emit (onUnknownCommand());
 }

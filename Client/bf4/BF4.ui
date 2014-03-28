@@ -17,7 +17,7 @@
    <string notr="true"/>
   </property>
   <property name="currentIndex">
-   <number>1</number>
+   <number>0</number>
   </property>
   <property name="documentMode">
    <bool>true</bool>
@@ -28,7 +28,7 @@
    </attribute>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QTreeWidget" name="treeWidget_pl">
+     <widget class="QTreeWidget" name="treeWidget_pl_playerList">
       <column>
        <property name="text">
         <string>Id</string>
@@ -148,7 +148,7 @@
   </action>
  </widget>
  <tabstops>
-  <tabstop>treeWidget_pl</tabstop>
+  <tabstop>treeWidget_pl_playerList</tabstop>
   <tabstop>lineEdit_co_input</tabstop>
   <tabstop>pushButton_co_send</tabstop>
   <tabstop>textEdit_co_output</tabstop>

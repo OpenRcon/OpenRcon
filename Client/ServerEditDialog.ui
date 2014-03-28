@@ -164,10 +164,13 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButton_sed_ok</tabstop>
-  <tabstop>pushButton_sed_cancel</tabstop>
   <tabstop>comboBox_sed_game</tabstop>
   <tabstop>lineEdit_sed_name</tabstop>
+  <tabstop>lineEdit_sed_host</tabstop>
+  <tabstop>spinBox_sed_port</tabstop>
+  <tabstop>lineEdit_sed_password</tabstop>
+  <tabstop>pushButton_sed_ok</tabstop>
+  <tabstop>pushButton_sed_cancel</tabstop>
  </tabstops>
  <resources/>
  <connections/>
