@@ -1,0 +1,401 @@
+/*
+ * Copyright (C) 2014 The OpenRcon Project.
+ *
+ * This file is part of OpenRcon.
+ *
+ * OpenRcon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * OpenRcon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "BF4Widget.h"
+
+BF4Widget::BF4Widget(const QString &host, const int &port, const QString &password) : BF4(host, port, password), ui(new Ui::BF4)
+{
+    ui->setupUi(this);
+
+    ui->comboBox_ch_mode->addItem("Say");
+    ui->comboBox_ch_mode->addItem("Yell");
+
+    ui->comboBox_ch_target->addItem("All");
+    ui->comboBox_ch_target->addItem("Team");
+    ui->comboBox_ch_target->addItem("Squad");
+
+    // Map squad names to id.
+    squadNameList.append("Alpha");
+    squadNameList.append("Bravo");
+    squadNameList.append("Charlie");
+    squadNameList.append("Delta");
+    squadNameList.append("Echo");
+    squadNameList.append("Foxtrot");
+    squadNameList.append("Golf");
+    squadNameList.append("Hotel");
+
+    // Adds all the commands to the commandList.
+    commandList.append("login.plainText ");
+    commandList.append("login.hashed");
+    commandList.append("login.hashed ");
+    commandList.append("logout");
+    commandList.append("quit");
+    commandList.append("version");
+    commandList.append("listPlayers ");
+    commandList.append("eventsEnabled ");
+    commandList.append("help");
+    commandList.append("admin.runscript ");
+    commandList.append("punkBuster.pb_sv_command ");
+    commandList.append("serverInfo");
+    commandList.append("admin.yell ");
+    commandList.append("admin.say ");
+    commandList.append("admin.runNextRound");
+    commandList.append("admin.restartRound");
+    commandList.append("admin.endRound ");
+    commandList.append("admin.runNextLevel");
+    commandList.append("admin.restartMap");
+    commandList.append("admin.currentLevel");
+    commandList.append("mapList.nextLevelIndex");
+    commandList.append("mapList.nextLevelIndex ");
+    commandList.append("admin.supportedMaps ");
+    commandList.append("admin.setPlaylist ");
+    commandList.append("admin.getPlaylist");
+    commandList.append("admin.getPlaylists");
+    commandList.append("admin.kickPlayer ");
+    commandList.append("admin.listPlayers ");
+    commandList.append("admin.movePlayer ");
+    commandList.append("admin.killPlayer ");
+    commandList.append("vars.textChatModerationMode ");
+    commandList.append("vars.textChatSpamTriggerCount ");
+    commandList.append("vars.textChatSpamDetectionTime ");
+    commandList.append("vars.textChatSpamCoolDownTime ");
+    commandList.append("textChatModerationList.load");
+    commandList.append("textChatModerationList.save");
+    commandList.append("textChatModerationList.add ");
+    commandList.append("textChatModerationList.remove ");
+    commandList.append("textChatModerationList.clear");
+    commandList.append("textChatModerationList.list");
+    commandList.append("textChatModerationList.list ");
+    commandList.append("banList.load");
+    commandList.append("banList.save");
+    commandList.append("banList.add ");
+    commandList.append("banList.remove ");
+    commandList.append("banList.clear");
+    commandList.append("banList.list");
+    commandList.append("banList.list ");
+    commandList.append("reservedSlots.load");
+    commandList.append("reservedSlots.save");
+    commandList.append("reservedSlots.addPlayer ");
+    commandList.append("reservedSlots.removePlayer ");
+    commandList.append("reservedSlots.clear");
+    commandList.append("reservedSlots.list");
+    commandList.append("mapList.load");
+    commandList.append("mapList.save");
+    commandList.append("mapList.list");
+    commandList.append("mapList.list ");
+    commandList.append("mapList.clear");
+    commandList.append("mapList.remove ");
+    commandList.append("mapList.append ");
+    commandList.append("mapList.insert ");
+    commandList.append("vars.serverName");
+    commandList.append("vars.serverName ");
+    commandList.append("vars.adminPassword");
+    commandList.append("vars.adminPassword ");
+    commandList.append("vars.gamePassword");
+    commandList.append("vars.gamePassword ");
+    commandList.append("vars.punkBuster");
+    commandList.append("vars.punkBuster ");
+    commandList.append("vars.hardCore" );
+    commandList.append("vars.hardCore ");
+    commandList.append("vars.ranked");
+    commandList.append("vars.ranked ");
+    commandList.append("vars.rankLimit");
+    commandList.append("vars.rankLimit ");
+    commandList.append("vars.teamBalance");
+    commandList.append("vars.teamBalance ");
+    commandList.append("vars.friendlyFire");
+    commandList.append("vars.friendlyFire ");
+    commandList.append("vars.currentPlayerLimit");
+    commandList.append("vars.currentPlayerLimit ");
+    commandList.append("vars.maxPlayerLimit");
+    commandList.append("vars.maxPlayerLimit ");
+    commandList.append("vars.playerLimit");
+    commandList.append("vars.playerLimit ");
+    commandList.append("vars.bannerUrl");
+    commandList.append("vars.bannerUrl ");
+    commandList.append("vars.serverDescription");
+    commandList.append("vars.serverDescription ");
+    commandList.append("vars.killCam");
+    commandList.append("vars.killCam ");
+    commandList.append("vars.miniMap");
+    commandList.append("vars.miniMap ");
+    commandList.append("vars.crossHair");
+    commandList.append("vars.crossHair ");
+    commandList.append("vars.3dSpotting");
+    commandList.append("vars.3dSpotting ");
+    commandList.append("vars.miniMapSpotting");
+    commandList.append("vars.miniMapSpotting ");
+    commandList.append("vars.thirdPersonVehicleCameras");
+    commandList.append("vars.thirdPersonVehicleCameras ");
+    commandList.append("vars.teamKillCountForKick");
+    commandList.append("vars.teamKillCountForKick ");
+    commandList.append("vars.teamKillValueForKick");
+    commandList.append("vars.teamKillValueForKick ");
+    commandList.append("vars.teamKillValueIncrease");
+    commandList.append("vars.teamKillValueIncrease ");
+    commandList.append("vars.teamKillValueDecreasePerSecond");
+    commandList.append("vars.teamKillValueDecreasePerSecond ");
+    commandList.append("vars.idleTimeout");
+    commandList.append("vars.idleTimeout ");
+    commandList.append("vars.profanityFilter");
+    commandList.append("vars.profanityFilter ");
+    commandList.append("levelVars.set ");
+    commandList.append("levelVars.get ");
+    commandList.append("levelVars.evaluate ");
+    commandList.append("levelVars.clear ");
+    commandList.append("levelVars.list ");
+
+    completer = new QCompleter(commandList, this);
+    ui->lineEdit_co_input->setCompleter(completer);
+
+    /* Events */
+    connect(con->commandHandler, SIGNAL(onDataSent(const QString&)), this, SLOT(onDataSent(const QString&)));
+    connect(con->commandHandler, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataSent(const QString&)));
+    connect(con->commandHandler, SIGNAL(onAuthenticated()), this, SLOT(onAuthenticated()));
+
+    connect(con->commandHandler, SIGNAL(onPlayerAuthenticated(const QString&, const QString&)), this, SLOT(onPlayerAuthenticated(const QString&, const QString&)));
+    connect(con->commandHandler, SIGNAL(onPlayerJoin(const QString&)), this, SLOT(onPlayerJoin(const QString&)));
+    connect(con->commandHandler, SIGNAL(onPlayerLeave(const QString&, const QString&)), this, SLOT(onPlayerLeave(const QString&, const QString&)));
+    connect(con->commandHandler, SIGNAL(onPlayerSpawn(const QString&, const QString&, const QStringList&)), this, SLOT(onPlayerSpawn(const QString&, const QString&, const QStringList&)));
+    connect(con->commandHandler, SIGNAL(onPlayerKill(const QString&, const QString&, const QString&, const bool&)), this, SLOT(onPlayerKill(const QString&, const QString&, const QString&, const bool&)));
+    connect(con->commandHandler, SIGNAL(onPlayerChat(const QString&, const QString&, const QString&)), this, SLOT(onPlayerChat(const QString&, const QString&, const QString&)));
+    connect(con->commandHandler, SIGNAL(onPlayerSquadChange(const QString&, const int&, const int&)), this, SLOT(onPlayerSquadChange(const QString&, const int&, const int&)));
+    connect(con->commandHandler, SIGNAL(onPlayerTeamChange(const QString&, const int&, const int&)), this, SLOT(onPlayerTeamChange(const QString&, const int&, const int&)));
+    connect(con->commandHandler, SIGNAL(onPunkBusterMessage(const QString&)), this, SLOT(onPunkBusterMessage(const QString&)));
+    connect(con->commandHandler, SIGNAL(onServerLevelLoaded(const QString&, const QString&, const int&, const int&)), this, SLOT(onServerLevelLoaded(const QString&, const QString&, const int&, const int&)));
+    connect(con->commandHandler, SIGNAL(onServerRoundOver(const int&)), this, SLOT(onServerRoundOver(const int&)));
+    connect(con->commandHandler, SIGNAL(onServerRoundOverPlayers(const QString&)), this, SLOT(onServerRoundOverPlayers(const QString&)));
+    connect(con->commandHandler, SIGNAL(onServerRoundOverTeamScores(const QString&)), this, SLOT(onServerRoundOverTeamScores(const QString&)));
+
+    /* Commands */
+    connect(con->commandHandler, SIGNAL(onVersionCommand(const QString&, const int&, const QString&)), this, SLOT(onVersionCommand(const QString&, const int&, const QString&)));
+
+    /* User Interface */
+    connect(ui->pushButton_ch_send, SIGNAL(clicked()), this, SLOT(pushButton_ch_send_clicked()));
+    connect(ui->lineEdit_ch_input, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_send_clicked()));
+
+    connect(ui->pushButton_co_send, SIGNAL(clicked()), this, SLOT(pushButton_co_send_clicked()));
+    connect(ui->lineEdit_co_input, SIGNAL(editingFinished()), this, SLOT(pushButton_co_send_clicked()));
+}
+
+BF4Widget::~BF4Widget()
+{
+    delete ui;
+}
+
+void BF4Widget::logMessage(const int &type, const QString &message)
+{
+    QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
+
+    if (type == 0) { // Info
+        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+    } else if (type == 1) { // Error
+        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime, message));
+    } else if (type == 2) { // Server send
+        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+    } else if (type == 3) { // Server receive
+        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime, message));
+    } else if (type == 4) { // Chat
+        ui->textEdit_ch_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+    } else if (type == 5) { // Punkbuster
+        //ui->textEdit_co_pb_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+    }
+}
+
+void BF4Widget::startupCommands() {
+    con->sendCommand("\"serverInfo\"");
+    con->sendCommand("\"admin.listPlayers\" \"all\"");
+
+    con->sendCommand("\"vars.serverName\"");
+    con->sendCommand("\"vars.serverDescription\"");
+    con->sendCommand("\"vars.bannerUrl\"");
+
+    con->sendCommand("\"vars.idleTimeout\"");
+
+    con->sendCommand("\"eventsEnabled\" \"true\"");
+    con->sendCommand("\"version\"");
+
+    con->sendCommand("\"vars.textChatModerationMode\"");
+    con->sendCommand("\"vars.textChatSpamTriggerCount\"");
+    con->sendCommand("\"vars.textChatSpamDetectionTime\"");
+    con->sendCommand("\"vars.textChatSpamCoolDownTime\"");
+
+    con->sendCommand("\"mapList.list\"");
+    con->sendCommand("\"mapList.nextLevelIndex\"");
+
+    con->sendCommand("\"banList.list\"");
+    con->sendCommand("\"reservedSlots.list\"");
+}
+
+/* Events */
+void BF4Widget::onDataSent(const QString &command)
+{
+    logMessage(2, command);
+}
+
+void BF4Widget::onDataReceived(const QString &response)
+{
+    logMessage(3, response);
+}
+
+void BF4Widget::onAuthenticated()
+{
+    // Call commands on startup.
+    startupCommands();
+
+    // Find a better way to do this.
+//    commandRefreshTimer = new QTimer(this);
+//    connect(commandRefreshTimer, SIGNAL(timeout()), this, SLOT(refreshCommands()));
+//    commandRefreshTimer->start(10000);
+}
+
+void BF4Widget::onPlayerAuthenticated(const QString &player, const QString &guid)
+{
+    logMessage(0, tr("Player <b>%1</b> authenticated with GUID: <b>%2</b>.").arg(player).arg(guid));
+}
+
+void BF4Widget::onPlayerJoin(const QString &player)
+{
+    logMessage(0, tr("Player <b>%1</b> joined the game.").arg(player));
+
+    con->sendCommand("\"admin.listPlayers\" \"all\"");
+}
+
+void BF4Widget::onPlayerLeave(const QString &player, const QString &info)
+{
+    logMessage(0, tr("Player <b>%1</b> left the game.").arg(player).arg(info)); // TODO: Impelment score stuffs here?
+
+    con->sendCommand("\"admin.listPlayers\" \"all\"");
+}
+
+void BF4Widget::onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weaponList)
+{
+    logMessage(0, tr("Player <b>%1</b> spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(player).arg(kit).arg(weaponList.at(0)).arg(weaponList.at(1)).arg(weaponList.at(2))); // TODO: Implement dynamic length on selected weapons.
+}
+
+void BF4Widget::onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot)
+{
+    if (killer != victim) {
+        if (headshot) {
+            logMessage(0, tr("Player <b>%1</b> headshoted player <b>%2</b> using <b>%3</b>").arg(killer).arg(victim).arg(weapon));
+        } else {
+            logMessage(0, tr("Player <b>%1</b> killed player <b>%2</b> with <b>%3</b>").arg(killer).arg(victim).arg(weapon));
+        }
+    } else {
+        logMessage(0, tr("Player <b>%1</b> commited sucide using <b>%3</b>").arg(killer).arg(weapon));
+    }
+}
+
+void BF4Widget::onPlayerChat(const QString &player, const QString &message, const QString &target)
+{
+    Q_UNUSED(target)
+
+    logMessage(4, tr("<b>%2</b>: %3").arg(player).arg(message));
+}
+
+void BF4Widget::onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId)
+{
+    Q_UNUSED(teamId);
+
+    if (squadId != 0) {
+        logMessage(0, tr("Player <b>%1</b> changed squad to <b>%3</b>.").arg(player).arg(getSquadName(squadId)));
+    }
+}
+
+void BF4Widget::onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId)
+{
+    Q_UNUSED(squadId);
+
+    logMessage(0, tr("Player <b>%1</b> changed team to <b>%2</b>.").arg(player).arg(teamId));
+}
+
+void BF4Widget::onPunkBusterMessage(const QString &message)
+{
+    logMessage(5, message);
+}
+
+void BF4Widget::onServerMaxPlayerCountChange()
+{
+
+}
+
+void BF4Widget::onServerLevelLoaded(const QString &levelName, const QString &gameMode, const int &roundsPlayed, const int &roundsTotal)
+{
+    Q_UNUSED(gameMode);
+    Q_UNUSED(roundsPlayed);
+    Q_UNUSED(roundsTotal);
+
+    logMessage(0, tr("Loading level: <b>%1</b>").arg(levelName)); // TODO: Transelate internal level name to human readable.
+}
+
+void BF4Widget::onServerRoundOver(const int &winningTeamId)
+{
+    logMessage(0, tr("The round has just ended, and <b>%1</b> won").arg(winningTeamId));
+}
+
+void BF4Widget::onServerRoundOverPlayers(const QString &playerInfo)
+{
+    logMessage(0, tr("The round has just ended, and <b>%1</b> is the final detailed player stats").arg(playerInfo)); // TODO: Check what this actually outputs.
+}
+
+void BF4Widget::onServerRoundOverTeamScores(const QString &teamScores)
+{
+    logMessage(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team").arg(teamScores));
+}
+
+/* Commands */
+void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const QString &version)
+{
+    Q_UNUSED(buildId);
+
+    logMessage(0, tr("<b>%1</b> server running version: <b>%2</b>.").arg(type, version));
+}
+
+void BF4Widget::pushButton_ch_send_clicked()
+{
+    int type = ui->comboBox_ch_mode->currentIndex();
+
+    QString message = ui->lineEdit_ch_input->text();
+    int duration = ui->spinBox_ch_duration->value();
+    QString group = ui->comboBox_ch_target->currentText().toLower();
+
+    switch (type) {
+    case 0:
+        sendSayMessage(message, group);
+        break;
+    case 1:
+        sendYellMessage(message, duration, group);
+        break;
+    }
+
+    ui->lineEdit_ch_input->clear();
+}
+
+void BF4Widget::pushButton_co_send_clicked()
+{
+    QString command = ui->lineEdit_co_input->text();
+    ui->lineEdit_co_input->clear();
+
+    con->sendCommand(command);
+}
+
+QString BF4Widget::getSquadName(const int &id)
+{
+    return squadNameList.at(id - 1);
+}

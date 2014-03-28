@@ -61,8 +61,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 //    gameList.append(new GameEntry(2, "Battlefield 2142", QIcon(":/bf2142/images/icons/bf2142.png")));
     gameList.append(new GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/bfbc2/images/icons/bfbc2.png")));
 //    gameList.append(new GameEntry(4, "Battlefield 3", QIcon(":/bfbc2/images/icons/bfbc2.png")));
-//    gameList.append(new GameEntry(5, "Battlefield 4", QIcon(":/bfbc2/images/icons/bfbc2.png")));
-    gameList.append(new GameEntry(1, "Minecraft", QIcon(":/minecraft/images/icons/minecraft.png")));
+    gameList.append(new GameEntry(1, "Battlefield 4", QIcon(":/bf4/images/icons/bf4.png")));
+    gameList.append(new GameEntry(2, "Minecraft", QIcon(":/minecraft/images/icons/minecraft.png")));
 
     // Actions
     #if QT_VERSION < 0x050000
@@ -196,6 +196,9 @@ void OpenRcon::newTab(const int &game, const QString &name, const QString &host,
         BFBC2Widget *bfbc2 = new BFBC2Widget(host, port, password);
         ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(bfbc2, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
     } else if (game == 1) {
+        BF4Widget *bf4 = new BF4Widget(host, port, password);
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(bf4, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
+    } else if (game == 2) {
         MinecraftWidget *minecraft = new MinecraftWidget(host, port, password);
         ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(minecraft, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
     }
