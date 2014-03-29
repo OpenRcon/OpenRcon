@@ -44,6 +44,7 @@ private:
     void logMessage(const int &type, const QString &message);
     void startupCommands();
 
+    QIcon getRankIcon(const int &rank);
     QString getSquadName(const int &id);
 
 private slots:

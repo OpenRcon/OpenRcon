@@ -31,12 +31,32 @@
      <widget class="QTreeWidget" name="treeWidget_pl_playerList">
       <column>
        <property name="text">
-        <string>Id</string>
+        <string>Name</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Name</string>
+        <string>Kills</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Deaths</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Score</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ping</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>GUID</string>
        </property>
       </column>
      </widget>
