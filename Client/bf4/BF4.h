@@ -45,6 +45,15 @@ protected:
     void sendSayMessage(const QString &msg, const QString &group);
     void sendYellMessage(const QString &message, const int &duration, const QString &group);
 
-};
+    enum Squad {
+        Alpha,
+        Bravo,
+        Charlie,
+        Delta,
+        Echo,
+        Foxtrot,
+        Golf,
+        Hotel
+    };
 
 #endif // BF4_H
