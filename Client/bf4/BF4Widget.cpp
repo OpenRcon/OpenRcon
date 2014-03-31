@@ -156,7 +156,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     commandList.append("vars.vehicleSpawnDelay ");
 
     completer = new QCompleter(commandList, this);
-    ui->lineEdit_co_input->setCompleter(completer);
+    ui->lineEdit_co_co->setCompleter(completer);
 
     // Add the gamemodes to the comboBox.
     ui->comboBox_li_ml_gameMode->addItems(levels->getGameModeNames());
@@ -195,8 +195,8 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->commandHandler, SIGNAL(onVarsServerMessageCommand(const QString&)), this, SLOT(onVarsServerMessageCommand(const QString&)));
 
     /* User Interface */
-    connect(ui->pushButton_ch_send, SIGNAL(clicked()), this, SLOT(pushButton_ch_send_clicked()));
-    connect(ui->lineEdit_ch_input, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_send_clicked()));
+    connect(ui->pushButton_ch, SIGNAL(clicked()), this, SLOT(pushButton_ch_clicked()));
+    connect(ui->lineEdit_ch, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_clicked()));
 
     connect(ui->comboBox_li_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_li_ml_gameMode_currentIndexChanged(int)));
     connect(ui->listWidget_li_ml_avaliable, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_li_ml_avaliable_currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
@@ -207,8 +207,11 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(ui->textEdit_op_so_serverDescription, SIGNAL(textChanged()), this, SLOT(textEdit_op_so_serverDescription_textChanged()));
     connect(ui->lineEdit_op_so_serverMessage, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverMessage_editingFinished()));
 
-    connect(ui->pushButton_co_send, SIGNAL(clicked()), this, SLOT(pushButton_co_send_clicked()));
-    connect(ui->lineEdit_co_input, SIGNAL(editingFinished()), this, SLOT(pushButton_co_send_clicked()));
+    connect(ui->pushButton_co_co, SIGNAL(clicked()), this, SLOT(pushButton_co_co_clicked()));
+    connect(ui->lineEdit_co_co, SIGNAL(editingFinished()), this, SLOT(pushButton_co_co_clicked()));
+
+    connect(ui->pushButton_co_pb, SIGNAL(clicked()), this, SLOT(pushButton_co_pb_clicked()));
+    connect(ui->lineEdit_co_pb, SIGNAL(editingFinished()), this, SLOT(pushButton_co_pb_clicked()));
 
     // Update playerlist on following events.
     connect(con->commandHandler, SIGNAL(onPlayerJoin(const QString&)), this, SLOT(updatePlayerList()));
@@ -233,13 +236,13 @@ void BF4Widget::logMessage(const int &type, const QString &message)
     } else if (type == 1) { // Error
         ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 2) { // Server send
-        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
+        ui->textEdit_co_co->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 3) { // Server receive
-        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime).arg(message));
+        ui->textEdit_co_co->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 4) { // Chat
-        ui->textEdit_ch_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
+        ui->textEdit_ch->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 5) { // Punkbuster
-        //ui->textEdit_co_pb_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+        ui->textEdit_co_pb->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
     }
 }
 
@@ -248,6 +251,11 @@ void BF4Widget::startupCommands() {
     con->sendCommand("version");
     con->sendCommand("serverInfo");
     con->sendCommand("admin.listPlayers all");
+
+    con->sendCommand("vars.serverName");
+    con->sendCommand("vars.serverDescription");
+    con->sendCommand("vars.serverMessage");
+
     con->sendCommand("maplist.list 0");
 }
 
@@ -461,6 +469,26 @@ void BF4Widget::onVarsServerMessageCommand(const QString &serverMessage)
 }
 
 /* User Interface */
+void BF4Widget::pushButton_ch_clicked()
+{
+    int type = ui->comboBox_ch_mode->currentIndex();
+
+    QString message = ui->lineEdit_ch->text();
+    int duration = ui->spinBox_ch_duration->value();
+    QString group = ui->comboBox_ch_target->currentText().toLower();
+
+    switch (type) {
+    case 0:
+        sendSayMessage(message, group);
+        break;
+    case 1:
+        sendYellMessage(message, duration, group);
+        break;
+    }
+
+    ui->lineEdit_ch->clear();
+}
+
 void BF4Widget::comboBox_li_ml_gameMode_currentIndexChanged(int index)
 {
     ui->listWidget_li_ml_avaliable->clear();
@@ -516,32 +544,17 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
     con->sendCommand(QString("vars.serverMessage %1").arg(ui->lineEdit_op_so_serverMessage->text()));
 }
 
-void BF4Widget::pushButton_ch_send_clicked()
+void BF4Widget::pushButton_co_co_clicked()
 {
-    int type = ui->comboBox_ch_mode->currentIndex();
-
-    QString message = ui->lineEdit_ch_input->text();
-    int duration = ui->spinBox_ch_duration->value();
-    QString group = ui->comboBox_ch_target->currentText().toLower();
-
-    switch (type) {
-    case 0:
-        sendSayMessage(message, group);
-        break;
-    case 1:
-        sendYellMessage(message, duration, group);
-        break;
-    }
-
-    ui->lineEdit_ch_input->clear();
-}
-
-void BF4Widget::pushButton_co_send_clicked()
-{
-    QString command = ui->lineEdit_co_input->text();
-    ui->lineEdit_co_input->clear();
+    QString command = ui->lineEdit_co_co->text();
+    ui->lineEdit_co_co->clear();
 
     con->sendCommand(command);
+}
+
+void BF4Widget::pushButton_co_pb_clicked()
+{
+
 }
 
 void BF4Widget::updatePlayerList()

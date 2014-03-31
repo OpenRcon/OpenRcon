@@ -82,6 +82,8 @@ private slots:
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsServerMessageCommand(const QString &serverMessage);
 
+    void pushButton_ch_clicked();
+
     void comboBox_li_ml_gameMode_currentIndexChanged(int);
     void listWidget_li_ml_avaliable_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void pushButton_li_ml_add_clicked();
@@ -91,8 +93,8 @@ private slots:
     void textEdit_op_so_serverDescription_textChanged();
     void lineEdit_op_so_serverMessage_editingFinished();
 
-    void pushButton_ch_send_clicked();
-    void pushButton_co_send_clicked();
+    void pushButton_co_co_clicked();
+    void pushButton_co_pb_clicked();
 
     void updatePlayerList();
 
