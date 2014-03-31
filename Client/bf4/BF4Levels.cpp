@@ -27,6 +27,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list1.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list1.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
 
+    // XP3 (Naval Strike)
+    list1.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list1.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list1.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list1.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
+
     /* ConquestSmall0 */
     QList<BF4Level *> list2;
     list2.append(new BF4Level("MP_Abandoned", "Zavod 311", "zavod_331.png"));
@@ -51,6 +57,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list2.append(new BF4Level("XP0_Firestorm", "Operation Firestorm 2014", "operation_firestorm_2014.png"));
     list2.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list2.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
+
+    // XP3 (Naval Strike)
+    list2.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list2.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list2.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list2.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
 
     /* Domination0 */
     QList<BF4Level *> list3;
@@ -77,6 +89,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list3.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list3.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
 
+    // XP3 (Naval Strike)
+    list3.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list3.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list3.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list3.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
+
     /* Elemination0 */
     QList<BF4Level *> list4;
     list4.append(new BF4Level("MP_Abandoned", "Zavod 311", "zavod_331.png"));
@@ -101,6 +119,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list4.append(new BF4Level("XP0_Firestorm", "Operation Firestorm 2014", "operation_firestorm_2014.png"));
     list4.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list4.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
+
+    // XP3 (Naval Strike)
+    list4.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list4.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list4.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list4.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
 
     /* Obliteration */
     QList<BF4Level *> list5;
@@ -127,6 +151,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list5.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list5.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
 
+    // XP3 (Naval Strike)
+    list5.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list5.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list5.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list5.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
+
     /* RushLarge0 */
     QList<BF4Level *> list6;
     list6.append(new BF4Level("MP_Abandoned", "Zavod 311", "zavod_331.png"));
@@ -151,6 +181,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list6.append(new BF4Level("XP0_Firestorm", "Operation Firestorm 2014", "operation_firestorm_2014.png"));
     list6.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list6.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
+
+    // XP3 (Naval Strike)
+    list6.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list6.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list6.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list6.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
 
     /* TeamDeathMatch0 */
     QList<BF4Level *> list7;
@@ -177,6 +213,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list7.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list7.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
 
+    // XP3 (Naval Strike)
+    list7.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list7.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list7.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list7.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
+
     /* SquadDeathMatch0 */
     QList<BF4Level *> list8;
     list8.append(new BF4Level("MP_Abandoned", "Zavod 311", "zavod_331.png"));
@@ -202,6 +244,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list8.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list8.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
 
+    // XP3 (Naval Strike)
+    list8.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list8.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list8.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list8.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
+
     /* AirSuperiority0 */
     QList<BF4Level *> list9;
 
@@ -220,9 +268,27 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list10.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list10.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
 
+    /* Carrier Assault Large */
+    QList<BF4Level *> list11;
+
+    // XP3 (Naval Strike)
+    list11.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list11.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list11.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list11.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
+
+    /* Carrier Assault Small */
+    QList<BF4Level *> list12;
+
+    // XP3 (Naval Strike)
+    list11.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list11.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list11.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list11.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
+
     /* Game modes */
-    levelMap.insert(new BF4GameMode("ConquestLarge0", "Conquest", 64, 2, 4), list1);
-    levelMap.insert(new BF4GameMode("ConquestSmall0", "Conquest", 32, 2, 4), list2);
+    levelMap.insert(new BF4GameMode("ConquestLarge0", "Conquest Large", 64, 2, 4), list1);
+    levelMap.insert(new BF4GameMode("ConquestSmall0", "Conquest Small", 32, 2, 4), list2);
     levelMap.insert(new BF4GameMode("Domination0", "Domination", 20, 0, 4), list3);
     levelMap.insert(new BF4GameMode("Elimination0", "Defuse", 10, 0, 4), list4);
     levelMap.insert(new BF4GameMode("Obliteration", "Obliteration", 32, 2, 4), list5);
@@ -231,6 +297,8 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     levelMap.insert(new BF4GameMode("TeamDeathMatch0", "Team Deathmatch", 20, 0, 4), list8);
     levelMap.insert(new BF4GameMode("AirSuperiority0", "Air Superiority", 24, 0, 4), list9);
     levelMap.insert(new BF4GameMode("CaptureTheFlag0", "Capture The Flag", 64, 2, 4), list10); // Check this when docs is avaliable.
+    levelMap.insert(new BF4GameMode("CarrierAssaultLarge0", "Carrier Assault Large", 64, 2, 4), list11); // Check this when docs is avaliable.
+    levelMap.insert(new BF4GameMode("CarrierAssaultSmall0", "Carrier Assault Small", 64, 2, 4), list12); // Check this when docs is avaliable.
 }
 
 BF4Levels::~BF4Levels()
@@ -284,4 +352,15 @@ QList<BF4Level *> BF4Levels::getLevels(BF4GameMode *gameMode)
 QList<BF4Level *> BF4Levels::getLevels(const int &index)
 {
     return getLevels(getGameMode(index));
+}
+
+QStringList BF4Levels::getGameModeNames()
+{
+    QStringList gameModeList;
+
+    foreach (BF4GameMode *gameMode, getGameModes()) {
+        gameModeList.append(gameMode->getName());
+    }
+
+    return gameModeList;
 }

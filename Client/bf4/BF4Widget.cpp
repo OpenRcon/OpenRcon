@@ -158,14 +158,12 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     completer = new QCompleter(commandList, this);
     ui->lineEdit_co_input->setCompleter(completer);
 
-    // Add gamemodes to the gamemode comboBox.
-    foreach (BF4GameMode *gameMode, levels->getGameModes()) {
-        ui->comboBox_ml_gameMode->addItem(gameMode->getName());
-    }
+    // Add the gamemodes to the comboBox.
+    ui->comboBox_li_ml_gameMode->addItems(levels->getGameModeNames());
 
     // Add the levels to the levels listWidget.
-    foreach (BF4Level *level, levels->getLevels(1)) {
-        ui->listWidget_ml_avaliable->addItem(level->getName());
+    foreach (BF4Level *level, levels->getLevels(0)) {
+        ui->listWidget_li_ml_avaliable->addItem(level->getName());
     }
 
     /* Events */
@@ -192,14 +190,22 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->commandHandler, SIGNAL(onAdminListPlayersCommand(const PlayerList&)), this, SLOT(onAdminListPlayersCommand(const PlayerList&)));
     connect(con->commandHandler, SIGNAL(onMapListListCommand(const QStringList&)), this, SLOT(onMapListListCommand(const QStringList&)));
 
-    /* User Interface */
-    connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
-    connect(ui->listWidget_ml_avaliable, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_ml_avaliable_currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
-    connect(ui->pushButton_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_ml_add_clicked()));
-    connect(ui->pushButton_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_ml_remove_clicked()));
+    connect(con->commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsServerMessageCommand(const QString&)), this, SLOT(onVarsServerMessageCommand(const QString&)));
 
+    /* User Interface */
     connect(ui->pushButton_ch_send, SIGNAL(clicked()), this, SLOT(pushButton_ch_send_clicked()));
     connect(ui->lineEdit_ch_input, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_send_clicked()));
+
+    connect(ui->comboBox_li_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_li_ml_gameMode_currentIndexChanged(int)));
+    connect(ui->listWidget_li_ml_avaliable, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_li_ml_avaliable_currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
+    connect(ui->pushButton_li_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_li_ml_add_clicked()));
+    connect(ui->pushButton_li_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_li_ml_remove_clicked()));
+
+    connect(ui->lineEdit_op_so_serverName, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverName_editingFinished()));
+    connect(ui->textEdit_op_so_serverDescription, SIGNAL(textChanged()), this, SLOT(textEdit_op_so_serverDescription_textChanged()));
+    connect(ui->lineEdit_op_so_serverMessage, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverMessage_editingFinished()));
 
     connect(ui->pushButton_co_send, SIGNAL(clicked()), this, SLOT(pushButton_co_send_clicked()));
     connect(ui->lineEdit_co_input, SIGNAL(editingFinished()), this, SLOT(pushButton_co_send_clicked()));
@@ -374,29 +380,30 @@ void BF4Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     // Clear QTreeWidget
     ui->treeWidget_pl_playerList->clear();
 
-    QStringList teamIds;
+    QList<int> teamIds;
     QStringList playerNames;
-    QMap<QString, QString> teamItems;
+    QMap<QString, int> teamItems;
     QMap<QString, QTreeWidgetItem *> playerItems;
 
     foreach (PlayerListItem player, playerList) {
         QStringList playerInfo;
-        QString teamId = player.value("teamId");
-        int rank = QString(player.value("rank")).toInt();
         QString name = player.value("name");
+        QString guid = player.value("guid");
+        int teamId = player.value("teamId").toInt();
+        int squadId = player.value("rank").toInt();
         QString kills = player.value("kills");
         QString deaths = player.value("deaths");
         QString score = player.value("score");
+        int rank = player.value("rank").toInt();
         QString ping = player.value("ping");
-        QString guid = player.value("guid");
 
         playerInfo.append(name);
+        playerInfo.append(getSquadName(squadId));
+        playerInfo.append(score);
         playerInfo.append(kills);
         playerInfo.append(deaths);
-        playerInfo.append(score);
         playerInfo.append(ping);
         playerInfo.append(guid);
-
         playerNames.append(name);
 
         // add player to parent teamItem
@@ -410,18 +417,16 @@ void BF4Widget::onAdminListPlayersCommand(const PlayerList &playerList)
         teamIds.append(teamId);
     }
 
-    teamIds.removeDuplicates();
-    teamIds.sort();
     playerNames.sort();
-    //menu_pl_move->clear();
 
-    foreach (QString id, teamIds) {
+    foreach (int teamId, teamIds) {
         QTreeWidgetItem *team = new QTreeWidgetItem(ui->treeWidget_pl_playerList);
-        QString teamName = tr("Team %1").arg(id);
-        team->setText(0, teamName);
+        team->setText(0, tr("Team %1").arg(teamId));
+
         foreach (QString name, playerNames) {
             QTreeWidgetItem *player = playerItems.value(name);
-            if (id == player->data(0, Qt::UserRole)) {
+
+            if (teamId == player->data(0, Qt::UserRole)) {
                 team->addChild(player);
             }
         }
@@ -436,49 +441,79 @@ void BF4Widget::onMapListListCommand(const QStringList &mapList)
     foreach (QString map, mapList) {
         BF4Level *level = levels->getLevel(0, map);
 
-        ui->listWidget_ml_current->addItem(level->getName());
+        ui->listWidget_li_ml_current->addItem(level->getName());
     }
+}
+
+void BF4Widget::onVarsServerNameCommand(const QString &serverName)
+{
+    ui->lineEdit_op_so_serverName->setText(serverName);
+}
+
+void BF4Widget::onVarsServerDescriptionCommand(const QString &serverDescription)
+{
+    ui->textEdit_op_so_serverDescription->setText(serverDescription);
+}
+
+void BF4Widget::onVarsServerMessageCommand(const QString &serverMessage)
+{
+    ui->lineEdit_op_so_serverMessage->setText(serverMessage);
 }
 
 /* User Interface */
-void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
+void BF4Widget::comboBox_li_ml_gameMode_currentIndexChanged(int index)
 {
-    ui->listWidget_ml_avaliable->clear();
+    ui->listWidget_li_ml_avaliable->clear();
 
     foreach (BF4Level *level, levels->getLevels(index)) {
-        ui->listWidget_ml_avaliable->addItem(level->getName());
+        ui->listWidget_li_ml_avaliable->addItem(level->getName());
     }
 }
 
-void BF4Widget::listWidget_ml_avaliable_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void BF4Widget::listWidget_li_ml_avaliable_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(current);
     Q_UNUSED(previous);
 
-    BF4Level *level = levels->getLevel(ui->comboBox_ml_gameMode->currentIndex(), ui->listWidget_ml_avaliable->currentRow());
-    ui->label_ml_avaliable->setPixmap(level->getImage());
+    BF4Level *level = levels->getLevel(ui->comboBox_li_ml_gameMode->currentIndex(), ui->listWidget_li_ml_avaliable->currentRow());
+    ui->label_li_ml_avaliable->setPixmap(level->getImage());
 }
 
-void BF4Widget::pushButton_ml_add_clicked()
+void BF4Widget::pushButton_li_ml_add_clicked()
 {
-    BF4GameMode *gameMode = levels->getGameMode(ui->comboBox_ml_gameMode->currentIndex());
-    BF4Level *level = levels->getLevel(gameMode, ui->listWidget_ml_avaliable->currentRow());
-    int rounds = ui->spinBox_ml_rounds->value();
+    BF4GameMode *gameMode = levels->getGameMode(ui->comboBox_li_ml_gameMode->currentIndex());
+    BF4Level *level = levels->getLevel(gameMode, ui->listWidget_li_ml_avaliable->currentRow());
+    int rounds = ui->spinBox_li_ml_rounds->value();
 
     if (rounds > 0) {
-        ui->listWidget_ml_current->addItem(level->getName());
+        ui->listWidget_li_ml_current->addItem(level->getName());
         con->sendCommand(QString("mapList.add %1 %2 %3").arg(level->getEngineName()).arg(gameMode->getEngineName()).arg(rounds));
     }
 }
 
-void BF4Widget::pushButton_ml_remove_clicked()
+void BF4Widget::pushButton_li_ml_remove_clicked()
 {
-    int index = ui->listWidget_ml_current->currentRow();
+    int index = ui->listWidget_li_ml_current->currentRow();
 
     if (index) {
-        ui->listWidget_ml_current->removeItemWidget(ui->listWidget_ml_current->currentItem());
+        ui->listWidget_li_ml_current->removeItemWidget(ui->listWidget_li_ml_current->currentItem());
         con->sendCommand(QString("mapList.remove %1").arg(index));
     }
+}
+
+void BF4Widget::lineEdit_op_so_serverName_editingFinished()
+{
+    con->sendCommand(QString("vars.serverName %1").arg(ui->lineEdit_op_so_serverName->text()));
+}
+
+void BF4Widget::textEdit_op_so_serverDescription_textChanged()
+{
+    con->sendCommand(QString("vars.serverDescription %1").arg(ui->textEdit_op_so_serverDescription->toPlainText()));
+}
+
+void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
+{
+    con->sendCommand(QString("vars.serverMessage %1").arg(ui->lineEdit_op_so_serverMessage->text()));
 }
 
 void BF4Widget::pushButton_ch_send_clicked()

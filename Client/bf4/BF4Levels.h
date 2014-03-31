@@ -25,6 +25,8 @@ public:
     QList<BF4Level *> getLevels(BF4GameMode *gameMode);
     QList<BF4Level *> getLevels(const int &index);
 
+    QStringList getGameModeNames();
+
 private:
     QMap<BF4GameMode*, QList<BF4Level *> > levelMap;
 

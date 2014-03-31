@@ -1,6 +1,6 @@
 #include "BF4GameMode.h"
 
-BF4GameMode::BF4GameMode(const QString &engineName, const QString &name, const int &players, const int &commanders, const int &spectators, QObject *parent) : QObject(parent), engineName(engineName), name(name), players(players), commanders(commanders), spectators(spectators)
+BF4GameMode::BF4GameMode(const QString &engineName, const QString &name, const int &playerCount, const int &commanderCount, const int &spectatorCount, QObject *parent) : QObject(parent), engineName(engineName), name(name), playerCount(playerCount), commanderCount(commanderCount), spectatorCount(spectatorCount)
 {
 
 }
@@ -20,17 +20,17 @@ QString BF4GameMode::getName()
     return name;
 }
 
-int BF4GameMode::getPlayers()
+int BF4GameMode::getPlayerCount()
 {
-    return players;
+    return playerCount;
 }
 
-int BF4GameMode::getCommanders()
+int BF4GameMode::getCommanderCount()
 {
-    return commanders;
+    return commanderCount;
 }
 
-int BF4GameMode::getSpectators()
+int BF4GameMode::getSpectatorCount()
 {
-    return spectators;
+    return spectatorCount;
 }

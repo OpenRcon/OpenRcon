@@ -8,21 +8,21 @@ class BF4GameMode : public QObject
     Q_OBJECT
 
 public:
-    BF4GameMode(const QString &engineName, const QString &name, const int &players, const int &commanders, const int &spectators, QObject *parent = 0);
+    BF4GameMode(const QString &engineName, const QString &name, const int &playerCount, const int &commanderCount, const int &spectatorCount, QObject *parent = 0);
     ~BF4GameMode();
 
     QString getEngineName();
     QString getName();
-    int getPlayers();
-    int getCommanders();
-    int getSpectators();
+    int getPlayerCount();
+    int getCommanderCount();
+    int getSpectatorCount();
 
 private:
     QString engineName;
     QString name;
-    int players;
-    int commanders;
-    int spectators;
+    int playerCount;
+    int commanderCount;
+    int spectatorCount;
 
 };
 

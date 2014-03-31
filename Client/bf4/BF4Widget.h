@@ -78,10 +78,18 @@ private slots:
     void onAdminListPlayersCommand(const PlayerList &playerList);
     void onMapListListCommand(const QStringList &mapList);
 
-    void comboBox_ml_gameMode_currentIndexChanged(int);
-    void listWidget_ml_avaliable_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-    void pushButton_ml_add_clicked();
-    void pushButton_ml_remove_clicked();
+    void onVarsServerNameCommand(const QString &serverName);
+    void onVarsServerDescriptionCommand(const QString &serverDescription);
+    void onVarsServerMessageCommand(const QString &serverMessage);
+
+    void comboBox_li_ml_gameMode_currentIndexChanged(int);
+    void listWidget_li_ml_avaliable_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void pushButton_li_ml_add_clicked();
+    void pushButton_li_ml_remove_clicked();
+
+    void lineEdit_op_so_serverName_editingFinished();
+    void textEdit_op_so_serverDescription_textChanged();
+    void lineEdit_op_so_serverMessage_editingFinished();
 
     void pushButton_ch_send_clicked();
     void pushButton_co_send_clicked();
