@@ -18,9 +18,13 @@ public:
     void eventOnDataSent(const QString &command);
     void eventOnDataReceived(const QString &response);
 
+    void commandUnknown();
+
 signals:
     void onDataSent(const QString &command);
     void onDataReceived(const QString &response);
+
+    void onUnknownCommand();
 
 };
 

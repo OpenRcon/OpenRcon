@@ -27,3 +27,8 @@ void FrostbiteCommandHandler::eventOnDataReceived(const QString &response)
 {
     emit(onDataReceived(response));
 }
+
+void FrostbiteCommandHandler::commandUnknown()
+{
+
+}
