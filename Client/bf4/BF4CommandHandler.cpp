@@ -14,7 +14,9 @@ void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &
 {
     // Parse and call events.
     if (command == "player.onAuthenticated") {
-            eventOnPlayerAuthenticated(packet);
+        eventOnPlayerAuthenticated(packet);
+    } else if (command == "player.onDisconnect") {
+        eventOnPlayerDisconnect(packet);
     } else if (command == "player.onJoin") {
         eventOnPlayerJoin(packet);
     } else if (command == "player.onLeave") {
@@ -232,6 +234,13 @@ void BF4CommandHandler::eventOnPlayerAuthenticated(const FrostbiteRconPacket &pa
     QString guid = packet.getWord(2).getContent();
 
     emit(onPlayerAuthenticated(player, guid));
+}
+
+void BF4CommandHandler::eventOnPlayerDisconnect(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+
+    emit(onPlayerDisconnect());
 }
 
 void BF4CommandHandler::eventOnPlayerJoin(const FrostbiteRconPacket &packet)
@@ -456,6 +465,7 @@ void BF4CommandHandler::commandVersion(const FrostbiteRconPacket &packet)
         versionMap.insert(112943, "R28");
         versionMap.insert(114240, "R29");
         versionMap.insert(115397, "R30");
+        versionMap.insert(117719, "R31");
 
         if (versionMap.contains(buildId)) {
             version = versionMap.value(buildId);

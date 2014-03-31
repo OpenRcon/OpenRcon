@@ -19,6 +19,7 @@ public:
 private:
     // Call events.
     void eventOnPlayerAuthenticated(const FrostbiteRconPacket &packet);
+    void eventOnPlayerDisconnect(const FrostbiteRconPacket &packet);
     void eventOnPlayerJoin(const FrostbiteRconPacket &packet);
     void eventOnPlayerLeave(const FrostbiteRconPacket &packet);
     void eventOnPlayerSpawn(const FrostbiteRconPacket &packet);
@@ -129,6 +130,7 @@ signals:
 
     /* Event signals */
     void onPlayerAuthenticated(const QString &player, const QString &guid);
+    void onPlayerDisconnect();
     void onPlayerJoin(const QString &player);
     void onPlayerLeave(const QString &player, const QString &info);
     void onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weapons);
