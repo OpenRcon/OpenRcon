@@ -80,6 +80,8 @@ private slots:
 
     void comboBox_ml_gameMode_currentIndexChanged(int);
     void listWidget_ml_avaliable_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void pushButton_ml_add_clicked();
+    void pushButton_ml_remove_clicked();
 
     void pushButton_ch_send_clicked();
     void pushButton_co_send_clicked();

@@ -20,6 +20,8 @@ public:
 
     BF4Level* getLevel(BF4GameMode *gameMode, const int &index);
     BF4Level* getLevel(const int &gameModeIndex, const int &index);
+    BF4Level* getLevel(BF4GameMode *gameMode, const QString &engineName);
+    BF4Level* getLevel(const int &gameModeIndex, const QString &engineName);
     QList<BF4Level *> getLevels(BF4GameMode *gameMode);
     QList<BF4Level *> getLevels(const int &index);
 

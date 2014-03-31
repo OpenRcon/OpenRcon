@@ -813,18 +813,29 @@ void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 0) {
-        int count = QString(packet.getWord(1).getContent()).toInt();
-        int wordsCount = QString(packet.getWord(2).getContent()).toInt();
+    if (response == "OK" && packet.getWordCount() > 1) {
         QStringList mapList;
 
-        for (int i = 2; i < count; i++) {
-            for (int i = 0; i < wordsCount; i++) {
-                for (unsigned int i = 2; i < packet.getWordCount(); i++) {
-                    mapList.append(packet.getWord(i).getContent());
-                }
-            }
+        for (unsigned int i = 3; i < packet.getWordCount(); i += 3) {
+            mapList.append(packet.getWord(i).getContent());
         }
+
+//        unsigned int count = QString(packet.getWord(1).getContent()).toUInt();
+//        unsigned int wordsCount = QString(packet.getWord(2).getContent()).toUInt();
+//        QStringList mapList;
+
+//        qDebug() << "Map count is: " << count;
+//        qDebug() << "Word count is: " << wordsCount;
+
+//        for (unsigned int i = 1; i < count + 1; i++) {
+//            qDebug() << "Index i is: " << i;
+
+//            for (unsigned int j = 3; j < i + 1 * wordsCount; j++) {
+//                qDebug() << "Index j is: " << j;
+
+//                mapList.append(packet.getWord(j).getContent());
+//            }
+//        }
 
         emit(onMapListListCommand(mapList));
     }
@@ -852,7 +863,7 @@ void BF4CommandHandler::commandMaplistInsert(const FrostbiteRconPacket &packet)
 
 void BF4CommandHandler::commandVarsServerName(const FrostbiteRconPacket &packet)
 {
-    QString response(packet.getWord(0).getContent());
+    QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
         QString serverName = packet.getWord(1).getContent();
