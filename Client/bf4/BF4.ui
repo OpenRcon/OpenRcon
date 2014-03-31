@@ -94,14 +94,21 @@
     <item row="4" column="1">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton_ml_add_2">
+       <widget class="QSpinBox" name="spinBox_ml_rounds">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_ml_add">
         <property name="text">
          <string>Add</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_ml_add">
+       <widget class="QPushButton" name="pushButton_ml_remove">
         <property name="text">
          <string>Remove</string>
         </property>
@@ -119,7 +126,7 @@
     <item row="2" column="0">
      <layout class="QFormLayout" name="formLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_ml_gameMode">
         <property name="text">
          <string>Gamemode:</string>
         </property>

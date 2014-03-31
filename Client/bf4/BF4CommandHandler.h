@@ -5,6 +5,7 @@
 
 typedef QMap<QString, QString> PlayerListItem;
 typedef QVector<PlayerListItem> PlayerList;
+typedef QMap<QString, QString> MapList;
 
 class BF4CommandHandler : public FrostbiteCommandHandler
 {

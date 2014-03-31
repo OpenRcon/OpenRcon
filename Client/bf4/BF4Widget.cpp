@@ -195,6 +195,8 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     /* User Interface */
     connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
     connect(ui->listWidget_ml_avaliable, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_ml_avaliable_currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
+    connect(ui->pushButton_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_ml_add_clicked()));
+    connect(ui->pushButton_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_ml_remove_clicked()));
 
     connect(ui->pushButton_ch_send, SIGNAL(clicked()), this, SLOT(pushButton_ch_send_clicked()));
     connect(ui->lineEdit_ch_input, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_send_clicked()));
@@ -431,7 +433,11 @@ void BF4Widget::onAdminListPlayersCommand(const PlayerList &playerList)
 
 void BF4Widget::onMapListListCommand(const QStringList &mapList)
 {
-    ui->listWidget_ml_current->addItems(mapList);
+    foreach (QString map, mapList) {
+        BF4Level *level = levels->getLevel(0, map);
+
+        ui->listWidget_ml_current->addItem(level->getName());
+    }
 }
 
 /* User Interface */
@@ -451,6 +457,28 @@ void BF4Widget::listWidget_ml_avaliable_currentItemChanged(QListWidgetItem *curr
 
     BF4Level *level = levels->getLevel(ui->comboBox_ml_gameMode->currentIndex(), ui->listWidget_ml_avaliable->currentRow());
     ui->label_ml_avaliable->setPixmap(level->getImage());
+}
+
+void BF4Widget::pushButton_ml_add_clicked()
+{
+    BF4GameMode *gameMode = levels->getGameMode(ui->comboBox_ml_gameMode->currentIndex());
+    BF4Level *level = levels->getLevel(gameMode, ui->listWidget_ml_avaliable->currentRow());
+    int rounds = ui->spinBox_ml_rounds->value();
+
+    if (rounds > 0) {
+        ui->listWidget_ml_current->addItem(level->getName());
+        con->sendCommand(QString("mapList.add %1 %2 %3").arg(level->getEngineName()).arg(gameMode->getEngineName()).arg(rounds));
+    }
+}
+
+void BF4Widget::pushButton_ml_remove_clicked()
+{
+    int index = ui->listWidget_ml_current->currentRow();
+
+    if (index) {
+        ui->listWidget_ml_current->removeItemWidget(ui->listWidget_ml_current->currentItem());
+        con->sendCommand(QString("mapList.remove %1").arg(index));
+    }
 }
 
 void BF4Widget::pushButton_ch_send_clicked()

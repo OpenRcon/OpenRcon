@@ -142,6 +142,24 @@ BF4Level* BF4Levels::getLevel(const int &gameModeIndex, const int &index)
     return getLevel(getGameMode(gameModeIndex), index);
 }
 
+BF4Level* BF4Levels::getLevel(BF4GameMode *gameMode, const QString &engineName)
+{
+    BF4Level *level;
+
+    foreach (BF4Level *l, levelMap.value(gameMode)) {
+        if (l->getEngineName() == engineName) {
+            level = l;
+        }
+    }
+
+    return level;
+}
+
+BF4Level* BF4Levels::getLevel(const int &gameModeIndex, const QString &engineName)
+{
+    return getLevel(getGameMode(gameModeIndex), engineName);
+}
+
 QList<BF4Level *> BF4Levels::getLevels(BF4GameMode *gameMode)
 {
     return levelMap.value(gameMode);
