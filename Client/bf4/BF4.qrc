@@ -1,6 +1,6 @@
 <RCC>
-    <qresource prefix="/bf4">
-        <file>images/icons/bf4.png</file>
+    <qresource prefix="/bf4/icons">
+        <file alias="bf4.png">images/icons/bf4.png</file>
     </qresource>
     <qresource prefix="/bf4/ranks">
         <file alias="rank_0.png">images/ranks/rank_0.png</file>
@@ -124,5 +124,8 @@
         <file alias="rank_118.png">images/ranks/rank_118.png</file>
         <file alias="rank_119.png">images/ranks/rank_119.png</file>
         <file alias="rank_120.png">images/ranks/rank_120.png</file>
+    </qresource>
+    <qresource prefix="/bf4/levels">
+        <file alias="seige_of_shanghai.png">images/levels/seige_of_shanghai.png</file>
     </qresource>
 </RCC>

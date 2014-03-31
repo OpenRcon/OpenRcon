@@ -520,7 +520,7 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
         QStringList playerInfo;
         QString teamId = player.value("teamId");
         QString clanTag = player.value("clanTag");
-        QString playerName = player.value("name");
+        QString name = player.value("name");
         QString kills = player.value("kills");
         QString deaths = player.value("deaths");
         QString score = player.value("score");
@@ -528,22 +528,22 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
         QString guid = player.value("guid");
 
         playerInfo.append(clanTag);
-        playerInfo.append(playerName);
+        playerInfo.append(name);
         playerInfo.append(kills);
         playerInfo.append(deaths);
         playerInfo.append(score);
         playerInfo.append(ping);
         playerInfo.append(guid);
 
-        playerNames.append(playerName);
+        playerNames.append(name);
 
         // add player to parent teamItem
         QTreeWidgetItem *item = new QTreeWidgetItem(playerInfo);
         item->setData(0, Qt::UserRole, teamId);
-        playerItems.insert(playerName, item);
+        playerItems.insert(name, item);
 
         // add team item and team id into map with key player name
-        teamItems.insert(playerName, teamId);
+        teamItems.insert(name, teamId);
         teamIds.append(teamId);
     }
 

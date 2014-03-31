@@ -55,5 +55,6 @@ protected:
         Golf,
         Hotel
     };
+};
 
 #endif // BF4_H

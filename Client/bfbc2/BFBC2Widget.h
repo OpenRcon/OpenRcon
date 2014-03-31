@@ -61,6 +61,7 @@ private:
 
     void logMessage(const int &type, const QString &message);
     void startupCommands();
+
     QString getSquadName(const int &id);
 
 private slots:

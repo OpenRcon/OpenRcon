@@ -17,7 +17,7 @@
    <string notr="true"/>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>1</number>
   </property>
   <property name="documentMode">
    <bool>true</bool>
@@ -60,6 +60,91 @@
        </property>
       </column>
      </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tab_ml">
+   <attribute name="title">
+    <string>Maplist</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="0" column="3">
+     <widget class="QLabel" name="label_ml_current">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>235</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="0" rowspan="3">
+     <widget class="QListWidget" name="listWidget_ml_avaliable"/>
+    </item>
+    <item row="4" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="pushButton_ml_add_2">
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_ml_add">
+        <property name="text">
+         <string>Remove</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_ml_avaliable">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Gamemode:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBox_ml_gameMode"/>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="3" rowspan="4">
+     <widget class="QListWidget" name="listWidget_ml_current"/>
+    </item>
+    <item row="3" column="1">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
@@ -140,32 +225,6 @@
     </item>
    </layout>
   </widget>
-  <action name="actionKick_custom">
-   <property name="text">
-    <string>Custom</string>
-   </property>
-   <property name="toolTip">
-    <string>Custom</string>
-   </property>
-  </action>
-  <action name="actionBan_byName">
-   <property name="text">
-    <string>By name</string>
-   </property>
-   <property name="toolTip">
-    <string>By name</string>
-   </property>
-  </action>
-  <action name="actionKill">
-   <property name="text">
-    <string>Kill</string>
-   </property>
-  </action>
-  <action name="actionMove">
-   <property name="text">
-    <string>Move</string>
-   </property>
-  </action>
  </widget>
  <tabstops>
   <tabstop>treeWidget_pl_playerList</tabstop>

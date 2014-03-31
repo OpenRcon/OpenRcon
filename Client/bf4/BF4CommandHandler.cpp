@@ -54,37 +54,37 @@ void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &
         commandQuit(packet);
     } else if (command == "version") {
         commandVersion(packet);
-    } else if (command == "listPlayers") {
+    } else if (command == "listplayers") {
         commandListPlayers(packet);
-    } else if (command == "eventsEnabled") {
+    } else if (command == "admin.eventsenabled") {
         commandEventsEnabled(packet);
     } else if (command == "help") {
         commandHelp(packet);
     } else if (command == "admin.runscript") {
         commandAdminRunScript(packet);
-    } else if (command == "punkBuster.pb_sv_command") {
+    } else if (command == "punkbuster.pb_sv_command") {
         commandPunkBusterPbSvCommand(packet);
-    } else if (command == "serverInfo") {
+    } else if (command == "serverinfo") {
         commandServerInfo(packet);
     } else if (command == "admin.yell") {
         commandAdminYell(packet);
     } else if (command == "admin.say") {
         commandAdminSay(packet);
-    } else if (command == "admin.runNextRound") {
+    } else if (command == "admin.runnextround") {
         commandAdminRunNextRound(packet);
-    } else if (command == "admin.restartRound") {
+    } else if (command == "admin.restartround") {
         commandAdminRestartRound(packet);
-    } else if (command == "admin.endRound") {
+    } else if (command == "admin.endround") {
         commandAdminEndRound(packet);
-    } else if (command == "admin.runNextLevel") {
+    } else if (command == "admin.runnextlevel") {
         commandAdminRunNextLevel(packet);
-    } else if (command == "admin.restartMap") {
+    } else if (command == "admin.restartmap") {
         commandAdminRestartMap(packet);
-    } else if (command == "admin.currentLevel") {
+    } else if (command == "admin.currentlevel") {
         commandAdminCurrentLevel(packet);
-    } else if (command == "mapList.nextLevelIndex") {
+    } else if (command == "mapList.nextlevelindex") {
         commandMapListNextLevelIndex(packet);
-    } else if (command == "admin.supportedMaps") {
+    } else if (command == "admin.supportedmaps") {
         commandAdminSupportedMaps(packet);
     } else if (command == "admin.setPlaylist") {
         commandAdminSetPlaylist(packet);
@@ -122,39 +122,39 @@ void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &
         commandTextChatModerationListList(packet);
     } else if (command == "banList.load") {
         commandBanListLoad(packet);
-    } else if (command == "banList.save") {
+    } else if (command == "banlist.save") {
         commandBanListSave(packet);
-    } else if (command == "banList.add") {
+    } else if (command == "banlist.add") {
         commandBanListAdd(packet);
-    } else if (command == "banList.remove") {
+    } else if (command == "banlist.remove") {
         commandBanListRemove(packet);
-    } else if (command == "banList.clear") {
+    } else if (command == "banlist.clear") {
         commandBanListClear(packet);
-    } else if (command == "banList.list") {
+    } else if (command == "banlist.list") {
         commandBanListList(packet);
-    } else if (command == "reservedSlots.load") {
+    } else if (command == "reservedslots.load") {
         commandReservedSlotsLoad(packet);
-    } else if (command == "reservedSlots.save") {
+    } else if (command == "reservedslots.save") {
         commandReservedSlotsSave(packet);
-    } else if (command == "reservedSlots.addPlayer") {
+    } else if (command == "reservedslots.addPlayer") {
         commandReservedSlotsAddPlayer(packet);
-    } else if (command == "reservedSlots.removePlayer") {
+    } else if (command == "reservedslots.removePlayer") {
         commandReservedSlotsRemovePlayer(packet);
-    } else if (command == "reservedSlots.clear") {
+    } else if (command == "reservedslots.clear") {
         commandReservedSlotsClear(packet);
-    } else if (command == "reservedSlots.list") {
+    } else if (command == "reservedslots.list") {
         commandReservedSlotsList(packet);
-    } else if (command == "mapList.load") {
+    } else if (command == "maplist.load") {
         commandMapListLoad(packet);
-    } else if (command == "mapList.save") {
+    } else if (command == "maplist.save") {
         commandMapListSave(packet);
-    } else if (command == "mapList.list") {
-        commandMapListList(packet, lastSentPacket);
-    } else if (command == "mapList.clear") {
+    } else if (command == "maplist.list") {
+        commandMapListList(packet);
+    } else if (command == "maplist.clear") {
         commandMapListClear(packet);
-    } else if (command == "mapList.remove") {
+    } else if (command == "maplist.remove") {
         commandMapListRemove(packet);
-    } else if (command == "mapList.append") {
+    } else if (command == "maplist.append") {
         commandMapListAppend(packet);
     } else if (command == "maplist mapList.insert") {
         commandMaplistInsert(packet);
@@ -776,7 +776,7 @@ void BF4CommandHandler::commandReservedSlotsClear(const FrostbiteRconPacket &pac
 
 void BF4CommandHandler::commandReservedSlotsList(const FrostbiteRconPacket &packet)
 {
-    QString response(packet.getWord(0).getContent());
+    QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 0) {
         QStringList reservedSlotList;
@@ -799,30 +799,25 @@ void BF4CommandHandler::commandMapListSave(const FrostbiteRconPacket &packet)
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) // TODO: Look over this.
+void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet)
 {
-    QString response(packet.getWord(0).getContent());
+    QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 0) {
-        if ((lastSentPacket.getWordCount() > 1) && (QString(lastSentPacket.getWord(1).getContent()) == "rounds")) {
-            QStringList mapList;
+        int count = QString(packet.getWord(1).getContent()).toInt();
+        int wordsCount = QString(packet.getWord(2).getContent()).toInt();
+        QStringList mapList;
 
-            for (quint32 i = 1; i < packet.getWordCount(); i = i + 2) {
-                mapList << QString(packet.getWord(i).getContent()).toLower() << packet.getWord(i + 1).getContent();
+        for (int i = 2; i < count; i++) {
+            for (int i = 0; i < wordsCount; i++) {
+                for (unsigned int i = 2; i < packet.getWordCount(); i++) {
+                    mapList.append(packet.getWord(i).getContent());
+                }
             }
-
-            //emit(onMapListListRoundsCommand(mapList));
-        } else {
-            QStringList mapList;
-
-            for (quint32 i = 1; i < packet.getWordCount(); i++) {
-                mapList.append(packet.getWord(i).getContent());
-            }
-
-            emit(onMapListListCommand(mapList));
         }
-    }
 
+        emit(onMapListListCommand(mapList));
+    }
 }
 
 void BF4CommandHandler::commandMapListClear(const FrostbiteRconPacket &packet)

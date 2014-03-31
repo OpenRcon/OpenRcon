@@ -23,6 +23,8 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 {
     ui->setupUi(this);
 
+    levels = new BF4Levels(this);
+
     ui->comboBox_ch_mode->addItem("Say");
     ui->comboBox_ch_mode->addItem("Yell");
 
@@ -156,6 +158,16 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     completer = new QCompleter(commandList, this);
     ui->lineEdit_co_input->setCompleter(completer);
 
+    // Add gamemodes to the gamemode comboBox.
+    foreach (BF4GameMode *gameMode, levels->getGameModes()) {
+        ui->comboBox_ml_gameMode->addItem(gameMode->getName());
+    }
+
+    // Add the levels to the levels listWidget.
+    foreach (BF4Level *level, levels->getLevels(1)) {
+        ui->listWidget_ml_avaliable->addItem(level->getName());
+    }
+
     /* Events */
     connect(con->commandHandler, SIGNAL(onDataSent(const QString&)), this, SLOT(onDataSent(const QString&)));
     connect(con->commandHandler, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataSent(const QString&)));
@@ -178,13 +190,25 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     /* Commands */
     connect(con->commandHandler, SIGNAL(onVersionCommand(const QString&, const int&, const QString&)), this, SLOT(onVersionCommand(const QString&, const int&, const QString&)));
     connect(con->commandHandler, SIGNAL(onAdminListPlayersCommand(const PlayerList&)), this, SLOT(onAdminListPlayersCommand(const PlayerList&)));
+    connect(con->commandHandler, SIGNAL(onMapListListCommand(const QStringList&)), this, SLOT(onMapListListCommand(const QStringList&)));
 
     /* User Interface */
+    connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
+    connect(ui->listWidget_ml_avaliable, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_ml_avaliable_currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
+
     connect(ui->pushButton_ch_send, SIGNAL(clicked()), this, SLOT(pushButton_ch_send_clicked()));
     connect(ui->lineEdit_ch_input, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_send_clicked()));
 
     connect(ui->pushButton_co_send, SIGNAL(clicked()), this, SLOT(pushButton_co_send_clicked()));
     connect(ui->lineEdit_co_input, SIGNAL(editingFinished()), this, SLOT(pushButton_co_send_clicked()));
+
+    // Update playerlist on following events.
+    connect(con->commandHandler, SIGNAL(onPlayerJoin(const QString&)), this, SLOT(updatePlayerList()));
+    connect(con->commandHandler, SIGNAL(onPlayerLeave(const QString&, const QString&)), this, SLOT(updatePlayerList()));
+    connect(con->commandHandler, SIGNAL(onPlayerSpawn(const QString&, const QString&, const QStringList&)), this, SLOT(updatePlayerList()));
+    connect(con->commandHandler, SIGNAL(onPlayerKill(const QString&, const QString&, const QString&, const bool&)), this, SLOT(updatePlayerList()));
+    connect(con->commandHandler, SIGNAL(onPlayerSquadChange(const QString&, const int&, const int&)), this, SLOT(updatePlayerList()));
+    connect(con->commandHandler, SIGNAL(onPlayerTeamChange(const QString&, const int&, const int&)), this, SLOT(updatePlayerList()));
 }
 
 BF4Widget::~BF4Widget()
@@ -197,43 +221,26 @@ void BF4Widget::logMessage(const int &type, const QString &message)
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
     if (type == 0) { // Info
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 1) { // Error
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime, message));
+        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 2) { // Server send
-        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 3) { // Server receive
-        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime, message));
+        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 4) { // Chat
-        ui->textEdit_ch_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+        ui->textEdit_ch_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 5) { // Punkbuster
         //ui->textEdit_co_pb_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
     }
 }
 
 void BF4Widget::startupCommands() {
-    con->sendCommand("\"serverInfo\"");
-    con->sendCommand("\"admin.listPlayers\" \"all\"");
-
-    con->sendCommand("\"vars.serverName\"");
-    con->sendCommand("\"vars.serverDescription\"");
-    con->sendCommand("\"vars.bannerUrl\"");
-
-    con->sendCommand("\"vars.idleTimeout\"");
-
-    con->sendCommand("\"eventsEnabled\" \"true\"");
-    con->sendCommand("\"version\"");
-
-    con->sendCommand("\"vars.textChatModerationMode\"");
-    con->sendCommand("\"vars.textChatSpamTriggerCount\"");
-    con->sendCommand("\"vars.textChatSpamDetectionTime\"");
-    con->sendCommand("\"vars.textChatSpamCoolDownTime\"");
-
-    con->sendCommand("\"mapList.list\"");
-    con->sendCommand("\"mapList.nextLevelIndex\"");
-
-    con->sendCommand("\"banList.list\"");
-    con->sendCommand("\"reservedSlots.list\"");
+    con->sendCommand("admin.eventsEnabled true");
+    con->sendCommand("version");
+    con->sendCommand("serverInfo");
+    con->sendCommand("admin.listPlayers all");
+    con->sendCommand("maplist.list 0");
 }
 
 /* Events */
@@ -422,7 +429,30 @@ void BF4Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     ui->treeWidget_pl_playerList->expandAll();
 }
 
+void BF4Widget::onMapListListCommand(const QStringList &mapList)
+{
+    ui->listWidget_ml_current->addItems(mapList);
+}
+
 /* User Interface */
+void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
+{
+    ui->listWidget_ml_avaliable->clear();
+
+    foreach (BF4Level *level, levels->getLevels(index)) {
+        ui->listWidget_ml_avaliable->addItem(level->getName());
+    }
+}
+
+void BF4Widget::listWidget_ml_avaliable_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    Q_UNUSED(current);
+    Q_UNUSED(previous);
+
+    BF4Level *level = levels->getLevel(ui->comboBox_ml_gameMode->currentIndex(), ui->listWidget_ml_avaliable->currentRow());
+    ui->label_ml_avaliable->setPixmap(level->getImage());
+}
+
 void BF4Widget::pushButton_ch_send_clicked()
 {
     int type = ui->comboBox_ch_mode->currentIndex();
@@ -449,6 +479,11 @@ void BF4Widget::pushButton_co_send_clicked()
     ui->lineEdit_co_input->clear();
 
     con->sendCommand(command);
+}
+
+void BF4Widget::updatePlayerList()
+{
+    con->sendCommand("admin.listPlayers all");
 }
 
 QIcon BF4Widget::getRankIcon(const int &rank)

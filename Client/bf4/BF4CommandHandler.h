@@ -86,7 +86,7 @@ private:
     void commandReservedSlotsList(const FrostbiteRconPacket &packet);
     void commandMapListLoad(const FrostbiteRconPacket &packet);
     void commandMapListSave(const FrostbiteRconPacket &packet);
-    void commandMapListList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void commandMapListList(const FrostbiteRconPacket &packet);
     void commandMapListClear(const FrostbiteRconPacket &packet);
     void commandMapListRemove(const FrostbiteRconPacket &packet);
     void commandMapListAppend(const FrostbiteRconPacket &packet);

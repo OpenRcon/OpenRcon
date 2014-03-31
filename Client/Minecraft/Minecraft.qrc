@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/minecraft">
-        <file>images/icons/minecraft.png</file>
+    <qresource prefix="/minecraft/icons">
+        <file alias="minecraft.png">images/icons/minecraft.png</file>
     </qresource>
 </RCC>

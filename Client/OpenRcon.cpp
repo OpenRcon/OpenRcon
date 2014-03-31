@@ -55,14 +55,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 #endif
 
     // Adds all games to the list.
-    gameList = QList<GameEntry *>();
-//    gameList.append(new GameEntry(0, "Battlefield 1942", QIcon(":/bf1942/images/icons/bf1942.png")));
-//    gameList.append(new GameEntry(1, "Battlefield 2", QIcon(":/bf2/images/icons/bf2.png")));
-//    gameList.append(new GameEntry(2, "Battlefield 2142", QIcon(":/bf2142/images/icons/bf2142.png")));
-    gameList.append(new GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/bfbc2/images/icons/bfbc2.png")));
-//    gameList.append(new GameEntry(4, "Battlefield 3", QIcon(":/bfbc2/images/icons/bfbc2.png")));
-    gameList.append(new GameEntry(1, "Battlefield 4", QIcon(":/bf4/images/icons/bf4.png")));
-    gameList.append(new GameEntry(2, "Minecraft", QIcon(":/minecraft/images/icons/minecraft.png")));
+    gameList.append(new GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/bfbc2/icons/bfbc2.png")));
+    gameList.append(new GameEntry(1, "Battlefield 4", QIcon(":/bf4/icons/bf4.png")));
+    gameList.append(new GameEntry(2, "Minecraft", QIcon(":/minecraft/icons/minecraft.png")));
 
     // Actions
     #if QT_VERSION < 0x050000
