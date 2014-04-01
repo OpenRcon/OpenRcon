@@ -296,9 +296,9 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     levelMap.insert(new BF4GameMode("SquadDeathMatch0", "Squad Deathmatch", 20, 0, 4), list7);
     levelMap.insert(new BF4GameMode("TeamDeathMatch0", "Team Deathmatch", 20, 0, 4), list8);
     levelMap.insert(new BF4GameMode("AirSuperiority0", "Air Superiority", 24, 0, 4), list9);
-    levelMap.insert(new BF4GameMode("CaptureTheFlag0", "Capture The Flag", 64, 2, 4), list10); // Check this when docs is avaliable.
-    levelMap.insert(new BF4GameMode("CarrierAssaultLarge0", "Carrier Assault Large", 64, 2, 4), list11); // Check this when docs is avaliable.
-    levelMap.insert(new BF4GameMode("CarrierAssaultSmall0", "Carrier Assault Small", 64, 2, 4), list12); // Check this when docs is avaliable.
+    levelMap.insert(new BF4GameMode("CaptureTheFlag0", "Capture the flag", 32, 0, 4), list10);
+    levelMap.insert(new BF4GameMode("CarrierAssaultLarge0", "Carrier Assault Large", 64, 0, 4), list11);
+    levelMap.insert(new BF4GameMode("CarrierAssaultSmall0", "Carrier Assault Small", 64, 0, 4), list12); // Check this when docs is avaliable.
 }
 
 BF4Levels::~BF4Levels()
