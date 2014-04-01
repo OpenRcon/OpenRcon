@@ -37,27 +37,19 @@ Connection::~Connection()
 
 void Connection::hostConnect(const QString &host, const int &port)
 {
-    if (tcpSocket && tcpSocket->state() == QAbstractSocket::UnconnectedState) {
+    if (!tcpSocket->isOpen()) {
         tcpSocket->connectToHost(host, port);
     } else {
-        if (tcpSocket) { // TODO: Check this?
-            qDebug() << QString("Already connected to %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
-        } else {
-            qDebug() << "ERROR: Connection::hostConnect() tcpSocket = 0";
-        }
+        qDebug() << QString("Already connected to %1:%2").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
     }
 }
 
 void Connection::hostDisconnect()
 {
-    if (tcpSocket) {
-        if (tcpSocket->isOpen()) {
-            tcpSocket->disconnectFromHost();
-        } else {
-            qDebug() << "Could not disconnect, because there was no open socket.";
-        }
+    if (tcpSocket->isOpen()) {
+        tcpSocket->disconnectFromHost();
     } else {
-        qDebug() << "ERROR: Connection::hostConnect() tcpSocket = 0";
+        qDebug() << "Could not disconnect, because there was no open socket.";
     }
 }
 

@@ -259,7 +259,7 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list9.append(new BF4Level("XP1_003", "Guilin Peaks", "guilin_peaks.png"));
     list9.append(new BF4Level("XP1_004", "Dragon Pass", "dragon_pass.png"));
 
-    /* AirSuperiority0 */
+    /* CaptureTheFlag0 */
     QList<BF4Level *> list10;
 
     // XP2 (Second Assault)
@@ -267,6 +267,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list10.append(new BF4Level("XP0_Firestorm", "Operation Firestorm 2014", "operation_firestorm_2014.png"));
     list10.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list10.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
+
+    // XP3 (Naval Strike)
+    list10.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list10.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list10.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list10.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
 
     /* Carrier Assault Large */
     QList<BF4Level *> list11;
