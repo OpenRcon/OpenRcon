@@ -59,8 +59,7 @@ SOURCES += OpenRcon.cpp \
     DragDropListWidget.cpp \
     DragDropTreeWidget.cpp \
     SettingsManager.cpp \
-    Game.cpp \
-    GameEntry.cpp
+    Game.cpp
 
 FORMS += About.ui \
     OpenRcon.ui \

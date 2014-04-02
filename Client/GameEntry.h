@@ -23,17 +23,12 @@
 #include <QString>
 #include <QIcon>
 
-class GameEntry
-{
-public:
-    explicit GameEntry(const int &id, const QString &name, const QIcon &icon);
-    ~GameEntry();
+struct GameEntry {
+    GameEntry(const int &id, const QString &name, const QIcon &icon) : id(id), name(name), icon(icon)
+    {
 
-    int getId();
-    QString getName();
-    QIcon getIcon();
+    }
 
-private:
     int id;
     QString name;
     QIcon icon;

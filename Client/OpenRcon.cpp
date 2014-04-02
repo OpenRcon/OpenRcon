@@ -55,9 +55,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 #endif
 
     // Adds all games to the list.
-    gameList.append(new GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/bfbc2/icons/bfbc2.png")));
-    gameList.append(new GameEntry(1, "Battlefield 4", QIcon(":/bf4/icons/bf4.png")));
-    gameList.append(new GameEntry(2, "Minecraft", QIcon(":/minecraft/icons/minecraft.png")));
+    gameList.append(GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/bfbc2/icons/bfbc2.png")));
+    gameList.append(GameEntry(1, "Battlefield 4", QIcon(":/bf4/icons/bf4.png")));
+    gameList.append(GameEntry(2, "Minecraft", QIcon(":/minecraft/icons/minecraft.png")));
 
     // Actions
     #if QT_VERSION < 0x050000
@@ -77,8 +77,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     // Quickconnect
     comboBox_qc_game = new QComboBox(this);
 
-    foreach (GameEntry *entry, gameList) {
-        comboBox_qc_game->addItem(entry->getIcon(), entry->getName());
+    foreach (GameEntry entry, gameList) {
+        comboBox_qc_game->addItem(entry.icon, entry.name);
     }
 
     label_qc_host = new QLabel(tr("Host:"), this);
@@ -183,17 +183,17 @@ void OpenRcon::writeSettings()
 
 void OpenRcon::newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password)
 {
-    GameEntry *entry = gameList.at(game);
+    GameEntry entry = gameList.at(game);
 
     if (game == 0) {
         BFBC2Widget *bfbc2 = new BFBC2Widget(host, port, password);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(bfbc2, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(bfbc2, entry.icon, QString("%1 [%2]").arg(name).arg(entry.name)));
     } else if (game == 1) {
         BF4Widget *bf4 = new BF4Widget(host, port, password);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(bf4, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(bf4, entry.icon, QString("%1 [%2]").arg(name).arg(entry.name)));
     } else if (game == 2) {
         MinecraftWidget *minecraft = new MinecraftWidget(host, port, password);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(minecraft, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(minecraft, entry.icon, QString("%1 [%2]").arg(name).arg(entry.name)));
     }
 }
 
@@ -210,7 +210,7 @@ void OpenRcon::closeTab(int index)
     ui->tabWidget->removeTab(index);
 }
 
-QList<GameEntry *> OpenRcon::getGameList()
+QList<GameEntry> OpenRcon::getGameList()
 {
     return gameList;
 }

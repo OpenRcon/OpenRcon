@@ -81,7 +81,7 @@ public:
     ~OpenRcon();
 
     void newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
-    QList<GameEntry *> getGameList();
+    QList<GameEntry> getGameList();
 
 private:
     Ui::OpenRcon *ui;
@@ -91,7 +91,7 @@ private:
     About *aboutDialog;
 
     QSettings *settings;
-    QList<GameEntry *> gameList;
+    QList<GameEntry> gameList;
     QList<ServerEntry> m_serverEntries;
 
     // Actions

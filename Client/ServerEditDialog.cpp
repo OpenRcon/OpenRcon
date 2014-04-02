@@ -30,8 +30,8 @@ ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialo
 
     ui->comboBox_sed_game->clear();
 
-    foreach (GameEntry *entry, OpenRcon::getInstance()->getGameList()) {
-        ui->comboBox_sed_game->addItem(entry->getIcon(), entry->getName(), entry->getId());
+    foreach (GameEntry entry, OpenRcon::getInstance()->getGameList()) {
+        ui->comboBox_sed_game->addItem(entry.icon, entry.name, entry.id);
     }
 
     ui->spinBox_sed_port->setRange(1, 65535);

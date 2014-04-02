@@ -273,6 +273,16 @@ void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &
     }
 }
 
+void BF4CommandHandler::sendLoginPlainTextCommand(const QString &password)
+{
+
+}
+
+void BF4CommandHandler::sendLoginHashedCommand(const QString &password)
+{
+
+}
+
 /* Events */
 void BF4CommandHandler::eventOnPlayerAuthenticated(const FrostbiteRconPacket &packet)
 {
