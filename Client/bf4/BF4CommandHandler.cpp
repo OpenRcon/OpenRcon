@@ -669,15 +669,15 @@ void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet)
 
     if (response == "OK" && packet.getWordCount() > 0) {
         MapList mapList;
-        unsigned int maps = QString(packet.getWord(1).getContent()).toUInt();
-        unsigned int parameters = QString(packet.getWord(2).getContent()).toUInt();
+        int maps = QString(packet.getWord(1).getContent()).toInt();
+        int parameters = QString(packet.getWord(2).getContent()).toInt();
 
-        for (unsigned int i = 0; i < maps; i++) {
+        for (int i = 0; i < maps; i++) {
             QString level;
             QString gameMode;
             int rounds;
 
-            for (unsigned int j = 0; j < parameters; j++) {
+            for (int j = 0; j < parameters; j++) {
                 QString data = packet.getWord(3 + (i * parameters) + j).getContent();
 
                 switch (j) {
@@ -693,31 +693,11 @@ void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet)
                 }
             }
 
-            MapListEntry entry = {
-                level,
-                gameMode,
-                rounds,
-            };
-
-            mapList.append(entry);
-
-            qDebug() << "Got level: " << level << gameMode << rounds;
+            mapList.append(MapListEntry(level, gameMode, rounds));
         }
 
         emit(onMapListListCommand(mapList));
     }
-
-    /*
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QStringList mapList;
-
-        for (unsigned int i = 3; i < packet.getWordCount(); i += 3) {
-            mapList.append(packet.getWord(i).getContent());
-        }
-
-        emit(onMapListListCommand(mapList));
-    }
-    */
 }
 
 void BF4CommandHandler::commandMapListLoad(const FrostbiteRconPacket &packet)

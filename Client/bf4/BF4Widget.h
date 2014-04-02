@@ -25,7 +25,6 @@
 
 #include "ui_BF4.h"
 #include "BF4.h"
-#include "BF4Level.h"
 #include "BF4Levels.h"
 
 class BF4Widget : public BF4
@@ -49,8 +48,12 @@ private:
     void startupCommands();
 
     QIcon getRankIcon(const int &rank);
-    QPixmap getLevelImage(BF4Level *level);
-    QString getSquadName(const int &id);
+    QPixmap getLevelImage(const LevelEntry &level);
+    QString getSquadName(const int &squadId);
+
+    void setAvaliableMaplist(const int &gameModeIndex);
+    void addCurrentMapListRow(const QString &name, const QString &gameMode, const int &rounds);
+    void setCurrentMaplist(const MapList &mapList);
 
 private slots:
     void onDataSent(const QString &command);
@@ -75,6 +78,7 @@ private slots:
     /* Commands */
     void onLoginHashedCommand();
     void onVersionCommand(const QString &type, const int &buildId, const QString &version);
+    void onServerInfoCommand(const QStringList &serverInfo);
     void onAdminListPlayersCommand(const PlayerList &playerList);
     void onMapListListCommand(const MapList &mapList);
 
@@ -85,7 +89,6 @@ private slots:
     void pushButton_ch_clicked();
 
     void comboBox_li_ml_gameMode_currentIndexChanged(int);
-    void listWidget_li_ml_avaliable_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void pushButton_li_ml_add_clicked();
     void pushButton_li_ml_remove_clicked();
 

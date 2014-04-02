@@ -1,11 +1,11 @@
 #ifndef BF4LEVELS_H
 #define BF4LEVELS_H
 
-#include <QObject>
-#include <QMap>
+#include <QDebug>
+#include <QHash>
 
-#include "BF4GameMode.h"
-#include "BF4Level.h"
+#include "LevelEntry.h"
+#include "GameModeEntry.h"
 
 class BF4Levels : public QObject
 {
@@ -15,23 +15,22 @@ public:
     explicit BF4Levels(QObject *parent = 0);
     ~BF4Levels();
 
-    BF4GameMode* getGameMode(const int &index);
-    BF4GameMode* getGameMode(const QString &gameModeName);
+    LevelEntry getLevel(const int &index);
+    LevelEntry getLevel(const QString &name);
+    GameModeEntry getGameMode(const int &index);
+    GameModeEntry getGameMode(const QString &name);
 
-    BF4Level* getLevel(BF4GameMode *gameMode, const int &index);
-    BF4Level* getLevel(const int &gameModeIndex, const int &index);
+    QList<LevelEntry> getLevels();
+    QList<LevelEntry> getLevels(const int &gameModeIndex);
+    QList<GameModeEntry> getGameModes();
 
-    BF4Level* getLevel(BF4GameMode *gameMode, const QString &engineName);
-    BF4Level* getLevel(const int &gameModeIndex, const QString &engineName);
-    BF4Level* getLevel(const QString &gameModeName, const QString &engineName);
-
-    QList<BF4Level *> getLevels(BF4GameMode *gameMode);
-    QList<BF4Level *> getLevels(const int &index);
-    QList<BF4GameMode *> getGameModes();
+    QStringList getLevelNames();
     QStringList getGameModeNames();
 
 private:
-    QMap<BF4GameMode*, QList<BF4Level *> > levelMap;
+    QList<LevelEntry> levelList;
+    QList<GameModeEntry> gameModeList;
+    QHash<int, int> levelMap;
 
 };
 
