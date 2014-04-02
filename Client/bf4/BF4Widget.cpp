@@ -583,13 +583,20 @@ void BF4Widget::pushButton_li_ml_remove_clicked()
 {
     int index = ui->tableWidget_li_ml_current->currentRow();
 
-    qDebug() << "Row is: " << index;
-
-    if (index > 0) {
+    if (index >= 0) {
         ui->tableWidget_li_ml_current->removeRow(index);
 
         con->sendCommand(QString("mapList.remove %1").arg(index));
     }
+}
+
+void BF4Widget::addAvaliableMapListRow(const QString &name, const QString &gameMode)
+{
+    int row = ui->tableWidget_li_ml_avaliable->rowCount();
+
+    ui->tableWidget_li_ml_avaliable->insertRow(row);
+    ui->tableWidget_li_ml_avaliable->setItem(row, 0, new QTableWidgetItem(name));
+    ui->tableWidget_li_ml_avaliable->setItem(row, 1, new QTableWidgetItem(gameMode));
 }
 
 void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
@@ -598,13 +605,11 @@ void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
     GameModeEntry gameMode = levels->getGameMode(gameModeIndex);
 
     ui->tableWidget_li_ml_avaliable->clearContents();
-    ui->tableWidget_li_ml_avaliable->setRowCount(levelList.length());
 
     for (int i = 0; i < levelList.length(); i++) {
         LevelEntry level = levelList.at(i);
 
-        ui->tableWidget_li_ml_avaliable->setItem(i, 0, new QTableWidgetItem(level.name));
-        ui->tableWidget_li_ml_avaliable->setItem(i, 1, new QTableWidgetItem(gameMode.name));
+        addAvaliableMapListRow(level.name, gameMode.name);
     }
 }
 

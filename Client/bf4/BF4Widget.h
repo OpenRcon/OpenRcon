@@ -51,6 +51,7 @@ private:
     QPixmap getLevelImage(const LevelEntry &level);
     QString getSquadName(const int &squadId);
 
+    void addAvaliableMapListRow(const QString &name, const QString &gameMode);
     void setAvaliableMaplist(const int &gameModeIndex);
     void addCurrentMapListRow(const QString &name, const QString &gameMode, const int &rounds);
     void setCurrentMaplist(const MapList &mapList);
