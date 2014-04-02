@@ -90,8 +90,10 @@ private slots:
     void pushButton_ch_clicked();
 
     void comboBox_li_ml_gameMode_currentIndexChanged(int);
+    void tableWidget_li_ml_avaliable_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous);
     void pushButton_li_ml_add_clicked();
     void pushButton_li_ml_remove_clicked();
+    void tableWidget_li_ml_current_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous);
 
     void lineEdit_op_so_serverName_editingFinished();
     void textEdit_op_so_serverDescription_textChanged();

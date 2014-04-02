@@ -202,9 +202,10 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(ui->lineEdit_ch, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_clicked()));
 
     connect(ui->comboBox_li_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_li_ml_gameMode_currentIndexChanged(int)));
-//    connect(ui->listWidget_li_ml_avaliable, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_li_ml_avaliable_currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
+    connect(ui->tableWidget_li_ml_avaliable, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_li_ml_avaliable_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
     connect(ui->pushButton_li_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_li_ml_add_clicked()));
     connect(ui->pushButton_li_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_li_ml_remove_clicked()));
+    connect(ui->tableWidget_li_ml_current, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_li_ml_current_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
 
     connect(ui->lineEdit_op_so_serverName, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverName_editingFinished()));
     connect(ui->textEdit_op_so_serverDescription, SIGNAL(textChanged()), this, SLOT(textEdit_op_so_serverDescription_textChanged()));
@@ -562,6 +563,20 @@ void BF4Widget::comboBox_li_ml_gameMode_currentIndexChanged(int index)
     }
 }
 
+void BF4Widget::tableWidget_li_ml_avaliable_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
+{
+    Q_UNUSED(current);
+    Q_UNUSED(previous);
+
+    int row = ui->tableWidget_li_ml_avaliable->currentRow();
+
+    if (row >= 0) {
+        LevelEntry level = levels->getLevel(ui->tableWidget_li_ml_avaliable->item(row, 0)->text());
+
+        ui->label_li_ml_avaliable->setPixmap(level.image);
+    }
+}
+
 void BF4Widget::pushButton_li_ml_add_clicked()
 {
     int row = ui->tableWidget_li_ml_avaliable->currentRow();
@@ -590,6 +605,20 @@ void BF4Widget::pushButton_li_ml_remove_clicked()
     }
 }
 
+void BF4Widget::tableWidget_li_ml_current_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
+{
+    Q_UNUSED(current);
+    Q_UNUSED(previous);
+
+    int row = ui->tableWidget_li_ml_current->currentRow();
+
+    if (row >= 0) {
+        LevelEntry level = levels->getLevel(ui->tableWidget_li_ml_current->item(row, 0)->text());
+
+        ui->label_li_ml_current->setPixmap(level.image);
+    }
+}
+
 void BF4Widget::addAvaliableMapListRow(const QString &name, const QString &gameMode)
 {
     int row = ui->tableWidget_li_ml_avaliable->rowCount();
@@ -603,6 +632,8 @@ void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
 {
     QList<LevelEntry> levelList = levels->getLevels(gameModeIndex);
     GameModeEntry gameMode = levels->getGameMode(gameModeIndex);
+
+    ui->label_li_ml_avaliable->setPixmap(levelList.first().image);
 
     ui->tableWidget_li_ml_avaliable->clearContents();
 
@@ -631,6 +662,10 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
         MapListEntry entry = mapList.at(i);
         LevelEntry level = levels->getLevel(entry.level);
         GameModeEntry gameMode = levels->getGameMode(entry.gameMode);
+
+        if (i == 0) {
+            ui->label_li_ml_current->setPixmap(level.image);
+        }
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
     }

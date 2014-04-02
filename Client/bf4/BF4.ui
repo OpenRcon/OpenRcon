@@ -181,57 +181,6 @@
         </item>
         <item row="1" column="0" colspan="2">
          <layout class="QGridLayout" name="gridLayout_5">
-          <item row="1" column="1">
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <spacer name="verticalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_li_ml_add">
-              <property name="text">
-               <string>Add</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="spinBox_li_ml_rounds">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_li_ml_remove">
-              <property name="text">
-               <string>Remove</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>118</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_li_ml_avaliable">
             <property name="text">
@@ -294,13 +243,6 @@
             </column>
            </widget>
           </item>
-          <item row="0" column="3">
-           <widget class="QLabel" name="label_li_ml_current">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QTableWidget" name="tableWidget_li_ml_avaliable">
             <property name="editTriggers">
@@ -344,6 +286,64 @@
              </property>
             </column>
            </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_li_ml_current">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" rowspan="2">
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_li_ml_add">
+              <property name="text">
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBox_li_ml_rounds">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_li_ml_remove">
+              <property name="text">
+               <string>Remove</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>118</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>

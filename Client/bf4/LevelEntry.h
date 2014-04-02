@@ -10,7 +10,7 @@ struct LevelEntry {
 
     }
 
-    LevelEntry(QString engineName, QString name, QString image) : engineName(engineName), name(name), image(QPixmap(image))
+    LevelEntry(QString engineName, QString name, QString image) : engineName(engineName), name(name), image(QPixmap(":/bf4/levels/" + image))
     {
 
     }
