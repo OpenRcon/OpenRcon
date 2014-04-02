@@ -55,7 +55,6 @@ private:
 private slots:
     void onDataSent(const QString &command);
     void onDataReceived(const QString &response);
-    void onAuthenticated();
 
     /* Events */
     void onPlayerAuthenticated(const QString &player, const QString &guid);
@@ -74,9 +73,10 @@ private slots:
     void onServerRoundOverTeamScores(const QString &teamScores);
 
     /* Commands */
+    void onLoginHashedCommand();
     void onVersionCommand(const QString &type, const int &buildId, const QString &version);
     void onAdminListPlayersCommand(const PlayerList &playerList);
-    void onMapListListCommand(const QStringList &mapList);
+    void onMapListListCommand(const MapList &mapList);
 
     void onVarsServerNameCommand(const QString &serverName);
     void onVarsServerDescriptionCommand(const QString &serverDescription);

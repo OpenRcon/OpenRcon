@@ -169,7 +169,6 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     /* Events */
     connect(con->commandHandler, SIGNAL(onDataSent(const QString&)), this, SLOT(onDataSent(const QString&)));
     connect(con->commandHandler, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataSent(const QString&)));
-    connect(con->commandHandler, SIGNAL(onAuthenticated()), this, SLOT(onAuthenticated()));
 
     connect(con->commandHandler, SIGNAL(onPlayerAuthenticated(const QString&, const QString&)), this, SLOT(onPlayerAuthenticated(const QString&, const QString&)));
     connect(con->commandHandler, SIGNAL(onPlayerJoin(const QString&)), this, SLOT(onPlayerJoin(const QString&)));
@@ -186,9 +185,10 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->commandHandler, SIGNAL(onServerRoundOverTeamScores(const QString&)), this, SLOT(onServerRoundOverTeamScores(const QString&)));
 
     /* Commands */
+    connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
     connect(con->commandHandler, SIGNAL(onVersionCommand(const QString&, const int&, const QString&)), this, SLOT(onVersionCommand(const QString&, const int&, const QString&)));
     connect(con->commandHandler, SIGNAL(onAdminListPlayersCommand(const PlayerList&)), this, SLOT(onAdminListPlayersCommand(const PlayerList&)));
-    connect(con->commandHandler, SIGNAL(onMapListListCommand(const QStringList&)), this, SLOT(onMapListListCommand(const QStringList&)));
+    connect(con->commandHandler, SIGNAL(onMapListListCommand(const MapList&)), this, SLOT(onMapListListCommand(const MapList&)));
 
     connect(con->commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
     connect(con->commandHandler, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
@@ -268,17 +268,6 @@ void BF4Widget::onDataSent(const QString &command)
 void BF4Widget::onDataReceived(const QString &response)
 {
     logMessage(3, response);
-}
-
-void BF4Widget::onAuthenticated()
-{
-    // Call commands on startup.
-    startupCommands();
-
-    // Find a better way to do this.
-//    commandRefreshTimer = new QTimer(this);
-//    connect(commandRefreshTimer, SIGNAL(timeout()), this, SLOT(refreshCommands()));
-//    commandRefreshTimer->start(10000);
 }
 
 void BF4Widget::onPlayerAuthenticated(const QString &player, const QString &guid)
@@ -376,6 +365,17 @@ void BF4Widget::onServerRoundOverTeamScores(const QString &teamScores)
 }
 
 /* Commands */
+void BF4Widget::onLoginHashedCommand()
+{
+    // Call commands on startup.
+    startupCommands();
+
+    // Find a better way to do this.
+//    commandRefreshTimer = new QTimer(this);
+//    connect(commandRefreshTimer, SIGNAL(timeout()), this, SLOT(refreshCommands()));
+//    commandRefreshTimer->start(10000);
+}
+
 void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const QString &version)
 {
     Q_UNUSED(buildId);
@@ -444,12 +444,14 @@ void BF4Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     ui->treeWidget_pl_playerList->expandAll();
 }
 
-void BF4Widget::onMapListListCommand(const QStringList &mapList)
+void BF4Widget::onMapListListCommand(const MapList &mapList)
 {
-    foreach (QString map, mapList) {
-        BF4Level *level = levels->getLevel(0, map);
+    foreach (MapListEntry entry, mapList) {
+        BF4Level *level = levels->getLevel(entry.gameMode, entry.levelName);
+        BF4GameMode *gameMode = levels->getGameMode(entry.gameMode);
 
         ui->listWidget_li_ml_current->addItem(level->getName());
+        ui->listWidget_li_ml_current->addItem(gameMode->getName());
     }
 }
 

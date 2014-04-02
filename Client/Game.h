@@ -20,8 +20,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <QString>
-
 #include "ConnectionTabWidget.h"
 
 class Game : public ConnectionTabWidget

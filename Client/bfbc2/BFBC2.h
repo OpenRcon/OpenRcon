@@ -49,6 +49,7 @@ private:
 private slots: 
     void onConnected();
     void onLoginHashedCommand(const QByteArray &salt);
+    void onLoginHashedCommand();
 
     void ingameCommands(const QString &player, const QString &cmd);
 
@@ -65,6 +66,8 @@ protected:
     QStringList gamemodes;
     int nextLevelIndex;
     QStringList mapListU;
+
+    bool isAuthenticated();
 
     void sendSayMessage(const QString &msg, const QString &group);
     void sendYellMessage(const QString &message, const int &duration, const QString &group);

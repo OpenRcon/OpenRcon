@@ -317,9 +317,17 @@ BF4GameMode* BF4Levels::getGameMode(const int &index)
     return levelMap.keys().at(index);
 }
 
-QList<BF4GameMode *> BF4Levels::getGameModes()
+BF4GameMode* BF4Levels::getGameMode(const QString &gameModeName)
 {
-    return levelMap.keys();
+    BF4GameMode *gameMode;
+
+    foreach (BF4GameMode *value, levelMap.keys()) {
+        if (value->getName() == gameModeName) {
+            gameMode = value;
+        }
+    }
+
+    return gameMode;
 }
 
 BF4Level* BF4Levels::getLevel(BF4GameMode *gameMode, const int &index)
@@ -350,6 +358,11 @@ BF4Level* BF4Levels::getLevel(const int &gameModeIndex, const QString &engineNam
     return getLevel(getGameMode(gameModeIndex), engineName);
 }
 
+BF4Level* BF4Levels::getLevel(const QString &gameModeName, const QString &engineName)
+{
+    return getLevel(getGameMode(gameModeName), engineName);
+}
+
 QList<BF4Level *> BF4Levels::getLevels(BF4GameMode *gameMode)
 {
     return levelMap.value(gameMode);
@@ -358,6 +371,11 @@ QList<BF4Level *> BF4Levels::getLevels(BF4GameMode *gameMode)
 QList<BF4Level *> BF4Levels::getLevels(const int &index)
 {
     return getLevels(getGameMode(index));
+}
+
+QList<BF4GameMode *> BF4Levels::getGameModes()
+{
+    return levelMap.keys();
 }
 
 QStringList BF4Levels::getGameModeNames()

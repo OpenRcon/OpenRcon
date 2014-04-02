@@ -5,7 +5,73 @@
         <file>../COPYING</file>
         <file>../TRANSLATORS</file>
     </qresource>
-    <qresource prefix="/images/icons">
+    <qresource prefix="/icons">
         <file>images/icons/openrcon.png</file>
+        <file>images/icons/utilities-terminal.png</file>
+        <file>images/icons/network-server.png</file>
+        <file>images/icons/system-users.png</file>
+        <file>images/icons/user-invisible.png</file>
+    </qresource>
+    <qresource prefix="/flags">
+        <file>images/flags/algeria.png</file>
+        <file>images/flags/argentina.png</file>
+        <file>images/flags/australia.png</file>
+        <file>images/flags/austria.png</file>
+        <file>images/flags/belarus.png</file>
+        <file>images/flags/belgium.png</file>
+        <file>images/flags/bosnia.png</file>
+        <file>images/flags/brazil.png</file>
+        <file>images/flags/bulgaria.png</file>
+        <file>images/flags/canada.png</file>
+        <file>images/flags/china.png</file>
+        <file>images/flags/costa_rica.png</file>
+        <file>images/flags/croatia.png</file>
+        <file>images/flags/czech.png</file>
+        <file>images/flags/denmark.png</file>
+        <file>images/flags/egypt.png</file>
+        <file>images/flags/finland.png</file>
+        <file>images/flags/france.png</file>
+        <file>images/flags/georgia.png</file>
+        <file>images/flags/germany.png</file>
+        <file>images/flags/greece.png</file>
+        <file>images/flags/hungary.png</file>
+        <file>images/flags/iceland.png</file>
+        <file>images/flags/india.png</file>
+        <file>images/flags/indonesia.png</file>
+        <file>images/flags/ireland.png</file>
+        <file>images/flags/israel.png</file>
+        <file>images/flags/italy.png</file>
+        <file>images/flags/japan.png</file>
+        <file>images/flags/luxembourg.png</file>
+        <file>images/flags/malaysia.png</file>
+        <file>images/flags/mexico.png</file>
+        <file>images/flags/morocco.png</file>
+        <file>images/flags/netherlands.png</file>
+        <file>images/flags/newzealand.png</file>
+        <file>images/flags/norway.png</file>
+        <file>images/flags/pakistan.png</file>
+        <file>images/flags/philippines.png</file>
+        <file>images/flags/poland.png</file>
+        <file>images/flags/portugal.png</file>
+        <file>images/flags/romania.png</file>
+        <file>images/flags/russia.png</file>
+        <file>images/flags/saoudi_arabia.png</file>
+        <file>images/flags/serbia.png</file>
+        <file>images/flags/singapore.png</file>
+        <file>images/flags/slovakia.png</file>
+        <file>images/flags/slovenia.png</file>
+        <file>images/flags/south_africa.png</file>
+        <file>images/flags/south_korea.png</file>
+        <file>images/flags/spain.png</file>
+        <file>images/flags/spain_catalunya.png</file>
+        <file>images/flags/suisse.png</file>
+        <file>images/flags/sweden.png</file>
+        <file>images/flags/taiwan.png</file>
+        <file>images/flags/thailand.png</file>
+        <file>images/flags/turkey.png</file>
+        <file>images/flags/ukraine.png</file>
+        <file>images/flags/united_arab_emirates.png</file>
+        <file>images/flags/united_kingdom.png</file>
+        <file>images/flags/usa.png</file>
     </qresource>
 </RCC>
