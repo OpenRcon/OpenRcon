@@ -112,8 +112,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 
     // Actions
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
-    connect(ui->actionDisconnect, SIGNAL(triggered()), this, SLOT(actionDisconnect_triggered()));
-
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(actionExit_triggered()));
 
     connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));

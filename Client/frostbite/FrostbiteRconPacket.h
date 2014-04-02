@@ -23,7 +23,6 @@
 #include "FrostbiteRconWord.h"
 
 //#define MAX_WORDS 100 // TODO: Think this right.
-
 // TODO: Should qint32 be replaced by RconUint?
 
 class FrostbiteRconPacket : QObject
@@ -61,7 +60,6 @@ public:
     */
 
     unsigned int packetSequence;
-
     unsigned int packetSize; // Total size of packet, in bytes
     unsigned int packetWordCount; // Number of words following the packet header
     //RconWord packetWords[MAX_WORDS];

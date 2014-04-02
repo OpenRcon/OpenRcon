@@ -26,7 +26,15 @@ FrostbiteRconWord::FrostbiteRconWord() : wordSize(0), wordContent(0), wordTermin
 
 FrostbiteRconWord::FrostbiteRconWord(const char* str) : wordSize(0), wordContent(0), wordTerminator(0)
 {
-    loadString(str);
+    clear();
+    wordTerminator = 0;
+    wordSize = strlen(str);
+
+    if (wordSize) {
+        wordContent = new char[wordSize + 1];
+        memcpy(wordContent, str, wordSize);
+        wordContent[wordSize] = 0; // Include the null terminator.
+    }
 }
 
 FrostbiteRconWord::FrostbiteRconWord(const FrostbiteRconWord &word) : wordSize(0), wordContent(0), wordTerminator(0)
@@ -58,15 +66,16 @@ FrostbiteRconWord &FrostbiteRconWord::operator = (const FrostbiteRconWord &word)
             wordContent[wordSize] = 0; // Include the null terminator.
         }
     }
+
     return *this;
 }
 
-quint32 FrostbiteRconWord::getSize() const
+unsigned int FrostbiteRconWord::getSize() const
 {
     return wordSize;
 }
 
-quint32 FrostbiteRconWord::getFullSize() const
+unsigned int FrostbiteRconWord::getFullSize() const
 {
     return 4 + wordSize + 1;
 }
@@ -79,19 +88,6 @@ const char* FrostbiteRconWord::getContent() const
 char FrostbiteRconWord::getTerminator() const
 {
     return wordTerminator;
-}
-
-void FrostbiteRconWord::loadString(const char* str)
-{
-    clear();
-    wordTerminator = 0;
-    wordSize = strlen(str);
-
-    if (wordSize) {
-        wordContent = new char[wordSize + 1];
-        memcpy(wordContent, str, wordSize);
-        wordContent[wordSize] = 0; // Include the null terminator.
-    }
 }
 
 void FrostbiteRconWord::loadData(const char* data, unsigned int size)
@@ -117,5 +113,3 @@ void FrostbiteRconWord::clear()
     wordSize = 0;
     wordTerminator = 0;
 }
-
-

@@ -17,12 +17,20 @@
    <string notr="true"/>
   </property>
   <property name="currentIndex">
+<<<<<<< HEAD
    <number>0</number>
+=======
+   <number>1</number>
+>>>>>>> 482eba8158c94042272984edaae117d2ed5ffbcd
   </property>
   <property name="documentMode">
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="tab_pl">
+   <attribute name="icon">
+    <iconset resource="../OpenRcon.qrc">
+     <normaloff>:/icons/images/icons/system-users.png</normaloff>:/icons/images/icons/system-users.png</iconset>
+   </attribute>
    <attribute name="title">
     <string>Players</string>
    </attribute>
@@ -69,6 +77,10 @@
    </layout>
   </widget>
   <widget class="QWidget" name="tab_ch">
+   <attribute name="icon">
+    <iconset resource="../OpenRcon.qrc">
+     <normaloff>:/icons/images/icons/user-invisible.png</normaloff>:/icons/images/icons/user-invisible.png</iconset>
+   </attribute>
    <attribute name="title">
     <string>Chat</string>
    </attribute>
@@ -173,13 +185,13 @@
         </item>
         <item row="1" column="0" colspan="2">
          <layout class="QGridLayout" name="gridLayout_5">
-          <item row="1" column="2">
+          <item row="1" column="3">
            <widget class="QListWidget" name="listWidget_li_ml_current"/>
           </item>
-          <item row="1" column="0">
+          <item row="1" column="1">
            <widget class="QListWidget" name="listWidget_li_ml_avaliable"/>
           </item>
-          <item row="1" column="1">
+          <item row="1" column="2">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <spacer name="verticalSpacer_2">
@@ -230,18 +242,32 @@
             </item>
            </layout>
           </item>
-          <item row="0" column="0">
+          <item row="0" column="1">
            <widget class="QLabel" name="label_li_ml_avaliable">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
+          <item row="0" column="3">
            <widget class="QLabel" name="label_li_ml_current">
             <property name="text">
              <string/>
             </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QTableWidget" name="tableWidget_li_ml_avaliable">
+            <column>
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Gamemode</string>
+             </property>
+            </column>
            </widget>
           </item>
          </layout>
@@ -362,6 +388,10 @@
        <bool>false</bool>
       </property>
       <widget class="QWidget" name="tab_co_co">
+       <attribute name="icon">
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/images/icons/utilities-terminal.png</normaloff>:/icons/images/icons/utilities-terminal.png</iconset>
+       </attribute>
        <attribute name="title">
         <string>Console</string>
        </attribute>
@@ -429,6 +459,7 @@
  </tabstops>
  <resources>
   <include location="BF4.qrc"/>
+  <include location="../OpenRcon.qrc"/>
  </resources>
  <connections/>
 </ui>

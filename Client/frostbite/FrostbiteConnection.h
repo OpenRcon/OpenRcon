@@ -41,30 +41,23 @@ public:
 public slots:
     void hostConnect(const QString &host, const int &port);
     void sendPacket(const FrostbiteRconPacket &packet, bool response = false);
-    void sendCommand(const QString &cmd);
-    bool isAuthenticated();
-    PlayerList getPlayerList();
+    void sendCommand(const QString &command);
 
 private:
     int packetReadState;
     char lastHeader[MIN_PACKET_SIZE];
-    bool auth;
-    QByteArray loginSalt;
-    QString gameName;
     QVector<FrostbiteRconPacket> packetSendQueue;
-    quint32 nextPacketSeq;
-    PlayerList playerList;
+    unsigned int nextPacketSeq;
 
     void handlePacket(const FrostbiteRconPacket &packet);
 
     enum {
-        PacketReadingHeader = 0,
-        PacketReadingData = 1
+        PacketReadingHeader,
+        PacketReadingData
     };
 
 private slots:
     void readyRead();
-    void authenticateSlot();
 
 };
 

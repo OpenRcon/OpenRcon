@@ -234,7 +234,7 @@
    <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>8</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -1871,7 +1871,7 @@ p, li { white-space: pre-wrap; }
           <locale language="English" country="UnitedStates"/>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <property name="documentMode">
           <bool>false</bool>

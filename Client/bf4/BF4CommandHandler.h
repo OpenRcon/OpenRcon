@@ -3,9 +3,11 @@
 
 #include "FrostbiteCommandHandler.h"
 
+#include "MapListEntry.h"
+
 typedef QMap<QString, QString> PlayerListItem;
 typedef QVector<PlayerListItem> PlayerList;
-typedef QMap<QString, QString> MapList;
+typedef QList<MapListEntry> MapList;
 
 class BF4CommandHandler : public FrostbiteCommandHandler
 {
@@ -81,7 +83,7 @@ private:
     void commandPlayerPing(const FrostbiteRconPacket &packet);
     void commandPunkBusterActivate(const FrostbiteRconPacket &packet);
     void commandPunkBusterIsActive(const FrostbiteRconPacket &packet);
-    void commandPunkBusterPb_sv_command(const FrostbiteRconPacket &packet);
+    void commandPunkBusterPbSvCommand(const FrostbiteRconPacket &packet);
     void commandReservedSlotsListAdd(const FrostbiteRconPacket &packet);
     void commandReservedSlotsListAggressiveJoin(const FrostbiteRconPacket &packet);
     void commandReservedSlotsListClear(const FrostbiteRconPacket &packet);
@@ -171,6 +173,7 @@ signals:
     // Command signals.
     void onLoginPlainTextCommand();
     void onLoginHashedCommand(const QByteArray &salt);
+    void onLoginHashedCommand();
     void onServerInfoCommand(const QStringList &serverInfo);
     void onLogoutCommand();
     void onQuitCommand();
@@ -202,7 +205,7 @@ signals:
     void onMapListEndRoundCommand();
     void onMapListGetMapIndicesCommand();
     void onMapListGetRoundsCommand();
-    void onMapListListCommand(const QStringList &mapList);
+    void onMapListListCommand(const MapList &mapList);
     void onMapListLoadCommand();
     void onMapListRemoveCommand();
     void onMapListRestartRoundCommand();
@@ -214,7 +217,7 @@ signals:
     void onPlayerPingCommand();
     void onPunkBusterActivateCommand();
     void onPunkBusterIsActiveCommand();
-    void onPunkBusterPb_sv_onCommand();
+    void onPunkBusterPbSvCommand();
     void onReservedSlotsListAddCommand();
     void onReservedSlotsListAggressiveJoinCommand();
     void onReservedSlotsListClearCommand();

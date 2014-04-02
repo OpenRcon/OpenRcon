@@ -112,7 +112,7 @@ void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &
         commandMapListGetMapIndices(packet);
     } else if (command == "mapList.getRounds") {
         commandMapListGetRounds(packet);
-    } else if (command == "mapList.list") {
+    } else if (command == "maplist.list") { // case sensetive?
         commandMapListList(packet);
     } else if (command == "mapList.load") {
         commandMapListLoad(packet);
@@ -137,7 +137,7 @@ void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &
     } else if (command == "punkBuster.isActive") {
         commandPunkBusterIsActive(packet);
     } else if (command == "punkBuster.pb_sv_command") {
-        commandPunkBusterPb_sv_command(packet);
+        commandPunkBusterPbSvCommand(packet);
     } else if (command == "reservedSlotsList.add") {
         commandReservedSlotsListAdd(packet);
     } else if (command == "reservedSlotsList.aggressiveJoin") {
@@ -410,29 +410,14 @@ void BF4CommandHandler::commandLoginHashed(const FrostbiteRconPacket &packet, co
 
     if (lastSentPacket.getWordCount() == 1) {
         if (response == "OK" && packet.getWordCount() == 2) {
-            emit(onDataReceived(tr("We got salt: %1").arg(packet.getWord(1).getContent())));
-
             QByteArray salt = QByteArray::fromHex(QByteArray(packet.getWord(1).getContent()));
 
             emit(onLoginHashedCommand(salt));
         }
     } else if (lastSentPacket.getWordCount() == 2) {
-        // QString response = packet.getWord(0).getContent(); TODO: Isn't this redundant?
-
-        qDebug() << "Logged in";
-
         if (response == "OK") {
-            //emit(onLogMessage(0, tr("You have successfully logged in.")));
-            emit(onAuthenticated());
-        } else if (response == "InvalidPasswordHash") {
-            //emit(onLogMessage(1, tr("Invalid password.")));
+            emit(onLoginHashedCommand());
         }
-    }
-
-    if (response == "PasswordNotSet") {
-        //emit(onLogMessage(1, tr("Password not set.")));
-    } else if (response == "InvalidArguments") {
-        emit(onUnknownCommand());
     }
 }
 
@@ -682,6 +667,47 @@ void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
+    if (response == "OK" && packet.getWordCount() > 0) {
+        MapList mapList;
+        unsigned int maps = QString(packet.getWord(1).getContent()).toUInt();
+        unsigned int parameters = QString(packet.getWord(2).getContent()).toUInt();
+
+        for (unsigned int i = 0; i < maps; i++) {
+            QString level;
+            QString gameMode;
+            int rounds;
+
+            for (unsigned int j = 0; j < parameters; j++) {
+                QString data = packet.getWord(3 + (i * parameters) + j).getContent();
+
+                switch (j) {
+                    case 0:
+                        level = data;
+                        break;
+                    case 1:
+                        gameMode = data;
+                        break;
+                    case 2:
+                        rounds = data.toInt();
+                        break;
+                }
+            }
+
+            MapListEntry entry = {
+                level,
+                gameMode,
+                rounds,
+            };
+
+            mapList.append(entry);
+
+            qDebug() << "Got level: " << level << gameMode << rounds;
+        }
+
+        emit(onMapListListCommand(mapList));
+    }
+
+    /*
     if (response == "OK" && packet.getWordCount() > 1) {
         QStringList mapList;
 
@@ -691,6 +717,7 @@ void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet)
 
         emit(onMapListListCommand(mapList));
     }
+    */
 }
 
 void BF4CommandHandler::commandMapListLoad(const FrostbiteRconPacket &packet)
@@ -748,7 +775,7 @@ void BF4CommandHandler::commandPunkBusterIsActive(const FrostbiteRconPacket &pac
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandPunkBusterPb_sv_command(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::commandPunkBusterPbSvCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }

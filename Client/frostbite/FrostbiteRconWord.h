@@ -29,20 +29,19 @@ class FrostbiteRconWord
 public:
     explicit FrostbiteRconWord();
     ~FrostbiteRconWord();
-
-    FrostbiteRconWord(const FrostbiteRconWord &word);
-    FrostbiteRconWord(const char* str);
+    explicit FrostbiteRconWord(const FrostbiteRconWord &word);
+    explicit FrostbiteRconWord(const char* str);
     FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
-    quint32 getSize() const;
-    quint32 getFullSize() const;
+
+    unsigned int getSize() const;
+    unsigned int getFullSize() const;
     char getTerminator() const;
-    void loadString(const char* str);
     void loadData(const char* data, quint32 size);
     const char* getContent() const;
     void clear();
 
 private:
-    quint32 wordSize; // Number of bytes in word, excluding trailing null byte
+    unsigned int wordSize; // Number of bytes in word, excluding trailing null byte
     char* wordContent; // Word contents -- must not contain any null bytes // Not sure is this right.
     char wordTerminator; // Trailing null byte // Not sure is this right.
 
@@ -57,7 +56,7 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconWord &word)
         in.setByteOrder(QDataStream::LittleEndian);
     }
 
-    quint32 size;
+    unsigned int size;
     char * data = 0;
     qint8 terminator;
 
@@ -95,7 +94,7 @@ inline QDataStream &operator << (QDataStream &out, const FrostbiteRconWord &word
 
     const char * wordContent = word.getContent();
 
-    for (quint32 i = 0; i < word.getSize(); i++) {
+    for (unsigned int i = 0; i < word.getSize(); i++) {
         out << (quint8) wordContent[i];
     }
 

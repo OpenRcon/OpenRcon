@@ -259,7 +259,7 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list9.append(new BF4Level("XP1_003", "Guilin Peaks", "guilin_peaks.png"));
     list9.append(new BF4Level("XP1_004", "Dragon Pass", "dragon_pass.png"));
 
-    /* AirSuperiority0 */
+    /* CaptureTheFlag0 */
     QList<BF4Level *> list10;
 
     // XP2 (Second Assault)
@@ -267,6 +267,12 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     list10.append(new BF4Level("XP0_Firestorm", "Operation Firestorm 2014", "operation_firestorm_2014.png"));
     list10.append(new BF4Level("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));
     list10.append(new BF4Level("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));
+
+    // XP3 (Naval Strike)
+    list10.append(new BF4Level("XP2_001", "Lost Islands", "lost_islands.png"));
+    list10.append(new BF4Level("XP2_002", "Nansha Strike", "nansha_strike.png"));
+    list10.append(new BF4Level("XP2_003", "Wave Breaker", "wave_breaker.png"));
+    list10.append(new BF4Level("XP2_004", "Operation Mortar", "operation_mortar.png"));
 
     /* Carrier Assault Large */
     QList<BF4Level *> list11;
@@ -311,9 +317,17 @@ BF4GameMode* BF4Levels::getGameMode(const int &index)
     return levelMap.keys().at(index);
 }
 
-QList<BF4GameMode *> BF4Levels::getGameModes()
+BF4GameMode* BF4Levels::getGameMode(const QString &gameModeName)
 {
-    return levelMap.keys();
+    BF4GameMode *gameMode;
+
+    foreach (BF4GameMode *value, levelMap.keys()) {
+        if (value->getName() == gameModeName) {
+            gameMode = value;
+        }
+    }
+
+    return gameMode;
 }
 
 BF4Level* BF4Levels::getLevel(BF4GameMode *gameMode, const int &index)
@@ -344,6 +358,11 @@ BF4Level* BF4Levels::getLevel(const int &gameModeIndex, const QString &engineNam
     return getLevel(getGameMode(gameModeIndex), engineName);
 }
 
+BF4Level* BF4Levels::getLevel(const QString &gameModeName, const QString &engineName)
+{
+    return getLevel(getGameMode(gameModeName), engineName);
+}
+
 QList<BF4Level *> BF4Levels::getLevels(BF4GameMode *gameMode)
 {
     return levelMap.value(gameMode);
@@ -352,6 +371,11 @@ QList<BF4Level *> BF4Levels::getLevels(BF4GameMode *gameMode)
 QList<BF4Level *> BF4Levels::getLevels(const int &index)
 {
     return getLevels(getGameMode(index));
+}
+
+QList<BF4GameMode *> BF4Levels::getGameModes()
+{
+    return levelMap.keys();
 }
 
 QStringList BF4Levels::getGameModeNames()

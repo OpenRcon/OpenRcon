@@ -35,12 +35,18 @@ public:
 
     virtual Connection *getConnection() { return con; }
 
+private:
+    bool auth;
+
 private slots:
     void onConnected();
     void onLoginHashedCommand(const QByteArray &salt);
+    void onLoginHashedCommand();
 
 protected:
     BF4Connection *con;
+
+    bool isAuthenticated();
 
     void sendSayMessage(const QString &msg, const QString &group);
     void sendYellMessage(const QString &message, const int &duration, const QString &group);

@@ -188,7 +188,7 @@
   </action>
   <action name="actionHome">
    <property name="icon">
-    <iconset resource="data/graphics/graphics.qrc">
+    <iconset>
      <normaloff>:/data/graphics/icons/go-home.png</normaloff>:/data/graphics/icons/go-home.png</iconset>
    </property>
    <property name="text">
@@ -200,7 +200,7 @@
   </action>
   <action name="actionSettings">
    <property name="icon">
-    <iconset resource="data/graphics/graphics.qrc">
+    <iconset>
      <normaloff>:/data/graphics/icons/preferences-system.png</normaloff>:/data/graphics/icons/preferences-system.png</iconset>
    </property>
    <property name="text">
@@ -212,7 +212,7 @@
   </action>
   <action name="actionDocumentation">
    <property name="icon">
-    <iconset resource="data/graphics/graphics.qrc">
+    <iconset>
      <normaloff>:/data/graphics/icons/documentation.png</normaloff>:/data/graphics/icons/documentation.png</iconset>
    </property>
    <property name="text">
@@ -221,7 +221,7 @@
   </action>
   <action name="actionReport_bug">
    <property name="icon">
-    <iconset resource="data/graphics/graphics.qrc">
+    <iconset>
      <normaloff>:/data/graphics/icons/tools-report-bug.png</normaloff>:/data/graphics/icons/tools-report-bug.png</iconset>
    </property>
    <property name="text">
@@ -230,32 +230,16 @@
   </action>
   <action name="actionServermanager">
    <property name="icon">
-    <iconset resource="data/graphics/graphics.qrc">
-     <normaloff>:/data/graphics/icons/network-server.png</normaloff>:/data/graphics/icons/network-server.png</iconset>
+    <iconset resource="OpenRcon.qrc">
+     <normaloff>:/icons/images/icons/network-server.png</normaloff>:/icons/images/icons/network-server.png</iconset>
    </property>
    <property name="text">
     <string>Servermanager</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
-  </action>
-  <action name="actionDisconnect">
-   <property name="text">
-    <string>Disconnect</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+D</string>
-   </property>
-  </action>
-  <action name="actionPluginmanager">
-   <property name="text">
-    <string>Pluginmanager</string>
-   </property>
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="data/graphics/graphics.qrc">
+    <iconset>
      <normaloff>:/data/graphics/openrcon.png</normaloff>:/data/graphics/openrcon.png</iconset>
    </property>
    <property name="text">
@@ -273,7 +257,7 @@
   <tabstop>tabWidget</tabstop>
  </tabstops>
  <resources>
-  <include location="data/graphics/graphics.qrc"/>
+  <include location="OpenRcon.qrc"/>
  </resources>
  <connections/>
 </ui>

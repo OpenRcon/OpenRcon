@@ -68,9 +68,7 @@ FORMS += About.ui \
     ServerEditDialog.ui \
     SettingsDialog.ui
 
-RESOURCES += \
-             data/graphics/graphics.qrc \
-    OpenRcon.qrc
+RESOURCES += OpenRcon.qrc
 
 win32:RC_FILE = openrcon.rc
 

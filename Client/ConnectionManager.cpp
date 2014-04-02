@@ -31,7 +31,19 @@ ConnectionManager::~ConnectionManager()
 
 void ConnectionManager::openConnection()
 {
+/*  Game *game;
+    GameEntry *entry = gameList.at(game);
 
+    if (game == 0) {
+        game = new BFBC2Widget(host, port, password);
+    } else if (game == 1) {
+        game = new BF4Widget(host, port, password);
+    } else if (game == 2) {
+        game = new MinecraftWidget(host, port, password);
+    }
+
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(game, entry->getIcon(), QString("%1 [%2]").arg(name).arg(entry->getName())));
+*/
 }
 
 void ConnectionManager::closeConnection()

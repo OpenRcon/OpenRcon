@@ -19,7 +19,7 @@
 
 #include "BF4.h"
 
-BF4::BF4(const QString &host, const int &port, const QString &password) : Game(host, port, password)
+BF4::BF4(const QString &host, const int &port, const QString &password) : Game(host, port, password), auth(false)
 {
     con = new BF4Connection(this);
     con->hostConnect(host, port);
@@ -29,6 +29,7 @@ BF4::BF4(const QString &host, const int &port, const QString &password) : Game(h
 
     // Commands
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
 }
 
 BF4::~BF4()
@@ -38,22 +39,32 @@ BF4::~BF4()
 
 void BF4::onConnected()
 {
-    if (!con->isAuthenticated()) {
-        con->sendCommand("\"login.hashed\"");
+    if (!isAuthenticated()) {
+        con->sendCommand("login.hashed");
     }
+}
+
+void BF4::onLoginHashedCommand()
+{
+    auth = true;
 }
 
 void BF4::onLoginHashedCommand(const QByteArray &salt)
 {
-    if (!con->isAuthenticated()) {
+    if (!isAuthenticated()) {
         if (!password.isEmpty()) {
             QCryptographicHash hash(QCryptographicHash::Md5);
             hash.addData(salt);
             hash.addData(password.toUtf8().constData());
 
-            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
+            con->sendCommand(QString("login.hashed %1").arg(hash.result().toHex().toUpper().constData()));
         }
     }
+}
+
+bool BF4::isAuthenticated()
+{
+    return auth;
 }
 
 void BF4::sendSayMessage(const QString &msg, const QString &group)

@@ -19,7 +19,7 @@
 
 #include "BFBC2.h"
 
-BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Game(host, port, password)
+BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Game(host, port, password), auth(false)
 {
     con = new BFBC2Connection(this);
     con->hostConnect(host, port);
@@ -31,6 +31,7 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
 
     // Commands
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
 
     // Events
     connect(con->commandHandler, SIGNAL(onPlayerChat(const QString&, const QString&, const QString&)), this, SLOT(ingameCommands(const QString&, const QString&)));
@@ -44,14 +45,14 @@ BFBC2::~BFBC2()
 
 void BFBC2::onConnected()
 {
-    if (!con->isAuthenticated()) {        
+    if (!isAuthenticated()) {
         con->sendCommand("\"login.hashed\"");
     }
 }
 
 void BFBC2::onLoginHashedCommand(const QByteArray &salt)
 {
-    if (!con->isAuthenticated()) {
+    if (!isAuthenticated()) {
         if (!password.isEmpty()) {
             QCryptographicHash hash(QCryptographicHash::Md5);
             hash.addData(salt);
@@ -60,6 +61,16 @@ void BFBC2::onLoginHashedCommand(const QByteArray &salt)
             con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
         }
     }
+}
+
+void BFBC2::onLoginHashedCommand()
+{
+    auth = true;
+}
+
+bool BFBC2::isAuthenticated()
+{
+    return auth;
 }
 
 void BFBC2::ingameCommands(const QString &player, const QString &cmd)

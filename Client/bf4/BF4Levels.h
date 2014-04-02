@@ -16,15 +16,18 @@ public:
     ~BF4Levels();
 
     BF4GameMode* getGameMode(const int &index);
-    QList<BF4GameMode *> getGameModes();
+    BF4GameMode* getGameMode(const QString &gameModeName);
 
     BF4Level* getLevel(BF4GameMode *gameMode, const int &index);
     BF4Level* getLevel(const int &gameModeIndex, const int &index);
+
     BF4Level* getLevel(BF4GameMode *gameMode, const QString &engineName);
     BF4Level* getLevel(const int &gameModeIndex, const QString &engineName);
+    BF4Level* getLevel(const QString &gameModeName, const QString &engineName);
+
     QList<BF4Level *> getLevels(BF4GameMode *gameMode);
     QList<BF4Level *> getLevels(const int &index);
-
+    QList<BF4GameMode *> getGameModes();
     QStringList getGameModeNames();
 
 private:
