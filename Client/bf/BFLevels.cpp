@@ -45,6 +45,11 @@ LevelEntry BFLevels::getLevel(const QString &name)
     return LevelEntry();
 }
 
+LevelEntry BFLevels::getLevel(const int &index, const int &gameModeIndex)
+{
+    return getLevels(gameModeIndex).at(index);
+}
+
 GameModeEntry BFLevels::getGameMode(const int &index)
 {
     return gameModeList.at(index);
