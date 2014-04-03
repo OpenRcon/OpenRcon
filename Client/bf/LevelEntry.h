@@ -29,7 +29,7 @@ struct LevelEntry {
 
     }
 
-    LevelEntry(const QString &engineName, const QString &name, const QString &image) : engineName(engineName), name(name), image(QPixmap(":/bf4/levels/" + image))
+    LevelEntry(const QString &engineName, const QString &name, const QString &image) : engineName(engineName), name(name), image(QPixmap(image))
     {
 
     }
