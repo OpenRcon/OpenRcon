@@ -242,16 +242,16 @@ void BF4Widget::logMessage(const int &type, const QString &message)
 }
 
 void BF4Widget::startupCommands() {
-    con->sendCommand("admin.eventsEnabled true");
+    con->sendCommand("\"admin.eventsEnabled\" \"true\"");
     con->sendCommand("version");
     con->sendCommand("serverInfo");
-    con->sendCommand("admin.listPlayers all");
+    con->sendCommand("\"admin.listPlayers\" \"all\"");
 
     con->sendCommand("vars.serverName");
     con->sendCommand("vars.serverDescription");
     con->sendCommand("vars.serverMessage");
 
-    con->sendCommand("maplist.list 0");
+    con->sendCommand("\"maplist.list\" \"0\"");
 }
 
 /* Events */
@@ -576,7 +576,7 @@ void BF4Widget::pushButton_li_ml_add_clicked()
     if (rounds > 0) {
         addCurrentMapListRow(level.name, gameMode.name, rounds);
 
-        con->sendCommand(QString("mapList.add %1 %2 %3").arg(level.engineName).arg(gameMode.engineName).arg(rounds));
+        con->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\"").arg(level.engineName).arg(gameMode.engineName).arg(rounds));
     }
 }
 
@@ -587,7 +587,7 @@ void BF4Widget::pushButton_li_ml_remove_clicked()
     if (index >= 0) {
         ui->tableWidget_li_ml_current->removeRow(index);
 
-        con->sendCommand(QString("mapList.remove %1").arg(index));
+        con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
     }
 }
 
@@ -662,7 +662,7 @@ void BF4Widget::lineEdit_op_so_serverName_editingFinished()
     QString serverName = ui->lineEdit_op_so_serverName->text();
 
     if (!serverName.isEmpty()) {
-        con->sendCommand(QString("vars.serverName %1").arg(serverName));
+        con->sendCommand(QString("\"vars.serverName\" \"%1\"").arg(serverName));
     }
 }
 
@@ -671,7 +671,7 @@ void BF4Widget::textEdit_op_so_serverDescription_textChanged()
     QString serverDescription = ui->textEdit_op_so_serverDescription->toPlainText();
 
     if (!serverDescription.isEmpty()) {
-        con->sendCommand(QString("vars.serverDescription %1").arg(serverDescription));
+        con->sendCommand(QString("\"vars.serverDescription\" \"%1\"").arg(serverDescription));
     }
 }
 
@@ -680,7 +680,7 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
     QString serverMessage = ui->lineEdit_op_so_serverMessage->text();
 
     if (!serverMessage.isEmpty()) {
-        con->sendCommand(QString("vars.serverMessage %1").arg(serverMessage));
+        con->sendCommand(QString("\"vars.serverMessage\" \"%1\"").arg(serverMessage));
     }
 }
 
@@ -697,10 +697,10 @@ void BF4Widget::pushButton_co_pb_clicked()
     QString command = ui->lineEdit_co_pb->text();
     ui->lineEdit_co_pb->clear();
 
-    con->sendCommand(QString("punkBuster.pb_sv_command %1").arg(command));
+    con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
 }
 
 void BF4Widget::updatePlayerList()
 {
-    con->sendCommand("admin.listPlayers all");
+    con->sendCommand("\"admin.listPlayers\" \"all\"");
 }
