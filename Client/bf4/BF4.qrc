@@ -126,6 +126,19 @@
         <file alias="rank_120.png">images/ranks/rank_120.png</file>
     </qresource>
     <qresource prefix="/bf4/levels">
+        <file alias="dawnbreaker.png">images/levels/dawnbreaker.png</file>
+        <file alias="flood_zone.png">images/levels/flood_zone.png</file>
+        <file alias="golmud_railway.png">images/levels/golmud_railway.png</file>
+        <file alias="hainan_resort.png">images/levels/hainan_resort.png</file>
+        <file alias="lancang_dam.png">images/levels/lancang_dam.png</file>
+        <file alias="lost_islands.png">images/levels/lost_islands.png</file>
+        <file alias="nansha_strike.png">images/levels/nansha_strike.png</file>
+        <file alias="operation_locker.png">images/levels/operation_locker.png</file>
+        <file alias="operation_mortar.png">images/levels/operation_mortar.png</file>
+        <file alias="paracel_storm.png">images/levels/paracel_storm.png</file>
+        <file alias="rogue_transmission.png">images/levels/rogue_transmission.png</file>
         <file alias="seige_of_shanghai.png">images/levels/seige_of_shanghai.png</file>
+        <file alias="wave_breaker.png">images/levels/wave_breaker.png</file>
+        <file alias="zavod_311.png">images/levels/zavod_311.png</file>
     </qresource>
 </RCC>

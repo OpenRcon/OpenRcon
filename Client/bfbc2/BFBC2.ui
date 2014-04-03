@@ -234,7 +234,7 @@
    <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -446,32 +446,6 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
-         <item row="0" column="4" rowspan="2">
-          <widget class="QLabel" name="label_ml_mod_text">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="locale">
-            <locale language="English" country="UnitedStates"/>
-           </property>
-           <property name="text">
-            <string>Mod:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="5" rowspan="2">
-          <widget class="QLabel" name="label_ml_rounds_text">
-           <property name="locale">
-            <locale language="English" country="UnitedStates"/>
-           </property>
-           <property name="text">
-            <string>Rounds:</string>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="0" rowspan="3" colspan="4">
           <widget class="QComboBox" name="comboBox_ml_gamemode">
            <property name="locale">
@@ -497,26 +471,6 @@ p, li { white-space: pre-wrap; }
              <string>Squad Deathmatch</string>
             </property>
            </item>
-          </widget>
-         </item>
-         <item row="2" column="4" rowspan="3">
-          <widget class="QLabel" name="label_ml_mod">
-           <property name="locale">
-            <locale language="English" country="UnitedStates"/>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="5" rowspan="3">
-          <widget class="QSpinBox" name="spinBox_ml_rounds">
-           <property name="locale">
-            <locale language="English" country="UnitedStates"/>
-           </property>
-           <property name="value">
-            <number>2</number>
-           </property>
           </widget>
          </item>
          <item row="5" column="0" colspan="3">
@@ -625,6 +579,32 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
+         <item row="2" column="4" rowspan="3" colspan="2">
+          <widget class="QLabel" name="label_ml_mod">
+           <property name="locale">
+            <locale language="English" country="UnitedStates"/>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4" rowspan="2" colspan="2">
+          <widget class="QLabel" name="label_ml_mod_text">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="locale">
+            <locale language="English" country="UnitedStates"/>
+           </property>
+           <property name="text">
+            <string>Mod:</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item row="0" column="1" rowspan="2">
@@ -676,6 +656,16 @@ p, li { white-space: pre-wrap; }
            </property>
            <property name="text">
             <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_ml_rounds">
+           <property name="locale">
+            <locale language="English" country="UnitedStates"/>
+           </property>
+           <property name="value">
+            <number>2</number>
            </property>
           </widget>
          </item>
