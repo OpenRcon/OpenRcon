@@ -17,27 +17,19 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LEVELENTRY_H
-#define LEVELENTRY_H
+#ifndef BF4GAMEMODEENTRY_H
+#define BF4GAMEMODEENTRY_H
 
-#include <QString>
-#include <QPixmap>
+#include "GameModeEntry.h"
 
-struct LevelEntry {
-    LevelEntry()
+struct BF4GameModeEntry : GameModeEntry {
+    BF4GameModeEntry(const QString &engineName, const QString &name, const int &players, const int &commanders, const int &spectators) : GameModeEntry(engineName, name, players), commanders(commanders), spectators(spectators)
     {
 
     }
 
-    LevelEntry(const QString &engineName, const QString &name, const QString &image) : engineName(engineName), name(name), image(QPixmap(":/bf4/levels/" + image))
-    {
-
-    }
-
-    QString engineName;
-    QString name;
-    QPixmap image;
-
+    int commanders;
+    int spectators;
 };
 
-#endif // LEVELENTRY_H
+#endif // BF4GAMEMODEENTRY_H

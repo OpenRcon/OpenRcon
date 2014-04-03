@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -57,7 +57,7 @@ private slots:
 
 protected:
     BFBC2Connection *con;
-    BFBC2Levels *levelsObject;
+    BFBC2Levels *levels;
 
     QTimer *commandRefreshTimer;
 
@@ -78,8 +78,8 @@ protected:
     void movePlayer(const QString &player, const QString &teamId, const QString &squadId, const QString &fk);
     void reserveSlotForPlayer(const QString &player, const bool &action);
 
-    QString getMapName(const QString &mapPath, const QString &gamemode);
-    QString getMapImage(const QString &mapPath, const QString &gamemode);
+    QString getMapName(const QString &engineName, const QString &gamemode);
+    QPixmap getMapImage(const QString &engineName, const QString &gamemode);
 };
 
 #endif // BFBC2_H

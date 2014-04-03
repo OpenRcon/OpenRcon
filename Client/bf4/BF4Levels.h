@@ -1,36 +1,35 @@
+/*
+ * Copyright (C) 2014 The OpenRcon Project.
+ *
+ * This file is part of OpenRcon.
+ *
+ * OpenRcon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * OpenRcon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef BF4LEVELS_H
 #define BF4LEVELS_H
 
-#include <QDebug>
-#include <QHash>
+#include "BFLevels.h"
+#include "BF4GameModeEntry.h"
 
-#include "LevelEntry.h"
-#include "GameModeEntry.h"
-
-class BF4Levels : public QObject
+class BF4Levels : public BFLevels
 {
     Q_OBJECT
 
 public:
     explicit BF4Levels(QObject *parent = 0);
     ~BF4Levels();
-
-    LevelEntry getLevel(const int &index);
-    LevelEntry getLevel(const QString &name);
-    GameModeEntry getGameMode(const int &index);
-    GameModeEntry getGameMode(const QString &name);
-
-    QList<LevelEntry> getLevels();
-    QList<LevelEntry> getLevels(const int &gameModeIndex);
-    QList<GameModeEntry> getGameModes();
-
-    QStringList getLevelNames();
-    QStringList getGameModeNames();
-
-private:
-    QList<LevelEntry> levelList;
-    QList<GameModeEntry> gameModeList;
-    QHash<int, int> levelMap;
 
 };
 

@@ -1,6 +1,25 @@
+/*
+ * Copyright (C) 2014 The OpenRcon Project.
+ *
+ * This file is part of OpenRcon.
+ *
+ * OpenRcon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * OpenRcon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "BF4Levels.h"
 
-BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
+BF4Levels::BF4Levels(QObject *parent) : BFLevels(parent)
 {
     /* List of all levels */
     levelList.append(LevelEntry("MP_Abandoned", "Zavod 311", "zavod_331.png"));                                 // 0
@@ -33,18 +52,18 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
     levelList.append(LevelEntry("XP2_004", "Operation Mortar", "operation_mortar.png"));                        // 21
 
     /* List of all gamemodes */
-    gameModeList.append(GameModeEntry("ConquestLarge0", "Conquest Large", 64, 2, 4));               // 0
-    gameModeList.append(GameModeEntry("ConquestSmall0", "Conquest Small", 32, 2, 4));               // 1
-    gameModeList.append(GameModeEntry("Domination0", "Domination", 20, 0, 4));                      // 2
-    gameModeList.append(GameModeEntry("Elimination0", "Defuse", 10, 0, 4));                         // 3
-    gameModeList.append(GameModeEntry("Obliteration", "Obliteration", 32, 2, 4));                   // 4
-    gameModeList.append(GameModeEntry("RushLarge0", "Rush", 32, 2, 4));                             // 5
-    gameModeList.append(GameModeEntry("SquadDeathMatch0", "Squad Deathmatch", 20, 0, 4));           // 6
-    gameModeList.append(GameModeEntry("TeamDeathMatch0", "Team Deathmatch", 20, 0, 4));             // 7
-    gameModeList.append(GameModeEntry("AirSuperiority0", "Air Superiority", 24, 0, 4));             // 8
-    gameModeList.append(GameModeEntry("CaptureTheFlag0", "Capture the flag", 32, 0, 4));            // 9
-    gameModeList.append(GameModeEntry("CarrierAssaultLarge0", "Carrier Assault Large", 64, 0, 4));  // 10
-    gameModeList.append(GameModeEntry("CarrierAssaultSmall0", "Carrier Assault Small", 64, 0, 4));  // 11 Check this when docs is avaliable.
+    gameModeList.append(BF4GameModeEntry("ConquestLarge0", "Conquest Large", 64, 2, 4));               // 0
+    gameModeList.append(BF4GameModeEntry("ConquestSmall0", "Conquest Small", 32, 2, 4));               // 1
+    gameModeList.append(BF4GameModeEntry("Domination0", "Domination", 20, 0, 4));                      // 2
+    gameModeList.append(BF4GameModeEntry("Elimination0", "Defuse", 10, 0, 4));                         // 3
+    gameModeList.append(BF4GameModeEntry("Obliteration", "Obliteration", 32, 2, 4));                   // 4
+    gameModeList.append(BF4GameModeEntry("RushLarge0", "Rush", 32, 2, 4));                             // 5
+    gameModeList.append(BF4GameModeEntry("SquadDeathMatch0", "Squad Deathmatch", 20, 0, 4));           // 6
+    gameModeList.append(BF4GameModeEntry("TeamDeathMatch0", "Team Deathmatch", 20, 0, 4));             // 7
+    gameModeList.append(BF4GameModeEntry("AirSuperiority0", "Air Superiority", 24, 0, 4));             // 8
+    gameModeList.append(BF4GameModeEntry("CaptureTheFlag0", "Capture the flag", 32, 0, 4));            // 9
+    gameModeList.append(BF4GameModeEntry("CarrierAssaultLarge0", "Carrier Assault Large", 64, 0, 4));  // 10
+    gameModeList.append(BF4GameModeEntry("CarrierAssaultSmall0", "Carrier Assault Small", 64, 0, 4));  // 11 Check this when docs is avaliable.
 
     /* Levels and gamemodes combined */
 
@@ -330,79 +349,4 @@ BF4Levels::BF4Levels(QObject *parent) : QObject(parent)
 BF4Levels::~BF4Levels()
 {
 
-}
-
-LevelEntry BF4Levels::getLevel(const int &index)
-{
-    return levelList.at(index);
-}
-
-LevelEntry BF4Levels::getLevel(const QString &name)
-{
-    foreach (LevelEntry entry, levelList) {
-        if (entry.engineName == name || entry.name == name) {
-            return entry;
-        }
-    }
-
-    return LevelEntry();
-}
-
-GameModeEntry BF4Levels::getGameMode(const int &index)
-{
-    return gameModeList.at(index);
-}
-
-GameModeEntry BF4Levels::getGameMode(const QString &name)
-{
-    foreach (GameModeEntry entry, gameModeList) {
-        if (entry.engineName == name || entry.name == name) {
-            return entry;
-        }
-    }
-
-    return GameModeEntry("lol", "lol", 2, 2, 2);
-}
-
-QList<LevelEntry> BF4Levels::getLevels()
-{
-    return levelList;
-}
-
-QList<LevelEntry> BF4Levels::getLevels(const int &gameModeIndex)
-{
-    QList<LevelEntry> list;
-
-    foreach (int index, levelMap.values(gameModeIndex)) {
-        list.append(levelList.at(index));
-    }
-
-    return list;
-}
-
-QList<GameModeEntry> BF4Levels::getGameModes()
-{
-    return gameModeList;
-}
-
-QStringList BF4Levels::getLevelNames()
-{
-    QStringList list;
-
-    foreach (LevelEntry entry, levelList) {
-        list.append(entry.name);
-    }
-
-    return list;
-}
-
-QStringList BF4Levels::getGameModeNames()
-{
-    QStringList list;
-
-    foreach (GameModeEntry entry, gameModeList) {
-        list.append(entry.name);
-    }
-
-    return list;
 }

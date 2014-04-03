@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -23,9 +23,7 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
 {
     con = new BFBC2Connection(this);
     con->hostConnect(host, port);
-
-    gamemodes << "RUSH" << "CONQUEST" << "SQRUSH" << "SQDM";
-    levelsObject = 0;
+    levels = new BFBC2Levels(this);
 
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
@@ -40,7 +38,7 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Ga
 BFBC2::~BFBC2()
 {
     delete con;
-    delete levelsObject;
+    delete levels;
 }
 
 void BFBC2::onConnected()
@@ -112,40 +110,6 @@ void BFBC2::slotCommandMapListListRounds(QStringList ml)
     mapListU = ml;
 }
 
-QString BFBC2::getMapName(const QString &mapPath, const QString &gamemode)
-{
-    int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
-
-    if (gamemodeIndex != -1) {
-        LevelList *levelList = levelsObject->levels().at(gamemodeIndex);
-        int mapIndex = levelList->mapPaths().indexOf(QRegExp(mapPath, Qt::CaseInsensitive));
-
-        if (mapIndex != -1) {
-            QString mapName = levelList->mapNames ().at(mapIndex);
-            return mapName;
-        }
-    }
-
-    return QString();
-}
-
-QString BFBC2::getMapImage(const QString &mapPath, const QString &gamemode)
-{
-    int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
-
-    if (gamemodeIndex != -1) {
-        LevelList *levelList = levelsObject->levels().at(gamemodeIndex);
-        int mapIndex = levelList->mapPaths().indexOf(QRegExp(mapPath, Qt::CaseInsensitive));
-
-        if (mapIndex != -1) {
-            QString mapImage = levelList->mapImages().at(mapIndex);
-            return mapImage;
-        }
-    }
-
-    return QString();
-}
-
 void BFBC2::sendSayMessage(const QString &msg, const QString &group)
 {
     if (!group.isEmpty()) {
@@ -203,4 +167,30 @@ void BFBC2::reserveSlotForPlayer(const QString &player, const bool &action)
             // TODO: Remove player from ui->listWidget_rs
         }
     }
+}
+
+QString BFBC2::getMapName(const QString &engineName, const QString &gamemode)
+{
+    int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
+
+    if (gamemodeIndex != -1) {
+        LevelEntry level = levels->getLevel(engineName); // TODO: Mind the gamemode?
+
+        return level.name;
+    }
+
+    return QString();
+}
+
+QPixmap BFBC2::getMapImage(const QString &engineName, const QString &gamemode)
+{
+    int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
+
+    if (gamemodeIndex != -1) {
+        LevelEntry level = levels->getLevel(engineName); // TODO: Mind the gamemode?
+
+        return level.image;
+    }
+
+    return QPixmap();
 }

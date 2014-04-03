@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2014 The OpenRcon Project.
+ *
+ * This file is part of OpenRcon.
+ *
+ * OpenRcon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * OpenRcon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "BFBC2Widget.h"
 
 BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &password) : BFBC2(host, port, password), ui(new Ui::BFBC2)
@@ -481,13 +500,8 @@ void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
     currentMod = serverInfo.at(17);
     currentGamemode = serverInfo.at(3);
 
-    if (!levelsObject) {
-        levelsObject = new BFBC2Levels(currentMod);
-        this->comboBox_ml_gamemode_currentIndexChanged(0);
-    }
-
     QString mapName = getMapName(serverInfo.at(4), serverInfo.at(3));
-    QString mapImage = getMapImage(serverInfo.at(4), serverInfo.at(3));
+    QPixmap mapImage = getMapImage(serverInfo.at(4), serverInfo.at(3));
 
     // Players
     ui->label_pl_serverName->setText(serverInfo.at(0));
@@ -885,7 +899,8 @@ void BFBC2Widget::comboBox_ml_gamemode_currentIndexChanged(int index)
     ui->listWidget_ml_avaliablemaps->blockSignals(false);
 
     // get a list of map names
-    QStringList mapNames = levelsObject->levels().at(index)->mapNames();
+    QStringList mapNames = levels->getLevelNames(index);
+
     // add the maps with the correct modd to avaliable maps
     ui->listWidget_ml_avaliablemaps->addItems(mapNames);
     ui->label_ml_previewmap_image->clear();
@@ -914,12 +929,13 @@ void BFBC2Widget::listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem
     int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
 
     // get a list of map mods and map names and select all map names with a particular mod
-    QStringList mapImages = levelsObject->levels().at(gameModeIndex)->mapImages();
+    QList<LevelEntry> mapImages = levels->getLevels(gameModeIndex);
 
     // find the selected map and show the preview image
     int avaliableMapIndex = ui->listWidget_ml_avaliablemaps->currentIndex().row();
-    QString mapImage = mapImages.at(avaliableMapIndex);
-    ui->label_ml_previewmap_image->setPixmap(QPixmap(mapImage));
+    QPixmap mapImage = mapImages.at(avaliableMapIndex).image;
+
+    ui->label_ml_previewmap_image->setPixmap(mapImage);
 }
 
 void BFBC2Widget::on_pushButton_ml_add_clicked()
@@ -961,29 +977,28 @@ void BFBC2Widget::on_pushButton_ml_add_clicked()
     int avaliableMapIndex = ui->listWidget_ml_avaliablemaps->currentIndex().row();
 
     // get a list of map mods and map names and select all map names with a particular mod
-    QStringList mapNames = levelsObject->levels().at(gameModeIndex)->mapNames();
-    QStringList mapPaths = levelsObject->levels().at(gameModeIndex)->mapPaths();
+//    QStringList mapNames = levelsObject->levels().at(gameModeIndex)->mapNames();
+//    QStringList mapPaths = levelsObject->levels().at(gameModeIndex)->mapPaths();
 
+    LevelEntry level = levels->getLevel(avaliableMapIndex, gameModeIndex);
 
     // find map name and map path for selected map
-    QString mapPath = mapPaths.at(avaliableMapIndex);
-    QString mapName = mapNames.at(avaliableMapIndex);
+//    QString mapPath = mapPaths.at(avaliableMapIndex);
+//    QString mapName = mapNames.at(avaliableMapIndex);
 
     // get the amount of rounds from combo box
     int rounds = ui->spinBox_ml_rounds->value();
 
     // create a new map item and insert it into current map list
     QListWidgetItem *mapItem = new QListWidgetItem(ui->listWidget_ml_currentmaps);
-    mapItem->setText(mapName);
-    mapItem->setData (Qt::UserRole, mapPath);
+    mapItem->setText(level.name);
+    mapItem->setData (Qt::UserRole, level.engineName);
     ui->listWidget_ml_currentmaps->addItem(mapItem);
 
     // append the map to the server map list
-    con->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(mapPath).arg(rounds));
+    con->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.engineName).arg(rounds));
 
-    if (ret == QMessageBox::Yes)
-    {
-
+    if (ret == QMessageBox::Yes) {
        con->sendCommand("\"mapList.save\"");
        con->sendCommand("\"mapList.nextLevelIndex\" \"0\"");
        con->sendCommand("\"admin.runNextLevel\"");
@@ -1030,12 +1045,15 @@ void BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem* 
     // get game mode
     int gamemodeIndex = gamemodes.indexOf(QRegExp(currentGamemode, Qt::CaseInsensitive));
 
-    QStringList mapNames = levelsObject->levels().at(gamemodeIndex)->mapNames();
-    QStringList mapImages = levelsObject->levels().at(gamemodeIndex)->mapImages();
+//    QStringList mapNames = levelsObject->levels().at(gamemodeIndex)->mapNames();
+//    QStringList mapImages = levelsObject->levels().at(gamemodeIndex)->mapImages();
 
-    int avaliableMapIndex = mapNames.indexOf(mapName);
-    QString mapImage = mapImages.at(avaliableMapIndex);
-    ui->label_ml_previewmap_image->setPixmap(QPixmap(mapImage));
+//    int avaliableMapIndex = mapNames.indexOf(mapName);
+//    QString mapImage = mapImages.at(avaliableMapIndex);
+
+    LevelEntry level = levels->getLevel(mapName, gameModeIndex);
+
+    ui->label_ml_previewmap_image->setPixmap(level.image);
     con->sendCommand("\"mapList.list\" \"rounds\"");
 }
 
@@ -1267,20 +1285,21 @@ void BFBC2Widget::playerListUpdate(int oldRow)
     int currentRow = ui->listWidget_ml_currentmaps->currentRow();
     QString mapName = ui->listWidget_ml_currentmaps->item(currentRow)->text();
 
-
     // Get game mode from combo box
     int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
 
-    // get a list of map mods and map names and select all map names with a particular mod
-    QStringList mapNames = levelsObject->levels().at(gameModeIndex)->mapNames();
-    QStringList mapPaths = levelsObject->levels().at(gameModeIndex)->mapPaths();
+    LevelEntry level = levels->getLevel(mapName, gameModeIndex);
 
-    // Find map name and map path for selected map
-    int avaliableMapIndex = mapNames.indexOf(mapName);
-    QString mapPath = mapPaths.at(avaliableMapIndex);
+    // get a list of map mods and map names and select all map names with a particular mod
+//    QStringList mapNames = levelsObject->levels().at(gameModeIndex)->mapNames();
+//    QStringList mapPaths = levelsObject->levels().at(gameModeIndex)->mapPaths();
+
+//    // Find map name and map path for selected map
+//    int avaliableMapIndex = mapNames.indexOf(mapName);
+//    QString mapPath = mapPaths.at(avaliableMapIndex);
 
     // Append the map to the server map list
-    con->sendCommand(QString("\"mapList.insert\" \"%1\" \"%2\" \"%3\"").arg(currentRow).arg(mapPath).arg(rounds));
+    con->sendCommand(QString("\"mapList.insert\" \"%1\" \"%2\" \"%3\"").arg(currentRow).arg(level.engineName).arg(rounds));
 
     con->sendCommand("\"mapList.list\" \"rounds\"");
 }
@@ -1322,20 +1341,23 @@ void BFBC2Widget::slotAddMapToServer(const QString &mapName)
             delete ui->listWidget_ml_currentmaps->takeItem(ui->listWidget_ml_currentmaps->count()-1);
         }
     }
+
     commandRefreshTimer->blockSignals(false);
     // get a list of map mods and map names and select all map names with a particular mod
-    QStringList mapNames = levelsObject->levels().at(gameModeIndex)->mapNames();
-    QStringList mapPaths = levelsObject->levels().at(gameModeIndex)->mapPaths();
+//    QStringList mapNames = levelsObject->levels().at(gameModeIndex)->mapNames();
+//    QStringList mapPaths = levelsObject->levels().at(gameModeIndex)->mapPaths();
 
-    // find map name and map path for selected map
-    int avaliableMapIndex = mapNames.indexOf(mapName);
-    QString mapPath = mapPaths.at(avaliableMapIndex);
+//    // find map name and map path for selected map
+//    int avaliableMapIndex = mapNames.indexOf(mapName);
+//    QString mapPath = mapPaths.at(avaliableMapIndex);
+
+    LevelEntry level = levels->getLevel(avaliableMapIndex, gameModeIndex);
 
     // get the amount of rounds from combo box
     int rounds = ui->spinBox_ml_rounds->value();
 
     // append the map to the server map list
-    con->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(mapPath).arg(rounds));
+    con->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.engineName).arg(rounds));
 
 
     if (ret == QMessageBox::Yes)
@@ -1392,7 +1414,8 @@ void BFBC2Widget::setMapList(const QString &gamemode)
     int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
 
     if(gamemodeIndex != -1) {
-        QStringList mapNames = levelsObject->levels().at(gamemodeIndex)->mapNames();
+        QStringList mapNames = levels->getLevelNames(gameModeIndex);
+
         ui->listWidget_ml_avaliablemaps->clear();
         ui->listWidget_ml_avaliablemaps->addItems(mapNames);
     }

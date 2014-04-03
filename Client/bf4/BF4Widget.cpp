@@ -229,6 +229,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 BF4Widget::~BF4Widget()
 {
     delete ui;
+    delete levels;
 }
 
 void BF4Widget::logMessage(const int &type, const QString &message)

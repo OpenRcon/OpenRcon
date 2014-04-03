@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -19,104 +19,165 @@
 
 #include "BFBC2Levels.h"
 
-BFBC2Levels::BFBC2Levels(const QString& currentMod)
+BFBC2Levels::BFBC2Levels(QObject *parent) : BFLevels(parent)
 {
-    int modIndex = 0;
+    /* List of all levels */
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/mp_001", "Panama Canal", "BC2"));                 // 0
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/mp_003", "Laguna Alta", "BC2"));                  // 1
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/mp_005", "Atacama Desert", "BC2"));               // 2
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/mp_006cq", "Arica Harbor", "BC2"));               // 3
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/mp_007", "White Pass", "BC2"));                   // 4
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/mp_008cq", "Nelson Bay", "BC2"));                 // 5
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/mp_009cq", "Laguna Presa", "BC2"));               // 6
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/mp_012cq", "Port Valdez", "BC2"));                // 7
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/bc1_oasis_cq", "Oasis", "BC2"));                  // 8
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/bc1_harvest_day_cq", "Harvest Day", "BC2"));      // 9
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/mp_sp_005cq", "Heavy Metal", "BC2"));             // 10
 
-    if (currentMod == "BC2") {
-        modIndex = 0;
-    } else if (currentMod == "VIETNAM") {
-        modIndex = 1;
-    }
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/nam_mp_002cq", "Vantage Point", "VIETNAM"));      // 11
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/nam_mp_003cq", "Hill 137", "VIETNAM"));           // 12
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/nam_mp_005cq", "Cao Son Temple", "VIETNAM"));     // 13
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/nam_mp_006cq", "Phu Bai Valley", "VIETNAM"));     // 14
+    levelList.append(BFBC2LevelEntry("CONQUEST", "levels/nam_mp_007cq", "Operation Hastings", "VIETNAM")); // 15
 
-    switch(modIndex) {
-        case 0:
-            // Battlefield: Bad Company 2
-            rushLevel.append(new Level("BC2", "Valparaiso", "levels/mp_002", RESOURCE_IMAGE_LEVELS + "valparaiso.png"));
-            rushLevel.append(new Level("BC2", "Isla Inocentes", "levels/mp_004", RESOURCE_IMAGE_LEVELS + "isla_inocentes.png"));
-            rushLevel.append(new Level("BC2", "Atacama Desert", "levels/mp_005gr", RESOURCE_IMAGE_LEVELS + "atacama_desert.png"));
-            rushLevel.append(new Level("BC2", "Arica Harbor", "levels/mp_006", RESOURCE_IMAGE_LEVELS + "arica_harbor.png"));
-            rushLevel.append(new Level("BC2", "White Pass", "levels/mp_007gr", RESOURCE_IMAGE_LEVELS + "white_pass.png"));
-            rushLevel.append(new Level("BC2", "Nelson Bay", "levels/mp_008", RESOURCE_IMAGE_LEVELS + "nelson_bay.png"));
-            rushLevel.append(new Level("BC2", "Laguna Presa", "levels/mp_009gr", RESOURCE_IMAGE_LEVELS + "laguna_presa.png"));
-            rushLevel.append(new Level("BC2", "Port Valdez", "levels/mp_012gr", RESOURCE_IMAGE_LEVELS + "port_valdez.png"));
-            rushLevel.append(new Level("BC2", "Oasis", "levels/bc1_oasis_gr", RESOURCE_IMAGE_LEVELS + "oasis.png"));
-            rushLevel.append(new Level("BC2", "Harvest Day", "levels/bc1_harvest_day_gr", RESOURCE_IMAGE_LEVELS + "harvest_day.png"));
-            rushLevel.append(new Level("BC2", "Cold War", "levels/mp_sp_002gr", RESOURCE_IMAGE_LEVELS + "cold_war.png"));
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/mp_002", "Valparaíso", "BC2"));                       // 16
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/mp_004", "Isla Inocentes", "BC2"));                   // 17
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/mp_005gr", "Atacama Desert", "BC2"));         // 18
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/mp_006", "Arica Harbor", "BC2"));             // 19
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/mp_007gr", "White Pass", "BC2"));                     // 20
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/mp_008", "Nelson Bay", "BC2"));                       // 21
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/mp_009gr", "Laguna Presa", "BC2"));                   // 22
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/mp_012gr", "Port Valdez", "BC2"));                    // 23
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/bc1_oasis_gr", "Oasis", "BC2"));                      // 24
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/bc1_harvest_day_gr", "Harvest Day", "BC2"));          // 25
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/mp_sp_002gr", "Cold War", "BC2"));                    // 26
 
-            // Battlefield: Bad Company 2
-            conquestLevel.append(new Level("BC2", "Panama Canal", "levels/mp_001", RESOURCE_IMAGE_LEVELS + "panama_canal.png"));
-            conquestLevel.append(new Level("BC2", "Laguna Alta", "levels/mp_003", RESOURCE_IMAGE_LEVELS + "laguna_alta.png"));
-            conquestLevel.append(new Level("BC2", "Atacama Desert", "levels/mp_005", RESOURCE_IMAGE_LEVELS + "atacama_desert.png"));
-            conquestLevel.append(new Level("BC2", "Arica Harbor", "Levels/mp_006cq", RESOURCE_IMAGE_LEVELS + "arica_harbor.png"));
-            conquestLevel.append(new Level("BC2", "White Pass", "levels/mp_007", RESOURCE_IMAGE_LEVELS + "white_pass.png"));
-            conquestLevel.append(new Level("BC2", "Nelson Bay", "levels/mp_008cq", RESOURCE_IMAGE_LEVELS + "nelson_bay.png"));
-            conquestLevel.append(new Level("BC2", "Laguna Presa", "levels/mp_009cq", RESOURCE_IMAGE_LEVELS + "laguna_presa.png"));
-            conquestLevel.append(new Level("BC2", "Port Valdez", "levels/mp_012cq", RESOURCE_IMAGE_LEVELS + "port_valdez.png"));
-            conquestLevel.append(new Level("BC2", "Oasis", "levels/bc1_oasis_cq", RESOURCE_IMAGE_LEVELS + "oasis.png"));
-            conquestLevel.append(new Level("BC2", "Harvest Day", "levels/bc1_harvest_day_cq", RESOURCE_IMAGE_LEVELS + "harvest_day.png"));
-            conquestLevel.append(new Level("BC2", "Heavy Metal", "levels/mp_sp_005cq", RESOURCE_IMAGE_LEVELS + "heavy_metal.png"));
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/nam_mp_002r", "Vantage Point", "VIETNAM"));           // 27
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/nam_mp_003r", "Hill 137", "VIETNAM"));                // 28
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/nam_mp_005r", "Cao Son Temple", "VIETNAM"));          // 29
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/nam_mp_006r", "Phu Bai Valley", "VIETNAM"));          // 30
+    levelList.append(BFBC2LevelEntry("RUSH", "levels/nam_mp_007r", "Operation Hastings", "VIETNAM"));      // 31
 
-            // Battlefield: Bad Company 2
-            sqrushLevel.append(new Level("BC2", "Panama Canal", "levels/mp_001sr", RESOURCE_IMAGE_LEVELS + "panama_canal.png"));
-            sqrushLevel.append(new Level("BC2", "Valparaiso", "levels/mp_002sr", RESOURCE_IMAGE_LEVELS + "valparaiso.png"));
-            sqrushLevel.append(new Level("BC2", "Laguna Alta", "levels/mp_003sr", RESOURCE_IMAGE_LEVELS + "laguna_alta.png"));
-            sqrushLevel.append(new Level("BC2", "Atacama Desert", "levels/mp_005sr", RESOURCE_IMAGE_LEVELS + "atacama_desert.png"));
-            sqrushLevel.append(new Level("BC2", "Laguna Presa", "levels/mp_009sr", RESOURCE_IMAGE_LEVELS + "laguna_presa.png"));
-            sqrushLevel.append(new Level("BC2", "Port Valdez", "levels/mp_012sr", RESOURCE_IMAGE_LEVELS + "port_valdez.png"));
-            sqrushLevel.append(new Level("BC2", "Oasis", "levels/bc1_oasis_sr", RESOURCE_IMAGE_LEVELS + "oasis.png"));
-            sqrushLevel.append(new Level("BC2", "Harvest Day", "levels/bc1_harvest_day_sr", RESOURCE_IMAGE_LEVELS + "harvest_day.png"));
-            sqrushLevel.append(new Level("BC2", "Cold War", "levels/mp_sp_002sr", RESOURCE_IMAGE_LEVELS + "cold_war.png"));
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/mp_001sr", "Panama Canal", "BC2"));                 // 32
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/mp_002sr", "Valparaíso", "BC2"));                   // 33
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/mp_003sr", "Laguna Alta", "BC2"));                  // 34
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/mp_005sr", "Atacama Desert", "BC2"));               // 35
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/mp_009sr", "Laguna Presa", "BC2"));                 // 36
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/mp_012sr", "Port Valdez", "BC2"));                  // 37
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/bc1_oasis_sr", "Oasis", "BC2"));                    // 38
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/bc1_harvest_day_sr", "Harvest Day", "BC2"));        // 39
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/mp_sp_002sr", "Cold War", "BC2"));                  // 40
 
-            // Battlefield: Bad Company 2
-            sqdmLevel.append(new Level("BC2", "Panama Canal", "levels/mp_001sdm", RESOURCE_IMAGE_LEVELS + "panama_canal.png"));
-            sqdmLevel.append(new Level("BC2", "Isla Inocentes", "levels/mp_004sdm", RESOURCE_IMAGE_LEVELS + "isla_inocentes.png"));
-            sqdmLevel.append(new Level("BC2", "Arica Harbor", "levels/mp_006sdm", RESOURCE_IMAGE_LEVELS + "arica_harbor.png"));
-            sqdmLevel.append(new Level("BC2", "White Pass", "levels/mp_007sdm", RESOURCE_IMAGE_LEVELS + "white_pass.png"));
-            sqdmLevel.append(new Level("BC2", "Nelson Bay", "levels/mp_008sdm", RESOURCE_IMAGE_LEVELS + "nelson_bay.png"));
-            sqdmLevel.append(new Level("BC2", "Laguna Presa", "levels/mp_009sdm", RESOURCE_IMAGE_LEVELS + "laguna_presa.png"));
-            sqdmLevel.append(new Level("BC2", "Oasis", "levels/bc1_oasis_sdm", RESOURCE_IMAGE_LEVELS + "oasis.png"));
-            sqdmLevel.append(new Level("BC2", "Harvest Day", "levels/bc1_harvest_day_sdm", RESOURCE_IMAGE_LEVELS + "harvest_day.png"));
-            sqdmLevel.append(new Level("BC2", "Cold War", "levels/mp_sp_002sdm", RESOURCE_IMAGE_LEVELS + "cold_war.png"));
-            sqdmLevel.append(new Level("BC2", "Heavy Metal", "levels/mp_sp_005sdm", RESOURCE_IMAGE_LEVELS + "heavy_metal.png"));
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/nam_mp_002sr", "Vantage Point", "VIETNAM"));        // 41
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/nam_mp_003sr", "Hill 137", "VIETNAM"));             // 42
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/nam_mp_005sr", "Cao Son Temple", "VIETNAM"));       // 43
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/nam_mp_006sr", "Phu Bai Valley", "VIETNAM"));       // 44
+    levelList.append(BFBC2LevelEntry("SQRUSH", "levels/nam_mp_007sr", "Operation Hastings", "VIETNAM"));   // 45
 
-            break;
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/mp_001sdm", "Panama Canal", "BC2"));                  // 46
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/mp_004sdm", "Isla Inocentes", "BC2"));                // 47
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/mp_006sdm", "Arica Harbor", "BC2"));                  // 48
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/mp_007sdm", "White Pass", "BC2"));                    // 49
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/mp_008sdm", "Nelson Bay", "BC2"));                    // 50
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/mp_009sdm", "Laguna Presa", "BC2"));                  // 51
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/bc1_oasis_sdm", "Oasis", "BC2"));                     // 52
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/bc1_harvest_day_sdm", "Harvest Day", "BC2"));         // 53
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/mp_sp_002sdm", "Cold War", "BC2"));                   // 54
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/mp_sp_005sdm", "Heavy Metal", "BC2"));                // 55
 
-        case 1:
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/nam_mp_002sdm", "Vantage Point", "VIETNAM"));         // 56
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/nam_mp_003sdm", "Hill 137", "VIETNAM"));              // 57
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/nam_mp_005sdm", "Cao Son Temple", "VIETNAM"));        // 58
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/nam_mp_006sdm", "Phu Bai Valley", "VIETNAM"));        // 59
+    levelList.append(BFBC2LevelEntry("SQDM", "levels/nam_mp_007sdm", "Operation Hastings", "VIETNAM"));    // 60
 
-            // Battlefield: Bad Company 2 Vietnam
-            rushLevel.append(new Level("VIETNAM", "Vantage Point", "levels/nam_mp_002r", RESOURCE_IMAGE_LEVELS + "vantage_point.png"));
-            rushLevel.append(new Level("VIETNAM", "Hill 137", "levels/nam_mp_003r", RESOURCE_IMAGE_LEVELS + "hill_137.png"));
-            rushLevel.append(new Level("VIETNAM", "Cao Son Temple", "levels/nam_mp_005r", RESOURCE_IMAGE_LEVELS + "cao_son_temple.png"));
-            rushLevel.append(new Level("VIETNAM", "Phu Bai Valley", "levels/nam_mp_006r", RESOURCE_IMAGE_LEVELS + "phu_bai_valley.png"));
-            rushLevel.append(new Level("VIETNAM", "Operation Hastings", "levels/nam_mp_007r", RESOURCE_IMAGE_LEVELS + "operation_hastings.png"));
+    /* List of all gamemodes */
+    gameModeList.append(GameModeEntry("CONQUEST", "Conquest", 32));
+    gameModeList.append(GameModeEntry("RUSH", "Rush", 32));
+    gameModeList.append(GameModeEntry("SQRUSH", "Squadrush", 32));
+    gameModeList.append(GameModeEntry("SQDM", "Squad Deathmatch", 32));
 
-            // Battlefield: Bad Company 2 Vietnam
-            conquestLevel.append(new Level("VIETNAM", "Vantage Point", "levels/nam_mp_002cq", RESOURCE_IMAGE_LEVELS + "vantage_point.png"));
-            conquestLevel.append(new Level("VIETNAM", "Hill 137", "levels/nam_mp_003cq", RESOURCE_IMAGE_LEVELS + "hill_137.png"));
-            conquestLevel.append(new Level("VIETNAM", "Cao Son Temple", "levels/nam_mp_005cq", RESOURCE_IMAGE_LEVELS + "cao_son_temple.png"));
-            conquestLevel.append(new Level("VIETNAM", "Phu Bai Valley", "levels/nam_mp_006cq", RESOURCE_IMAGE_LEVELS + "phu_bai_valley.png"));
-            conquestLevel.append(new Level("VIETNAM", "Operation Hastings", "levels/nam_mp_007cq", RESOURCE_IMAGE_LEVELS + "operation_hastings.png"));
+    /* Levels and gamemodes combined */
 
-            // Battlefield: Bad Company 2 Vietnam
-            sqrushLevel.append(new Level("VIETNAM", "Vantage Point", "levels/nam_mp_002sr", RESOURCE_IMAGE_LEVELS + "vantage_point.png"));
-            sqrushLevel.append(new Level("VIETNAM", "Hill 137", "levels/nam_mp_003sr", RESOURCE_IMAGE_LEVELS + "hill_137.png"));
-            sqrushLevel.append(new Level("VIETNAM", "Cao Son Temple", "levels/nam_mp_005sr", RESOURCE_IMAGE_LEVELS + "cao_son_temple.png"));
-            sqrushLevel.append(new Level("VIETNAM", "Phu Bai Valley", "levels/nam_mp_006sr", RESOURCE_IMAGE_LEVELS + "phu_bai_valley.png"));
-            sqrushLevel.append(new Level("VIETNAM", "Operation Hastings", "levels/nam_mp_007sr", RESOURCE_IMAGE_LEVELS + "operation_hastings.png"));
+    /* CONQUEST */
+    levelMap.insertMulti(0, 0);
+    levelMap.insertMulti(0, 1);
+    levelMap.insertMulti(0, 2);
+    levelMap.insertMulti(0, 3);
+    levelMap.insertMulti(0, 4);
+    levelMap.insertMulti(0, 5);
+    levelMap.insertMulti(0, 6);
+    levelMap.insertMulti(0, 7);
+    levelMap.insertMulti(0, 8);
+    levelMap.insertMulti(0, 9);
+    levelMap.insertMulti(0, 10);
 
-            // Battlefield: Bad Company 2 Vietnam
-            sqdmLevel.append(new Level("VIETNAM", "Vantage Point", "levels/nam_mp_002sdm", RESOURCE_IMAGE_LEVELS + "vantage_point.png"));
-            sqdmLevel.append(new Level("VIETNAM", "Hill 137", "levels/nam_mp_003sdm", RESOURCE_IMAGE_LEVELS + "hill_137.png"));
-            sqdmLevel.append(new Level("VIETNAM", "Cao Son Temple", "levels/nam_mp_005sdm", RESOURCE_IMAGE_LEVELS + "cao_son_temple.png"));
-            sqdmLevel.append(new Level("VIETNAM", "Phu Bai Valley", "levels/nam_mp_006sdm", RESOURCE_IMAGE_LEVELS + "phu_bai_valley.png"));
-            sqdmLevel.append(new Level("VIETNAM", "Operation Hastings", "levels/nam_mp_007sdm", RESOURCE_IMAGE_LEVELS + "operation_hastings.png"));
+    // XP1 (Vietnam)
+    levelMap.insertMulti(0, 11);
+    levelMap.insertMulti(0, 12);
+    levelMap.insertMulti(0, 13);
+    levelMap.insertMulti(0, 14);
+    levelMap.insertMulti(0, 15);
 
-            break;
-    }
+    /* RUSH */
+    levelMap.insertMulti(1, 16);
+    levelMap.insertMulti(1, 17);
+    levelMap.insertMulti(1, 18);
+    levelMap.insertMulti(1, 19);
+    levelMap.insertMulti(1, 20);
+    levelMap.insertMulti(1, 21);
+    levelMap.insertMulti(1, 22);
+    levelMap.insertMulti(1, 23);
+    levelMap.insertMulti(1, 24);
+    levelMap.insertMulti(1, 25);
+    levelMap.insertMulti(1, 26);
 
-    levellist << new LevelList(rushLevel);
-    levellist << new LevelList(conquestLevel);
-    levellist << new LevelList(sqrushLevel);
-    levellist << new LevelList(sqdmLevel);
+    // XP1 (Vietnam)
+    levelMap.insertMulti(1, 27);
+    levelMap.insertMulti(1, 28);
+    levelMap.insertMulti(1, 29);
+    levelMap.insertMulti(1, 30);
+    levelMap.insertMulti(1, 31);
+
+    /* SQRUSH */
+    levelMap.insertMulti(2, 32);
+    levelMap.insertMulti(2, 33);
+    levelMap.insertMulti(2, 34);
+    levelMap.insertMulti(2, 35);
+    levelMap.insertMulti(2, 36);
+    levelMap.insertMulti(2, 37);
+    levelMap.insertMulti(2, 38);
+    levelMap.insertMulti(2, 39);
+    levelMap.insertMulti(2, 40);
+
+    // XP1 (Vietnam)
+    levelMap.insertMulti(2, 41);
+    levelMap.insertMulti(2, 42);
+    levelMap.insertMulti(2, 43);
+    levelMap.insertMulti(2, 44);
+    levelMap.insertMulti(2, 45);
+
+    /* SQDM */
+    levelMap.insertMulti(3, 46);
+    levelMap.insertMulti(3, 47);
+    levelMap.insertMulti(3, 48);
+    levelMap.insertMulti(3, 49);
+    levelMap.insertMulti(3, 50);
+    levelMap.insertMulti(3, 51);
+    levelMap.insertMulti(3, 52);
+    levelMap.insertMulti(3, 53);
+    levelMap.insertMulti(3, 54);
+    levelMap.insertMulti(3, 55);
+
+    // XP1 (Vietnam)
+    levelMap.insertMulti(3, 56);
+    levelMap.insertMulti(3, 57);
+    levelMap.insertMulti(3, 58);
+    levelMap.insertMulti(3, 59);
+    levelMap.insertMulti(3, 60);
+}
+
+BFBC2Levels::~BFBC2Levels()
+{
+
 }

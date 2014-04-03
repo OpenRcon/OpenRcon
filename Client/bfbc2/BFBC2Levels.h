@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,85 +20,16 @@
 #ifndef BFBC2LEVELS_H
 #define BFBC2LEVELS_H
 
-#include <QStringList>
+#include "BFLevels.h"
+#include "BFBC2LevelEntry.h"
 
-#include "BFBC2Constants.h"
-#include "Constants.h"
-
-using namespace Constants;
-using namespace BFBC2Constants;
-
-struct Level {
-    QString mod;
-    QString name;
-    QString path;
-    QString image;
-
-    Level(const QString &mod ,const QString &name, const QString &path, const QString &img) : mod(mod), name(name), path(path), image(img) {
-
-    }
-};
-
-class LevelList
+class BFBC2Levels : public BFLevels
 {
 
 public:
-    LevelList(QList<Level *> lvs) : levels(lvs) {
-    }
+    explicit BFBC2Levels(QObject *parent = 0);
+    ~BFBC2Levels();
 
-    QStringList mapMods() {
-        QStringList mods;
-        foreach(Level *l, levels) {
-            mods << l->mod;
-        }
-        return mods;
-    }
-
-    QStringList mapNames() {
-        QStringList names;
-        foreach(Level *l, levels) {
-            names << l->name;
-        }
-        return names;
-    }
-
-    QStringList mapPaths() {
-        QStringList paths;
-        foreach(Level *l, levels) {
-            paths << l->path;
-        }
-        return paths;
-    }
-
-    QStringList mapImages() {
-        QStringList images;
-        foreach (Level *l, levels) {
-            images << l->image;
-        }
-        return images;
-    }
-
-private:
-    QList<Level *> levels;
-
-};
-
-class BFBC2Levels
-{
-
-public:
-    BFBC2Levels(const QString &currentMod);
-
-    QList<LevelList*> levels() {
-        return levellist;
-    }
-
-private:
-    QList<LevelList*> levellist;
-    QList<Level *> rushLevel;
-    QList<Level *> conquestLevel;
-    QList<Level *> sqrushLevel;
-    QList<Level *> sqdmLevel;
 };
 
 #endif // BFBC2LEVELS_H

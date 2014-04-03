@@ -17,27 +17,19 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LEVELENTRY_H
-#define LEVELENTRY_H
+#ifndef BFBC2LEVELENTRY_H
+#define BFBC2LEVELENTRY_H
 
-#include <QString>
-#include <QPixmap>
+#include "LevelEntry.h"
 
-struct LevelEntry {
-    LevelEntry()
+struct BFBC2LevelEntry : LevelEntry {
+    BFBC2LevelEntry(const QString &engineName, const QString &name, const QString &image, const QString &mod) : LevelEntry(engineName, name, image), mod(mod)
     {
 
     }
 
-    LevelEntry(const QString &engineName, const QString &name, const QString &image) : engineName(engineName), name(name), image(QPixmap(":/bf4/levels/" + image))
-    {
-
-    }
-
-    QString engineName;
-    QString name;
-    QPixmap image;
+    QString mod;
 
 };
 
-#endif // LEVELENTRY_H
+#endif // BFBC2LEVELENTRY_H
