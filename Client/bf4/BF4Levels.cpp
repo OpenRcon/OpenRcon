@@ -22,7 +22,7 @@
 BF4Levels::BF4Levels(QObject *parent) : BFLevels(parent)
 {
     /* List of all levels */
-    levelList.append(LevelEntry("MP_Abandoned", "Zavod 311", "zavod_331.png"));                                 // 0
+    levelList.append(LevelEntry("MP_Abandoned", "Zavod 311", "zavod_311.png"));                                 // 0
     levelList.append(LevelEntry("MP_Damage", "Lancang Dam", "lancang_dam.png"));                                // 1
     levelList.append(LevelEntry("MP_Flooded", "Flood Zone", "flood_zone.png"));                                 // 2
     levelList.append(LevelEntry("MP_Journey", "Golmud Railway", "golmud_railway.png"));                         // 3

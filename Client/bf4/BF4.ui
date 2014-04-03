@@ -156,6 +156,12 @@
          <layout class="QGridLayout" name="gridLayout_7">
           <item row="1" column="0" colspan="2">
            <widget class="QLabel" name="label_li_ml_avaliable">
+            <property name="maximumSize">
+             <size>
+              <width>320</width>
+              <height>240</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -163,6 +169,12 @@
           </item>
           <item row="1" column="2" colspan="2">
            <widget class="QLabel" name="label_li_ml_current">
+            <property name="maximumSize">
+             <size>
+              <width>320</width>
+              <height>240</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
