@@ -19,37 +19,37 @@
 
 #include "BF4Levels.h"
 
-BF4Levels::BF4Levels(QObject *parent) : BFLevels(parent)
+BF4Levels::BF4Levels(QObject *parent) : BFLevels(":/bf4/levels/", parent)
 {
     /* List of all levels */
-    levelList.append(LevelEntry("MP_Abandoned", "Zavod 311", "zavod_311.png"));                                 // 0
-    levelList.append(LevelEntry("MP_Damage", "Lancang Dam", "lancang_dam.png"));                                // 1
-    levelList.append(LevelEntry("MP_Flooded", "Flood Zone", "flood_zone.png"));                                 // 2
-    levelList.append(LevelEntry("MP_Journey", "Golmud Railway", "golmud_railway.png"));                         // 3
-    levelList.append(LevelEntry("MP_Naval", "Paracel Storm", "paracel_storm.png"));                             // 4
-    levelList.append(LevelEntry("MP_Prison", "Operation Locker", "operation_locker.png"));                      // 5
-    levelList.append(LevelEntry("MP_Resort", "Hainan Resort", "hainan_resort.png"));                            // 6
-    levelList.append(LevelEntry("MP_Siege", "Siege of Shanghai", "seige_of_shanghai.png"));                     // 7
-    levelList.append(LevelEntry("MP_TheDish", "Rogue Transmission", "rogue_transmission.png"));                 // 8
-    levelList.append(LevelEntry("MP_Tremors", "Dawnbreaker", "dawnbreaker.png"));                               // 9
+    levelList.append(LevelEntry("MP_Abandoned", "Zavod 311", imagePath + "zavod_311.png"));                                 // 0
+    levelList.append(LevelEntry("MP_Damage", "Lancang Dam", imagePath + "lancang_dam.png"));                                // 1
+    levelList.append(LevelEntry("MP_Flooded", "Flood Zone", imagePath + "flood_zone.png"));                                 // 2
+    levelList.append(LevelEntry("MP_Journey", "Golmud Railway", imagePath + "golmud_railway.png"));                         // 3
+    levelList.append(LevelEntry("MP_Naval", "Paracel Storm", imagePath + "paracel_storm.png"));                             // 4
+    levelList.append(LevelEntry("MP_Prison", "Operation Locker", imagePath + "operation_locker.png"));                      // 5
+    levelList.append(LevelEntry("MP_Resort", "Hainan Resort", imagePath + "hainan_resort.png"));                            // 6
+    levelList.append(LevelEntry("MP_Siege", "Siege of Shanghai", imagePath + "seige_of_shanghai.png"));                     // 7
+    levelList.append(LevelEntry("MP_TheDish", "Rogue Transmission", imagePath + "rogue_transmission.png"));                 // 8
+    levelList.append(LevelEntry("MP_Tremors", "Dawnbreaker", imagePath + "dawnbreaker.png"));                               // 9
 
     // XP1 (China Rising)
-    levelList.append(LevelEntry("XP1_001", "Silk Road", "silk_road.png"));                                      // 10
-    levelList.append(LevelEntry("XP1_002", "Altai Range", "altai_range.png"));                                  // 11
-    levelList.append(LevelEntry("XP1_003", "Guilin Peaks", "guilin_peaks.png"));                                // 12
-    levelList.append(LevelEntry("XP1_004", "Dragon Pass", "dragon_pass.png"));                                  // 13
+    levelList.append(LevelEntry("XP1_001", "Silk Road", imagePath + "silk_road.png"));                                      // 10
+    levelList.append(LevelEntry("XP1_002", "Altai Range", imagePath + "altai_range.png"));                                  // 11
+    levelList.append(LevelEntry("XP1_003", "Guilin Peaks", imagePath + "guilin_peaks.png"));                                // 12
+    levelList.append(LevelEntry("XP1_004", "Dragon Pass", imagePath + "dragon_pass.png"));                                  // 13
 
     // XP2 (Second Assault)
-    levelList.append(LevelEntry("XP0_Caspian", "Caspian Border 2014", "caspian_border_2014.png"));              // 14
-    levelList.append(LevelEntry("XP0_Firestorm", "Operation Firestorm 2014", "operation_firestorm_2014.png"));  // 15
-    levelList.append(LevelEntry("XP0_Metro", "Operation Metro 2014", "operation_metro_2014.png"));              // 16
-    levelList.append(LevelEntry("XP0_Oman", "Gulf of Oman 2014", "gulf_of_oman_2014.png"));                     // 17
+    levelList.append(LevelEntry("XP0_Caspian", "Caspian Border 2014", imagePath + "caspian_border_2014.png"));              // 14
+    levelList.append(LevelEntry("XP0_Firestorm", "Operation Firestorm 2014", imagePath + "operation_firestorm_2014.png"));  // 15
+    levelList.append(LevelEntry("XP0_Metro", "Operation Metro 2014", imagePath + "operation_metro_2014.png"));              // 16
+    levelList.append(LevelEntry("XP0_Oman", "Gulf of Oman 2014", imagePath + "gulf_of_oman_2014.png"));                     // 17
 
     // XP3 (Naval Strike)
-    levelList.append(LevelEntry("XP2_001", "Lost Islands", "lost_islands.png"));                                // 18
-    levelList.append(LevelEntry("XP2_002", "Nansha Strike", "nansha_strike.png"));                              // 19
-    levelList.append(LevelEntry("XP2_003", "Wave Breaker", "wave_breaker.png"));                                // 20
-    levelList.append(LevelEntry("XP2_004", "Operation Mortar", "operation_mortar.png"));                        // 21
+    levelList.append(LevelEntry("XP2_001", "Lost Islands", imagePath + "lost_islands.png"));                                // 18
+    levelList.append(LevelEntry("XP2_002", "Nansha Strike", imagePath + "nansha_strike.png"));                              // 19
+    levelList.append(LevelEntry("XP2_003", "Wave Breaker", imagePath + "wave_breaker.png"));                                // 20
+    levelList.append(LevelEntry("XP2_004", "Operation Mortar", imagePath + "operation_mortar.png"));                        // 21
 
     /* List of all gamemodes */
     gameModeList.append(BF4GameModeEntry("ConquestLarge0", "Conquest Large", 64, 2, 4));               // 0

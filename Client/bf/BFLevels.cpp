@@ -24,6 +24,11 @@ BFLevels::BFLevels(QObject *parent) : QObject(parent)
 
 }
 
+BFLevels::BFLevels(const QString &imagePath, QObject *parent) : BFLevels(parent)
+{
+    this->imagePath = imagePath;
+}
+
 BFLevels::~BFLevels()
 {
 

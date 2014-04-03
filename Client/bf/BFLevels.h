@@ -31,6 +31,7 @@ class BFLevels : public QObject
 
 public:
     explicit BFLevels(QObject *parent = 0);
+    explicit BFLevels(const QString &imagePath, QObject *parent = 0);
     ~BFLevels();
 
     LevelEntry getLevel(const int &index);
@@ -51,6 +52,7 @@ protected:
     QList<LevelEntry> levelList;
     QList<GameModeEntry> gameModeList;
     QHash<int, int> levelMap;
+    QString imagePath;
 
 };
 

@@ -559,7 +559,7 @@ void BF4Widget::tableWidget_li_ml_avaliable_currentItemChanged(QTableWidgetItem 
     if (row >= 0) {
         LevelEntry level = levels->getLevel(ui->tableWidget_li_ml_avaliable->item(row, 0)->text());
 
-        ui->label_li_ml_avaliable->setPixmap(level.image);
+        ui->label_li_ml_avaliableMapImage->setPixmap(level.image);
     }
 }
 
@@ -601,7 +601,7 @@ void BF4Widget::tableWidget_li_ml_current_currentItemChanged(QTableWidgetItem *c
     if (row >= 0) {
         LevelEntry level = levels->getLevel(ui->tableWidget_li_ml_current->item(row, 0)->text());
 
-        ui->label_li_ml_current->setPixmap(level.image);
+        ui->label_li_ml_currentMapImage->setPixmap(level.image);
     }
 }
 
@@ -619,7 +619,7 @@ void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
     QList<LevelEntry> levelList = levels->getLevels(gameModeIndex);
     GameModeEntry gameMode = levels->getGameMode(gameModeIndex);
 
-    ui->label_li_ml_avaliable->setPixmap(levelList.first().image);
+    ui->label_li_ml_avaliableMapImage->setPixmap(levelList.first().image);
 
     ui->tableWidget_li_ml_avaliable->clearContents();
 
@@ -650,7 +650,7 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
         GameModeEntry gameMode = levels->getGameMode(entry.gameMode);
 
         if (i == 0) {
-            ui->label_li_ml_current->setPixmap(level.image);
+            ui->label_li_ml_currentMapImage->setPixmap(level.image);
         }
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);

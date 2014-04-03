@@ -23,13 +23,15 @@
 #include <QString>
 #include <QPixmap>
 
+#include <QDebug>
+
 struct LevelEntry {
     LevelEntry()
     {
 
     }
 
-    LevelEntry(const QString &engineName, const QString &name, const QString &image) : engineName(engineName), name(name), image(QPixmap(image))
+    LevelEntry(const QString &engineName, const QString &name, const QString &image) : engineName(engineName), name(name), image(QPixmap(image).scaled(QSize(320, 200), Qt::KeepAspectRatio))
     {
 
     }

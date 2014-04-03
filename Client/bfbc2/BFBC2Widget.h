@@ -63,7 +63,6 @@ private:
     QAction *action_rs_remove;
     QAction *action_ic_remove;
 
-    QStringList squadNameList;
     QStringList commandList;
     QCompleter *completer;
 
@@ -80,8 +79,6 @@ private:
 
     void logMessage(const int &type, const QString &message);
     void startupCommands();
-
-    QString getSquadName(const int &id);
 
 private slots:
     void onDataSent(const QString &command);

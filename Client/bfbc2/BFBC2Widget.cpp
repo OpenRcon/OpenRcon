@@ -79,16 +79,6 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     menu_ic = new QMenu(tr("Ingame Commands"), this);
     menu_ic->addAction(action_ic_remove);
 
-    // Map squad names to id.
-    squadNameList.append("Alpha");
-    squadNameList.append("Bravo");
-    squadNameList.append("Charlie");
-    squadNameList.append("Delta");
-    squadNameList.append("Echo");
-    squadNameList.append("Foxtrot");
-    squadNameList.append("Golf");
-    squadNameList.append("Hotel");
-
     // Adds all the commands to the commandList.
     commandList.append("login.plainText ");
     commandList.append("login.hashed");
@@ -600,23 +590,18 @@ void BFBC2Widget::onVarsBannerUrlCommand(const QString &bannerUrl)
 
 void BFBC2Widget::onMapListListCommand(const QStringList &mapList)
 {
-    // Sets currentmaps.
-    QStringList mapNames;
+    foreach (QString engineName, mapList) {
+        LevelEntry level = levels->getLevel(engineName);
 
-    for (int i = 0; i < mapList.size(); i++) {
-        mapNames << getMapName(mapList.at(i), currentGamemode);
+        ui->listWidget_ml_currentmaps->addItem(level.name);
     }
 
-    ui->listWidget_ml_currentmaps->blockSignals(true);
-    ui->listWidget_ml_currentmaps->clear();
-    ui->listWidget_ml_currentmaps->blockSignals(false);
-    ui->listWidget_ml_currentmaps->addItems(mapNames);
     // Sets nextMap
+    if (nextLevelIndex >= 0 && mapList.count() > 0) {
+        LevelEntry level = levels->getLevel(mapList.at(nextLevelIndex));
 
-    if (nextLevelIndex >=0 && mapList.count() > 0) {
-        QString nextMapPath = mapList.at(nextLevelIndex);
-        ui->label_ml_nextmap_name->setText(getMapName(nextMapPath, currentGamemode));
-        ui->label_ml_nextmap_image->setPixmap(QPixmap(getMapImage(nextMapPath, currentGamemode)));
+        ui->label_ml_nextmap_name->setText(level.name);
+        ui->label_ml_nextmap_image->setPixmap(level.image);
     }
 }
 
@@ -1202,11 +1187,6 @@ void BFBC2Widget::on_pushButton_co_pb_send_clicked()
         con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(cmd));
         ui->lineEdit_co_pb->clear();
     }
-}
-
-QString BFBC2Widget::getSquadName(const int &id)
-{
-    return squadNameList.at(id - 1);
 }
 
 void BFBC2Widget::startupCommands() {

@@ -152,141 +152,12 @@
         <string>Maplist</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="1" rowspan="2">
-         <layout class="QGridLayout" name="gridLayout_7">
-          <item row="1" column="0" colspan="2">
-           <widget class="QLabel" name="label_li_ml_avaliable">
-            <property name="maximumSize">
-             <size>
-              <width>320</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2" colspan="2">
-           <widget class="QLabel" name="label_li_ml_current">
-            <property name="maximumSize">
-             <size>
-              <width>320</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_li_ml_currentMap_value">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_li_ml_nextMap">
-            <property name="text">
-             <string>Next map:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QLabel" name="label_li_ml_nextMap_value">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_li_ml_currentMap">
-            <property name="text">
-             <string>Current map:</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
         <item row="0" column="0">
-         <layout class="QFormLayout" name="formLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_li_ml_gameMode">
-            <property name="text">
-             <string>Gamemode:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="comboBox_li_ml_gameMode"/>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="0">
-         <spacer name="verticalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>225</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="2" column="0" colspan="2">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QTableWidget" name="tableWidget_li_ml_avaliable">
-            <property name="editTriggers">
-             <set>QAbstractItemView::NoEditTriggers</set>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
-            <property name="showGrid">
-             <bool>false</bool>
-            </property>
-            <attribute name="horizontalHeaderHighlightSections">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="verticalHeaderVisible">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="verticalHeaderDefaultSectionSize">
-             <number>17</number>
-            </attribute>
-            <attribute name="verticalHeaderHighlightSections">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="verticalHeaderMinimumSectionSize">
-             <number>17</number>
-            </attribute>
-            <column>
-             <property name="text">
-              <string>Name</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Gamemode</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-          <item>
+         <layout class="QGridLayout" name="gridLayout_12">
+          <item row="2" column="3" rowspan="4">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <spacer name="verticalSpacer_2">
+             <spacer name="verticalSpacer">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
               </property>
@@ -320,21 +191,49 @@
              </widget>
             </item>
             <item>
-             <spacer name="verticalSpacer">
+             <spacer name="verticalSpacer_2">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
                 <width>20</width>
-                <height>118</height>
+                <height>40</height>
                </size>
               </property>
              </spacer>
             </item>
            </layout>
           </item>
-          <item>
+          <item row="0" column="7">
+           <widget class="QLabel" name="label_li_ml_nextMapText">
+            <property name="text">
+             <string>Next map:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="label_li_ml_currentMapText">
+            <property name="text">
+             <string>Current map:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="8" colspan="2">
+           <widget class="QLabel" name="label_li_ml_nextMapValue">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5" colspan="2">
+           <widget class="QLabel" name="label_li_ml_currentMapValue">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4" rowspan="4" colspan="6">
            <widget class="QTableWidget" name="tableWidget_li_ml_current">
             <property name="editTriggers">
              <set>QAbstractItemView::NoEditTriggers</set>
@@ -385,6 +284,121 @@
             <column>
              <property name="text">
               <string>Rounds</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="1" column="4" colspan="6">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="label_li_ml_currentMapImage">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_li_ml_nextMapImage">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0" colspan="3">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_li_ml_avaliableMapImage">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="0" colspan="3">
+           <widget class="QLabel" name="label_li_ml_avaliableMapText">
+            <property name="text">
+             <string>Preview of selected map:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="3">
+           <widget class="QComboBox" name="comboBox_li_ml_gameMode"/>
+          </item>
+          <item row="3" column="0" rowspan="3" colspan="3">
+           <widget class="QTableWidget" name="tableWidget_li_ml_avaliable">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="showGrid">
+             <bool>false</bool>
+            </property>
+            <attribute name="horizontalHeaderHighlightSections">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderDefaultSectionSize">
+             <number>17</number>
+            </attribute>
+            <attribute name="verticalHeaderHighlightSections">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>17</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Gamemode</string>
              </property>
             </column>
            </widget>
