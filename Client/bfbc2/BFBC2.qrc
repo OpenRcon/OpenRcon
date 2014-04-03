@@ -3,7 +3,7 @@
         <file alias="bfbc2.png">images/icons/bfbc2.png</file>
     </qresource>
     <qresource prefix="/bf4/levels">
-        <file alias="africa_harbor.png">images/levels/arica_harbor.png</file>
+        <file alias="arica_harbor.png">images/levels/arica_harbor.png</file>
         <file alias="atacama_desert.png">images/levels/atacama_desert.png</file>
         <file alias="cao_son_temple.png">images/levels/cao_son_temple.png</file>
         <file alias="cold_war.png">images/levels/cold_war.png</file>

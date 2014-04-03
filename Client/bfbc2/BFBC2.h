@@ -24,16 +24,16 @@
 #include <QCryptographicHash>
 
 #include "Constants.h"
-#include "Game.h"
 
-#include "BFBC2Constants.h"
+#include "BFGame.h"
 #include "BFBC2Connection.h"
 #include "BFBC2Levels.h"
+#include "BFBC2Constants.h"
 
 using namespace Constants;
 using namespace BFBC2Constants;
 
-class BFBC2 : public Game
+class BFBC2 : public BFGame
 {
     Q_OBJECT
 

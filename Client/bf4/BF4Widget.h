@@ -40,7 +40,6 @@ private:
 
     BF4Levels *levels;
 
-    QStringList squadNameList;
     QStringList commandList;
     QCompleter *completer;
 
@@ -49,7 +48,6 @@ private:
 
     QIcon getRankIcon(const int &rank);
     QPixmap getLevelImage(const LevelEntry &level);
-    QString getSquadName(const int &squadId);
 
     void addAvaliableMapListRow(const QString &name, const QString &gameMode);
     void setAvaliableMaplist(const int &gameModeIndex);

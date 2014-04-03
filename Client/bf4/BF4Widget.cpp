@@ -25,16 +25,6 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     levels = new BF4Levels(this);
 
-    // Map squad names to id.
-    squadNameList.append("Alpha");
-    squadNameList.append("Bravo");
-    squadNameList.append("Charlie");
-    squadNameList.append("Delta");
-    squadNameList.append("Echo");
-    squadNameList.append("Foxtrot");
-    squadNameList.append("Golf");
-    squadNameList.append("Hotel");
-
     ui->comboBox_ch_mode->addItem("Say");
     ui->comboBox_ch_mode->addItem("Yell");
 
@@ -525,11 +515,6 @@ void BF4Widget::onVarsServerMessageCommand(const QString &serverMessage)
 QIcon BF4Widget::getRankIcon(const int &rank)
 {
     return QIcon(QString(":/bf4/ranks/rank_%1.png").arg(rank));
-}
-
-QString BF4Widget::getSquadName(const int &id)
-{
-    return squadNameList.at(id - 1);
 }
 
 /* User Interface */

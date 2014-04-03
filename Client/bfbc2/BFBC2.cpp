@@ -19,10 +19,11 @@
 
 #include "BFBC2.h"
 
-BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Game(host, port, password), auth(false)
+BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : BFGame(host, port, password), auth(false)
 {
     con = new BFBC2Connection(this);
     con->hostConnect(host, port);
+
     levels = new BFBC2Levels(this);
 
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
@@ -44,7 +45,7 @@ BFBC2::~BFBC2()
 void BFBC2::onConnected()
 {
     if (!isAuthenticated()) {
-        con->sendCommand("\"login.hashed\"");
+        con->sendCommand("login.hashed");
     }
 }
 

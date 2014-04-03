@@ -17,7 +17,7 @@
    <string notr="true"/>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>5</number>
   </property>
   <property name="documentMode">
    <bool>true</bool>
@@ -72,6 +72,34 @@
     </item>
    </layout>
   </widget>
+  <widget class="QWidget" name="tab_ev">
+   <attribute name="title">
+    <string>Events</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="1" column="0">
+     <widget class="QTextEdit" name="textEdit_ev_output">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QTableWidget" name="tableWidget">
+      <column>
+       <property name="text">
+        <string>Time</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Message</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QWidget" name="tab_ch">
    <attribute name="icon">
     <iconset resource="../OpenRcon.qrc">
@@ -106,34 +134,6 @@
     </item>
     <item row="1" column="3">
      <widget class="QComboBox" name="comboBox_ch_target"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="tab_ev">
-   <attribute name="title">
-    <string>Events</string>
-   </attribute>
-   <layout class="QGridLayout" name="gridLayout_4">
-    <item row="1" column="0">
-     <widget class="QTextEdit" name="textEdit_ev_output">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QTableWidget" name="tableWidget">
-      <column>
-       <property name="text">
-        <string>Time</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Message</string>
-       </property>
-      </column>
-     </widget>
     </item>
    </layout>
   </widget>
@@ -457,7 +457,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget_co">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -498,8 +498,8 @@
       </widget>
       <widget class="QWidget" name="tab_co_pb">
        <attribute name="icon">
-        <iconset resource="BF4.qrc">
-         <normaloff>:/bf4/icons/punkbuster.png</normaloff>:/bf4/icons/punkbuster.png</iconset>
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/images/icons/punkbuster.png</normaloff>:/icons/images/icons/punkbuster.png</iconset>
        </attribute>
        <attribute name="title">
         <string>PunkBuster</string>
@@ -533,7 +533,6 @@
   <tabstop>treeWidget_pl_playerList</tabstop>
  </tabstops>
  <resources>
-  <include location="BF4.qrc"/>
   <include location="../OpenRcon.qrc"/>
  </resources>
  <connections/>

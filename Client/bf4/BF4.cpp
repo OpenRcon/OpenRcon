@@ -19,7 +19,7 @@
 
 #include "BF4.h"
 
-BF4::BF4(const QString &host, const int &port, const QString &password) : Game(host, port, password), auth(false)
+BF4::BF4(const QString &host, const int &port, const QString &password) : BFGame(host, port, password), auth(false)
 {
     con = new BF4Connection(this);
     con->hostConnect(host, port);

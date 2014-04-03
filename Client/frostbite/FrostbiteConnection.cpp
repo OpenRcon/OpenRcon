@@ -63,11 +63,11 @@ void FrostbiteConnection::sendCommand(const QString &command)
         FrostbiteRconPacket packet(FrostbiteRconPacket::ServerOrigin, FrostbiteRconPacket::Request, nextPacketSeq);
         QStringList cmdList;
         cmdList = command.split(" ");
+        cmdList.replaceInStrings("\"", "", Qt::CaseSensitive);
         //cmdList = cmd.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
-        //cmdList.replaceInStrings("\"", "", Qt::CaseSensitive);
 
         for (int i = 0; i < cmdList.size(); i++) {
-            packet.packWord(FrostbiteRconWord(cmdList.at(i).toUtf8().constData()));
+            packet.packWord(FrostbiteRconWord(cmdList.at(i).toLatin1().constData()));
         }
 
         sendPacket(packet);

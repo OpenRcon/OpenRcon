@@ -33,12 +33,12 @@ public:
     explicit FrostbiteRconWord(const char* str);
     FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
 
+    void clear();
+    void loadData(const char* data, quint32 size);
     unsigned int getSize() const;
     unsigned int getFullSize() const;
-    char getTerminator() const;
-    void loadData(const char* data, quint32 size);
     const char* getContent() const;
-    void clear();
+    char getTerminator() const;
 
 private:
     unsigned int wordSize; // Number of bytes in word, excluding trailing null byte

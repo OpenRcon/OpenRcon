@@ -211,7 +211,7 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     commandList.append("levelVars.list ");
 
     completer = new QCompleter(commandList, this);
-    ui->lineEdit_co_co_input->setCompleter(completer);
+    ui->lineEdit_co_co->setCompleter(completer);
 
     /* Connecting signals to slots */
     /* Messages and events */
@@ -308,7 +308,7 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(ui->tableWidget_bl, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_bl_customContextMenuRequested(QPoint)));
     connect(action_bl_remove, SIGNAL(triggered()), this, SLOT(action_bl_remove_triggered()));
 
-    connect(ui->lineEdit_ch_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_ch_send_clicked()));
+    connect(ui->lineEdit_ch, SIGNAL(returnPressed()), this, SLOT(on_pushButton_ch_send_clicked()));
     connect(ui->comboBox_ch_type, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ch_type_currentIndexChanged(int)));
 
     connect(action_rs_remove, SIGNAL(triggered()), this, SLOT(action_rs_remove_triggered()));
@@ -318,8 +318,8 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(ui->listWidget_ic, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_ic_customContextMenuRequested(QPoint)));
     connect(action_ic_remove, SIGNAL(triggered()), this, SLOT(action_ic_remove_triggered()));
 
-    connect(ui->lineEdit_co_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_co_send_clicked()));
-    connect(ui->lineEdit_co_pb_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_pb_send_clicked()));
+    connect(ui->lineEdit_co_co, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_co_send_clicked()));
+    connect(ui->lineEdit_co_pb, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_pb_send_clicked()));
 
 }
 
@@ -333,17 +333,17 @@ void BFBC2Widget::logMessage(const int &type, const QString &message)
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
     if (type == 0) { // Info
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+        ui->textEdit_ev->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
     } else if (type == 1) { // Error
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime, message));
+        ui->textEdit_ev->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime, message));
     } else if (type == 2) { // Server send
-        ui->textEdit_co_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+        ui->textEdit_co_co->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
     } else if (type == 3) { // Server receive
-        ui->textEdit_co_co_output->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime, message));
+        ui->textEdit_co_co->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime, message));
     } else if (type == 4) { // Chat
-        ui->textEdit_ch_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+        ui->textEdit_ch->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
     } else if (type == 5) { // Punkbuster
-        ui->textEdit_co_pb_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+        ui->textEdit_co_pb->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
     }
 }
 
@@ -922,20 +922,16 @@ void BFBC2Widget::comboBox_ml_gamemode_currentIndexChanged(int index)
     //    con->sendCommand (QString("admin.runNextLevel"));
 }
 
-void BFBC2Widget::listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem*, QListWidgetItem*)
+void BFBC2Widget::listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
+    Q_UNUSED(current);
+    Q_UNUSED(previous);
 
-    // get game mode from combo box
+    int index = ui->listWidget_ml_avaliablemaps->currentIndex().row();
     int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
+    LevelEntry level = levels->getLevel(index, gameModeIndex);
 
-    // get a list of map mods and map names and select all map names with a particular mod
-    QList<LevelEntry> mapImages = levels->getLevels(gameModeIndex);
-
-    // find the selected map and show the preview image
-    int avaliableMapIndex = ui->listWidget_ml_avaliablemaps->currentIndex().row();
-    QPixmap mapImage = mapImages.at(avaliableMapIndex).image;
-
-    ui->label_ml_previewmap_image->setPixmap(mapImage);
+    ui->label_ml_previewmap_image->setPixmap(level.image);
 }
 
 void BFBC2Widget::on_pushButton_ml_add_clicked()
@@ -953,47 +949,35 @@ void BFBC2Widget::on_pushButton_ml_add_clicked()
     // get game mode from combo box
     int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
     int ret = 0;
-    if (currentGamemode != gamemodes[gameModeIndex])
-    {
+
+    if (currentGamemode != gamemodes[gameModeIndex]) {
         commandRefreshTimer->blockSignals(true);
         QMessageBox msgBox;
         msgBox.setText("The gamemode selected is not the current gamemode on the server, this option will delete the maplist and change the gamemode on the server. Are you sure you want to continue?");
         msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
         ret = msgBox.exec();
 
-        if (ret == QMessageBox::Yes)
-        {
+        if (ret == QMessageBox::Yes) {
             con->sendCommand(QString("\"admin.setPlaylist\" \"%1\"").arg(gamemodes[gameModeIndex]));
             con->sendCommand("\"mapList.clear\"");
 
-        }
-        else
-        {
+        } else {
             delete ui->listWidget_ml_currentmaps->takeItem(ui->listWidget_ml_currentmaps->count());
         }
     }
+
     commandRefreshTimer->blockSignals(false);
+
     // get selected map
     int avaliableMapIndex = ui->listWidget_ml_avaliablemaps->currentIndex().row();
-
-    // get a list of map mods and map names and select all map names with a particular mod
-//    QStringList mapNames = levelsObject->levels().at(gameModeIndex)->mapNames();
-//    QStringList mapPaths = levelsObject->levels().at(gameModeIndex)->mapPaths();
-
+    int rounds = ui->spinBox_ml_rounds->value();
     LevelEntry level = levels->getLevel(avaliableMapIndex, gameModeIndex);
 
-    // find map name and map path for selected map
-//    QString mapPath = mapPaths.at(avaliableMapIndex);
-//    QString mapName = mapNames.at(avaliableMapIndex);
-
-    // get the amount of rounds from combo box
-    int rounds = ui->spinBox_ml_rounds->value();
-
     // create a new map item and insert it into current map list
-    QListWidgetItem *mapItem = new QListWidgetItem(ui->listWidget_ml_currentmaps);
-    mapItem->setText(level.name);
-    mapItem->setData (Qt::UserRole, level.engineName);
-    ui->listWidget_ml_currentmaps->addItem(mapItem);
+    QListWidgetItem *item = new QListWidgetItem(ui->listWidget_ml_currentmaps);
+    item->setText(level.name);
+    item->setData (Qt::UserRole, level.engineName);
+    ui->listWidget_ml_currentmaps->addItem(item);
 
     // append the map to the server map list
     con->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.engineName).arg(rounds));
@@ -1002,7 +986,6 @@ void BFBC2Widget::on_pushButton_ml_add_clicked()
        con->sendCommand("\"mapList.save\"");
        con->sendCommand("\"mapList.nextLevelIndex\" \"0\"");
        con->sendCommand("\"admin.runNextLevel\"");
-
     }
 
     con->sendCommand("\"mapList.list\" \"rounds\"");
@@ -1134,7 +1117,7 @@ void BFBC2Widget::pushButton_ch_send_clicked()
 {
     int type = ui->comboBox_ch_type->currentIndex();
 
-    QString message = ui->lineEdit_ch_input->text();
+    QString message = ui->lineEdit_ch->text();
     int duration = ui->spinBox_ch_duration->value();
     QString group = ui->comboBox_ch_target->currentText().toLower();
 
@@ -1147,7 +1130,7 @@ void BFBC2Widget::pushButton_ch_send_clicked()
         break;
     }
 
-    ui->lineEdit_ch_input->clear();
+    ui->lineEdit_ch->clear();
 }
 
 void BFBC2Widget::comboBox_ch_type_currentIndexChanged(int index)
@@ -1203,21 +1186,21 @@ void BFBC2Widget::action_ic_remove_triggered()
 // Console
 void BFBC2Widget::on_pushButton_co_co_send_clicked()
 {
-    QString cmd = ui->lineEdit_co_co_input->text();
+    QString cmd = ui->lineEdit_co_co->text();
 
     if (!cmd.isEmpty()) {
         con->sendCommand(cmd);
-        ui->lineEdit_co_co_input->clear();
+        ui->lineEdit_co_co->clear();
     }
 }
 
 void BFBC2Widget::on_pushButton_co_pb_send_clicked()
 {
-    QString cmd = ui->lineEdit_co_pb_input->text();
+    QString cmd = ui->lineEdit_co_pb->text();
 
     if (!cmd.isEmpty()) {
         con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(cmd));
-        ui->lineEdit_co_pb_input->clear();
+        ui->lineEdit_co_pb->clear();
     }
 }
 

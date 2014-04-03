@@ -22,11 +22,10 @@
 
 #include <QCryptographicHash>
 
-#include "Game.h"
-
+#include "BFGame.h"
 #include "BF4Connection.h"
 
-class BF4 : public Game {
+class BF4 : public BFGame {
     Q_OBJECT
 
 public:
@@ -34,24 +33,6 @@ public:
     ~BF4();
 
     virtual Connection *getConnection() { return con; }
-
-    enum PlayerSubset {
-        All,
-        Team,
-        Squad,
-        Player
-    };
-
-    enum Squad {
-        Alpha,
-        Bravo,
-        Charlie,
-        Delta,
-        Echo,
-        Foxtrot,
-        Golf,
-        Hotel
-    };
 
 private:
     bool auth;

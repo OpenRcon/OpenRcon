@@ -71,8 +71,8 @@ unsigned int FrostbiteRconPacket::getSequenceNum() const
 void FrostbiteRconPacket::packWord(const FrostbiteRconWord &word)
 {
     packetSize += word.getFullSize();
-    packetWordCount++;
     packetWords.push_back(word);
+    packetWordCount++;
 }
 
 unsigned int FrostbiteRconPacket::getSequence() const

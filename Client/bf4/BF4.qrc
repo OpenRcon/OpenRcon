@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/bf4/icons">
         <file alias="bf4.png">images/icons/bf4.png</file>
-        <file alias="punkbuster.png">images/icons/punkbuster.png</file>
     </qresource>
     <qresource prefix="/bf4/ranks">
         <file alias="rank_0.png">images/ranks/rank_0.png</file>
