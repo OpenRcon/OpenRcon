@@ -178,9 +178,9 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     /* Commands */
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
-    connect(con->commandHandler, SIGNAL(onServerInfoCommand(const QStringList&)), this, SLOT(onServerInfoCommand(const QStringList&)));
+    connect(con->commandHandler, SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
     connect(con->commandHandler, SIGNAL(onVersionCommand(const QString&, const int&, const QString&)), this, SLOT(onVersionCommand(const QString&, const int&, const QString&)));
-    connect(con->commandHandler, SIGNAL(onAdminListPlayersCommand(const PlayerList&)), this, SLOT(onAdminListPlayersCommand(const PlayerList&)));
+    connect(con->commandHandler, SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&)));
     connect(con->commandHandler, SIGNAL(onMapListListCommand(const MapList&)), this, SLOT(onMapListListCommand(const MapList&)));
 
     connect(con->commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
@@ -378,60 +378,12 @@ void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const 
     logMessage(0, tr("<b>%1</b> server running version: <b>%2</b>.").arg(type, version));
 }
 
-void BF4Widget::onServerInfoCommand(const QStringList &serverInfo)
+void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
 {
-    /*
-    <serverName: string>
-    <current playercount: integer>
-    <effective max playercount: integer>
-    <current gamemode: string>
-    <current map: string>
-    <roundsPlayed: integer>
-    <roundsTotal: string>
-    <scores: team scores>
-    <onlineState: online state>
-    <ranked: boolean>
-    <punkBuster: boolean>
-    <hasGamePassword: boolean>
-    <serverUpTime: seconds>
-    <roundTime: seconds>
-    <gameIpAndPort: IpPortPair>
-    <punkBusterVersion: string>
-    <joinQueueEnabled: boolean>
-    <region: string>
-    <closestPingSite: string>
-    <country: string>
-    <matchMakingEnabled: boolean>
-    <blazePlayerCount: integer>
-    <blazeGameState: string>
-    */
 
-//    QString serverName = serverInfo.at(0);
-//    int playerCount = serverInfo.at(1).toInt();
-//    int maxPlayerCount = serverInfo.at(2).toInt();
-//    QString gamemode = serverInfo.at(3);
-//    QString currentMap = serverInfo.at(4);
-//    int roundsPlayed = serverInfo.at(5).toInt();
-//    int roundsTotal = serverInfo.at(6).toInt();
-//    QString scores  = serverInfo.at(7);
-//    QString onlineState  = serverInfo.at(8);
-//    bool ranked;
-//    bool punkBuster;
-//    bool hasGamePassword;
-//    int serverUpTime;
-//    int roundTime;
-//    QString gameIpAndPort;
-//    QString punkBusterVersion;
-//    bool joinQueueEnabled;
-//    QString region;
-//    QString closestPingSite;
-//    QString country;
-//    bool matchMakingEnabled;
-//    int blazePlayerCount;
-//    QString blazeGameState;
 }
 
-void BF4Widget::onAdminListPlayersCommand(const PlayerList &playerList)
+void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList)
 {
     // Clear QTreeWidget
     ui->treeWidget_pl_playerList->clear();
@@ -441,36 +393,26 @@ void BF4Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     QMap<QString, int> teamItems;
     QMap<QString, QTreeWidgetItem *> playerItems;
 
-    foreach (PlayerListItem player, playerList) {
+    foreach (PlayerInfo player, playerList) {
         QStringList playerInfo;
-        QString name = player.value("name");
-        QString guid = player.value("guid");
-        int teamId = player.value("teamId").toInt();
-        int squadId = player.value("rank").toInt();
-        QString kills = player.value("kills");
-        QString deaths = player.value("deaths");
-        QString score = player.value("score");
-        int rank = player.value("rank").toInt();
-        QString ping = player.value("ping");
-
-        playerInfo.append(name);
-        playerInfo.append(getSquadName(squadId));
-        playerInfo.append(score);
-        playerInfo.append(kills);
-        playerInfo.append(deaths);
-        playerInfo.append(ping);
-        playerInfo.append(guid);
-        playerNames.append(name);
+        playerInfo.append(player.name);
+        playerInfo.append(getSquadName(player.squadId));
+        playerInfo.append(QString::number(player.score));
+        playerInfo.append(QString::number(player.kills));
+        playerInfo.append(QString::number(player.deaths));
+        playerInfo.append(QString::number(player.ping));
+        playerInfo.append(player.guid);
+        playerNames.append(player.name);
 
         // add player to parent teamItem
         QTreeWidgetItem *item = new QTreeWidgetItem(playerInfo);
-        item->setIcon(0, getRankIcon(rank));
-        item->setData(0, Qt::UserRole, teamId);
-        playerItems.insert(name, item);
+        item->setIcon(0, getRankIcon(player.rank));
+        item->setData(0, Qt::UserRole, player.teamId);
+        playerItems.insert(player.name, item);
 
         // add team item and team id into map with key player name
-        teamItems.insert(name, teamId);
-        teamIds.append(teamId);
+        teamItems.insert(player.name, player.teamId);
+        teamIds.append(player.teamId);
     }
 
     playerNames.sort();

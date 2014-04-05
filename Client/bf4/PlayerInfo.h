@@ -55,6 +55,6 @@ struct PlayerInfo {
     int rank;
     int ping;
 
-}
+};
 
 #endif // PLAYERINFO_H

@@ -22,10 +22,10 @@
 
 #include "FrostbiteCommandHandler.h"
 
+#include "ServerInfo.h"
+#include "PlayerInfo.h"
 #include "MapListEntry.h"
 
-typedef QMap<QString, QString> PlayerListItem;
-typedef QVector<PlayerListItem> PlayerList;
 typedef QList<MapListEntry> MapList;
 
 class BF4CommandHandler : public FrostbiteCommandHandler
@@ -195,7 +195,7 @@ signals:
     void onLoginPlainTextCommand();
     void onLoginHashedCommand(const QByteArray &salt);
     void onLoginHashedCommand();
-    void onServerInfoCommand(const QStringList &serverInfo);
+    void onServerInfoCommand(const ServerInfo &serverInfo);
     void onLogoutCommand();
     void onQuitCommand();
     void onVersionCommand(const QString &type, const int &buildId, const QString &version);
@@ -205,7 +205,7 @@ signals:
     void onAdminHelpCommand();
     void onAdminKickPlayerCommand();
     void onAdminKillPlayerCommand();
-    void onAdminListPlayersCommand(const PlayerList &playerList);
+    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList);
     void onAdminMovePlayerCommand();
     void onAdminPasswordCommand();
     void onAdminSayCommand();

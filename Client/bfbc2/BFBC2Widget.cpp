@@ -1005,8 +1005,10 @@ void BFBC2Widget::on_pushButton_ml_clear_clicked()
     con->sendCommand("\"mapList.clear\"");
 }
 
-void BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem* current)
+void BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem *current)
 {
+    Q_UNUSED(current);
+
     int index = ui->listWidget_ml_currentmaps->currentRow();
     int gameModeIndex = gamemodes.indexOf(QRegExp(currentGamemode, Qt::CaseInsensitive));
 

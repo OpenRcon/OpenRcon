@@ -461,7 +461,31 @@ void BF4CommandHandler::commandServerInfo(const FrostbiteRconPacket &packet)
             serverInfo.append(packet.getWord(i).getContent());
         }
 
-        emit(onServerInfoCommand(serverInfo));
+        QString serverName = packet.getWord(1).getContent();
+        int playerCount = QString(packet.getWord(2).getContent()).toInt();
+        int maxPlayerCount = QString(packet.getWord(3).getContent()).toInt();
+        QString gamemode = packet.getWord(4).getContent();
+        QString currentMap = packet.getWord(5).getContent();
+        int roundsPlayed = QString(packet.getWord(6).getContent()).toInt();
+        int roundsTotal = QString(packet.getWord(7).getContent()).toInt();
+        QString scores = packet.getWord(8).getContent();
+        QString onlineState = packet.getWord(9).getContent();
+        bool ranked = packet.getWord(10).getContent();
+        bool punkBuster = packet.getWord(11).getContent();
+        bool hasGamePassword = packet.getWord(12).getContent();
+        int serverUpTime = QString(packet.getWord(13).getContent()).toInt();
+        int roundTime = QString(packet.getWord(14).getContent()).toInt();
+        QString gameIpAndPort = packet.getWord(15).getContent();
+        QString punkBusterVersion = packet.getWord(16).getContent();
+        bool joinQueueEnabled = packet.getWord(17).getContent();
+        QString region = packet.getWord(18).getContent();
+        QString closestPingSite = packet.getWord(19).getContent();
+        QString country = packet.getWord(20).getContent();
+        bool matchMakingEnabled = packet.getWord(21).getContent();
+        int blazePlayerCount = QString(packet.getWord(22).getContent()).toInt();
+        QString blazeGameState = packet.getWord(23).getContent();
+
+        emit(onServerInfoCommand(ServerInfo(serverName, playerCount, maxPlayerCount, gamemode, currentMap, roundsPlayed, roundsTotal, scores, onlineState, ranked, punkBuster, hasGamePassword, serverUpTime, roundTime, gameIpAndPort,  punkBusterVersion, joinQueueEnabled, region, closestPingSite, country,  matchMakingEnabled, blazePlayerCount, blazeGameState)));
     }
 }
 
@@ -561,19 +585,32 @@ void BF4CommandHandler::commandAdminListPlayers(const FrostbiteRconPacket &packe
 {
     QString response = packet.getWord(0).getContent();
 
+    // OK 10 name guid teamId squadId kills deaths score rank ping type 1 halvorshalvors EA_76544D0431556D2ECC32046A5FDB5B49 1 1 0 0 0 7 44 0
     if (response == "OK" && packet.getWordCount() > 0) {
-        PlayerList playerList;
-        unsigned int parameterCount = QString(packet.getWord(1).getContent()).toUInt();
-        unsigned int playerCount = QString(packet.getWord(2 + parameterCount).getContent()).toUInt();
+        QList<PlayerInfo> playerList;
+        int parameters = QString(packet.getWord(1).getContent()).toInt();
+        int players = QString(packet.getWord(2 + parameters).getContent()).toInt();
 
-        for (unsigned int i = 0; i < playerCount; i++) {
-            PlayerListItem player;
+        for (int i = 0; i < players; i++) {
+            QStringList list;
 
-            for (unsigned int j = 0; j < parameterCount; j++) {
-                player.insert(packet.getWord(2 + j).getContent(), packet.getWord(2 + parameterCount + 1 + i * parameterCount + j).getContent());
+            for (int j = 0; j < parameters; j++) {
+                list.append(packet.getWord(2 + parameters + 1 + i * parameters + j).getContent());
             }
 
-            playerList.append(player);
+
+
+            QString name; list.at(0);
+            QString guid = list.at(1);
+            int teamId = list.at(2).toInt();
+            int squadId = list.at(3).toInt();
+            int kills = list.at(4).toInt();
+            int deaths = list.at(5).toInt();
+            int score = list.at(6).toInt();
+            int rank = list.at(7).toInt();
+            int ping = list.at(8).toInt();
+
+            playerList.append(PlayerInfo(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
         }
 
         emit(onAdminListPlayersCommand(playerList));
