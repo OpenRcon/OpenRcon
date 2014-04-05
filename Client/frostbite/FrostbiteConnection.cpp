@@ -62,9 +62,8 @@ void FrostbiteConnection::sendCommand(const QString &command)
     if (!command.isEmpty()) {
         FrostbiteRconPacket packet(FrostbiteRconPacket::ServerOrigin, FrostbiteRconPacket::Request, nextPacketSeq);
         QStringList cmdList;
-        cmdList = command.split(" ");
+        cmdList = command.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
         cmdList.replaceInStrings("\"", "", Qt::CaseSensitive);
-        //cmdList = cmd.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
 
         for (int i = 0; i < cmdList.size(); i++) {
             packet.packWord(FrostbiteRconWord(cmdList.at(i).toLatin1().constData()));
