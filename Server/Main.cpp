@@ -17,19 +17,16 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SERVER_H
-#define SERVER_H
+#include <QCoreApplication>
 
-#include <QObject>
+#include "Server.h"
 
-class Server : public QObject
+int main(int argc, char *argv[])
 {
-    Q_OBJECT
+    QCoreApplication a(argc, argv);
 
-public:
-    explicit Server(QObject *parent = 0);
-    ~Server();
+    Server server;
 
-};
+    return a.exec();
+}
 
-#endif // SERVER_H
