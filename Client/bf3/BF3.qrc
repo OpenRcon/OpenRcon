@@ -1,5 +1,52 @@
 <RCC>
-    <qresource prefix="/bf3">
-        <file>images/icons/bf3.png</file>
+    <qresource prefix="/bf3/icons">
+        <file alias="bf3.png">images/icons/bf3.png</file>
+    </qresource>
+    <qresource prefix="/bf3/levels">
+        <file alias="rank_01.png">images/ranks/rank_01.png</file>
+        <file alias="rank_02.png">images/ranks/rank_02.png</file>
+        <file alias="rank_03.png">images/ranks/rank_03.png</file>
+        <file alias="rank_04.png">images/ranks/rank_04.png</file>
+        <file alias="rank_05.png">images/ranks/rank_05.png</file>
+        <file alias="rank_06.png">images/ranks/rank_06.png</file>
+        <file alias="rank_07.png">images/ranks/rank_07.png</file>
+        <file alias="rank_08.png">images/ranks/rank_08.png</file>
+        <file alias="rank_09.png">images/ranks/rank_09.png</file>
+        <file alias="rank_10.png">images/ranks/rank_10.png</file>
+        <file alias="rank_11.png">images/ranks/rank_11.png</file>
+        <file alias="rank_12.png">images/ranks/rank_12.png</file>
+        <file alias="rank_13.png">images/ranks/rank_13.png</file>
+        <file alias="rank_14.png">images/ranks/rank_14.png</file>
+        <file alias="rank_15.png">images/ranks/rank_15.png</file>
+        <file alias="rank_16.png">images/ranks/rank_16.png</file>
+        <file alias="rank_17.png">images/ranks/rank_17.png</file>
+        <file alias="rank_18.png">images/ranks/rank_18.png</file>
+        <file alias="rank_19.png">images/ranks/rank_19.png</file>
+        <file alias="rank_20.png">images/ranks/rank_20.png</file>
+        <file alias="rank_21.png">images/ranks/rank_21.png</file>
+        <file alias="rank_22.png">images/ranks/rank_22.png</file>
+        <file alias="rank_23.png">images/ranks/rank_23.png</file>
+        <file alias="rank_24.png">images/ranks/rank_24.png</file>
+        <file alias="rank_25.png">images/ranks/rank_25.png</file>
+        <file alias="rank_26.png">images/ranks/rank_26.png</file>
+        <file alias="rank_27.png">images/ranks/rank_27.png</file>
+        <file alias="rank_28.png">images/ranks/rank_28.png</file>
+        <file alias="rank_29.png">images/ranks/rank_29.png</file>
+        <file alias="rank_30.png">images/ranks/rank_30.png</file>
+        <file alias="rank_31.png">images/ranks/rank_31.png</file>
+        <file alias="rank_32.png">images/ranks/rank_32.png</file>
+        <file alias="rank_33.png">images/ranks/rank_33.png</file>
+        <file alias="rank_34.png">images/ranks/rank_34.png</file>
+        <file alias="rank_35.png">images/ranks/rank_35.png</file>
+        <file alias="rank_36.png">images/ranks/rank_36.png</file>
+        <file alias="rank_37.png">images/ranks/rank_37.png</file>
+        <file alias="rank_38.png">images/ranks/rank_38.png</file>
+        <file alias="rank_39.png">images/ranks/rank_39.png</file>
+        <file alias="rank_40.png">images/ranks/rank_40.png</file>
+        <file alias="rank_41.png">images/ranks/rank_41.png</file>
+        <file alias="rank_42.png">images/ranks/rank_42.png</file>
+        <file alias="rank_43.png">images/ranks/rank_43.png</file>
+        <file alias="rank_44.png">images/ranks/rank_44.png</file>
+        <file alias="rank_45.png">images/ranks/rank_45.png</file>
     </qresource>
 </RCC>
