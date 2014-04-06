@@ -20,10 +20,10 @@
 #ifndef BFBC2LEVELS_H
 #define BFBC2LEVELS_H
 
-#include "BFLevels.h"
+#include "BFBaseLevels.h"
 #include "BFBC2LevelEntry.h"
 
-class BFBC2Levels : public BFLevels
+class BFBC2Levels : public BFBaseLevels
 {
 
 public:

@@ -24,10 +24,10 @@
 #include <QCompleter>
 #include <QMenu>
 
-#include "BFGame.h"
+#include "BFBaseGame.h"
 #include "BF3Connection.h"
 
-class BF3 : public BFGame {
+class BF3 : public BFBaseGame {
     Q_OBJECT
 
 public:

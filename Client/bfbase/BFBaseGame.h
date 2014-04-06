@@ -1,14 +1,14 @@
-#ifndef BFGAME_H
-#define BFGAME_H
+#ifndef BFBASEGAME_H
+#define BFBASEGAME_H
 
 #include "Game.h"
 
-class BFGame : public Game
+class BFBaseGame : public Game
 {
 
 public:
-    explicit BFGame(const QString &host, const int &port, const QString &password);
-    ~BFGame();
+    explicit BFBaseGame(const QString &host, const int &port, const QString &password);
+    ~BFBaseGame();
 
 protected:
     enum PlayerSubset {
@@ -29,7 +29,9 @@ protected:
         Hotel
     };
 
+    QString getPlayerSubsetName(const int &playerSubset);
     QString getSquadName(const int &squadId);
+
 };
 
-#endif // BFGAME_H
+#endif // BFBASEGAME_H

@@ -19,7 +19,7 @@
 
 #include "BFBC2Levels.h"
 
-BFBC2Levels::BFBC2Levels(QObject *parent) : BFLevels(":/bfbc2/levels/", parent)
+BFBC2Levels::BFBC2Levels(QObject *parent) : BFBaseLevels(":/bfbc2/levels/", parent)
 {
     /* List of all levels */
     levelList.append(BFBC2LevelEntry("levels/mp_001", "Panama Canal", imagePath + "panama_canal.png", "BC2"));                          // 0

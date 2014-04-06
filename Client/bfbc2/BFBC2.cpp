@@ -19,7 +19,7 @@
 
 #include "BFBC2.h"
 
-BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : BFGame(host, port, password), auth(false)
+BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : BFBaseGame(host, port, password), auth(false)
 {
     con = new BFBC2Connection(this);
     con->hostConnect(host, port);

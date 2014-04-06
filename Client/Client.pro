@@ -1,10 +1,12 @@
 include(locale/Locale.pri)
 
 include(frostbite/Frostbite.pri)
-include(bf/BF.pri)
+include(bfbase/BFBase.pri)
+
 include(bfbc2/BFBC2.pri)
 include(bf3/BF3.pri)
 include(bf4/BF4.pri)
+
 include(minecraft/Minecraft.pri)
 
 QT += core \
@@ -18,14 +20,14 @@ TARGET = OpenRcon
 TEMPLATE = app
 
 INCLUDEPATH += frostbite \
-               bf \
+               bfbase \
                bfbc2 \
                bf3 \
                bf4 \
                minecraft
 
 DEPENDPATH += frostbite \
-              bf \
+              bfbase \
               bfbc2 \
               bf3 \
               bf4 \

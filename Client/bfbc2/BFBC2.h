@@ -25,7 +25,7 @@
 
 #include "Constants.h"
 
-#include "BFGame.h"
+#include "BFBaseGame.h"
 #include "BFBC2Connection.h"
 #include "BFBC2Levels.h"
 #include "BFBC2Constants.h"
@@ -33,7 +33,7 @@
 using namespace Constants;
 using namespace BFBC2Constants;
 
-class BFBC2 : public BFGame
+class BFBC2 : public BFBaseGame
 {
     Q_OBJECT
 

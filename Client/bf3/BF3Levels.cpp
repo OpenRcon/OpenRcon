@@ -1,0 +1,320 @@
+#include "BF3Levels.h"
+
+BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
+{
+    /* List of all levels */
+    levelList.append(LevelEntry("MP_001", "Grand Bazaar", imagePath + "grand_bazaar.png"));                                 // 0
+    levelList.append(LevelEntry("MP_003", "Teheran Highway", imagePath + "teheran_highway.png"));                           // 1
+    levelList.append(LevelEntry("MP_007", "Caspian Border", imagePath + "caspian_border.png"));                             // 2
+    levelList.append(LevelEntry("MP_011", "Seine Crossing", imagePath + "seine_crossing.png"));                             // 3
+    levelList.append(LevelEntry("MP_012", "Operation Firestorm", imagePath + "operation_firestorm.png"));                   // 4
+    levelList.append(LevelEntry("MP_013", "Damavand Peak", imagePath + "damavand_peak.png"));                               // 5
+    levelList.append(LevelEntry("MP_017", "Noshahr Canals", imagePath + "noshahr_canals.png"));                             // 6
+    levelList.append(LevelEntry("MP_018", "Kharg Island", imagePath + "kharg_island.png"));                                 // 7
+    levelList.append(LevelEntry("MP_Subway", "Operation Metro", imagePath + "operation_metro.png"));                        // 8
+
+    // XP1 (Back to Karkand)
+    levelList.append(LevelEntry("XP1_001", "Strike at Karkand", imagePath + "strike_at_karkand.png"));                      // 9
+    levelList.append(LevelEntry("XP1_002", "Gulf of Oman", imagePath + "gulf_of_oman.png"));                                // 10
+    levelList.append(LevelEntry("XP1_003", "Sharqi Peninsula", imagePath + "sharqi_peninsula.png"));                        // 11
+    levelList.append(LevelEntry("XP1_004", "Wake Island", imagePath + "wake_island.png"));                                  // 12
+
+    // XP2 (Close Quarters)
+    levelList.append(LevelEntry("XP2_Factory", "Scrapmetal", imagePath + "scrapmetal.png"));                                // 13
+    levelList.append(LevelEntry("XP2_Office", "Operation 925", imagePath + "operation_925.png"));                           // 14
+    levelList.append(LevelEntry("XP2_Palace", "Donya Fortress", imagePath + "donya_fortress.png"));                         // 15
+    levelList.append(LevelEntry("XP2_Skybar", "Ziba Tower", imagePath + "ziba_tower.png"));                                 // 16
+
+    // XP3 (Armored Kill)
+    levelList.append(LevelEntry("XP3_Desert", "Bandar Desert", imagePath + "bandar_desert.png"));                           // 17
+    levelList.append(LevelEntry("XP3_Alborz", "Alborz Mountains", imagePath + "alborz_mountains.png"));                     // 18
+    levelList.append(LevelEntry("XP3_Shield", "Armored Shield", imagePath + "armored_shield.png"));                         // 19
+    levelList.append(LevelEntry("XP3_Valley", "Death Valley", imagePath + "death_valley.png"));                             // 20
+
+    // XP4 (Aftermath)
+    levelList.append(LevelEntry("XP4_Quake", "Epicenter", imagePath + "epicenter.png"));                                    // 21
+    levelList.append(LevelEntry("XP4_FD", "Markaz Monolith", imagePath + "markaz_monolith.png"));                           // 22
+    levelList.append(LevelEntry("XP4_Parl", "Azadi Palace", imagePath + "azadi_palace.png"));                               // 23
+    levelList.append(LevelEntry("XP4_Rubble", "Talah Market", imagePath + "talah_market.png"));                             // 24
+
+    // XP5 (Endgame)
+
+    /* List of all gamemodes */
+    gameModeList.append(GameModeEntry("ConquestLarge0", "Conquest Large", 64));                 // 0
+    gameModeList.append(GameModeEntry("ConquestSmall0", "Conquest Small", 32));                 // 1
+    gameModeList.append(GameModeEntry("RushLarge0", "Rush", 32));                               // 2
+    gameModeList.append(GameModeEntry("SquadRush0", "Squad Rush", 8));                          // 3
+    gameModeList.append(GameModeEntry("SquadDeathMatch0", "Squad Deathmatch", 16));             // 4
+    gameModeList.append(GameModeEntry("TeamDeathMatch0", "Team Deathmatch", 24));               // 5
+
+    gameModeList.append(GameModeEntry("ConquestAssaultLarge0", "Conquest Assault Large", 64));  // 6
+    gameModeList.append(GameModeEntry("ConquestAssaultSmall0", "Conquest Assault Small", 32));  // 7
+    gameModeList.append(GameModeEntry("ConquestAssaultSmall1", "Conquest Assault Small", 32));  // 8
+
+    gameModeList.append(GameModeEntry("Domination0", "Domination", 16));                        // 9
+    gameModeList.append(GameModeEntry("GunMaster0", "Gun master", 16));                         // 10
+    gameModeList.append(GameModeEntry("TeamDeathMatchC0", "TDM Close Quarters", 16));           // 11
+
+    gameModeList.append(GameModeEntry("TankSuperiority0", "Tank Superiority", 24));             // 12
+
+    gameModeList.append(GameModeEntry("Scavenger0", "Scavenger", 32));                          // 13
+
+    /* Levels and gamemodes combined */
+
+    /* ConquestLarge0 */
+    levelMap.insertMulti(0, 0);
+    levelMap.insertMulti(0, 1);
+    levelMap.insertMulti(0, 2);
+    levelMap.insertMulti(0, 3);
+    levelMap.insertMulti(0, 4);
+    levelMap.insertMulti(0, 5);
+    levelMap.insertMulti(0, 6);
+    levelMap.insertMulti(0, 7);
+    levelMap.insertMulti(0, 8);
+
+    // XP1 (Back to Karkand)
+    levelMap.insertMulti(0, 10);
+
+    // XP2 (Close Quarters)
+
+    // XP3 (Armored Kill)
+    levelMap.insertMulti(0, 17);
+    levelMap.insertMulti(0, 18);
+    levelMap.insertMulti(0, 19);
+    levelMap.insertMulti(0, 20);
+
+    // XP4 (Aftermath)
+    levelMap.insertMulti(0, 21);
+    levelMap.insertMulti(0, 22);
+    levelMap.insertMulti(0, 23);
+    levelMap.insertMulti(0, 24);
+
+    /* ConquestSmall0 */
+    levelMap.insertMulti(1, 0);
+    levelMap.insertMulti(1, 1);
+    levelMap.insertMulti(1, 2);
+    levelMap.insertMulti(1, 3);
+    levelMap.insertMulti(1, 4);
+    levelMap.insertMulti(1, 5);
+    levelMap.insertMulti(1, 6);
+    levelMap.insertMulti(1, 7);
+    levelMap.insertMulti(1, 8);
+
+    // XP1 (Back to Karkand)
+    levelMap.insertMulti(1, 10);
+
+    // XP2 (Close Quarters)
+
+    // XP3 (Armored Kill)
+    levelMap.insertMulti(1, 17);
+    levelMap.insertMulti(1, 18);
+    levelMap.insertMulti(1, 19);
+    levelMap.insertMulti(1, 20);
+
+    // XP4 (Aftermath)
+    levelMap.insertMulti(1, 21);
+    levelMap.insertMulti(1, 22);
+    levelMap.insertMulti(1, 23);
+    levelMap.insertMulti(1, 24);
+
+    /* RushLarge0 */
+    levelMap.insertMulti(2, 0);
+    levelMap.insertMulti(2, 1);
+    levelMap.insertMulti(2, 2);
+    levelMap.insertMulti(2, 3);
+    levelMap.insertMulti(2, 4);
+    levelMap.insertMulti(2, 5);
+    levelMap.insertMulti(2, 6);
+    levelMap.insertMulti(2, 7);
+    levelMap.insertMulti(2, 8);
+
+    // XP1 (Back to Karkand)
+    levelMap.insertMulti(2, 9);
+    levelMap.insertMulti(2, 10);
+    levelMap.insertMulti(2, 11);
+    levelMap.insertMulti(2, 12);
+
+    // XP2 (Close Quarters)
+
+    // XP3 (Armored Kill)
+    levelMap.insertMulti(2, 17);
+    levelMap.insertMulti(2, 18);
+    levelMap.insertMulti(2, 19);
+    levelMap.insertMulti(2, 20);
+
+    // XP4 (Aftermath)
+    levelMap.insertMulti(2, 21);
+    levelMap.insertMulti(2, 22);
+    levelMap.insertMulti(2, 23);
+    levelMap.insertMulti(2, 24);
+
+    /* SquadRush0 */
+    levelMap.insertMulti(3, 0);
+    levelMap.insertMulti(3, 1);
+    levelMap.insertMulti(3, 2);
+    levelMap.insertMulti(3, 3);
+    levelMap.insertMulti(3, 4);
+    levelMap.insertMulti(3, 5);
+    levelMap.insertMulti(3, 6);
+    levelMap.insertMulti(3, 7);
+    levelMap.insertMulti(3, 8);
+
+    // XP1 (Back to Karkand)
+    levelMap.insertMulti(3, 9);
+    levelMap.insertMulti(3, 10);
+    levelMap.insertMulti(3, 11);
+    levelMap.insertMulti(3, 12);
+
+    // XP2 (Close Quarters)
+
+    // XP3 (Armored Kill)
+    levelMap.insertMulti(3, 17);
+    levelMap.insertMulti(3, 18);
+    levelMap.insertMulti(3, 19);
+    levelMap.insertMulti(3, 20);
+
+    // XP4 (Aftermath)
+    levelMap.insertMulti(3, 21);
+    levelMap.insertMulti(3, 22);
+    levelMap.insertMulti(3, 23);
+    levelMap.insertMulti(3, 24);
+
+    /* SquadDeathMatch0 */
+    levelMap.insertMulti(4, 0);
+    levelMap.insertMulti(4, 1);
+    levelMap.insertMulti(4, 2);
+    levelMap.insertMulti(4, 3);
+    levelMap.insertMulti(4, 4);
+    levelMap.insertMulti(4, 5);
+    levelMap.insertMulti(4, 6);
+    levelMap.insertMulti(4, 7);
+    levelMap.insertMulti(4, 8);
+
+    // XP1 (Back to Karkand)
+    levelMap.insertMulti(4, 9);
+    levelMap.insertMulti(4, 10);
+    levelMap.insertMulti(4, 11);
+    levelMap.insertMulti(4, 12);
+
+    // XP2 (Close Quarters)
+    levelMap.insertMulti(4, 13);
+    levelMap.insertMulti(4, 14);
+    levelMap.insertMulti(4, 15);
+    levelMap.insertMulti(4, 16);
+
+    // XP3 (Armored Kill)
+    levelMap.insertMulti(4, 17);
+    levelMap.insertMulti(4, 18);
+    levelMap.insertMulti(4, 19);
+    levelMap.insertMulti(4, 20);
+
+    // XP4 (Aftermath)
+    levelMap.insertMulti(4, 21);
+    levelMap.insertMulti(4, 22);
+    levelMap.insertMulti(4, 23);
+    levelMap.insertMulti(4, 24);
+
+    /* TeamDeathMatch0 */
+    levelMap.insertMulti(5, 0);
+    levelMap.insertMulti(5, 1);
+    levelMap.insertMulti(5, 2);
+    levelMap.insertMulti(5, 3);
+    levelMap.insertMulti(5, 4);
+    levelMap.insertMulti(5, 5);
+    levelMap.insertMulti(5, 6);
+    levelMap.insertMulti(5, 7);
+    levelMap.insertMulti(5, 8);
+
+    // XP1 (Back to Karkand)
+    levelMap.insertMulti(5, 9);
+    levelMap.insertMulti(5, 10);
+    levelMap.insertMulti(5, 11);
+    levelMap.insertMulti(5, 12);
+
+    // XP2 (Close Quarters)
+
+    // XP3 (Armored Kill)
+    levelMap.insertMulti(5, 17);
+    levelMap.insertMulti(5, 18);
+    levelMap.insertMulti(5, 19);
+    levelMap.insertMulti(5, 20);
+
+    // XP4 (Aftermath)
+    levelMap.insertMulti(5, 21);
+    levelMap.insertMulti(5, 22);
+    levelMap.insertMulti(5, 23);
+    levelMap.insertMulti(5, 24);
+
+    /* ConquestAssaultLarge0 */
+
+    // XP1 (Back to Karkand)
+    levelMap.insertMulti(6, 9);
+    levelMap.insertMulti(6, 11);
+    levelMap.insertMulti(6, 12);
+
+    /* ConquestAssaultSmall0 */
+
+    // XP1 (Back to Karkand)
+    levelMap.insertMulti(7, 9);
+    levelMap.insertMulti(7, 10);
+    levelMap.insertMulti(7, 11);
+    levelMap.insertMulti(7, 13);
+
+    /* ConquestAssaultSmall1 */
+
+    // XP1 (Back to Karkand)
+    levelMap.insertMulti(8, 9);
+    levelMap.insertMulti(8, 11);
+    levelMap.insertMulti(8, 12);
+
+    /* Domination0 */
+
+    // XP1 (Close Quarters)
+    levelMap.insertMulti(9, 13);
+    levelMap.insertMulti(9, 14);
+    levelMap.insertMulti(9, 15);
+    levelMap.insertMulti(9, 16);
+
+    /* GunMaster0 */
+
+    // XP1 (Close Quarters)
+    levelMap.insertMulti(10, 13);
+    levelMap.insertMulti(10, 14);
+    levelMap.insertMulti(10, 15);
+    levelMap.insertMulti(10, 16);
+
+    // XP4 (Aftermath)
+    levelMap.insertMulti(10, 21);
+    levelMap.insertMulti(10, 22);
+    levelMap.insertMulti(10, 23);
+    levelMap.insertMulti(10, 24);
+
+    /* TeamDeathMatchC0 */
+
+    // XP1 (Close Quarters)
+    levelMap.insertMulti(11, 13);
+    levelMap.insertMulti(11, 14);
+    levelMap.insertMulti(11, 15);
+    levelMap.insertMulti(11, 16);
+
+    /* TankSuperiority0 */
+
+    // XP3 (Armored Kill)
+    levelMap.insertMulti(12, 17);
+    levelMap.insertMulti(12, 18);
+    levelMap.insertMulti(12, 19);
+    levelMap.insertMulti(12, 20);
+
+    /* Scavenger0 */
+
+    // XP4 (Aftermath)
+    levelMap.insertMulti(13, 21);
+    levelMap.insertMulti(13, 22);
+    levelMap.insertMulti(13, 23);
+    levelMap.insertMulti(13, 24);
+}
+
+BF3Levels::~BF3Levels()
+{
+
+}
