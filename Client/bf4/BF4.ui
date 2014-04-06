@@ -1,595 +1,662 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>BF4</class>
- <widget class="QTabWidget" name="BF4">
+ <widget class="QWidget" name="BF4">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>922</width>
+    <height>556</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string/>
+   <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
-  </property>
-  <property name="currentIndex">
-   <number>3</number>
-  </property>
-  <property name="documentMode">
-   <bool>true</bool>
-  </property>
-  <widget class="QWidget" name="tab_pl">
-   <attribute name="icon">
-    <iconset resource="../OpenRcon.qrc">
-     <normaloff>:/icons/images/icons/system-users.png</normaloff>:/icons/images/icons/system-users.png</iconset>
-   </attribute>
-   <attribute name="title">
-    <string>Players</string>
-   </attribute>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QTreeWidget" name="treeWidget_pl_playerList">
-      <column>
-       <property name="text">
-        <string>Name</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Squad</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Kills</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Deaths</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Score</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Ping</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>GUID</string>
-       </property>
-      </column>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="tab_ev">
-   <attribute name="title">
-    <string>Events</string>
-   </attribute>
-   <layout class="QGridLayout" name="gridLayout_4">
-    <item row="1" column="0">
-     <widget class="QTextEdit" name="textEdit_ev_output">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QTableWidget" name="tableWidget">
-      <column>
-       <property name="text">
-        <string>Time</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Message</string>
-       </property>
-      </column>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="tab_ch">
-   <attribute name="icon">
-    <iconset resource="../OpenRcon.qrc">
-     <normaloff>:/icons/images/icons/user-invisible.png</normaloff>:/icons/images/icons/user-invisible.png</iconset>
-   </attribute>
-   <attribute name="title">
-    <string>Chat</string>
-   </attribute>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="1" column="2">
-     <widget class="QSpinBox" name="spinBox_ch_duration"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLineEdit" name="lineEdit_ch"/>
-    </item>
-    <item row="0" column="0" colspan="5">
-     <widget class="QTextEdit" name="textEdit_ch">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="4">
-     <widget class="QPushButton" name="pushButton_ch">
-      <property name="text">
-       <string>Send</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QComboBox" name="comboBox_ch_mode"/>
-    </item>
-    <item row="1" column="3">
-     <widget class="QComboBox" name="comboBox_ch_target"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="tab_li">
-   <attribute name="title">
-    <string>Lists</string>
-   </attribute>
-   <layout class="QGridLayout" name="gridLayout_6">
-    <item row="1" column="0">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_li_ml">
-       <attribute name="title">
-        <string>Maplist</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_12">
-          <item row="2" column="3" rowspan="4">
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_li_ml_add">
-              <property name="text">
-               <string>Add</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="spinBox_li_ml_rounds">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_li_ml_remove">
-              <property name="text">
-               <string>Remove</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="7">
-           <widget class="QLabel" name="label_li_ml_nextMapText">
-            <property name="text">
-             <string>Next map:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="4">
-           <widget class="QLabel" name="label_li_ml_currentMapText">
-            <property name="text">
-             <string>Current map:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="8" colspan="2">
-           <widget class="QLabel" name="label_li_ml_nextMapValue">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="5" colspan="2">
-           <widget class="QLabel" name="label_li_ml_currentMapValue">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="4" rowspan="4" colspan="6">
-           <widget class="QTableWidget" name="tableWidget_li_ml_current">
-            <property name="editTriggers">
-             <set>QAbstractItemView::NoEditTriggers</set>
-            </property>
-            <property name="showDropIndicator" stdset="0">
-             <bool>false</bool>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
-            <property name="showGrid">
-             <bool>false</bool>
-            </property>
-            <property name="rowCount">
-             <number>0</number>
-            </property>
-            <property name="columnCount">
-             <number>3</number>
-            </property>
-            <attribute name="horizontalHeaderHighlightSections">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="verticalHeaderVisible">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="verticalHeaderDefaultSectionSize">
-             <number>17</number>
-            </attribute>
-            <attribute name="verticalHeaderHighlightSections">
-             <bool>false</bool>
-            </attribute>
-            <column>
-             <property name="text">
-              <string>Name</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Gamemode</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Rounds</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-          <item row="1" column="4" colspan="6">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QLabel" name="label_li_ml_currentMapImage">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_li_ml_nextMapImage">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0" colspan="3">
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QLabel" name="label_li_ml_avaliableMapImage">
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="0" colspan="3">
-           <widget class="QLabel" name="label_li_ml_avaliableMapText">
-            <property name="text">
-             <string>Preview of selected map:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="3">
-           <widget class="QComboBox" name="comboBox_li_ml_gameMode"/>
-          </item>
-          <item row="3" column="0" rowspan="3" colspan="3">
-           <widget class="QTableWidget" name="tableWidget_li_ml_avaliable">
-            <property name="editTriggers">
-             <set>QAbstractItemView::NoEditTriggers</set>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
-            <property name="showGrid">
-             <bool>false</bool>
-            </property>
-            <attribute name="horizontalHeaderHighlightSections">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="verticalHeaderVisible">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="verticalHeaderDefaultSectionSize">
-             <number>17</number>
-            </attribute>
-            <attribute name="verticalHeaderHighlightSections">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="verticalHeaderMinimumSectionSize">
-             <number>17</number>
-            </attribute>
-            <column>
-             <property name="text">
-              <string>Name</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Gamemode</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_li_bl">
-       <attribute name="title">
-        <string>Banlist</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="tab_li_rs">
-       <attribute name="title">
-        <string>Reserved Slots</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="tab_li_ss">
-       <attribute name="title">
-        <string>Spectator Slots</string>
-       </attribute>
-      </widget>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="tab_op">
-   <attribute name="title">
-    <string>Options</string>
-   </attribute>
-   <layout class="QGridLayout" name="gridLayout_8">
-    <item row="0" column="0">
-     <widget class="QTabWidget" name="tabWidget_op">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_so">
-       <attribute name="title">
-        <string>Server Options</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_9">
-        <item row="0" column="0">
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QLabel" name="label_op_so_serverName">
-            <property name="text">
-             <string>Server name</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="lineEdit_op_so_serverName"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_op_so_serverDescription">
-            <property name="text">
-             <string>Description</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTextEdit" name="textEdit_op_so_serverDescription"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_op_so_serverMessage">
-            <property name="text">
-             <string>Message</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="lineEdit_op_so_serverMessage"/>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="0">
-         <spacer name="verticalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="1" rowspan="2">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="tab_co">
-   <attribute name="title">
-    <string>Console</string>
-   </attribute>
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0">
-     <widget class="QTabWidget" name="tabWidget_co">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <property name="documentMode">
-       <bool>false</bool>
-      </property>
-      <widget class="QWidget" name="tab_co_co">
-       <attribute name="icon">
-        <iconset resource="../OpenRcon.qrc">
-         <normaloff>:/icons/images/icons/utilities-terminal.png</normaloff>:/icons/images/icons/utilities-terminal.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Console</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_10">
-        <item row="1" column="0">
-         <widget class="QLineEdit" name="lineEdit_co_co"/>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="pushButton_co_co">
+  <layout class="QGridLayout" name="gridLayout_7">
+   <item row="1" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="windowTitle">
+      <string/>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <property name="documentMode">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="tab_pl">
+      <attribute name="icon">
+       <iconset resource="../OpenRcon.qrc">
+        <normaloff>:/icons/images/icons/system-users.png</normaloff>:/icons/images/icons/system-users.png</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Players</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="0">
+        <widget class="QTreeWidget" name="treeWidget_pl_playerList">
+         <column>
           <property name="text">
-           <string>Send</string>
+           <string>Name</string>
           </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QTextEdit" name="textEdit_co_co">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_co_pb">
-       <attribute name="icon">
-        <iconset resource="../OpenRcon.qrc">
-         <normaloff>:/icons/images/icons/punkbuster.png</normaloff>:/icons/images/icons/punkbuster.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>PunkBuster</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_11">
-        <item row="0" column="0" colspan="2">
-         <widget class="QTextEdit" name="textEdit_co_pb">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLineEdit" name="lineEdit_co_pb"/>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="pushButton_co_pb">
+         </column>
+         <column>
           <property name="text">
-           <string>Send</string>
+           <string>Squad</string>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
+         </column>
+         <column>
+          <property name="text">
+           <string>Kills</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Deaths</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Score</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Ping</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>GUID</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
      </widget>
-    </item>
-   </layout>
-  </widget>
+     <widget class="QWidget" name="tab_ev">
+      <attribute name="title">
+       <string>Events</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="1" column="0">
+        <widget class="QTextEdit" name="textEdit_ev">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QTableWidget" name="tableWidget_ev">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="showGrid">
+          <bool>false</bool>
+         </property>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>17</number>
+         </attribute>
+         <attribute name="verticalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderMinimumSectionSize">
+          <number>17</number>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>Time</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Message</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_ch">
+      <attribute name="icon">
+       <iconset resource="../OpenRcon.qrc">
+        <normaloff>:/icons/images/icons/user-invisible.png</normaloff>:/icons/images/icons/user-invisible.png</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Chat</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="2">
+        <widget class="QSpinBox" name="spinBox_ch_duration"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="lineEdit_ch"/>
+       </item>
+       <item row="0" column="0" colspan="5">
+        <widget class="QTextEdit" name="textEdit_ch">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QPushButton" name="pushButton_ch">
+         <property name="text">
+          <string>Send</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="comboBox_ch_mode"/>
+       </item>
+       <item row="1" column="3">
+        <widget class="QComboBox" name="comboBox_ch_target"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_ml">
+      <attribute name="title">
+       <string>Maplist</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_13">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayout_12">
+         <item row="2" column="4" rowspan="4" colspan="6">
+          <widget class="QTableWidget" name="tableWidget_ml_current">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="showDropIndicator" stdset="0">
+            <bool>false</bool>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <property name="showGrid">
+            <bool>false</bool>
+           </property>
+           <property name="rowCount">
+            <number>0</number>
+           </property>
+           <property name="columnCount">
+            <number>3</number>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>200</number>
+           </attribute>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>17</number>
+           </attribute>
+           <attribute name="verticalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Gamemode</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Rounds</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="3">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_ml_avaliableMapImage">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item row="2" column="0" colspan="3">
+          <widget class="QComboBox" name="comboBox_ml_gameMode"/>
+         </item>
+         <item row="3" column="0" rowspan="3" colspan="3">
+          <widget class="QTableWidget" name="tableWidget_ml_avaliable">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <property name="showGrid">
+            <bool>false</bool>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>200</number>
+           </attribute>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>17</number>
+           </attribute>
+           <attribute name="verticalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderMinimumSectionSize">
+            <number>17</number>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Gamemode</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="2" column="3" rowspan="4">
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_ml_add">
+             <property name="text">
+              <string>Add</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spinBox_ml_rounds">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_ml_remove">
+             <property name="text">
+              <string>Remove</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="5">
+          <widget class="QLabel" name="label_ml_currentMapValue">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="6">
+          <widget class="QLabel" name="label_ml_nextMapText">
+           <property name="text">
+            <string>Next map:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4">
+          <widget class="QLabel" name="label_ml_currentMapText">
+           <property name="text">
+            <string>Current map:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="3">
+          <widget class="QLabel" name="label_ml_avaliableMapText">
+           <property name="text">
+            <string>Preview of selected map:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4" colspan="6">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QLabel" name="label_ml_currentMapImage">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_ml_nextMapImage">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="7" colspan="3">
+          <widget class="QLabel" name="label_ml_nextMapValue">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_bl">
+      <attribute name="title">
+       <string>Banlist</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="tab_op">
+      <attribute name="title">
+       <string>Options</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="0" column="0">
+        <widget class="QTabWidget" name="tabWidget_op">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab_so">
+          <attribute name="title">
+           <string>Server Options</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <widget class="QLabel" name="label_op_so_serverName">
+               <property name="text">
+                <string>Server name</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_op_so_serverName"/>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_op_so_serverDescription">
+               <property name="text">
+                <string>Description</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTextEdit" name="textEdit_op_so_serverDescription"/>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_op_so_serverMessage">
+               <property name="text">
+                <string>Message</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_op_so_serverMessage"/>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1" rowspan="2">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_rs">
+      <attribute name="title">
+       <string>Reserved Slots</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="tab_ss">
+      <attribute name="title">
+       <string>Spectator Slots</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="tab_co">
+      <attribute name="title">
+       <string>Console</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QTabWidget" name="tabWidget_co">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <property name="documentMode">
+          <bool>false</bool>
+         </property>
+         <widget class="QWidget" name="tab_co_co">
+          <attribute name="icon">
+           <iconset resource="../OpenRcon.qrc">
+            <normaloff>:/icons/images/icons/utilities-terminal.png</normaloff>:/icons/images/icons/utilities-terminal.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string>Console</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_10">
+           <item row="1" column="0">
+            <widget class="QLineEdit" name="lineEdit_co_co"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="pushButton_co_co">
+             <property name="text">
+              <string>Send</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QTextEdit" name="textEdit_co_co">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_co_pb">
+          <attribute name="icon">
+           <iconset resource="../OpenRcon.qrc">
+            <normaloff>:/icons/images/icons/punkbuster.png</normaloff>:/icons/images/icons/punkbuster.png</iconset>
+          </attribute>
+          <attribute name="title">
+           <string>PunkBuster</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_11">
+           <item row="0" column="0" colspan="2">
+            <widget class="QTextEdit" name="textEdit_co_pb">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLineEdit" name="lineEdit_co_pb"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="pushButton_co_pb">
+             <property name="text">
+              <string>Send</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_serverInfo_level">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_serverInfo_players">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_serverInfo_upTime">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_serverInfo_round">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
- <tabstops>
-  <tabstop>treeWidget_pl_playerList</tabstop>
- </tabstops>
  <resources>
   <include location="../OpenRcon.qrc"/>
  </resources>

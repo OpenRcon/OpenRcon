@@ -38,8 +38,6 @@ public:
 
     void exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    void sendLoginPlainTextCommand(const QString &password);
-    void sendLoginHashedCommand(const QString &password);
 private:
     // Call events.
     void eventOnPlayerAuthenticated(const FrostbiteRconPacket &packet);

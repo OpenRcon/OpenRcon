@@ -25,14 +25,13 @@
 //#define MAX_WORDS 100 // TODO: Think this right.
 // TODO: Should qint32 be replaced by RconUint?
 
-class FrostbiteRconPacket : QObject
+class FrostbiteRconPacket
 {
-    Q_OBJECT
 
 public:
-    explicit FrostbiteRconPacket(QObject *parent = 0);
-    FrostbiteRconPacket(int origin, int type, unsigned int initseq = 0);
-    FrostbiteRconPacket(const FrostbiteRconPacket &packet);
+    explicit FrostbiteRconPacket();
+    explicit FrostbiteRconPacket(int origin, int type, unsigned int initseq = 0);
+    explicit FrostbiteRconPacket(const FrostbiteRconPacket &packet);
     FrostbiteRconPacket &operator= (const FrostbiteRconPacket &packet);
     ~FrostbiteRconPacket();
 

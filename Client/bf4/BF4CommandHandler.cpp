@@ -69,7 +69,7 @@ void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &
         commandLoginPlainText(packet);
     } else if (command == "login.hashed") {
         commandLoginHashed(packet, lastSentPacket);
-    } else if (command == "serverinfo") {
+    } else if (command == "serverInfo") {
         commandServerInfo(packet);
     } else if (command == "logout") {
         commandLogout(packet);
@@ -292,16 +292,6 @@ void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &
     }
 }
 
-void BF4CommandHandler::sendLoginPlainTextCommand(const QString &password)
-{
-
-}
-
-void BF4CommandHandler::sendLoginHashedCommand(const QString &password)
-{
-
-}
-
 /* Events */
 void BF4CommandHandler::eventOnPlayerAuthenticated(const FrostbiteRconPacket &packet)
 {
@@ -455,12 +445,6 @@ void BF4CommandHandler::commandServerInfo(const FrostbiteRconPacket &packet)
     QString response(packet.getWord(0).getContent());
 
     if (response == "OK" && packet.getWordCount() > 0) {
-        QStringList serverInfo;
-
-        for (unsigned int i = 1; i < packet.getWordCount(); i++) {
-            serverInfo.append(packet.getWord(i).getContent());
-        }
-
         QString serverName = packet.getWord(1).getContent();
         int playerCount = QString(packet.getWord(2).getContent()).toInt();
         int maxPlayerCount = QString(packet.getWord(3).getContent()).toInt();
@@ -485,7 +469,7 @@ void BF4CommandHandler::commandServerInfo(const FrostbiteRconPacket &packet)
         int blazePlayerCount = QString(packet.getWord(22).getContent()).toInt();
         QString blazeGameState = packet.getWord(23).getContent();
 
-        emit(onServerInfoCommand(ServerInfo(serverName, playerCount, maxPlayerCount, gamemode, currentMap, roundsPlayed, roundsTotal, scores, onlineState, ranked, punkBuster, hasGamePassword, serverUpTime, roundTime, gameIpAndPort,  punkBusterVersion, joinQueueEnabled, region, closestPingSite, country,  matchMakingEnabled, blazePlayerCount, blazeGameState)));
+        emit(onServerInfoCommand(ServerInfo(serverName, playerCount, maxPlayerCount, gamemode, currentMap, roundsPlayed, roundsTotal, scores, onlineState, ranked, punkBuster, hasGamePassword, serverUpTime, roundTime, gameIpAndPort,  punkBusterVersion, joinQueueEnabled, region, closestPingSite, country,  matchMakingEnabled, blazePlayerCount, blazeGameState)));  
     }
 }
 
@@ -598,9 +582,7 @@ void BF4CommandHandler::commandAdminListPlayers(const FrostbiteRconPacket &packe
                 list.append(packet.getWord(2 + parameters + 1 + i * parameters + j).getContent());
             }
 
-
-
-            QString name; list.at(0);
+            QString name = list.at(0);
             QString guid = list.at(1);
             int teamId = list.at(2).toInt();
             int squadId = list.at(3).toInt();

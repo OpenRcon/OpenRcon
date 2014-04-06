@@ -33,13 +33,13 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     ui->comboBox_ch_target->addItem("Squad");
 
     // Add the gamemodes to the comboBox.
-    ui->comboBox_li_ml_gameMode->addItems(levels->getGameModeNames());
+    ui->comboBox_ml_gameMode->addItems(levels->getGameModeNames());
 
     // Add the levels to the level maplist.
     setAvaliableMaplist(0);
 
     // Set the default round count.
-    ui->spinBox_li_ml_rounds->setValue(2);
+    ui->spinBox_ml_rounds->setValue(2);
 
     // Adds all the commands to the commandList.
     commandList.append("login.plainText ");
@@ -191,11 +191,11 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(ui->pushButton_ch, SIGNAL(clicked()), this, SLOT(pushButton_ch_clicked()));
     connect(ui->lineEdit_ch, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_clicked()));
 
-    connect(ui->comboBox_li_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_li_ml_gameMode_currentIndexChanged(int)));
-    connect(ui->tableWidget_li_ml_avaliable, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_li_ml_avaliable_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
-    connect(ui->pushButton_li_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_li_ml_add_clicked()));
-    connect(ui->pushButton_li_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_li_ml_remove_clicked()));
-    connect(ui->tableWidget_li_ml_current, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_li_ml_current_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
+    connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
+    connect(ui->tableWidget_ml_avaliable, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
+    connect(ui->pushButton_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_ml_add_clicked()));
+    connect(ui->pushButton_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_ml_remove_clicked()));
+    connect(ui->tableWidget_ml_current, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_ml_current_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
 
     connect(ui->lineEdit_op_so_serverName, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverName_editingFinished()));
     connect(ui->textEdit_op_so_serverDescription, SIGNAL(textChanged()), this, SLOT(textEdit_op_so_serverDescription_textChanged()));
@@ -227,9 +227,13 @@ void BF4Widget::logMessage(const int &type, const QString &message)
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
     if (type == 0) { // Info
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
+        addEvent(QString("<span style=\"color:#008000\">%1</span>").arg(message));
+
+        //ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 1) { // Error
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime).arg(message));
+        addEvent(QString("<span style=\"color:#008000\">%1</span>").arg(message));
+
+        //ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 2) { // Server send
         ui->textEdit_co_co->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 3) { // Server receive
@@ -380,7 +384,12 @@ void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const 
 
 void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
 {
+    LevelEntry level = levels->getLevel(serverInfo.currentMap);
+    GameModeEntry gameMode = levels->getGameMode(serverInfo.gameMode);
 
+    ui->label_serverInfo_level->setText(QString("%1 - %2").arg(level.name).arg(gameMode.name));
+    ui->label_serverInfo_players->setText(QString("Players: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
+    ui->label_serverInfo_round->setText(QString("Round: %1/%2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
 }
 
 void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList)
@@ -454,12 +463,30 @@ void BF4Widget::onVarsServerMessageCommand(const QString &serverMessage)
     ui->lineEdit_op_so_serverMessage->setText(serverMessage);
 }
 
+/* User Interface */
+
+/* Players */
 QIcon BF4Widget::getRankIcon(const int &rank)
 {
     return QIcon(QString(":/bf4/ranks/rank_%1.png").arg(rank));
 }
 
-/* User Interface */
+void BF4Widget::updatePlayerList()
+{
+    con->sendCommand("\"admin.listPlayers\" \"all\"");
+}
+
+/* Event */
+void BF4Widget::addEvent(const QString &message)
+{
+    int row = ui->tableWidget_ml_avaliable->rowCount();
+
+    ui->tableWidget_ev->insertRow(row + 1);
+    ui->tableWidget_ev->setItem(row, 0, new QTableWidgetItem(QTime::currentTime().toString()));
+    ui->tableWidget_ev->setItem(row, 1, new QTableWidgetItem(message));
+}
+
+/* Chat */
 void BF4Widget::pushButton_ch_clicked()
 {
     int type = ui->comboBox_ch_mode->currentIndex();
@@ -482,38 +509,39 @@ void BF4Widget::pushButton_ch_clicked()
     }
 }
 
-void BF4Widget::comboBox_li_ml_gameMode_currentIndexChanged(int index)
+/* Maplist */
+void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
 {
-    ui->tableWidget_li_ml_avaliable->clear();
+    ui->tableWidget_ml_avaliable->clear();
 
     if (index >= 0) {
         setAvaliableMaplist(index);
     }
 }
 
-void BF4Widget::tableWidget_li_ml_avaliable_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
+void BF4Widget::tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
 {
     Q_UNUSED(current);
     Q_UNUSED(previous);
 
-    int row = ui->tableWidget_li_ml_avaliable->currentRow();
+    int row = ui->tableWidget_ml_avaliable->currentRow();
 
     if (row >= 0) {
-        LevelEntry level = levels->getLevel(ui->tableWidget_li_ml_avaliable->item(row, 0)->text());
+        LevelEntry level = levels->getLevel(ui->tableWidget_ml_avaliable->item(row, 0)->text());
 
-        ui->label_li_ml_avaliableMapImage->setPixmap(level.image);
+        ui->label_ml_avaliableMapImage->setPixmap(level.image);
     }
 }
 
-void BF4Widget::pushButton_li_ml_add_clicked()
+void BF4Widget::pushButton_ml_add_clicked()
 {
-    int row = ui->tableWidget_li_ml_avaliable->currentRow();
-    QString levelName = ui->tableWidget_li_ml_avaliable->item(row, 0)->text();
-    QString gameModeName = ui->tableWidget_li_ml_avaliable->item(row, 1)->text();
+    int row = ui->tableWidget_ml_avaliable->currentRow();
+    QString levelName = ui->tableWidget_ml_avaliable->item(row, 0)->text();
+    QString gameModeName = ui->tableWidget_ml_avaliable->item(row, 1)->text();
 
     LevelEntry level = levels->getLevel(levelName);
     GameModeEntry gameMode = levels->getGameMode(gameModeName);
-    int rounds = ui->spinBox_li_ml_rounds->value();
+    int rounds = ui->spinBox_ml_rounds->value();
 
     if (rounds > 0) {
         addCurrentMapListRow(level.name, gameMode.name, rounds);
@@ -522,38 +550,38 @@ void BF4Widget::pushButton_li_ml_add_clicked()
     }
 }
 
-void BF4Widget::pushButton_li_ml_remove_clicked()
+void BF4Widget::pushButton_ml_remove_clicked()
 {
-    int index = ui->tableWidget_li_ml_current->currentRow();
+    int index = ui->tableWidget_ml_current->currentRow();
 
     if (index >= 0) {
-        ui->tableWidget_li_ml_current->removeRow(index);
+        ui->tableWidget_ml_current->removeRow(index);
 
         con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
     }
 }
 
-void BF4Widget::tableWidget_li_ml_current_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
+void BF4Widget::tableWidget_ml_current_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
 {
     Q_UNUSED(current);
     Q_UNUSED(previous);
 
-    int row = ui->tableWidget_li_ml_current->currentRow();
+    int row = ui->tableWidget_ml_current->currentRow();
 
     if (row >= 0) {
-        LevelEntry level = levels->getLevel(ui->tableWidget_li_ml_current->item(row, 0)->text());
+        LevelEntry level = levels->getLevel(ui->tableWidget_ml_current->item(row, 0)->text());
 
-        ui->label_li_ml_currentMapImage->setPixmap(level.image);
+        ui->label_ml_currentMapImage->setPixmap(level.image);
     }
 }
 
 void BF4Widget::addAvaliableMapListRow(const QString &name, const QString &gameMode)
 {
-    int row = ui->tableWidget_li_ml_avaliable->rowCount();
+    int row = ui->tableWidget_ml_avaliable->rowCount();
 
-    ui->tableWidget_li_ml_avaliable->insertRow(row);
-    ui->tableWidget_li_ml_avaliable->setItem(row, 0, new QTableWidgetItem(name));
-    ui->tableWidget_li_ml_avaliable->setItem(row, 1, new QTableWidgetItem(gameMode));
+    ui->tableWidget_ml_avaliable->insertRow(row);
+    ui->tableWidget_ml_avaliable->setItem(row, 0, new QTableWidgetItem(name));
+    ui->tableWidget_ml_avaliable->setItem(row, 1, new QTableWidgetItem(gameMode));
 }
 
 void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
@@ -561,9 +589,9 @@ void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
     QList<LevelEntry> levelList = levels->getLevels(gameModeIndex);
     GameModeEntry gameMode = levels->getGameMode(gameModeIndex);
 
-    ui->label_li_ml_avaliableMapImage->setPixmap(levelList.first().image);
+    ui->label_ml_avaliableMapImage->setPixmap(levelList.first().image);
 
-    ui->tableWidget_li_ml_avaliable->clearContents();
+    ui->tableWidget_ml_avaliable->clearContents();
 
     for (int i = 0; i < levelList.length(); i++) {
         LevelEntry level = levelList.at(i);
@@ -574,17 +602,17 @@ void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
 
 void BF4Widget::addCurrentMapListRow(const QString &name, const QString &gameMode, const int &rounds)
 {
-    int row = ui->tableWidget_li_ml_current->rowCount();
+    int row = ui->tableWidget_ml_current->rowCount();
 
-    ui->tableWidget_li_ml_current->insertRow(row);
-    ui->tableWidget_li_ml_current->setItem(row, 0, new QTableWidgetItem(name));
-    ui->tableWidget_li_ml_current->setItem(row, 1, new QTableWidgetItem(gameMode));
-    ui->tableWidget_li_ml_current->setItem(row, 2, new QTableWidgetItem(QString::number(rounds)));
+    ui->tableWidget_ml_current->insertRow(row);
+    ui->tableWidget_ml_current->setItem(row, 0, new QTableWidgetItem(name));
+    ui->tableWidget_ml_current->setItem(row, 1, new QTableWidgetItem(gameMode));
+    ui->tableWidget_ml_current->setItem(row, 2, new QTableWidgetItem(QString::number(rounds)));
 }
 
 void BF4Widget::setCurrentMaplist(const MapList &mapList)
 {
-    ui->tableWidget_li_ml_current->clearContents();
+    ui->tableWidget_ml_current->clearContents();
 
     for (int i = 0; i < mapList.length(); i++) {
         MapListEntry entry = mapList.at(i);
@@ -592,13 +620,14 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
         GameModeEntry gameMode = levels->getGameMode(entry.gameMode);
 
         if (i == 0) {
-            ui->label_li_ml_currentMapImage->setPixmap(level.image);
+            ui->label_ml_currentMapImage->setPixmap(level.image);
         }
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
     }
 }
 
+/* Options */
 void BF4Widget::lineEdit_op_so_serverName_editingFinished()
 {
     QString serverName = ui->lineEdit_op_so_serverName->text();
@@ -626,6 +655,7 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
     }
 }
 
+/* Console */
 void BF4Widget::pushButton_co_co_clicked()
 {
     QString command = ui->lineEdit_co_co->text();
@@ -640,9 +670,4 @@ void BF4Widget::pushButton_co_pb_clicked()
     ui->lineEdit_co_pb->clear();
 
     con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
-}
-
-void BF4Widget::updatePlayerList()
-{
-    con->sendCommand("\"admin.listPlayers\" \"all\"");
 }

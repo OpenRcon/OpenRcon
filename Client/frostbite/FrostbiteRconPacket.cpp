@@ -19,7 +19,7 @@
 
 #include "FrostbiteRconPacket.h"
 
-FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent), packetSequence(0), packetSize(0), packetWordCount(0)
+FrostbiteRconPacket::FrostbiteRconPacket() : packetSequence(0), packetSize(0), packetWordCount(0)
 {
 
 }
