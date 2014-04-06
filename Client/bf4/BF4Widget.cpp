@@ -512,8 +512,6 @@ void BF4Widget::pushButton_ch_clicked()
 /* Maplist */
 void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
 {
-    ui->tableWidget_ml_avaliable->clear();
-
     if (index >= 0) {
         setAvaliableMaplist(index);
     }
@@ -592,6 +590,7 @@ void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
     ui->label_ml_avaliableMapImage->setPixmap(levelList.first().image);
 
     ui->tableWidget_ml_avaliable->clearContents();
+    ui->tableWidget_ml_avaliable->setRowCount(0);
 
     for (int i = 0; i < levelList.length(); i++) {
         LevelEntry level = levelList.at(i);
@@ -613,6 +612,7 @@ void BF4Widget::addCurrentMapListRow(const QString &name, const QString &gameMod
 void BF4Widget::setCurrentMaplist(const MapList &mapList)
 {
     ui->tableWidget_ml_current->clearContents();
+    ui->tableWidget_ml_current->setRowCount(0);
 
     for (int i = 0; i < mapList.length(); i++) {
         MapListEntry entry = mapList.at(i);

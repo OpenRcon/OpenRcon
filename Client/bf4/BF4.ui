@@ -217,85 +217,34 @@
        <string>Maplist</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="0" colspan="3">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <layout class="QFormLayout" name="formLayout">
-           <item row="1" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_avaliableMapImage">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_avaliableMapText">
-             <property name="text">
-              <string>Preview of selected map:</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QFormLayout" name="formLayout_2">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_ml_currentMapText">
-             <property name="text">
-              <string>Current map:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_ml_currentMapValue">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_currentMapImage">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QFormLayout" name="formLayout_3">
-           <property name="fieldGrowthPolicy">
-            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-           </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_ml_nextMapText">
-             <property name="text">
-              <string>Next map:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_ml_nextMapValue">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_nextMapImage">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
        <item row="1" column="0">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QComboBox" name="comboBox_ml_gameMode"/>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_ml_gameMode">
+             <property name="text">
+              <string>Gamemode:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBox_ml_gameMode"/>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QTableWidget" name="tableWidget_ml_avaliable">
@@ -347,7 +296,7 @@
         </layout>
        </item>
        <item row="1" column="1">
-        <layout class="QVBoxLayout" name="verticalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
           <spacer name="verticalSpacer">
            <property name="orientation">
@@ -455,12 +404,87 @@
          </column>
         </widget>
        </item>
+       <item row="0" column="0" colspan="3">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <layout class="QFormLayout" name="formLayout">
+           <item row="1" column="0" colspan="2">
+            <widget class="QLabel" name="label_ml_avaliableMapImage">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QLabel" name="label_ml_avaliableMapText">
+             <property name="text">
+              <string>Preview of selected map:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QFormLayout" name="formLayout_2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_ml_currentMapText">
+             <property name="text">
+              <string>Current map:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_ml_currentMapValue">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QLabel" name="label_ml_currentMapImage">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QFormLayout" name="formLayout_3">
+           <property name="fieldGrowthPolicy">
+            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+           </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_ml_nextMapText">
+             <property name="text">
+              <string>Next map:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_ml_nextMapValue">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QLabel" name="label_ml_nextMapImage">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
       </layout>
-      <zorder></zorder>
       <zorder>tableWidget_ml_current</zorder>
       <zorder>verticalLayoutWidget</zorder>
       <zorder>label_ml_nextMapImage</zorder>
       <zorder>horizontalLayoutWidget</zorder>
+      <zorder>verticalLayoutWidget_2</zorder>
      </widget>
      <widget class="QWidget" name="tab_bl">
       <attribute name="title">
@@ -640,6 +664,8 @@
     </widget>
    </item>
   </layout>
+  <zorder>tabWidget</zorder>
+  <zorder>horizontalLayoutWidget_2</zorder>
  </widget>
  <resources>
   <include location="../OpenRcon.qrc"/>
