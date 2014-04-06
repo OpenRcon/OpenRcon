@@ -554,21 +554,27 @@ void BF4Widget::pushButton_ml_add_clicked()
 {
     // Make sure that tableWidget_ml_avaliable selected item count is greater than zero.
     if (ui->tableWidget_ml_avaliable->selectedItems().length() > 0) {
-        int row = ui->tableWidget_ml_avaliable->currentRow();
-        QString levelName = ui->tableWidget_ml_avaliable->item(row, 0)->text();
-        QString gameModeName = ui->tableWidget_ml_avaliable->item(row, 1)->text();
-
-        LevelEntry level = levels->getLevel(levelName);
-        GameModeEntry gameMode = levels->getGameMode(gameModeName);
         int rounds = ui->spinBox_ml_rounds->value();
 
         if (rounds > 0) {
-            if (ui->tableWidget_ml_current->rowCount() < 1) {
-                ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
-            }
+            QModelIndexList indexList = ui->tableWidget_ml_avaliable->selectionModel()->selectedRows();
 
-            con->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\"").arg(level.engineName).arg(gameMode.engineName).arg(rounds));
-            addCurrentMapListRow(level.name, gameMode.name, rounds);
+            foreach (QModelIndex index, indexList) {
+                int row = index.row();
+
+                QString levelName = ui->tableWidget_ml_avaliable->item(row, 0)->text();
+                QString gameModeName = ui->tableWidget_ml_avaliable->item(row, 1)->text();
+
+                LevelEntry level = levels->getLevel(levelName);
+                GameModeEntry gameMode = levels->getGameMode(gameModeName);
+
+                if (ui->tableWidget_ml_current->rowCount() < 1) {
+                    ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
+                }
+
+                con->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\"").arg(level.engineName).arg(gameMode.engineName).arg(rounds));
+                addCurrentMapListRow(level.name, gameMode.name, rounds);
+            }
         }
     }
 }
@@ -581,10 +587,14 @@ void BF4Widget::pushButton_ml_remove_clicked()
             ui->label_ml_currentSelectedMapImage->clear();
         }
 
-        int index = ui->tableWidget_ml_current->currentRow();
+        QModelIndexList indexList = ui->tableWidget_ml_current->selectionModel()->selectedRows();
 
-        con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
-        ui->tableWidget_ml_current->removeRow(index);
+        foreach (QModelIndex index, indexList) {
+            int row = index.row();
+
+            con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(row));
+            ui->tableWidget_ml_current->removeRow(row);
+        }
     }
 }
 

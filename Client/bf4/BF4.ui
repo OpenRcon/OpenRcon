@@ -68,7 +68,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -252,7 +252,7 @@
             <set>QAbstractItemView::NoEditTriggers</set>
            </property>
            <property name="selectionMode">
-            <enum>QAbstractItemView::SingleSelection</enum>
+            <enum>QAbstractItemView::MultiSelection</enum>
            </property>
            <property name="selectionBehavior">
             <enum>QAbstractItemView::SelectRows</enum>
@@ -355,7 +355,7 @@
           <bool>false</bool>
          </property>
          <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
+          <enum>QAbstractItemView::MultiSelection</enum>
          </property>
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
@@ -473,11 +473,6 @@
         </layout>
        </item>
       </layout>
-      <zorder>tableWidget_ml_current</zorder>
-      <zorder>verticalLayoutWidget</zorder>
-      <zorder>label_ml_currentSelectedMapImage</zorder>
-      <zorder>horizontalLayoutWidget</zorder>
-      <zorder>verticalLayoutWidget_2</zorder>
      </widget>
      <widget class="QWidget" name="tab_bl">
       <attribute name="title">
@@ -667,8 +662,6 @@
     </widget>
    </item>
   </layout>
-  <zorder>tabWidget</zorder>
-  <zorder>horizontalLayoutWidget_2</zorder>
  </widget>
  <resources>
   <include location="../OpenRcon.qrc"/>

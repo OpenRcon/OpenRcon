@@ -11,6 +11,8 @@ public:
     ~BFBaseGame();
 
 protected:
+    QStringList commandList;
+
     enum PlayerSubset {
         All,
         Team,

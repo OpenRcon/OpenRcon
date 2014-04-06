@@ -51,6 +51,10 @@ BF4Levels::BF4Levels(QObject *parent) : BFBaseLevels(":/bf4/levels/", parent)
     levelList.append(LevelEntry("XP2_003", "Wave Breaker", imagePath + "wave_breaker.png"));                                // 20
     levelList.append(LevelEntry("XP2_004", "Operation Mortar", imagePath + "operation_mortar.png"));                        // 21
 
+    // XP4 (Dragon's Teeth)
+
+    // XP5 (Final Stand)
+
     /* List of all gamemodes */
     gameModeList.append(BF4GameModeEntry("ConquestLarge0", "Conquest Large", 64, 2, 4));               // 0
     gameModeList.append(BF4GameModeEntry("ConquestSmall0", "Conquest Small", 32, 2, 4));               // 1

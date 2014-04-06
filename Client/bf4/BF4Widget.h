@@ -40,7 +40,6 @@ private:
     Ui::BF4 *ui;
     BF4Levels *levels;
 
-    QStringList commandList;
     QCompleter *completer;
 
     void logMessage(const int &type, const QString &message);
