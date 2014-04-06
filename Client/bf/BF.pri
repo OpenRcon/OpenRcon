@@ -1,8 +1,11 @@
-HEADERS += bf/BFLevels.h \
+HEADERS += bf/BFGame.h \
+    bf/BFLevels.h \
+    bf/BFCommandHandler.h \
     bf/MapListEntry.h \
     bf/LevelEntry.h \
-    bf/GameModeEntry.h \
-    bf/BFGame.h
+    bf/GameModeEntry.h
 
-SOURCES += bf/BFLevels.cpp \
-    bf/BFGame.cpp
+
+SOURCES += bf/BFGame.cpp \
+    bf/BFLevels.cpp \
+    bf/BFCommandHandler.cpp

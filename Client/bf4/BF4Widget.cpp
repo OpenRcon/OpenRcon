@@ -41,6 +41,8 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     // Set the default round count.
     ui->spinBox_ml_rounds->setValue(2);
 
+    addEvent("Test");
+
     // Adds all the commands to the commandList.
     commandList.append("login.plainText ");
     commandList.append("login.hashed");
@@ -495,9 +497,10 @@ void BF4Widget::updatePlayerList()
 /* Event */
 void BF4Widget::addEvent(const QString &message)
 {
+    ui->tableWidget_ev->setRowCount(8);
     int row = ui->tableWidget_ml_avaliable->rowCount();
 
-    ui->tableWidget_ev->insertRow(row + 1);
+    ui->tableWidget_ev->insertRow(row);
     ui->tableWidget_ev->setItem(row, 0, new QTableWidgetItem(QTime::currentTime().toString()));
     ui->tableWidget_ev->setItem(row, 1, new QTableWidgetItem(message));
 }
@@ -549,29 +552,39 @@ void BF4Widget::tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem *cu
 
 void BF4Widget::pushButton_ml_add_clicked()
 {
-    int row = ui->tableWidget_ml_avaliable->currentRow();
-    QString levelName = ui->tableWidget_ml_avaliable->item(row, 0)->text();
-    QString gameModeName = ui->tableWidget_ml_avaliable->item(row, 1)->text();
+    // Make sure that tableWidget_ml_avaliable selected item count is greater than zero.
+    if (ui->tableWidget_ml_avaliable->selectedItems().length() > 0) {
+        int row = ui->tableWidget_ml_avaliable->currentRow();
+        QString levelName = ui->tableWidget_ml_avaliable->item(row, 0)->text();
+        QString gameModeName = ui->tableWidget_ml_avaliable->item(row, 1)->text();
 
-    LevelEntry level = levels->getLevel(levelName);
-    GameModeEntry gameMode = levels->getGameMode(gameModeName);
-    int rounds = ui->spinBox_ml_rounds->value();
+        LevelEntry level = levels->getLevel(levelName);
+        GameModeEntry gameMode = levels->getGameMode(gameModeName);
+        int rounds = ui->spinBox_ml_rounds->value();
 
-    if (rounds > 0) {
-        addCurrentMapListRow(level.name, gameMode.name, rounds);
+        if (rounds > 0) {
+            if (ui->tableWidget_ml_current->rowCount() < 1) {
+                ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
+            }
 
-        con->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\"").arg(level.engineName).arg(gameMode.engineName).arg(rounds));
+            con->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\"").arg(level.engineName).arg(gameMode.engineName).arg(rounds));
+            addCurrentMapListRow(level.name, gameMode.name, rounds);
+        }
     }
 }
 
 void BF4Widget::pushButton_ml_remove_clicked()
 {
-    int index = ui->tableWidget_ml_current->currentRow();
+    // Make sure that tableWidget_ml_current selected item count is greater than zero.
+    if (ui->tableWidget_ml_current->selectedItems().length() > 0) {
+        if (ui->tableWidget_ml_current->rowCount() <= 1) {
+            ui->label_ml_currentSelectedMapImage->clear();
+        }
 
-    if (index >= 0) {
-        ui->tableWidget_ml_current->removeRow(index);
+        int index = ui->tableWidget_ml_current->currentRow();
 
         con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
+        ui->tableWidget_ml_current->removeRow(index);
     }
 }
 
@@ -634,6 +647,10 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
         MapListEntry entry = mapList.at(i);
         LevelEntry level = levels->getLevel(entry.level);
         GameModeEntry gameMode = levels->getGameMode(entry.gameMode);
+
+        if (i == 0) {
+            ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
+        }
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
     }
