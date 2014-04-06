@@ -68,8 +68,11 @@ private slots:
     /* Commands */
     void onLoginHashedCommand();
     void onVersionCommand(const QString &type, const int &buildId, const QString &version);
+
     void onServerInfoCommand(const ServerInfo &serverInfo);
+
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList);
+
     void onMapListListCommand(const MapList &mapList);
 
     void onVarsServerNameCommand(const QString &serverName);

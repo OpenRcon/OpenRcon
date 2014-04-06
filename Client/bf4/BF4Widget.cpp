@@ -180,9 +180,12 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     /* Commands */
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
-    connect(con->commandHandler, SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
     connect(con->commandHandler, SIGNAL(onVersionCommand(const QString&, const int&, const QString&)), this, SLOT(onVersionCommand(const QString&, const int&, const QString&)));
+
+    connect(con->commandHandler, SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
+
     connect(con->commandHandler, SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&)));
+
     connect(con->commandHandler, SIGNAL(onMapListListCommand(const MapList&)), this, SLOT(onMapListListCommand(const MapList&)));
 
     connect(con->commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
@@ -404,9 +407,9 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
     int gameModeIndex = levels->getGameModeNames().indexOf(currentGameMode.name);
 
     ui->label_ml_currentMapImage->setPixmap(currentLevel.image);
-    ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
+    ui->label_ml_currentMapValue->setText(currentLevel.name);
 
-    qDebug() << "Setting current maplist to gameMode:" << gameModeIndex;
+    ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
     setAvaliableMaplist(gameModeIndex);
 }
 
@@ -583,7 +586,7 @@ void BF4Widget::pushButton_ml_remove_clicked()
 {
     // Make sure that tableWidget_ml_current selected item count is greater than zero.
     if (ui->tableWidget_ml_current->selectedItems().length() > 0) {
-        if (ui->tableWidget_ml_current->rowCount() <= 1) {
+        if (ui->tableWidget_ml_current->rowCount() >= 1) {
             ui->label_ml_currentSelectedMapImage->clear();
         }
 
@@ -591,6 +594,7 @@ void BF4Widget::pushButton_ml_remove_clicked()
 
         foreach (QModelIndex index, indexList) {
             int row = index.row();
+            qDebug() << "Row is:" << index;
 
             con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(row));
             ui->tableWidget_ml_current->removeRow(row);
