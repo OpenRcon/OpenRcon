@@ -409,14 +409,14 @@
          <item>
           <layout class="QFormLayout" name="formLayout">
            <item row="1" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_avaliableMapImage">
+            <widget class="QLabel" name="label_ml_avaliableSelectedMapImage">
              <property name="text">
               <string/>
              </property>
             </widget>
            </item>
            <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_avaliableMapText">
+            <widget class="QLabel" name="label_ml_avaliableSelectedMapText">
              <property name="text">
               <string>Preview of selected map:</string>
              </property>
@@ -454,24 +454,17 @@
            <property name="fieldGrowthPolicy">
             <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
            </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_ml_nextMapText">
-             <property name="text">
-              <string>Next map:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_ml_nextMapValue">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_nextMapImage">
+            <widget class="QLabel" name="label_ml_currentSelectedMapImage">
              <property name="text">
               <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QLabel" name="label_ml_currentSelectedMapText">
+             <property name="text">
+              <string>Preview of selected map:</string>
              </property>
             </widget>
            </item>
@@ -482,7 +475,7 @@
       </layout>
       <zorder>tableWidget_ml_current</zorder>
       <zorder>verticalLayoutWidget</zorder>
-      <zorder>label_ml_nextMapImage</zorder>
+      <zorder>label_ml_currentSelectedMapImage</zorder>
       <zorder>horizontalLayoutWidget</zorder>
       <zorder>verticalLayoutWidget_2</zorder>
      </widget>
@@ -501,9 +494,9 @@
          <property name="currentIndex">
           <number>0</number>
          </property>
-         <widget class="QWidget" name="tab_so">
+         <widget class="QWidget" name="tab_so_de">
           <attribute name="title">
-           <string>Server Options</string>
+           <string>Details</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_9">
            <item row="0" column="0">
@@ -567,6 +560,16 @@
             </spacer>
            </item>
           </layout>
+         </widget>
+         <widget class="QWidget" name="tab_so_co">
+          <attribute name="title">
+           <string>Configuration</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tab_so_gp">
+          <attribute name="title">
+           <string>Gameplay</string>
+          </attribute>
          </widget>
         </widget>
        </item>

@@ -248,14 +248,21 @@ void BF4Widget::logMessage(const int &type, const QString &message)
 void BF4Widget::startupCommands() {
     con->sendCommand("\"admin.eventsEnabled\" \"true\"");
     con->sendCommand("version");
-    con->sendCommand("serverInfo");
-    con->sendCommand("\"admin.listPlayers\" \"all\"");
 
+    // All
+    con->sendCommand("serverInfo");
+
+    // Players
+    con->sendCommand("\"admin.listPlayers\" \"all\"");
+    con->sendCommand("\"punkBuster.pb_sv_command\" \"pb_sv_plist\"");
+
+    // Maplist
+    con->sendCommand("\"maplist.list\" \"0\"");
+
+    // Server Options
     con->sendCommand("vars.serverName");
     con->sendCommand("vars.serverDescription");
     con->sendCommand("vars.serverMessage");
-
-    con->sendCommand("\"maplist.list\" \"0\"");
 }
 
 /* Events */
@@ -384,12 +391,21 @@ void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const 
 
 void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
 {
-    LevelEntry level = levels->getLevel(serverInfo.currentMap);
-    GameModeEntry gameMode = levels->getGameMode(serverInfo.gameMode);
+    LevelEntry currentLevel = levels->getLevel(serverInfo.currentMap);
+    GameModeEntry currentGameMode = levels->getGameMode(serverInfo.gameMode);
 
-    ui->label_serverInfo_level->setText(QString("%1 - %2").arg(level.name).arg(gameMode.name));
+    ui->label_serverInfo_level->setText(QString("%1 - %2").arg(currentLevel.name).arg(currentGameMode.name));
     ui->label_serverInfo_players->setText(QString("Players: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
     ui->label_serverInfo_round->setText(QString("Round: %1/%2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
+
+    // Set maplist.
+    int gameModeIndex = levels->getGameModeNames().indexOf(currentGameMode.name);
+
+    ui->label_ml_currentMapImage->setPixmap(currentLevel.image);
+    ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
+
+    qDebug() << "Setting current maplist to gameMode:" << gameModeIndex;
+    setAvaliableMaplist(gameModeIndex);
 }
 
 void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList)
@@ -527,7 +543,7 @@ void BF4Widget::tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem *cu
     if (row >= 0) {
         LevelEntry level = levels->getLevel(ui->tableWidget_ml_avaliable->item(row, 0)->text());
 
-        ui->label_ml_avaliableMapImage->setPixmap(level.image);
+        ui->label_ml_avaliableSelectedMapImage->setPixmap(level.image);
     }
 }
 
@@ -569,7 +585,7 @@ void BF4Widget::tableWidget_ml_current_currentItemChanged(QTableWidgetItem *curr
     if (row >= 0) {
         LevelEntry level = levels->getLevel(ui->tableWidget_ml_current->item(row, 0)->text());
 
-        ui->label_ml_currentMapImage->setPixmap(level.image);
+        ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
     }
 }
 
@@ -587,7 +603,7 @@ void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
     QList<LevelEntry> levelList = levels->getLevels(gameModeIndex);
     GameModeEntry gameMode = levels->getGameMode(gameModeIndex);
 
-    ui->label_ml_avaliableMapImage->setPixmap(levelList.first().image);
+    ui->label_ml_avaliableSelectedMapImage->setPixmap(levelList.first().image);
 
     ui->tableWidget_ml_avaliable->clearContents();
     ui->tableWidget_ml_avaliable->setRowCount(0);
@@ -618,10 +634,6 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
         MapListEntry entry = mapList.at(i);
         LevelEntry level = levels->getLevel(entry.level);
         GameModeEntry gameMode = levels->getGameMode(entry.gameMode);
-
-        if (i == 0) {
-            ui->label_ml_currentMapImage->setPixmap(level.image);
-        }
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
     }
