@@ -28,8 +28,6 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-
-    // Set application defaults
     app.setApplicationName(APP_NAME);
     app.setApplicationVersion(APP_VERSION);
     app.setOrganizationName(APP_AUTHOR);
@@ -46,11 +44,10 @@ int main(int argc, char *argv[])
     }
 
     translator.load(":/locale/openrcon_" + locale);
-
     app.installTranslator(&translator);
 
-    OpenRcon *o = OpenRcon::getInstance();
-    o->show();
+    OpenRcon w;
+    w.show();
 
     return app.exec();
 }

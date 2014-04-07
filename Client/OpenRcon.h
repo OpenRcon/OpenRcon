@@ -62,14 +62,10 @@ class OpenRcon : public QMainWindow
 {
     Q_OBJECT
 
-protected:
-    explicit OpenRcon(QWidget *parent = 0);
-    static OpenRcon* m_Instance;
-
-private:
-
-
 public:
+    explicit OpenRcon(QWidget *parent = 0);
+    ~OpenRcon();
+
     static OpenRcon *getInstance(QWidget* parent = 0) {
         if (!m_Instance) {
             m_Instance = new OpenRcon(parent);
@@ -78,10 +74,11 @@ public:
         return m_Instance;
     }
 
-    ~OpenRcon();
-
     void newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
     QList<GameEntry> getGameList();
+
+protected:
+    static OpenRcon* m_Instance;
 
 private:
     Ui::OpenRcon *ui;
