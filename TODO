@@ -7,22 +7,19 @@ OpenRcon:
         - Implement working Plugin system that can be used by games to add more functionality.
 
     Frostbite:
-        - Debug and fix the "wrong word size" sigsegv error.
+        - Debug and fix the "wrong word size" sigsegv error. - UPDATE: Seems to work now.
 
     BFBC2:
         - BFBC2 RCON documentation can be found here: http://static.cdn.ea.com/dice/u/f/bfbc2/Static/BFBC2_PC_Server_R28_621775_Docs_ServerAdministrator.zip
-        - Implement the new Frostbite RCON protocol as a replacement for the old BFBC2 RCON protocol.
-
         - List bans in BanList.
         - Rewrite playerlist to use signals.
-        - Implement support for all commands in BFBC2Commands class and make it avaliable to connect everywhere like an library.
-        - Implement a plugin system, so people can make their own functions, maybe use QtPlugin an QPluginLoader.
         - Fix crash when click Run in maplist.
 		
-
     BF3:
-        - Implement support when DICE release BF3 RCON documentation.
-        - If we have a BF3 server and the new Frostbite RCON protocol, this could be possible.
+        - All we need for this is a BF3 server to test with.
 		
     BF4:
-		- 
+		- Fix malfunction when removeing multiplue maps from the curren list.
+		
+	Minecraft:
+		- Fix that we're getting strange letters mixed up with the response.

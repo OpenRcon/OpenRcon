@@ -3,41 +3,45 @@
 BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
 {
     /* List of all levels */
-    levelList.append(LevelEntry("MP_001", "Grand Bazaar", imagePath + "grand_bazaar.png"));                                 // 0
-    levelList.append(LevelEntry("MP_003", "Teheran Highway", imagePath + "teheran_highway.png"));                           // 1
-    levelList.append(LevelEntry("MP_007", "Caspian Border", imagePath + "caspian_border.png"));                             // 2
-    levelList.append(LevelEntry("MP_011", "Seine Crossing", imagePath + "seine_crossing.png"));                             // 3
-    levelList.append(LevelEntry("MP_012", "Operation Firestorm", imagePath + "operation_firestorm.png"));                   // 4
-    levelList.append(LevelEntry("MP_013", "Damavand Peak", imagePath + "damavand_peak.png"));                               // 5
-    levelList.append(LevelEntry("MP_017", "Noshahr Canals", imagePath + "noshahr_canals.png"));                             // 6
-    levelList.append(LevelEntry("MP_018", "Kharg Island", imagePath + "kharg_island.png"));                                 // 7
-    levelList.append(LevelEntry("MP_Subway", "Operation Metro", imagePath + "operation_metro.png"));                        // 8
+    levelList.append(LevelEntry("MP_001", "Grand Bazaar", imagePath + "grand_bazaar.png"));                 // 0
+    levelList.append(LevelEntry("MP_003", "Teheran Highway", imagePath + "teheran_highway.png"));           // 1
+    levelList.append(LevelEntry("MP_007", "Caspian Border", imagePath + "caspian_border.png"));             // 2
+    levelList.append(LevelEntry("MP_011", "Seine Crossing", imagePath + "seine_crossing.png"));             // 3
+    levelList.append(LevelEntry("MP_012", "Operation Firestorm", imagePath + "operation_firestorm.png"));   // 4
+    levelList.append(LevelEntry("MP_013", "Damavand Peak", imagePath + "damavand_peak.png"));               // 5
+    levelList.append(LevelEntry("MP_017", "Noshahr Canals", imagePath + "noshahr_canals.png"));             // 6
+    levelList.append(LevelEntry("MP_018", "Kharg Island", imagePath + "kharg_island.png"));                 // 7
+    levelList.append(LevelEntry("MP_Subway", "Operation Metro", imagePath + "operation_metro.png"));        // 8
 
     // XP1 (Back to Karkand)
-    levelList.append(LevelEntry("XP1_001", "Strike at Karkand", imagePath + "strike_at_karkand.png"));                      // 9
-    levelList.append(LevelEntry("XP1_002", "Gulf of Oman", imagePath + "gulf_of_oman.png"));                                // 10
-    levelList.append(LevelEntry("XP1_003", "Sharqi Peninsula", imagePath + "sharqi_peninsula.png"));                        // 11
-    levelList.append(LevelEntry("XP1_004", "Wake Island", imagePath + "wake_island.png"));                                  // 12
+    levelList.append(LevelEntry("XP1_001", "Strike at Karkand", imagePath + "strike_at_karkand.png"));      // 9
+    levelList.append(LevelEntry("XP1_002", "Gulf of Oman", imagePath + "gulf_of_oman.png"));                // 10
+    levelList.append(LevelEntry("XP1_003", "Sharqi Peninsula", imagePath + "sharqi_peninsula.png"));        // 11
+    levelList.append(LevelEntry("XP1_004", "Wake Island", imagePath + "wake_island.png"));                  // 12
 
     // XP2 (Close Quarters)
-    levelList.append(LevelEntry("XP2_Factory", "Scrapmetal", imagePath + "scrapmetal.png"));                                // 13
-    levelList.append(LevelEntry("XP2_Office", "Operation 925", imagePath + "operation_925.png"));                           // 14
-    levelList.append(LevelEntry("XP2_Palace", "Donya Fortress", imagePath + "donya_fortress.png"));                         // 15
-    levelList.append(LevelEntry("XP2_Skybar", "Ziba Tower", imagePath + "ziba_tower.png"));                                 // 16
+    levelList.append(LevelEntry("XP2_Factory", "Scrapmetal", imagePath + "scrapmetal.png"));                // 13
+    levelList.append(LevelEntry("XP2_Office", "Operation 925", imagePath + "operation_925.png"));           // 14
+    levelList.append(LevelEntry("XP2_Palace", "Donya Fortress", imagePath + "donya_fortress.png"));         // 15
+    levelList.append(LevelEntry("XP2_Skybar", "Ziba Tower", imagePath + "ziba_tower.png"));                 // 16
 
     // XP3 (Armored Kill)
-    levelList.append(LevelEntry("XP3_Desert", "Bandar Desert", imagePath + "bandar_desert.png"));                           // 17
-    levelList.append(LevelEntry("XP3_Alborz", "Alborz Mountains", imagePath + "alborz_mountains.png"));                     // 18
-    levelList.append(LevelEntry("XP3_Shield", "Armored Shield", imagePath + "armored_shield.png"));                         // 19
-    levelList.append(LevelEntry("XP3_Valley", "Death Valley", imagePath + "death_valley.png"));                             // 20
+    levelList.append(LevelEntry("XP3_Desert", "Bandar Desert", imagePath + "bandar_desert.png"));           // 17
+    levelList.append(LevelEntry("XP3_Alborz", "Alborz Mountains", imagePath + "alborz_mountains.png"));     // 18
+    levelList.append(LevelEntry("XP3_Shield", "Armored Shield", imagePath + "armored_shield.png"));         // 19
+    levelList.append(LevelEntry("XP3_Valley", "Death Valley", imagePath + "death_valley.png"));             // 20
 
     // XP4 (Aftermath)
-    levelList.append(LevelEntry("XP4_Quake", "Epicenter", imagePath + "epicenter.png"));                                    // 21
-    levelList.append(LevelEntry("XP4_FD", "Markaz Monolith", imagePath + "markaz_monolith.png"));                           // 22
-    levelList.append(LevelEntry("XP4_Parl", "Azadi Palace", imagePath + "azadi_palace.png"));                               // 23
-    levelList.append(LevelEntry("XP4_Rubble", "Talah Market", imagePath + "talah_market.png"));                             // 24
+    levelList.append(LevelEntry("XP4_Quake", "Epicenter", imagePath + "epicenter.png"));                    // 21
+    levelList.append(LevelEntry("XP4_FD", "Markaz Monolith", imagePath + "markaz_monolith.png"));           // 22
+    levelList.append(LevelEntry("XP4_Parl", "Azadi Palace", imagePath + "azadi_palace.png"));               // 23
+    levelList.append(LevelEntry("XP4_Rubble", "Talah Market", imagePath + "talah_market.png"));             // 24
 
     // XP5 (Endgame)
+    levelList.append(LevelEntry("XP5_001", "Operation Riverside", imagePath + "operation_riverside.png"));  // 25
+    levelList.append(LevelEntry("XP5_002", "Nebandan Flats", imagePath + "nebandan_flats.png"));            // 26
+    levelList.append(LevelEntry("XP5_003", "Kiasar Railroad", imagePath + "kiasar_railroad.png"));          // 27
+    levelList.append(LevelEntry("XP5_004", "Sabalan Pipeline", imagePath + "sabalan_pipeline.png"));        // 28
 
     /* List of all gamemodes */
     gameModeList.append(GameModeEntry("ConquestLarge0", "Conquest Large", 64));                 // 0
@@ -46,18 +50,16 @@ BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
     gameModeList.append(GameModeEntry("SquadRush0", "Squad Rush", 8));                          // 3
     gameModeList.append(GameModeEntry("SquadDeathMatch0", "Squad Deathmatch", 16));             // 4
     gameModeList.append(GameModeEntry("TeamDeathMatch0", "Team Deathmatch", 24));               // 5
-
     gameModeList.append(GameModeEntry("ConquestAssaultLarge0", "Conquest Assault Large", 64));  // 6
     gameModeList.append(GameModeEntry("ConquestAssaultSmall0", "Conquest Assault Small", 32));  // 7
     gameModeList.append(GameModeEntry("ConquestAssaultSmall1", "Conquest Assault Small", 32));  // 8
-
     gameModeList.append(GameModeEntry("Domination0", "Domination", 16));                        // 9
     gameModeList.append(GameModeEntry("GunMaster0", "Gun master", 16));                         // 10
     gameModeList.append(GameModeEntry("TeamDeathMatchC0", "TDM Close Quarters", 16));           // 11
-
     gameModeList.append(GameModeEntry("TankSuperiority0", "Tank Superiority", 24));             // 12
-
     gameModeList.append(GameModeEntry("Scavenger0", "Scavenger", 32));                          // 13
+    gameModeList.append(GameModeEntry("CaptureTheFlag0", "Capture The Flag", 32));              // 14
+    gameModeList.append(GameModeEntry("AirSuperiority0", "Air Superiority", 24));               // 15
 
     /* Levels and gamemodes combined */
 
@@ -89,6 +91,12 @@ BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
     levelMap.insertMulti(0, 23);
     levelMap.insertMulti(0, 24);
 
+    // XP5 (Endgame)
+    levelMap.insertMulti(0, 25);
+    levelMap.insertMulti(0, 26);
+    levelMap.insertMulti(0, 27);
+    levelMap.insertMulti(0, 28);
+
     /* ConquestSmall0 */
     levelMap.insertMulti(1, 0);
     levelMap.insertMulti(1, 1);
@@ -116,6 +124,12 @@ BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
     levelMap.insertMulti(1, 22);
     levelMap.insertMulti(1, 23);
     levelMap.insertMulti(1, 24);
+
+    // XP5 (Endgame)
+    levelMap.insertMulti(1, 25);
+    levelMap.insertMulti(1, 26);
+    levelMap.insertMulti(1, 27);
+    levelMap.insertMulti(1, 28);
 
     /* RushLarge0 */
     levelMap.insertMulti(2, 0);
@@ -148,6 +162,12 @@ BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
     levelMap.insertMulti(2, 23);
     levelMap.insertMulti(2, 24);
 
+    // XP5 (Endgame)
+    levelMap.insertMulti(2, 25);
+    levelMap.insertMulti(2, 26);
+    levelMap.insertMulti(2, 27);
+    levelMap.insertMulti(2, 28);
+
     /* SquadRush0 */
     levelMap.insertMulti(3, 0);
     levelMap.insertMulti(3, 1);
@@ -178,6 +198,12 @@ BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
     levelMap.insertMulti(3, 22);
     levelMap.insertMulti(3, 23);
     levelMap.insertMulti(3, 24);
+
+    // XP5 (Endgame)
+    levelMap.insertMulti(3, 25);
+    levelMap.insertMulti(3, 26);
+    levelMap.insertMulti(3, 27);
+    levelMap.insertMulti(3, 28);
 
     /* SquadDeathMatch0 */
     levelMap.insertMulti(4, 0);
@@ -214,6 +240,12 @@ BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
     levelMap.insertMulti(4, 23);
     levelMap.insertMulti(4, 24);
 
+    // XP5 (Endgame)
+    levelMap.insertMulti(4, 25);
+    levelMap.insertMulti(4, 26);
+    levelMap.insertMulti(4, 27);
+    levelMap.insertMulti(4, 28);
+
     /* TeamDeathMatch0 */
     levelMap.insertMulti(5, 0);
     levelMap.insertMulti(5, 1);
@@ -244,6 +276,12 @@ BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
     levelMap.insertMulti(5, 22);
     levelMap.insertMulti(5, 23);
     levelMap.insertMulti(5, 24);
+
+    // XP5 (Endgame)
+    levelMap.insertMulti(5, 25);
+    levelMap.insertMulti(5, 26);
+    levelMap.insertMulti(5, 27);
+    levelMap.insertMulti(5, 28);
 
     /* ConquestAssaultLarge0 */
 
@@ -312,6 +350,22 @@ BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
     levelMap.insertMulti(13, 22);
     levelMap.insertMulti(13, 23);
     levelMap.insertMulti(13, 24);
+
+    /* CaptureTheFlag0 */
+
+    // XP5 (Endgame)
+    levelMap.insertMulti(14, 25);
+    levelMap.insertMulti(14, 26);
+    levelMap.insertMulti(14, 27);
+    levelMap.insertMulti(14, 28);
+
+    /* AirSuperiority0 */
+
+    // XP5 (Endgame)
+    levelMap.insertMulti(15, 25);
+    levelMap.insertMulti(15, 26);
+    levelMap.insertMulti(15, 27);
+    levelMap.insertMulti(15, 28);
 }
 
 BF3Levels::~BF3Levels()

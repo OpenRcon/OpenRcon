@@ -49,7 +49,8 @@ HEADERS += OpenRcon.h \
     DragDropTreeWidget.h \
     SettingsManager.h \
     Game.h \
-    GameEntry.h
+    GameEntry.h \
+    ServerManager.h
 
 SOURCES += OpenRcon.cpp \
     About.cpp \
@@ -64,7 +65,8 @@ SOURCES += OpenRcon.cpp \
     DragDropListWidget.cpp \
     DragDropTreeWidget.cpp \
     SettingsManager.cpp \
-    Game.cpp
+    Game.cpp \
+    ServerManager.cpp
 
 FORMS += About.ui \
     OpenRcon.ui \
