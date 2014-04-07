@@ -26,6 +26,7 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : BF
 
     levels = new BFBC2Levels(this);
 
+    // Connection
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
@@ -49,6 +50,11 @@ void BFBC2::onConnected()
     }
 }
 
+void BFBC2::onLoginHashedCommand()
+{
+    auth = true;
+}
+
 void BFBC2::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated()) {
@@ -57,14 +63,9 @@ void BFBC2::onLoginHashedCommand(const QByteArray &salt)
             hash.addData(salt);
             hash.addData(password.toUtf8().constData());
 
-            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
+            con->sendCommand(QString("login.hashed %1").arg(hash.result().toHex().toUpper().constData()));
         }
     }
-}
-
-void BFBC2::onLoginHashedCommand()
-{
-    auth = true;
 }
 
 bool BFBC2::isAuthenticated()

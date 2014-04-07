@@ -389,14 +389,6 @@ void BFBC2CommandHandler::commandLoginPlainText(const FrostbiteRconPacket &packe
 
     if (response == "OK") {
         emit(onLoginPlainTextCommand(tr("You have successfully logged in.")));
-
-        emit(onAuthenticated()); // TODO: Check this.
-    } else if (response == "InvalidPassword") {
-        emit(onLoginPlainTextCommand(tr("Invalid password.")));
-    } else if (response == "PasswordNotSet") {
-        emit(onLoginPlainTextCommand(tr("Password not set.")));
-    } else if (response == "InvalidArguments") {
-        emit(onUnknownCommand());
     }
 }
 
@@ -414,22 +406,9 @@ void BFBC2CommandHandler::commandLoginHashed(const FrostbiteRconPacket &packet, 
             emit(onLoginHashedCommand(salt));
         }
     } else if (lastSentPacket.getWordCount() == 2) {
-        // QString response = packet.getWord(0).getContent(); TODO: Isn't this redundant?
-
-        qDebug() << "Logged in";
-
         if (response == "OK") {
-            emit(onLogMessage(0, tr("You have successfully logged in.")));
-            emit(onAuthenticated());
-        } else if (response == "InvalidPasswordHash") {
-            emit(onLogMessage(1, tr("Invalid password.")));
+            emit(onLoginHashedCommand());
         }
-    }
-
-    if (response == "PasswordNotSet") {
-        emit(onLogMessage(1, tr("Password not set.")));
-    } else if (response == "InvalidArguments") {
-        emit(onUnknownCommand());
     }
 }
 

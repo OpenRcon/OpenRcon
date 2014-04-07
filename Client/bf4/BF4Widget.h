@@ -39,7 +39,6 @@ public:
 
 private:
     Ui::BF4 *ui;
-    BF4Levels *levels;
 
     QMenu *menu_pl_players;
     QAction *action_pl_players_kill;

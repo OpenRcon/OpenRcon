@@ -208,9 +208,6 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(con->commandHandler, SIGNAL(onDataSent(const QString&)), this, SLOT(onDataSent(const QString&)));
     connect(con->commandHandler, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataReceived(const QString&)));
 
-    /* Login events */
-    connect(con->commandHandler, SIGNAL(onAuthenticated()), this, SLOT(onAuthenticated()));
-
     /* Events */
     connect(con->commandHandler, SIGNAL(onPlayerJoin(const QString&)), this, SLOT(onPlayerJoin(const QString&)));
     connect(con->commandHandler, SIGNAL(onPlayerAuthenticated(const QString&, const QString&)), this, SLOT(onPlayerAuthenticated(const QString&, const QString&)));
@@ -230,6 +227,8 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(con->commandHandler, SIGNAL(onServerRoundOverTeamScores(const QString&)), this, SLOT(onServerRoundOverTeamScores(const QString&)));
 
     // Commands
+    connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
+
     connect(con->commandHandler, SIGNAL(onServerInfoCommand(const QStringList&)), this, SLOT(onServerInfoCommand(const QStringList&)));
     connect(con->commandHandler, SIGNAL(onAdminListPlayersCommand(const PlayerList&)), this, SLOT(onAdminListPlayersCommand(const PlayerList&)));
     connect(con->commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));

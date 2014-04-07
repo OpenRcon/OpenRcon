@@ -23,8 +23,6 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 {
     ui->setupUi(this);
 
-    levels = new BF4Levels(this);
-
     /* User Inferface */
 
     // Players
@@ -34,6 +32,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     menu_pl_players->addAction(action_pl_players_kill);
     menu_pl_players->addMenu(menu_pl_players_move);
+
 
     // Chat
     ui->comboBox_ch_mode->addItem("Say");
@@ -548,6 +547,8 @@ void BF4Widget::treeWidget_pl_players_customContextMenuRequested(const QPoint &p
 {
     if (ui->treeWidget_pl_players->itemAt(pos)) {
         menu_pl_players->exec(QCursor::pos());
+
+
     }
 }
 

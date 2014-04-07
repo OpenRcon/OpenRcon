@@ -24,6 +24,7 @@
 
 #include "BFBaseGame.h"
 #include "BF4Connection.h"
+#include "BF4Levels.h"
 
 class BF4 : public BFBaseGame {
     Q_OBJECT
@@ -34,6 +35,15 @@ public:
 
     virtual Connection *getConnection() { return con; }
 
+protected:
+    BF4Connection *con;
+    BF4Levels *levels;
+
+    bool isAuthenticated();
+
+    void sendSayMessage(const QString &msg, const QString &group);
+    void sendYellMessage(const QString &message, const int &duration, const QString &group);
+
 private:
     bool auth;
 
@@ -41,14 +51,6 @@ private slots:
     void onConnected();
     void onLoginHashedCommand(const QByteArray &salt);
     void onLoginHashedCommand();
-
-protected:
-    BF4Connection *con;
-
-    bool isAuthenticated();
-
-    void sendSayMessage(const QString &msg, const QString &group);
-    void sendYellMessage(const QString &message, const int &duration, const QString &group);
 
 };
 

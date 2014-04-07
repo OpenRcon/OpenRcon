@@ -4,7 +4,8 @@ OpenRcon:
         - Get an OpenRcon logo.
         - Implement language option to Settings.
         - Implement a type of class that handle connection requests, like create tab etc, manage closing of it.
-        - Implement working Plugin system that can be used by games to add more functionality.
+        - Implement working plugin system that can be used by games to add more functionality.
+		- When connect to a server, check that a similar connection not already exists.
 
     Frostbite:
         - Debug and fix the "wrong word size" sigsegv error. - UPDATE: Seems to work now.

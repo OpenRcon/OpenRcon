@@ -66,7 +66,7 @@ public:
     explicit OpenRcon(QWidget *parent = 0);
     ~OpenRcon();
 
-    static OpenRcon *getInstance(QWidget* parent = 0) {
+    static OpenRcon* getInstance(QWidget* parent = 0) {
         if (!m_Instance) {
             m_Instance = new OpenRcon(parent);
         }

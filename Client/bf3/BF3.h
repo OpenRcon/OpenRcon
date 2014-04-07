@@ -26,8 +26,10 @@
 
 #include "BFBaseGame.h"
 #include "BF3Connection.h"
+#include "BF3Levels.h"
 
-class BF3 : public BFBaseGame {
+class BF3 : public BFBaseGame
+{
     Q_OBJECT
 
 public:
@@ -38,6 +40,7 @@ public:
 
 protected:
     BF3Connection *con;
+    BF3Levels *levels;
 
 };
 

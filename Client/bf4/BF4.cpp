@@ -21,8 +21,10 @@
 
 BF4::BF4(const QString &host, const int &port, const QString &password) : BFBaseGame(host, port, password), auth(false)
 {
-    con = new BF4Connection();
+    con = new BF4Connection(this);
     con->hostConnect(host, port);
+
+    levels = new BF4Levels(this);
 
     // Connection
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
@@ -35,6 +37,7 @@ BF4::BF4(const QString &host, const int &port, const QString &password) : BFBase
 BF4::~BF4()
 {
     delete con;
+    delete levels;
 }
 
 void BF4::onConnected()

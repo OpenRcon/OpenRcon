@@ -151,8 +151,6 @@ signals:
     void onLogEvent(const QString &event, const QString &message);
     void onIngameCommands(const QString &player, const QString &command);
 
-    void onAuthenticated();
-
     // Event signals.
     void onPlayerJoin(const QString &player);
     void onPlayerAuthenticated(const QString &player, const QString &guid);
@@ -174,6 +172,7 @@ signals:
     // Command signals.
     void onLoginPlainTextCommand(const QString &response);
     void onLoginHashedCommand(const QByteArray &salt);
+    void onLoginHashedCommand();
     void onLogoutCommand(const QString &response);
     void onQuitCommand(const QString &response);
     void onVersionCommand(const QString &type, const int &buildId, const QString &version);
