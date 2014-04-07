@@ -20,8 +20,6 @@
 #ifndef MINECRAFT_H
 #define MINECRAFT_H
 
-#include <QObject>
-
 #include "Game.h"
 #include "MinecraftConnection.h"
 
@@ -35,11 +33,11 @@ public:
 
     virtual Connection *getConnection() { return con; }
 
-private slots:
-    void authenticate();
-
 protected:
     MinecraftConnection *con;
+
+private slots:
+    void onConnected();
 
 };
 

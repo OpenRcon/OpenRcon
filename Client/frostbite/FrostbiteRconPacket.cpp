@@ -103,6 +103,8 @@ const FrostbiteRconWord& FrostbiteRconPacket::getWord(unsigned int i) const
         qDebug() << QString("Wrong word index %1.").arg(i);
     }
 
+    // TODO: Fix crash here.
+
     return *((FrostbiteRconWord *) 0);
 }
 

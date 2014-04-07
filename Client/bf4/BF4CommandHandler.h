@@ -170,21 +170,19 @@ private:
     void commandVarsVehicleSpawnDelay(const FrostbiteRconPacket &packet);
 
 signals:
-    void onAuthenticated();
-
     /* Event signals */
     void onPlayerAuthenticated(const QString &player, const QString &guid);
     void onPlayerDisconnect();
     void onPlayerJoin(const QString &player);
     void onPlayerLeave(const QString &player, const QString &info);
-    void onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weapons);
+    void onPlayerSpawn(const QString &player, const int &teamId);
     void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
     void onPlayerChat(const QString &player, const QString &message, const QString &target);
     void onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
     void onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
     void onPunkBusterMessage(const QString &message);
     void onServerMaxPlayerCountChange();
-    void onServerLevelLoaded(const QString &levelName, const QString &gameMode, const int &roundsPlayed, const int &roundsTotal);
+    void onServerLevelLoaded(const QString &levelName, const QString &gameModeName, const int &roundsPlayed, const int &roundsTotal);
     void onServerRoundOver(const int &winningTeamId);
     void onServerRoundOverPlayers(const QString &playerInfo);
     void onServerRoundOverTeamScores(const QString &teamScores);

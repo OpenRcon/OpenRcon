@@ -20,8 +20,6 @@
 #ifndef BFBC2COMMANDHANDLER_H
 #define BFBC2COMMANDHANDLER_H
 
-#include <QDebug>
-
 #include "FrostbiteCommandHandler.h"
 
 typedef QMap<QString, QString> PlayerListItem;

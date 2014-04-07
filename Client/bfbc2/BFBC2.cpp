@@ -21,7 +21,7 @@
 
 BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : BFBaseGame(host, port, password), auth(false)
 {
-    con = new BFBC2Connection(this);
+    con = new BFBC2Connection();
     con->hostConnect(host, port);
 
     levels = new BFBC2Levels(this);

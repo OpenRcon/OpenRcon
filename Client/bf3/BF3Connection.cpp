@@ -19,7 +19,7 @@
 
 #include "BF3Connection.h"
 
-BF3Connection::BF3Connection(QObject *parent) : FrostbiteConnection(new BF3CommandHandler(parent), parent)
+BF3Connection::BF3Connection() : FrostbiteConnection(new BF3CommandHandler(this))
 {
 
 }

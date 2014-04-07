@@ -24,7 +24,7 @@ Minecraft::Minecraft(const QString &host, const int &port, const QString &passwo
     con = new MinecraftConnection(this);
     con->hostConnect(host, port);
 
-    connect(con->tcpSocket, SIGNAL(connected()), this, SLOT(authenticate()));
+    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 }
 
 Minecraft::~Minecraft()
@@ -32,7 +32,7 @@ Minecraft::~Minecraft()
 
 }
 
-void Minecraft::authenticate()
+void Minecraft::onConnected()
 {
     con->sendPacket(1, 3, password.toLatin1());
 }

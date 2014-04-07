@@ -18,6 +18,8 @@ public:
     void eventOnDataSent(const QString &command);
     void eventOnDataReceived(const QString &response);
 
+protected:
+    bool toBool(const QString &value);
     void commandUnknown();
 
 signals:

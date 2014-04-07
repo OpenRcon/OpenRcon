@@ -19,7 +19,7 @@
 
 #include "BFBC2Connection.h"
 
-BFBC2Connection::BFBC2Connection(QObject *parent) : FrostbiteConnection(new BFBC2CommandHandler(parent), parent)
+BFBC2Connection::BFBC2Connection() : FrostbiteConnection(new BFBC2CommandHandler(this))
 {
 
 }

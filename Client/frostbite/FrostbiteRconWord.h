@@ -28,10 +28,10 @@ class FrostbiteRconWord
 
 public:
     explicit FrostbiteRconWord();
-    ~FrostbiteRconWord();
     explicit FrostbiteRconWord(const FrostbiteRconWord &word);
     explicit FrostbiteRconWord(const char* str);
     FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
+    ~FrostbiteRconWord();
 
     void clear();
     void loadData(const char* data, quint32 size);

@@ -326,13 +326,9 @@ void BF4CommandHandler::eventOnPlayerLeave(const FrostbiteRconPacket &packet)
 void BF4CommandHandler::eventOnPlayerSpawn(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
-    QString kit = packet.getWord(2).getContent();
-    QStringList weaponList;
-    weaponList.append(packet.getWord(3).getContent());
-    weaponList.append(packet.getWord(4).getContent());
-    weaponList.append(packet.getWord(5).getContent());
+    int teamId = QString(packet.getWord(2).getContent()).toInt();
 
-    emit(onPlayerSpawn(player, kit, weaponList));
+    emit(onPlayerSpawn(player, teamId));
 }
 
 void BF4CommandHandler::eventOnPlayerKill(const FrostbiteRconPacket &packet)
@@ -389,11 +385,11 @@ void BF4CommandHandler::eventOnServerMaxPlayerCountChange(const FrostbiteRconPac
 void BF4CommandHandler::eventOnServerLevelLoaded(const FrostbiteRconPacket &packet)
 {
     QString levelName = packet.getWord(1).getContent();
-    QString gameMode = packet.getWord(2).getContent();
+    QString gameModeName = packet.getWord(2).getContent();
     int roundsPlayed = QString(packet.getWord(3).getContent()).toInt();
     int roundsTotal = QString(packet.getWord(4).getContent()).toInt();
 
-    emit(onServerLevelLoaded(levelName, gameMode, roundsPlayed, roundsTotal));
+    emit(onServerLevelLoaded(levelName, gameModeName, roundsPlayed, roundsTotal));
 }
 
 void BF4CommandHandler::eventOnServerRoundOver(const FrostbiteRconPacket &packet)
@@ -452,20 +448,22 @@ void BF4CommandHandler::commandServerInfo(const FrostbiteRconPacket &packet)
         QString currentMap = packet.getWord(5).getContent();
         int roundsPlayed = QString(packet.getWord(6).getContent()).toInt();
         int roundsTotal = QString(packet.getWord(7).getContent()).toInt();
+
+        // TODO: Check indexes here.
         QString scores = packet.getWord(8).getContent();
         QString onlineState = packet.getWord(9).getContent();
-        bool ranked = packet.getWord(10).getContent();
-        bool punkBuster = packet.getWord(11).getContent();
-        bool hasGamePassword = packet.getWord(12).getContent();
+        bool ranked = toBool(packet.getWord(10).getContent());
+        bool punkBuster = toBool(packet.getWord(11).getContent());
+        bool hasGamePassword = toBool(packet.getWord(12).getContent());
         int serverUpTime = QString(packet.getWord(13).getContent()).toInt();
         int roundTime = QString(packet.getWord(14).getContent()).toInt();
         QString gameIpAndPort = packet.getWord(15).getContent();
         QString punkBusterVersion = packet.getWord(16).getContent();
-        bool joinQueueEnabled = packet.getWord(17).getContent();
+        bool joinQueueEnabled = toBool(packet.getWord(17).getContent());
         QString region = packet.getWord(18).getContent();
         QString closestPingSite = packet.getWord(19).getContent();
         QString country = packet.getWord(20).getContent();
-        bool matchMakingEnabled = packet.getWord(21).getContent();
+        bool matchMakingEnabled = toBool(packet.getWord(21).getContent());
         int blazePlayerCount = QString(packet.getWord(22).getContent()).toInt();
         QString blazeGameState = packet.getWord(23).getContent();
 

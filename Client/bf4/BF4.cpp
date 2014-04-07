@@ -21,7 +21,7 @@
 
 BF4::BF4(const QString &host, const int &port, const QString &password) : BFBaseGame(host, port, password), auth(false)
 {
-    con = new BF4Connection(this);
+    con = new BF4Connection();
     con->hostConnect(host, port);
 
     // Connection

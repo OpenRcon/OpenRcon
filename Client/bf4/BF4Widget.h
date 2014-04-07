@@ -20,6 +20,7 @@
 #ifndef BF4WIDGET_H
 #define BF4WIDGET_H
 
+#include <QMenu>
 #include <QCompleter>
 #include <QTime>
 
@@ -40,10 +41,23 @@ private:
     Ui::BF4 *ui;
     BF4Levels *levels;
 
+    QMenu *menu_pl_players;
+    QAction *action_pl_players_kill;
+    QMenu *menu_pl_players_move;
+
     QCompleter *completer;
 
-    void logMessage(const int &type, const QString &message);
     void startupCommands();
+    void logMessage(const int &type, const QString &message);
+    void logEvent(const QString &event, const QString &message);
+
+    /* User Interface */
+
+    // Players
+    QIcon getRankIcon(const int &rank);
+
+    // Events
+    void addEvent(const QString &event, const QString &message);
 
 private slots:
     void onDataSent(const QString &command);
@@ -53,14 +67,14 @@ private slots:
     void onPlayerAuthenticated(const QString &player, const QString &guid);
     void onPlayerJoin(const QString &player);
     void onPlayerLeave(const QString &player, const QString &info);
-    void onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weapons);
+    void onPlayerSpawn(const QString &player, const int &teamdId);
     void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
     void onPlayerChat(const QString &player, const QString &message, const QString &target);
     void onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
     void onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
     void onPunkBusterMessage(const QString &message);
     void onServerMaxPlayerCountChange();
-    void onServerLevelLoaded(const QString &levelName, const QString &gameMode, const int &roundsPlayed, const int &roundsTotal);
+    void onServerLevelLoaded(const QString &levelName, const QString &gameModeName, const int &roundsPlayed, const int &roundsTotal);
     void onServerRoundOver(const int &winningTeamId);
     void onServerRoundOverPlayers(const QString &playerInfo);
     void onServerRoundOverTeamScores(const QString &teamScores);
@@ -82,13 +96,12 @@ private slots:
     /* User Interface */
 
     /* Players */
-    QIcon getRankIcon(const int &rank);
     void updatePlayerList();
-
-    /* Event */
-    void addEvent(const QString &message);
+    void treeWidget_pl_players_customContextMenuRequested(const QPoint &pos);
+    void action_pl_players_kill_triggered();
 
     /* Chat */
+    void comboBox_ch_mode_currentIndexChanged(int index);
     void pushButton_ch_clicked();
 
     /* Maplist */

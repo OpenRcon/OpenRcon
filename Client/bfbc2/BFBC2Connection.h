@@ -29,7 +29,7 @@ class BFBC2Connection : public FrostbiteConnection
     Q_OBJECT
 
 public:
-    explicit BFBC2Connection(QObject *parent = 0);
+    explicit BFBC2Connection();
     ~BFBC2Connection();
 
 };
