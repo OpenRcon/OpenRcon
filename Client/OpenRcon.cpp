@@ -40,21 +40,10 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     settings = new QSettings(APP_NAME, APP_NAME, this);
     readSettings();
 
-    // Set text for actionAbout
-    ui->actionAbout->setText(QString(tr("About %1")).arg(APP_NAME));
-    ui->actionAbout->setIcon(QIcon(APP_ICON));
-
     // Actions
-    #if QT_VERSION < 0x050000
-        actionAboutQt = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
-    #else
-        actionAboutQt = new QAction(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
-    #endif
-
-    actionAbout = new QAction(QIcon(":/images/icons/openrcon.png"), tr("About &%1").arg(APP_NAME), this);
-
-    ui->menuHelp->addAction(actionAboutQt);
-    ui->menuHelp->addAction(actionAbout);
+    ui->actionAbout->setText(QString(tr("About &%1")).arg(APP_NAME));
+    ui->actionAbout->setIcon(QIcon(APP_ICON));
+    ui->actionAbout_Qt->setIcon(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
 
     // ServerManager
     comboBox_sm_server = new QComboBox(this);
@@ -67,41 +56,10 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     pushButton_sm_connect = new QPushButton(tr("Connect"), this);
 
-    // Quickconnect
-    comboBox_qc_game = new QComboBox(this);
-
-    foreach (GameEntry entry, gameManager->getGames()) {
-        comboBox_qc_game->addItem(entry.icon, entry.name);
-    }
-
-    label_qc_host = new QLabel(tr("Host:"), this);
-    label_qc_port = new QLabel(tr("Port:"), this);
-    label_qc_password = new QLabel(tr("Password:"), this);
-    lineEdit_qc_host = new QLineEdit(this);
-    spinBox_qc_port = new QSpinBox(this);
-    spinBox_qc_port->setRange(1, 65535);
-    spinBox_qc_port->setValue(48888);
-    lineEdit_qc_password = new QLineEdit(this);
-    lineEdit_qc_password->setEchoMode(QLineEdit::Password);
-    pushButton_qc_quickconnect = new QPushButton(tr("Quickconnect"), this);
-
     ui->toolBar_sm->addWidget(comboBox_sm_server);
     ui->toolBar_sm->addWidget(pushButton_sm_connect);
 
-    ui->toolBar_qc->addWidget(comboBox_qc_game);
-    ui->toolBar_qc->addWidget(label_qc_host);
-    ui->toolBar_qc->addWidget(lineEdit_qc_host);
-    ui->toolBar_qc->addWidget(label_qc_port);
-    ui->toolBar_qc->addWidget(spinBox_qc_port);
-    ui->toolBar_qc->addWidget(label_qc_password);
-    ui->toolBar_qc->addWidget(lineEdit_qc_password);
-    ui->toolBar_qc->addWidget(pushButton_qc_quickconnect);
-
     connect(pushButton_sm_connect, SIGNAL(clicked()), this, SLOT(pushButton_sm_connect_clicked()));
-
-    connect(lineEdit_qc_host, SIGNAL(returnPressed()), this, SLOT(connect_qc()));
-    connect(lineEdit_qc_password, SIGNAL(returnPressed()), this, SLOT(connect_qc()));
-    connect(pushButton_qc_quickconnect, SIGNAL(clicked()), this, SLOT(connect_qc()));
 
     // Tabwidget
     connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
@@ -110,7 +68,14 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
 
-    connect(ui->actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
+    connect(ui->actionConnection, SIGNAL(triggered()), this, SLOT(actionConnection_triggered()));
+
+    connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(actionSettings_triggered()));
+
+    connect(ui->actionDocumentation, SIGNAL(triggered()), this, SLOT(actionDocumentation_triggered()));
+    connect(ui->actionReport_bug, SIGNAL(triggered()), this, SLOT(actionReportBug_triggered()));
+
+    connect(ui->actionAbout_Qt, SIGNAL(triggered()), this, SLOT(aboutQt()));
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 }
 
@@ -131,6 +96,7 @@ OpenRcon::~OpenRcon()
 void OpenRcon::changeEvent(QEvent *e)
 {
     QMainWindow::changeEvent(e);
+
     switch (e->type()) {
     case QEvent::LanguageChange:
         ui->retranslateUi(this);
@@ -152,22 +118,17 @@ void OpenRcon::readSettings()
     settings->beginGroup(SETTINGS_OPENRCON);
         resize(settings->value("Size", size()).toSize());
         move(settings->value("Position", pos()).toPoint());
+
         if (settings->value("IsMaximized", true).toBool()) {
             showMaximized();
         }
+
         if (settings->value("actionConnection", true).toBool()) {
             ui->toolBar_sm->show();
             ui->actionConnection->setChecked(true);
         } else {
             ui->toolBar_sm->hide();
             ui->actionConnection->setChecked(false);
-        }
-        if (settings->value("actionQuickconnect", true).toBool()) {
-            ui->toolBar_qc->show();
-            ui->actionQuickconnect->setChecked(true);
-        } else {
-            ui->toolBar_qc->hide();
-            ui->actionQuickconnect->setChecked(false);
         }
     settings->endGroup();
 }
@@ -217,20 +178,6 @@ void OpenRcon::closeTab(int index)
     ui->tabWidget->removeTab(index);
 }
 
-void OpenRcon::connect_qc()
-{
-    if (!lineEdit_qc_host->text().isEmpty() || !spinBox_qc_port->text().isEmpty() || !lineEdit_qc_password->text().isEmpty()) {
-        QString host = lineEdit_qc_host->text();
-        int port = spinBox_qc_port->value();
-        QString password = lineEdit_qc_password->text();
-        int game = comboBox_qc_game->currentIndex();
-
-        newTab(game, QString("%1:%2").arg(host, port), host, port, password);
-    } else {
-        QMessageBox::warning(this, tr("Warning"), tr("Check server, port and password settings."));
-    }
-}
-
 // Application menu
 void OpenRcon::actionServermanager_triggered()
 {
@@ -238,13 +185,6 @@ void OpenRcon::actionServermanager_triggered()
     dlg->exec();
 
     delete dlg;
-}
-
-void OpenRcon::actionDisconnect_triggered()
-{
-    int index = ui->tabWidget->currentIndex();
-
-    closeTab(index);
 }
 
 // View menu
@@ -263,21 +203,6 @@ void OpenRcon::actionConnection_triggered()
     settings->endGroup();
 }
 
-void OpenRcon::actionQuickconnect_triggered()
-{
-    settings->beginGroup(SETTINGS_OPENRCON);
-        if (ui->actionQuickconnect->isChecked()) {
-            ui->toolBar_qc->show();
-            settings->setValue("actionQuickconnect", true);
-            ui->actionQuickconnect->setChecked(true);
-        } else {
-            ui->toolBar_qc->hide();
-            settings->setValue("actionQuickconnect", false);
-            ui->actionQuickconnect->setChecked(false);
-        }
-    settings->endGroup();
-}
-
 // Tools menu
 void OpenRcon::actionSettings_triggered()
 {
@@ -292,17 +217,17 @@ void OpenRcon::actionReport_bug_triggered()
 
 void OpenRcon::actionDocumentation_triggered()
 {
-
+    QDesktopServices::openUrl(QUrl(APP_DOC));
 }
 
-void OpenRcon::aboutQt()
-{
-    QMessageBox::aboutQt(this, tr("About Qt"));
-}
-
-void OpenRcon::about()
+void OpenRcon::actionAbout_triggered()
 {
     aboutDialog->exec();
+}
+
+void OpenRcon::actionAbout_Qt_triggered()
+{
+    QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
 // ServerManager

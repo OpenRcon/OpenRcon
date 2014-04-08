@@ -88,24 +88,9 @@ private:
     SettingsDialog *settingsDialog;
     About *aboutDialog;
 
-    // Actions
-    QAction *actionAboutQt;
-    QAction *actionAbout;
-
     // ServerManager
     QComboBox *comboBox_sm_server;
     QPushButton *pushButton_sm_connect;
-
-    // Quick Connect
-    QComboBox *comboBox_qc_game;
-    QGridLayout *gridLayout_webView;
-    QLabel *label_qc_host;
-    QLabel *label_qc_port;
-    QLabel *label_qc_password;
-    QLineEdit *lineEdit_qc_host;
-    QSpinBox *spinBox_qc_port;
-    QLineEdit *lineEdit_qc_password;
-    QPushButton *pushButton_qc_quickconnect;
 
     void changeEvent(QEvent *event);
     void closeEvent(QCloseEvent *event);
@@ -118,11 +103,9 @@ private slots:
 
     // Application menu
     void actionServermanager_triggered();
-    void actionDisconnect_triggered();
 
     // View menu
     void actionConnection_triggered();
-    void actionQuickconnect_triggered();
 
     // Setting menu
     void actionSettings_triggered();
@@ -131,13 +114,11 @@ private slots:
     void actionReport_bug_triggered();
     void actionDocumentation_triggered();
 
-    void connect_qc();
+    void actionAbout_triggered();
+    void actionAbout_Qt_triggered();
 
     // ServerManager
     void pushButton_sm_connect_clicked();
-
-    void aboutQt();
-    void about();
 
 };
 

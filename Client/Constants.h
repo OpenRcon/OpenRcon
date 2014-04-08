@@ -21,13 +21,12 @@
 #define CONSTANTS_H
 
 #include <QString>
-#include <QIcon>
 
 namespace Constants {
     // Application
     const QString APP_NAME = "OpenRcon";
     const QString APP_VERSION = "0.2";
-    const QString APP_ICON = ":/data/graphics/openrcon.png";
+    const QString APP_ICON = ":/images/icons/openrcon.png";
     const QString APP_URL = "http://openrcon.org/";
     const QString APP_DIR = ".openrcon";
     const QString APP_AUTHOR = "The OpenRcon Project";
