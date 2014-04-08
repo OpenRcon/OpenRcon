@@ -92,7 +92,11 @@ private:
     QAction *actionAboutQt;
     QAction *actionAbout;
 
-    QComboBox *comboBox_sm;
+    // ServerManager
+    QComboBox *comboBox_sm_server;
+    QPushButton *pushButton_sm_connect;
+
+    // Quick Connect
     QComboBox *comboBox_qc_game;
     QGridLayout *gridLayout_webView;
     QLabel *label_qc_host;
@@ -117,15 +121,15 @@ private:
 private slots:
     void closeTab(int);
 
-    void connect_sm(int index);
     void connect_qc();
 
     void home();
 
+    void pushButton_sm_connect_clicked();
+
     // Application menu
     void actionServermanager_triggered();
     void actionDisconnect_triggered();
-    void actionExit_triggered();
 
     // Setting menu
     void actionSettings_triggered();

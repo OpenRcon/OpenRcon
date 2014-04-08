@@ -70,7 +70,15 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     ui->menuHelp->addAction(actionAbout);
 
     // ServerManager
-    comboBox_sm = new QComboBox(this);
+    comboBox_sm_server = new QComboBox(this);
+
+    foreach (ServerEntry server, serverManager->getServers()) {
+        GameEntry game = gameManager->getGame(server.game);
+
+        comboBox_sm_server->addItem(game.icon, server.name);
+    }
+
+    pushButton_sm_connect = new QPushButton(tr("Connect"), this);
 
     // Quickconnect
     comboBox_qc_game = new QComboBox(this);
@@ -90,7 +98,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     lineEdit_qc_password->setEchoMode(QLineEdit::Password);
     pushButton_qc_quickconnect = new QPushButton(tr("Quickconnect"), this);
 
-    ui->toolBar_sm->addWidget(comboBox_sm);
+    ui->toolBar_sm->addWidget(comboBox_sm_server);
+    ui->toolBar_sm->addWidget(pushButton_sm_connect);
+
     ui->toolBar_qc->addWidget(comboBox_qc_game);
     ui->toolBar_qc->addWidget(label_qc_host);
     ui->toolBar_qc->addWidget(lineEdit_qc_host);
@@ -100,7 +110,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     ui->toolBar_qc->addWidget(lineEdit_qc_password);
     ui->toolBar_qc->addWidget(pushButton_qc_quickconnect);
 
-    connect(comboBox_sm, SIGNAL(currentIndexChanged(int)), this, SLOT(connect_sm(int)));
+    connect(pushButton_sm_connect, SIGNAL(clicked()), this, SLOT(pushButton_sm_connect_clicked()));
+
     connect(lineEdit_qc_host, SIGNAL(returnPressed()), this, SLOT(connect_qc()));
     connect(lineEdit_qc_password, SIGNAL(returnPressed()), this, SLOT(connect_qc()));
     connect(pushButton_qc_quickconnect, SIGNAL(clicked()), this, SLOT(connect_qc()));
@@ -110,7 +121,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 
     // Actions
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
-    connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(actionExit_triggered()));
+    connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
 
     connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
     connect(actionAbout, SIGNAL(triggered()), this, SLOT(about()));
@@ -119,8 +130,12 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 OpenRcon::~OpenRcon()
 {
     delete ui;
+
     delete dir;
     delete settings;
+
+    delete gameManager;
+    delete serverManager;
 
     delete settingsDialog;
     delete aboutDialog;
@@ -219,11 +234,6 @@ void OpenRcon::closeTab(int index)
     ui->tabWidget->removeTab(index);
 }
 
-void OpenRcon::connect_sm(int index)
-{
-    Q_UNUSED(index);
-}
-
 void OpenRcon::connect_qc()
 {
     if (!lineEdit_qc_host->text().isEmpty() || !spinBox_qc_port->text().isEmpty() || !lineEdit_qc_password->text().isEmpty()) {
@@ -269,11 +279,6 @@ void OpenRcon::actionDisconnect_triggered()
     if (ui->tabWidget->currentWidget() != tab_webView) {
         closeTab(index);
     }
-}
-
-void OpenRcon::actionExit_triggered()
-{
-    close();
 }
 
 // View menu
@@ -332,4 +337,13 @@ void OpenRcon::aboutQt()
 void OpenRcon::about()
 {
     aboutDialog->exec();
+}
+
+// ServerManager
+void OpenRcon::pushButton_sm_connect_clicked()
+{
+    int index = comboBox_sm_server->currentIndex();
+    ServerEntry server = serverManager->getServer(index);
+
+    newTab(server.game, server.name, server.host, server.port, server.password);
 }
