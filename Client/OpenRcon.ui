@@ -106,6 +106,8 @@
     <addaction name="actionReport_bug"/>
     <addaction name="actionDocumentation"/>
     <addaction name="separator"/>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -118,7 +120,6 @@
      <addaction name="actionConnection"/>
      <addaction name="actionQuickconnect"/>
     </widget>
-    <addaction name="actionHome"/>
     <addaction name="menuToolbars"/>
    </widget>
    <widget class="QMenu" name="menuApplication">
@@ -186,18 +187,6 @@
     <string>Quickconnect</string>
    </property>
   </action>
-  <action name="actionHome">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/data/graphics/icons/go-home.png</normaloff>:/data/graphics/icons/go-home.png</iconset>
-   </property>
-   <property name="text">
-    <string>Home</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Home</string>
-   </property>
-  </action>
   <action name="actionSettings">
    <property name="icon">
     <iconset>
@@ -237,18 +226,19 @@
     <string>Servermanager</string>
    </property>
   </action>
-  <action name="actionAbout">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/data/graphics/openrcon.png</normaloff>:/data/graphics/openrcon.png</iconset>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
    </property>
+  </action>
+  <action name="actionAbout">
    <property name="text">
     <string>About</string>
    </property>
   </action>
-  <action name="actionExit">
+  <action name="actionAboutQt">
    <property name="text">
-    <string>Exit</string>
+    <string>About Qt</string>
    </property>
   </action>
  </widget>

@@ -83,10 +83,10 @@ private:
     GameManager *gameManager;
     ServerManager *serverManager;
 
+    QSettings *settings;
+
     SettingsDialog *settingsDialog;
     About *aboutDialog;
-
-    QSettings *settings;
 
     // Actions
     QAction *actionAboutQt;
@@ -106,9 +106,6 @@ private:
     QSpinBox *spinBox_qc_port;
     QLineEdit *lineEdit_qc_password;
     QPushButton *pushButton_qc_quickconnect;
-    QWebView *tab_webView;
-
-    bool m_comboBox_sm_connect;
 
     void changeEvent(QEvent *event);
     void closeEvent(QCloseEvent *event);
@@ -116,28 +113,28 @@ private:
     void readSettings();
     void writeSettings();
 
-    void webFrame(const QString &title, const QString &url);
-
 private slots:
-    void closeTab(int);
-
-    void connect_qc();
-
-    void home();
-
-    void pushButton_sm_connect_clicked();
+    void closeTab(int index);
 
     // Application menu
     void actionServermanager_triggered();
     void actionDisconnect_triggered();
 
+    // View menu
+    void actionConnection_triggered();
+    void actionQuickconnect_triggered();
+
     // Setting menu
     void actionSettings_triggered();
 
-    void on_actionConnection_triggered();
-    void on_actionQuickconnect_triggered();
-    void on_actionReport_bug_triggered();
-    void on_actionDocumentation_triggered();
+    // Help menu
+    void actionReport_bug_triggered();
+    void actionDocumentation_triggered();
+
+    void connect_qc();
+
+    // ServerManager
+    void pushButton_sm_connect_clicked();
 
     void aboutQt();
     void about();

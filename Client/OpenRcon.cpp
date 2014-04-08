@@ -21,7 +21,7 @@
 
 OpenRcon *OpenRcon::m_Instance = 0;
 
-OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon), m_comboBox_sm_connect(true)
+OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {
     ui->setupUi(this);
 
@@ -31,8 +31,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
 
     settingsDialog = new SettingsDialog(this);
     aboutDialog = new About(this);
-
-    tab_webView = 0;
 
     // Sets application title and icon
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
@@ -45,17 +43,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     // Set text for actionAbout
     ui->actionAbout->setText(QString(tr("About %1")).arg(APP_NAME));
     ui->actionAbout->setIcon(QIcon(APP_ICON));
-
-    home();
-
-/*!
-  Fixes ugly toolBar on MacOS X
-  */
-
-#ifdef Q_OS_MAC
-    ui->toolBar_qc->setMovable(false);
-    ui->toolBar_sm->setMovable(false);
-#endif
 
     // Actions
     #if QT_VERSION < 0x050000
@@ -123,8 +110,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
 
-    connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
-    connect(actionAbout, SIGNAL(triggered()), this, SLOT(about()));
+    connect(ui->actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
+    connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 }
 
 OpenRcon::~OpenRcon()
@@ -223,13 +210,9 @@ GameManager* OpenRcon::getGameManager()
 
 void OpenRcon::closeTab(int index)
 {
-    if (ui->tabWidget->widget(index) == tab_webView) {
-        tab_webView = 0;
-    } else {
-        QWidget *widget = ui->tabWidget->widget(index);
-        ConnectionTabWidget *ctw = dynamic_cast<ConnectionTabWidget*>(widget);
-        ctw->getConnection()->hostDisconnect();
-    }
+    QWidget *widget = ui->tabWidget->widget(index);
+    ConnectionTabWidget *ctw = dynamic_cast<ConnectionTabWidget *>(widget);
+    ctw->getConnection()->hostDisconnect();
 
     ui->tabWidget->removeTab(index);
 }
@@ -248,21 +231,6 @@ void OpenRcon::connect_qc()
     }
 }
 
-void OpenRcon::webFrame(const QString &title, const QString &url)
-{
-    if (!tab_webView) {
-        tab_webView = new QWebView(this);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(tab_webView, title));
-    }
-
-    tab_webView->load(url);
-}
-
-void OpenRcon::home()
-{
-    webFrame(tr("Home"), APP_URL);
-}
-
 // Application menu
 void OpenRcon::actionServermanager_triggered()
 {
@@ -276,13 +244,11 @@ void OpenRcon::actionDisconnect_triggered()
 {
     int index = ui->tabWidget->currentIndex();
 
-    if (ui->tabWidget->currentWidget() != tab_webView) {
-        closeTab(index);
-    }
+    closeTab(index);
 }
 
 // View menu
-void OpenRcon::on_actionConnection_triggered()
+void OpenRcon::actionConnection_triggered()
 {
     settings->beginGroup(SETTINGS_OPENRCON);
         if (ui->actionConnection->isChecked()) {
@@ -297,7 +263,7 @@ void OpenRcon::on_actionConnection_triggered()
     settings->endGroup();
 }
 
-void OpenRcon::on_actionQuickconnect_triggered()
+void OpenRcon::actionQuickconnect_triggered()
 {
     settings->beginGroup(SETTINGS_OPENRCON);
         if (ui->actionQuickconnect->isChecked()) {
@@ -319,14 +285,14 @@ void OpenRcon::actionSettings_triggered()
 }
 
 // Help menu
-void OpenRcon::on_actionReport_bug_triggered()
+void OpenRcon::actionReport_bug_triggered()
 {
     QDesktopServices::openUrl(QUrl(APP_BUG));
 }
 
-void OpenRcon::on_actionDocumentation_triggered()
+void OpenRcon::actionDocumentation_triggered()
 {
-    webFrame(tr("Documentation"), APP_DOC);
+
 }
 
 void OpenRcon::aboutQt()

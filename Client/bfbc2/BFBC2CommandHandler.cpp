@@ -289,9 +289,7 @@ void BFBC2CommandHandler::eventOnPlayerKill(const FrostbiteRconPacket &packet)
     QString killer = packet.getWord(1).getContent();
     QString victim = packet.getWord(2).getContent();
     QString weapon = packet.getWord(3).getContent();
-    bool headshot = packet.getWord(4).getContent();
-
-    qDebug() << "Bool is: " << headshot;
+    bool headshot = toBool(packet.getWord(4).getContent());
 
     emit(onPlayerKill(killer, victim, weapon, headshot));
 }
@@ -399,8 +397,6 @@ void BFBC2CommandHandler::commandLoginHashed(const FrostbiteRconPacket &packet, 
 
     if (lastSentPacket.getWordCount() == 1) {
         if (response == "OK" && packet.getWordCount() == 2) {
-            emit(onDataReceived(tr("We got salt: %1").arg(packet.getWord(1).getContent())));
-
             QByteArray salt = QByteArray::fromHex(QByteArray(packet.getWord(1).getContent()));
 
             emit(onLoginHashedCommand(salt));

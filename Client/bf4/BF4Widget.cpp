@@ -33,7 +33,6 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     menu_pl_players->addAction(action_pl_players_kill);
     menu_pl_players->addMenu(menu_pl_players_move);
 
-
     // Chat
     ui->comboBox_ch_mode->addItem("Say");
     ui->comboBox_ch_mode->addItem("Yell");

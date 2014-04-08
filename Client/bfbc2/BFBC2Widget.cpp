@@ -347,17 +347,6 @@ void BFBC2Widget::onDataReceived(const QString &response)
     logMessage(3, response);
 }
 
-void BFBC2Widget::onAuthenticated()
-{
-    // Call commands on startup.
-    startupCommands();
-
-    // Find a better way to do this.
-    commandRefreshTimer = new QTimer(this);
-    connect(commandRefreshTimer, SIGNAL(timeout()), this, SLOT(refreshCommands()));
-    commandRefreshTimer->start(10000);
-}
-
 void BFBC2Widget::onPlayerJoin(const QString &player)
 {
     logMessage(0, tr("Player <b>%1</b> joined the game.").arg(player));
@@ -461,6 +450,12 @@ void BFBC2Widget::onServerRoundOverTeamScores(const QString &teamScores)
     logMessage(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team").arg(teamScores));
 }
 
+void BFBC2Widget::onLoginHashedCommand()
+{
+    // Call commands on startup.
+    startupCommands();
+}
+
 void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
 {
     /*
@@ -486,27 +481,29 @@ void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
     <region: Region>
     */
 
-    currentMod = serverInfo.at(17);
-    currentGamemode = serverInfo.at(3);
-
-    QString mapName = getMapName(serverInfo.at(4), serverInfo.at(3));
-    QPixmap mapImage = getMapImage(serverInfo.at(4), serverInfo.at(3));
-
     // Players
-    ui->label_pl_serverName->setText(serverInfo.at(0));
-    ui->label_pl_map->setText(mapName);
-    ui->label_pl_mod->setText(serverInfo.at(17));
-    ui->label_pl_gameMode->setText(serverInfo.at(3));
-    ui->label_pl_players->setText(QString("%1/%2").arg(serverInfo.at(1), serverInfo.at(2)));
-    ui->label_pl_round->setText(QString("%1/%2").arg(serverInfo.at(6), serverInfo.at(7)));
-    ui->label_pl_address->setText(serverInfo.at(19));
-    ui->label_pl_state->setText(serverInfo.at(11));
-    ui->label_pl_uptime->setText(QTime::fromString(serverInfo.at(15), "s").toString());
+    LevelEntry level = levels->getLevel(serverInfo.at(4));
+    GameModeEntry gameMode = levels->getGameMode(serverInfo.at(3));
+
+    ui->label_serverInfo_level->setText(QString("%1 - %2").arg(level.name).arg(gameMode.name));
+    ui->label_serverInfo_mod->setText(QString("Mod: %1").arg(serverInfo.at(17)));
+    ui->label_serverInfo_rounds->setText("");
+    ui->label_serverInfo_state->setText("");
+
+//    ui->label_pl_serverName->setText(serverInfo.at(0));
+//    ui->label_pl_map->setText(mapName);
+//    ui->label_pl_mod->setText(serverInfo.at(17));
+//    ui->label_pl_gameMode->setText(serverInfo.at(3));
+//    ui->label_pl_players->setText(QString("%1/%2").arg(serverInfo.at(1), serverInfo.at(2)));
+//    ui->label_pl_round->setText(QString("%1/%2").arg(serverInfo.at(6), serverInfo.at(7)));
+//    ui->label_pl_address->setText(serverInfo.at(19));
+//    ui->label_pl_state->setText(serverInfo.at(11));
+//    ui->label_pl_uptime->setText(QTime::fromString(serverInfo.at(15), "s").toString());
 
     // Maplist
     ui->label_ml_mod->setText(currentMod);
-    ui->label_ml_currentmap_name->setText(mapName);
-    ui->label_ml_currentmap_image->setPixmap(QPixmap(mapImage));
+    ui->label_ml_currentmap_name->setText(level.name);
+    ui->label_ml_currentmap_image->setPixmap(level.image);
 }
 
 void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
@@ -596,12 +593,12 @@ void BFBC2Widget::onMapListListCommand(const QStringList &mapList)
     }
 
     // Sets nextMap
-    if (nextLevelIndex >= 0 && mapList.count() > 0) {
-        LevelEntry level = levels->getLevel(mapList.at(nextLevelIndex));
+//    if (nextLevelIndex >= 0 && mapList.count() > 0) {
+//        LevelEntry level = levels->getLevel(mapList.at(nextLevelIndex));
 
-        ui->label_ml_nextmap_name->setText(level.name);
-        ui->label_ml_nextmap_image->setPixmap(level.image);
-    }
+//        ui->label_ml_nextmap_name->setText(level.name);
+//        ui->label_ml_nextmap_image->setPixmap(level.image);
+//    }
 }
 
 void BFBC2Widget::onMapListNextLevelIndexCommand(const int &index)
@@ -650,6 +647,32 @@ void BFBC2Widget::onVarsTextChatSpamCoolDownTimeCommand(const int &count)
 void BFBC2Widget::onVarsIdleTimeoutCommand(const int &seconds)
 {
     ui->spinBox_op_gpo_idleTimeout->setValue(seconds);
+}
+
+void BFBC2Widget::startupCommands()
+{
+    con->sendCommand("\"eventsEnabled\" \"true\"");
+    con->sendCommand("version");
+
+    con->sendCommand("serverInfo");
+    con->sendCommand("\"admin.listPlayers\" \"all\"");
+
+    con->sendCommand("vars.serverName");
+    con->sendCommand("vars.serverDescription");
+    con->sendCommand("vars.bannerUrl");
+
+//    con->sendCommand("vars.idleTimeout");
+
+//    con->sendCommand("vars.textChatModerationMode");
+//    con->sendCommand("vars.textChatSpamTriggerCount");
+//    con->sendCommand("vars.textChatSpamDetectionTime");
+//    con->sendCommand("vars.textChatSpamCoolDownTime");
+
+    con->sendCommand("mapList.list");
+//    con->sendCommand("mapList.nextLevelIndex");
+
+    con->sendCommand("banList.list");
+    con->sendCommand("reservedSlots.list");
 }
 
 // Player
@@ -1187,36 +1210,6 @@ void BFBC2Widget::on_pushButton_co_pb_send_clicked()
     if (!cmd.isEmpty()) {
         con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(cmd));
         ui->lineEdit_co_pb->clear();
-    }
-}
-
-void BFBC2Widget::startupCommands() {
-    QStringList commandList;
-    commandList.append("\"serverInfo\"");
-    commandList.append("\"admin.listPlayers\" \"all\"");
-
-    commandList.append("\"vars.serverName\"");
-    commandList.append("\"vars.serverDescription\"");
-    commandList.append("\"vars.bannerUrl\"");
-
-    commandList.append("\"vars.idleTimeout\"");
-
-    commandList.append("\"eventsEnabled\" \"true\"");
-    commandList.append("\"version\"");
-
-    commandList.append("\"vars.textChatModerationMode\"");
-    commandList.append("\"vars.textChatSpamTriggerCount\"");
-    commandList.append("\"vars.textChatSpamDetectionTime\"");
-    commandList.append("\"vars.textChatSpamCoolDownTime\"");
-
-    commandList.append("\"mapList.list\"");
-    commandList.append("\"mapList.nextLevelIndex\"");
-
-    commandList.append("\"banList.list\"");
-    commandList.append("\"reservedSlots.list\"");
-
-    foreach (QString command, commandList) {
-        con->sendCommand(command);
     }
 }
 

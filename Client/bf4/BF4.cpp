@@ -60,7 +60,7 @@ void BF4::onLoginHashedCommand(const QByteArray &salt)
             hash.addData(salt);
             hash.addData(password.toUtf8().constData());
 
-            con->sendCommand(QString("login.hashed %1").arg(hash.result().toHex().toUpper().constData()));
+            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
         }
     }
 }
