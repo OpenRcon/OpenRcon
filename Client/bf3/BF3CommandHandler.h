@@ -20,9 +20,9 @@
 #ifndef BF3COMMANDHANDLER_H
 #define BF3COMMANDHANDLER_H
 
-#include "FrostbiteCommandHandler.h"
+#include "BFBaseCommandHandler.h"
 
-class BF3CommandHandler : public FrostbiteCommandHandler
+class BF3CommandHandler : public BFBaseCommandHandler
 {
     Q_OBJECT
 

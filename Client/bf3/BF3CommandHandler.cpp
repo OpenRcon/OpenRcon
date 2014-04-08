@@ -19,7 +19,7 @@
 
 #include "BF3CommandHandler.h"
 
-BF3CommandHandler::BF3CommandHandler(QObject *parent) : FrostbiteCommandHandler(parent)
+BF3CommandHandler::BF3CommandHandler(QObject *parent) : BFBaseCommandHandler(parent)
 {
 
 }

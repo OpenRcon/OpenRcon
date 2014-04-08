@@ -546,8 +546,6 @@ void BF4Widget::treeWidget_pl_players_customContextMenuRequested(const QPoint &p
 {
     if (ui->treeWidget_pl_players->itemAt(pos)) {
         menu_pl_players->exec(QCursor::pos());
-
-
     }
 }
 

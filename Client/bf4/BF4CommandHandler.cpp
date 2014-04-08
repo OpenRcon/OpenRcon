@@ -19,7 +19,7 @@
 
 #include "BF4CommandHandler.h"
 
-BF4CommandHandler::BF4CommandHandler(QObject *parent) : FrostbiteCommandHandler(parent)
+BF4CommandHandler::BF4CommandHandler(QObject *parent) : BFBaseCommandHandler(parent)
 {
 
 }

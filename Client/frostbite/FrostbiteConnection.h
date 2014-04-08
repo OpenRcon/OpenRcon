@@ -21,10 +21,9 @@
 #define FROSTBITECONNECTION_H
 
 #include "Connection.h"
+
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteCommandHandler.h"
-
-#include "BFBC2CommandHandler.h"
 
 #define MIN_PACKET_SIZE 12
 

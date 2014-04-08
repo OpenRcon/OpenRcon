@@ -73,10 +73,10 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(actionSettings_triggered()));
 
     connect(ui->actionDocumentation, SIGNAL(triggered()), this, SLOT(actionDocumentation_triggered()));
-    connect(ui->actionReport_bug, SIGNAL(triggered()), this, SLOT(actionReportBug_triggered()));
+    connect(ui->actionReport_bug, SIGNAL(triggered()), this, SLOT(actionReport_bug_triggered()));
 
-    connect(ui->actionAbout_Qt, SIGNAL(triggered()), this, SLOT(aboutQt()));
-    connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
+    connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(actionAbout_triggered()));
+    connect(ui->actionAbout_Qt, SIGNAL(triggered()), this, SLOT(actionAbout_Qt_triggered()));
 }
 
 OpenRcon::~OpenRcon()

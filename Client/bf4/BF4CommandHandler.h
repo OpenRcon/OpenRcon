@@ -20,7 +20,7 @@
 #ifndef BF4COMMANDHANDLER_H
 #define BF4COMMANDHANDLER_H
 
-#include "FrostbiteCommandHandler.h"
+#include "BFBaseCommandHandler.h"
 
 #include "ServerInfo.h"
 #include "PlayerInfo.h"
@@ -28,7 +28,7 @@
 
 typedef QList<MapListEntry> MapList;
 
-class BF4CommandHandler : public FrostbiteCommandHandler
+class BF4CommandHandler : public BFBaseCommandHandler
 {
     Q_OBJECT
 
