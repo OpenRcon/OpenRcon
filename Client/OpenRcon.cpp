@@ -221,7 +221,7 @@ void OpenRcon::closeTab(int index)
 
 void OpenRcon::connect_sm(int index)
 {
-
+    Q_UNUSED(index);
 }
 
 void OpenRcon::connect_qc()
