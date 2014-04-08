@@ -28,7 +28,7 @@ QVariant ServerTableModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    ServerEntry entry;
+    ServerEntry entry = ServerEntry();
 
     switch (role) {
     case Qt::DisplayRole:

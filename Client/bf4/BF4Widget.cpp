@@ -265,7 +265,7 @@ void BF4Widget::startupCommands() {
 
 void BF4Widget::logMessage(const int &type, const QString &message)
 {
-    QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
+    QString currentTime = QString("[%1]").arg(QDateTime::currentDateTime().toString());
 
     if (type == 0) { // Info
         //ui->textEdit_ev->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));

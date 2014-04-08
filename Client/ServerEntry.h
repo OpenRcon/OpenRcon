@@ -24,6 +24,25 @@
 #include <QMetaType>
 
 struct ServerEntry {
+    ServerEntry()
+    {
+
+    }
+
+    ServerEntry(const int &game,
+                const QString &name,
+                const QString &host,
+                const int &port,
+                const QString &password) :
+                game(game),
+                name(name),
+                host(host),
+                port(port),
+                password(password)
+    {
+
+    }
+
     int game;
     QString name;
     QString host;

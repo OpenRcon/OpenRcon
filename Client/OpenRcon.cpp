@@ -26,6 +26,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     ui->setupUi(this);
 
     dir = new Directory(this);
+    gameManager = new GameManager(this);
+    serverManager = new ServerManager(this);
+
     settingsDialog = new SettingsDialog(this);
     aboutDialog = new About(this);
 
@@ -54,11 +57,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     ui->toolBar_sm->setMovable(false);
 #endif
 
-    // Adds all games to the list.
-    gameList.append(GameEntry(0, "Battlefield: Bad Company 2", QIcon(":/bfbc2/icons/bfbc2.png")));
-    gameList.append(GameEntry(1, "Battlefield 4", QIcon(":/bf4/icons/bf4.png")));
-    gameList.append(GameEntry(2, "Minecraft", QIcon(":/minecraft/icons/minecraft.png")));
-
     // Actions
     #if QT_VERSION < 0x050000
         actionAboutQt = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
@@ -77,7 +75,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon),
     // Quickconnect
     comboBox_qc_game = new QComboBox(this);
 
-    foreach (GameEntry entry, gameList) {
+    foreach (GameEntry entry, gameManager->getGames()) {
         comboBox_qc_game->addItem(entry.icon, entry.name);
     }
 
@@ -183,18 +181,29 @@ void OpenRcon::writeSettings()
 
 void OpenRcon::newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password)
 {
-    GameEntry entry = gameList.at(game);
+    GameEntry entry = gameManager->getGame(game);
+    Game *gameObject;
 
-    if (game == 0) {
-        BFBC2Widget *bfbc2 = new BFBC2Widget(host, port, password);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(bfbc2, entry.icon, QString("%1 [%2]").arg(name).arg(entry.name)));
-    } else if (game == 1) {
-        BF4Widget *bf4 = new BF4Widget(host, port, password);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(bf4, entry.icon, QString("%1 [%2]").arg(name).arg(entry.name)));
-    } else if (game == 2) {
-        MinecraftWidget *minecraft = new MinecraftWidget(host, port, password);
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(minecraft, entry.icon, QString("%1 [%2]").arg(name).arg(entry.name)));
+    switch (game) {
+        case 0:
+            gameObject = new BFBC2Widget(host, port, password);
+            break;
+
+        case 1:
+            gameObject = new BF4Widget(host, port, password);
+            break;
+
+        case 2:
+            gameObject = new MinecraftWidget(host, port, password);
+            break;
     }
+
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, entry.icon, QString("%1 [%2:%3]").arg(name).arg(host).arg(port)));
+}
+
+GameManager* OpenRcon::getGameManager()
+{
+    return gameManager;
 }
 
 void OpenRcon::closeTab(int index)
@@ -204,23 +213,15 @@ void OpenRcon::closeTab(int index)
     } else {
         QWidget *widget = ui->tabWidget->widget(index);
         ConnectionTabWidget *ctw = dynamic_cast<ConnectionTabWidget*>(widget);
-        ctw->getConnection()->hostDisconnect();;
+        ctw->getConnection()->hostDisconnect();
     }
 
     ui->tabWidget->removeTab(index);
 }
 
-QList<GameEntry> OpenRcon::getGameList()
-{
-    return gameList;
-}
-
 void OpenRcon::connect_sm(int index)
 {
-    if (index != -1 && m_comboBox_sm_connect) {
-        ServerEntry entry = m_serverEntries.at(index);
-        //newTab(entry.name, entry.host, entry.port, entry.password, entry.game);
-    }
+
 }
 
 void OpenRcon::connect_qc()

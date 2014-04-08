@@ -20,9 +20,9 @@
 #ifndef BF4WIDGET_H
 #define BF4WIDGET_H
 
+#include <QDateTime>
 #include <QMenu>
 #include <QCompleter>
-#include <QTime>
 
 #include "ui_BF4.h"
 

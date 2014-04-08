@@ -24,7 +24,7 @@
 #include <QIcon>
 
 struct GameEntry {
-    GameEntry(const int &id, const QString &name, const QIcon &icon) : id(id), name(name), icon(icon)
+    GameEntry(const int &id, const QString &name, const QString &icon) : id(id), name(name), icon(QIcon(icon))
     {
 
     }

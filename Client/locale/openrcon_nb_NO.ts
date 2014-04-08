@@ -69,7 +69,7 @@
     <message>
         <location filename="../bf3/BF3.ui" line="39"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../bf3/BF3.ui" line="48"/>
@@ -166,7 +166,7 @@
         <location filename="../bf4/BF4.ui" line="430"/>
         <location filename="../bf4/BF4.ui" line="511"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="104"/>
@@ -302,7 +302,7 @@
         <location filename="../bf4/BF4.ui" line="548"/>
         <location filename="../bf4/BF4.ui" line="644"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Legg til</translation>
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="555"/>
@@ -313,7 +313,7 @@
         <location filename="../bf4/BF4.ui" line="572"/>
         <location filename="../bf4/BF4.ui" line="668"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjern</translation>
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="594"/>
@@ -592,7 +592,7 @@
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="136"/>
         <source>Address:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adresse:</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="162"/>
@@ -629,7 +629,7 @@
         <location filename="../bfbc2/BFBC2.ui" line="269"/>
         <location filename="../bfbc2/BFBC2.ui" line="950"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="274"/>
@@ -773,12 +773,12 @@
         <location filename="../bfbc2/BFBC2.ui" line="658"/>
         <location filename="../bfbc2/BFBC2.ui" line="1815"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Legg til</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="678"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjern</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="708"/>
@@ -852,7 +852,7 @@
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="1050"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn:</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="1067"/>
@@ -1129,7 +1129,7 @@
         <location filename="../bfbc2/BFBC2Widget.cpp" line="48"/>
         <location filename="../bfbc2/BFBC2Widget.cpp" line="49"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjern</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2Widget.cpp" line="51"/>
@@ -1311,7 +1311,7 @@
         <location filename="../minecraft/Minecraft.ui" line="46"/>
         <location filename="../minecraft/Minecraft.ui" line="266"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="51"/>
@@ -1459,7 +1459,7 @@
     <message>
         <location filename="../OpenRcon.ui" line="157"/>
         <location filename="../OpenRcon.ui" line="186"/>
-        <location filename="../OpenRcon.cpp" line="93"/>
+        <location filename="../OpenRcon.cpp" line="91"/>
         <source>Quickconnect</source>
         <translation>Hurtigtilkobling</translation>
     </message>
@@ -1470,7 +1470,7 @@
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="195"/>
-        <location filename="../OpenRcon.cpp" line="252"/>
+        <location filename="../OpenRcon.cpp" line="256"/>
         <source>Home</source>
         <translation>Hjem</translation>
     </message>
@@ -1487,7 +1487,7 @@
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="219"/>
-        <location filename="../OpenRcon.cpp" line="323"/>
+        <location filename="../OpenRcon.cpp" line="327"/>
         <source>Documentation</source>
         <translation>Dokumentasjon</translation>
     </message>
@@ -1507,48 +1507,48 @@
         <translation>Avslutt</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="43"/>
+        <location filename="../OpenRcon.cpp" line="46"/>
         <source>About %1</source>
         <translation>Om %1</translation>
     </message>
     <message>
+        <location filename="../OpenRcon.cpp" line="62"/>
         <location filename="../OpenRcon.cpp" line="64"/>
-        <location filename="../OpenRcon.cpp" line="66"/>
         <source>About &amp;Qt</source>
         <translation>Om &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="69"/>
+        <location filename="../OpenRcon.cpp" line="67"/>
         <source>About &amp;%1</source>
         <translation>Om &amp;%1</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="84"/>
+        <location filename="../OpenRcon.cpp" line="82"/>
         <source>Host:</source>
         <translation>Tjener:</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="85"/>
+        <location filename="../OpenRcon.cpp" line="83"/>
         <source>Port:</source>
         <translation>Port:</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="86"/>
+        <location filename="../OpenRcon.cpp" line="84"/>
         <source>Password:</source>
         <translation>Passord:</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="236"/>
+        <location filename="../OpenRcon.cpp" line="240"/>
         <source>Warning</source>
         <translation>Advarsel</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="236"/>
+        <location filename="../OpenRcon.cpp" line="240"/>
         <source>Check server, port and password settings.</source>
         <translation>Sjekk tjener, port og passord innstillinger.</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="328"/>
+        <location filename="../OpenRcon.cpp" line="332"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
     </message>
@@ -1635,17 +1635,17 @@
     </message>
     <message>
         <location filename="../ServerListDialog.ui" line="91"/>
-        <location filename="../ServerListDialog.cpp" line="277"/>
+        <location filename="../ServerListDialog.cpp" line="279"/>
         <source>Remove</source>
         <translation>Fjern</translation>
     </message>
     <message>
-        <location filename="../ServerListDialog.cpp" line="31"/>
+        <location filename="../ServerListDialog.cpp" line="32"/>
         <source>Servermanager</source>
         <translation>Tjeneradministrasjon</translation>
     </message>
     <message>
-        <location filename="../ServerListDialog.cpp" line="277"/>
+        <location filename="../ServerListDialog.cpp" line="279"/>
         <source>Are you sure you want to remove this server?</source>
         <translation>Er du sikker på at du vil fjerne denne tjeneren?</translation>
     </message>
@@ -1703,7 +1703,7 @@
     <message>
         <location filename="../SettingsDialog.ui" line="48"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../SettingsDialog.ui" line="53"/>

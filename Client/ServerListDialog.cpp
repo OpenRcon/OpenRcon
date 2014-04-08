@@ -25,7 +25,7 @@ ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialo
 
     ui->setupUi(this);
 
-    connectionManager = new ConnectionManager(this);
+    serverManager = new ServerManager(this);
 
     // Sets application title and icon
     setWindowTitle(QString(tr("Servermanager")));
@@ -42,7 +42,7 @@ ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialo
 
     ui->pushButton_sld_connect->setEnabled(false);
 
-    foreach (GameEntry entry, OpenRcon::getInstance()->getGameList()) {
+    foreach (GameEntry entry, OpenRcon::getInstance()->getGameManager()->getGames()) {
         m_IconMap.insert(entry.id, entry.icon);
     }
 
@@ -65,7 +65,6 @@ ServerListDialog::~ServerListDialog()
     deleteTreeData();
 
     delete ui;
-    delete connectionManager;
     delete settings;
 }
 
@@ -81,45 +80,6 @@ void ServerListDialog::treeWidget_currentItemChanged(QTreeWidgetItem *item, QTre
     ui->pushButton_sld_connect->setEnabled(item && item->parent());
 }
 
-void ServerListDialog::loadServerEntries(QList<ServerEntry> &entries)
-{
-    settings->beginGroup(SETTINGS_SERVERMANAGER);
-        int size = settings->beginReadArray(SETTINGS_SERVERENTRIES);
-        for (int i = 0; i < size; i++) {
-            settings->setArrayIndex(i);
-            ServerEntry entry = {
-                settings->value(SETTINGS_SERVERENTRY_GAME).toInt(),
-                settings->value(SETTINGS_SERVERENTRY_NAME).toString(),
-                settings->value(SETTINGS_SERVERENTRY_HOST).toString(),
-                settings->value(SETTINGS_SERVERENTRY_PORT).toInt(),
-                settings->value(SETTINGS_SERVERENTRY_PASSWORD).toString()
-            };
-
-            entries.append(entry);
-        }
-
-        settings->endArray();
-    settings->endGroup();
-}
-
-void ServerListDialog::saveServerEntries(QList<ServerEntry> &entries)
-{
-    settings->beginGroup(SETTINGS_SERVERMANAGER);
-        settings->remove(SETTINGS_SERVERENTRIES);
-        const int size = entries.size();
-        settings->beginWriteArray(SETTINGS_SERVERENTRIES);
-            for (int i = 0; i < size; i++) {
-                settings->setArrayIndex(i);
-                    settings->setValue(SETTINGS_SERVERENTRY_GAME, entries.at(i).game);
-                    settings->setValue(SETTINGS_SERVERENTRY_NAME, entries.at(i).name);
-                    settings->setValue(SETTINGS_SERVERENTRY_HOST, entries.at(i).host);
-                    settings->setValue(SETTINGS_SERVERENTRY_PORT, entries.at(i).port);
-                    settings->setValue(SETTINGS_SERVERENTRY_PASSWORD, entries.at(i).password);
-            }
-        settings->endArray();
-    settings->endGroup();
-}
-
 /* Some pointer fun below. The trick is that all the pointers in m_Data and m_RootItems point back to m_ServerEntries.
    The actual element is passed in the QTreeWidgetItem itself, in row 5 as a QVariant. */
 
@@ -127,7 +87,9 @@ void ServerListDialog::createTreeData()
 {
     deleteTreeData();
 
-    loadServerEntries(m_ServerEntries);
+    //loadServerEntries(m_ServerEntries);
+
+    m_ServerEntries = serverManager->getServers();
 
     QSet<int> uniqueGames;
     for (QList<ServerEntry>::const_iterator it = m_ServerEntries.constBegin(); it != m_ServerEntries.constEnd(); it++) {
@@ -152,7 +114,7 @@ void ServerListDialog::createTreeData()
 
     for (QList<int>::const_iterator key_it = keys.constBegin(); key_it != keys.constEnd(); key_it++) {
         QTreeWidgetItem* parent = new QTreeWidgetItem(ui->treeWidget);
-        parent->setText(0, OpenRcon::getInstance()->getGameList().at(*key_it).name);
+        parent->setText(0, OpenRcon::getInstance()->getGameManager()->getGame(*key_it).name);
 
         if (m_IconMap.contains(*key_it)) {
             QIcon icon = m_IconMap.value(*key_it);
@@ -203,7 +165,7 @@ void ServerListDialog::deleteTreeData()
         delete m_Data[*key_it];
     }
     m_Data.clear();
-    m_ServerEntries.clear();
+    //m_ServerEntries.clear();
 }
 
 void ServerListDialog::addItem()
@@ -212,17 +174,18 @@ void ServerListDialog::addItem()
 
     if (sed->exec() == QDialog::Accepted) {
 
-        ServerEntry entry = {
+        ServerEntry entry = ServerEntry(
             sed->getGame(),
             sed->getName(),
             sed->getHost(),
             sed->getPort(),
             sed->getPassword()
-        };
+        );
 
-        m_ServerEntries.append(entry);
+        //m_ServerEntries.append(entry);
+        serverManager->addServer(entry);
 
-        saveServerEntries(m_ServerEntries);
+        //saveServerEntries(m_ServerEntries);
 
         createTreeData();
 
@@ -246,17 +209,17 @@ void ServerListDialog::editItem()
         ServerEditDialog *sed = new ServerEditDialog(e->game, e->name, e->host, e->port, e->password, this);
 
         if (sed->exec() == QDialog::Accepted) {
-            ServerEntry entry = {
+            ServerEntry entry = ServerEntry(
                 sed->getGame(),
                 sed->getName(),
                 sed->getHost(),
                 sed->getPort(),
                 sed->getPassword()
-            };
+            );
 
             *e = entry;
 
-            saveServerEntries(m_ServerEntries);
+            //saveServerEntries(m_ServerEntries);
 
             createTreeData();
 
@@ -286,7 +249,7 @@ void ServerListDialog::removeItem()
         // Could use indexOf instead, we're assuming no duplicates.
         m_ServerEntries.removeAll(*e);
 
-        saveServerEntries(m_ServerEntries);
+        //saveServerEntries(m_ServerEntries);
 
         createTreeData();
 
@@ -305,10 +268,8 @@ void ServerListDialog::accept()
         QVariant variant = item->data(3, Qt::UserRole);
         ServerEntry* entry = variant.value<ServerEntry*>();
 
-        OpenRcon *o = OpenRcon::getInstance();
-        o->newTab(entry->game, entry->name, entry->host, entry->port, entry->password);
-
-        //connectionManager->newConnection(e->name, e->host, e->port.toInt(), e->game, e->password);
+        OpenRcon *openRcon = OpenRcon::getInstance();
+        openRcon->newTab(entry->game, entry->name, entry->host, entry->port, entry->password);
 
         QDialog::accept();
     }

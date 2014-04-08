@@ -43,18 +43,14 @@
 
 #include "Constants.h"
 #include "Directory.h"
-#include "GameEntry.h"
+#include "GameManager.h"
+#include "ServerManager.h"
 #include "Connection.h"
 #include "ConnectionTabWidget.h"
-#include "ServerEntry.h"
+
 #include "ServerListDialog.h"
-
-#include "About.h"
 #include "SettingsDialog.h"
-
-#include "BFBC2Widget.h"
-#include "BF4Widget.h"
-#include "MinecraftWidget.h"
+#include "About.h"
 
 using namespace Constants;
 
@@ -75,7 +71,7 @@ public:
     }
 
     void newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
-    QList<GameEntry> getGameList();
+    GameManager* getGameManager();
 
 protected:
     static OpenRcon* m_Instance;
@@ -84,12 +80,13 @@ private:
     Ui::OpenRcon *ui;
 
     Directory *dir;
+    GameManager *gameManager;
+    ServerManager *serverManager;
+
     SettingsDialog *settingsDialog;
     About *aboutDialog;
 
     QSettings *settings;
-    QList<GameEntry> gameList;
-    QList<ServerEntry> m_serverEntries;
 
     // Actions
     QAction *actionAboutQt;

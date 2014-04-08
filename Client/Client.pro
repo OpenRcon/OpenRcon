@@ -36,7 +36,6 @@ DEPENDPATH += frostbite \
 HEADERS += OpenRcon.h \
     About.h \
     Connection.h \
-    ConnectionManager.h \
     ConnectionTabWidget.h \
     Constants.h \
     Directory.h \
@@ -50,12 +49,12 @@ HEADERS += OpenRcon.h \
     SettingsManager.h \
     Game.h \
     GameEntry.h \
-    ServerManager.h
+    ServerManager.h \
+    GameManager.h
 
 SOURCES += OpenRcon.cpp \
     About.cpp \
     Connection.cpp \
-    ConnectionManager.cpp \
     Directory.cpp \
     Main.cpp \
     ServerListDialog.cpp \
@@ -66,7 +65,8 @@ SOURCES += OpenRcon.cpp \
     DragDropTreeWidget.cpp \
     SettingsManager.cpp \
     Game.cpp \
-    ServerManager.cpp
+    ServerManager.cpp \
+    GameManager.cpp
 
 FORMS += About.ui \
     OpenRcon.ui \

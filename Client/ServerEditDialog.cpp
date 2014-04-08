@@ -30,7 +30,7 @@ ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialo
 
     ui->comboBox_sed_game->clear();
 
-    foreach (GameEntry entry, OpenRcon::getInstance()->getGameList()) {
+    foreach (GameEntry entry, OpenRcon::getInstance()->getGameManager()->getGames()) {
         ui->comboBox_sed_game->addItem(entry.icon, entry.name, entry.id);
     }
 

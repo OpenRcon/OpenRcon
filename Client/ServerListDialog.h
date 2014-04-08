@@ -20,18 +20,14 @@
 #ifndef SERVERLISTDIALOG_H
 #define SERVERLISTDIALOG_H
 
-#include <QObject>
 #include <QDebug>
-#include <QSettings>
 #include <QDialog>
 #include <QMenu>
 #include <QMessageBox>
 
 #include "ui_ServerListDialog.h"
 
-#include "OpenRcon.h"
-#include "Constants.h"
-#include "ConnectionManager.h"
+#include "ServerManager.h"
 #include "ServerEditDialog.h"
 #include "ServerTableModel.h"
 
@@ -45,13 +41,10 @@ public:
     explicit ServerListDialog(QObject *parent = 0);
     ~ServerListDialog();
 
-    void loadServerEntries(QList<ServerEntry> &entries);
-    void saveServerEntries(QList<ServerEntry> &entries);
-
 private:
     Ui::ServerListDialog *ui;
 
-    ConnectionManager *connectionManager;
+    ServerManager *serverManager;
 
     QSettings *settings;
     QMap<int, QIcon> m_IconMap;
