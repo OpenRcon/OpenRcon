@@ -26,9 +26,11 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     ui->setupUi(this);
 
     dir = new Directory(this);
+    settings = new QSettings(APP_NAME, APP_NAME, this);
     gameManager = new GameManager(this);
     serverManager = new ServerManager(this);
 
+    //serverListDialog = new ServerListDialog(this);
     settingsDialog = new SettingsDialog(this);
     aboutDialog = new About(this);
 
@@ -37,7 +39,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     setWindowIcon(QIcon(APP_ICON));
 
     // Create and read settings
-    settings = new QSettings(APP_NAME, APP_NAME, this);
+
     readSettings();
 
     // Actions
@@ -49,6 +51,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     comboBox_sm_server = new QComboBox(this);
     pushButton_sm_connect = new QPushButton(tr("Connect"), this);
 
+    // Add the server to the comboBox only if it's not empty, otherwhise disable it.
     QList<ServerEntry> serverList = serverManager->getServers();
 
     if (!serverList.isEmpty()) {
@@ -92,10 +95,10 @@ OpenRcon::~OpenRcon()
 
     delete dir;
     delete settings;
-
     delete gameManager;
     delete serverManager;
 
+//    delete serverListDialog;
     delete settingsDialog;
     delete aboutDialog;
 }
@@ -152,23 +155,28 @@ void OpenRcon::writeSettings()
 void OpenRcon::newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password)
 {
     GameEntry entry = gameManager->getGame(game);
-    Game *gameObject;
 
-    switch (game) {
-        case 0:
-            gameObject = new BFBC2Widget(host, port, password);
-            break;
+    if (game >= 0) {
+        Game *gameObject;
 
-        case 1:
-            gameObject = new BF4Widget(host, port, password);
-            break;
+        switch (game) {
+            case 0:
+                gameObject = new BFBC2Widget(host, port, password);
+                break;
 
-        case 2:
-            gameObject = new MinecraftWidget(host, port, password);
-            break;
+            case 1:
+                gameObject = new BF4Widget(host, port, password);
+                break;
+
+            case 2:
+                gameObject = new MinecraftWidget(host, port, password);
+                break;
+        }
+
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, entry.icon, QString("%1 [%2:%3]").arg(name).arg(host).arg(port)));
+    } else {
+        qDebug() << "Unknown game, with id: " << game;
     }
-
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, entry.icon, QString("%1 [%2:%3]").arg(name).arg(host).arg(port)));
 }
 
 GameManager* OpenRcon::getGameManager()
@@ -188,10 +196,8 @@ void OpenRcon::closeTab(int index)
 // Application menu
 void OpenRcon::actionServermanager_triggered()
 {
-    ServerListDialog *dlg = new ServerListDialog(this);
-    dlg->exec();
-
-    delete dlg;
+    ServerListDialog *serverListDialog = new ServerListDialog(this);
+    serverListDialog->exec();
 }
 
 // View menu

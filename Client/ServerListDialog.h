@@ -27,6 +27,9 @@
 
 #include "ui_ServerListDialog.h"
 
+#include "OpenRcon.h"
+
+#include "GameManager.h"
 #include "ServerManager.h"
 #include "ServerEditDialog.h"
 #include "ServerTableModel.h"
@@ -44,9 +47,9 @@ public:
 private:
     Ui::ServerListDialog *ui;
 
+    GameManager *gameManager;
     ServerManager *serverManager;
 
-    QSettings *settings;
     QMap<int, QIcon> m_IconMap;
     QMap<int, QList<ServerEntry*>*> m_Data;
     QList<ServerEntry> m_ServerEntries;

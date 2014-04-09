@@ -20,11 +20,7 @@
 #ifndef SERVEREDITDIALOG_H
 #define SERVEREDITDIALOG_H
 
-#include <QObject>
-#include <QDebug>
 #include <QDialog>
-#include <QPushButton>
-#include <QHostAddress>
 
 #include "ui_ServerEditDialog.h"
 

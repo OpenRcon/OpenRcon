@@ -23,14 +23,13 @@
 #include "FrostbiteRconWord.h"
 
 //#define MAX_WORDS 100 // TODO: Think this right.
-// TODO: Should qint32 be replaced by RconUint?
 
 class FrostbiteRconPacket
 {
 
 public:
     explicit FrostbiteRconPacket();
-    explicit FrostbiteRconPacket(int origin, int type, unsigned int initseq = 0);
+    explicit FrostbiteRconPacket(const int &origin, const int &type, const unsigned int &initseq = 0);
     explicit FrostbiteRconPacket(const FrostbiteRconPacket &packet);
     FrostbiteRconPacket &operator= (const FrostbiteRconPacket &packet);
     ~FrostbiteRconPacket();
@@ -43,9 +42,9 @@ public:
     unsigned int getWordCount() const;
     bool isResponse() const;
     bool isRequest() const;
-    const FrostbiteRconWord &getWord(unsigned int i) const;
-    void setSequence(unsigned int seq);
-    void setSequenceNum(unsigned int seq);
+    const FrostbiteRconWord& getWord(const unsigned int &index) const;
+    void setSequence(const unsigned int &sequence);
+    void setSequenceNum(const unsigned int &sequence);
     void clear();
 
     // Packet
@@ -87,7 +86,7 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconPacket &packet)
 
     packet.clear();
 
-    quint32 seq, fsize, words;
+    unsigned int seq, fsize, words;
 
     in >> seq;
     in >> fsize;
@@ -96,7 +95,7 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconPacket &packet)
 
     packet.setSequence(seq);
 
-    for (quint32 i = 0; i < words; i++) {
+    for (unsigned int i = 0; i < words; i++) {
         in >> word;
         packet.packWord(word);
     }
@@ -121,7 +120,7 @@ inline QDataStream &operator << (QDataStream &out, const FrostbiteRconPacket &pa
     out << packet.getFullSize();
     out << packet.getWordCount();
 
-    for (quint32 i = 0; i < packet.getWordCount(); i++) {
+    for (unsigned int i = 0; i < packet.getWordCount(); i++) {
         out << packet.getWord(i);
     }
 

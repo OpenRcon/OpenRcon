@@ -31,8 +31,6 @@ ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialo
     setWindowTitle(QString(tr("Servermanager")));
     setWindowIcon(QIcon(APP_ICON));
 
-    settings = new QSettings(APP_NAME, APP_NAME, this);
-
     // Add a menu for the ServerItems
     menu_sld_serverEntry = new QMenu(ui->treeWidget);
     menu_sld_serverEntry->addAction(ui->actionEdit);
@@ -42,7 +40,7 @@ ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialo
 
     ui->pushButton_sld_connect->setEnabled(false);
 
-    foreach (GameEntry entry, OpenRcon::getInstance()->getGameManager()->getGames()) {
+    foreach (GameEntry entry, gameManager->getGames()) {
         m_IconMap.insert(entry.id, entry.icon);
     }
 
@@ -65,7 +63,6 @@ ServerListDialog::~ServerListDialog()
     deleteTreeData();
 
     delete ui;
-    delete settings;
 }
 
 void ServerListDialog::treeWidget_customContextMenuRequested(QPoint pos)
@@ -114,7 +111,7 @@ void ServerListDialog::createTreeData()
 
     for (QList<int>::const_iterator key_it = keys.constBegin(); key_it != keys.constEnd(); key_it++) {
         QTreeWidgetItem* parent = new QTreeWidgetItem(ui->treeWidget);
-        parent->setText(0, OpenRcon::getInstance()->getGameManager()->getGame(*key_it).name);
+        parent->setText(0, gameManager->getGame(*key_it).name);
 
         if (m_IconMap.contains(*key_it)) {
             QIcon icon = m_IconMap.value(*key_it);

@@ -24,7 +24,7 @@ FrostbiteRconPacket::FrostbiteRconPacket() : packetSequence(0), packetSize(0), p
 
 }
 
-FrostbiteRconPacket::FrostbiteRconPacket(int origin, int type, unsigned int initseq) : packetSequence(initseq & 0x3FFFFFFF), packetSize(0), packetWordCount(0)
+FrostbiteRconPacket::FrostbiteRconPacket(const int &origin, const int &type, const unsigned int &initseq) : packetSequence(initseq & 0x3FFFFFFF), packetSize(0), packetWordCount(0)
 {
     if (origin == ClientOrigin) {
         packetSequence |= 0x80000000;
@@ -95,12 +95,12 @@ unsigned int FrostbiteRconPacket::getWordCount() const
     return packetWordCount;
 }
 
-const FrostbiteRconWord& FrostbiteRconPacket::getWord(unsigned int i) const
+const FrostbiteRconWord& FrostbiteRconPacket::getWord(const unsigned int &index) const
 {
-    if (i < packetWordCount) {
-        return packetWords[i];
+    if (index < packetWordCount) {
+        return packetWords[index];
     } else {
-        qDebug() << QString("Wrong word index %1.").arg(i);
+        qDebug() << QString("Wrong word index %1.").arg(index);
     }
 
     // TODO: Fix crash here.
@@ -108,14 +108,14 @@ const FrostbiteRconWord& FrostbiteRconPacket::getWord(unsigned int i) const
     return *((FrostbiteRconWord *) 0);
 }
 
-void FrostbiteRconPacket::setSequence(unsigned int seq)
+void FrostbiteRconPacket::setSequence(const unsigned int &sequence)
 {
-    packetSequence = seq;
+    packetSequence = sequence;
 }
 
-void FrostbiteRconPacket::setSequenceNum(unsigned int seq)
+void FrostbiteRconPacket::setSequenceNum(const unsigned int &sequence)
 {
-    packetSequence = (packetSequence & 0xC0000000) | (seq & 0x3FFFFFFF);
+    packetSequence = (packetSequence & 0xC0000000) | (sequence & 0x3FFFFFFF);
 }
 
 void FrostbiteRconPacket::clear()

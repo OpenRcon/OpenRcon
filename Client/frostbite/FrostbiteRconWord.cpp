@@ -90,7 +90,7 @@ char FrostbiteRconWord::getTerminator() const
     return wordTerminator;
 }
 
-void FrostbiteRconWord::loadData(const char* data, unsigned int size)
+void FrostbiteRconWord::loadData(const char* data, const unsigned int &size)
 {
     clear();
     wordTerminator = 0;
@@ -98,7 +98,7 @@ void FrostbiteRconWord::loadData(const char* data, unsigned int size)
 
     if (wordSize) {
         wordContent = new char[wordSize + 1];
-        memcpy(wordContent, data, wordSize);
+        strcpy(wordContent, data);
         wordContent[wordSize] = 0; // Include the null terminator.
     }
 }

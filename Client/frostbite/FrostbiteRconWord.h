@@ -34,7 +34,7 @@ public:
     ~FrostbiteRconWord();
 
     void clear();
-    void loadData(const char* data, quint32 size);
+    void loadData(const char* data, const unsigned int &size);
     unsigned int getSize() const;
     unsigned int getFullSize() const;
     const char* getContent() const;
@@ -58,7 +58,7 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconWord &word)
 
     unsigned int size;
     char * data = 0;
-    qint8 terminator;
+    signed char terminator;
 
     in >> size;
 
@@ -95,10 +95,10 @@ inline QDataStream &operator << (QDataStream &out, const FrostbiteRconWord &word
     const char * wordContent = word.getContent();
 
     for (unsigned int i = 0; i < word.getSize(); i++) {
-        out << (quint8) wordContent[i];
+        out << (signed char) wordContent[i];
     }
 
-    out << (quint8) word.getTerminator();
+    out << (signed char) word.getTerminator();
 
     if (oldbo != QDataStream::LittleEndian) {
         out.setByteOrder(oldbo);

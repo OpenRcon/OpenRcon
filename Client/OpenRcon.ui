@@ -145,7 +145,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -154,7 +154,7 @@
     <string>toolBar</string>
    </property>
    <property name="allowedAreas">
-    <set>Qt::BottomToolBarArea|Qt::RightToolBarArea|Qt::TopToolBarArea</set>
+    <set>Qt::AllToolBarAreas</set>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>

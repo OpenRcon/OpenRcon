@@ -85,6 +85,7 @@ private:
     GameManager *gameManager;
     ServerManager *serverManager;
 
+    //ServerListDialog *serverListDialog;
     SettingsDialog *settingsDialog;
     About *aboutDialog;
 
