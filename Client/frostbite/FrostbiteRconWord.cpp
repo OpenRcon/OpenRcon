@@ -32,7 +32,7 @@ FrostbiteRconWord::FrostbiteRconWord(const char* str) : wordSize(0), wordContent
 
     if (wordSize) {
         wordContent = new char[wordSize + 1];
-        memcpy(wordContent, str, wordSize);
+        wordContent = (char*) str;
         wordContent[wordSize] = 0; // Include the null terminator.
     }
 }
@@ -44,7 +44,7 @@ FrostbiteRconWord::FrostbiteRconWord(const FrostbiteRconWord &word) : wordSize(0
 
     if (wordSize) {
         wordContent = new char[wordSize + 1];
-        memcpy(wordContent, word.getContent(), wordSize);
+        strcpy(wordContent, word.getContent());
         wordContent[wordSize] = 0; // Include the null terminator.
     }
 }
@@ -62,7 +62,7 @@ FrostbiteRconWord &FrostbiteRconWord::operator = (const FrostbiteRconWord &word)
         wordSize = word.getSize();
         if (wordSize) {
             wordContent = new char[wordSize + 1];
-            memcpy(wordContent, word.getContent(), wordSize);
+            strcpy(wordContent, word.getContent());
             wordContent[wordSize] = 0; // Include the null terminator.
         }
     }
