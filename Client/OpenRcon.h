@@ -25,19 +25,15 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QDesktopServices>
-#include <QStringList>
 #include <QIcon>
 #include <QEvent>
 #include <QCloseEvent>
 #include <QSettings>
-#include <QTranslator>
 #include <QComboBox>
-#include <QGridLayout>
 #include <QLineEdit>
 #include <QLabel>
 #include <QMessageBox>
 #include <QPushButton>
-#include <QWebView>
 
 #include "ui_OpenRcon.h"
 
@@ -53,6 +49,10 @@
 #include "About.h"
 
 using namespace Constants;
+
+namespace Ui {
+    class MainWindow;
+}
 
 class OpenRcon : public QMainWindow
 {
@@ -80,10 +80,10 @@ private:
     Ui::OpenRcon *ui;
 
     Directory *dir;
+    QSettings *settings;
+
     GameManager *gameManager;
     ServerManager *serverManager;
-
-    QSettings *settings;
 
     SettingsDialog *settingsDialog;
     About *aboutDialog;

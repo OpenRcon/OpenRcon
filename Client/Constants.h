@@ -24,7 +24,7 @@
 
 namespace Constants {
     // Application
-    const QString APP_NAME = "OpenRcon";
+    const QString APP_NAME = "OpenRcon1";
     const QString APP_VERSION = "0.2";
     const QString APP_ICON = ":/images/icons/openrcon.png";
     const QString APP_URL = "http://openrcon.org/";

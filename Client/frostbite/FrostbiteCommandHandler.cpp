@@ -30,7 +30,7 @@ void FrostbiteCommandHandler::eventOnDataReceived(const QString &response)
 
 bool FrostbiteCommandHandler::toBool(const QString &value)
 {
-    return value == "true" ? true : false;
+    return value == "true";
 }
 
 void FrostbiteCommandHandler::commandUnknown()

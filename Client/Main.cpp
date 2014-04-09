@@ -46,8 +46,9 @@ int main(int argc, char *argv[])
     translator.load(":/locale/openrcon_" + locale);
     app.installTranslator(&translator);
 
-    OpenRcon *o = OpenRcon::getInstance();
-    o->show();
+    // Launch the app.
+    OpenRcon o;
+    o.show();
 
     return app.exec();
 }

@@ -138,6 +138,24 @@
    <property name="windowTitle">
     <string>Servermanager</string>
    </property>
+   <property name="allowedAreas">
+    <set>Qt::AllToolBarAreas</set>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar_co">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::BottomToolBarArea|Qt::RightToolBarArea|Qt::TopToolBarArea</set>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
@@ -146,7 +164,6 @@
    </attribute>
    <addaction name="actionServermanager"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionConnection">
    <property name="checkable">
     <bool>true</bool>
@@ -173,6 +190,10 @@
    </property>
   </action>
   <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="OpenRcon.qrc">
+     <normaloff>:/icons/images/icons/applications-system.png</normaloff>:/icons/images/icons/applications-system.png</iconset>
+   </property>
    <property name="text">
     <string>Settings</string>
    </property>
@@ -183,6 +204,10 @@
    </property>
   </action>
   <action name="actionDocumentation">
+   <property name="icon">
+    <iconset resource="OpenRcon.qrc">
+     <normaloff>:/icons/images/icons/accessories-dictionary.png</normaloff>:/icons/images/icons/accessories-dictionary.png</iconset>
+   </property>
    <property name="text">
     <string>Documentation</string>
    </property>

@@ -47,22 +47,23 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     // ServerManager
     comboBox_sm_server = new QComboBox(this);
-
-    foreach (ServerEntry server, serverManager->getServers()) {
-        GameEntry game = gameManager->getGame(server.game);
-
-        comboBox_sm_server->addItem(game.icon, server.name);
-    }
-
     pushButton_sm_connect = new QPushButton(tr("Connect"), this);
+
+    QList<ServerEntry> serverList = serverManager->getServers();
+
+    if (!serverList.isEmpty()) {
+        foreach (ServerEntry server, serverList) {
+            GameEntry game = gameManager->getGame(server.game);
+
+            comboBox_sm_server->addItem(game.icon, server.name);
+        }
+    } else {
+        comboBox_sm_server->setEnabled(false);
+        pushButton_sm_connect->setEnabled(false);
+    }
 
     ui->toolBar_sm->addWidget(comboBox_sm_server);
     ui->toolBar_sm->addWidget(pushButton_sm_connect);
-
-    connect(pushButton_sm_connect, SIGNAL(clicked()), this, SLOT(pushButton_sm_connect_clicked()));
-
-    // Tabwidget
-    connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
 
     // Actions
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
@@ -77,6 +78,12 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(actionAbout_triggered()));
     connect(ui->actionAbout_Qt, SIGNAL(triggered()), this, SLOT(actionAbout_Qt_triggered()));
+
+    // Toolbars
+    connect(pushButton_sm_connect, SIGNAL(clicked()), this, SLOT(pushButton_sm_connect_clicked()));
+
+    // Tabwidget
+    connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
 }
 
 OpenRcon::~OpenRcon()
