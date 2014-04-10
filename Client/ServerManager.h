@@ -17,7 +17,10 @@ public:
     ~ServerManager();
 
     ServerEntry getServer(const int &index);
+
     QList<ServerEntry> getServers();
+    QList<ServerEntry> getServers(const int &game);
+
     void addServer(const ServerEntry &serverEntry);
     void removeServer(const int &index);
     void removeServer(const ServerEntry &serverEntry);

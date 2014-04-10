@@ -19,12 +19,13 @@
 
 #include "ServerListDialog.h"
 
-ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialog), m_RootItems(0)
+ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui::ServerListDialog)
 {
     Q_UNUSED(parent);
 
     ui->setupUi(this);
 
+    gameManager = new GameManager(this);
     serverManager = new ServerManager(this);
 
     // Sets application title and icon
@@ -39,10 +40,6 @@ ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialo
     ui->treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
 
     ui->pushButton_sld_connect->setEnabled(false);
-
-    foreach (GameEntry entry, gameManager->getGames()) {
-        m_IconMap.insert(entry.id, entry.icon);
-    }
 
     createTreeData();
 
@@ -77,92 +74,39 @@ void ServerListDialog::treeWidget_currentItemChanged(QTreeWidgetItem *item, QTre
     ui->pushButton_sld_connect->setEnabled(item && item->parent());
 }
 
-/* Some pointer fun below. The trick is that all the pointers in m_Data and m_RootItems point back to m_ServerEntries.
-   The actual element is passed in the QTreeWidgetItem itself, in row 5 as a QVariant. */
-
 void ServerListDialog::createTreeData()
 {
-    deleteTreeData();
+    QList<QTreeWidgetItem *> topLevelItems;
 
-    //loadServerEntries(m_ServerEntries);
+    foreach (GameEntry gameEntry, gameManager->getGames()) {
+        QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidget);
+        parentItem->setIcon(0, gameEntry.icon);
+        parentItem->setText(0, gameEntry.name);
 
-    m_ServerEntries = serverManager->getServers();
+        foreach (ServerEntry serverEntry, serverManager->getServers(gameEntry.id)) {
+            QTreeWidgetItem *childItem = new QTreeWidgetItem(parentItem);
+            childItem->setText(0, serverEntry.name);
+            childItem->setText(1, serverEntry.host);
+            childItem->setText(2, QString::number(serverEntry.port));
+//            childItem->setData(3, Qt::UserRole, qVariantFromValue(serverEntry));
 
-    QSet<int> uniqueGames;
-    for (QList<ServerEntry>::const_iterator it = m_ServerEntries.constBegin(); it != m_ServerEntries.constEnd(); it++) {
-        uniqueGames.insert(it->game);
-    }
-
-    for (QSet<int>::const_iterator games_it = uniqueGames.constBegin(); games_it != uniqueGames.constEnd(); games_it++) {
-        QList<ServerEntry*> *sen = new QList<ServerEntry*>();
-
-        for (QList<ServerEntry>::iterator entries_it = m_ServerEntries.begin(); entries_it != m_ServerEntries.end(); entries_it++) {
-            if (*games_it == entries_it->game) {
-                sen->append(&(*entries_it));
-            }
+            parentItem->addChild(childItem);
         }
 
-        m_Data.insert(*games_it, sen);
+        topLevelItems.append(parentItem);
     }
 
-    m_RootItems = new QList<QTreeWidgetItem*>();
-
-    QList<int> keys = m_Data.keys();
-
-    for (QList<int>::const_iterator key_it = keys.constBegin(); key_it != keys.constEnd(); key_it++) {
-        QTreeWidgetItem* parent = new QTreeWidgetItem(ui->treeWidget);
-        parent->setText(0, gameManager->getGame(*key_it).name);
-
-        if (m_IconMap.contains(*key_it)) {
-            QIcon icon = m_IconMap.value(*key_it);
-            parent->setIcon(0, icon);
-        }
-
-        ui->treeWidget->addTopLevelItem(parent);
-
-        QList<ServerEntry*> *entries = m_Data[*key_it];
-        for (QList<ServerEntry*>::iterator entries_it = entries->begin(); entries_it != entries->end(); entries_it++) {
-
-            ServerEntry* sep = *entries_it;
-
-            QTreeWidgetItem* child = new QTreeWidgetItem(parent);
-            child->setText(0, sep->name);
-            child->setText(1, sep->host);
-            child->setText(2, QString::number(sep->port));
-            child->setData(3, Qt::UserRole, qVariantFromValue(sep));
-
-            parent->addChild(child);
-        }
-
-        m_RootItems->append(parent);
-    }
-
+    ui->treeWidget->addTopLevelItems(topLevelItems);
     ui->treeWidget->expandAll();
-    for (int n = 0; n < ui->treeWidget->columnCount(); n++) {
-        ui->treeWidget->resizeColumnToContents(n);
+
+    for (int i = 0; i < ui->treeWidget->columnCount(); i++) {
+        ui->treeWidget->resizeColumnToContents(i);
     }
 }
 
 void ServerListDialog::deleteTreeData()
 {
-    if (m_RootItems) {
-        for (QList<QTreeWidgetItem*>::iterator it = m_RootItems->begin(); it != m_RootItems->end(); it++) {
-            for (int k = 0; k < (*it)->childCount(); k++) {
-                delete (*it)->child(k);
-            }
-            delete *it;
-        }
-
-        delete m_RootItems;
-        m_RootItems = 0;
-    }
-
-    QList<int> keys = m_Data.keys();
-    for (QList<int>::const_iterator key_it = keys.constBegin(); key_it != keys.constEnd(); key_it++) {
-        delete m_Data[*key_it];
-    }
-    m_Data.clear();
-    //m_ServerEntries.clear();
+    ui->treeWidget->clear();
 }
 
 void ServerListDialog::addItem()
@@ -170,7 +114,6 @@ void ServerListDialog::addItem()
     ServerEditDialog *sed = new ServerEditDialog(this);
 
     if (sed->exec() == QDialog::Accepted) {
-
         ServerEntry entry = ServerEntry(
             sed->getGame(),
             sed->getName(),
@@ -179,15 +122,8 @@ void ServerListDialog::addItem()
             sed->getPassword()
         );
 
-        //m_ServerEntries.append(entry);
         serverManager->addServer(entry);
-
-        //saveServerEntries(m_ServerEntries);
-
         createTreeData();
-
-        //MainWindow *mw = MainWindow::getInstance();
-        //mw->PopulateServerItems();
     }
 
     delete sed;
@@ -195,15 +131,15 @@ void ServerListDialog::addItem()
 
 void ServerListDialog::editItem()
 {
-    QList<QTreeWidgetItem*> items = ui->treeWidget->selectedItems();
+    QList<QTreeWidgetItem *> items = ui->treeWidget->selectedItems();
     Q_ASSERT(items.count() <= 1);
 
     if (items.count() == 1) {
-        QTreeWidgetItem* item = items[0];
+        QTreeWidgetItem *item = items.at(0);
         QVariant v = item->data(3, Qt::UserRole);
-        ServerEntry* e = v.value<ServerEntry*>();
+        ServerEntry e = v.value<ServerEntry>();
 
-        ServerEditDialog *sed = new ServerEditDialog(e->game, e->name, e->host, e->port, e->password, this);
+        ServerEditDialog *sed = new ServerEditDialog(e.game, e.name, e.host, e.port, e.password, this);
 
         if (sed->exec() == QDialog::Accepted) {
             ServerEntry entry = ServerEntry(
@@ -214,14 +150,7 @@ void ServerListDialog::editItem()
                 sed->getPassword()
             );
 
-            *e = entry;
-
-            //saveServerEntries(m_ServerEntries);
-
             createTreeData();
-
-            //MainWindow *mw = MainWindow::getInstance();
-            //mw->PopulateServerItems();
         }
 
         delete sed;
@@ -230,28 +159,22 @@ void ServerListDialog::editItem()
 
 void ServerListDialog::removeItem()
 {
-    QList<QTreeWidgetItem*> items = ui->treeWidget->selectedItems();
+    QList<QTreeWidgetItem *> items = ui->treeWidget->selectedItems();
     Q_ASSERT(items.count() <= 1);
 
     if (items.count() == 1) {
-        const int answer = QMessageBox::question(this, tr("Remove"), tr("Are you sure you want to remove this server?"), QMessageBox::Yes, QMessageBox::No);
-        if (answer != QMessageBox::Yes) {
-            return;
+        int answer = QMessageBox::question(this, tr("Remove"), tr("Are you sure you want to remove this server?"), QMessageBox::Yes, QMessageBox::No);
+
+        if (answer == QMessageBox::Yes) {
+            QTreeWidgetItem *item = items.at(0);
+            QVariant v = item->data(3, Qt::UserRole);
+            ServerEntry e = v.value<ServerEntry>();
+
+            // Could use indexOf instead, we're assuming no duplicates.
+            //m_ServerEntries.removeAll(*e); TODO: Fix this.
+
+            createTreeData();
         }
-
-        QTreeWidgetItem* item = items[0];
-        QVariant v = item->data(3, Qt::UserRole);
-        ServerEntry* e = v.value<ServerEntry*>();
-
-        // Could use indexOf instead, we're assuming no duplicates.
-        m_ServerEntries.removeAll(*e);
-
-        //saveServerEntries(m_ServerEntries);
-
-        createTreeData();
-
-        //MainWindow *mw = MainWindow::getInstance();
-        //mw->PopulateServerItems();
     }
 }
 
@@ -263,10 +186,10 @@ void ServerListDialog::accept()
     if (items.count() == 1 && ui->treeWidget->currentItem()->parent()) {
         QTreeWidgetItem* item = items[0];
         QVariant variant = item->data(3, Qt::UserRole);
-        ServerEntry* entry = variant.value<ServerEntry*>();
+        ServerEntry entry = variant.value<ServerEntry>();
 
         OpenRcon *openRcon = OpenRcon::getInstance();
-        openRcon->newTab(entry->game, entry->name, entry->host, entry->port, entry->password);
+        openRcon->newTab(entry.game, entry.name, entry.host, entry.port, entry.password);
 
         QDialog::accept();
     }

@@ -64,6 +64,19 @@ QList<ServerEntry> ServerManager::getServers()
     return serverList;
 }
 
+QList<ServerEntry> ServerManager::getServers(const int &game)
+{
+    QList<ServerEntry> list;
+
+    foreach (ServerEntry entry, serverList) {
+        if (entry.game == game) {
+            list.append(entry);
+        }
+    }
+
+    return list;
+}
+
 void ServerManager::addServer(const ServerEntry &serverEntry)
 {
     serverList.append(serverEntry);

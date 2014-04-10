@@ -41,7 +41,7 @@ class ServerListDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ServerListDialog(QObject *parent = 0);
+    explicit ServerListDialog(QWidget *parent = 0);
     ~ServerListDialog();
 
 private:
@@ -49,11 +49,6 @@ private:
 
     GameManager *gameManager;
     ServerManager *serverManager;
-
-    QMap<int, QIcon> m_IconMap;
-    QMap<int, QList<ServerEntry*>*> m_Data;
-    QList<ServerEntry> m_ServerEntries;
-    QList<QTreeWidgetItem*>* m_RootItems;
 
     QMenu *menu_sld_serverEntry;
 

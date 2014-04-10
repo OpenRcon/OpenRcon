@@ -37,7 +37,7 @@ class About : public QDialog
     Q_OBJECT
 
 public:
-    explicit About(QObject *parent = 0);
+    explicit About(QWidget *parent = 0);
     ~About();
 
 private:
