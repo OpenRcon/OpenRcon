@@ -17,34 +17,44 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MINECRAFTWIDGET_H
-#define MINECRAFTWIDGET_H
+#include "MinecraftRconPacket.h"
 
-#include <QTime>
-
-#include "ui_Minecraft.h"
-#include "Minecraft.h"
-
-class MinecraftWidget : public Minecraft
+MinecraftRconPacket::MinecraftRconPacket()
 {
-    Q_OBJECT
 
-public:
-    explicit MinecraftWidget(const QString &host, const int &port, const QString &password);
-    ~MinecraftWidget();
+}
 
-    void logMessage(const int &type, const QString &message);
+MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const int &type) : requestId(requestId), type(type)
+{
 
-private slots:
-    void slotAuthenticated(bool auth);
-    void slotPacket(const QString &packet);
-    void slotUnknownCommand();
+}
 
-    void on_pushButton_co_send_clicked();
+MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const int &type, char* payload) : requestId(requestId), type(type), content(payload)
+{
 
-private:
-    Ui::Minecraft *ui;
+}
 
-};
+MinecraftRconPacket::~MinecraftRconPacket()
+{
 
-#endif // MINECRAFTWIDGET_H
+}
+
+int MinecraftRconPacket::getLength()
+{
+    return 10 + strlen(content);
+}
+
+int MinecraftRconPacket::getRequestId()
+{
+    return requestId;
+}
+
+int MinecraftRconPacket::getType()
+{
+    return type;
+}
+
+char* MinecraftRconPacket::getContent()
+{
+    return content;
+}

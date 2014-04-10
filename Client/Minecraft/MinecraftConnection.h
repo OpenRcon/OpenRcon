@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,13 +20,10 @@
 #ifndef MINECRAFTCONNECTION_H
 #define MINECRAFTCONNECTION_H
 
-#include <QObject>
-
 #include "Connection.h"
-#include "MinecraftCommandHandler.h"
 
-#define RCON_LOGIN 3
-#define RCON_COMMAND 2
+#include "MinecraftRconPacket.h"
+#include "MinecraftCommandHandler.h"
 
 class MinecraftConnection : public Connection
 {
@@ -36,20 +33,21 @@ public:
     explicit MinecraftConnection(QObject *parent = 0);
     ~MinecraftConnection();
 
-    void sendPacket(const int &id, const int &type, const char* payload);
+    void sendPacket(MinecraftRconPacket &packet);
     void sendCommand(const QString &command);
 
 private:
     MinecraftCommandHandler *commandHandler;
 
-    void handlePacket(const int &type, const QString& command);
+    QVector<MinecraftRconPacket> packetSendQueue;
+
+    void handlePacket(MinecraftRconPacket &packet);
 
 private slots:
     void readyRead();
 
 signals:
-    void onAuthenticated(bool auth);
-    void onPacket(const QString &packet);
+    void onPacket(const MinecraftRconPacket &packet);
 
 };
 

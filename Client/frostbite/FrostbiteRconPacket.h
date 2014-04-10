@@ -34,6 +34,16 @@ public:
     FrostbiteRconPacket &operator= (const FrostbiteRconPacket &packet);
     ~FrostbiteRconPacket();
 
+    enum {
+        ServerOrigin,
+        ClientOrigin
+    };
+
+    enum {
+        Request,
+        Response
+    };
+
     void packWord(const FrostbiteRconWord &word);
     unsigned int getSequence() const;
     unsigned int getSequenceNum() const;
@@ -57,22 +67,12 @@ public:
         transmission)
     */
 
+private:
     unsigned int packetSequence;
     unsigned int packetSize; // Total size of packet, in bytes
     unsigned int packetWordCount; // Number of words following the packet header
-    //RconWord packetWords[MAX_WORDS];
+    QVector<FrostbiteRconWord> packetWords; // RconWord packetWords[MAX_WORDS];
 
-    QVector<FrostbiteRconWord> packetWords;
-
-    enum {
-        ServerOrigin,
-        ClientOrigin
-    };
-
-    enum {
-        Request,
-        Response
-    };
 };
 
 inline QDataStream &operator >> (QDataStream &in, FrostbiteRconPacket &packet)

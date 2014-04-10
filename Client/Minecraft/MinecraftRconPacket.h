@@ -17,36 +17,44 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MINECRAFTCOMMANDHANDLER_H
-#define MINECRAFTCOMMANDHANDLER_H
+#ifndef MINECRAFTRCONPACKET_H
+#define MINECRAFTRCONPACKET_H
 
-#include <QObject>
+//Length 	int 	Length of remainder of packet
+//Request ID 	int 	Client-generated ID
+//Type 	int 	3 for login, 2 to run a command
+//Payload 	byte[] 	ASCII text
+//2-byte pad 	byte, byte 	Two null bytes
+
+#include <QVector>
 #include <QString>
 #include <QStringList>
 
-#include "MinecraftRconPacket.h"
-
-class MinecraftCommandHandler : public QObject
+class MinecraftRconPacket
 {
     Q_OBJECT
 
 public:
-    explicit MinecraftCommandHandler(QObject *parent = 0);
-    ~MinecraftCommandHandler();
+    explicit MinecraftRconPacket();
+    explicit MinecraftRconPacket(const int &requestId, const int &type);
+    explicit MinecraftRconPacket(const int &requestId, const int &type, char* payload);
+    ~MinecraftRconPacket();
 
-    void exec(MinecraftRconPacket &packet);
-    int getRequestIdForCommand(const QString &command);
+    enum {
+        Command = 2,
+        Login = 3
+    };
+
+    int getLength();
+    int getRequestId();
+    int getType();
+    char* getContent();
 
 private:
-    void helpCommand(MinecraftRconPacket &packet);
-    void listCommand(MinecraftRconPacket &packet);
-    void unknownCommand(MinecraftRconPacket &packet);
-
-signals:
-    void onHelpCommand(const QString &packet);
-    void onListCommand(const QStringList &packet);
-    void onUnknownCommand();
+    int requestId;
+    int type;
+    char* content;
 
 };
 
-#endif // MINECRAFTCOMMANDHANDLER_H
+#endif // MINECRAFTRCONPACKET_H

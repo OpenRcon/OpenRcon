@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -19,10 +19,8 @@
 
 #include "MinecraftConnection.h"
 
-MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent)
+MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent), commandHandler(new MinecraftCommandHandler(this))
 {
-    commandHandler = new MinecraftCommandHandler(this);
-
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
 
@@ -39,25 +37,24 @@ MinecraftConnection::~MinecraftConnection()
  * 2-byte pad 	byte, byte 	Two null bytes
  */
 
-void MinecraftConnection::sendPacket(const int &id, const int &type, const char* payload)
+void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
 {
-    if (strlen(payload) < 1460 - 10) {
-        int length = 10 + strlen(payload);
+    QDataStream out(tcpSocket);
+    out.setByteOrder(QDataStream::LittleEndian);
 
-        QDataStream out(tcpSocket);
-        out.setByteOrder(QDataStream::LittleEndian);
-        out << length;
-        out << id;
-        out << type;
-        out.writeRawData(payload, strlen(payload));
-        out << (qint8) 0;
-        out << (qint8) 0;
+    if (packet.getLength() < 1460 - 10) {
+        out << packet.getLength();
+        out << packet.getRequestId();
+        out << packet.getType();
+        out << packet.getContent();
+        out << (signed char) 0;
+        out << (signed char) 0;
 
         qDebug() << "Sent packet: ";
-        qDebug() << "Length: " << length;
-        qDebug() << "Request ID: " << id;
-        qDebug() << "Type: " << type;
-        qDebug() << "Payload:" << payload << "\n";
+        qDebug() << "Length: " << packet.getLength();
+        qDebug() << "Request ID: " << packet.getRequestId();
+        qDebug() << "Type: " << packet.getType();
+        qDebug() << "Payload:" <<packet.getContent() << "\n";
     } else {
         qDebug() << "Payload data too long.";
     }
@@ -65,7 +62,18 @@ void MinecraftConnection::sendPacket(const int &id, const int &type, const char*
 
 void MinecraftConnection::sendCommand(const QString &command)
 {
-    sendPacket(commandHandler->getRequestIdForCommand(command), 2, command.toLatin1());
+    if (!command.isEmpty()) {
+        MinecraftRconPacket packet = MinecraftRconPacket(1, 2, command.toLatin1().data());
+
+        sendPacket(packet);
+    }
+}
+
+void MinecraftConnection::handlePacket(MinecraftRconPacket &packet)
+{
+    commandHandler->exec(packet);
+
+    emit (onPacket(packet));
 }
 
 /*
@@ -80,7 +88,7 @@ void MinecraftConnection::readyRead()
 {
     if (tcpSocket->bytesAvailable()) {
         int length, id, type;
-        qint8 pad1, pad2;
+        signed char pad1, pad2;
 
         QDataStream in(tcpSocket);
         in.setByteOrder(QDataStream::LittleEndian);
@@ -99,25 +107,8 @@ void MinecraftConnection::readyRead()
         qDebug() << "Type: " << type;
         qDebug() << "Payload:" << payload << "\n";
 
-        if (id == 0 && type == 2) {
-            qDebug() << "You are successfully logged in!";
+        MinecraftRconPacket packet(id, type, payload);
 
-            emit (onAuthenticated(true));
-        } else if (id == -1) {
-            qDebug() << "Login failed!";
-
-            emit (onAuthenticated(false));
-        }
-
-        handlePacket(id, payload);
-    }
-}
-
-void MinecraftConnection::handlePacket(const int &type, const QString &command)
-{
-    if (!command.isEmpty()) {
-        commandHandler->exec(type, command);
-
-        emit (onPacket(command));
+        handlePacket(packet);
     }
 }

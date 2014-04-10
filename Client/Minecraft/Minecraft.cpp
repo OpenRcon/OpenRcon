@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -34,5 +34,7 @@ Minecraft::~Minecraft()
 
 void Minecraft::onConnected()
 {
-    con->sendPacket(1, 3, password.toLatin1());
+    MinecraftRconPacket packet(1, 3);
+
+    con->sendPacket(packet);
 }
