@@ -40,7 +40,7 @@ class ServerListDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ServerListDialog(QWidget *parent = 0);
+    explicit ServerListDialog(QObject *parent = 0);
     ~ServerListDialog();
 
 private:
@@ -56,7 +56,7 @@ private:
 
 private slots:
     void treeWidget_customContextMenuRequested(QPoint pos);
-    void treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem*);
+    void treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
     void addItem();
     void editItem();

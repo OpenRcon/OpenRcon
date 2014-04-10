@@ -19,7 +19,7 @@
 
 #include "ServerListDialog.h"
 
-ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui::ServerListDialog)
+ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialog)
 {
     Q_UNUSED(parent);
 
@@ -49,10 +49,9 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 
     connect(ui->actionEdit, SIGNAL(triggered()), this, SLOT(editItem()));
     connect(ui->actionRemove, SIGNAL(triggered()), this, SLOT(removeItem()));
-
     connect(ui->pushButton_sld_add, SIGNAL(clicked()), this, SLOT(addItem()));
-    connect(ui->pushButton_sld_cancel, SIGNAL(clicked()), this, SLOT(reject()));
     connect(ui->pushButton_sld_connect, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(ui->pushButton_sld_cancel, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 ServerListDialog::~ServerListDialog()
@@ -69,9 +68,11 @@ void ServerListDialog::treeWidget_customContextMenuRequested(QPoint pos)
     }
 }
 
-void ServerListDialog::treeWidget_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem*)
+void ServerListDialog::treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-    ui->pushButton_sld_connect->setEnabled(item && item->parent());
+    Q_UNUSED(previous);
+
+    ui->pushButton_sld_connect->setEnabled(current && current->parent());
 }
 
 void ServerListDialog::createTreeData()
@@ -83,17 +84,21 @@ void ServerListDialog::createTreeData()
         parentItem->setIcon(0, gameEntry.icon);
         parentItem->setText(0, gameEntry.name);
 
-        foreach (ServerEntry serverEntry, serverManager->getServers(gameEntry.id)) {
-            QTreeWidgetItem *childItem = new QTreeWidgetItem(parentItem);
-            childItem->setData(0, Qt::UserRole, qVariantFromValue(serverEntry));
-            childItem->setText(0, serverEntry.name);
-            childItem->setText(1, serverEntry.host);
-            childItem->setText(2, QString::number(serverEntry.port));
+        QList<ServerEntry> serverList = serverManager->getServers(gameEntry.id);
 
-            parentItem->addChild(childItem);
+        if (!serverList.isEmpty()) {
+            foreach (ServerEntry serverEntry, serverList) {
+                QTreeWidgetItem *childItem = new QTreeWidgetItem(parentItem);
+                childItem->setData(0, Qt::UserRole, qVariantFromValue(serverEntry));
+                childItem->setText(0, serverEntry.name);
+                childItem->setText(1, serverEntry.host);
+                childItem->setText(2, QString::number(serverEntry.port));
+
+                parentItem->addChild(childItem);
+            }
+
+            ui->treeWidget->addTopLevelItem(parentItem);
         }
-
-        ui->treeWidget->addTopLevelItem(parentItem);
     }
 
     ui->treeWidget->expandAll();
@@ -150,7 +155,6 @@ void ServerListDialog::editItem()
             );
 
             serverManager->editServer(entry);
-
             createTreeData();
         }
 
@@ -174,7 +178,6 @@ void ServerListDialog::removeItem()
             // Could use indexOf instead, we're assuming no duplicates.
             //m_ServerEntries.removeAll(*e); TODO: Fix this.
             serverManager->removeServer(entry);
-
             createTreeData();
         }
     }
@@ -186,7 +189,7 @@ void ServerListDialog::accept()
     Q_ASSERT(items.count() <= 1);
 
     if (items.count() == 1 && ui->treeWidget->currentItem()->parent()) {
-        QTreeWidgetItem* item = items.at(0);
+        QTreeWidgetItem *item = items.at(0);
         QVariant variant = item->data(0, Qt::UserRole);
         ServerEntry entry = variant.value<ServerEntry>();
 

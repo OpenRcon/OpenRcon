@@ -21,13 +21,10 @@ public:
     QList<ServerEntry> getServers();
     QList<ServerEntry> getServers(const int &game);
 
-    void addServer(const ServerEntry &serverEntry);
-    void editServer(const ServerEntry &serverEntry);
+    void addServer(ServerEntry &serverEntry);
+    void editServer(ServerEntry &serverEntry);
     void removeServer(const int &index);
-    void removeServer(const ServerEntry &serverEntry);
-
-    void connectToServer(const int &index);
-    void connectToServer(const ServerEntry &serverEntry);
+    void removeServer(ServerEntry &serverEntry);
 
 private:
     QSettings *settings;

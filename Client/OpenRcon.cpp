@@ -198,6 +198,8 @@ void OpenRcon::actionServermanager_triggered()
 {
     ServerListDialog *serverListDialog = new ServerListDialog(this);
     serverListDialog->exec();
+
+    delete serverListDialog;
 }
 
 // View menu
