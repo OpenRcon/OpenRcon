@@ -19,7 +19,7 @@
 
 #include "FrostbiteConnection.h"
 
-FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent) : Connection(parent), commandHandler(commandHandler), packetReadState(PacketReadingHeader), nextPacketSeq(0)
+FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent) : Connection(parent), commandHandler(commandHandler), packetReadState(PacketReadingHeader), nextPacketSequence(0)
 {
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
@@ -35,7 +35,7 @@ void FrostbiteConnection::hostConnect(const QString &host, const int &port)
     if (tcpSocket && tcpSocket->state() == QAbstractSocket::UnconnectedState) {
         packetSendQueue.clear();
         packetReadState = PacketReadingHeader;
-        nextPacketSeq = 0;
+        nextPacketSequence = 0;
 
         tcpSocket->connectToHost(host, port);
     } else {
@@ -60,7 +60,7 @@ void FrostbiteConnection::sendPacket(const FrostbiteRconPacket &packet, bool res
 void FrostbiteConnection::sendCommand(const QString &command)
 {
     if (!command.isEmpty()) {
-        FrostbiteRconPacket packet(FrostbiteRconPacket::ServerOrigin, FrostbiteRconPacket::Request, nextPacketSeq);
+        FrostbiteRconPacket packet(FrostbiteRconPacket::ServerOrigin, FrostbiteRconPacket::Request, nextPacketSequence);
         QStringList cmdList;
         cmdList = command.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
         cmdList.replaceInStrings("\"", "", Qt::CaseSensitive);
@@ -70,7 +70,7 @@ void FrostbiteConnection::sendCommand(const QString &command)
         }
 
         sendPacket(packet);
-        nextPacketSeq++;
+        nextPacketSequence++;
     }
 }
 

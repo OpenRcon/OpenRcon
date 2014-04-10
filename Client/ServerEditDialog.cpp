@@ -35,6 +35,7 @@ ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialo
     }
 
     ui->spinBox_sed_port->setRange(1, 65535);
+    ui->spinBox_sed_port->setValue(48888);
     ui->lineEdit_sed_password->setEchoMode(QLineEdit::Password);
 
     connect(ui->comboBox_sed_game, SIGNAL(currentIndexChanged(int)), this, SLOT(validate()));

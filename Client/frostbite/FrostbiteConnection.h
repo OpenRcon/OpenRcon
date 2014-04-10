@@ -46,7 +46,7 @@ private:
     int packetReadState;
     char lastHeader[MIN_PACKET_SIZE];
     QVector<FrostbiteRconPacket> packetSendQueue;
-    unsigned int nextPacketSeq;
+    unsigned int nextPacketSequence;
 
     void handlePacket(const FrostbiteRconPacket &packet);
 
