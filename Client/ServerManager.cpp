@@ -82,6 +82,14 @@ void ServerManager::addServer(const ServerEntry &serverEntry)
     serverList.append(serverEntry);
 }
 
+void ServerManager::editServer(const ServerEntry &serverEntry)
+{
+    int index = serverList.indexOf(serverEntry);
+
+    serverList.removeAll(serverEntry);
+    serverList.insert(index, serverEntry);
+}
+
 void ServerManager::removeServer(const int &index)
 {
     serverList.removeAt(index);
