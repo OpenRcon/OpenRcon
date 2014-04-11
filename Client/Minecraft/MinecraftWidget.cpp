@@ -24,7 +24,7 @@ MinecraftWidget::MinecraftWidget(const QString &host, const int &port, const QSt
     ui->setupUi(this);
 
     connect(con, SIGNAL(onAuthenticated(bool)), this, SLOT(slotAuthenticated(bool)));
-    connect(con, SIGNAL(onPacket(QString)), this, SLOT(slotPacket(QString)));
+    connect(con, SIGNAL(onPacket(MinecraftRconPacket&)), this, SLOT(slotPacket(MinecraftRconPacket&)));
     connect(con, SIGNAL(onUnknownCommand()), this, SLOT(slotUnknownCommand()));
 
     connect(ui->lineEdit_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_send_clicked()));

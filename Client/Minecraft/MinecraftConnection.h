@@ -47,7 +47,7 @@ private slots:
     void readyRead();
 
 signals:
-    void onPacket(const MinecraftRconPacket &packet);
+    void onPacket(MinecraftRconPacket &packet);
 
 };
 

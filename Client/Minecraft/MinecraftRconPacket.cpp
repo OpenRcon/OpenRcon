@@ -29,7 +29,7 @@ MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const int &type) 
 
 }
 
-MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const int &type, char* payload) : requestId(requestId), type(type), content(payload)
+MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const int &type, const char* payload) : requestId(requestId), type(type), content(payload)
 {
 
 }
@@ -54,7 +54,7 @@ int MinecraftRconPacket::getType()
     return type;
 }
 
-char* MinecraftRconPacket::getContent()
+const char* MinecraftRconPacket::getContent()
 {
     return content;
 }

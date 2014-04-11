@@ -46,7 +46,7 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
         out << packet.getLength();
         out << packet.getRequestId();
         out << packet.getType();
-        out << packet.getContent();
+        out.writeBytes(packet.getContent(), strlen(packet.getContent()));
         out << (signed char) 0;
         out << (signed char) 0;
 
@@ -54,7 +54,7 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
         qDebug() << "Length: " << packet.getLength();
         qDebug() << "Request ID: " << packet.getRequestId();
         qDebug() << "Type: " << packet.getType();
-        qDebug() << "Payload:" <<packet.getContent() << "\n";
+        qDebug() << "Payload:" << packet.getContent() << "\n";
     } else {
         qDebug() << "Payload data too long.";
     }
@@ -63,7 +63,7 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
 void MinecraftConnection::sendCommand(const QString &command)
 {
     if (!command.isEmpty()) {
-        MinecraftRconPacket packet = MinecraftRconPacket(1, 2, command.toLatin1().data());
+        MinecraftRconPacket packet = MinecraftRconPacket(commandHandler->getRequestIdForCommand(command), MinecraftRconPacket::Command, command.toLatin1().data());
 
         sendPacket(packet);
     }
