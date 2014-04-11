@@ -50,6 +50,7 @@ private:
     ServerManager *serverManager;
 
     QMenu *menu_sld_serverEntry;
+    QList<ServerEntry *> serverEntries;
 
     void createTreeData();
     void deleteTreeData();

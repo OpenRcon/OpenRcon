@@ -19,7 +19,7 @@
 
 #include "ServerListDialog.h"
 
-ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialog)
+ServerListDialog::ServerListDialog(QObject *parent) : QDialog(parent), ui(new Ui::ServerListDialog)
 {
     Q_UNUSED(parent);
 
@@ -27,6 +27,8 @@ ServerListDialog::ServerListDialog(QObject *parent) : ui(new Ui::ServerListDialo
 
     gameManager = new GameManager(this);
     serverManager = new ServerManager(this);
+
+    serverEntries = serverManager->getServers();
 
     // Sets application title and icon
     setWindowTitle(QString(tr("Servermanager")));
@@ -84,17 +86,17 @@ void ServerListDialog::createTreeData()
         parentItem->setIcon(0, gameEntry.icon);
         parentItem->setText(0, gameEntry.name);
 
-        QList<ServerEntry> serverList = serverManager->getServers(gameEntry.id);
+        if (!serverEntries.isEmpty()) {
+            foreach (ServerEntry *serverEntry, serverEntries) {
+                if (serverEntry->game == gameEntry.id) {
+                    QTreeWidgetItem *childItem = new QTreeWidgetItem(parentItem);
+                    childItem->setData(0, Qt::UserRole, qVariantFromValue(serverEntry));
+                    childItem->setText(0, serverEntry->name);
+                    childItem->setText(1, serverEntry->host);
+                    childItem->setText(2, QString::number(serverEntry->port));
 
-        if (!serverList.isEmpty()) {
-            foreach (ServerEntry serverEntry, serverList) {
-                QTreeWidgetItem *childItem = new QTreeWidgetItem(parentItem);
-                childItem->setData(0, Qt::UserRole, qVariantFromValue(serverEntry));
-                childItem->setText(0, serverEntry.name);
-                childItem->setText(1, serverEntry.host);
-                childItem->setText(2, QString::number(serverEntry.port));
-
-                parentItem->addChild(childItem);
+                    parentItem->addChild(childItem);
+                }
             }
 
             ui->treeWidget->addTopLevelItem(parentItem);
@@ -118,7 +120,7 @@ void ServerListDialog::addItem()
     ServerEditDialog *sed = new ServerEditDialog(this);
 
     if (sed->exec() == QDialog::Accepted) {
-        ServerEntry entry = ServerEntry(
+        ServerEntry *entry = new ServerEntry(
             sed->getGame(),
             sed->getName(),
             sed->getHost(),
@@ -126,7 +128,8 @@ void ServerListDialog::addItem()
             sed->getPassword()
         );
 
-        serverManager->addServer(entry);
+        serverEntries.append(entry);
+
         createTreeData();
     }
 
@@ -141,12 +144,12 @@ void ServerListDialog::editItem()
     if (items.count() == 1) {
         QTreeWidgetItem *item = items.at(0);
         QVariant variant = item->data(0, Qt::UserRole);
-        ServerEntry e = variant.value<ServerEntry>();
+        ServerEntry *entry = variant.value<ServerEntry *>();
 
-        ServerEditDialog *sed = new ServerEditDialog(e.game, e.name, e.host, e.port, e.password, this);
+        ServerEditDialog *sed = new ServerEditDialog(entry->game, entry->name, entry->host, entry->port, entry->password, this);
 
         if (sed->exec() == QDialog::Accepted) {
-            ServerEntry entry = ServerEntry(
+            ServerEntry editEntry = ServerEntry(
                 sed->getGame(),
                 sed->getName(),
                 sed->getHost(),
@@ -154,7 +157,9 @@ void ServerListDialog::editItem()
                 sed->getPassword()
             );
 
-            serverManager->editServer(entry);
+            // Set the server to the new values obtained by ServerEditDialog.
+            *entry = editEntry;
+
             createTreeData();
         }
 
@@ -173,11 +178,10 @@ void ServerListDialog::removeItem()
         if (answer == QMessageBox::Yes) {
             QTreeWidgetItem *item = items.at(0);
             QVariant variant = item->data(0, Qt::UserRole);
-            ServerEntry entry = variant.value<ServerEntry>();
+            ServerEntry *entry = variant.value<ServerEntry *>();
 
-            // Could use indexOf instead, we're assuming no duplicates.
-            //m_ServerEntries.removeAll(*e); TODO: Fix this.
-            serverManager->removeServer(entry);
+            serverEntries.removeAt(serverEntries.indexOf(entry));
+
             createTreeData();
         }
     }
@@ -191,10 +195,10 @@ void ServerListDialog::accept()
     if (items.count() == 1 && ui->treeWidget->currentItem()->parent()) {
         QTreeWidgetItem *item = items.at(0);
         QVariant variant = item->data(0, Qt::UserRole);
-        ServerEntry entry = variant.value<ServerEntry>();
+        ServerEntry *entry = variant.value<ServerEntry *>();
 
         OpenRcon *openRcon = OpenRcon::getInstance();
-        openRcon->newTab(entry.game, entry.name, entry.host, entry.port, entry.password);
+        openRcon->newTab(entry->game, entry->name, entry->host, entry->port, entry->password);
 
         QDialog::accept();
     }

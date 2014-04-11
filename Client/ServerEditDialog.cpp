@@ -19,7 +19,7 @@
 
 #include "ServerEditDialog.h"
 
-ServerEditDialog::ServerEditDialog(QObject *parent) : ui(new Ui::ServerEditDialog)
+ServerEditDialog::ServerEditDialog(QObject *parent) : QDialog(parent), ui(new Ui::ServerEditDialog)
 {
     Q_UNUSED(parent);
 
