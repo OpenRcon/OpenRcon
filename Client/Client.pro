@@ -33,7 +33,6 @@ DEPENDPATH += frostbite \
               minecraft
 
 HEADERS += OpenRcon.h \
-    About.h \
     Connection.h \
     ConnectionTabWidget.h \
     Constants.h \
@@ -48,10 +47,10 @@ HEADERS += OpenRcon.h \
     Game.h \
     GameEntry.h \
     ServerManager.h \
-    GameManager.h
+    GameManager.h \
+    AboutDialog.h
 
 SOURCES += OpenRcon.cpp \
-    About.cpp \
     Connection.cpp \
     Directory.cpp \
     Main.cpp \
@@ -63,13 +62,15 @@ SOURCES += OpenRcon.cpp \
     SettingsManager.cpp \
     Game.cpp \
     ServerManager.cpp \
-    GameManager.cpp
+    GameManager.cpp \
+    AboutDialog.cpp
 
-FORMS += About.ui \
+FORMS += \
     OpenRcon.ui \
     ServerListDialog.ui \
     ServerEditDialog.ui \
-    SettingsDialog.ui
+    SettingsDialog.ui \
+    AboutDialog.ui
 
 RESOURCES += OpenRcon.qrc
 

@@ -32,7 +32,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     //serverListDialog = new ServerListDialog(this);
     settingsDialog = new SettingsDialog(this);
-    aboutDialog = new About(this);
+    aboutDialog = new AboutDialog(this);
 
     // Sets application title and icon
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
@@ -52,13 +52,13 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     pushButton_sm_connect = new QPushButton(tr("Connect"), this);
 
     // Add the server to the comboBox only if it's not empty, otherwhise disable it.
-    QList<ServerEntry> serverList = serverManager->getServers();
+    QList<ServerEntry *> serverList = serverManager->getServers();
 
     if (!serverList.isEmpty()) {
-        foreach (ServerEntry server, serverList) {
-            GameEntry game = gameManager->getGame(server.game);
+        foreach (ServerEntry *server, serverList) {
+            GameEntry game = gameManager->getGame(server->game);
 
-            comboBox_sm_server->addItem(game.icon, server.name);
+            comboBox_sm_server->addItem(game.icon, server->name);
         }
     } else {
         comboBox_sm_server->setEnabled(false);
@@ -249,7 +249,7 @@ void OpenRcon::actionAbout_Qt_triggered()
 void OpenRcon::pushButton_sm_connect_clicked()
 {
     int index = comboBox_sm_server->currentIndex();
-    ServerEntry server = serverManager->getServer(index);
+    ServerEntry *server = serverManager->getServer(index);
 
-    newTab(server.game, server.name, server.host, server.port, server.password);
+    newTab(server->game, server->name, server->host, server->port, server->password);
 }

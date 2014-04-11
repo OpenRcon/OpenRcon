@@ -40,7 +40,7 @@ class ServerListDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ServerListDialog(QObject *parent = 0);
+    explicit ServerListDialog(QWidget *parent = 0);
     ~ServerListDialog();
 
 private:

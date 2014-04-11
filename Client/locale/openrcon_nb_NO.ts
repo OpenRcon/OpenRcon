@@ -2,56 +2,66 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="nb_NO">
 <context>
-    <name>About</name>
+    <name>AboutDialog</name>
     <message>
-        <location filename="../About.ui" line="32"/>
+        <location filename="../AboutDialog.ui" line="32"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Lukk</translation>
     </message>
     <message>
-        <location filename="../About.ui" line="49"/>
+        <location filename="../AboutDialog.ui" line="49"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Om</translation>
     </message>
     <message>
-        <location filename="../About.ui" line="79"/>
+        <location filename="../AboutDialog.ui" line="100"/>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Forfattere</translation>
     </message>
     <message>
-        <location filename="../About.ui" line="127"/>
+        <location filename="../AboutDialog.ui" line="148"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>Bidragsytere</translation>
     </message>
     <message>
-        <location filename="../About.ui" line="163"/>
+        <location filename="../AboutDialog.ui" line="184"/>
         <source>Translators</source>
-        <translation type="unfinished"></translation>
+        <translation>Oversettere</translation>
     </message>
     <message>
-        <location filename="../About.ui" line="208"/>
+        <location filename="../AboutDialog.ui" line="229"/>
         <source>Thanks to</source>
-        <translation type="unfinished"></translation>
+        <translation>Takk til</translation>
     </message>
     <message>
-        <location filename="../About.ui" line="241"/>
+        <location filename="../AboutDialog.ui" line="262"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisens</translation>
     </message>
     <message>
-        <location filename="../About.cpp" line="29"/>
+        <location filename="../AboutDialog.cpp" line="29"/>
         <source>About %1 %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Om %1 %2</translation>
     </message>
     <message>
-        <location filename="../About.cpp" line="33"/>
-        <source>&lt;p&gt;%1 is a cross-platform RCON administration tool.&lt;/p&gt;&lt;p&gt;Built on %2 at %3&lt;/p&gt;&lt;p&gt;Copyright &amp;copy; %4 %5&lt;/p&gt;&lt;p&gt;The program is provided AS IS with NO WARRANTY OF ANY KIND, &lt;br /&gt;INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND &lt;br /&gt;FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../AboutDialog.cpp" line="33"/>
+        <source>%1 is a cross-platform RCON administration tool.</source>
+        <translation>%1 er et kryss-plattform RCON administrasjons verktøy.</translation>
     </message>
     <message>
-        <location filename="../About.cpp" line="49"/>
-        <source>We would like to thanks sourceforge.net for their services and support.</source>
-        <translation type="unfinished"></translation>
+        <location filename="../AboutDialog.cpp" line="34"/>
+        <source>Built on %2 at %3</source>
+        <translation>Bygd dem %2 %3</translation>
+    </message>
+    <message>
+        <location filename="../AboutDialog.cpp" line="35"/>
+        <source>Copyright &amp;copy; %4 %5</source>
+        <translation>Copyright &amp;copy; %4 %5</translation>
+    </message>
+    <message>
+        <location filename="../AboutDialog.cpp" line="45"/>
+        <source>We would like to thank Sourceforge.net for their services and support.&lt;br /&gt;A big thank to GitHub! For making a coders everyday easier.</source>
+        <translation>Vi vil takke Sourceforge.net for deres tjenester og støtte.&lt;br /&gt;En stor takk til Guthub, for å gjøre en koders hverdag enklere.</translation>
     </message>
 </context>
 <context>
@@ -69,7 +79,7 @@
     <message>
         <location filename="../bf3/BF3.ui" line="39"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../bf3/BF3.ui" line="48"/>
@@ -166,7 +176,7 @@
         <location filename="../bf4/BF4.ui" line="430"/>
         <location filename="../bf4/BF4.ui" line="511"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="104"/>
@@ -302,7 +312,7 @@
         <location filename="../bf4/BF4.ui" line="548"/>
         <location filename="../bf4/BF4.ui" line="644"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Legg til</translation>
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="555"/>
@@ -313,7 +323,7 @@
         <location filename="../bf4/BF4.ui" line="572"/>
         <location filename="../bf4/BF4.ui" line="668"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjern</translation>
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="594"/>
@@ -597,7 +607,7 @@
         <location filename="../bfbc2/BFBC2.ui" line="94"/>
         <location filename="../bfbc2/BFBC2.ui" line="775"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="99"/>
@@ -746,12 +756,12 @@
         <location filename="../bfbc2/BFBC2.ui" line="483"/>
         <location filename="../bfbc2/BFBC2.ui" line="1640"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Legg til</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="503"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjern</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="533"/>
@@ -825,7 +835,7 @@
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="875"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn:</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="892"/>
@@ -1102,7 +1112,7 @@
         <location filename="../bfbc2/BFBC2Widget.cpp" line="48"/>
         <location filename="../bfbc2/BFBC2Widget.cpp" line="49"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fjern</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2Widget.cpp" line="51"/>
@@ -1284,7 +1294,7 @@
         <location filename="../minecraft/Minecraft.ui" line="46"/>
         <location filename="../minecraft/Minecraft.ui" line="266"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="51"/>
@@ -1401,78 +1411,78 @@
     <message>
         <location filename="../OpenRcon.ui" line="98"/>
         <source>Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Verktøy</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="104"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Hjelp</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="114"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="118"/>
         <source>Toolbars</source>
-        <translation type="unfinished"></translation>
+        <translation>Vektøylinjer</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="126"/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Applikasjon</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="169"/>
         <source>Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilkobling</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="178"/>
         <source>Servermanager</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjeneradministrasjon</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="183"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Avslutt</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="192"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Innstillinger</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="197"/>
         <source>Report bug</source>
-        <translation type="unfinished"></translation>
+        <translation>Rapporter feil</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="206"/>
         <source>Documentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentasjon</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="211"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Om</translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="216"/>
         <location filename="../OpenRcon.cpp" line="245"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Om Qt</translation>
     </message>
     <message>
         <location filename="../OpenRcon.cpp" line="46"/>
         <source>About &amp;%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Om &amp;%1</translation>
     </message>
     <message>
         <location filename="../OpenRcon.cpp" line="52"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Koble til</translation>
     </message>
 </context>
 <context>
@@ -1480,42 +1490,42 @@
     <message>
         <location filename="../ServerEditDialog.ui" line="66"/>
         <source>Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Port:</translation>
     </message>
     <message>
         <location filename="../ServerEditDialog.ui" line="95"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Passord:</translation>
     </message>
     <message>
         <location filename="../ServerEditDialog.ui" line="102"/>
         <source>Game:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spill:</translation>
     </message>
     <message>
         <location filename="../ServerEditDialog.ui" line="131"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Avbryt</translation>
     </message>
     <message>
         <location filename="../ServerEditDialog.ui" line="138"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../ServerEditDialog.ui" line="147"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn:</translation>
     </message>
     <message>
         <location filename="../ServerEditDialog.ui" line="154"/>
         <source>Address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Adress:</translation>
     </message>
     <message>
         <location filename="../ServerEditDialog.cpp" line="28"/>
         <source>Server details</source>
-        <translation type="unfinished"></translation>
+        <translation>Server detaljer</translation>
     </message>
 </context>
 <context>
@@ -1523,53 +1533,53 @@
     <message>
         <location filename="../ServerListDialog.ui" line="30"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn</translation>
     </message>
     <message>
         <location filename="../ServerListDialog.ui" line="35"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="../ServerListDialog.ui" line="40"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="../ServerListDialog.ui" line="50"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg til</translation>
     </message>
     <message>
         <location filename="../ServerListDialog.ui" line="70"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Koble til</translation>
     </message>
     <message>
         <location filename="../ServerListDialog.ui" line="77"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Avbryt</translation>
     </message>
     <message>
         <location filename="../ServerListDialog.ui" line="86"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Endre</translation>
     </message>
     <message>
         <location filename="../ServerListDialog.ui" line="91"/>
         <location filename="../ServerListDialog.cpp" line="176"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern</translation>
     </message>
     <message>
         <location filename="../ServerListDialog.cpp" line="34"/>
         <source>Servermanager</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjeneradministrasjon</translation>
     </message>
     <message>
         <location filename="../ServerListDialog.cpp" line="176"/>
         <source>Are you sure you want to remove this server?</source>
-        <translation type="unfinished"></translation>
+        <translation>Er du sikker på at du bil fjerne denne serveren?</translation>
     </message>
 </context>
 <context>
@@ -1592,12 +1602,12 @@
     <message>
         <location filename="../SettingsDialog.ui" line="31"/>
         <source>Connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tilkobling</translation>
     </message>
     <message>
         <location filename="../SettingsDialog.ui" line="48"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn</translation>
     </message>
     <message>
         <location filename="../SettingsDialog.ui" line="53"/>
@@ -1617,7 +1627,7 @@
     <message>
         <location filename="../SettingsDialog.cpp" line="29"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Innstillinger</translation>
     </message>
 </context>
 </TS>

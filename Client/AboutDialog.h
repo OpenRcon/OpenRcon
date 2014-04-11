@@ -17,34 +17,32 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ABOUT_H
-#define ABOUT_H
+#ifndef ABOUTDIALOG_H
+#define ABOUTDIALOG_H
 
-#include <QObject>
-#include <QString>
 #include <QDatetime>
 #include <QFile>
 #include <QTextStream>
 
-#include "ui_About.h"
+#include "ui_AboutDialog.h"
 
 #include "Constants.h"
 
 using namespace Constants;
 
-class About : public QDialog
+class AboutDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit About(QWidget *parent = 0);
-    ~About();
+    explicit AboutDialog(QWidget *parent = 0);
+    ~AboutDialog();
 
 private:
-    Ui::About *ui;
+    Ui::AboutDialog *ui;
 
     QString getFile(const QString &fileName);
 
 };
 
-#endif // ABOUT_H
+#endif // ABOUTDIALOG_H

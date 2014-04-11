@@ -135,9 +135,6 @@
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="toolBar_sm">
-   <property name="windowTitle">
-    <string>Servermanager</string>
-   </property>
    <property name="allowedAreas">
     <set>Qt::AllToolBarAreas</set>
    </property>
@@ -150,9 +147,6 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar_co">
-   <property name="windowTitle">
-    <string>toolBar</string>
-   </property>
    <property name="allowedAreas">
     <set>Qt::AllToolBarAreas</set>
    </property>

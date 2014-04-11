@@ -19,7 +19,7 @@
 
 #include "ServerEditDialog.h"
 
-ServerEditDialog::ServerEditDialog(QObject *parent) : QDialog(parent), ui(new Ui::ServerEditDialog)
+ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui::ServerEditDialog)
 {
     Q_UNUSED(parent);
 
@@ -54,7 +54,7 @@ ServerEditDialog::ServerEditDialog(QObject *parent) : QDialog(parent), ui(new Ui
     validate();
 }
 
-ServerEditDialog::ServerEditDialog(const int &game, const QString &name, const QString &host, const int &port, const QString &password, QObject *parent) : ServerEditDialog(parent)
+ServerEditDialog::ServerEditDialog(const int &game, const QString &name, const QString &host, const int &port, const QString &password, QWidget *parent) : ServerEditDialog(parent)
 {
     ui->comboBox_sed_game->setCurrentIndex(game);
     ui->lineEdit_sed_name->setText(name);

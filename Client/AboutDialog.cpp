@@ -17,9 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "About.h"
+#include "AboutDialog.h"
 
-About::About(QWidget *parent) : QDialog(parent), ui(new Ui::About)
+AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDialog)
 {
     Q_UNUSED(parent);
 
@@ -30,38 +30,30 @@ About::About(QWidget *parent) : QDialog(parent), ui(new Ui::About)
     setWindowIcon(QIcon(APP_ICON));
 
     QDateTime current = QDateTime::currentDateTime();
-    QString description = tr("<p>%1 is a cross-platform RCON administration tool.</p>"
-                             "<p>Built on %2 at %3</p>"
-                             "Copyright &copy; %4 %5</p>"
-
-                             "<p>The program is provided AS IS with NO WARRANTY OF ANY KIND, <br />"
-                             "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND <br />"
-                             "FITNESS FOR A PARTICULAR PURPOSE.</p>"
-                             ).arg(APP_NAME)
-                              .arg(current.toString("dd MMMM yyyy"))
-                              .arg(current.toString("hh:mm:ss"))
-                              .arg(APP_YEAR)
-                              .arg(APP_AUTHOR);
-
-    ui->label_ab->setText(description);
+    ui->label_ab_info->setText(tr("%1 is a cross-platform RCON administration tool.").arg(APP_NAME));
+    ui->label_ab_built->setText(tr("Built on %2 at %3").arg(current.toString("dd MMMM yyyy")).arg(current.toString("hh:mm:ss")));
+    ui->label_ab_copyright->setText(tr("Copyright &copy; %4 %5").arg(APP_YEAR).arg(APP_AUTHOR));
+    ui->label_ab_disclaimer->setText("The program is provided AS IS with NO WARRANTY OF ANY KIND, <br />"
+                                     "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND <br />"
+                                     "FITNESS FOR A PARTICULAR PURPOSE.");
 
     ui->textBrowser_au->setText(getFile(":/AUTHORS"));
     ui->textBrowser_cb->setText(getFile(":/CONTRIBUTORS"));
     ui->textBrowser_tr->setText(getFile(":/TRANSLATORS"));
     ui->textBrowser_li->setText(getFile(":/COPYING"));
 
-    QString thanksTo = QString(tr("<p>We would like to thanks sourceforge.net for their services and support.</p>"));
-    ui->label_th->setText(thanksTo);
+    ui->label_th->setText(tr("We would like to thank Sourceforge.net for their services and support.<br />"
+                             "A big thank to GitHub! For making a coders everyday easier."));
 
     connect(ui->pushButton_ab_close, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
-About::~About()
+AboutDialog::~AboutDialog()
 {
     delete ui;
 }
 
-QString About::getFile(const QString &fileName)
+QString AboutDialog::getFile(const QString &fileName)
 {
     QFile file(fileName);
 

@@ -46,7 +46,7 @@
 
 #include "ServerListDialog.h"
 #include "SettingsDialog.h"
-#include "About.h"
+#include "AboutDialog.h"
 
 using namespace Constants;
 
@@ -87,7 +87,7 @@ private:
 
     //ServerListDialog *serverListDialog;
     SettingsDialog *settingsDialog;
-    About *aboutDialog;
+    AboutDialog *aboutDialog;
 
     // ServerManager
     QComboBox *comboBox_sm_server;
