@@ -42,19 +42,21 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
     QDataStream out(tcpSocket);
     out.setByteOrder(QDataStream::LittleEndian);
 
+    const char* text = QString("XTreme168732").toLatin1().constData();
+
     if (packet.getLength() < 1460 - 10) {
         out << packet.getLength();
         out << packet.getRequestId();
         out << packet.getType();
-        out.writeBytes(packet.getContent(), strlen(packet.getContent()));
-        out << (signed char) 0;
-        out << (signed char) 0;
+        out.writeBytes(text, strlen(text));
+        out << (qint8) 0;
+        out << (qint8) 0;
 
         qDebug() << "Sent packet: ";
         qDebug() << "Length: " << packet.getLength();
         qDebug() << "Request ID: " << packet.getRequestId();
         qDebug() << "Type: " << packet.getType();
-        qDebug() << "Payload:" << packet.getContent() << "\n";
+        qDebug() << "Payload:" << text << "\n";
     } else {
         qDebug() << "Payload data too long.";
     }
