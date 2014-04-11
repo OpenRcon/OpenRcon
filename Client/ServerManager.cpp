@@ -19,14 +19,16 @@ void ServerManager::loadServers()
 {
     settings->beginGroup(SETTINGS_SERVERMANAGER);
         int size = settings->beginReadArray(SETTINGS_SERVERENTRIES);
+
         for (int i = 0; i < size; i++) {
             settings->setArrayIndex(i);
+
             ServerEntry entry = ServerEntry(
-                settings->value(SETTINGS_SERVERENTRY_GAME).toInt(),
-                settings->value(SETTINGS_SERVERENTRY_NAME).toString(),
-                settings->value(SETTINGS_SERVERENTRY_HOST).toString(),
-                settings->value(SETTINGS_SERVERENTRY_PORT).toInt(),
-                settings->value(SETTINGS_SERVERENTRY_PASSWORD).toString()
+                settings->value("Game").toInt(),
+                settings->value("Name").toString(),
+                settings->value("Host").toString(),
+                settings->value("Port").toInt(),
+                settings->value("Password").toString()
             );
 
             serverList.append(entry);
@@ -40,15 +42,18 @@ void ServerManager::saveServers()
 {
     settings->beginGroup(SETTINGS_SERVERMANAGER);
         settings->remove(SETTINGS_SERVERENTRIES);
-        const int size = serverList.size();
+
+        int size = serverList.size();
         settings->beginWriteArray(SETTINGS_SERVERENTRIES);
             for (int i = 0; i < size; i++) {
                 settings->setArrayIndex(i);
-                    settings->setValue(SETTINGS_SERVERENTRY_GAME, serverList.at(i).game);
-                    settings->setValue(SETTINGS_SERVERENTRY_NAME, serverList.at(i).name);
-                    settings->setValue(SETTINGS_SERVERENTRY_HOST, serverList.at(i).host);
-                    settings->setValue(SETTINGS_SERVERENTRY_PORT, serverList.at(i).port);
-                    settings->setValue(SETTINGS_SERVERENTRY_PASSWORD, serverList.at(i).password);
+
+                ServerEntry entry = serverList.at(i);
+                settings->setValue("Game", entry.game);
+                settings->setValue("Name", entry.name);
+                settings->setValue("Host", entry.host);
+                settings->setValue("Port", entry.port);
+                settings->setValue("Password", entry.password);
             }
         settings->endArray();
     settings->endGroup();
@@ -64,9 +69,28 @@ QList<ServerEntry> ServerManager::getServers()
     return serverList;
 }
 
-void ServerManager::addServer(const ServerEntry &serverEntry)
+QList<ServerEntry> ServerManager::getServers(const int &game)
+{
+    QList<ServerEntry> list;
+
+    foreach (ServerEntry entry, serverList) {
+        if (entry.game == game) {
+            list.append(entry);
+        }
+    }
+
+    return list;
+}
+
+void ServerManager::addServer(ServerEntry &serverEntry)
 {
     serverList.append(serverEntry);
+}
+
+void ServerManager::editServer(ServerEntry &serverEntry)
+{
+    int index = serverList.indexOf(serverEntry);
+    serverList.removeAll(serverEntry);
 }
 
 void ServerManager::removeServer(const int &index)
@@ -74,19 +98,7 @@ void ServerManager::removeServer(const int &index)
     serverList.removeAt(index);
 }
 
-void ServerManager::removeServer(const ServerEntry &serverEntry)
+void ServerManager::removeServer(ServerEntry &serverEntry)
 {
     removeServer(serverList.indexOf(serverEntry));
-}
-
-void ServerManager::connectToServer(const int &index)
-{
-    ServerEntry entry = getServer(index);
-//    OpenRcon *openRcon = OpenRcon::getInstance();
-//    openRcon->newTab(entry.game, entry.name, entry.host, entry.port, entry.password);
-}
-
-void ServerManager::connectToServer(const ServerEntry &serverEntry)
-{
-    connectToServer(serverList.indexOf(serverEntry));
 }

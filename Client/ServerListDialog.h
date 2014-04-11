@@ -32,7 +32,6 @@
 #include "GameManager.h"
 #include "ServerManager.h"
 #include "ServerEditDialog.h"
-#include "ServerTableModel.h"
 
 using namespace Constants;
 
@@ -50,11 +49,6 @@ private:
     GameManager *gameManager;
     ServerManager *serverManager;
 
-    QMap<int, QIcon> m_IconMap;
-    QMap<int, QList<ServerEntry*>*> m_Data;
-    QList<ServerEntry> m_ServerEntries;
-    QList<QTreeWidgetItem*>* m_RootItems;
-
     QMenu *menu_sld_serverEntry;
 
     void createTreeData();
@@ -62,14 +56,13 @@ private:
 
 private slots:
     void treeWidget_customContextMenuRequested(QPoint pos);
-    void treeWidget_currentItemChanged(QTreeWidgetItem *item, QTreeWidgetItem*);
+    void treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
     void addItem();
     void editItem();
     void removeItem();
 
     void accept();
-    void reject();
 
 };
 

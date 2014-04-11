@@ -19,7 +19,7 @@
 
 #include "About.h"
 
-About::About(QObject *parent) : ui(new Ui::About)
+About::About(QWidget *parent) : QDialog(parent), ui(new Ui::About)
 {
     Q_UNUSED(parent);
 

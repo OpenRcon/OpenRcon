@@ -21,7 +21,6 @@
 #define SERVERENTRY_H
 
 #include <QString>
-#include <QMetaType>
 
 struct ServerEntry {
     ServerEntry()
@@ -55,6 +54,6 @@ struct ServerEntry {
 };
 
 // For use with QVariant
-Q_DECLARE_METATYPE(ServerEntry*)
+Q_DECLARE_METATYPE(ServerEntry)
 
 #endif // SERVERENTRY_H

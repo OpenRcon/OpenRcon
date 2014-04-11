@@ -1,7 +1,7 @@
 OpenRcon
 
     Description:
-        OpenRcon is a cross-platform RCON administration tool.
+        OpenRcon is a open-source and cross-platform RCON administration tool written in C++, using the Qt library.
 
     Other:
         For more information please visit: http://openrcon.org/
