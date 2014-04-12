@@ -1434,53 +1434,53 @@
         <translation>Applikasjon</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="169"/>
+        <location filename="../OpenRcon.ui" line="158"/>
         <source>Connection</source>
         <translation>Tilkobling</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="178"/>
+        <location filename="../OpenRcon.ui" line="167"/>
         <source>Servermanager</source>
         <translation>Tjeneradministrasjon</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="183"/>
+        <location filename="../OpenRcon.ui" line="172"/>
         <source>Exit</source>
         <translation>Avslutt</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="192"/>
+        <location filename="../OpenRcon.ui" line="181"/>
         <source>Settings</source>
         <translation>Innstillinger</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="197"/>
+        <location filename="../OpenRcon.ui" line="186"/>
         <source>Report bug</source>
         <translation>Rapporter feil</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="206"/>
+        <location filename="../OpenRcon.ui" line="195"/>
         <source>Documentation</source>
         <translation>Dokumentasjon</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="211"/>
+        <location filename="../OpenRcon.ui" line="200"/>
         <source>About</source>
         <translation>Om</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="216"/>
-        <location filename="../OpenRcon.cpp" line="245"/>
+        <location filename="../OpenRcon.ui" line="205"/>
+        <location filename="../OpenRcon.cpp" line="254"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="46"/>
+        <location filename="../OpenRcon.cpp" line="47"/>
         <source>About &amp;%1</source>
         <translation>Om &amp;%1</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="52"/>
+        <location filename="../OpenRcon.cpp" line="53"/>
         <source>Connect</source>
         <translation>Koble til</translation>
     </message>

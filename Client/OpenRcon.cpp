@@ -25,14 +25,15 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {
     ui->setupUi(this);
 
-    dir = new Directory(this);
-    settings = new QSettings(APP_NAME, APP_NAME, this);
+    directory = new Directory(this);
     gameManager = new GameManager(this);
     serverManager = new ServerManager(this);
 
     //serverListDialog = new ServerListDialog(this);
     settingsDialog = new SettingsDialog(this);
     aboutDialog = new AboutDialog(this);
+
+    settings = new QSettings(APP_NAME, APP_NAME, this);
 
     // Sets application title and icon
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
@@ -48,8 +49,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     ui->actionAbout_Qt->setIcon(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
 
     // ServerManager
-    comboBox_sm_server = new QComboBox(this);
-    pushButton_sm_connect = new QPushButton(tr("Connect"), this);
+    comboBox_sm_server = new QComboBox(ui->toolBar_sm);
+    pushButton_sm_connect = new QPushButton(tr("Connect"), ui->toolBar_sm);
 
     // Add the server to the comboBox only if it's not empty, otherwhise disable it.
     QList<ServerEntry *> serverList = serverManager->getServers();
@@ -61,6 +62,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
             comboBox_sm_server->addItem(game.icon, server->name);
         }
     } else {
+        comboBox_sm_server->addItem("No servers added");
         comboBox_sm_server->setEnabled(false);
         pushButton_sm_connect->setEnabled(false);
     }
@@ -93,7 +95,7 @@ OpenRcon::~OpenRcon()
 {
     delete ui;
 
-    delete dir;
+    delete directory;
     delete settings;
     delete gameManager;
     delete serverManager;
@@ -125,7 +127,7 @@ void OpenRcon::closeEvent(QCloseEvent *e)
 
 void OpenRcon::readSettings()
 {
-    settings->beginGroup(SETTINGS_OPENRCON);
+    settings->beginGroup(APP_NAME);
         resize(settings->value("Size", size()).toSize());
         move(settings->value("Position", pos()).toPoint());
 
@@ -145,7 +147,7 @@ void OpenRcon::readSettings()
 
 void OpenRcon::writeSettings()
 {
-    settings->beginGroup(SETTINGS_OPENRCON);
+    settings->beginGroup(APP_NAME);
         settings->setValue("IsMaximized", isMaximized());
         settings->setValue("Size", size());
         settings->setValue("Position", pos());

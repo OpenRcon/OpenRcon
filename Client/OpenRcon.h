@@ -79,9 +79,7 @@ protected:
 private:
     Ui::OpenRcon *ui;
 
-    Directory *dir;
-    QSettings *settings;
-
+    Directory *directory;
     GameManager *gameManager;
     ServerManager *serverManager;
 
@@ -89,7 +87,8 @@ private:
     SettingsDialog *settingsDialog;
     AboutDialog *aboutDialog;
 
-    // ServerManager
+    QSettings *settings;
+
     QComboBox *comboBox_sm_server;
     QPushButton *pushButton_sm_connect;
 
