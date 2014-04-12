@@ -64,7 +64,7 @@ public:
 
     QVector<FrostbiteRconWord> packetWords;
 
-    enum {
+    enum Origin {
         ServerOrigin,
         ClientOrigin
     };
