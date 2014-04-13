@@ -21,8 +21,6 @@
 
 ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui::ServerListDialog)
 {
-    Q_UNUSED(parent);
-
     ui->setupUi(this);
 
     gameManager = new GameManager(this);

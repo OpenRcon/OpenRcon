@@ -59,7 +59,6 @@ class OpenRcon : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit OpenRcon(QWidget *parent = 0);
     ~OpenRcon();
 
     static OpenRcon* getInstance(QWidget *parent = 0) {
@@ -75,7 +74,8 @@ public:
     GameManager* getGameManager();
 
 protected:
-    static OpenRcon* m_Instance;
+    explicit OpenRcon(QWidget *parent = 0);
+    static OpenRcon *m_Instance;
 
 private:
     Ui::OpenRcon *ui;

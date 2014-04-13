@@ -43,8 +43,8 @@ int main(int argc, char *argv[])
     app.installTranslator(&translator);
 
     // Launch the app.
-    OpenRcon o;
-    o.show();
+    OpenRcon *o = OpenRcon::getInstance();
+    o->show();
 
     return app.exec();
 }
