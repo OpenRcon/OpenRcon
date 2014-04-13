@@ -122,7 +122,7 @@ private slots:
     /* User Interface */
 
     /* Players Tab */
-    void treeWidget_pl_customContextMenuRequested(QPoint pos);
+    void treeWidget_pl_players_customContextMenuRequested(QPoint pos);
     void action_pl_sendmessage_triggered();
     void action_pl_textchatmoderation_muted_triggered();
     void action_pl_textchatmoderation_normal_triggered();
