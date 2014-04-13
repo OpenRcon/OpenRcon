@@ -61,7 +61,7 @@ void BFBC2::onLoginHashedCommand(const QByteArray &salt)
         if (!password.isEmpty()) {
             QCryptographicHash hash(QCryptographicHash::Md5);
             hash.addData(salt);
-            hash.addData(password.toUtf8().constData());
+            hash.addData(password.toLatin1().constData());
 
             con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
         }
