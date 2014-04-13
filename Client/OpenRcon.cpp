@@ -56,13 +56,15 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     QList<ServerEntry *> serverList = serverManager->getServers();
 
     if (!serverList.isEmpty()) {
+        comboBox_sm_server->clear();
+
         foreach (ServerEntry *server, serverList) {
             GameEntry game = gameManager->getGame(server->game);
 
             comboBox_sm_server->addItem(game.icon, server->name);
         }
     } else {
-        comboBox_sm_server->addItem("No servers added");
+        comboBox_sm_server->addItem(tr("No servers added yet."));
         comboBox_sm_server->setEnabled(false);
         pushButton_sm_connect->setEnabled(false);
     }
@@ -177,7 +179,7 @@ void OpenRcon::newTab(const int &game, const QString &name, const QString &host,
 
         ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, entry.icon, QString("%1 [%2:%3]").arg(name).arg(host).arg(port)));
     } else {
-        qDebug() << "Unknown game, with id: " << game;
+        qDebug() << tr("Unknown game specified, the id was: %1.").arg(game);
     }
 }
 
@@ -244,7 +246,7 @@ void OpenRcon::actionAbout_triggered()
 
 void OpenRcon::actionAbout_Qt_triggered()
 {
-    QMessageBox::aboutQt(this, tr("About Qt"));
+    QMessageBox::aboutQt(this);
 }
 
 // ServerManager

@@ -31,7 +31,7 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     serverEntries = serverManager->getServers();
 
     // Sets application title and icon
-    setWindowTitle(QString(tr("Servermanager")));
+    setWindowTitle(tr("Servermanager"));
     setWindowIcon(QIcon(APP_ICON));
 
     // Add a menu for the ServerItems
@@ -189,7 +189,7 @@ void ServerListDialog::removeItem()
 
 void ServerListDialog::accept()
 {
-    QList<QTreeWidgetItem*> items = ui->treeWidget->selectedItems();
+    QList<QTreeWidgetItem *> items = ui->treeWidget->selectedItems();
     Q_ASSERT(items.count() <= 1);
 
     if (items.count() == 1 && ui->treeWidget->currentItem()->parent()) {

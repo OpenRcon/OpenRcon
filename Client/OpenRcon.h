@@ -62,7 +62,7 @@ public:
     explicit OpenRcon(QWidget *parent = 0);
     ~OpenRcon();
 
-    static OpenRcon* getInstance(QWidget* parent = 0) {
+    static OpenRcon* getInstance(QWidget *parent = 0) {
         if (!m_Instance) {
             m_Instance = new OpenRcon(parent);
         }
@@ -71,6 +71,7 @@ public:
     }
 
     void newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
+
     GameManager* getGameManager();
 
 protected:

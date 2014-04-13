@@ -59,9 +59,8 @@ QString AboutDialog::getFile(const QString &fileName)
 
     if (file.open(QIODevice::ReadOnly)) {
         QTextStream stream(&file);
-        QString text = stream.readAll();
 
-        return text;
+        return stream.readAll();
     }
 
     return QString();

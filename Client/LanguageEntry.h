@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,30 +17,27 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SETTINGSMANAGER_H
-#define SETTINGSMANAGER_H
+#ifndef LANGUAGEENTRY_H
+#define LANGUAGEENTRY_H
 
-#include <QObject>
-#include <QSettings>
+#include <QIcon>
+#include <QString>
 
-#include <Constants.h>
+struct LanguageEntry {
+    LanguageEntry()
+    {
 
-using namespace Constants;
+    }
 
-class SettingsManager : public QObject
-{
-    Q_OBJECT
+    LanguageEntry(const QString &name, const QString &code, const QString &icon) : name(name), code(code), icon(QIcon(icon))
+    {
 
-public:
-    explicit SettingsManager(QObject *parent = 0);
-    ~SettingsManager();
+    }
 
-    void loadSettings();
-    void saveSettings();
-
-private:
-    QSettings *settings;
+    QString name;
+    QString code;
+    QIcon icon;
 
 };
 
-#endif // SETTINGSMANAGER_H
+#endif // LANGUAGEENTRY_H

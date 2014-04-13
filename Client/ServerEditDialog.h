@@ -47,6 +47,8 @@ public:
 private:
     Ui::ServerEditDialog *ui;
 
+    GameManager *gameManager;
+
 private slots:
     void validate();
 

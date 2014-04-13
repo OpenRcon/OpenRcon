@@ -365,6 +365,41 @@
 <context>
     <name>BF4Widget</name>
     <message>
+        <location filename="../bf4/BF4Widget.cpp" line="30"/>
+        <source>Kill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="31"/>
+        <source>Move</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="37"/>
+        <source>Say</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="38"/>
+        <source>Yell</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="41"/>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="42"/>
+        <source>Team</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="43"/>
+        <source>Squad</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../bf4/BF4Widget.cpp" line="302"/>
         <source>PlayerAuthenticated</source>
         <translation type="unfinished"></translation>
@@ -567,6 +602,21 @@
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="426"/>
         <source>&lt;b&gt;%1&lt;/b&gt; server running version: &lt;b&gt;%2&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="428"/>
+        <source>Version: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="437"/>
+        <source>Players: %1/%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="438"/>
+        <source>Round: %1/%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1255,32 +1305,106 @@
 <context>
     <name>Connection</name>
     <message>
+        <location filename="../Connection.cpp" line="43"/>
+        <source>Already connected to %1:%2.</source>
+        <translation>Allerede koblet til %1:%2.</translation>
+    </message>
+    <message>
+        <location filename="../Connection.cpp" line="52"/>
+        <source>Could not disconnect, because there was no open sockets to close.</source>
+        <translation>Kunne ikke koble fra, fordi det ikke var noen åpen forbindelse.</translation>
+    </message>
+    <message>
         <location filename="../Connection.cpp" line="74"/>
         <location filename="../Connection.cpp" line="78"/>
         <location filename="../Connection.cpp" line="82"/>
         <location filename="../Connection.cpp" line="86"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Feil</translation>
     </message>
     <message>
         <location filename="../Connection.cpp" line="74"/>
         <source>The remote host closed the connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjeneren lukket tilkoblingen.</translation>
+    </message>
+    <message>
+        <location filename="../Connection.cpp" line="75"/>
+        <source>Remote host closed the connection: %1.</source>
+        <translation>Tjeneren lukket tilkoblingen: %1.</translation>
+    </message>
+    <message>
+        <location filename="../Connection.cpp" line="79"/>
+        <source>Host not found: %1.</source>
+        <translation>Tjener ble ikke funnet: %1.</translation>
+    </message>
+    <message>
+        <location filename="../Connection.cpp" line="83"/>
+        <source>Connection refused: %1.</source>
+        <translation>Tilkoblingen ble nektet: %1.</translation>
+    </message>
+    <message>
+        <location filename="../Connection.cpp" line="87"/>
+        <source>Unknown error: %1.</source>
+        <translation>Ukjent feil: %1.</translation>
     </message>
     <message>
         <location filename="../Connection.cpp" line="78"/>
         <source>The host address was not found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tjener adressen ble ikke funnt.</translation>
     </message>
     <message>
         <location filename="../Connection.cpp" line="82"/>
         <source>The connection was refused by the peer (or timed out).</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilkoblingen ble avist av tjeneren (eller tidsavbrutt).</translation>
     </message>
     <message>
         <location filename="../Connection.cpp" line="86"/>
         <source>The following error occurred: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Følgende feil oppstod: %1.</translation>
+    </message>
+</context>
+<context>
+    <name>Directory</name>
+    <message>
+        <location filename="../Directory.cpp" line="28"/>
+        <source>Directory %1 exists.</source>
+        <translation>Mappen %1 eksisterer.</translation>
+    </message>
+    <message>
+        <location filename="../Directory.cpp" line="32"/>
+        <source>Made directory %1.</source>
+        <translation>Lagde mappen %1.</translation>
+    </message>
+    <message>
+        <location filename="../Directory.cpp" line="34"/>
+        <source>Tried make directory %1, but failed.</source>
+        <translation>Prøvde å lage mappen %1, men feilet.</translation>
+    </message>
+    <message>
+        <location filename="../Directory.cpp" line="38"/>
+        <source>Directory path is: %1.</source>
+        <translation>Mappesti er: %1.</translation>
+    </message>
+</context>
+<context>
+    <name>FrostbiteConnection</name>
+    <message>
+        <location filename="../frostbite/FrostbiteConnection.cpp" line="43"/>
+        <source>Already connected to %1:%2</source>
+        <translation type="unfinished">Allerede koblet til %1:%2. {1:%2?}</translation>
+    </message>
+</context>
+<context>
+    <name>LanguageManager</name>
+    <message>
+        <location filename="../LanguageManager.cpp" line="24"/>
+        <source>English</source>
+        <translation>Engelsk</translation>
+    </message>
+    <message>
+        <location filename="../LanguageManager.cpp" line="25"/>
+        <source>Norwegian</source>
+        <translation>Norsk</translation>
     </message>
 </context>
 <context>
@@ -1419,60 +1543,64 @@
         <translation>Hjelp</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="114"/>
+        <location filename="../OpenRcon.ui" line="116"/>
         <source>View</source>
         <translation>Vis</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="118"/>
+        <location filename="../OpenRcon.ui" line="120"/>
         <source>Toolbars</source>
         <translation>Vektøylinjer</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="126"/>
+        <location filename="../OpenRcon.ui" line="128"/>
         <source>Application</source>
         <translation>Applikasjon</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="158"/>
+        <location filename="../OpenRcon.ui" line="160"/>
         <source>Connection</source>
         <translation>Tilkobling</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="167"/>
+        <location filename="../OpenRcon.ui" line="169"/>
         <source>Servermanager</source>
         <translation>Tjeneradministrasjon</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="172"/>
+        <location filename="../OpenRcon.ui" line="174"/>
         <source>Exit</source>
         <translation>Avslutt</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="181"/>
+        <location filename="../OpenRcon.ui" line="183"/>
         <source>Settings</source>
         <translation>Innstillinger</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="186"/>
+        <location filename="../OpenRcon.ui" line="188"/>
         <source>Report bug</source>
         <translation>Rapporter feil</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="195"/>
+        <location filename="../OpenRcon.ui" line="197"/>
         <source>Documentation</source>
         <translation>Dokumentasjon</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="200"/>
+        <location filename="../OpenRcon.ui" line="202"/>
         <source>About</source>
         <translation>Om</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="205"/>
-        <location filename="../OpenRcon.cpp" line="254"/>
+        <location filename="../OpenRcon.ui" line="207"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
+    </message>
+    <message>
+        <location filename="../OpenRcon.ui" line="212"/>
+        <source>What&apos;s This?</source>
+        <translation>Hva er Dette?</translation>
     </message>
     <message>
         <location filename="../OpenRcon.cpp" line="47"/>
@@ -1483,6 +1611,16 @@
         <location filename="../OpenRcon.cpp" line="53"/>
         <source>Connect</source>
         <translation>Koble til</translation>
+    </message>
+    <message>
+        <location filename="../OpenRcon.cpp" line="67"/>
+        <source>No servers added yet.</source>
+        <translation>Ingen tjenere lagt til enda.</translation>
+    </message>
+    <message>
+        <location filename="../OpenRcon.cpp" line="182"/>
+        <source>Unknown game specified, the id was: %1.</source>
+        <translation>Ukjent spill spesifisert, id&apos;en var: %1.</translation>
     </message>
 </context>
 <context>
@@ -1585,49 +1723,39 @@
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../SettingsDialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.ui" line="21"/>
+        <location filename="../SettingsDialog.ui" line="18"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Generelt</translation>
     </message>
     <message>
-        <location filename="../SettingsDialog.ui" line="26"/>
-        <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <location filename="../SettingsDialog.ui" line="38"/>
+        <source>User Interface</source>
+        <translation>Brukergrensesnitt</translation>
     </message>
     <message>
-        <location filename="../SettingsDialog.ui" line="31"/>
+        <location filename="../SettingsDialog.ui" line="44"/>
+        <source>Change</source>
+        <translation>Endre</translation>
+    </message>
+    <message>
+        <location filename="../SettingsDialog.ui" line="54"/>
+        <source>Language:</source>
+        <translation>Språk:</translation>
+    </message>
+    <message>
+        <location filename="../SettingsDialog.ui" line="23"/>
         <source>Connection</source>
-        <translation type="unfinished">Tilkobling</translation>
+        <translation>Tilkobling</translation>
     </message>
     <message>
-        <location filename="../SettingsDialog.ui" line="48"/>
-        <source>Name</source>
-        <translation type="unfinished">Navn</translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.ui" line="53"/>
-        <source>Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.ui" line="76"/>
-        <source>Install...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.ui" line="83"/>
-        <source>Manage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.cpp" line="29"/>
+        <location filename="../SettingsDialog.cpp" line="32"/>
         <source>Settings</source>
-        <translation type="unfinished">Innstillinger</translation>
+        <translation>Innstillinger</translation>
+    </message>
+    <message>
+        <location filename="../SettingsDialog.cpp" line="36"/>
+        <source>&lt;System Language&gt;</source>
+        <translation>&lt;System Språk&gt;</translation>
     </message>
 </context>
 </TS>

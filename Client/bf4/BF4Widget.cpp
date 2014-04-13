@@ -27,20 +27,20 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     // Players
     menu_pl_players = new QMenu();
-    action_pl_players_kill = new QAction("Kill", menu_pl_players);
-    menu_pl_players_move = new QMenu("Move", menu_pl_players);
+    action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
+    menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
 
     menu_pl_players->addAction(action_pl_players_kill);
     menu_pl_players->addMenu(menu_pl_players_move);
 
     // Chat
-    ui->comboBox_ch_mode->addItem("Say");
-    ui->comboBox_ch_mode->addItem("Yell");
+    ui->comboBox_ch_mode->addItem(tr("Say"));
+    ui->comboBox_ch_mode->addItem(tr("Yell"));
 
     ui->comboBox_ch_target->setEnabled(false);
-    ui->comboBox_ch_target->addItem("All");
-    ui->comboBox_ch_target->addItem("Team");
-    ui->comboBox_ch_target->addItem("Squad");
+    ui->comboBox_ch_target->addItem(tr("All"));
+    ui->comboBox_ch_target->addItem(tr("Team"));
+    ui->comboBox_ch_target->addItem(tr("Squad"));
 
     // Maplsit
     ui->comboBox_ml_gameMode->addItems(levels->getGameModeNames());
@@ -425,7 +425,7 @@ void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const 
 
     logMessage(0, tr("<b>%1</b> server running version: <b>%2</b>.").arg(type, version));
 
-    ui->label_serverInfo_version->setText(QString("Version: %1").arg(version));
+    ui->label_serverInfo_version->setText(tr("Version: %1").arg(version));
 }
 
 void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
@@ -434,8 +434,8 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
     GameModeEntry currentGameMode = levels->getGameMode(serverInfo.gameMode);
 
     ui->label_serverInfo_level->setText(QString("%1 - %2").arg(currentLevel.name).arg(currentGameMode.name));
-    ui->label_serverInfo_players->setText(QString("Players: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_serverInfo_round->setText(QString("Round: %1/%2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
+    ui->label_serverInfo_players->setText(tr("Players: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
+    ui->label_serverInfo_round->setText(tr("Round: %1/%2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
 
     // Set maplist.
     int gameModeIndex = levels->getGameModeNames().indexOf(currentGameMode.name);
@@ -553,7 +553,7 @@ void BF4Widget::action_pl_players_kill_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendCommand(QString("admin.killPlayer %1").arg(player));
+    con->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
 }
 
 /* Chat */
@@ -655,7 +655,6 @@ void BF4Widget::pushButton_ml_remove_clicked()
 
         foreach (QModelIndex index, indexList) {
             int row = index.row();
-            qDebug() << "Row is:" << index;
 
             con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(row));
             ui->tableWidget_ml_current->removeRow(row);

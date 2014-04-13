@@ -25,17 +25,17 @@ Directory::Directory(QObject *parent) : QObject(parent)
 
     if (appDir->exists(APP_DIR)) {
         appDir->cd(APP_DIR);
-        qDebug() << QString("Directory %1 exists.").arg(APP_DIR);
+        qDebug() << tr("Directory %1 exists.").arg(APP_DIR);
     } else {
         if (appDir->mkdir(APP_DIR)) {
             appDir->cd(APP_DIR);
-            qDebug() << QString("Made directory %1").arg(APP_DIR);
+            qDebug() << tr("Made directory %1.").arg(APP_DIR);
         } else {
-            qDebug() << QString("Made directory %1 failed.").arg(APP_DIR);
+            qDebug() << tr("Tried make directory %1, but failed.").arg(APP_DIR);
         }
     }
 
-    qDebug() << QString("Directory path is: %1").arg(getPath());
+    qDebug() << tr("Directory path is: %1.").arg(getPath());
 }
 
 Directory::~Directory()

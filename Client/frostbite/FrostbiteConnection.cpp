@@ -40,7 +40,7 @@ void FrostbiteConnection::hostConnect(const QString &host, const int &port)
         tcpSocket->connectToHost(host, port);
     } else {
         if (tcpSocket) {
-            qDebug() << QString("Already connected to %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());
+            qDebug() << tr("Already connected to %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());
         } else {
             qDebug() << "ERROR: Connection::hostConnect tcpSocket = 0";
         }

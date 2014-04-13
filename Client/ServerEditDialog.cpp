@@ -28,9 +28,11 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     setWindowTitle(tr("Server details"));
     setWindowIcon(QIcon(APP_ICON));
 
+    gameManager = new GameManager(this);
+
     ui->comboBox_sed_game->clear();
 
-    foreach (GameEntry entry, OpenRcon::getInstance()->getGameManager()->getGames()) {
+    foreach (GameEntry entry, gameManager->getGames()) {
         ui->comboBox_sed_game->addItem(entry.icon, entry.name, entry.id);
     }
 
