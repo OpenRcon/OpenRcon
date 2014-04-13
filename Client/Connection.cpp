@@ -55,14 +55,14 @@ void Connection::hostDisconnect()
 
 void Connection::connected()
 {
-    qDebug() << QString("Connected to %1:%2.").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
+    qDebug() << tr("Connected to %1:%2.").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
 
     emit(onConnected());
 }
 
 void Connection::disconnected()
 {
-    qDebug() << QString("Disconnected from host %1:%2.").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
+    qDebug() << tr("Disconnected from %1:%2.").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
 
     emit(onDisconnected());
 }

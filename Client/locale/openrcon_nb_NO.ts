@@ -1315,6 +1315,11 @@
         <translation>Kunne ikke koble fra, fordi det ikke var noen åpen forbindelse.</translation>
     </message>
     <message>
+        <location filename="../Connection.cpp" line="58"/>
+        <source>Connected to %1:%2.</source>
+        <translation>Koblet til %1:%2.</translation>
+    </message>
+    <message>
         <location filename="../Connection.cpp" line="74"/>
         <location filename="../Connection.cpp" line="78"/>
         <location filename="../Connection.cpp" line="82"/>
@@ -1351,6 +1356,11 @@
         <location filename="../Connection.cpp" line="78"/>
         <source>The host address was not found.</source>
         <translation>Tjener adressen ble ikke funnt.</translation>
+    </message>
+    <message>
+        <location filename="../Connection.cpp" line="65"/>
+        <source>Disconnected from %1:%2.</source>
+        <translation>Koblet fra %1:%2.</translation>
     </message>
     <message>
         <location filename="../Connection.cpp" line="82"/>
@@ -1616,11 +1626,6 @@
         <location filename="../OpenRcon.cpp" line="67"/>
         <source>No servers added yet.</source>
         <translation>Ingen tjenere lagt til enda.</translation>
-    </message>
-    <message>
-        <location filename="../OpenRcon.cpp" line="182"/>
-        <source>Unknown game specified, the id was: %1.</source>
-        <translation>Ukjent spill spesifisert, id&apos;en var: %1.</translation>
     </message>
 </context>
 <context>
