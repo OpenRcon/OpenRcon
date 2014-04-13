@@ -209,7 +209,7 @@ void OpenRcon::actionServermanager_triggered()
 // View menu
 void OpenRcon::actionConnection_triggered()
 {
-    settings->beginGroup(SETTINGS_OPENRCON);
+    settings->beginGroup("OpenRcon");
         if (ui->actionConnection->isChecked()) {
             ui->toolBar_sm->show();
             settings->setValue("actionConnection", true);
