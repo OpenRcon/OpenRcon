@@ -566,6 +566,11 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
 
     // Expand all player rows
     ui->treeWidget_pl_playerList->expandAll();
+
+    // Resize columns so that they fits the content.
+    for (int i = 0; i < ui->treeWidget_pl_players->columnCount(); i++) {
+        ui->treeWidget_pl_players->resizeColumnToContents(i);
+    }
 }
 
 void BFBC2Widget::onVarsServerNameCommand(const QString &serverName)
