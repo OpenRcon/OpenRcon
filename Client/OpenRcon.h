@@ -23,15 +23,12 @@
 #include <QObject>
 #include <QDebug>
 #include <QMainWindow>
-#include <QWidget>
 #include <QDesktopServices>
 #include <QIcon>
 #include <QEvent>
 #include <QCloseEvent>
 #include <QSettings>
 #include <QComboBox>
-#include <QLineEdit>
-#include <QLabel>
 #include <QMessageBox>
 #include <QPushButton>
 
@@ -59,25 +56,26 @@ class OpenRcon : public QMainWindow
     Q_OBJECT
 
 public:
+    explicit OpenRcon(QWidget *parent = 0);
     ~OpenRcon();
 
     static OpenRcon* getInstance(QWidget *parent = 0) {
-        if (!m_Instance) {
-            m_Instance = new OpenRcon(parent);
+        if (!instance) {
+            instance = new OpenRcon(parent);
         }
 
-        return m_Instance;
+        return instance;
     }
 
-    void newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
+    void addTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
+    void addMessage(const QString &message, const int &timeout);
+    void addMessage(const QString &message);
 
     GameManager* getGameManager();
 
-protected:
-    explicit OpenRcon(QWidget *parent = 0);
-    static OpenRcon *m_Instance;
-
 private:
+    static OpenRcon *instance;
+
     Ui::OpenRcon *ui;
 
     Directory *directory;

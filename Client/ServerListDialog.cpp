@@ -196,7 +196,7 @@ void ServerListDialog::accept()
         ServerEntry *entry = variant.value<ServerEntry *>();
 
         OpenRcon *openRcon = OpenRcon::getInstance();
-        openRcon->newTab(entry->game, entry->name, entry->host, entry->port, entry->password);
+        openRcon->addTab(entry->game, entry->name, entry->host, entry->port, entry->password);
 
         QDialog::accept();
     }

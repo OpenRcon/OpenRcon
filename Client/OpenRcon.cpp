@@ -19,7 +19,7 @@
 
 #include "OpenRcon.h"
 
-OpenRcon *OpenRcon::m_Instance = 0;
+OpenRcon* OpenRcon::instance = 0;
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {
@@ -40,12 +40,11 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     setWindowIcon(QIcon(APP_ICON));
 
     // Create and read settings
-
     readSettings();
 
     // Actions
-    ui->actionAbout->setText(QString(tr("About &%1")).arg(APP_NAME));
     ui->actionAbout->setIcon(QIcon(APP_ICON));
+    ui->actionAbout->setText(tr("About &%1").arg(APP_NAME));
     ui->actionAbout_Qt->setIcon(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
 
     // ServerManager
@@ -71,6 +70,12 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     ui->toolBar_sm->addWidget(comboBox_sm_server);
     ui->toolBar_sm->addWidget(pushButton_sm_connect);
+
+    foreach (ServerEntry *server, serverList) {
+        GameEntry game = gameManager->getGame(server->game);
+        QAction *action = ui->toolBar_recent->addAction(game.icon, server->name);
+        connect(action, SIGNAL(triggered()), this, SLOT(actionRecent_triggered()));
+    }
 
     // Actions
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
@@ -156,7 +161,7 @@ void OpenRcon::writeSettings()
     settings->endGroup();
 }
 
-void OpenRcon::newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password)
+void OpenRcon::addTab(const int &game, const QString &name, const QString &host, const int port, const QString &password)
 {
     GameEntry entry = gameManager->getGame(game);
 
@@ -181,6 +186,16 @@ void OpenRcon::newTab(const int &game, const QString &name, const QString &host,
     } else {
         qDebug() << tr("Unknown game specified, the id was: %1.").arg(game);
     }
+}
+
+void OpenRcon::addMessage(const QString &message, const int &timeout)
+{
+    ui->statusBar->showMessage(message, timeout);
+}
+
+void OpenRcon::addMessage(const QString &message)
+{
+    ui->statusBar->showMessage(message);
 }
 
 GameManager* OpenRcon::getGameManager()
@@ -255,5 +270,5 @@ void OpenRcon::pushButton_sm_connect_clicked()
     int index = comboBox_sm_server->currentIndex();
     ServerEntry *server = serverManager->getServer(index);
 
-    newTab(server->game, server->name, server->host, server->port, server->password);
+    addTab(server->game, server->name, server->host, server->port, server->password);
 }
