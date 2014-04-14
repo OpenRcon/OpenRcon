@@ -73,8 +73,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     foreach (ServerEntry *server, serverList) {
         GameEntry game = gameManager->getGame(server->game);
-        QAction *action = ui->toolBar_recent->addAction(game.icon, server->name);
-        connect(action, SIGNAL(triggered()), this, SLOT(actionRecent_triggered()));
+        ui->toolBar_recent->addAction(game.icon, server->name);
     }
 
     // Actions

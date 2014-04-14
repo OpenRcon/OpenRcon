@@ -1613,22 +1613,22 @@
         <translation>Hva er Dette?</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="50"/>
+        <location filename="../OpenRcon.cpp" line="47"/>
         <source>About &amp;%1</source>
         <translation>Om &amp;%1</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="55"/>
+        <location filename="../OpenRcon.cpp" line="52"/>
         <source>Connect</source>
         <translation>Koble til</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="69"/>
+        <location filename="../OpenRcon.cpp" line="66"/>
         <source>No servers added yet.</source>
         <translation>Ingen tjenere lagt til enda.</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="190"/>
+        <location filename="../OpenRcon.cpp" line="186"/>
         <source>Unknown game specified, the id was: %1.</source>
         <translation>Ukjent spill spesifisert, id&apos;en var: %1.</translation>
     </message>

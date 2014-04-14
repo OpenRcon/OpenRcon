@@ -17,8 +17,11 @@ public:
     ~ServerManager();
 
     ServerEntry* getServer(const int &index);
+    ServerEntry* getServer(ServerEntry *serverEntry);
+    void setServers(const QList<ServerEntry *> &list);
 
     QList<ServerEntry *> getServers();
+    QList<ServerEntry *> getServers(const int &gameIndex);
 
     void addServer(ServerEntry *serverEntry);
     void editServer(ServerEntry *serverEntry);

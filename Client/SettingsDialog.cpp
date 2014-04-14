@@ -25,7 +25,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Se
 
     ui->setupUi(this);
 
-    settings = new QSettings(APP_NAME, APP_NAME);
+    settings = new QSettings(APP_NAME, APP_NAME, this);
     languageManager = new LanguageManager(this);
 
     // Sets application title and icon

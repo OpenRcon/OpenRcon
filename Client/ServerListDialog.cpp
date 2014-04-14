@@ -26,8 +26,6 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     gameManager = new GameManager(this);
     serverManager = new ServerManager(this);
 
-    serverEntries = serverManager->getServers();
-
     // Sets application title and icon
     setWindowTitle(tr("Servermanager"));
     setWindowIcon(QIcon(APP_ICON));
@@ -36,8 +34,6 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     menu_sld_serverEntry = new QMenu(ui->treeWidget);
     menu_sld_serverEntry->addAction(ui->actionEdit);
     menu_sld_serverEntry->addAction(ui->actionRemove);
-
-    ui->treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
 
     ui->pushButton_sld_connect->setEnabled(false);
 
@@ -80,13 +76,17 @@ void ServerListDialog::createTreeData()
     deleteTreeData();
 
     foreach (GameEntry gameEntry, gameManager->getGames()) {
-        QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidget);
-        parentItem->setIcon(0, gameEntry.icon);
-        parentItem->setText(0, gameEntry.name);
+        QList<ServerEntry *> list = serverManager->getServers(gameEntry.id);
 
-        if (!serverEntries.isEmpty()) {
-            foreach (ServerEntry *serverEntry, serverEntries) {
+        if (!list.isEmpty()) {
+            QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidget);
+            parentItem->setIcon(0, gameEntry.icon);
+            parentItem->setText(0, gameEntry.name);
+
+            foreach (ServerEntry *serverEntry, list) {
                 if (serverEntry->game == gameEntry.id) {
+                    serverEntries.append(serverEntry);
+
                     QTreeWidgetItem *childItem = new QTreeWidgetItem(parentItem);
                     childItem->setData(0, Qt::UserRole, qVariantFromValue(serverEntry));
                     childItem->setText(0, serverEntry->name);
@@ -110,6 +110,7 @@ void ServerListDialog::createTreeData()
 
 void ServerListDialog::deleteTreeData()
 {
+    serverEntries.clear();
     ui->treeWidget->clear();
 }
 
@@ -126,7 +127,7 @@ void ServerListDialog::addItem()
             sed->getPassword()
         );
 
-        serverEntries.append(entry);
+        serverManager->addServer(entry);
 
         createTreeData();
     }
@@ -157,6 +158,7 @@ void ServerListDialog::editItem()
 
             // Set the server to the new values obtained by ServerEditDialog.
             *entry = editEntry;
+            serverManager->setServers(serverEntries);
 
             createTreeData();
         }
@@ -178,7 +180,7 @@ void ServerListDialog::removeItem()
             QVariant variant = item->data(0, Qt::UserRole);
             ServerEntry *entry = variant.value<ServerEntry *>();
 
-            serverEntries.removeAt(serverEntries.indexOf(entry));
+            serverManager->removeServer(entry);
 
             createTreeData();
         }

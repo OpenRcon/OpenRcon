@@ -64,9 +64,33 @@ ServerEntry* ServerManager::getServer(const int &index)
     return serverList.at(index);
 }
 
+ServerEntry* ServerManager::getServer(ServerEntry *serverEntry)
+{
+    return getServer(serverList.indexOf(serverEntry));
+}
+
+void ServerManager::setServers(const QList<ServerEntry *> &list)
+{
+    serverList.clear();
+    serverList = list;
+}
+
 QList<ServerEntry *> ServerManager::getServers()
 {
     return serverList;
+}
+
+QList<ServerEntry *> ServerManager::getServers(const int &gameIndex)
+{
+    QList<ServerEntry *> list;
+
+    foreach (ServerEntry *entry, serverList) {
+        if (entry->game == gameIndex) {
+            list.append(entry);
+        }
+    }
+
+    return list;
 }
 
 void ServerManager::addServer(ServerEntry *serverEntry)
