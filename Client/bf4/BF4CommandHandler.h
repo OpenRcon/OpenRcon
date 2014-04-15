@@ -267,8 +267,8 @@ signals:
     void onVarsIdleBanRoundsCommand();
     void onVarsIdleTimeoutCommand(const int &seconds);
     void onVarsKillCamCommand();
-    void onVarsMaxPlayersCommand();
-    void onVarsMaxSpectatorsCommand();
+    void onVarsMaxPlayersCommand(const int &playerCount);
+    void onVarsMaxSpectatorsCommand(const int &spectatorCount);
     void onVarsMiniMapCommand();
     void onVarsMiniMapSpottingCommand();
     void onVarsMpExperienceCommand();

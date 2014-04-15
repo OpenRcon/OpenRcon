@@ -212,6 +212,8 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     // Squad
 
     // Variables
+    connect(con->commandHandler, SIGNAL(onVarsMaxPlayersCommand(const int&)), this, SLOT(onVarsMaxPlayersCommand(const int&)));
+    connect(con->commandHandler, SIGNAL(onVarsMaxSpectatorsCommand(const int&)), this, SLOT(onVarsMaxSpectatorsCommand(const int&)));
     connect(con->commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
     connect(con->commandHandler, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
     connect(con->commandHandler, SIGNAL(onVarsServerMessageCommand(const QString&)), this, SLOT(onVarsServerMessageCommand(const QString&)));
@@ -303,6 +305,8 @@ void BF4Widget::startupCommands() {
     // Squad
 
     // Variables
+    con->sendCommand("vars.maxPlayers");
+    con->sendCommand("vars.maxSpectators");
     con->sendCommand("vars.serverName");
     con->sendCommand("vars.serverDescription");
     con->sendCommand("vars.serverMessage");
@@ -582,6 +586,16 @@ void BF4Widget::onPunkBusterIsActiveCommand(const bool &isActive)
 // Squad
 
 // Variables
+void BF4Widget::onVarsMaxPlayersCommand(const int &playerCount)
+{
+    ui->spinBox_so_co_maxPlayers->setValue(playerCount);
+}
+
+void BF4Widget::onVarsMaxSpectatorsCommand(const int &spectatorCount)
+{
+    ui->spinBox_so_co_maxSpectators->setValue(spectatorCount);
+}
+
 void BF4Widget::onVarsServerNameCommand(const QString &serverName)
 {
     ui->lineEdit_op_so_serverName->setText(serverName);

@@ -28,6 +28,11 @@ void FrostbiteCommandHandler::eventOnDataReceived(const QString &response)
     emit(onDataReceived(response));
 }
 
+int FrostbiteCommandHandler::toInt(const QString &value)
+{
+    return value.toInt();
+}
+
 bool FrostbiteCommandHandler::toBool(const QString &value)
 {
     return value == "true";

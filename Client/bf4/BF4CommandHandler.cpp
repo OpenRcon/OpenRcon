@@ -996,12 +996,24 @@ void BF4CommandHandler::commandVarsKillCam(const FrostbiteRconPacket &packet)
 
 void BF4CommandHandler::commandVarsMaxPlayers(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int playerCount = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsMaxPlayersCommand(playerCount));
+    }
 }
 
 void BF4CommandHandler::commandVarsMaxSpectators(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int spectatorCount = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsMaxSpectatorsCommand(spectatorCount));
+    }
 }
 
 void BF4CommandHandler::commandVarsMiniMap(const FrostbiteRconPacket &packet)

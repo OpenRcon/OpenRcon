@@ -105,6 +105,8 @@ private slots:
     // Squad
 
     // Variables
+    void onVarsMaxPlayersCommand(const int &playerCount);
+    void onVarsMaxSpectatorsCommand(const int &spectatorCount);
     void onVarsServerNameCommand(const QString &serverName);
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsServerMessageCommand(const QString &serverMessage);

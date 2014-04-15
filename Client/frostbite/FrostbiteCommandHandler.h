@@ -19,6 +19,7 @@ public:
     void eventOnDataReceived(const QString &response);
 
 protected:
+    int toInt(const QString &value);
     bool toBool(const QString &value);
     void commandUnknown();
 
