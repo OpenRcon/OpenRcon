@@ -71,11 +71,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     ui->toolBar_sm->addWidget(comboBox_sm_server);
     ui->toolBar_sm->addWidget(pushButton_sm_connect);
 
-    foreach (ServerEntry *server, serverList) {
-        GameEntry game = gameManager->getGame(server->game);
-        ui->toolBar_recent->addAction(game.icon, server->name);
-    }
-
     // Actions
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
