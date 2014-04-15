@@ -215,7 +215,7 @@ signals:
     void onBanListSaveCommand();
     void onFairFightActivateCommand();
     void onFairFightDeactivateCommand();
-    void onFairFightIsActiveCommand();
+    void onFairFightIsActiveCommand(const bool &isActive);
     void onMapListAddCommand();
     void onMapListAvailableMapsCommand();
     void onMapListClearCommand();
@@ -233,7 +233,7 @@ signals:
     void onPlayerIsAliveCommand();
     void onPlayerPingCommand();
     void onPunkBusterActivateCommand();
-    void onPunkBusterIsActiveCommand();
+    void onPunkBusterIsActiveCommand(const bool &isActive);
     void onPunkBusterPbSvCommand();
     void onReservedSlotsListAddCommand();
     void onReservedSlotsListAggressiveJoinCommand();
@@ -285,7 +285,7 @@ signals:
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsServerMessageCommand(const QString &serverMessage);
     void onVarsServerNameCommand(const QString &serverName);
-    void onVarsServerTypeCommand();
+    void onVarsServerTypeCommand(const QString &serverType);
     void onVarsSoldierHealthCommand();
     void onVarsTeam1FactionOverrideCommand();
     void onVarsTeam2FactionOverrideCommand();

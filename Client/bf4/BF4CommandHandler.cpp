@@ -676,7 +676,13 @@ void BF4CommandHandler::commandFairFightDeactivate(const FrostbiteRconPacket &pa
 
 void BF4CommandHandler::commandFairFightIsActive(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool isActive = toBool(packet.getWord(1).getContent());
+
+        emit (onFairFightIsActiveCommand(isActive));
+    }
 }
 
 void BF4CommandHandler::commandMapListAdd(const FrostbiteRconPacket &packet)
@@ -798,7 +804,13 @@ void BF4CommandHandler::commandPunkBusterActivate(const FrostbiteRconPacket &pac
 
 void BF4CommandHandler::commandPunkBusterIsActive(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool isActive = toBool(packet.getWord(1).getContent());
+
+        emit (onPunkBusterIsActiveCommand(isActive));
+    }
 }
 
 void BF4CommandHandler::commandPunkBusterPbSvCommand(const FrostbiteRconPacket &packet)
@@ -825,7 +837,7 @@ void BF4CommandHandler::commandReservedSlotsListList(const FrostbiteRconPacket &
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 0) {
+    if (response == "OK" && packet.getWordCount() > 1) {
         QStringList reservedSlotList;
 
         for (unsigned int i = 1; i < packet.getWordCount(); i++) {
@@ -1092,7 +1104,13 @@ void BF4CommandHandler::commandVarsServerName(const FrostbiteRconPacket &packet)
 
 void BF4CommandHandler::commandVarsServerType(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString type = packet.getWord(1).getContent();
+
+        emit (onVarsServerTypeCommand(type));
+    }
 }
 
 void BF4CommandHandler::commandVarsSoldierHealth(const FrostbiteRconPacket &packet)

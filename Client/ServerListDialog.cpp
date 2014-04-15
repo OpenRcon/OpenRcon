@@ -92,12 +92,8 @@ void ServerListDialog::createTreeData()
                     childItem->setText(0, serverEntry->name);
                     childItem->setText(1, serverEntry->host);
                     childItem->setText(2, QString::number(serverEntry->port));
-
-                    parentItem->addChild(childItem);
                 }
             }
-
-            ui->treeWidget->addTopLevelItem(parentItem);
         }
     }
 
