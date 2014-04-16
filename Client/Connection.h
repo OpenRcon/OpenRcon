@@ -48,6 +48,7 @@ private slots:
 signals:
     void onConnected();
     void onDisconnected();
+
 };
 
 #endif // CONNECTION_H

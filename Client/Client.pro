@@ -2,7 +2,6 @@ include(locale/Locale.pri)
 
 include(frostbite/Frostbite.pri)
 include(bfbase/BFBase.pri)
-
 include(bfbc2/BFBC2.pri)
 include(bf3/BF3.pri)
 include(bf4/BF4.pri)
@@ -19,57 +18,58 @@ TARGET = OpenRcon
 TEMPLATE = app
 
 INCLUDEPATH += frostbite \
-               bfbase \
-               bfbc2 \
-               bf3 \
-               bf4 \
-               minecraft
+    bfbase \
+    bfbc2 \
+    bf3 \
+    bf4 \
+    minecraft
 
 DEPENDPATH += frostbite \
-              bfbase \
-              bfbc2 \
-              bf3 \
-              bf4 \
-              minecraft
+    bfbase \
+    bfbc2 \
+    bf3 \
+    bf4 \
+    minecraft
 
 HEADERS += OpenRcon.h \
-    About.h \
-    Connection.h \
-    ConnectionTabWidget.h \
     Constants.h \
     Directory.h \
+    Connection.h \
+    ConnectionTabWidget.h \
+    GameEntry.h \
+    ServerEntry.h \
+    LanguageEntry.h \
+    GameManager.h \
+    ServerManager.h \
+    LanguageManager.h \
     ServerListDialog.h \
     ServerEditDialog.h \
-    ServerEntry.h \
     SettingsDialog.h \
-    DragDropListWidget.h \
-    DragDropTreeWidget.h \
-    SettingsManager.h \
+    AboutDialog.h \
     Game.h \
-    GameEntry.h \
-    ServerManager.h \
-    GameManager.h
+    DragDropListWidget.h \
+    DragDropTreeWidget.h
 
-SOURCES += OpenRcon.cpp \
-    About.cpp \
-    Connection.cpp \
+SOURCES += Main.cpp \
+    OpenRcon.cpp \
     Directory.cpp \
-    Main.cpp \
+    Connection.cpp \
+    GameManager.cpp \
+    ServerManager.cpp \
+    LanguageManager.cpp \
     ServerListDialog.cpp \
     ServerEditDialog.cpp \
     SettingsDialog.cpp \
-    DragDropListWidget.cpp \
-    DragDropTreeWidget.cpp \
-    SettingsManager.cpp \
+    AboutDialog.cpp \
     Game.cpp \
-    ServerManager.cpp \
-    GameManager.cpp
+    DragDropListWidget.cpp \
+    DragDropTreeWidget.cpp
 
-FORMS += About.ui \
-    OpenRcon.ui \
+FORMS += OpenRcon.ui \
     ServerListDialog.ui \
     ServerEditDialog.ui \
-    SettingsDialog.ui
+    SettingsDialog.ui \
+    AboutDialog.ui
 
 RESOURCES += OpenRcon.qrc
 

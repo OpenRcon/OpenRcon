@@ -60,6 +60,7 @@ FrostbiteRconWord &FrostbiteRconWord::operator = (const FrostbiteRconWord &word)
         clear();
         wordTerminator = word.getTerminator();
         wordSize = word.getSize();
+
         if (wordSize) {
             wordContent = new char[wordSize + 1];
             strcpy(wordContent, word.getContent());
@@ -98,7 +99,7 @@ void FrostbiteRconWord::loadData(const char* data, const unsigned int &size)
 
     if (wordSize) {
         wordContent = new char[wordSize + 1];
-        strcpy(wordContent, data);
+        memcpy(wordContent, data, wordSize);
         wordContent[wordSize] = 0; // Include the null terminator.
     }
 }

@@ -39,16 +39,16 @@ MinecraftConnection::~MinecraftConnection()
 
 void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
 {
-    QDataStream out(tcpSocket);
-    out.setByteOrder(QDataStream::LittleEndian);
 
     const char* text = QString("XTreme168732").toLatin1().constData();
 
     if (packet.getLength() < 1460 - 10) {
+        QDataStream out(tcpSocket);
+        out.setByteOrder(QDataStream::LittleEndian);
         out << packet.getLength();
         out << packet.getRequestId();
         out << packet.getType();
-        out.writeBytes(text, strlen(text));
+        out.writeRawData(text, strlen(text));
         out << (qint8) 0;
         out << (qint8) 0;
 

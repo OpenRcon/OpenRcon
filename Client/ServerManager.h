@@ -16,19 +16,21 @@ public:
     explicit ServerManager(QObject *parent);
     ~ServerManager();
 
-    ServerEntry getServer(const int &index);
+    ServerEntry* getServer(const int &index);
+    ServerEntry* getServer(ServerEntry *serverEntry);
+    void setServers(const QList<ServerEntry *> &list);
 
-    QList<ServerEntry> getServers();
-    QList<ServerEntry> getServers(const int &game);
+    QList<ServerEntry *> getServers();
+    QList<ServerEntry *> getServers(const int &gameIndex);
 
-    void addServer(ServerEntry &serverEntry);
-    void editServer(ServerEntry &serverEntry);
+    void addServer(ServerEntry *serverEntry);
+    void editServer(ServerEntry *serverEntry);
     void removeServer(const int &index);
-    void removeServer(ServerEntry &serverEntry);
+    void removeServer(ServerEntry *serverEntry);
 
 private:
     QSettings *settings;
-    QList<ServerEntry> serverList;
+    QList<ServerEntry *> serverList;
 
     void loadServers();
     void saveServers();

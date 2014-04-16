@@ -54,6 +54,6 @@ struct ServerEntry {
 };
 
 // For use with QVariant
-Q_DECLARE_METATYPE(ServerEntry)
+Q_DECLARE_METATYPE(ServerEntry*)
 
 #endif // SERVERENTRY_H

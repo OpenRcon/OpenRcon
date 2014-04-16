@@ -39,7 +39,7 @@ public:
     explicit MinecraftRconPacket(const int &requestId, const int &type, const char* payload);
     ~MinecraftRconPacket();
 
-    enum Type {
+    enum PacketType {
         Command = 2,
         Login = 3
     };

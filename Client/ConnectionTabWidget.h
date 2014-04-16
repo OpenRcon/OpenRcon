@@ -20,7 +20,6 @@
 #ifndef CONNECTIONTABWIDGET_H
 #define CONNECTIONTABWIDGET_H
 
-#include <QObject>
 #include <QTabWidget>
 
 #include "Connection.h"
@@ -30,7 +29,7 @@ class ConnectionTabWidget : public QTabWidget
     Q_OBJECT
 
 public:
-    virtual Connection *getConnection() = 0;
+    virtual Connection* getConnection() = 0;
 
 };
 

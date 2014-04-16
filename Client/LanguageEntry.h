@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,34 +17,27 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ABOUT_H
-#define ABOUT_H
+#ifndef LANGUAGEENTRY_H
+#define LANGUAGEENTRY_H
 
-#include <QObject>
+#include <QIcon>
 #include <QString>
-#include <QDatetime>
-#include <QFile>
-#include <QTextStream>
 
-#include "ui_About.h"
+struct LanguageEntry {
+    LanguageEntry()
+    {
 
-#include "Constants.h"
+    }
 
-using namespace Constants;
+    LanguageEntry(const QString &name, const QString &code, const QString &icon) : name(name), code(code), icon(QIcon(icon))
+    {
 
-class About : public QDialog
-{
-    Q_OBJECT
+    }
 
-public:
-    explicit About(QWidget *parent = 0);
-    ~About();
-
-private:
-    Ui::About *ui;
-
-    QString getFile(const QString &fileName);
+    QString name;
+    QString code;
+    QIcon icon;
 
 };
 
-#endif // ABOUT_H
+#endif // LANGUAGEENTRY_H

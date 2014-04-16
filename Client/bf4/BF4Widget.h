@@ -25,9 +25,7 @@
 #include <QCompleter>
 
 #include "ui_BF4.h"
-
 #include "BF4.h"
-#include "BF4Levels.h"
 
 class BF4Widget : public BF4
 {
@@ -79,18 +77,40 @@ private slots:
     void onServerRoundOverTeamScores(const QString &teamScores);
 
     /* Commands */
+    // Misc
     void onLoginHashedCommand();
     void onVersionCommand(const QString &type, const int &buildId, const QString &version);
-
     void onServerInfoCommand(const ServerInfo &serverInfo);
 
+    // Admin
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList);
 
+    // Banning
+
+    // FairFight
+    void onFairFightIsActiveCommand(const bool &isActive);
+
+    // Maplist
     void onMapListListCommand(const MapList &mapList);
 
+    // Player
+
+    // Punkbuster
+    void onPunkBusterIsActiveCommand(const bool &isActive);
+
+    // Reserved Slots
+
+    // Spectator list
+
+    // Squad
+
+    // Variables
+    void onVarsMaxPlayersCommand(const int &playerCount);
+    void onVarsMaxSpectatorsCommand(const int &spectatorCount);
     void onVarsServerNameCommand(const QString &serverName);
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsServerMessageCommand(const QString &serverMessage);
+    void onVarsServerTypeCommand(const QString &type);
 
     /* User Interface */
 
@@ -119,6 +139,9 @@ private slots:
     void lineEdit_op_so_serverName_editingFinished();
     void textEdit_op_so_serverDescription_textChanged();
     void lineEdit_op_so_serverMessage_editingFinished();
+
+    void checkBox_so_co_punkBuster_toggled(bool checked);
+    void checkBox_so_co_fairFight_toggled(bool checked);
 
     /* Console */
     void pushButton_co_co_clicked();

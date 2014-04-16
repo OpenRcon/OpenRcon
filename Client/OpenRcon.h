@@ -23,15 +23,12 @@
 #include <QObject>
 #include <QDebug>
 #include <QMainWindow>
-#include <QWidget>
 #include <QDesktopServices>
 #include <QIcon>
 #include <QEvent>
 #include <QCloseEvent>
 #include <QSettings>
 #include <QComboBox>
-#include <QLineEdit>
-#include <QLabel>
 #include <QMessageBox>
 #include <QPushButton>
 
@@ -46,7 +43,7 @@
 
 #include "ServerListDialog.h"
 #include "SettingsDialog.h"
-#include "About.h"
+#include "AboutDialog.h"
 
 using namespace Constants;
 
@@ -62,34 +59,35 @@ public:
     explicit OpenRcon(QWidget *parent = 0);
     ~OpenRcon();
 
-    static OpenRcon* getInstance(QWidget* parent = 0) {
-        if (!m_Instance) {
-            m_Instance = new OpenRcon(parent);
+    static OpenRcon* getInstance(QWidget *parent = 0) {
+        if (!instance) {
+            instance = new OpenRcon(parent);
         }
 
-        return m_Instance;
+        return instance;
     }
 
-    void newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
+    void addTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
+    void addMessage(const QString &message, const int &timeout);
+    void addMessage(const QString &message);
+
     GameManager* getGameManager();
 
-protected:
-    static OpenRcon* m_Instance;
-
 private:
+    static OpenRcon *instance;
+
     Ui::OpenRcon *ui;
 
-    Directory *dir;
-    QSettings *settings;
-
+    Directory *directory;
     GameManager *gameManager;
     ServerManager *serverManager;
 
     //ServerListDialog *serverListDialog;
     SettingsDialog *settingsDialog;
-    About *aboutDialog;
+    AboutDialog *aboutDialog;
 
-    // ServerManager
+    QSettings *settings;
+
     QComboBox *comboBox_sm_server;
     QPushButton *pushButton_sm_connect;
 

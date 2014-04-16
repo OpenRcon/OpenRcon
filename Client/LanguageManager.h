@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,26 +17,29 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "SettingsManager.h"
+#ifndef LANGUAGEMANAGER_H
+#define LANGUAGEMANAGER_H
 
-SettingsManager::SettingsManager(QObject *parent) : QObject(parent)
-{
-    settings = new QSettings(APP_NAME, APP_NAME);
-}
+#include <QObject>
+#include <QList>
 
-SettingsManager::~SettingsManager()
-{
-    delete settings;
-}
+#include "LanguageEntry.h"
 
-void SettingsManager::loadSettings()
+class LanguageManager : public QObject
 {
-    settings->beginGroup(SETTINGS_OPENRCON);
-    settings->endGroup();
-}
+    Q_OBJECT
 
-void SettingsManager::saveSettings()
-{
-    settings->beginGroup(SETTINGS_OPENRCON);
-    settings->endGroup();
-}
+public:
+    explicit LanguageManager(QObject *parent = 0);
+    ~LanguageManager();
+
+    LanguageEntry getLanguage(const int &index);
+    LanguageEntry getLanguage(const QString &code);
+    QList<LanguageEntry> getLanguages();
+
+private:
+    QList<LanguageEntry> languageList;
+
+};
+
+#endif // LANGUAGEMANAGER_H

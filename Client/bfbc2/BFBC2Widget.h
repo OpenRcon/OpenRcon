@@ -122,7 +122,7 @@ private slots:
     /* User Interface */
 
     /* Players Tab */
-    void treeWidget_pl_customContextMenuRequested(QPoint pos);
+    void treeWidget_pl_players_customContextMenuRequested(QPoint pos);
     void action_pl_sendmessage_triggered();
     void action_pl_textchatmoderation_muted_triggered();
     void action_pl_textchatmoderation_normal_triggered();
@@ -135,13 +135,10 @@ private slots:
     void action_pl_reservedslots_triggered();
 
     /* Options Tab */
-
-    // Server Options
     void lineEdit_op_so_serverName_editingFinished();
     void lineEdit_op_so_serverDescription_editingFinished();
     void lineEdit_op_so_bannerUrl_editingFinished();
 
-    // Game Options
     void checkbox_op_go_hardcore_clicked();
     void checkbox_op_go_crossHair_clicked();
     void checkbox_op_go_teamBalance_clicked();
@@ -152,10 +149,8 @@ private slots:
     void checkbox_op_go_thirdPersonVehicleCameras_clicked();
     void checkbox_op_go_miniMap_clicked();
 
-    // Gameplay Options
     void on_spinBox_op_gpo_idleTimeout_editingFinished();
 
-    // Text Chat Moderation
     void on_radioButton_op_tcm_free_clicked();
     void on_radioButton_op_tcm_moderated_clicked();
     void on_radioButton_op_tcm_muted_clicked();
@@ -192,11 +187,6 @@ private slots:
     void comboBox_ch_type_currentIndexChanged(int index);
     void pushButton_ch_send_clicked();
 
-    /* Ingame Commands Tab */
-    void listWidget_ic_customContextMenuRequested(QPoint);
-    void action_ic_remove_triggered();
-    void on_pushButton_ic_add_clicked();
-
     /* Console Tab */
     void on_pushButton_co_co_send_clicked();
     void on_pushButton_co_pb_send_clicked();
@@ -212,6 +202,7 @@ private slots:
     // Other stuff.
     void setMapList(const QString &gamemode);
 
+    void on_pushButton_rs_load_clicked();
 };
 
 #endif // BFBC2WIDGET_H

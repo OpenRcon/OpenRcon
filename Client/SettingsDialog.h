@@ -27,6 +27,7 @@
 #include "ui_SettingsDialog.h"
 
 #include "Constants.h"
+#include "LanguageManager.h"
 
 using namespace Constants;
 
@@ -35,7 +36,7 @@ class SettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(QObject *parent = 0);
+    explicit SettingsDialog(QWidget *parent = 0);
     ~SettingsDialog();
 
 private:
@@ -43,15 +44,18 @@ private:
 
     QSettings *settings;
 
-    void readSettings();
-    void writeSettings();
+    LanguageManager *languageManager;
 
     QPushButton *pushButton_ok;
     QPushButton *pushButton_cancel;
     QPushButton *pushButton_apply;
 
+    void readSettings();
+    void writeSettings();
+
 private slots:
-    void listWidget_st_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void pushButton_ge_language_clicked();
 
 };
 

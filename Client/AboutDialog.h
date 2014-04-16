@@ -17,30 +17,32 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SETTINGSMANAGER_H
-#define SETTINGSMANAGER_H
+#ifndef ABOUTDIALOG_H
+#define ABOUTDIALOG_H
 
-#include <QObject>
-#include <QSettings>
+#include <QDatetime>
+#include <QFile>
+#include <QTextStream>
 
-#include <Constants.h>
+#include "ui_AboutDialog.h"
+
+#include "Constants.h"
 
 using namespace Constants;
 
-class SettingsManager : public QObject
+class AboutDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit SettingsManager(QObject *parent = 0);
-    ~SettingsManager();
-
-    void loadSettings();
-    void saveSettings();
+    explicit AboutDialog(QWidget *parent = 0);
+    ~AboutDialog();
 
 private:
-    QSettings *settings;
+    Ui::AboutDialog *ui;
+
+    QString getFile(const QString &fileName);
 
 };
 
-#endif // SETTINGSMANAGER_H
+#endif // ABOUTDIALOG_H

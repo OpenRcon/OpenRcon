@@ -773,16 +773,16 @@ void BFBC2CommandHandler::commandReservedSlotsClear(const FrostbiteRconPacket &p
 
 void BFBC2CommandHandler::commandReservedSlotsList(const FrostbiteRconPacket &packet)
 {
-    QString response(packet.getWord(0).getContent());
+    QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 0) {
-        QStringList reservedSlotList;
+    if (response == "OK") {
+        QStringList list;
 
         for (unsigned int i = 1; i < packet.getWordCount(); i++) {
-            reservedSlotList.append(packet.getWord(i).getContent());
+            list.append(packet.getWord(i).getContent());
         }
 
-        emit(onReservedSlotsListCommand(reservedSlotList));
+        emit (onReservedSlotsListCommand(list));
     }
 }
 

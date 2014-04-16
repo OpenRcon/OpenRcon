@@ -6,7 +6,7 @@
         <file>../TRANSLATORS</file>
     </qresource>
     <qresource prefix="/icons">
-        <file>images/icons/openrcon.png</file>
+        <file alias="openrcon.png">images/icons/openrcon.png</file>
         <file>images/icons/utilities-terminal.png</file>
         <file>images/icons/network-server.png</file>
         <file>images/icons/system-users.png</file>
@@ -52,7 +52,7 @@
         <file>images/flags/morocco.png</file>
         <file>images/flags/netherlands.png</file>
         <file>images/flags/newzealand.png</file>
-        <file>images/flags/norway.png</file>
+        <file alias="norway.png">images/flags/norway.png</file>
         <file>images/flags/pakistan.png</file>
         <file>images/flags/philippines.png</file>
         <file>images/flags/poland.png</file>
@@ -75,7 +75,7 @@
         <file>images/flags/turkey.png</file>
         <file>images/flags/ukraine.png</file>
         <file>images/flags/united_arab_emirates.png</file>
-        <file>images/flags/united_kingdom.png</file>
+        <file alias="united_kingdom.png">images/flags/united_kingdom.png</file>
         <file>images/flags/usa.png</file>
     </qresource>
 </RCC>

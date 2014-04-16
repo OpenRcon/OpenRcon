@@ -27,20 +27,20 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     // Players
     menu_pl_players = new QMenu();
-    action_pl_players_kill = new QAction("Kill", menu_pl_players);
-    menu_pl_players_move = new QMenu("Move", menu_pl_players);
+    action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
+    menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
 
     menu_pl_players->addAction(action_pl_players_kill);
     menu_pl_players->addMenu(menu_pl_players_move);
 
     // Chat
-    ui->comboBox_ch_mode->addItem("Say");
-    ui->comboBox_ch_mode->addItem("Yell");
+    ui->comboBox_ch_mode->addItem(tr("Say"));
+    ui->comboBox_ch_mode->addItem(tr("Yell"));
 
     ui->comboBox_ch_target->setEnabled(false);
-    ui->comboBox_ch_target->addItem("All");
-    ui->comboBox_ch_target->addItem("Team");
-    ui->comboBox_ch_target->addItem("Squad");
+    ui->comboBox_ch_target->addItem(tr("All"));
+    ui->comboBox_ch_target->addItem(tr("Team"));
+    ui->comboBox_ch_target->addItem(tr("Squad"));
 
     // Maplsit
     ui->comboBox_ml_gameMode->addItems(levels->getGameModeNames());
@@ -183,18 +183,41 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->commandHandler, SIGNAL(onServerRoundOverTeamScores(const QString&)), this, SLOT(onServerRoundOverTeamScores(const QString&)));
 
     /* Commands */
+
+    // Misc
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
     connect(con->commandHandler, SIGNAL(onVersionCommand(const QString&, const int&, const QString&)), this, SLOT(onVersionCommand(const QString&, const int&, const QString&)));
-
     connect(con->commandHandler, SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
 
+    // Admin
     connect(con->commandHandler, SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&)));
 
+    // Banning
+
+    // FairFight
+    connect(con->commandHandler, SIGNAL(onFairFightIsActiveCommand(const bool&)), this, SLOT(onFairFightIsActiveCommand(const bool&)));
+
+    // Maplist
     connect(con->commandHandler, SIGNAL(onMapListListCommand(const MapList&)), this, SLOT(onMapListListCommand(const MapList&)));
 
+    // Player
+
+    // Punkbuster
+    connect(con->commandHandler, SIGNAL(onPunkBusterIsActiveCommand(const bool&)), this, SLOT(onPunkBusterIsActiveCommand(const bool&)));
+
+    // Reserved Slots
+
+    // Spectator list
+
+    // Squad
+
+    // Variables
+    connect(con->commandHandler, SIGNAL(onVarsMaxPlayersCommand(const int&)), this, SLOT(onVarsMaxPlayersCommand(const int&)));
+    connect(con->commandHandler, SIGNAL(onVarsMaxSpectatorsCommand(const int&)), this, SLOT(onVarsMaxSpectatorsCommand(const int&)));
     connect(con->commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
     connect(con->commandHandler, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
     connect(con->commandHandler, SIGNAL(onVarsServerMessageCommand(const QString&)), this, SLOT(onVarsServerMessageCommand(const QString&)));
+    connect(con->commandHandler, SIGNAL(onVarsServerTypeCommand(const QString&)), this, SLOT(onVarsServerTypeCommand(const QString&)));
 
     /* User Interface */
 
@@ -210,23 +233,33 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->commandHandler, SIGNAL(onPlayerSquadChange(const QString&, const int&, const int&)), this, SLOT(updatePlayerList()));
     connect(con->commandHandler, SIGNAL(onPlayerTeamChange(const QString&, const int&, const int&)), this, SLOT(updatePlayerList()));
 
+    // Events
+
     // Chat
     connect(ui->comboBox_ch_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ch_mode_currentIndexChanged(int)));
-
     connect(ui->pushButton_ch, SIGNAL(clicked()), this, SLOT(pushButton_ch_clicked()));
     connect(ui->lineEdit_ch, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_clicked()));
 
-    //Maplist
+    // Options
+    connect(ui->lineEdit_op_so_serverName, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverName_editingFinished()));
+    connect(ui->textEdit_op_so_serverDescription, SIGNAL(textChanged()), this, SLOT(textEdit_op_so_serverDescription_textChanged()));
+    connect(ui->lineEdit_op_so_serverMessage, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverMessage_editingFinished()));
+
+    connect(ui->checkBox_so_co_punkBuster, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_punkBuster_toggled(bool)));
+    connect(ui->checkBox_so_co_fairFight, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_fairFight_toggled(bool)));
+
+    // Maplist
     connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
     connect(ui->tableWidget_ml_avaliable, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
     connect(ui->pushButton_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_ml_add_clicked()));
     connect(ui->pushButton_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_ml_remove_clicked()));
     connect(ui->tableWidget_ml_current, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_ml_current_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
 
-    // Server Options
-    connect(ui->lineEdit_op_so_serverName, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverName_editingFinished()));
-    connect(ui->textEdit_op_so_serverDescription, SIGNAL(textChanged()), this, SLOT(textEdit_op_so_serverDescription_textChanged()));
-    connect(ui->lineEdit_op_so_serverMessage, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverMessage_editingFinished()));
+    // Banlist
+
+    // Reserved Slots
+
+    // Spectator Slots
 
     // Console
     connect(ui->pushButton_co_co, SIGNAL(clicked()), this, SLOT(pushButton_co_co_clicked()));
@@ -243,23 +276,41 @@ BF4Widget::~BF4Widget()
 }
 
 void BF4Widget::startupCommands() {
+    // Misc
     con->sendCommand("\"admin.eventsEnabled\" \"true\"");
     con->sendCommand("version");
-
-    // All
     con->sendCommand("serverInfo");
 
-    // Players
+    // Admin
     con->sendCommand("\"admin.listPlayers\" \"all\"");
-    con->sendCommand("\"punkBuster.pb_sv_command\" \"pb_sv_plist\"");
+
+    // Banning
+
+    // FairFight
+    con->sendCommand("fairFight.isActive");
 
     // Maplist
     con->sendCommand("\"maplist.list\" \"0\"");
 
-    // Server Options
+    // Player
+
+    // Punkbuster
+    con->sendCommand("punkBuster.isActive");
+    con->sendCommand("\"punkBuster.pb_sv_command\" \"pb_sv_plist\"");
+
+    // Reserved Slots
+
+    // Spectator list
+
+    // Squad
+
+    // Variables
+    con->sendCommand("vars.maxPlayers");
+    con->sendCommand("vars.maxSpectators");
     con->sendCommand("vars.serverName");
     con->sendCommand("vars.serverDescription");
     con->sendCommand("vars.serverMessage");
+    con->sendCommand("vars.serverType");
 }
 
 void BF4Widget::logMessage(const int &type, const QString &message)
@@ -413,6 +464,8 @@ void BF4Widget::onServerRoundOverTeamScores(const QString &teamScores)
 }
 
 /* Commands */
+
+// Misc
 void BF4Widget::onLoginHashedCommand()
 {
     // Call commands on startup.
@@ -425,7 +478,7 @@ void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const 
 
     logMessage(0, tr("<b>%1</b> server running version: <b>%2</b>.").arg(type, version));
 
-    ui->label_serverInfo_version->setText(QString("Version: %1").arg(version));
+    ui->label_serverInfo_version->setText(tr("Version: %1").arg(version));
 }
 
 void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
@@ -434,8 +487,8 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
     GameModeEntry currentGameMode = levels->getGameMode(serverInfo.gameMode);
 
     ui->label_serverInfo_level->setText(QString("%1 - %2").arg(currentLevel.name).arg(currentGameMode.name));
-    ui->label_serverInfo_players->setText(QString("Players: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_serverInfo_round->setText(QString("Round: %1/%2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
+    ui->label_serverInfo_players->setText(tr("Players: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
+    ui->label_serverInfo_round->setText(tr("Round: %1/%2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
 
     // Set maplist.
     int gameModeIndex = levels->getGameModeNames().indexOf(currentGameMode.name);
@@ -447,6 +500,7 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
     setAvaliableMaplist(gameModeIndex);
 }
 
+// Admin
 void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList)
 {
     // Clear QTreeWidget
@@ -496,11 +550,50 @@ void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList)
 
     // Expand all player rows
     ui->treeWidget_pl_players->expandAll();
+
+    // Resize columns so that they fits the content.
+    for (int i = 0; i < ui->treeWidget_pl_players->columnCount(); i++) {
+        ui->treeWidget_pl_players->resizeColumnToContents(i);
+    }
 }
 
+// Banning
+
+// FairFight
+void BF4Widget::onFairFightIsActiveCommand(const bool &isActive)
+{
+    ui->checkBox_so_co_fairFight->setChecked(isActive);
+}
+
+// Maplist
 void BF4Widget::onMapListListCommand(const MapList &mapList)
 {
     setCurrentMaplist(mapList);
+}
+
+// Player
+
+// Punkbuster
+void BF4Widget::onPunkBusterIsActiveCommand(const bool &isActive)
+{
+    ui->checkBox_so_co_punkBuster->setChecked(isActive);
+}
+
+// Reserved Slots
+
+// Spectator list
+
+// Squad
+
+// Variables
+void BF4Widget::onVarsMaxPlayersCommand(const int &playerCount)
+{
+    ui->spinBox_so_co_maxPlayers->setValue(playerCount);
+}
+
+void BF4Widget::onVarsMaxSpectatorsCommand(const int &spectatorCount)
+{
+    ui->spinBox_so_co_maxSpectators->setValue(spectatorCount);
 }
 
 void BF4Widget::onVarsServerNameCommand(const QString &serverName)
@@ -516,6 +609,11 @@ void BF4Widget::onVarsServerDescriptionCommand(const QString &serverDescription)
 void BF4Widget::onVarsServerMessageCommand(const QString &serverMessage)
 {
     ui->lineEdit_op_so_serverMessage->setText(serverMessage);
+}
+
+void BF4Widget::onVarsServerTypeCommand(const QString &type)
+{
+    ui->label_so_co_serverType->setText(type);
 }
 
 /* User Interface */
@@ -553,7 +651,7 @@ void BF4Widget::action_pl_players_kill_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendCommand(QString("admin.killPlayer %1").arg(player));
+    con->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
 }
 
 /* Chat */
@@ -655,7 +753,6 @@ void BF4Widget::pushButton_ml_remove_clicked()
 
         foreach (QModelIndex index, indexList) {
             int row = index.row();
-            qDebug() << "Row is:" << index;
 
             con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(row));
             ui->tableWidget_ml_current->removeRow(row);
@@ -756,6 +853,26 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
 
     if (!serverMessage.isEmpty()) {
         con->sendCommand(QString("\"vars.serverMessage\" \"%1\"").arg(serverMessage));
+    }
+}
+
+void BF4Widget::checkBox_so_co_punkBuster_toggled(bool checked)
+{
+    con->sendCommand("punkBuster.activate");
+
+    if (checked) {
+
+    } else {
+
+    }
+}
+
+void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
+{
+    if (checked) {
+        con->sendCommand("fairFight.activate");
+    } else {
+        con->sendCommand("fairFight.deactivate");
     }
 }
 

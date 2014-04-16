@@ -19,48 +19,51 @@
 
 #include "OpenRcon.h"
 
-OpenRcon *OpenRcon::m_Instance = 0;
+OpenRcon* OpenRcon::instance = 0;
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {
     ui->setupUi(this);
 
-    dir = new Directory(this);
-    settings = new QSettings(APP_NAME, APP_NAME, this);
+    directory = new Directory(this);
     gameManager = new GameManager(this);
     serverManager = new ServerManager(this);
 
     //serverListDialog = new ServerListDialog(this);
     settingsDialog = new SettingsDialog(this);
-    aboutDialog = new About(this);
+    aboutDialog = new AboutDialog(this);
+
+    settings = new QSettings(APP_NAME, APP_NAME, this);
 
     // Sets application title and icon
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
     setWindowIcon(QIcon(APP_ICON));
 
     // Create and read settings
-
     readSettings();
 
     // Actions
-    ui->actionAbout->setText(QString(tr("About &%1")).arg(APP_NAME));
     ui->actionAbout->setIcon(QIcon(APP_ICON));
+    ui->actionAbout->setText(tr("About &%1").arg(APP_NAME));
     ui->actionAbout_Qt->setIcon(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
 
     // ServerManager
-    comboBox_sm_server = new QComboBox(this);
-    pushButton_sm_connect = new QPushButton(tr("Connect"), this);
+    comboBox_sm_server = new QComboBox(ui->toolBar_sm);
+    pushButton_sm_connect = new QPushButton(tr("Connect"), ui->toolBar_sm);
 
     // Add the server to the comboBox only if it's not empty, otherwhise disable it.
-    QList<ServerEntry> serverList = serverManager->getServers();
+    QList<ServerEntry *> serverList = serverManager->getServers();
 
     if (!serverList.isEmpty()) {
-        foreach (ServerEntry server, serverList) {
-            GameEntry game = gameManager->getGame(server.game);
+        comboBox_sm_server->clear();
 
-            comboBox_sm_server->addItem(game.icon, server.name);
+        foreach (ServerEntry *server, serverList) {
+            GameEntry game = gameManager->getGame(server->game);
+
+            comboBox_sm_server->addItem(game.icon, server->name);
         }
     } else {
+        comboBox_sm_server->addItem(tr("No servers added yet."));
         comboBox_sm_server->setEnabled(false);
         pushButton_sm_connect->setEnabled(false);
     }
@@ -93,7 +96,7 @@ OpenRcon::~OpenRcon()
 {
     delete ui;
 
-    delete dir;
+    delete directory;
     delete settings;
     delete gameManager;
     delete serverManager;
@@ -125,7 +128,7 @@ void OpenRcon::closeEvent(QCloseEvent *e)
 
 void OpenRcon::readSettings()
 {
-    settings->beginGroup(SETTINGS_OPENRCON);
+    settings->beginGroup(APP_NAME);
         resize(settings->value("Size", size()).toSize());
         move(settings->value("Position", pos()).toPoint());
 
@@ -145,14 +148,14 @@ void OpenRcon::readSettings()
 
 void OpenRcon::writeSettings()
 {
-    settings->beginGroup(SETTINGS_OPENRCON);
+    settings->beginGroup(APP_NAME);
         settings->setValue("IsMaximized", isMaximized());
         settings->setValue("Size", size());
         settings->setValue("Position", pos());
     settings->endGroup();
 }
 
-void OpenRcon::newTab(const int &game, const QString &name, const QString &host, const int port, const QString &password)
+void OpenRcon::addTab(const int &game, const QString &name, const QString &host, const int port, const QString &password)
 {
     GameEntry entry = gameManager->getGame(game);
 
@@ -175,8 +178,18 @@ void OpenRcon::newTab(const int &game, const QString &name, const QString &host,
 
         ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, entry.icon, QString("%1 [%2:%3]").arg(name).arg(host).arg(port)));
     } else {
-        qDebug() << "Unknown game, with id: " << game;
+        qDebug() << tr("Unknown game specified, the id was: %1.").arg(game);
     }
+}
+
+void OpenRcon::addMessage(const QString &message, const int &timeout)
+{
+    ui->statusBar->showMessage(message, timeout);
+}
+
+void OpenRcon::addMessage(const QString &message)
+{
+    ui->statusBar->showMessage(message);
 }
 
 GameManager* OpenRcon::getGameManager()
@@ -205,7 +218,7 @@ void OpenRcon::actionServermanager_triggered()
 // View menu
 void OpenRcon::actionConnection_triggered()
 {
-    settings->beginGroup(SETTINGS_OPENRCON);
+    settings->beginGroup("OpenRcon");
         if (ui->actionConnection->isChecked()) {
             ui->toolBar_sm->show();
             settings->setValue("actionConnection", true);
@@ -242,14 +255,14 @@ void OpenRcon::actionAbout_triggered()
 
 void OpenRcon::actionAbout_Qt_triggered()
 {
-    QMessageBox::aboutQt(this, tr("About Qt"));
+    QMessageBox::aboutQt(this);
 }
 
 // ServerManager
 void OpenRcon::pushButton_sm_connect_clicked()
 {
     int index = comboBox_sm_server->currentIndex();
-    ServerEntry server = serverManager->getServer(index);
+    ServerEntry *server = serverManager->getServer(index);
 
-    newTab(server.game, server.name, server.host, server.port, server.password);
+    addTab(server->game, server->name, server->host, server->port, server->password);
 }
