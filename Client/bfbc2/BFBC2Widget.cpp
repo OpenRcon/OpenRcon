@@ -28,7 +28,6 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
 
     ui->tableWidget_bl->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->listWidget_rs->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->listWidget_ic->setContextMenuPolicy(Qt::CustomContextMenu);
 
     action_pl_sendmessage = new QAction(tr("Send message"), this);
     action_pl_stats = new QAction(tr("Stats"), this);
@@ -303,7 +302,6 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(ui->listWidget_rs, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_rs_customContextMenuRequested(QPoint)));
     connect(ui->lineEdit_rs_player, SIGNAL(returnPressed()), this, SLOT(on_pushButton_rs_reserve_clicked()));
 
-    connect(ui->listWidget_ic, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_ic_customContextMenuRequested(QPoint)));
     connect(action_ic_remove, SIGNAL(triggered()), this, SLOT(action_ic_remove_triggered()));
 
     connect(ui->lineEdit_co_co, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_co_send_clicked()));
@@ -1157,44 +1155,6 @@ void BFBC2Widget::comboBox_ch_type_currentIndexChanged(int index)
         break;
     }
 }
-
-// Ingame Commands
-void BFBC2Widget::listWidget_ic_customContextMenuRequested(QPoint pos)
-{
-    if (ui->listWidget_ic->itemAt(pos)) {
-        menu_ic->exec(QCursor::pos());
-    }
-}
-
-void BFBC2Widget::on_pushButton_ic_add_clicked()
-{
-    QString user = ui->lineEdit_ic_player->text();
-
-    settings->beginGroup(SETTINGS_INGAMECOMMANDS);
-        //int size = ui->lineEdit_ic_player->text().size();
-        settings->beginWriteArray(SETTINGS_INGAMECOMMANDS_USERS);
-            for (int i = 0; i < 1; i++) {
-                settings->setArrayIndex(i);
-                    settings->setValue("User", user);
-                    ui->listWidget_ic->addItem(new QListWidgetItem(user, ui->listWidget_ic));
-            }
-        settings->endArray();
-    settings->endGroup();
-}
-
-void BFBC2Widget::action_ic_remove_triggered()
-{
-    settings->beginGroup(SETTINGS_INGAMECOMMANDS);
-        //int size = ui->lineEdit_ic_player->text().size();
-        settings->beginWriteArray(SETTINGS_INGAMECOMMANDS_USERS);
-            for (int i = 0; i < 1; i++) {
-                settings->setArrayIndex(i);
-                    settings->remove("User");
-            }
-        settings->endArray();
-    settings->endGroup();
-}
-
 
 // Console
 void BFBC2Widget::on_pushButton_co_co_send_clicked()

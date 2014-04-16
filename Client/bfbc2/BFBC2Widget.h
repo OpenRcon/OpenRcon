@@ -192,11 +192,6 @@ private slots:
     void comboBox_ch_type_currentIndexChanged(int index);
     void pushButton_ch_send_clicked();
 
-    /* Ingame Commands Tab */
-    void listWidget_ic_customContextMenuRequested(QPoint);
-    void action_ic_remove_triggered();
-    void on_pushButton_ic_add_clicked();
-
     /* Console Tab */
     void on_pushButton_co_co_send_clicked();
     void on_pushButton_co_pb_send_clicked();
