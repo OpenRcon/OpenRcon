@@ -158,19 +158,6 @@ void BFBC2::movePlayer(const QString &player, const QString &teamId, const QStri
     }
 }
 
-void BFBC2::reserveSlotForPlayer(const QString &player, const bool &action)
-{
-    if (player.isEmpty()) {
-        if (action) {
-            con->sendCommand(QString("\"reservedSlots.addPlayer\" \"%1\"").arg(player));
-            // TODO: ui->listWidget_rs->addItem(new QListWidgetItem(player, ui->listWidget_rs));
-        } else {
-            con->sendCommand(QString("\"reservedSlots.removePlayer\" \"%1\"").arg(player));
-            // TODO: Remove player from ui->listWidget_rs
-        }
-    }
-}
-
 QString BFBC2::getMapName(const QString &engineName, const QString &gamemode)
 {
     int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
