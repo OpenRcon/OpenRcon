@@ -671,7 +671,6 @@ void BFBC2Widget::startupCommands()
 //    con->sendCommand("vars.textChatSpamCoolDownTime");
 
     con->sendCommand("mapList.list");
-//    con->sendCommand("mapList.nextLevelIndex");
 
     con->sendCommand("banList.list");
     con->sendCommand("reservedSlots.list");

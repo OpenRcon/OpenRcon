@@ -135,13 +135,10 @@ private slots:
     void action_pl_reservedslots_triggered();
 
     /* Options Tab */
-
-    // Server Options
     void lineEdit_op_so_serverName_editingFinished();
     void lineEdit_op_so_serverDescription_editingFinished();
     void lineEdit_op_so_bannerUrl_editingFinished();
 
-    // Game Options
     void checkbox_op_go_hardcore_clicked();
     void checkbox_op_go_crossHair_clicked();
     void checkbox_op_go_teamBalance_clicked();
@@ -152,10 +149,8 @@ private slots:
     void checkbox_op_go_thirdPersonVehicleCameras_clicked();
     void checkbox_op_go_miniMap_clicked();
 
-    // Gameplay Options
     void on_spinBox_op_gpo_idleTimeout_editingFinished();
 
-    // Text Chat Moderation
     void on_radioButton_op_tcm_free_clicked();
     void on_radioButton_op_tcm_moderated_clicked();
     void on_radioButton_op_tcm_muted_clicked();
