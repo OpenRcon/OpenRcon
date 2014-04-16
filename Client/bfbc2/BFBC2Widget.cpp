@@ -1110,7 +1110,7 @@ void BFBC2Widget::action_rs_remove_triggered()
 
 void BFBC2Widget::on_pushButton_rs_reserve_clicked()
 {
-    QString player = ui->lineEdit_rs_player->text();
+    QString player = ui->lineEdit_rs_player->text().trimmed();
 
     if (!player.isEmpty()) {
         con->sendCommand(QString("\"reservedSlots.addPlayer\" \"%1\"").arg(player));
