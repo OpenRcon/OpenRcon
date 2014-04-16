@@ -773,7 +773,8 @@ void BFBC2Widget::action_pl_reservedslots_triggered()
     QString player = ui->treeWidget_pl_players->currentItem()->text(1);
 
     if (!player.isEmpty()) {
-        reserveSlotForPlayer(player, true);
+        con->sendCommand(QString("\"reservedSlots.addPlayer\" \"%1\"").arg(player));
+        con->sendCommand("reservedSlots.list");
     }
 }
 
@@ -1100,7 +1101,11 @@ void BFBC2Widget::listWidget_rs_customContextMenuRequested(QPoint pos)
 void BFBC2Widget::action_rs_remove_triggered()
 {
     QString player = ui->listWidget_rs->currentItem()->text();
-    reserveSlotForPlayer(player, false);
+
+    if (!player.isEmpty()) {
+        con->sendCommand(QString("\"reservedSlots.removePlayer\" \"%1\"").arg(player));
+        con->sendCommand("reservedSlots.list");
+    }
 }
 
 void BFBC2Widget::on_pushButton_rs_reserve_clicked()
@@ -1108,19 +1113,20 @@ void BFBC2Widget::on_pushButton_rs_reserve_clicked()
     QString player = ui->lineEdit_rs_player->text();
 
     if (!player.isEmpty()) {
-        reserveSlotForPlayer(player, true);
+        con->sendCommand(QString("\"reservedSlots.addPlayer\" \"%1\"").arg(player));
+        con->sendCommand("reservedSlots.list");
         ui->lineEdit_rs_player->clear();
     }
 }
 
 void BFBC2Widget::on_pushButton_rs_save_clicked()
 {
-    con->sendCommand("\"reservedSlots.save\"");
+    con->sendCommand("reservedSlots.save");
 }
 
 void BFBC2Widget::on_pushButton_rs_clear_clicked()
 {
-    con->sendCommand("\"reservedSlots.clear\"");
+    con->sendCommand("reservedSlots.clear");
 }
 
 // Chat

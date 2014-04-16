@@ -74,7 +74,6 @@ protected:
     void banPlayer(const QString &type, const QString &id, const QString &timeout, const QString &reason);
     void unbanPlayer(const QString &type, const QString &id);
     void movePlayer(const QString &player, const QString &teamId, const QString &squadId, const QString &fk);
-    void reserveSlotForPlayer(const QString &player, const bool &action);
 
     QString getMapName(const QString &engineName, const QString &gamemode);
     QPixmap getMapImage(const QString &engineName, const QString &gamemode);

@@ -1668,7 +1668,7 @@
     <message>
         <location filename="../ServerEditDialog.ui" line="154"/>
         <source>Address:</source>
-        <translation>Adress:</translation>
+        <translation>Adresse:</translation>
     </message>
     <message>
         <location filename="../ServerEditDialog.cpp" line="28"/>
