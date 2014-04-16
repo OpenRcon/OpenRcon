@@ -1126,6 +1126,7 @@ void BFBC2Widget::on_pushButton_rs_save_clicked()
 void BFBC2Widget::on_pushButton_rs_clear_clicked()
 {
     con->sendCommand("reservedSlots.clear");
+    con->sendCommand("reservedSlots.list");
 }
 
 // Chat
@@ -1335,4 +1336,10 @@ void BFBC2Widget::setMapList(const QString &gamemode)
         ui->listWidget_ml_avaliablemaps->clear();
         ui->listWidget_ml_avaliablemaps->addItems(mapNames);
     }
+}
+
+void BFBC2Widget::on_pushButton_rs_load_clicked()
+{
+    con->sendCommand("reservedSlots.load");
+    con->sendCommand("reservedSlots.list");
 }

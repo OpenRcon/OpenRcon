@@ -202,6 +202,7 @@ private slots:
     // Other stuff.
     void setMapList(const QString &gamemode);
 
+    void on_pushButton_rs_load_clicked();
 };
 
 #endif // BFBC2WIDGET_H
