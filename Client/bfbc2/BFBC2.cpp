@@ -32,9 +32,6 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : BF
     // Commands
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
-
-    // Events
-    connect(con->commandHandler, SIGNAL(onPlayerChat(const QString&, const QString&, const QString&)), this, SLOT(ingameCommands(const QString&, const QString&)));
 }
 
 BFBC2::~BFBC2()
@@ -71,40 +68,6 @@ void BFBC2::onLoginHashedCommand(const QByteArray &salt)
 bool BFBC2::isAuthenticated()
 {
     return auth;
-}
-
-void BFBC2::ingameCommands(const QString &player, const QString &cmd)
-{
-    QStringList users;
-
-    if (users.contains(player)) {
-        QString stringCmd = cmd;
-        QStringList cmdList;
-        cmdList = stringCmd.replace("&quot;", "\"").split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
-        cmdList.replaceInStrings("\"", "");
-
-        QString command = cmdList.first();
-
-        if (command == "!kill") {
-            killPlayer(cmdList.at(1));
-        } else if (command == "!kick") {
-            kickPlayer(cmdList.at(1), 0);
-        } else if (command == "!ban") {
-            banPlayer("name", cmdList.at(1), "perm", "Banned by administrator.");
-        } else if (command == "!unban") {
-            unbanPlayer("name", cmdList.at(1));
-        } else if (command == "!restartmap") {
-            con->sendCommand("\"admin.restartMap\"");
-        } else if (command == "!nextmap") {
-            con->sendCommand("\"admin.runNextLevel\"");
-        } else if (command == "!yell") {
-            sendYellMessage(cmdList.at(1), 5, "all");
-        } else if (command == "!say") {
-            sendSayMessage(cmdList.at(1), "all");
-        } else if (command == "!move") { // Not finished.
-            //con->sendCommand(QString("admin.movePlayer %1").arg(value));
-        }
-    }
 }
 
 void BFBC2::slotCommandMapListListRounds(QStringList ml)
