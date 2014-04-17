@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,20 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONNECTIONTABWIDGET_H
-#define CONNECTIONTABWIDGET_H
+#include "Game.h"
 
-#include <QTabWidget>
-
-#include "Connection.h"
-
-class ConnectionTabWidget : public QTabWidget
+Game::Game(const QString &host, const int &port, const QString &password) : host(host), port(port), password(password)
 {
-    Q_OBJECT
 
-public:
-    virtual Connection* getConnection() = 0;
+}
 
-};
+Game::~Game()
+{
 
-#endif // CONNECTIONTABWIDGET_H
+}

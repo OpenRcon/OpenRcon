@@ -19,7 +19,7 @@
 
 #include "MinecraftCommandHandler.h"
 
-MinecraftCommandHandler::MinecraftCommandHandler(QObject *parent) : QObject(parent)
+MinecraftCommandHandler::MinecraftCommandHandler(QObject *parent) : CommandHandler(parent)
 {
 
 }
@@ -31,59 +31,34 @@ MinecraftCommandHandler::~MinecraftCommandHandler()
 
 void MinecraftCommandHandler::exec(MinecraftRconPacket &packet)
 {
-    switch (packet.getRequestId()) {
-        case 2:
-            helpCommand(packet);
-            break;
+    if (packet.getType() == MinecraftRconPacket::Login) {
+        emit (onAuthenticated());
+    } else {
+        switch (packet.getRequestId()) {
+            case ListCommand:
+                commandList(packet);
+                break;
 
-        case 3:
-            listCommand(packet);
-            break;
-
-        default:
-            unknownCommand(packet);
+            default:
+                commandUnknown();
+        }
     }
-}
-
-/* These events is triggered everytime the client sends or receives data. */
-void MinecraftCommandHandler::eventOnDataSent(const QString &command)
-{
-    emit(onDataSent(command));
-}
-
-void MinecraftCommandHandler::eventOnDataReceived(const QString &response)
-{
-    emit(onDataReceived(response));
 }
 
 int MinecraftCommandHandler::getRequestIdForCommand(const QString &command)
 {
-    if (command == "help") {
-        return 2;
-    } else if (command == "list") {
-        return 3;
+    if (command == "list") {
+        return ListCommand;
+    } else if (command == "kill") {
+        return KillCommand;
     }
 
-    return 0;
+    return UnknownCommand;
 }
 
-void MinecraftCommandHandler::helpCommand(MinecraftRconPacket &packet)
-{
-    Q_UNUSED(packet);
-
-    //emit (onHelpCommand(packet));
-}
-
-void MinecraftCommandHandler::listCommand(MinecraftRconPacket &packet)
+void MinecraftCommandHandler::commandList(MinecraftRconPacket &packet)
 {
     QStringList playerList = QString(packet.getContent()).split(" ");
 
     emit (onListCommand(playerList));
-}
-
-void MinecraftCommandHandler::unknownCommand(MinecraftRconPacket &packet)
-{
-    Q_UNUSED(packet);
-
-    emit (onUnknownCommand());
 }

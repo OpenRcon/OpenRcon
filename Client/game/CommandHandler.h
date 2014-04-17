@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,14 +17,31 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Game.h"
+#ifndef COMMANDHANDLER_H
+#define COMMANDHANDLER_H
 
-Game::Game(const QString &host, const int &port, const QString &password) : host(host), port(port), password(password)
+#include <QObject>
+
+class CommandHandler : public QObject
 {
+    Q_OBJECT
 
-}
+public:
+    explicit CommandHandler(QObject *parent = 0);
+    ~CommandHandler();
 
-Game::~Game()
-{
+    void eventOnDataSent(const QString &command);
+    void eventOnDataReceived(const QString &response);
 
-}
+protected:
+    void commandUnknown();
+
+signals:
+    void onDataSent(const QString &command);
+    void onDataReceived(const QString &response);
+
+    void onUnknownCommand();
+
+};
+
+#endif // COMMANDHANDLER_H

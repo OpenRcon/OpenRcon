@@ -1,4 +1,5 @@
 include(locale/Locale.pri)
+include(game/Game.pri)
 
 include(frostbite/Frostbite.pri)
 include(bfbase/BFBase.pri)
@@ -17,14 +18,16 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = OpenRcon
 TEMPLATE = app
 
-INCLUDEPATH += frostbite \
+INCLUDEPATH += game \
+    frostbite \
     bfbase \
     bfbc2 \
     bf3 \
     bf4 \
     minecraft
 
-DEPENDPATH += frostbite \
+DEPENDPATH += game \
+    frostbite \
     bfbase \
     bfbc2 \
     bf3 \
@@ -34,8 +37,6 @@ DEPENDPATH += frostbite \
 HEADERS += OpenRcon.h \
     Constants.h \
     Directory.h \
-    Connection.h \
-    ConnectionTabWidget.h \
     GameEntry.h \
     ServerEntry.h \
     LanguageEntry.h \
@@ -46,14 +47,12 @@ HEADERS += OpenRcon.h \
     ServerEditDialog.h \
     SettingsDialog.h \
     AboutDialog.h \
-    Game.h \
     DragDropListWidget.h \
     DragDropTreeWidget.h
 
 SOURCES += Main.cpp \
     OpenRcon.cpp \
     Directory.cpp \
-    Connection.cpp \
     GameManager.cpp \
     ServerManager.cpp \
     LanguageManager.cpp \
@@ -61,7 +60,6 @@ SOURCES += Main.cpp \
     ServerEditDialog.cpp \
     SettingsDialog.cpp \
     AboutDialog.cpp \
-    Game.cpp \
     DragDropListWidget.cpp \
     DragDropTreeWidget.cpp
 

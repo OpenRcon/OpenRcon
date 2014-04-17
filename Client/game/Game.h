@@ -12,40 +12,28 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MINECRAFTCONNECTION_H
-#define MINECRAFTCONNECTION_H
+#ifndef GAME_H
+#define GAME_H
 
-#include "Connection.h"
+#include "ConnectionTabWidget.h"
 
-#include "MinecraftRconPacket.h"
-#include "MinecraftCommandHandler.h"
-
-class MinecraftConnection : public Connection
+class Game : public ConnectionTabWidget
 {
-    Q_OBJECT
 
 public:
-    explicit MinecraftConnection(QObject *parent = 0);
-    ~MinecraftConnection();
+    explicit Game(const QString &host, const int &port, const QString &password);
+    ~Game();
 
-    void sendPacket(MinecraftRconPacket &packet);
-    void sendCommand(const QString &command);
-
-    MinecraftCommandHandler *commandHandler;
-
-private:
-    QVector<MinecraftRconPacket> packetSendQueue;
-
-    void handlePacket(MinecraftRconPacket &packet);
-
-private slots:
-    void readyRead();
+protected:
+    QString host;
+    int port;
+    QString password;
 
 };
 
-#endif // BFBC2CONNECTION_H
+#endif // GAME_H

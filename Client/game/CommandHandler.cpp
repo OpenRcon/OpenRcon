@@ -17,22 +17,30 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAME_H
-#define GAME_H
+#include "CommandHandler.h"
 
-#include "ConnectionTabWidget.h"
-
-class Game : public ConnectionTabWidget
+CommandHandler::CommandHandler(QObject *parent) : QObject(parent)
 {
-public:
-    explicit Game(const QString &host, const int &port, const QString &password);
-    ~Game();
 
-protected:
-    QString host;
-    int port;
-    QString password;
+}
 
-};
+CommandHandler::~CommandHandler()
+{
 
-#endif // GAME_H
+}
+
+/* These events is triggered everytime the client sends or receives data. */
+void CommandHandler::eventOnDataSent(const QString &command)
+{
+    emit(onDataSent(command));
+}
+
+void CommandHandler::eventOnDataReceived(const QString &response)
+{
+    emit(onDataReceived(response));
+}
+
+void CommandHandler::commandUnknown()
+{
+    emit (onUnknownCommand());
+}

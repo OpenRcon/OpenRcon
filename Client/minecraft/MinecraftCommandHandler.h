@@ -20,13 +20,11 @@
 #ifndef MINECRAFTCOMMANDHANDLER_H
 #define MINECRAFTCOMMANDHANDLER_H
 
-#include <QObject>
-#include <QString>
-#include <QStringList>
+#include "CommandHandler.h"
 
 #include "MinecraftRconPacket.h"
 
-class MinecraftCommandHandler : public QObject
+class MinecraftCommandHandler : public CommandHandler
 {
     Q_OBJECT
 
@@ -35,22 +33,22 @@ public:
     ~MinecraftCommandHandler();
 
     void exec(MinecraftRconPacket &packet);
-    void eventOnDataSent(const QString &command);
-    void eventOnDataReceived(const QString &response);
     int getRequestIdForCommand(const QString &command);
 
 private:
-    void helpCommand(MinecraftRconPacket &packet);
-    void listCommand(MinecraftRconPacket &packet);
-    void unknownCommand(MinecraftRconPacket &packet);
+    enum CommandType {
+        ListCommand = 8,
+        KillCommand = 9,
+        UnknownCommand = 255
+    };
+
+    void commandList(MinecraftRconPacket &packet);
 
 signals:
-    void onDataSent(const QString &command);
-    void onDataReceived(const QString &response);
+    // Events
+    void onAuthenticated();
 
-    void onHelpCommand(const QString &packet);
-    void onListCommand(const QStringList &packet);
-    void onUnknownCommand();
+    void onListCommand(const QStringList &list);
 
 };
 
