@@ -107,8 +107,8 @@ void FrostbiteRconWord::loadData(const char* data, const unsigned int &size)
 void FrostbiteRconWord::clear()
 {
     if (wordContent) {
-        //delete[] wordContent; // TODO: This causes SIGABRT on Linux x64.
         wordContent = 0;
+        delete[] wordContent; // TODO: This causes SIGABRT on Linux x64.
     }
 
     wordSize = 0;
