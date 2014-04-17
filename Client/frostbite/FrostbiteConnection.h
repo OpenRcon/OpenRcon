@@ -50,7 +50,7 @@ private:
 
     void handlePacket(const FrostbiteRconPacket &packet);
 
-    enum {
+    enum PacketReading {
         PacketReadingHeader,
         PacketReadingData
     };

@@ -30,7 +30,7 @@ FrostbiteCommandHandler::~FrostbiteCommandHandler()
 }
 
 void FrostbiteCommandHandler::exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
+{   
     Q_UNUSED(command);
     Q_UNUSED(packet);
     Q_UNUSED(lastSentPacket);
