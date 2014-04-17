@@ -20,7 +20,7 @@
 #ifndef ABOUTDIALOG_H
 #define ABOUTDIALOG_H
 
-#include <QDatetime>
+#include <QDateTime>
 #include <QFile>
 #include <QTextStream>
 
