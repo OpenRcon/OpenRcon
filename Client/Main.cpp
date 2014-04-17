@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
         settings.setValue("Settings/General/Locale", locale);
     }
 
-    translator.load(":/locale/openrcon_" + locale);
+    translator.load(":/locale/OpenRcon_" + locale);
     app.installTranslator(&translator);
 
     // Launch the app.
