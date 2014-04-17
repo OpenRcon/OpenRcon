@@ -73,20 +73,6 @@ private:
     unsigned int packetWordCount; // Number of words following the packet header
     QVector<FrostbiteRconWord> packetWords; // RconWord packetWords[MAX_WORDS];
 
-<<<<<<< HEAD
-=======
-    QVector<FrostbiteRconWord> packetWords;
-
-    enum Origin {
-        ServerOrigin,
-        ClientOrigin
-    };
-
-    enum {
-        Request,
-        Response
-    };
->>>>>>> master
 };
 
 inline QDataStream &operator >> (QDataStream &in, FrostbiteRconPacket &packet)
