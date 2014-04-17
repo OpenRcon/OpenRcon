@@ -58,3 +58,8 @@ const char* MinecraftRconPacket::getContent()
 {
     return content;
 }
+
+int MinecraftRconPacket::getContentSize()
+{
+    return strlen(content);
+}

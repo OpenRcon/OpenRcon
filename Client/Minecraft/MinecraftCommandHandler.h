@@ -35,6 +35,8 @@ public:
     ~MinecraftCommandHandler();
 
     void exec(MinecraftRconPacket &packet);
+    void eventOnDataSent(const QString &command);
+    void eventOnDataReceived(const QString &response);
     int getRequestIdForCommand(const QString &command);
 
 private:
@@ -43,6 +45,9 @@ private:
     void unknownCommand(MinecraftRconPacket &packet);
 
 signals:
+    void onDataSent(const QString &command);
+    void onDataReceived(const QString &response);
+
     void onHelpCommand(const QString &packet);
     void onListCommand(const QStringList &packet);
     void onUnknownCommand();

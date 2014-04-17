@@ -36,9 +36,10 @@ public:
     void logMessage(const int &type, const QString &message);
 
 private slots:
-    void slotAuthenticated(bool auth);
-    void slotPacket(const QString &packet);
-    void slotUnknownCommand();
+    void onDataSent(const QString &command);
+    void onDataReceived(const QString &response);
+
+    void onAuthenticated(const bool &auth);
 
     void on_pushButton_co_send_clicked();
 

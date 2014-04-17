@@ -23,9 +23,11 @@ MinecraftWidget::MinecraftWidget(const QString &host, const int &port, const QSt
 {
     ui->setupUi(this);
 
-    connect(con, SIGNAL(onAuthenticated(bool)), this, SLOT(slotAuthenticated(bool)));
-    connect(con, SIGNAL(onPacket(MinecraftRconPacket&)), this, SLOT(slotPacket(MinecraftRconPacket&)));
-    connect(con, SIGNAL(onUnknownCommand()), this, SLOT(slotUnknownCommand()));
+    /* Events */
+    connect(con->commandHandler, SIGNAL(onDataSent(const QString&)), this, SLOT(onDataSent(const QString&)));
+    connect(con->commandHandler, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataSent(const QString&)));
+
+    connect(con, SIGNAL(onAuthenticated(const bool&)), this, SLOT(onAuthenticated(const bool&)));
 
     connect(ui->lineEdit_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_send_clicked()));
 }
@@ -52,23 +54,24 @@ void MinecraftWidget::logMessage(const int &type, const QString &message)
     }
 }
 
-void MinecraftWidget::slotAuthenticated(bool auth)
+/* Events */
+void MinecraftWidget::onDataSent(const QString &command)
+{
+    logMessage(2, command);
+}
+
+void MinecraftWidget::onDataReceived(const QString &response)
+{
+    logMessage(3, response);
+}
+
+void MinecraftWidget::onAuthenticated(const bool &auth)
 {
     if (auth) {
         logMessage(0, "Successfully logged in!");
     } else {
         logMessage(1, "Login failed!");
     }
-}
-
-void MinecraftWidget::slotPacket(const QString &packet)
-{
-    logMessage(3, packet);
-}
-
-void MinecraftWidget::slotUnknownCommand()
-{
-    logMessage(1, tr("Unknown command."));
 }
 
 void MinecraftWidget::on_pushButton_co_send_clicked()

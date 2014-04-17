@@ -45,6 +45,17 @@ void MinecraftCommandHandler::exec(MinecraftRconPacket &packet)
     }
 }
 
+/* These events is triggered everytime the client sends or receives data. */
+void MinecraftCommandHandler::eventOnDataSent(const QString &command)
+{
+    emit(onDataSent(command));
+}
+
+void MinecraftCommandHandler::eventOnDataReceived(const QString &response)
+{
+    emit(onDataReceived(response));
+}
+
 int MinecraftCommandHandler::getRequestIdForCommand(const QString &command)
 {
     if (command == "help") {

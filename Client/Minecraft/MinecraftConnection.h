@@ -36,9 +36,9 @@ public:
     void sendPacket(MinecraftRconPacket &packet);
     void sendCommand(const QString &command);
 
-private:
     MinecraftCommandHandler *commandHandler;
 
+private:
     QVector<MinecraftRconPacket> packetSendQueue;
 
     void handlePacket(MinecraftRconPacket &packet);

@@ -29,8 +29,7 @@ MinecraftConnection::~MinecraftConnection()
     delete tcpSocket;
 }
 
-/*
- * Length 	int 	Length of remainder of packet
+/* Length 	int 	Length of remainder of packet
  * Request ID 	int 	Client-generated ID
  * Type 	int 	3 for login, 2 to run a command
  * Payload 	byte[] 	ASCII text
@@ -39,26 +38,66 @@ MinecraftConnection::~MinecraftConnection()
 
 void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
 {
+    QDataStream out(tcpSocket);
+    out.setByteOrder(QDataStream::LittleEndian);
 
-    const char* text = QString("XTreme168732").toLatin1().constData();
-
-    if (packet.getLength() < 1460 - 10) {
-        QDataStream out(tcpSocket);
-        out.setByteOrder(QDataStream::LittleEndian);
+    if (packet.getLength() < 1460 - 10) {    
         out << packet.getLength();
         out << packet.getRequestId();
         out << packet.getType();
-        out.writeRawData(text, strlen(text));
-        out << (qint8) 0;
-        out << (qint8) 0;
+        out.writeRawData(packet.getContent(), packet.getContentSize());
+
+        // Terminate the packet with 2 bytes of zeroes.
+        out << (unsigned char) 0;
+        out << (unsigned char) 0;
 
         qDebug() << "Sent packet: ";
         qDebug() << "Length: " << packet.getLength();
         qDebug() << "Request ID: " << packet.getRequestId();
         qDebug() << "Type: " << packet.getType();
-        qDebug() << "Payload:" << text << "\n";
+        qDebug() << "Payload:" << packet.getContent() << "\n";
     } else {
         qDebug() << "Payload data too long.";
+    }
+}
+
+/* Length 	int 	Length of remainder of packet
+ * Request ID 	int 	Client-generated ID
+ * Type 	int 	3 for login, 2 to run a command
+ * Payload 	byte[] 	ASCII text
+ * 2-byte pad 	byte, byte 	Two null bytes
+ */
+
+void MinecraftConnection::readyRead()
+{
+    QDataStream in(tcpSocket);
+    in.setByteOrder(QDataStream::LittleEndian);
+
+    if (tcpSocket->bytesAvailable() >= 10) {
+        int length, id, type;
+        in >> length;
+        in >> id;
+        in >> type;
+
+        char* content = new char[length - 10];
+        in.readRawData(content, length - 10);
+
+        // Terminate the packet with 2 bytes of zeroes.
+        unsigned char pad1, pad2;
+        in >> pad1;
+        in >> pad2;
+
+        qDebug() << "Read packet:";
+        qDebug() << "Length: " << length;
+        qDebug() << "Request ID: " << id;
+        qDebug() << "Type: " << type;
+        qDebug() << "Payload:" << content << "\n";
+
+        // Create and handle the packet.
+        MinecraftRconPacket packet(id, type, content);
+        handlePacket(packet);
+
+        delete[] content;
     }
 }
 
@@ -73,44 +112,6 @@ void MinecraftConnection::sendCommand(const QString &command)
 
 void MinecraftConnection::handlePacket(MinecraftRconPacket &packet)
 {
+    commandHandler->eventOnDataReceived(packet.getContent());
     commandHandler->exec(packet);
-
-    emit (onPacket(packet));
-}
-
-/*
- * Length 	int 	Length of remainder of packet
- * Request ID 	int 	Client-generated ID
- * Type 	int 	3 for login, 2 to run a command
- * Payload 	byte[] 	ASCII text
- * 2-byte pad 	byte, byte 	Two null bytes
- */
-
-void MinecraftConnection::readyRead()
-{
-    if (tcpSocket->bytesAvailable()) {
-        int length, id, type;
-        signed char pad1, pad2;
-
-        QDataStream in(tcpSocket);
-        in.setByteOrder(QDataStream::LittleEndian);
-        in >> length;
-        in >> id;
-        in >> type;
-
-        char* payload = new char[length - 10];
-        in.readRawData(payload, length - 10);
-        in >> pad1;
-        in >> pad2;
-
-        qDebug() << "Read packet:";
-        qDebug() << "Length: " << length;
-        qDebug() << "Request ID: " << id;
-        qDebug() << "Type: " << type;
-        qDebug() << "Payload:" << payload << "\n";
-
-        MinecraftRconPacket packet(id, type, payload);
-
-        handlePacket(packet);
-    }
 }

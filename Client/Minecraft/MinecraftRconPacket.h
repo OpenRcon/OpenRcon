@@ -48,6 +48,7 @@ public:
     int getRequestId();
     int getType();
     const char* getContent();
+    int getContentSize();
 
 private:
     int requestId;
