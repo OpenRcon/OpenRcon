@@ -38,28 +38,28 @@
           <string>User Interface</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="2">
-           <widget class="QPushButton" name="pushButton_ge_language">
-            <property name="text">
-             <string>Change</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="comboBox_ge_language"/>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_ge_language">
-            <property name="text">
-             <string>Language:</string>
-            </property>
-           </widget>
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_ge_language">
+              <property name="text">
+               <string>Language:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_ge_language"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>(Restart required)</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
-         <zorder>comboBox_ge_language</zorder>
-         <zorder>comboBox_ge_language</zorder>
-         <zorder>pushButton_ge_language</zorder>
-         <zorder>label_ge_language</zorder>
         </widget>
        </item>
        <item row="1" column="0">

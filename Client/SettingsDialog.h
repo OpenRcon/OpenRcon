@@ -55,7 +55,7 @@ private:
 
 private slots:
     void listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-    void pushButton_ge_language_clicked();
+    void pushButton_ok_clicked();
 
 };
 
