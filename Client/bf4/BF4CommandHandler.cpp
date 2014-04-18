@@ -364,8 +364,8 @@ void BF4CommandHandler::eventOnPlayerSquadChange(const FrostbiteRconPacket &pack
 void BF4CommandHandler::eventOnPlayerTeamChange(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
-    int teamId = QString::fromLatin1(packet.getWord(2).getContent()).toInt();
-    int squadId = QString::fromLatin1(packet.getWord(3).getContent()).toInt();
+    int teamId = toInt(packet.getWord(2).getContent());
+    int squadId = toInt(packet.getWord(3).getContent());
 
     emit(onPlayerTeamChange(player, teamId, squadId));
 }

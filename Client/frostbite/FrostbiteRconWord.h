@@ -29,7 +29,7 @@ class FrostbiteRconWord
 public:
     explicit FrostbiteRconWord();
     explicit FrostbiteRconWord(const FrostbiteRconWord &word);
-    explicit FrostbiteRconWord(const char* str);
+    explicit FrostbiteRconWord(const char *string);
     FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
     ~FrostbiteRconWord();
 
@@ -42,7 +42,7 @@ public:
 
 private:
     unsigned int wordSize; // Number of bytes in word, excluding trailing null byte
-    char* wordContent; // Word contents -- must not contain any null bytes // Not sure is this right.
+    char *wordContent; // Word contents -- must not contain any null bytes // Not sure is this right.
     char wordTerminator; // Trailing null byte // Not sure is this right.
 
 };
@@ -57,7 +57,7 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconWord &word)
     }
 
     unsigned int size;
-    char * data = 0;
+    char *data = 0;
     signed char terminator;
 
     in >> size;
@@ -72,6 +72,7 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconWord &word)
     if (data) {
         delete[] data;
     }
+
     in >> terminator;
 
     if (oldbo != QDataStream::LittleEndian) {

@@ -37,7 +37,9 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     ui->comboBox_ch_mode->addItem(tr("Say"));
     ui->comboBox_ch_mode->addItem(tr("Yell"));
 
-    ui->comboBox_ch_target->setEnabled(false);
+    ui->spinBox_ch_duration->setEnabled(false);
+    ui->spinBox_ch_duration->setValue(10);
+
     ui->comboBox_ch_target->addItem(tr("All"));
     ui->comboBox_ch_target->addItem(tr("Team"));
     ui->comboBox_ch_target->addItem(tr("Squad"));

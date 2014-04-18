@@ -32,7 +32,7 @@ FrostbiteRconWord::FrostbiteRconWord(const char* str) : wordSize(0), wordContent
 
     if (wordSize) {
         wordContent = new char[wordSize + 1];
-        wordContent = (char*) str;
+        strcpy(wordContent, str);
         wordContent[wordSize] = 0; // Include the null terminator.
     }
 }
