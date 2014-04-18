@@ -73,7 +73,7 @@ void MinecraftConnection::readyRead()
     QDataStream in(tcpSocket);
     in.setByteOrder(QDataStream::LittleEndian);
 
-    if (tcpSocket->bytesAvailable() >= 10) {
+    if (tcpSocket->bytesAvailable()) {
         int length, id, type;
         in >> length;
         in >> id;

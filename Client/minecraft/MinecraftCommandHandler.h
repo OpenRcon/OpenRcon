@@ -46,7 +46,7 @@ private:
 
 signals:
     // Events
-    void onAuthenticated();
+    void onAuthenticated(const bool &auth);
 
     void onListCommand(const QStringList &list);
 

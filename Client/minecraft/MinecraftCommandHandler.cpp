@@ -31,17 +31,22 @@ MinecraftCommandHandler::~MinecraftCommandHandler()
 
 void MinecraftCommandHandler::exec(MinecraftRconPacket &packet)
 {
-    if (packet.getType() == MinecraftRconPacket::Login) {
-        emit (onAuthenticated());
-    } else {
-        switch (packet.getRequestId()) {
-            case ListCommand:
-                commandList(packet);
-                break;
+    switch (packet.getRequestId()) {
+        case 1:
+            if (packet.getType() == MinecraftRconPacket::Login) {
+                emit (onAuthenticated(true));
+            } else {
+                emit (onAuthenticated(false));
+            }
 
-            default:
-                commandUnknown();
-        }
+            break;
+
+        case ListCommand:
+            commandList(packet);
+            break;
+
+        default:
+            commandUnknown();
     }
 }
 
