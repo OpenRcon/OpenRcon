@@ -30,20 +30,20 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     setWindowIcon(QIcon(APP_ICON));
 
     QDateTime current = QDateTime::currentDateTime();
-    ui->label_ab_info->setText(tr("%1 is a cross-platform RCON administration tool.").arg(APP_NAME));
-    ui->label_ab_built->setText(tr("Built on %2 at %3").arg(current.toString("dd MMMM yyyy")).arg(current.toString("hh:mm:ss")));
-    ui->label_ab_copyright->setText(tr("Copyright &copy; %4 %5").arg(APP_YEAR).arg(APP_AUTHOR));
-    ui->label_ab_disclaimer->setText("The program is provided AS IS with NO WARRANTY OF ANY KIND, <br />"
+    ui->label_ab_info->setText(tr("<p>%1 is a cross-platform RCON administration tool.</p>").arg(APP_NAME));
+    ui->label_ab_built->setText(tr("<p>Built on %2 at %3</p>").arg(current.toString("dd MMMM yyyy")).arg(current.toString("hh:mm:ss")));
+    ui->label_ab_copyright->setText(tr("<p>Copyright &copy; %4 %5</p>").arg(APP_YEAR).arg(APP_AUTHOR));
+    ui->label_ab_disclaimer->setText("<p>The program is provided AS IS with NO WARRANTY OF ANY KIND, <br />"
                                      "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND <br />"
-                                     "FITNESS FOR A PARTICULAR PURPOSE.");
+                                     "FITNESS FOR A PARTICULAR PURPOSE.</p>");
 
     ui->textBrowser_au->setText(getFile(":/AUTHORS"));
     ui->textBrowser_cb->setText(getFile(":/CONTRIBUTORS"));
     ui->textBrowser_tr->setText(getFile(":/TRANSLATORS"));
     ui->textBrowser_li->setText(getFile(":/COPYING"));
 
-    ui->label_th->setText(tr("We would like to thank Sourceforge.net for their services and support.<br />"
-                             "A big thank to GitHub! For making a coders everyday easier."));
+    ui->label_th->setText(tr("<p>We would like to thank Sourceforge.net for their services and support.<br />"
+                             "A big thank to GitHub! For making a coders everyday easier.</p>"));
 
     connect(ui->pushButton_ab_close, SIGNAL(clicked()), this, SLOT(reject()));
 }
