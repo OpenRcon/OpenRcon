@@ -24,7 +24,6 @@ public:
     QList<ServerEntry *> getServers(const int &gameIndex);
 
     void addServer(ServerEntry *serverEntry);
-    void editServer(ServerEntry *serverEntry);
     void removeServer(const int &index);
     void removeServer(ServerEntry *serverEntry);
 
@@ -34,6 +33,9 @@ private:
 
     void loadServers();
     void saveServers();
+
+signals:
+    void onServerUpdate();
 
 };
 

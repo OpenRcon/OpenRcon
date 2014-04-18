@@ -90,7 +90,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuTools">
@@ -103,8 +103,6 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionWhat_s_This"/>
-    <addaction name="separator"/>
     <addaction name="actionDocumentation"/>
     <addaction name="actionReport_bug"/>
     <addaction name="separator"/>

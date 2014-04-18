@@ -51,22 +51,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     comboBox_sm_server = new QComboBox(ui->toolBar_sm);
     pushButton_sm_connect = new QPushButton(tr("Connect"), ui->toolBar_sm);
 
-    // Add the server to the comboBox only if it's not empty, otherwhise disable it.
-    QList<ServerEntry *> serverList = serverManager->getServers();
-
-    if (!serverList.isEmpty()) {
-        comboBox_sm_server->clear();
-
-        foreach (ServerEntry *server, serverList) {
-            GameEntry game = gameManager->getGame(server->game);
-
-            comboBox_sm_server->addItem(game.icon, server->name);
-        }
-    } else {
-        comboBox_sm_server->addItem(tr("No servers added yet."));
-        comboBox_sm_server->setEnabled(false);
-        pushButton_sm_connect->setEnabled(false);
-    }
+    populateServers();
 
     ui->toolBar_sm->addWidget(comboBox_sm_server);
     ui->toolBar_sm->addWidget(pushButton_sm_connect);
@@ -87,6 +72,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     // Toolbars
     connect(pushButton_sm_connect, SIGNAL(clicked()), this, SLOT(pushButton_sm_connect_clicked()));
+    connect(serverManager, SIGNAL(onServerUpdate()), this, SLOT(populateServers()));
 
     // Tabwidget
     connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
@@ -182,16 +168,6 @@ void OpenRcon::addTab(const int &game, const QString &name, const QString &host,
     }
 }
 
-void OpenRcon::addMessage(const QString &message, const int &timeout)
-{
-    ui->statusBar->showMessage(message, timeout);
-}
-
-void OpenRcon::addMessage(const QString &message)
-{
-    ui->statusBar->showMessage(message);
-}
-
 GameManager* OpenRcon::getGameManager()
 {
     return gameManager;
@@ -200,8 +176,8 @@ GameManager* OpenRcon::getGameManager()
 void OpenRcon::closeTab(int index)
 {
     QWidget *widget = ui->tabWidget->widget(index);
-    ConnectionTabWidget *ctw = dynamic_cast<ConnectionTabWidget *>(widget);
-    ctw->getConnection()->hostDisconnect();
+    ConnectionTabWidget *tabWidget = dynamic_cast<ConnectionTabWidget *>(widget);
+    tabWidget->getConnection()->hostDisconnect();
 
     ui->tabWidget->removeTab(index);
 }
@@ -265,4 +241,30 @@ void OpenRcon::pushButton_sm_connect_clicked()
     ServerEntry *server = serverManager->getServer(index);
 
     addTab(server->game, server->name, server->host, server->port, server->password);
+}
+
+void OpenRcon::populateServers()
+{
+    qDebug() << "populateServers() called.";
+
+    comboBox_sm_server->clear();
+
+    // Add the server to the comboBox only if it's not empty, otherwhise disable it.
+    QList<ServerEntry *> serverList = serverManager->getServers();
+
+    if (!serverList.isEmpty()) {
+        comboBox_sm_server->setEnabled(true);
+        pushButton_sm_connect->setEnabled(true);
+
+        foreach (ServerEntry *server, serverList) {
+            GameEntry game = gameManager->getGame(server->game);
+
+            comboBox_sm_server->addItem(game.icon, server->name);
+        }
+    } else {
+        comboBox_sm_server->setEnabled(false);
+        pushButton_sm_connect->setEnabled(false);
+
+        comboBox_sm_server->addItem(tr("No servers added yet."));
+    }
 }

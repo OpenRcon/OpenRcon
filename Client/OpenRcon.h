@@ -38,7 +38,7 @@
 #include "Directory.h"
 #include "GameManager.h"
 #include "ServerManager.h"
-#include "Connection.h"
+
 #include "ConnectionTabWidget.h"
 
 #include "ServerListDialog.h"
@@ -68,8 +68,6 @@ public:
     }
 
     void addTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
-    void addMessage(const QString &message, const int &timeout);
-    void addMessage(const QString &message);
 
     GameManager* getGameManager();
 
@@ -118,6 +116,7 @@ private slots:
 
     // ServerManager
     void pushButton_sm_connect_clicked();
+    void populateServers();
 
 };
 

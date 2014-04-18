@@ -48,7 +48,8 @@ HEADERS += OpenRcon.h \
     SettingsDialog.h \
     AboutDialog.h \
     DragDropListWidget.h \
-    DragDropTreeWidget.h
+    DragDropTreeWidget.h \
+    ConnectionManager.h
 
 SOURCES += Main.cpp \
     OpenRcon.cpp \
@@ -61,7 +62,8 @@ SOURCES += Main.cpp \
     SettingsDialog.cpp \
     AboutDialog.cpp \
     DragDropListWidget.cpp \
-    DragDropTreeWidget.cpp
+    DragDropTreeWidget.cpp \
+    ConnectionManager.cpp
 
 FORMS += OpenRcon.ui \
     ServerListDialog.ui \

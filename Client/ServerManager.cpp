@@ -6,6 +6,8 @@ ServerManager::ServerManager(QObject *parent) : QObject(parent)
 
     // Load the stored servers.
     loadServers();
+
+    emit (onServerUpdate());
 }
 
 ServerManager::~ServerManager()
@@ -73,6 +75,8 @@ void ServerManager::setServers(const QList<ServerEntry *> &list)
 {
     serverList.clear();
     serverList = list;
+
+    emit (onServerUpdate());
 }
 
 QList<ServerEntry *> ServerManager::getServers()
@@ -96,17 +100,15 @@ QList<ServerEntry *> ServerManager::getServers(const int &gameIndex)
 void ServerManager::addServer(ServerEntry *serverEntry)
 {
     serverList.append(serverEntry);
-}
 
-void ServerManager::editServer(ServerEntry *serverEntry)
-{
-    removeServer(serverEntry);
-    addServer(serverEntry);
+    emit (onServerUpdate());
 }
 
 void ServerManager::removeServer(const int &index)
 {
     serverList.removeAt(index);
+
+    emit (onServerUpdate());
 }
 
 void ServerManager::removeServer(ServerEntry *serverEntry)
