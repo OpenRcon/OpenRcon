@@ -32,18 +32,14 @@ FrostbiteConnection::~FrostbiteConnection()
 
 void FrostbiteConnection::hostConnect(const QString &host, const int &port)
 {
-    if (tcpSocket && tcpSocket->state() == QAbstractSocket::UnconnectedState) {
+    if (!tcpSocket->isOpen()) {
         packetSendQueue.clear();
         packetReadState = PacketReadingHeader;
         nextPacketSequence = 0;
 
         tcpSocket->connectToHost(host, port);
     } else {
-        if (tcpSocket) {
-            qDebug() << tr("Already connected to %1:%2").arg(tcpSocket->peerAddress().toString(), tcpSocket->peerPort());
-        } else {
-            qDebug() << "ERROR: Connection::hostConnect tcpSocket = 0";
-        }
+        qDebug() << tr("Already connected to %1:%2.").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
     }
 }
 
