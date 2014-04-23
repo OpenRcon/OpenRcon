@@ -187,7 +187,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     /* Commands */
 
     // Misc
-    connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
+    connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
     connect(con->commandHandler, SIGNAL(onVersionCommand(const QString&, const int&, const QString&)), this, SLOT(onVersionCommand(const QString&, const int&, const QString&)));
     connect(con->commandHandler, SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
 
@@ -468,10 +468,18 @@ void BF4Widget::onServerRoundOverTeamScores(const QString &teamScores)
 /* Commands */
 
 // Misc
-void BF4Widget::onLoginHashedCommand()
+void BF4Widget::onLoginHashedCommand(const bool &auth)
 {
-    // Call commands on startup.
-    startupCommands();
+    if (auth) {
+        // Call commands on startup.
+        startupCommands();
+    } else {
+        int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
+
+        if (ret) {
+            con->hostDisconnect();
+        }
+    }
 }
 
 void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const QString &version)

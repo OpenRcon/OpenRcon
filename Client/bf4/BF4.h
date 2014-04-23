@@ -45,12 +45,12 @@ protected:
     void sendYellMessage(const QString &message, const int &duration, const QString &group);
 
 private:
-    bool auth;
+    bool authenticated;
 
 private slots:
     void onConnected();
     void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand();
+    void onLoginHashedCommand(const bool &auth);
 
 };
 

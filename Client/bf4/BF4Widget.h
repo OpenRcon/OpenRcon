@@ -78,7 +78,7 @@ private slots:
 
     /* Commands */
     // Misc
-    void onLoginHashedCommand();
+    void onLoginHashedCommand(const bool &auth);
     void onVersionCommand(const QString &type, const int &buildId, const QString &version);
     void onServerInfoCommand(const ServerInfo &serverInfo);
 

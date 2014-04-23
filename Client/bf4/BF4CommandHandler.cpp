@@ -427,18 +427,20 @@ void BF4CommandHandler::commandLoginHashed(const FrostbiteRconPacket &packet, co
         if (response == "OK" && packet.getWordCount() == 2) {
             QByteArray salt = QByteArray::fromHex(QByteArray(packet.getWord(1).getContent()));
 
-            emit(onLoginHashedCommand(salt));
+            emit (onLoginHashedCommand(salt));
         }
     } else if (lastSentPacket.getWordCount() == 2) {
         if (response == "OK") {
-            emit(onLoginHashedCommand());
+            emit (onLoginHashedCommand(true));
+        } else if (response == "InvalidPasswordHash") {
+            emit (onLoginHashedCommand(false));
         }
     }
 }
 
 void BF4CommandHandler::commandServerInfo(const FrostbiteRconPacket &packet)
 {
-    QString response(packet.getWord(0).getContent());
+    QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 0) {
         QString serverName = packet.getWord(1).getContent();
@@ -467,7 +469,7 @@ void BF4CommandHandler::commandServerInfo(const FrostbiteRconPacket &packet)
         int blazePlayerCount = QString(packet.getWord(22).getContent()).toInt();
         QString blazeGameState = packet.getWord(23).getContent();
 
-        emit(onServerInfoCommand(ServerInfo(serverName, playerCount, maxPlayerCount, gamemode, currentMap, roundsPlayed, roundsTotal, scores, onlineState, ranked, punkBuster, hasGamePassword, serverUpTime, roundTime, gameIpAndPort,  punkBusterVersion, joinQueueEnabled, region, closestPingSite, country,  matchMakingEnabled, blazePlayerCount, blazeGameState)));  
+        emit (onServerInfoCommand(ServerInfo(serverName, playerCount, maxPlayerCount, gamemode, currentMap, roundsPlayed, roundsTotal, scores, onlineState, ranked, punkBuster, hasGamePassword, serverUpTime, roundTime, gameIpAndPort,  punkBusterVersion, joinQueueEnabled, region, closestPingSite, country,  matchMakingEnabled, blazePlayerCount, blazeGameState)));
     }
 }
 
@@ -527,9 +529,9 @@ void BF4CommandHandler::commandVersion(const FrostbiteRconPacket &packet)
             version = versionMap.value(buildId);
         }
 
-        emit(onVersionCommand(type, buildId, version));
+        emit (onVersionCommand(type, buildId, version));
     } else if (response == "InvalidArguments") {
-        emit(onUnknownCommand());
+        emit (onUnknownCommand());
     }
 }
 
@@ -593,9 +595,9 @@ void BF4CommandHandler::commandAdminListPlayers(const FrostbiteRconPacket &packe
             playerList.append(PlayerInfo(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
         }
 
-        emit(onAdminListPlayersCommand(playerList));
+        emit (onAdminListPlayersCommand(playerList));
     } else if (response == "InvalidArguments") {
-        emit(onUnknownCommand());
+        emit (onUnknownCommand());
     }
 }
 
@@ -636,7 +638,7 @@ void BF4CommandHandler::commandBanListClear(const FrostbiteRconPacket &packet)
 
 void BF4CommandHandler::commandBanListList(const FrostbiteRconPacket &packet)
 {
-    QString response(packet.getWord(0).getContent());
+    QString response =packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 0) {
         QStringList banList;
@@ -645,7 +647,7 @@ void BF4CommandHandler::commandBanListList(const FrostbiteRconPacket &packet)
             banList.append(packet.getWord(i).getContent());
         }
 
-        emit(onBanListListCommand(banList));
+        emit (onBanListListCommand(banList));
     }
 }
 
@@ -748,7 +750,7 @@ void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet)
             mapList.append(MapListEntry(level, gameMode, rounds));
         }
 
-        emit(onMapListListCommand(mapList));
+        emit (onMapListListCommand(mapList));
     }
 }
 
@@ -844,7 +846,7 @@ void BF4CommandHandler::commandReservedSlotsListList(const FrostbiteRconPacket &
             reservedSlotList.append(packet.getWord(i).getContent());
         }
 
-        emit(onReservedSlotsListListCommand(reservedSlotList));
+        emit (onReservedSlotsListListCommand(reservedSlotList));
     }
 }
 
@@ -985,7 +987,7 @@ void BF4CommandHandler::commandVarsIdleTimeout(const FrostbiteRconPacket &packet
     if (response == "OK" && packet.getWordCount() > 1) {
         int timeout = QString(packet.getWord(1).getContent()).toInt();
 
-        emit(onVarsIdleTimeoutCommand(timeout));
+        emit (onVarsIdleTimeoutCommand(timeout));
     }
 }
 
@@ -1088,7 +1090,7 @@ void BF4CommandHandler::commandVarsServerDescription(const FrostbiteRconPacket &
     if (response == "OK" && packet.getWordCount() > 1) {
         QString serverDescription = packet.getWord(1).getContent();
 
-        emit(onVarsServerDescriptionCommand(serverDescription));
+        emit (onVarsServerDescriptionCommand(serverDescription));
     }
 }
 
@@ -1099,7 +1101,7 @@ void BF4CommandHandler::commandVarsServerMessage(const FrostbiteRconPacket &pack
     if (response == "OK" && packet.getWordCount() > 1) {
         QString serverMessage = packet.getWord(1).getContent();
 
-        emit(onVarsServerMessageCommand(serverMessage));
+        emit (onVarsServerMessageCommand(serverMessage));
     }
 }
 
@@ -1110,7 +1112,7 @@ void BF4CommandHandler::commandVarsServerName(const FrostbiteRconPacket &packet)
     if (response == "OK" && packet.getWordCount() > 1) {
         QString serverName = packet.getWord(1).getContent();
 
-        emit(onVarsServerNameCommand(serverName));
+        emit (onVarsServerNameCommand(serverName));
     }
 }
 

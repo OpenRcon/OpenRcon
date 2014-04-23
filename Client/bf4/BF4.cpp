@@ -19,7 +19,7 @@
 
 #include "BF4.h"
 
-BF4::BF4(const QString &host, const int &port, const QString &password) : BFBaseGame(host, port, password), auth(false)
+BF4::BF4(const QString &host, const int &port, const QString &password) : BFBaseGame(host, port, password), authenticated(false)
 {
     con = new BF4Connection(this);
     con->hostConnect(host, port);
@@ -31,7 +31,7 @@ BF4::BF4(const QString &host, const int &port, const QString &password) : BFBase
 
     // Commands
     connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
+    connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
 }
 
 BF4::~BF4()
@@ -47,9 +47,11 @@ void BF4::onConnected()
     }
 }
 
-void BF4::onLoginHashedCommand()
+void BF4::onLoginHashedCommand(const bool &auth)
 {
-    auth = true;
+    Q_UNUSED(auth);
+
+    authenticated = true;
 }
 
 void BF4::onLoginHashedCommand(const QByteArray &salt)
@@ -67,7 +69,7 @@ void BF4::onLoginHashedCommand(const QByteArray &salt)
 
 bool BF4::isAuthenticated()
 {
-    return auth;
+    return authenticated;
 }
 
 void BF4::sendSayMessage(const QString &msg, const QString &group)

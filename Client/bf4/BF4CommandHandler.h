@@ -190,7 +190,7 @@ signals:
     // Command signals.
     void onLoginPlainTextCommand();
     void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand();
+    void onLoginHashedCommand(const bool &auth);
     void onServerInfoCommand(const ServerInfo &serverInfo);
     void onLogoutCommand();
     void onQuitCommand();
