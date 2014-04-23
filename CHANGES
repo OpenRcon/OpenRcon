@@ -1,8 +1,8 @@
-Start - March 31, 2010
-- Project started.
+0.0.1 - March 31, 2010
+    Project started.
 
 0.1 - March 7, 2011
-- Implemented lot of features, like working BFBC2 connection.
+    Implemented lot of features, like working BFBC2 connection.
 
 0.2 - March 20, 2014
-- Rewrite for Qt 5.2.
+    Running on Qt 5.2.

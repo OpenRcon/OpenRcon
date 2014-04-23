@@ -1,17 +1,15 @@
 OpenRcon:
-
-    General:
-        - Get an OpenRcon logo.
-        - Implement language option to Settings.
-        - Implement a type of class that handle connection requests, like create tab etc, manage closing of it.
-        - Implement working plugin system that can be used by games to add more functionality.
-		- When connect to a server, check that a similar connection not already exists.
+    - Get an new application logo.
+    - Implement language option to Settings.
+    - Implement a type of class that handle connection requests, like create tab etc, manage closing of it.
+    - Implement working plugin system that can be used by games to add more functionality.
+    - When connect to a server, check that a similar connection not already exists.
+    - Update the comboBox_sm when a server is added, modified or removed.
 
     Frostbite:
-        - Debug and fix the "wrong word size" sigsegv error. - UPDATE: Seems to work now.
+        - Debug and fix the "wrong word size" sigsegv error. - FIXED
 
     BFBC2:
-        - BFBC2 RCON documentation can be found here: http://static.cdn.ea.com/dice/u/f/bfbc2/Static/BFBC2_PC_Server_R28_621775_Docs_ServerAdministrator.zip
         - List bans in BanList.
         - Rewrite playerlist to use signals.
         - Fix crash when click Run in maplist.
@@ -20,7 +18,7 @@ OpenRcon:
         - All we need for this is a BF3 server to test with.
 		
     BF4:
-		- Fix malfunction when removeing multiplue maps from the curren list.
-		
-	Minecraft:
-		- Fix that we're getting strange letters mixed up with the response.
+        - Fix malfunction when removeing multiplue maps from the current list.
+
+    Minecraft:
+        - Fix that we're getting strange letters mixed up with the response.
