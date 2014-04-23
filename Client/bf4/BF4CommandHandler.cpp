@@ -487,10 +487,10 @@ void BF4CommandHandler::commandVersion(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() == 3) {
+    if (response == "OK" && packet.getWordCount() > 1) {
         QString type = packet.getWord(1).getContent();
-        int buildId = QString(packet.getWord(2).getContent()).toInt();
-        QString version;
+        int buildId = toInt(packet.getWord(2).getContent());
+        QString version = QString::number(buildId);
 
         QMap<int, QString> versionMap;
         versionMap.insert(70517, "OB-R2");
@@ -524,6 +524,7 @@ void BF4CommandHandler::commandVersion(const FrostbiteRconPacket &packet)
         versionMap.insert(114240, "R29");
         versionMap.insert(115397, "R30");
         versionMap.insert(117719, "R31");
+        versionMap.insert(120511, "R32");
 
         if (versionMap.contains(buildId)) {
             version = versionMap.value(buildId);
