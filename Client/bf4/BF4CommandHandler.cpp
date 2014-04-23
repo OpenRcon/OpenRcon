@@ -884,7 +884,17 @@ void BF4CommandHandler::commandSpectatorListClear(const FrostbiteRconPacket &pac
 
 void BF4CommandHandler::commandSpectatorListList(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QStringList spectatorList;
+
+        for (int i = 0; i < packet.getWordCount(); i++) {
+            spectatorList.append(packet.getWord(i).getContent());
+        }
+
+        emit (onSpectatorListListCommand(spectatorList));
+    }
 }
 
 void BF4CommandHandler::commandSpectatorListRemove(const FrostbiteRconPacket &packet)

@@ -106,7 +106,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     commandList.append("reservedSlotsList.save");
     commandList.append("spectatorList.add ");
     commandList.append("spectatorList.clear");
-    commandList.append("spectatorList.list ");
+    commandList.append("spectatorList.list");
     commandList.append("spectatorList.remove ");
     commandList.append("spectatorList.save");
     commandList.append("squad.leader ");
@@ -283,16 +283,17 @@ void BF4Widget::startupCommands() {
     con->sendCommand("version");
     con->sendCommand("serverInfo");
 
-    // Admin
+    // Admins
     con->sendCommand("\"admin.listPlayers\" \"all\"");
 
     // Banning
+    con->sendCommand("\"banList.list\" \"0\"");
 
     // FairFight
     con->sendCommand("fairFight.isActive");
 
     // Maplist
-    con->sendCommand("\"maplist.list\" \"0\"");
+    con->sendCommand("\"mapList.list\" \"0\"");
 
     // Player
 
@@ -301,8 +302,10 @@ void BF4Widget::startupCommands() {
     con->sendCommand("\"punkBuster.pb_sv_command\" \"pb_sv_plist\"");
 
     // Reserved Slots
+    con->sendCommand("reservedSlots.list");
 
     // Spectator list
+    con->sendCommand("spectatorList.list");
 
     // Squad
 

@@ -245,7 +245,7 @@ signals:
     void onReservedSlotsListSaveCommand();
     void onSpectatorListAddCommand();
     void onSpectatorListClearCommand();
-    void onSpectatorListListCommand();
+    void onSpectatorListListCommand(const QStringList &spectatorList);
     void onSpectatorListRemoveCommand();
     void onSpectatorListSaveCommand();
     void onSquadLeaderCommand();
