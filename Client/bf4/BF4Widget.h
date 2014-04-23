@@ -100,6 +100,7 @@ private slots:
     void onPunkBusterIsActiveCommand(const bool &isActive);
 
     // Reserved Slots
+    void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
 
     // Spectator list
 

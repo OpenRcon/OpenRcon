@@ -209,6 +209,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->commandHandler, SIGNAL(onPunkBusterIsActiveCommand(const bool&)), this, SLOT(onPunkBusterIsActiveCommand(const bool&)));
 
     // Reserved Slots
+    connect(con->commandHandler, SIGNAL(onReservedSlotsListListCommand(const QStringList&)), this, SLOT(onReservedSlotsListListCommand(const QStringList&)));
 
     // Spectator list
 
@@ -303,7 +304,7 @@ void BF4Widget::startupCommands() {
     con->sendCommand("\"punkBuster.pb_sv_command\" \"pb_sv_plist\"");
 
     // Reserved Slots
-    con->sendCommand("reservedSlots.list");
+    con->sendCommand("reservedSlotsList.list");
 
     // Spectator list
     con->sendCommand("spectatorList.list");
@@ -598,6 +599,11 @@ void BF4Widget::onPunkBusterIsActiveCommand(const bool &isActive)
 }
 
 // Reserved Slots
+void BF4Widget::onReservedSlotsListListCommand(const QStringList &reservedSlotsList)
+{
+    ui->listWidget_rs->clear();
+    ui->listWidget_rs->addItems(reservedSlotsList);
+}
 
 // Spectator list
 
@@ -869,6 +875,8 @@ void BF4Widget::setBanlist(const BanList &banList)
         addBanListRow(entry.idType, entry.id, entry.banType, entry.seconds, entry.rounds, entry.reason);
     }
 }
+
+/* Reserved Slots */
 
 /* Options */
 void BF4Widget::lineEdit_op_so_serverName_editingFinished()
