@@ -641,7 +641,7 @@ void BF4CommandHandler::commandBanListList(const FrostbiteRconPacket &packet)
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        QList<BanListEntry> banList;
+        BanList banList;
 
         for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
             QString idType = packet.getWord(i).getContent();

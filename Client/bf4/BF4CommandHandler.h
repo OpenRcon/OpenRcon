@@ -27,6 +27,7 @@
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
+typedef QList<BanListEntry> BanList;
 typedef QList<MapListEntry> MapList;
 
 class BF4CommandHandler : public BFBaseCommandHandler
@@ -210,7 +211,7 @@ signals:
     void onAdminYellCommand();
     void onBanListAddCommand();
     void onBanListClearCommand();
-    void onBanListListCommand(const QList<BanListEntry> &banList);
+    void onBanListListCommand(const BanList &banList);
     void onBanListLoadCommand();
     void onBanListRemoveCommand();
     void onBanListSaveCommand();

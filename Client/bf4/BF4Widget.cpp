@@ -195,6 +195,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->commandHandler, SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&)));
 
     // Banning
+    connect(con->commandHandler, SIGNAL(onBanListListCommand(const BanList&)), this, SLOT(onBanListListCommand(const BanList&)));
 
     // FairFight
     connect(con->commandHandler, SIGNAL(onFairFightIsActiveCommand(const bool&)), this, SLOT(onFairFightIsActiveCommand(const bool&)));
@@ -571,6 +572,10 @@ void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList)
 }
 
 // Banning
+void BF4Widget::onBanListListCommand(const BanList &banList)
+{
+    setBanlist(banList);
+}
 
 // FairFight
 void BF4Widget::onFairFightIsActiveCommand(const bool &isActive)
@@ -838,6 +843,30 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
         }
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
+    }
+}
+
+/* BanList */
+void BF4Widget::addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason)
+{
+    int row = ui->tableWidget_bl_banList->rowCount();
+
+    ui->tableWidget_bl_banList->insertRow(row);
+    ui->tableWidget_bl_banList->setItem(row, 0, new QTableWidgetItem(idType));
+    ui->tableWidget_bl_banList->setItem(row, 1, new QTableWidgetItem(id));
+    ui->tableWidget_bl_banList->setItem(row, 2, new QTableWidgetItem(banType));
+    ui->tableWidget_bl_banList->setItem(row, 3, new QTableWidgetItem(QString::number(seconds)));
+    ui->tableWidget_bl_banList->setItem(row, 4, new QTableWidgetItem(QString::number(rounds)));
+    ui->tableWidget_bl_banList->setItem(row, 5, new QTableWidgetItem(reason));
+}
+
+void BF4Widget::setBanlist(const BanList &banList)
+{
+    ui->tableWidget_bl_banList->clearContents();
+    ui->tableWidget_bl_banList->setRowCount(0);
+
+    foreach (BanListEntry entry, banList) {
+        addBanListRow(entry.idType, entry.id, entry.banType, entry.seconds, entry.rounds, entry.reason);
     }
 }
 

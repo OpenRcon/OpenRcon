@@ -86,6 +86,7 @@ private slots:
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList);
 
     // Banning
+    void onBanListListCommand(const BanList &banList);
 
     // FairFight
     void onFairFightIsActiveCommand(const bool &isActive);
@@ -134,6 +135,10 @@ private slots:
     void setAvaliableMaplist(const int &gameModeIndex);
     void addCurrentMapListRow(const QString &name, const QString &gameMode, const int &rounds);
     void setCurrentMaplist(const MapList &mapList);
+
+    /* BanList */
+    void addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason);
+    void setBanlist(const BanList &banList);
 
     /* Options */
     void lineEdit_op_so_serverName_editingFinished();
