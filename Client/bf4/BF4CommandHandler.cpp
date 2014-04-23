@@ -847,7 +847,7 @@ void BF4CommandHandler::commandReservedSlotsListList(const FrostbiteRconPacket &
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK") {
         QStringList reservedSlotList;
 
         for (unsigned int i = 1; i < packet.getWordCount(); i++) {

@@ -55,6 +55,12 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     menu_bl_banList->addAction(action_bl_banList_remove);
 
+    // Reserved Slots
+    menu_rs_reservedSlotsList = new QMenu(ui->listWidget_rs_reservedSlotsList);
+    action_rs_reservedSlotsList_remove = new QAction(tr("Remove"), menu_rs_reservedSlotsList);
+
+    menu_rs_reservedSlotsList->addAction(action_rs_reservedSlotsList_remove);
+
     // Console
     commandList.append("login.plainText ");
     commandList.append("login.hashed");
@@ -270,6 +276,13 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(action_bl_banList_remove, SIGNAL(triggered()), this, SLOT(action_bl_banList_remove_triggered()));
 
     // Reserved Slots
+    connect(ui->listWidget_rs_reservedSlotsList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_rs_reservedSlotsList_customContextMenuRequested(QPoint)));
+    connect(action_rs_reservedSlotsList_remove, SIGNAL(triggered()), this, SLOT(action_rs_reservedSlotsList_remove_triggered()));
+    connect(ui->lineEdit_rs_player, SIGNAL(returnPressed()), this, SLOT(pushButton_rs_add_clicked()));
+    connect(ui->pushButton_rs_add, SIGNAL(clicked()), this, SLOT(pushButton_rs_add_clicked()));
+    connect(ui->pushButton_rs_load, SIGNAL(clicked()), this, SLOT(pushButton_rs_load_clicked()));
+    connect(ui->pushButton_rs_save, SIGNAL(clicked()), this, SLOT(pushButton_rs_save_clicked()));
+    connect(ui->pushButton_rs_clear, SIGNAL(clicked()), this, SLOT(pushButton_rs_clear_clicked()));
 
     // Spectator Slots
 
@@ -608,8 +621,8 @@ void BF4Widget::onPunkBusterIsActiveCommand(const bool &isActive)
 // Reserved Slots
 void BF4Widget::onReservedSlotsListListCommand(const QStringList &reservedSlotsList)
 {
-    ui->listWidget_rs_reservedSlots->clear();
-    ui->listWidget_rs_reservedSlots->addItems(reservedSlotsList);
+    ui->listWidget_rs_reservedSlotsList->clear();
+    ui->listWidget_rs_reservedSlotsList->addItems(reservedSlotsList);
 }
 
 // Spectator list
@@ -905,6 +918,55 @@ void BF4Widget::setBanlist(const BanList &banList)
 }
 
 /* Reserved Slots */
+void BF4Widget::listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos)
+{
+    if (ui->listWidget_rs_reservedSlotsList->itemAt(pos)) {
+        menu_rs_reservedSlotsList->exec(QCursor::pos());
+    }
+}
+
+void BF4Widget::action_rs_reservedSlotsList_remove_triggered()
+{
+    QString player = ui->listWidget_rs_reservedSlotsList->currentItem()->text();
+
+    if (!player.isEmpty()) {
+        delete ui->listWidget_rs_reservedSlotsList->currentItem();
+
+        con->sendCommand(QString("\"reservedSlotsList.remove\" \"%1\"").arg(player));
+        con->sendCommand("\"reservedSlotsList.list\" \"0\"");
+    }
+}
+
+void BF4Widget::pushButton_rs_add_clicked()
+{
+    QString player = ui->lineEdit_rs_player->text();
+
+    if (!player.isEmpty()) {
+        ui->lineEdit_rs_player->clear();
+        ui->listWidget_rs_reservedSlotsList->addItem(player);
+
+        con->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
+        con->sendCommand("reservedSlotsList.list");
+    }
+}
+
+void BF4Widget::pushButton_rs_load_clicked()
+{
+    con->sendCommand("reservedSlotsList.load");
+    con->sendCommand("reservedSlotsList.list");
+}
+
+void BF4Widget::pushButton_rs_save_clicked()
+{
+    con->sendCommand("reservedSlotsList.save");
+    con->sendCommand("reservedSlotsList.list");
+}
+
+void BF4Widget::pushButton_rs_clear_clicked()
+{
+    con->sendCommand("reservedSlotsList.clear");
+    con->sendCommand("reservedSlotsList.list");
+}
 
 /* Options */
 void BF4Widget::lineEdit_op_so_serverName_editingFinished()

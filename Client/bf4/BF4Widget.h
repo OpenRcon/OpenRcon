@@ -47,6 +47,10 @@ private:
     QMenu *menu_bl_banList;
     QAction *action_bl_banList_remove;
 
+    // Reserved Slots
+    QMenu *menu_rs_reservedSlotsList;
+    QAction *action_rs_reservedSlotsList_remove;
+
     // Console
     QCompleter *completer;
 
@@ -147,6 +151,14 @@ private slots:
 
     void addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason);
     void setBanlist(const BanList &banList);
+
+    /* Reserved Slots */
+    void listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos);
+    void action_rs_reservedSlotsList_remove_triggered();
+    void pushButton_rs_add_clicked();
+    void pushButton_rs_load_clicked();
+    void pushButton_rs_save_clicked();
+    void pushButton_rs_clear_clicked();
 
     /* Options */
     void lineEdit_op_so_serverName_editingFinished();
