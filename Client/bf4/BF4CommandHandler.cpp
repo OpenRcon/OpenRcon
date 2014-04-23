@@ -638,13 +638,20 @@ void BF4CommandHandler::commandBanListClear(const FrostbiteRconPacket &packet)
 
 void BF4CommandHandler::commandBanListList(const FrostbiteRconPacket &packet)
 {
-    QString response =packet.getWord(0).getContent();
+    QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 0) {
-        QStringList banList;
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QList<BanListEntry> banList;
 
-        for (unsigned int i = 1; i < packet.getWordCount(); i++) {
-            banList.append(packet.getWord(i).getContent());
+        for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
+            QString idType = packet.getWord(i).getContent();
+            QString id = packet.getWord(i + 1).getContent();
+            QString banType = packet.getWord(i + 2).getContent();
+            int seconds = toInt(packet.getWord(i + 3).getContent());
+            int rounds = toInt(packet.getWord(i + 4).getContent());
+            QString reason = packet.getWord(i + 5).getContent();
+
+            banList.append(BanListEntry(idType, id, banType, seconds, rounds, reason));
         }
 
         emit (onBanListListCommand(banList));

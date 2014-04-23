@@ -24,6 +24,7 @@
 
 #include "ServerInfo.h"
 #include "PlayerInfo.h"
+#include "BanListEntry.h"
 #include "MapListEntry.h"
 
 typedef QList<MapListEntry> MapList;
@@ -209,7 +210,7 @@ signals:
     void onAdminYellCommand();
     void onBanListAddCommand();
     void onBanListClearCommand();
-    void onBanListListCommand(const QStringList &banList);
+    void onBanListListCommand(const QList<BanListEntry> &banList);
     void onBanListLoadCommand();
     void onBanListRemoveCommand();
     void onBanListSaveCommand();
