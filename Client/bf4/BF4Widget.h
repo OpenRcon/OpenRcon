@@ -51,6 +51,10 @@ private:
     QMenu *menu_rs_reservedSlotsList;
     QAction *action_rs_reservedSlotsList_remove;
 
+    // Spectator List
+    QMenu *menu_ss_spectatorList;
+    QAction *action_ss_spectatorList_remove;
+
     // Console
     QCompleter *completer;
 
@@ -112,6 +116,7 @@ private slots:
     void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
 
     // Spectator list
+    void onSpectatorListListCommand(const QStringList &spectatorList);
 
     // Squad
 
@@ -159,6 +164,14 @@ private slots:
     void pushButton_rs_load_clicked();
     void pushButton_rs_save_clicked();
     void pushButton_rs_clear_clicked();
+
+    /* Spectator List */
+    void listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos);
+    void action_ss_spectatorList_remove_triggered();
+    void pushButton_ss_add_clicked();
+    void pushButton_ss_load_clicked();
+    void pushButton_ss_save_clicked();
+    void pushButton_ss_clear_clicked();
 
     /* Options */
     void lineEdit_op_so_serverName_editingFinished();

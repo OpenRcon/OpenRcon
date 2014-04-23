@@ -61,6 +61,12 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     menu_rs_reservedSlotsList->addAction(action_rs_reservedSlotsList_remove);
 
+    // Spectator List
+    menu_ss_spectatorList = new QMenu(ui->listWidget_ss_spectatorList);
+    action_ss_spectatorList_remove = new QAction(tr("Remove"), menu_ss_spectatorList);
+
+    menu_ss_spectatorList->addAction(action_ss_spectatorList_remove);
+
     // Console
     commandList.append("login.plainText ");
     commandList.append("login.hashed");
@@ -224,6 +230,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->commandHandler, SIGNAL(onReservedSlotsListListCommand(const QStringList&)), this, SLOT(onReservedSlotsListListCommand(const QStringList&)));
 
     // Spectator list
+    connect(con->commandHandler, SIGNAL(onSpectatorListListCommand(const QStringList&)), this, SLOT(onSpectatorListListCommand(const QStringList&)));
 
     // Squad
 
@@ -284,7 +291,14 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(ui->pushButton_rs_save, SIGNAL(clicked()), this, SLOT(pushButton_rs_save_clicked()));
     connect(ui->pushButton_rs_clear, SIGNAL(clicked()), this, SLOT(pushButton_rs_clear_clicked()));
 
-    // Spectator Slots
+    // Spectator List
+    connect(ui->listWidget_ss_spectatorList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_ss_spectatorList_customContextMenuRequested(QPoint)));
+    connect(action_ss_spectatorList_remove, SIGNAL(triggered()), this, SLOT(action_ss_spectatorList_remove_triggered()));
+    connect(ui->lineEdit_ss_player, SIGNAL(returnPressed()), this, SLOT(pushButton_ss_add_clicked()));
+    connect(ui->pushButton_ss_add, SIGNAL(clicked()), this, SLOT(pushButton_ss_add_clicked()));
+    connect(ui->pushButton_ss_load, SIGNAL(clicked()), this, SLOT(pushButton_ss_load_clicked()));
+    connect(ui->pushButton_ss_save, SIGNAL(clicked()), this, SLOT(pushButton_ss_save_clicked()));
+    connect(ui->pushButton_ss_clear, SIGNAL(clicked()), this, SLOT(pushButton_ss_clear_clicked()));
 
     // Console
     connect(ui->pushButton_co_co, SIGNAL(clicked()), this, SLOT(pushButton_co_co_clicked()));
@@ -626,6 +640,11 @@ void BF4Widget::onReservedSlotsListListCommand(const QStringList &reservedSlotsL
 }
 
 // Spectator list
+void BF4Widget::onSpectatorListListCommand(const QStringList &spectatorList)
+{
+    ui->listWidget_ss_spectatorList->clear();
+    ui->listWidget_ss_spectatorList->addItems(spectatorList);
+}
 
 // Squad
 
@@ -966,6 +985,57 @@ void BF4Widget::pushButton_rs_clear_clicked()
 {
     con->sendCommand("reservedSlotsList.clear");
     con->sendCommand("reservedSlotsList.list");
+}
+
+/* Spectator List */
+void BF4Widget::listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos)
+{
+    if (ui->listWidget_ss_spectatorList->itemAt(pos)) {
+        menu_ss_spectatorList->exec(QCursor::pos());
+    }
+}
+
+void BF4Widget::action_ss_spectatorList_remove_triggered()
+{
+    QString player = ui->listWidget_ss_spectatorList->currentItem()->text();
+
+    if (!player.isEmpty()) {
+        delete ui->listWidget_ss_spectatorList->currentItem();
+
+        con->sendCommand(QString("\"spectatorList.remove\" \"%1\"").arg(player));
+        con->sendCommand("spectatorList.list");
+    }
+}
+
+void BF4Widget::pushButton_ss_add_clicked()
+{
+    QString player = ui->lineEdit_ss_player->text();
+
+    if (!player.isEmpty()) {
+        ui->lineEdit_ss_player->clear();
+        ui->listWidget_ss_spectatorList->addItem(player);
+
+        con->sendCommand(QString("\"spectatorList.add\" \"%1\"").arg(player));
+        con->sendCommand("spectatorList.list");
+    }
+}
+
+void BF4Widget::pushButton_ss_load_clicked()
+{
+    con->sendCommand("spectatorList.load");
+    con->sendCommand("spectatorList.list");
+}
+
+void BF4Widget::pushButton_ss_save_clicked()
+{
+    con->sendCommand("spectatorList.save");
+    con->sendCommand("spectatorList.list");
+}
+
+void BF4Widget::pushButton_ss_clear_clicked()
+{
+    con->sendCommand("spectatorList.clear");
+    con->sendCommand("spectatorList.list");
 }
 
 /* Options */
