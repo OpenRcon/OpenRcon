@@ -75,7 +75,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>5</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -688,6 +688,12 @@
       <layout class="QGridLayout" name="gridLayout_14">
        <item row="0" column="0">
         <widget class="QTableWidget" name="tableWidget_bl_banList">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
          <property name="selectionMode">
           <enum>QAbstractItemView::SingleSelection</enum>
          </property>
@@ -829,7 +835,7 @@
           </layout>
          </item>
          <item row="1" column="0" rowspan="2" colspan="4">
-          <widget class="QListWidget" name="listWidget_rs"/>
+          <widget class="QListWidget" name="listWidget_rs_reservedSlots"/>
          </item>
         </layout>
        </item>
@@ -839,6 +845,15 @@
       <attribute name="title">
        <string>Spectator Slots</string>
       </attribute>
+      <layout class="QGridLayout" name="gridLayout_15">
+       <item row="0" column="0">
+        <widget class="QListWidget" name="listWidget_ss_spectatorList">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_co">
       <attribute name="title">

@@ -26,7 +26,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     /* User Inferface */
 
     // Players
-    menu_pl_players = new QMenu();
+    menu_pl_players = new QMenu(ui->treeWidget_pl_players);
     action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
     menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
 
@@ -44,12 +44,18 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     ui->comboBox_ch_target->addItem(tr("Team"));
     ui->comboBox_ch_target->addItem(tr("Squad"));
 
-    // Maplsit
+    // Maplist
     ui->comboBox_ml_gameMode->addItems(levels->getGameModeNames());
     setAvaliableMaplist(0);
     ui->spinBox_ml_rounds->setValue(2);
 
-    // Chat
+    // Banlist
+    menu_bl_banList = new QMenu(ui->tableWidget_bl_banList);
+    action_bl_banList_remove = new QAction(tr("Remove"), menu_bl_banList);
+
+    menu_bl_banList->addAction(action_bl_banList_remove);
+
+    // Console
     commandList.append("login.plainText ");
     commandList.append("login.hashed");
     commandList.append("login.hashed ");
@@ -260,6 +266,8 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(ui->tableWidget_ml_current, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_ml_current_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
 
     // Banlist
+    connect(ui->tableWidget_bl_banList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(tableWidget_bl_banList_customContextMenuRequested(QPoint)));
+    connect(action_bl_banList_remove, SIGNAL(triggered()), this, SLOT(action_bl_banList_remove_triggered()));
 
     // Reserved Slots
 
@@ -276,7 +284,6 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 BF4Widget::~BF4Widget()
 {
     delete ui;
-    delete levels;
 }
 
 void BF4Widget::startupCommands() {
@@ -601,8 +608,8 @@ void BF4Widget::onPunkBusterIsActiveCommand(const bool &isActive)
 // Reserved Slots
 void BF4Widget::onReservedSlotsListListCommand(const QStringList &reservedSlotsList)
 {
-    ui->listWidget_rs->clear();
-    ui->listWidget_rs->addItems(reservedSlotsList);
+    ui->listWidget_rs_reservedSlots->clear();
+    ui->listWidget_rs_reservedSlots->addItems(reservedSlotsList);
 }
 
 // Spectator list
@@ -853,6 +860,27 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
 }
 
 /* BanList */
+void BF4Widget::tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos)
+{
+    if (ui->tableWidget_bl_banList->itemAt(pos)) {
+        menu_bl_banList->exec(QCursor::pos());
+    }
+}
+
+void BF4Widget::action_bl_banList_remove_triggered()
+{
+    int row = ui->tableWidget_bl_banList->currentRow();
+    QString idType = ui->tableWidget_bl_banList->item(row, 0)->text();
+    QString player = ui->tableWidget_bl_banList->item(row, 1)->text();
+
+    if (!idType.isEmpty() && !player.isEmpty()) {
+        ui->tableWidget_bl_banList->removeRow(row);
+
+        con->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, player));
+        con->sendCommand("\"banList.list\" \"0\"");
+    }
+}
+
 void BF4Widget::addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason)
 {
     int row = ui->tableWidget_bl_banList->rowCount();

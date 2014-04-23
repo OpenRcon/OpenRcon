@@ -38,17 +38,21 @@ public:
 private:
     Ui::BF4 *ui;
 
+    // Players
     QMenu *menu_pl_players;
     QAction *action_pl_players_kill;
     QMenu *menu_pl_players_move;
 
+    // Banlist
+    QMenu *menu_bl_banList;
+    QAction *action_bl_banList_remove;
+
+    // Console
     QCompleter *completer;
 
     void startupCommands();
     void logMessage(const int &type, const QString &message);
     void logEvent(const QString &event, const QString &message);
-
-    /* User Interface */
 
     // Players
     QIcon getRankIcon(const int &rank);
@@ -87,6 +91,7 @@ private slots:
 
     // Banning
     void onBanListListCommand(const BanList &banList);
+    void action_bl_banList_remove_triggered();
 
     // FairFight
     void onFairFightIsActiveCommand(const bool &isActive);
@@ -138,6 +143,8 @@ private slots:
     void setCurrentMaplist(const MapList &mapList);
 
     /* BanList */
+    void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);
+
     void addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason);
     void setBanlist(const BanList &banList);
 
