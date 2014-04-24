@@ -30,7 +30,6 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     ui->listWidget_rs->setContextMenuPolicy(Qt::CustomContextMenu);
 
     action_pl_sendmessage = new QAction(tr("Send message"), this);
-    action_pl_stats = new QAction(tr("Stats"), this);
     action_pl_textchatmoderation_muted = new QAction(tr("Muted"), this);
     action_pl_textchatmoderation_normal = new QAction(tr("Normal"), this);
     action_pl_textchatmoderation_voice = new QAction(tr("Voice"), this);
@@ -48,7 +47,6 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
 
     menu_pl = new QMenu(tr("Players"), this);
     menu_pl->addAction(action_pl_sendmessage);
-    menu_pl->addAction(action_pl_stats);
     menu_pl_textchatmoderation = new QMenu(tr("Text Chat Moderation"), this);
     menu_pl_textchatmoderation->addAction(action_pl_textchatmoderation_muted);
     menu_pl_textchatmoderation->addAction(action_pl_textchatmoderation_normal);
@@ -241,7 +239,6 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(con->commandHandler, SIGNAL(onBanListListCommand(const QStringList&)), this, SLOT(onBanListListCommand(const QStringList&)));
     connect(con->commandHandler, SIGNAL(onReservedSlotsListCommand(const QStringList&)), this, SLOT(onReservedSlotsListCommand(const QStringList&)));
     connect(con->commandHandler, SIGNAL(onVarsIdleTimeoutCommand(const int &)), this, SLOT(onVarsIdleTimeoutCommand(const int &)));
-    //connect(con->commandHandler, SIGNAL(onMapListListRoundsCommand(QStringList)), this, SLOT(onCommandMapListListRoundsCommand(QStringList))); // TODO: Check this.
 
     /* User Interface */
 
@@ -270,13 +267,10 @@ BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &pa
     connect(ui->treeWidget_pl_players, SIGNAL(refresh()), this, SLOT(refreshPlayerList()));
 
     connect(action_pl_sendmessage, SIGNAL(triggered()), this, SLOT(action_pl_sendmessage_triggered()));
-    connect(action_pl_stats, SIGNAL(triggered()), this, SLOT(action_pl_stats_triggered()));
-
     connect(action_pl_textchatmoderation_muted, SIGNAL(triggered()), this, SLOT(action_pl_textchatmoderation_muted_triggered()));
     connect(action_pl_textchatmoderation_normal, SIGNAL(triggered()), this, SLOT(action_pl_textchatmoderation_normal_triggered()));
     connect(action_pl_textchatmoderation_voice, SIGNAL(triggered()), this, SLOT(action_pl_textchatmoderation_voice_triggered()));
     connect(action_pl_textchatmoderation_admin, SIGNAL(triggered()), this, SLOT(action_pl_textchatmoderation_admin_triggered()));
-
     connect(action_pl_kill, SIGNAL(triggered()), this, SLOT(action_pl_kill_triggered()));
     connect(action_pl_kick_custom, SIGNAL(triggered()), this, SLOT(action_pl_kick_custom_triggered()));
     connect(action_pl_ban_byname, SIGNAL(triggered()), this, SLOT(action_pl_ban_byname_triggered()));
@@ -677,7 +671,7 @@ void BFBC2Widget::startupCommands()
 }
 
 // Player
-void BFBC2Widget::treeWidget_pl_players_customContextMenuRequested(QPoint pos)
+void BFBC2Widget::treeWidget_pl_players_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->treeWidget_pl_players->itemAt(pos)) {
         // Something crash here.
@@ -702,13 +696,6 @@ void BFBC2Widget::action_pl_sendmessage_triggered()
     if (ok && !msg.isEmpty()) {
         sendSayMessage(msg, player);
     }
-}
-
-void BFBC2Widget::action_pl_stats_triggered()
-{
-    QString player = ui->treeWidget_pl_players->currentItem()->text(1);
-
-    QDesktopServices::openUrl(QUrl(PLAYER_STATS_URL + player));
 }
 
 void BFBC2Widget::action_pl_kill_triggered()
@@ -1048,7 +1035,7 @@ void BFBC2Widget::on_pushButton_ml_save_clicked()
 }
 
 // BanList
-void BFBC2Widget::listWidget_bl_customContextMenuRequested(QPoint pos)
+void BFBC2Widget::listWidget_bl_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->tableWidget_bl->itemAt(pos)) {
         menu_bl->exec(QCursor::pos());
@@ -1090,7 +1077,7 @@ void BFBC2Widget::on_pushButton_bl_save_clicked()
 }
 
 // Reserved slots
-void BFBC2Widget::listWidget_rs_customContextMenuRequested(QPoint pos)
+void BFBC2Widget::listWidget_rs_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->listWidget_rs->itemAt(pos)) {
         menu_rs->exec(QCursor::pos());

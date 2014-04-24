@@ -31,9 +31,6 @@
 
 #include "ui_BFBC2.h"
 #include "BFBC2.h"
-#include "BFBC2Constants.h"
-
-using namespace BFBC2Constants;
 
 class BFBC2Widget : public BFBC2
 {
@@ -47,7 +44,6 @@ private:
     Ui::BFBC2 *ui;
 
     QAction *action_pl_sendmessage;
-    QAction *action_pl_stats;
     QAction *action_pl_textchatmoderation_muted;
     QAction *action_pl_textchatmoderation_normal;
     QAction *action_pl_textchatmoderation_voice;
@@ -122,13 +118,12 @@ private slots:
     /* User Interface */
 
     /* Players Tab */
-    void treeWidget_pl_players_customContextMenuRequested(QPoint pos);
+    void treeWidget_pl_players_customContextMenuRequested(const QPoint &pos);
     void action_pl_sendmessage_triggered();
     void action_pl_textchatmoderation_muted_triggered();
     void action_pl_textchatmoderation_normal_triggered();
     void action_pl_textchatmoderation_voice_triggered();
     void action_pl_textchatmoderation_admin_triggered();
-    void action_pl_stats_triggered();
     void action_pl_kill_triggered();
     void action_pl_kick_custom_triggered();
     void action_pl_ban_byname_triggered();
@@ -170,18 +165,19 @@ private slots:
     void on_pushButton_ml_save_clicked();
 
     /* Banlist Tab*/
-    void listWidget_bl_customContextMenuRequested(QPoint);
+    void listWidget_bl_customContextMenuRequested(const QPoint &pos);
     void action_bl_remove_triggered();
     void on_pushButton_bl_ban_clicked();
     void on_pushButton_bl_clear_clicked();
     void on_pushButton_bl_save_clicked();
 
     /* Reserved Slots Tab */
-    void listWidget_rs_customContextMenuRequested(QPoint);
+    void listWidget_rs_customContextMenuRequested(const QPoint &pos);
     void action_rs_remove_triggered();
     void on_pushButton_rs_reserve_clicked();
-    void on_pushButton_rs_clear_clicked();
+    void on_pushButton_rs_load_clicked();
     void on_pushButton_rs_save_clicked();
+    void on_pushButton_rs_clear_clicked();
 
     /* Chat Tab */
     void comboBox_ch_type_currentIndexChanged(int index);
@@ -202,7 +198,6 @@ private slots:
     // Other stuff.
     void setMapList(const QString &gamemode);
 
-    void on_pushButton_rs_load_clicked();
 };
 
 #endif // BFBC2WIDGET_H
