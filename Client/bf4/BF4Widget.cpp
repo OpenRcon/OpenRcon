@@ -260,7 +260,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     // Chat
     connect(ui->comboBox_ch_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ch_mode_currentIndexChanged(int)));
-    connect(ui->pushButton_ch, SIGNAL(clicked()), this, SLOT(pushButton_ch_clicked()));
+    connect(ui->pushButton_ch_send, SIGNAL(clicked()), this, SLOT(pushButton_ch_send_clicked()));
     connect(ui->lineEdit_ch, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_clicked()));
 
     // Options
@@ -359,9 +359,9 @@ void BF4Widget::logEvent(const QString &event, const QString &message)
     addEvent(event, message);
 }
 
-void BF4Widget::logChat(const QString &sender, const QString &message)
+void BF4Widget::logChat(const QString &sender, const QString &message, const QString &target)
 {
-    ui->textEdit_ch->append(QString("[%1] %2: <span style=\"color:#008000\">%3</span>").arg(QTime::currentTime().toString(), sender, message));
+    ui->textEdit_ch->append(QString("[%1] (%2) %3: <span style=\"color:#008000\">%3</span>").arg(QTime::currentTime().toString(), target, sender, message));
 }
 
 void BF4Widget::logConsole(const int &type, const QString &message)
@@ -400,24 +400,24 @@ void BF4Widget::onDataReceived(const QString &response)
 
 void BF4Widget::onPlayerAuthenticated(const QString &player, const QString &guid)
 {
-    logEvent(tr("PlayerAuthenticated"), tr("Player %1 authenticated with GUID: %2.").arg(player).arg(guid));
+    logEvent("PlayerAuthenticated", tr("Player %1 authenticated with GUID: %2.").arg(player).arg(guid));
 }
 
 void BF4Widget::onPlayerJoin(const QString &player)
 {
-    logEvent(tr("PlayerJoin"), tr("Player %1 joined the game.").arg(player));
+    logEvent("PlayerJoin", tr("Player %1 joined the game.").arg(player));
 }
 
 void BF4Widget::onPlayerLeave(const QString &player, const QString &info)
 {
     Q_UNUSED(info);
 
-    logEvent(tr("PlayerLeave"), tr("Player %1 left the game.").arg(player)); // TODO: Impelment score stuffs here?
+    logEvent("PlayerLeave", tr("Player %1 left the game.").arg(player)); // TODO: Impelment score stuffs here?
 }
 
 void BF4Widget::onPlayerSpawn(const QString &player, const int &teamId)
 {
-    logEvent(tr("PlayerSpawn"), tr("Player %1 spawned, and is on team %2.").arg(player).arg(teamId));
+    logEvent("PlayerSpawn", tr("Player %1 spawned, and is on team %2.").arg(player).arg(teamId));
 }
 
 void BF4Widget::onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot)
@@ -431,18 +431,18 @@ void BF4Widget::onPlayerKill(const QString &killer, const QString &victim, const
             message = tr("Player %1 killed player %2 with %3.").arg(killer).arg(victim).arg(weapon);
         }
     } else {
-        message = tr("Player %1 commited sucide using %3.").arg(killer).arg(weapon);
+        message = tr("Player %1 commited sucide using %2.").arg(killer).arg(weapon);
     }
 
-    logEvent(tr("PlayerKill"), message);
+    logEvent("PlayerKill", message);
 }
 
 void BF4Widget::onPlayerChat(const QString &sender, const QString &message, const QString &target)
 {
     Q_UNUSED(target);
 
-    logEvent(tr("PlayerChat"), QString("%1: %2").arg(sender).arg(message));
-    logChat(sender, message);
+    logEvent("PlayerChat", QString("%1: %2").arg(sender).arg(message));
+    logChat(sender, message, target);
 }
 
 void BF4Widget::onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId)
@@ -450,7 +450,7 @@ void BF4Widget::onPlayerSquadChange(const QString &player, const int &teamId, co
     Q_UNUSED(teamId);
 
     if (squadId != 0) {
-        logEvent(tr("PlayerSquadChange"), tr("Player %1 changed squad to %2.").arg(player).arg(getSquadName(squadId)));
+        logEvent("PlayerSquadChange", tr("Player %1 changed squad to %2.").arg(player).arg(getSquadName(squadId)));
     }
 }
 
@@ -458,7 +458,7 @@ void BF4Widget::onPlayerTeamChange(const QString &player, const int &teamId, con
 {
     Q_UNUSED(squadId);
 
-    logEvent(tr("PlayerTeamChange"), tr("Player %1 changed team to %2.").arg(player).arg(teamId));
+    logEvent("PlayerTeamChange", tr("Player %1 changed team to %2.").arg(player).arg(teamId));
 }
 
 void BF4Widget::onPunkBusterMessage(const QString &message)
@@ -479,22 +479,22 @@ void BF4Widget::onServerLevelLoaded(const QString &levelName, const QString &gam
     LevelEntry level = levels->getLevel(levelName);
     GameModeEntry gameMode = levels->getGameMode(gameModeName);
 
-    logEvent(tr("ServerLevelLoaded"), tr("Loading level %1 running gamemode %2.").arg(level.name).arg(gameMode.name));
+    logEvent("ServerLevelLoaded", tr("Loading level %1 running gamemode %2.").arg(level.name).arg(gameMode.name));
 }
 
 void BF4Widget::onServerRoundOver(const int &winningTeamId)
 {
-    logEvent(tr("ServerRoundOver"), tr("The round has just ended, and %1 won.").arg(winningTeamId));
+    logEvent("ServerRoundOver", tr("The round has just ended, and %1 won.").arg(winningTeamId));
 }
 
 void BF4Widget::onServerRoundOverPlayers(const QString &playerInfo)
 {
-    logEvent(tr("ServerRoundOverPlayers"), tr("The round has just ended, and %1 is the final detailed player stats.").arg(playerInfo)); // TODO: Check what this actually outputs.
+    logEvent("ServerRoundOverPlayers", tr("The round has just ended, and %1 is the final detailed player stats.").arg(playerInfo)); // TODO: Check what this actually outputs.
 }
 
 void BF4Widget::onServerRoundOverTeamScores(const QString &teamScores)
 {
-    logEvent(tr("ServerRoundOverTeamScores"), tr("The round has just ended, and %1 is the final ticket/kill/life count for each team.").arg(teamScores));
+    logEvent("ServerRoundOverTeamScores", tr("The round has just ended, and %1 is the final ticket/kill/life count for each team.").arg(teamScores));
 }
 
 /* Commands */
@@ -710,7 +710,7 @@ void BF4Widget::action_pl_players_kill_triggered()
 }
 
 /* Chat */
-void BF4Widget::comboBox_ch_mode_currentIndexChanged(int index)
+void BF4Widget::comboBox_ch_mode_currentIndexChanged(const int &index)
 {
     switch (index) {
         case 0:
@@ -723,7 +723,7 @@ void BF4Widget::comboBox_ch_mode_currentIndexChanged(int index)
     }
 }
 
-void BF4Widget::pushButton_ch_clicked()
+void BF4Widget::pushButton_ch_send_clicked()
 {
     int type = ui->comboBox_ch_mode->currentIndex();
 

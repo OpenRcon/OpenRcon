@@ -60,7 +60,7 @@ private:
 
     void startupCommands();
     void logEvent(const QString &event, const QString &message);
-    void logChat(const QString &sender, const QString &message);
+    void logChat(const QString &sender, const QString &message, const QString &target);
     void logConsole(const int &type, const QString &message);
 
     // Players
@@ -137,8 +137,8 @@ private slots:
     void action_pl_players_kill_triggered();
 
     /* Chat */
-    void comboBox_ch_mode_currentIndexChanged(int index);
-    void pushButton_ch_clicked();
+    void comboBox_ch_mode_currentIndexChanged(const int &index);
+    void pushButton_ch_send_clicked();
 
     /* Maplist */
     void comboBox_ml_gameMode_currentIndexChanged(int);

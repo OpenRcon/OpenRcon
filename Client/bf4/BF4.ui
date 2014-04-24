@@ -75,7 +75,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -203,7 +203,7 @@
         </widget>
        </item>
        <item row="1" column="4">
-        <widget class="QPushButton" name="pushButton_ch">
+        <widget class="QPushButton" name="pushButton_ch_send">
          <property name="text">
           <string>Send</string>
          </property>
@@ -225,7 +225,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget_op">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_so_de">
           <attribute name="title">
@@ -961,7 +961,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget_co">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="documentMode">
           <bool>false</bool>
