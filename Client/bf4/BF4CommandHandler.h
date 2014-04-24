@@ -24,8 +24,10 @@
 
 #include "ServerInfo.h"
 #include "PlayerInfo.h"
+#include "BanListEntry.h"
 #include "MapListEntry.h"
 
+typedef QList<BanListEntry> BanList;
 typedef QList<MapListEntry> MapList;
 
 class BF4CommandHandler : public BFBaseCommandHandler
@@ -177,7 +179,7 @@ signals:
     void onPlayerLeave(const QString &player, const QString &info);
     void onPlayerSpawn(const QString &player, const int &teamId);
     void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
-    void onPlayerChat(const QString &player, const QString &message, const QString &target);
+    void onPlayerChat(const QString &sender, const QString &message, const QString &target);
     void onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
     void onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
     void onPunkBusterMessage(const QString &message);
@@ -209,7 +211,7 @@ signals:
     void onAdminYellCommand();
     void onBanListAddCommand();
     void onBanListClearCommand();
-    void onBanListListCommand(const QStringList &banList);
+    void onBanListListCommand(const BanList &banList);
     void onBanListLoadCommand();
     void onBanListRemoveCommand();
     void onBanListSaveCommand();
@@ -244,7 +246,7 @@ signals:
     void onReservedSlotsListSaveCommand();
     void onSpectatorListAddCommand();
     void onSpectatorListClearCommand();
-    void onSpectatorListListCommand();
+    void onSpectatorListListCommand(const QStringList &spectatorList);
     void onSpectatorListRemoveCommand();
     void onSpectatorListSaveCommand();
     void onSquadLeaderCommand();

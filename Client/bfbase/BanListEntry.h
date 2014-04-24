@@ -17,19 +17,25 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BFBC2CONSTANTS_H
-#define BFBC2CONSTANTS_H
+#ifndef BANLISTENTRY_H
+#define BANLISTENTRY_H
 
 #include <QString>
 
-namespace BFBC2Constants {
-    const QString PLAYER_STATS_URL = "http://bfbcs.com/stats_pc/";
+// 6 words (Id-type, id, ban-type, seconds left, rounds left, and reason)
 
-    const QString RESOURCE_IMAGE_LEVELS = ":/bfbc2/images/levels/";
+struct BanListEntry {
+    BanListEntry(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason) : idType(idType), id(id), banType(banType), seconds(seconds), rounds(rounds), reason(reason)
+    {
 
-    const QString SETTINGS_INGAMECOMMANDS = "BFBC2/IngameCommands";
-    const QString SETTINGS_INGAMECOMMANDS_USERS = "IngameCommandsUsers";
+    }
 
-}
+    QString idType;
+    QString id;
+    QString banType;
+    int seconds;
+    int rounds;
+    QString reason;
+};
 
-#endif // BFBC2CONSTANTS_H
+#endif // BANLISTENTRY_H

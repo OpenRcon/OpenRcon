@@ -487,10 +487,10 @@ void BF4CommandHandler::commandVersion(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() == 3) {
+    if (response == "OK" && packet.getWordCount() > 1) {
         QString type = packet.getWord(1).getContent();
-        int buildId = QString(packet.getWord(2).getContent()).toInt();
-        QString version;
+        int buildId = toInt(packet.getWord(2).getContent());
+        QString version = QString::number(buildId);
 
         QMap<int, QString> versionMap;
         versionMap.insert(70517, "OB-R2");
@@ -524,14 +524,13 @@ void BF4CommandHandler::commandVersion(const FrostbiteRconPacket &packet)
         versionMap.insert(114240, "R29");
         versionMap.insert(115397, "R30");
         versionMap.insert(117719, "R31");
+        versionMap.insert(120511, "R32");
 
         if (versionMap.contains(buildId)) {
             version = versionMap.value(buildId);
         }
 
         emit (onVersionCommand(type, buildId, version));
-    } else if (response == "InvalidArguments") {
-        emit (onUnknownCommand());
     }
 }
 
@@ -638,13 +637,20 @@ void BF4CommandHandler::commandBanListClear(const FrostbiteRconPacket &packet)
 
 void BF4CommandHandler::commandBanListList(const FrostbiteRconPacket &packet)
 {
-    QString response =packet.getWord(0).getContent();
+    QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 0) {
-        QStringList banList;
+    if (response == "OK" && packet.getWordCount() > 1) {
+        BanList banList;
 
-        for (unsigned int i = 1; i < packet.getWordCount(); i++) {
-            banList.append(packet.getWord(i).getContent());
+        for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
+            QString idType = packet.getWord(i).getContent();
+            QString id = packet.getWord(i + 1).getContent();
+            QString banType = packet.getWord(i + 2).getContent();
+            int seconds = toInt(packet.getWord(i + 3).getContent());
+            int rounds = toInt(packet.getWord(i + 4).getContent());
+            QString reason = packet.getWord(i + 5).getContent();
+
+            banList.append(BanListEntry(idType, id, banType, seconds, rounds, reason));
         }
 
         emit (onBanListListCommand(banList));
@@ -839,7 +845,7 @@ void BF4CommandHandler::commandReservedSlotsListList(const FrostbiteRconPacket &
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK") {
         QStringList reservedSlotList;
 
         for (unsigned int i = 1; i < packet.getWordCount(); i++) {
@@ -877,7 +883,17 @@ void BF4CommandHandler::commandSpectatorListClear(const FrostbiteRconPacket &pac
 
 void BF4CommandHandler::commandSpectatorListList(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK") {
+        QStringList spectatorList;
+
+        for (unsigned int i = 1; i < packet.getWordCount(); i++) {
+            spectatorList.append(packet.getWord(i).getContent());
+        }
+
+        emit (onSpectatorListListCommand(spectatorList));
+    }
 }
 
 void BF4CommandHandler::commandSpectatorListRemove(const FrostbiteRconPacket &packet)

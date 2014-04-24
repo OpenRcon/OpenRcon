@@ -20,7 +20,7 @@
 #ifndef BF4WIDGET_H
 #define BF4WIDGET_H
 
-#include <QDateTime>
+#include <QTime>
 #include <QMenu>
 #include <QCompleter>
 
@@ -38,17 +38,30 @@ public:
 private:
     Ui::BF4 *ui;
 
+    // Players
     QMenu *menu_pl_players;
     QAction *action_pl_players_kill;
     QMenu *menu_pl_players_move;
 
+    // Banlist
+    QMenu *menu_bl_banList;
+    QAction *action_bl_banList_remove;
+
+    // Reserved Slots
+    QMenu *menu_rs_reservedSlotsList;
+    QAction *action_rs_reservedSlotsList_remove;
+
+    // Spectator List
+    QMenu *menu_ss_spectatorList;
+    QAction *action_ss_spectatorList_remove;
+
+    // Console
     QCompleter *completer;
 
     void startupCommands();
-    void logMessage(const int &type, const QString &message);
     void logEvent(const QString &event, const QString &message);
-
-    /* User Interface */
+    void logChat(const QString &sender, const QString &message, const QString &target);
+    void logConsole(const int &type, const QString &message);
 
     // Players
     QIcon getRankIcon(const int &rank);
@@ -66,7 +79,7 @@ private slots:
     void onPlayerLeave(const QString &player, const QString &info);
     void onPlayerSpawn(const QString &player, const int &teamdId);
     void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
-    void onPlayerChat(const QString &player, const QString &message, const QString &target);
+    void onPlayerChat(const QString &sender, const QString &message, const QString &target);
     void onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
     void onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
     void onPunkBusterMessage(const QString &message);
@@ -86,6 +99,8 @@ private slots:
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList);
 
     // Banning
+    void onBanListListCommand(const BanList &banList);
+    void action_bl_banList_remove_triggered();
 
     // FairFight
     void onFairFightIsActiveCommand(const bool &isActive);
@@ -99,8 +114,10 @@ private slots:
     void onPunkBusterIsActiveCommand(const bool &isActive);
 
     // Reserved Slots
+    void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
 
     // Spectator list
+    void onSpectatorListListCommand(const QStringList &spectatorList);
 
     // Squad
 
@@ -120,8 +137,8 @@ private slots:
     void action_pl_players_kill_triggered();
 
     /* Chat */
-    void comboBox_ch_mode_currentIndexChanged(int index);
-    void pushButton_ch_clicked();
+    void comboBox_ch_mode_currentIndexChanged(const int &index);
+    void pushButton_ch_send_clicked();
 
     /* Maplist */
     void comboBox_ml_gameMode_currentIndexChanged(int);
@@ -134,6 +151,28 @@ private slots:
     void setAvaliableMaplist(const int &gameModeIndex);
     void addCurrentMapListRow(const QString &name, const QString &gameMode, const int &rounds);
     void setCurrentMaplist(const MapList &mapList);
+
+    /* BanList */
+    void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);
+
+    void addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason);
+    void setBanlist(const BanList &banList);
+
+    /* Reserved Slots */
+    void listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos);
+    void action_rs_reservedSlotsList_remove_triggered();
+    void pushButton_rs_add_clicked();
+    void pushButton_rs_load_clicked();
+    void pushButton_rs_save_clicked();
+    void pushButton_rs_clear_clicked();
+
+    /* Spectator List */
+    void listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos);
+    void action_ss_spectatorList_remove_triggered();
+    void pushButton_ss_add_clicked();
+    void pushButton_ss_load_clicked();
+    void pushButton_ss_save_clicked();
+    void pushButton_ss_clear_clicked();
 
     /* Options */
     void lineEdit_op_so_serverName_editingFinished();

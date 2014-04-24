@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QGridLayout" name="gridLayout_7">
    <item row="0" column="0">
@@ -75,7 +75,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -203,7 +203,7 @@
         </widget>
        </item>
        <item row="1" column="4">
-        <widget class="QPushButton" name="pushButton_ch">
+        <widget class="QPushButton" name="pushButton_ch_send">
          <property name="text">
           <string>Send</string>
          </property>
@@ -318,7 +318,7 @@
              <item row="1" column="0" colspan="2">
               <widget class="QCheckBox" name="checkBox_so_co_punkBuster">
                <property name="text">
-                <string>Punkbuster</string>
+                <string>PunkBuster</string>
                </property>
               </widget>
              </item>
@@ -685,6 +685,63 @@
       <attribute name="title">
        <string>Banlist</string>
       </attribute>
+      <layout class="QGridLayout" name="gridLayout_14">
+       <item row="0" column="0">
+        <widget class="QTableWidget" name="tableWidget_bl_banList">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>Id-type</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Id</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Ban-type</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Seconds</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Rounds</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Reason</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_rs">
       <attribute name="title">
@@ -719,17 +776,17 @@
        </item>
        <item row="0" column="1">
         <layout class="QGridLayout" name="gridLayout_6">
-         <item row="0" column="0">
-          <widget class="QLineEdit" name="lineEdit"/>
+         <item row="3" column="0">
+          <widget class="QLineEdit" name="lineEdit_rs_player"/>
          </item>
-         <item row="0" column="1" colspan="3">
-          <widget class="QPushButton" name="pushButton_3">
+         <item row="3" column="1" colspan="4">
+          <widget class="QPushButton" name="pushButton_rs_add">
            <property name="text">
             <string>Add</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="4" rowspan="3">
+         <item row="0" column="5" rowspan="4">
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <spacer name="verticalSpacer_4">
@@ -745,22 +802,25 @@
             </spacer>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_7">
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>Remove</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_2">
-               <property name="text">
-                <string>Clear</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <widget class="QPushButton" name="pushButton_rs_load">
+             <property name="text">
+              <string>Load</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_rs_save">
+             <property name="text">
+              <string>Save</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_rs_clear">
+             <property name="text">
+              <string>Clear</string>
+             </property>
+            </widget>
            </item>
            <item>
             <spacer name="verticalSpacer_5">
@@ -777,8 +837,12 @@
            </item>
           </layout>
          </item>
-         <item row="1" column="0" rowspan="2" colspan="4">
-          <widget class="QListWidget" name="listWidget"/>
+         <item row="0" column="0" rowspan="3" colspan="5">
+          <widget class="QListWidget" name="listWidget_rs_reservedSlotsList">
+           <property name="contextMenuPolicy">
+            <enum>Qt::CustomContextMenu</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -788,6 +852,106 @@
       <attribute name="title">
        <string>Spectator Slots</string>
       </attribute>
+      <layout class="QGridLayout" name="gridLayout_16">
+       <item row="0" column="1">
+        <layout class="QGridLayout" name="gridLayout_15">
+         <item row="1" column="1">
+          <widget class="QPushButton" name="pushButton_ss_add">
+           <property name="text">
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLineEdit" name="lineEdit_ss_player"/>
+         </item>
+         <item row="0" column="0" colspan="2">
+          <widget class="QListWidget" name="listWidget_ss_spectatorList">
+           <property name="contextMenuPolicy">
+            <enum>Qt::CustomContextMenu</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" rowspan="2">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <spacer name="verticalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_ss_load">
+             <property name="text">
+              <string>Load</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_ss_save">
+             <property name="text">
+              <string>Save</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_ss_clear">
+             <property name="text">
+              <string>Clear</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="2">
+        <spacer name="horizontalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_co">
       <attribute name="title">
