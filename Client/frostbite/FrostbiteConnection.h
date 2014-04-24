@@ -48,6 +48,7 @@ private:
     QVector<FrostbiteRconPacket> packetSendQueue;
     unsigned int nextPacketSequence;
 
+    void clear();
     void handlePacket(const FrostbiteRconPacket &packet);
 
     enum PacketReading {

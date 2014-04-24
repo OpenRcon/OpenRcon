@@ -133,8 +133,6 @@ FrostbiteRconPacket &FrostbiteRconPacket::operator= (const FrostbiteRconPacket &
         for (unsigned int i = 0; i < packet.getWordCount(); i++) {
             packWord(packet.getWord(i));
         }
-    } else {
-        qDebug() << "FrostbiteRconPacket::operator= (this)";
     }
 
     return *this;

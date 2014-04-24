@@ -33,10 +33,7 @@ FrostbiteConnection::~FrostbiteConnection()
 void FrostbiteConnection::hostConnect(const QString &host, const int &port)
 {
     if (!tcpSocket->isOpen()) {
-        packetSendQueue.clear();
-        packetReadState = PacketReadingHeader;
-        nextPacketSequence = 0;
-
+        clear();
         tcpSocket->connectToHost(host, port);
     } else {
         qDebug() << tr("Already connected to %1:%2.").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
@@ -126,6 +123,13 @@ void FrostbiteConnection::readyRead()
             break;
         }
     }
+}
+
+void FrostbiteConnection::clear()
+{
+    packetSendQueue.clear();
+    packetReadState = PacketReadingHeader;
+    nextPacketSequence = 0;
 }
 
 void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)

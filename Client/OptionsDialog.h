@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SETTINGSDIALOG_H
-#define SETTINGSDIALOG_H
+#ifndef OPTIONSDIALOG_H
+#define OPTIONSDIALOG_H
 
 #include <QObject>
 #include <QSettings>
@@ -59,4 +59,4 @@ private slots:
 
 };
 
-#endif // SETTINGS_H
+#endif // OPTIONSDIALOG_H
