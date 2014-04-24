@@ -205,11 +205,6 @@
     <string>About Qt</string>
    </property>
   </action>
-  <action name="actionWhat_s_This">
-   <property name="text">
-    <string>What's This?</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
