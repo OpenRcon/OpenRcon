@@ -154,15 +154,19 @@ void OpenRcon::addTab(const int &game, const QString &name, const QString &host,
                 break;
 
             case 1:
-                gameObject = new BF4Widget(host, port, password);
+                gameObject = new BF3Widget(host, port, password);
                 break;
 
             case 2:
+                gameObject = new BF4Widget(host, port, password);
+                break;
+
+            case 3:
                 gameObject = new MinecraftWidget(host, port, password);
                 break;
         }
 
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, entry.icon, QString("%1 [%2:%3]").arg(name).arg(host).arg(port)));
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, entry.icon, QString("%1 [%2:%3]").arg(name, host).arg(port)));
     } else {
         qDebug() << tr("Unknown game specified, the id was: %1.").arg(game);
     }

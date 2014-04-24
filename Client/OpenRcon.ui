@@ -104,6 +104,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionDocumentation"/>
+    <addaction name="actionVisit_website"/>
     <addaction name="actionReport_bug"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
@@ -203,6 +204,11 @@
   <action name="actionAbout_Qt">
    <property name="text">
     <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionVisit_website">
+   <property name="text">
+    <string>Visit website</string>
    </property>
   </action>
  </widget>
