@@ -22,8 +22,6 @@
 
 #include <QObject>
 
-#include "ServerEntry.h"
-
 class ConnectionManager : public QObject
 {
     Q_OBJECT
@@ -31,8 +29,6 @@ class ConnectionManager : public QObject
 public:
     explicit ConnectionManager(QObject *parent = 0);
     ~ConnectionManager();
-
-    bool isConnectedToServer(const ServerEntry &serverEntry);
 
 };
 
