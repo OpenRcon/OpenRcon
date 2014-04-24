@@ -7,14 +7,14 @@
     </qresource>
     <qresource prefix="/icons">
         <file alias="openrcon.png">images/icons/openrcon.png</file>
-        <file>images/icons/utilities-terminal.png</file>
+        <file>images/icons/console.png</file>
+        <file>images/icons/internet.png</file>
         <file>images/icons/network-server.png</file>
-        <file>images/icons/system-users.png</file>
-        <file>images/icons/user-invisible.png</file>
-        <file>images/icons/punkbuster.png</file>
-        <file>images/icons/applications-system.png</file>
-        <file>images/icons/accessories-dictionary.png</file>
+        <file>images/icons/options.png</file>
         <file>images/icons/options-behavior.png</file>
+        <file>images/icons/punkbuster.png</file>
+        <file>images/icons/level-next.png</file>
+        <file>images/icons/level-restart.png</file>
     </qresource>
     <qresource prefix="/flags">
         <file>images/flags/algeria.png</file>

@@ -176,7 +176,7 @@
   <action name="actionOptions">
    <property name="icon">
     <iconset resource="OpenRcon.qrc">
-     <normaloff>:/icons/images/icons/applications-system.png</normaloff>:/icons/images/icons/applications-system.png</iconset>
+     <normaloff>:/icons/images/icons/options.png</normaloff>:/icons/images/icons/options.png</iconset>
    </property>
    <property name="text">
     <string>Options</string>
@@ -189,7 +189,7 @@
   </action>
   <action name="actionDocumentation">
    <property name="icon">
-    <iconset resource="OpenRcon.qrc">
+    <iconset>
      <normaloff>:/icons/images/icons/accessories-dictionary.png</normaloff>:/icons/images/icons/accessories-dictionary.png</iconset>
    </property>
    <property name="text">
@@ -207,6 +207,10 @@
    </property>
   </action>
   <action name="actionVisit_website">
+   <property name="icon">
+    <iconset resource="OpenRcon.qrc">
+     <normaloff>:/icons/images/icons/internet.png</normaloff>:/icons/images/icons/internet.png</iconset>
+   </property>
    <property name="text">
     <string>Visit website</string>
    </property>

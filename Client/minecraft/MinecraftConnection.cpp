@@ -100,7 +100,7 @@ void MinecraftConnection::readyRead()
         QString tempCharString = QString();
         for(int i = 0; i < actualArrayLength; i++)
         {
-            QString xAsHex = QString("%1").arg(content[i], 0, 16);
+            QString xAsHex = QString(content[i]);
             tempHexString += " ";
             tempHexString += xAsHex;
             tempCharString += " ";
