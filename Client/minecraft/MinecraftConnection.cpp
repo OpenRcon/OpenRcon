@@ -92,37 +92,7 @@ void MinecraftConnection::readyRead()
         qDebug() << "Request ID: " << id;
         qDebug() << "Type: " << type;
         qDebug() << "Payload:" << content;
-        qDebug() << "Hex data: ";
-        //Print out neat dump of content hex data
-        int actualArrayLength = sizeof(content)/sizeof(*content); //This is SUPPOSED to be a heartbleed-type exploit prevention
-        QString hexString = QString();
-        QString tempHexString = QString();
-        QString tempCharString = QString();
-        for(int i = 0; i < actualArrayLength; i++)
-        {
-            QString xAsHex = QString(content[i]);
-            tempHexString += " ";
-            tempHexString += xAsHex;
-            tempCharString += " ";
-            tempCharString += content[i];
-            if(i%17==16)
-            {
-                hexString += tempHexString;
-                hexString += " || ";
-                hexString += tempCharString;
-                hexString += "\n";
-                tempHexString.clear();
-                tempCharString.clear();
-            }
-        }
-        if(tempHexString.length()!=0)
-        {
-            hexString += tempHexString;
-            hexString += " || ";
-            hexString += tempCharString;
-            hexString += "\n";
-        }
-        qDebug() << hexString << "\n";
+        qDebug() << "Hex data:" << QByteArray(content).toHex();
 
         // Create and handle the packet.
         MinecraftRconPacket packet(id, type, content);
