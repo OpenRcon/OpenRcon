@@ -120,7 +120,7 @@ void ServerListDialog::addItem()
             sed->getName(),
             sed->getHost(),
             sed->getPort(),
-            sed->getPassword()
+            sed->getPassword().replace(" ", "")
         );
 
         serverManager->addServer(entry);
@@ -149,7 +149,7 @@ void ServerListDialog::editItem()
                 sed->getName(),
                 sed->getHost(),
                 sed->getPort(),
-                sed->getPassword()
+                sed->getPassword().replace(" ", "")
             );
 
             // Set the server to the new values obtained by ServerEditDialog.
