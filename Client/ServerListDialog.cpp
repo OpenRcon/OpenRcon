@@ -26,8 +26,7 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     gameManager = new GameManager(this);
     serverManager = new ServerManager(this);
 
-    // Sets application title and icon
-    setWindowTitle(tr("Servermanager"));
+    // Sets application icon
     setWindowIcon(QIcon(APP_ICON));
 
     // Add a menu for the ServerItems

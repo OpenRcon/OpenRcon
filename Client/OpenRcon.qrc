@@ -12,9 +12,9 @@
         <file>images/icons/system-users.png</file>
         <file>images/icons/user-invisible.png</file>
         <file>images/icons/punkbuster.png</file>
-        <file>images/icons/network-wired-disconnected.png</file>
         <file>images/icons/applications-system.png</file>
         <file>images/icons/accessories-dictionary.png</file>
+        <file>images/icons/options-behavior.png</file>
     </qresource>
     <qresource prefix="/flags">
         <file>images/flags/algeria.png</file>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nb_NO">
+<TS version="2.1" language="nb_NO">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -67,14 +67,21 @@
 <context>
     <name>BF3</name>
     <message>
-        <location filename="../bf3/BF3.ui" line="27"/>
+        <location filename="../bf3/BF3.ui" line="31"/>
+        <location filename="../bf3/BF3.ui" line="45"/>
         <source>Console</source>
         <translation>Konsoll</translation>
     </message>
     <message>
-        <location filename="../bf3/BF3.ui" line="36"/>
+        <location filename="../bf3/BF3.ui" line="67"/>
+        <location filename="../bf3/BF3.ui" line="91"/>
         <source>Send</source>
         <translation>Send</translation>
+    </message>
+    <message>
+        <location filename="../bf3/BF3.ui" line="79"/>
+        <source>PunkBuster</source>
+        <translation>PunkBuster</translation>
     </message>
 </context>
 <context>
@@ -169,8 +176,8 @@
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="208"/>
-        <location filename="../bf4/BF4.ui" line="984"/>
-        <location filename="../bf4/BF4.ui" line="1025"/>
+        <location filename="../bf4/BF4.ui" line="988"/>
+        <location filename="../bf4/BF4.ui" line="1029"/>
         <source>Send</source>
         <translation>Send</translation>
     </message>
@@ -343,14 +350,14 @@
         <translation>Tilskuerplasser</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="958"/>
-        <location filename="../bf4/BF4.ui" line="975"/>
+        <location filename="../bf4/BF4.ui" line="962"/>
+        <location filename="../bf4/BF4.ui" line="979"/>
         <source>Console</source>
         <translation>Konsoll</translation>
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="321"/>
-        <location filename="../bf4/BF4.ui" line="1009"/>
+        <location filename="../bf4/BF4.ui" line="1013"/>
         <source>PunkBuster</source>
         <translation>PunkBuster</translation>
     </message>
@@ -1369,59 +1376,64 @@
         <translation>Hjelp</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="114"/>
+        <location filename="../OpenRcon.ui" line="115"/>
         <source>View</source>
         <translation>Vis</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="118"/>
+        <location filename="../OpenRcon.ui" line="119"/>
         <source>Toolbars</source>
         <translation>Verktøy</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="126"/>
+        <location filename="../OpenRcon.ui" line="127"/>
         <source>Application</source>
         <translation>Applikasjon </translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="158"/>
+        <location filename="../OpenRcon.ui" line="159"/>
         <source>Connection</source>
         <translation>Tilkobling</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="167"/>
+        <location filename="../OpenRcon.ui" line="168"/>
         <source>Servermanager</source>
         <translation>Tjeneradministrasjon</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="172"/>
+        <location filename="../OpenRcon.ui" line="173"/>
         <source>Exit</source>
         <translation>Avslutt</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="181"/>
-        <source>Settings</source>
-        <translation>Innstillinger</translation>
+        <location filename="../OpenRcon.ui" line="182"/>
+        <source>Options</source>
+        <translation>Alternativer</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="186"/>
+        <location filename="../OpenRcon.ui" line="187"/>
         <source>Report bug</source>
         <translation>Rapporter feil</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="195"/>
+        <location filename="../OpenRcon.ui" line="196"/>
         <source>Documentation</source>
         <translation>Dokumentasjon</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="200"/>
+        <location filename="../OpenRcon.ui" line="201"/>
         <source>About</source>
         <translation>Om</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="205"/>
+        <location filename="../OpenRcon.ui" line="206"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
+    </message>
+    <message>
+        <location filename="../OpenRcon.ui" line="211"/>
+        <source>Visit website</source>
+        <translation>Besøk nettside</translation>
     </message>
     <message>
         <location filename="../OpenRcon.cpp" line="47"/>
@@ -1434,61 +1446,104 @@
         <translation>Koble til</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="167"/>
+        <location filename="../OpenRcon.cpp" line="171"/>
         <source>Unknown game specified, the id was: %1.</source>
         <translation>Ukjent spill spesifisert, id&apos;en var: %1.</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="268"/>
+        <location filename="../OpenRcon.cpp" line="277"/>
         <source>No servers added yet.</source>
         <translation>Ingen tjenere lagt til enda.</translation>
     </message>
 </context>
 <context>
+    <name>OptionsDialog</name>
+    <message>
+        <location filename="../OptionsDialog.ui" line="14"/>
+        <source>Options</source>
+        <translation>Alternativer</translation>
+    </message>
+    <message>
+        <location filename="../OptionsDialog.ui" line="34"/>
+        <source>Behavior</source>
+        <translation>Oppførsel</translation>
+    </message>
+    <message>
+        <location filename="../OptionsDialog.ui" line="43"/>
+        <source>Connection</source>
+        <translation>Tilkobling</translation>
+    </message>
+    <message>
+        <location filename="../OptionsDialog.ui" line="56"/>
+        <source>User Interface</source>
+        <translation>Brukgergrensesnitt</translation>
+    </message>
+    <message>
+        <location filename="../OptionsDialog.ui" line="64"/>
+        <source>Language:</source>
+        <translation>Språk:</translation>
+    </message>
+    <message>
+        <location filename="../OptionsDialog.ui" line="74"/>
+        <source>(Restart required)</source>
+        <translation>(Omstart kreves)</translation>
+    </message>
+    <message>
+        <location filename="../OptionsDialog.cpp" line="35"/>
+        <source>&lt;System Language&gt;</source>
+        <translation>&lt;System Språk&gt;</translation>
+    </message>
+</context>
+<context>
     <name>ServerEditDialog</name>
     <message>
-        <location filename="../ServerEditDialog.ui" line="66"/>
+        <location filename="../ServerEditDialog.ui" line="69"/>
         <source>Port:</source>
         <translation>Port:</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="95"/>
+        <location filename="../ServerEditDialog.ui" line="98"/>
         <source>Password:</source>
         <translation>Passord:</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="102"/>
+        <location filename="../ServerEditDialog.ui" line="105"/>
         <source>Game:</source>
         <translation>Spill:</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="131"/>
+        <location filename="../ServerEditDialog.ui" line="134"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="138"/>
+        <location filename="../ServerEditDialog.ui" line="141"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="147"/>
+        <location filename="../ServerEditDialog.ui" line="150"/>
         <source>Name:</source>
         <translation>Navn:</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="154"/>
+        <location filename="../ServerEditDialog.ui" line="157"/>
         <source>Address:</source>
         <translation>Addresse:</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.cpp" line="28"/>
+        <location filename="../ServerEditDialog.ui" line="29"/>
         <source>Server details</source>
         <translation>Server detaljer</translation>
     </message>
 </context>
 <context>
     <name>ServerListDialog</name>
+    <message>
+        <location filename="../ServerListDialog.ui" line="20"/>
+        <source>Server Manager</source>
+        <translation>Tjener Administrasjon</translation>
+    </message>
     <message>
         <location filename="../ServerListDialog.ui" line="33"/>
         <source>Name</source>
@@ -1526,57 +1581,14 @@
     </message>
     <message>
         <location filename="../ServerListDialog.ui" line="94"/>
-        <location filename="../ServerListDialog.cpp" line="172"/>
+        <location filename="../ServerListDialog.cpp" line="171"/>
         <source>Remove</source>
         <translation>Fjern</translation>
     </message>
     <message>
-        <location filename="../ServerListDialog.cpp" line="30"/>
-        <source>Servermanager</source>
-        <translation>Tjeneradministrasjon</translation>
-    </message>
-    <message>
-        <location filename="../ServerListDialog.cpp" line="172"/>
+        <location filename="../ServerListDialog.cpp" line="171"/>
         <source>Are you sure you want to remove this server?</source>
         <translation>Er du sikker på at du vil fjerne denne tjeneren?</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsDialog</name>
-    <message>
-        <location filename="../SettingsDialog.ui" line="18"/>
-        <source>General</source>
-        <translation>Generelt</translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.ui" line="23"/>
-        <source>Connection</source>
-        <translation>Tilkobling</translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.ui" line="38"/>
-        <source>User Interface</source>
-        <translation>Brukgergrensesnitt</translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.ui" line="46"/>
-        <source>Language:</source>
-        <translation>Språk:</translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.ui" line="56"/>
-        <source>(Restart required)</source>
-        <translation>(Omstart kreves)</translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.cpp" line="32"/>
-        <source>Settings</source>
-        <translation>Innstillinger</translation>
-    </message>
-    <message>
-        <location filename="../SettingsDialog.cpp" line="36"/>
-        <source>&lt;System Language&gt;</source>
-        <translation>&lt;System Språk&gt;</translation>
     </message>
 </context>
 </TS>

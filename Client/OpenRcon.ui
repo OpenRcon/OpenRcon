@@ -97,7 +97,7 @@
     <property name="title">
      <string>Tools</string>
     </property>
-    <addaction name="actionSettings"/>
+    <addaction name="actionOptions"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -173,13 +173,13 @@
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionSettings">
+  <action name="actionOptions">
    <property name="icon">
     <iconset resource="OpenRcon.qrc">
      <normaloff>:/icons/images/icons/applications-system.png</normaloff>:/icons/images/icons/applications-system.png</iconset>
    </property>
    <property name="text">
-    <string>Settings</string>
+    <string>Options</string>
    </property>
   </action>
   <action name="actionReport_bug">

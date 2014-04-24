@@ -17,9 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "SettingsDialog.h"
+#include "OptionsDialog.h"
 
-SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::SettingsDialog)
+OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::OptionsDialog)
 {
     Q_UNUSED(parent);
 
@@ -28,15 +28,14 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Se
     settings = new QSettings(APP_NAME, APP_NAME, this);
     languageManager = new LanguageManager(this);
 
-    // Sets application title and icon
-    setWindowTitle(tr("Settings"));
+    // Sets application icon
     setWindowIcon(QIcon(APP_ICON));
 
     // Add languages to comboBox_ge_language.
-    ui->comboBox_ge_language->addItem(tr("<System Language>"));
+    ui->comboBox_be_language->addItem(tr("<System Language>"));
 
     foreach (LanguageEntry language, languageManager->getLanguages()) {
-        ui->comboBox_ge_language->addItem(language.icon, language.name);
+        ui->comboBox_be_language->addItem(language.icon, language.name);
     }
 
     readSettings();
@@ -50,7 +49,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Se
     connect(pushButton_cancel , SIGNAL(clicked()), this, SLOT(reject()));
 }
 
-SettingsDialog::~SettingsDialog()
+OptionsDialog::~OptionsDialog()
 {
     writeSettings();
 
@@ -59,19 +58,19 @@ SettingsDialog::~SettingsDialog()
     delete languageManager;
 }
 
-void SettingsDialog::readSettings()
+void OptionsDialog::readSettings()
 {
     QString locale = settings->value("Settings/General/Locale").toString();
 
     // TODO: Set the current language index here.
 }
 
-void SettingsDialog::writeSettings()
+void OptionsDialog::writeSettings()
 {
 
 }
 
-void SettingsDialog::listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void OptionsDialog::listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     if (current) {
         ui->stackedWidget->setCurrentIndex(ui->listWidget->row(current));
@@ -80,12 +79,12 @@ void SettingsDialog::listWidget_currentItemChanged(QListWidgetItem *current, QLi
     }
 }
 
-void SettingsDialog::pushButton_ok_clicked()
+void OptionsDialog::pushButton_ok_clicked()
 {
-    int index = ui->comboBox_ge_language->currentIndex();
+    int index = ui->comboBox_be_language->currentIndex();
     QString language = index >= 1 ? languageManager->getLanguage(index - 1).code : language = QLocale::system().name();
 
     settings->setValue("Settings/General/Locale", language);
 
-    //QDialog::accept();
+    QDialog::accept();
 }

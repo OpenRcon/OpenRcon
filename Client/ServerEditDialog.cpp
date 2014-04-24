@@ -25,7 +25,7 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 
     ui->setupUi(this);
 
-    setWindowTitle(tr("Server details"));
+    // Sets application icon
     setWindowIcon(QIcon(APP_ICON));
 
     gameManager = new GameManager(this);

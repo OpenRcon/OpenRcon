@@ -30,7 +30,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     serverManager = new ServerManager(this);
 
     //serverListDialog = new ServerListDialog(this);
-    settingsDialog = new SettingsDialog(this);
+    optionsDialog = new OptionsDialog(this);
     aboutDialog = new AboutDialog(this);
 
     settings = new QSettings(APP_NAME, APP_NAME, this);
@@ -62,7 +62,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     connect(ui->actionConnection, SIGNAL(triggered()), this, SLOT(actionConnection_triggered()));
 
-    connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(actionSettings_triggered()));
+    connect(ui->actionOptions, SIGNAL(triggered()), this, SLOT(actionOptions_triggered()));
 
     connect(ui->actionDocumentation, SIGNAL(triggered()), this, SLOT(actionDocumentation_triggered()));
     connect(ui->actionVisit_website, SIGNAL(triggered()), this, SLOT(actionVisit_website_triggered()));
@@ -88,7 +88,7 @@ OpenRcon::~OpenRcon()
     delete serverManager;
 
 //    delete serverListDialog;
-    delete settingsDialog;
+    delete optionsDialog;
     delete aboutDialog;
 }
 
@@ -212,9 +212,9 @@ void OpenRcon::actionConnection_triggered()
 }
 
 // Tools menu
-void OpenRcon::actionSettings_triggered()
+void OpenRcon::actionOptions_triggered()
 {
-    settingsDialog->exec();
+    optionsDialog->exec();
 }
 
 // Help menu

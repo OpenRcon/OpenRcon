@@ -24,23 +24,23 @@
 #include <QSettings>
 #include <QPushButton>
 
-#include "ui_SettingsDialog.h"
-
 #include "Constants.h"
 #include "LanguageManager.h"
 
+#include "ui_OptionsDialog.h"
+
 using namespace Constants;
 
-class SettingsDialog : public QDialog
+class OptionsDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(QWidget *parent = 0);
-    ~SettingsDialog();
+    explicit OptionsDialog(QWidget *parent = 0);
+    ~OptionsDialog();
 
 private:
-    Ui::SettingsDialog *ui;
+    Ui::OptionsDialog *ui;
 
     QSettings *settings;
 

@@ -42,7 +42,7 @@
 #include "ConnectionTabWidget.h"
 
 #include "ServerListDialog.h"
-#include "SettingsDialog.h"
+#include "OptionsDialog.h"
 #include "AboutDialog.h"
 
 using namespace Constants;
@@ -81,7 +81,7 @@ private:
     ServerManager *serverManager;
 
     //ServerListDialog *serverListDialog;
-    SettingsDialog *settingsDialog;
+    OptionsDialog *optionsDialog;
     AboutDialog *aboutDialog;
 
     QSettings *settings;
@@ -105,7 +105,7 @@ private slots:
     void actionConnection_triggered();
 
     // Setting menu
-    void actionSettings_triggered();
+    void actionOptions_triggered();
 
     // Help menu
     void actionReport_bug_triggered();
