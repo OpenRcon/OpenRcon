@@ -42,6 +42,10 @@
        <property name="text">
         <string>Connection</string>
        </property>
+       <property name="icon">
+        <iconset resource="OpenRcon.qrc">
+         <normaloff>:/icons/images/icons/connection.png</normaloff>:/icons/images/icons/connection.png</iconset>
+       </property>
       </item>
      </widget>
      <widget class="QStackedWidget" name="stackedWidget">
@@ -127,7 +131,6 @@
   <zorder>listWidget</zorder>
   <zorder>stackedWidget</zorder>
   <zorder>splitter</zorder>
-  <zorder>scrollArea</zorder>
  </widget>
  <resources>
   <include location="OpenRcon.qrc"/>

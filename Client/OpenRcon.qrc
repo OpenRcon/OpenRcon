@@ -15,6 +15,8 @@
         <file>images/icons/punkbuster.png</file>
         <file>images/icons/level-next.png</file>
         <file>images/icons/level-restart.png</file>
+        <file>images/icons/report-bug.png</file>
+        <file>images/icons/connection.png</file>
     </qresource>
     <qresource prefix="/flags">
         <file>images/flags/algeria.png</file>

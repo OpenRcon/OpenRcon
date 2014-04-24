@@ -27,7 +27,7 @@
      </property>
      <widget class="QWidget" name="tab_pl">
       <attribute name="icon">
-       <iconset resource="../OpenRcon.qrc">
+       <iconset>
         <normaloff>:/icons/images/icons/system-users.png</normaloff>:/icons/images/icons/system-users.png</iconset>
       </attribute>
       <attribute name="title">
@@ -129,7 +129,7 @@ p, li { white-space: pre-wrap; }
      </widget>
      <widget class="QWidget" name="tab_ch">
       <attribute name="icon">
-       <iconset resource="../OpenRcon.qrc">
+       <iconset>
         <normaloff>:/icons/images/icons/user-invisible.png</normaloff>:/icons/images/icons/user-invisible.png</iconset>
       </attribute>
       <attribute name="title">
@@ -219,6 +219,10 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
      <widget class="QWidget" name="tab_op">
+      <attribute name="icon">
+       <iconset resource="../OpenRcon.qrc">
+        <normaloff>:/icons/images/icons/options.png</normaloff>:/icons/images/icons/options.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>Options</string>
       </attribute>
@@ -1604,6 +1608,10 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
      <widget class="QWidget" name="tab_co">
+      <attribute name="icon">
+       <iconset resource="../OpenRcon.qrc">
+        <normaloff>:/icons/images/icons/console.png</normaloff>:/icons/images/icons/console.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>Console</string>
       </attribute>
@@ -1637,7 +1645,7 @@ p, li { white-space: pre-wrap; }
          <widget class="QWidget" name="tab_co_co">
           <attribute name="icon">
            <iconset resource="../OpenRcon.qrc">
-            <normaloff>:/icons/images/icons/utilities-terminal.png</normaloff>:/icons/images/icons/utilities-terminal.png</iconset>
+            <normaloff>:/icons/images/icons/console.png</normaloff>:/icons/images/icons/console.png</iconset>
           </attribute>
           <attribute name="title">
            <string>Console</string>

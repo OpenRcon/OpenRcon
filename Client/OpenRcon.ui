@@ -183,6 +183,10 @@
    </property>
   </action>
   <action name="actionReport_bug">
+   <property name="icon">
+    <iconset resource="OpenRcon.qrc">
+     <normaloff>:/icons/images/icons/report-bug.png</normaloff>:/icons/images/icons/report-bug.png</iconset>
+   </property>
    <property name="text">
     <string>Report bug</string>
    </property>
