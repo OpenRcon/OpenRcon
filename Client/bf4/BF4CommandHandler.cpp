@@ -642,7 +642,7 @@ void BF4CommandHandler::commandBanListList(const FrostbiteRconPacket &packet)
     if (response == "OK" && packet.getWordCount() > 1) {
         BanList banList;
 
-        for (int i = 1; i < packet.getWordCount(); i += 6) {
+        for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
             QString idType = packet.getWord(i).getContent();
             QString id = packet.getWord(i + 1).getContent();
             QString banType = packet.getWord(i + 2).getContent();
@@ -888,7 +888,7 @@ void BF4CommandHandler::commandSpectatorListList(const FrostbiteRconPacket &pack
     if (response == "OK") {
         QStringList spectatorList;
 
-        for (int i = 1; i < packet.getWordCount(); i++) {
+        for (unsigned int i = 1; i < packet.getWordCount(); i++) {
             spectatorList.append(packet.getWord(i).getContent());
         }
 

@@ -28,8 +28,3 @@ ConnectionManager::~ConnectionManager()
 {
 
 }
-
-bool ConnectionManager::isConnectedToServer(const ServerEntry &serverEntry)
-{
-
-}
