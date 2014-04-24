@@ -109,8 +109,8 @@ private slots:
 
     // Help menu
     void actionReport_bug_triggered();
+    void actionVisit_website_triggered();
     void actionDocumentation_triggered();
-
     void actionAbout_triggered();
     void actionAbout_Qt_triggered();
 

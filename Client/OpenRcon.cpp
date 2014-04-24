@@ -65,8 +65,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     connect(ui->actionSettings, SIGNAL(triggered()), this, SLOT(actionSettings_triggered()));
 
     connect(ui->actionDocumentation, SIGNAL(triggered()), this, SLOT(actionDocumentation_triggered()));
+    connect(ui->actionVisit_website, SIGNAL(triggered()), this, SLOT(actionVisit_website_triggered()));
     connect(ui->actionReport_bug, SIGNAL(triggered()), this, SLOT(actionReport_bug_triggered()));
-
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(actionAbout_triggered()));
     connect(ui->actionAbout_Qt, SIGNAL(triggered()), this, SLOT(actionAbout_Qt_triggered()));
 
@@ -221,6 +221,11 @@ void OpenRcon::actionSettings_triggered()
 void OpenRcon::actionReport_bug_triggered()
 {
     QDesktopServices::openUrl(QUrl(APP_BUG));
+}
+
+void OpenRcon::actionVisit_website_triggered()
+{
+    QDesktopServices::openUrl(QUrl(APP_URL));
 }
 
 void OpenRcon::actionDocumentation_triggered()
