@@ -21,7 +21,7 @@
 
 BF3::BF3(const QString &host, const int &port, const QString &password) : BFBaseGame(host, port, password)
 {
-    con = new BF3Connection();
+    con = new BF3Connection(this);
     con->hostConnect(host, port);
 
     levels = new BF3Levels(this);

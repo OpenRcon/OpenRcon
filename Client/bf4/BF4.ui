@@ -954,6 +954,10 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_co">
+      <attribute name="icon">
+       <iconset resource="../OpenRcon.qrc">
+        <normaloff>:/icons/images/icons/utilities-terminal.png</normaloff>:/icons/images/icons/utilities-terminal.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>Console</string>
       </attribute>

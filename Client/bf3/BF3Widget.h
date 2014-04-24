@@ -20,6 +20,8 @@
 #ifndef BF3WIDGET_H
 #define BF3WIDGET_H
 
+#include <QTime>
+
 #include "ui_BF3.h"
 #include "BF3.h"
 
@@ -31,11 +33,20 @@ public:
     explicit BF3Widget(const QString &host, const int &port, const QString &password);
     ~BF3Widget();
 
-private slots:
-    void pushButton_co_send_clicked();
-
 private:
     Ui::BF3 *ui;
+
+    void startupCommands();
+    void logConsole(const int &type, const QString &message);
+
+private slots:
+    /* Events */
+    void onDataSent(const QString &command);
+    void onDataReceived(const QString &response);
+
+    /* Console */
+    void pushButton_co_co_clicked();
+    void pushButton_co_pb_clicked();
 
 };
 

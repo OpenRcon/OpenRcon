@@ -22,9 +22,10 @@
 GameManager::GameManager(QObject *parent) : QObject(parent)
 {
     // Adds all games to the list.
-    gameList.append(GameEntry(0, "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png"));
-    gameList.append(GameEntry(1, "Battlefield 4", ":/bf4/icons/bf4.png"));
-    gameList.append(GameEntry(2, "Minecraft", ":/minecraft/icons/minecraft.png"));
+    gameList.append(GameEntry(0, "BFBC2", "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png"));
+    gameList.append(GameEntry(1, "BF3", "Battlefield 3", ":/bf3/icons/bf3.png"));
+    gameList.append(GameEntry(2, "BF4", "Battlefield 4", ":/bf4/icons/bf4.png"));
+    gameList.append(GameEntry(3, "MC", "Minecraft", ":/minecraft/icons/minecraft.png"));
 }
 
 GameManager::~GameManager()

@@ -23,8 +23,18 @@ BF3Widget::BF3Widget(const QString &host, const int &port, const QString &passwo
 {
     ui->setupUi(this);
 
-    connect(ui->pushButton_co_send, SIGNAL(clicked()), this, SLOT(pushButton_co_send_clicked()));
-    connect(ui->lineEdit_co_input, SIGNAL(editingFinished()), this, SLOT(pushButton_co_send_clicked()));
+    /* Events */
+    connect(con->commandHandler, SIGNAL(onDataSent(const QString&)), this, SLOT(onDataSent(const QString&)));
+    connect(con->commandHandler, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataSent(const QString&)));
+
+    /* User Interface */
+
+    // Console
+    connect(ui->pushButton_co_co, SIGNAL(clicked()), this, SLOT(pushButton_co_co_clicked()));
+    connect(ui->lineEdit_co_co, SIGNAL(editingFinished()), this, SLOT(pushButton_co_co_clicked()));
+
+    connect(ui->pushButton_co_pb, SIGNAL(clicked()), this, SLOT(pushButton_co_pb_clicked()));
+    connect(ui->lineEdit_co_pb, SIGNAL(editingFinished()), this, SLOT(pushButton_co_pb_clicked()));
 }
 
 BF3Widget::~BF3Widget()
@@ -32,10 +42,60 @@ BF3Widget::~BF3Widget()
     delete ui;
 }
 
-void BF3Widget::pushButton_co_send_clicked()
+void BF3Widget::startupCommands() {
+    // Misc
+    con->sendCommand("\"admin.eventsEnabled\" \"true\"");
+    con->sendCommand("version");
+    con->sendCommand("serverInfo");
+}
+
+void BF3Widget::logConsole(const int &type, const QString &message)
 {
-    QString command = ui->lineEdit_co_input->text();
-    ui->lineEdit_co_input->clear();
+    QString time = QTime::currentTime().toString();
+
+    switch (type) {
+        case 0: // Server send
+            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
+            break;
+
+        case 1: // Server receive
+            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
+            break;
+
+        case 2: // Punkbuster send
+            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
+            break;
+
+        case 3: // PunkBuster receive
+            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
+            break;
+    }
+}
+
+/* Events */
+void BF3Widget::onDataSent(const QString &command)
+{
+    logConsole(0, command);
+}
+
+void BF3Widget::onDataReceived(const QString &response)
+{
+    logConsole(1, response);
+}
+
+/* Console */
+void BF3Widget::pushButton_co_co_clicked()
+{
+    QString command = ui->lineEdit_co_co->text();
+    ui->lineEdit_co_co->clear();
 
     con->sendCommand(command);
+}
+
+void BF3Widget::pushButton_co_pb_clicked()
+{
+    QString command = ui->lineEdit_co_pb->text();
+    ui->lineEdit_co_pb->clear();
+
+    con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
 }

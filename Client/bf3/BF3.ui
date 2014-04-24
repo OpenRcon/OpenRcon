@@ -23,41 +23,84 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="tab_co">
+   <attribute name="icon">
+    <iconset resource="../OpenRcon.qrc">
+     <normaloff>:/icons/images/icons/utilities-terminal.png</normaloff>:/icons/images/icons/utilities-terminal.png</iconset>
+   </attribute>
    <attribute name="title">
     <string>Console</string>
    </attribute>
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="1" column="0">
-     <widget class="QLineEdit" name="lineEdit_co_input"/>
-    </item>
-    <item row="1" column="1">
-     <widget class="QPushButton" name="pushButton_co_send">
-      <property name="text">
-       <string>Send</string>
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="2">
-     <widget class="QTextEdit" name="textEdit_co_output">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
+      <widget class="QWidget" name="tab_co_co">
+       <attribute name="icon">
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/images/icons/utilities-terminal.png</normaloff>:/icons/images/icons/utilities-terminal.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Console</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0" colspan="2">
+         <widget class="QTextEdit" name="textEdit_co_co">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="lineEdit_co_co"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="pushButton_co_co">
+          <property name="text">
+           <string>Send</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_co_pb">
+       <attribute name="icon">
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/images/icons/punkbuster.png</normaloff>:/icons/images/icons/punkbuster.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>PunkBuster</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0" colspan="2">
+         <widget class="QTextEdit" name="textEdit_co_pb"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="lineEdit_co_pb"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="pushButton_co_pb">
+          <property name="text">
+           <string>Send</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
- <tabstops>
-  <tabstop>lineEdit_co_input</tabstop>
-  <tabstop>pushButton_co_send</tabstop>
-  <tabstop>textEdit_co_output</tabstop>
- </tabstops>
- <resources/>
+ <resources>
+  <include location="../OpenRcon.qrc"/>
+ </resources>
  <connections/>
 </ui>

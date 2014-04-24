@@ -70,10 +70,10 @@ private:
     void addEvent(const QString &event, const QString &message);
 
 private slots:
+    /* Events */
     void onDataSent(const QString &command);
     void onDataReceived(const QString &response);
 
-    /* Events */
     void onPlayerAuthenticated(const QString &player, const QString &guid);
     void onPlayerJoin(const QString &player);
     void onPlayerLeave(const QString &player, const QString &info);

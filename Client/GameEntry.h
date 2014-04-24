@@ -24,12 +24,13 @@
 #include <QIcon>
 
 struct GameEntry {
-    GameEntry(const int &id, const QString &name, const QString &icon) : id(id), name(name), icon(QIcon(icon))
+    GameEntry(const int &id, const QString &prefix, const QString &name, const QString &icon) : id(id), prefix(prefix), name(name), icon(QIcon(icon))
     {
 
     }
 
     int id;
+    QString prefix;
     QString name;
     QIcon icon;
 
