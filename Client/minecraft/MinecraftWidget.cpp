@@ -42,9 +42,9 @@ void MinecraftWidget::logMessage(const int &type, const QString &message)
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
     if (type == 0) { // Info
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
+//        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 1) { // Error
-        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime).arg(message));
+//        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 2) { // Send
         ui->textEdit_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 3) { // Receive

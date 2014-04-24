@@ -20,7 +20,7 @@
    <item row="0" column="0" colspan="2">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -31,7 +31,7 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_tab_pl">
        <item row="1" column="0" colspan="2">
-        <widget class="DragDropTreeWidget" name="treeWidget_pl_players">
+        <widget class="DragDropTreeWidget" name="treeWidget_pl">
          <property name="locale">
           <locale language="English" country="UnitedKingdom"/>
          </property>
