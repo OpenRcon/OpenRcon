@@ -69,12 +69,12 @@
     <message>
         <location filename="../bf3/BF3.ui" line="27"/>
         <source>Console</source>
-        <translation type="unfinished">Konsoll</translation>
+        <translation>Konsoll</translation>
     </message>
     <message>
         <location filename="../bf3/BF3.ui" line="36"/>
         <source>Send</source>
-        <translation type="unfinished">Send</translation>
+        <translation>Send</translation>
     </message>
 </context>
 <context>
@@ -323,7 +323,7 @@
         <location filename="../bf4/BF4.ui" line="807"/>
         <location filename="../bf4/BF4.ui" line="893"/>
         <source>Load</source>
-        <translation>Load</translation>
+        <translation>Last</translation>
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="814"/>
@@ -401,18 +401,8 @@
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="403"/>
-        <source>PlayerAuthenticated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="403"/>
         <source>Player %1 authenticated with GUID: %2.</source>
         <translation>Spiller %1 authentisert med GUID: %2.</translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="408"/>
-        <source>PlayerJoin</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="408"/>
@@ -421,18 +411,8 @@
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="415"/>
-        <source>PlayerLeave</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="415"/>
         <source>Player %1 left the game.</source>
         <translation>Spiller %1 forlot spillet.</translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="420"/>
-        <source>PlayerSpawn</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="420"/>
@@ -451,23 +431,8 @@
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="434"/>
-        <source>Player %1 commited sucide using %3.</source>
-        <translation>Spiller %1 begikk selvmord med %3.</translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="437"/>
-        <source>PlayerKill</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="444"/>
-        <source>PlayerChat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="453"/>
-        <source>PlayerSquadChange</source>
-        <translation type="unfinished"></translation>
+        <source>Player %1 commited sucide using %2.</source>
+        <translation>Spiller %1 begikk selvmord med %2.</translation>
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="453"/>
@@ -476,18 +441,8 @@
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="461"/>
-        <source>PlayerTeamChange</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="461"/>
         <source>Player %1 changed team to %2.</source>
         <translation>Spiller %1 byttet lag til %2.</translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="482"/>
-        <source>ServerLevelLoaded</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="482"/>
@@ -496,33 +451,18 @@
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="487"/>
-        <source>ServerRoundOver</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="487"/>
         <source>The round has just ended, and %1 won.</source>
         <translation>Runden er akkurat over, og %1 vant.</translation>
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="492"/>
-        <source>ServerRoundOverPlayers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="492"/>
         <source>The round has just ended, and %1 is the final detailed player stats.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../bf4/BF4Widget.cpp" line="497"/>
-        <source>ServerRoundOverTeamScores</source>
-        <translation type="unfinished"></translation>
+        <translation>Runden er akkurat over, og %1 er den endelige detaljerte spiller statistikken.</translation>
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="497"/>
         <source>The round has just ended, and %1 is the final ticket/kill/life count for each team.</source>
-        <translation type="unfinished"></translation>
+        <translation>Runden er akkurat over, og %1 er den endelige ticket/drap/liv tellingen for hvert lag.</translation>
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="509"/>
@@ -1357,37 +1297,37 @@
     <message>
         <location filename="../minecraft/Minecraft.ui" line="30"/>
         <source>Players</source>
-        <translation type="unfinished">Spillere</translation>
+        <translation>Spillere</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="46"/>
         <source>Name</source>
-        <translation type="unfinished">Navn</translation>
+        <translation>Navn</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="51"/>
         <source>Kills</source>
-        <translation type="unfinished">Drap</translation>
+        <translation>Drap</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="56"/>
         <source>Deaths</source>
-        <translation type="unfinished">Dødsfall</translation>
+        <translation>Dødsfall</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="61"/>
         <source>Score</source>
-        <translation type="unfinished">Poeng</translation>
+        <translation>Poeng</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="66"/>
         <source>Ping</source>
-        <translation type="unfinished">Ping</translation>
+        <translation>Ping</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="122"/>
         <source>Options</source>
-        <translation type="unfinished">Alternativer</translation>
+        <translation>Alternativer</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="144"/>
@@ -1397,23 +1337,23 @@
     <message>
         <location filename="../minecraft/Minecraft.ui" line="81"/>
         <source>Chat</source>
-        <translation type="unfinished">Prat</translation>
+        <translation>Prat</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="97"/>
         <location filename="../minecraft/Minecraft.ui" line="181"/>
         <source>Send</source>
-        <translation type="unfinished">Send</translation>
+        <translation>Send</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="75"/>
         <source>Events</source>
-        <translation type="unfinished">Hendelser</translation>
+        <translation>Hendelser</translation>
     </message>
     <message>
         <location filename="../minecraft/Minecraft.ui" line="150"/>
         <source>Console</source>
-        <translation type="unfinished">Konsoll</translation>
+        <translation>Konsoll</translation>
     </message>
 </context>
 <context>
@@ -1482,11 +1422,6 @@
         <location filename="../OpenRcon.ui" line="205"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
-    </message>
-    <message>
-        <location filename="../OpenRcon.ui" line="210"/>
-        <source>What&apos;s This?</source>
-        <translation>Hva er dette?</translation>
     </message>
     <message>
         <location filename="../OpenRcon.cpp" line="47"/>
