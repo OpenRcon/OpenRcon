@@ -354,96 +354,95 @@ void BF4Widget::startupCommands() {
     con->sendCommand("vars.serverType");
 }
 
-void BF4Widget::logMessage(const int &type, const QString &message)
-{
-    QString currentTime = QString("[%1]").arg(QDateTime::currentDateTime().toString());
-
-    if (type == 0) { // Info
-        //ui->textEdit_ev->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
-    } else if (type == 1) { // Error
-        //ui->textEdit_ev->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime).arg(message));
-    } else if (type == 2) { // Server send
-        ui->textEdit_co_co->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
-    } else if (type == 3) { // Server receive
-        ui->textEdit_co_co->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime).arg(message));
-    } else if (type == 4) { // Chat
-        ui->textEdit_ch->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
-    } else if (type == 5) { // Punkbuster
-        ui->textEdit_co_pb->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
-    }
-}
-
 void BF4Widget::logEvent(const QString &event, const QString &message)
 {
     addEvent(event, message);
 }
 
+void BF4Widget::logChat(const QString &sender, const QString &message)
+{
+    ui->textEdit_ch->append(QString("[%1] %2: <span style=\"color:#008000\">%3</span>").arg(QTime::currentTime().toString(), sender, message));
+}
+
+void BF4Widget::logConsole(const int &type, const QString &message)
+{
+    QString time = QTime::currentTime().toString();
+
+    switch (type) {
+        case 0: // Server send
+            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
+            break;
+
+        case 1: // Server receive
+            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
+            break;
+
+        case 2: // Punkbuster send
+            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
+            break;
+
+        case 3: // PunkBuster receive
+            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
+            break;
+    }
+}
+
 /* Events */
 void BF4Widget::onDataSent(const QString &command)
 {
-    logMessage(2, command);
+    logConsole(0, command);
 }
 
 void BF4Widget::onDataReceived(const QString &response)
 {
-    logMessage(3, response);
+    logConsole(1, response);
 }
 
 void BF4Widget::onPlayerAuthenticated(const QString &player, const QString &guid)
 {
     logEvent(tr("PlayerAuthenticated"), tr("Player %1 authenticated with GUID: %2.").arg(player).arg(guid));
-
-    logMessage(0, tr("Player <b>%1</b> authenticated with GUID: <b>%2</b>.").arg(player).arg(guid));
 }
 
 void BF4Widget::onPlayerJoin(const QString &player)
 {
     logEvent(tr("PlayerJoin"), tr("Player %1 joined the game.").arg(player));
-
-    logMessage(0, tr("Player <b>%1</b> joined the game.").arg(player));
 }
 
 void BF4Widget::onPlayerLeave(const QString &player, const QString &info)
 {
-    logEvent(tr("PlayerLeave"), tr("Player %1 left the game.").arg(player));
+    Q_UNUSED(info);
 
-    logMessage(0, tr("Player <b>%1</b> left the game.").arg(player).arg(info)); // TODO: Impelment score stuffs here?
+    logEvent(tr("PlayerLeave"), tr("Player %1 left the game.").arg(player)); // TODO: Impelment score stuffs here?
 }
 
 void BF4Widget::onPlayerSpawn(const QString &player, const int &teamId)
 {
     logEvent(tr("PlayerSpawn"), tr("Player %1 spawned, and is on team %2.").arg(player).arg(teamId));
-
-    logMessage(0, tr("Player <b>%1</b> spawned, and is on team <b>%2</b>.").arg(player).arg(teamId));
 }
 
 void BF4Widget::onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot)
 {
-    QString message, event;
+    QString message;
 
     if (killer != victim) {
         if (headshot) {
-            event = tr("Player %1 headshoted player %2 using %3.").arg(killer).arg(victim).arg(weapon);
-            message = tr("Player <b>%1</b> headshoted player <b>%2</b> using <b>%3</b>.").arg(killer).arg(victim).arg(weapon);
+            message = tr("Player %1 headshoted player %2 using %3.").arg(killer).arg(victim).arg(weapon);
         } else {
-            event = tr("Player %1 killed player %2 with %3.").arg(killer).arg(victim).arg(weapon);
-            message = tr("Player <b>%1</b> killed player <b>%2</b> with <b>%3</b>.").arg(killer).arg(victim).arg(weapon);
+            message = tr("Player %1 killed player %2 with %3.").arg(killer).arg(victim).arg(weapon);
         }
     } else {
-        event = tr("Player %1 commited sucide using %3.").arg(killer).arg(weapon);
-        message = tr("Player <b>%1</b> commited sucide using <b>%3</b>.").arg(killer).arg(weapon);
+        message = tr("Player %1 commited sucide using %3.").arg(killer).arg(weapon);
     }
 
-    logEvent(tr("PlayerKill"), event);
-    logMessage(0, message);
+    logEvent(tr("PlayerKill"), message);
 }
 
-void BF4Widget::onPlayerChat(const QString &player, const QString &message, const QString &target)
+void BF4Widget::onPlayerChat(const QString &sender, const QString &message, const QString &target)
 {
-    Q_UNUSED(target)
+    Q_UNUSED(target);
 
-    logEvent(tr("PlayerChat"), tr("%1: %2").arg(player).arg(message));
-    logMessage(4, tr("<b>%1</b>: %2").arg(player).arg(message));
+    logEvent(tr("PlayerChat"), QString("%1: %2").arg(sender).arg(message));
+    logChat(sender, message);
 }
 
 void BF4Widget::onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId)
@@ -451,8 +450,7 @@ void BF4Widget::onPlayerSquadChange(const QString &player, const int &teamId, co
     Q_UNUSED(teamId);
 
     if (squadId != 0) {
-        logEvent(tr("PlayerSquadChange"), tr("Player %1 changed squad to %3.").arg(player).arg(getSquadName(squadId)));
-        logMessage(0, tr("Player <b>%1</b> changed squad to <b>%3</b>.").arg(player).arg(getSquadName(squadId)));
+        logEvent(tr("PlayerSquadChange"), tr("Player %1 changed squad to %2.").arg(player).arg(getSquadName(squadId)));
     }
 }
 
@@ -461,12 +459,11 @@ void BF4Widget::onPlayerTeamChange(const QString &player, const int &teamId, con
     Q_UNUSED(squadId);
 
     logEvent(tr("PlayerTeamChange"), tr("Player %1 changed team to %2.").arg(player).arg(teamId));
-    logMessage(0, tr("Player <b>%1</b> changed team to <b>%2</b>.").arg(player).arg(teamId));
 }
 
 void BF4Widget::onPunkBusterMessage(const QString &message)
 {
-    logMessage(5, message);
+    logConsole(2, message);
 }
 
 void BF4Widget::onServerMaxPlayerCountChange()
@@ -483,25 +480,21 @@ void BF4Widget::onServerLevelLoaded(const QString &levelName, const QString &gam
     GameModeEntry gameMode = levels->getGameMode(gameModeName);
 
     logEvent(tr("ServerLevelLoaded"), tr("Loading level %1 running gamemode %2.").arg(level.name).arg(gameMode.name));
-    logMessage(0, tr("Loading level <b>%1</b> running gamemode <b>%2</b>.").arg(level.name).arg(gameMode.name));
 }
 
 void BF4Widget::onServerRoundOver(const int &winningTeamId)
 {
-    logEvent(tr("ServerRoundOver"), tr("The round has just ended, and %1 won").arg(winningTeamId));
-    logMessage(0, tr("The round has just ended, and <b>%1</b> won").arg(winningTeamId));
+    logEvent(tr("ServerRoundOver"), tr("The round has just ended, and %1 won.").arg(winningTeamId));
 }
 
 void BF4Widget::onServerRoundOverPlayers(const QString &playerInfo)
 {
-    logEvent(tr("ServerRoundOverPlayers"), tr("The round has just ended, and %1 is the final detailed player stats.").arg(playerInfo));
-    logMessage(0, tr("The round has just ended, and <b>%1</b> is the final detailed player stats.").arg(playerInfo)); // TODO: Check what this actually outputs.
+    logEvent(tr("ServerRoundOverPlayers"), tr("The round has just ended, and %1 is the final detailed player stats.").arg(playerInfo)); // TODO: Check what this actually outputs.
 }
 
 void BF4Widget::onServerRoundOverTeamScores(const QString &teamScores)
 {
     logEvent(tr("ServerRoundOverTeamScores"), tr("The round has just ended, and %1 is the final ticket/kill/life count for each team.").arg(teamScores));
-    logMessage(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team.").arg(teamScores));
 }
 
 /* Commands */
@@ -523,9 +516,8 @@ void BF4Widget::onLoginHashedCommand(const bool &auth)
 
 void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const QString &version)
 {
+    Q_UNUSED(type);
     Q_UNUSED(buildId);
-
-    logMessage(0, tr("<b>%1</b> server running version: <b>%2</b>.").arg(type, version));
 
     ui->label_serverInfo_version->setText(tr("Version: %1").arg(version));
 }

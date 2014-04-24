@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QGridLayout" name="gridLayout_7">
    <item row="0" column="0">
@@ -75,7 +75,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>1</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -225,7 +225,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget_op">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_so_de">
           <attribute name="title">
@@ -318,7 +318,7 @@
              <item row="1" column="0" colspan="2">
               <widget class="QCheckBox" name="checkBox_so_co_punkBuster">
                <property name="text">
-                <string>Punkbuster</string>
+                <string>PunkBuster</string>
                </property>
               </widget>
              </item>
@@ -961,7 +961,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget_co">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <property name="documentMode">
           <bool>false</bool>

@@ -20,7 +20,7 @@
 #ifndef BF4WIDGET_H
 #define BF4WIDGET_H
 
-#include <QDateTime>
+#include <QTime>
 #include <QMenu>
 #include <QCompleter>
 
@@ -59,8 +59,9 @@ private:
     QCompleter *completer;
 
     void startupCommands();
-    void logMessage(const int &type, const QString &message);
     void logEvent(const QString &event, const QString &message);
+    void logChat(const QString &sender, const QString &message);
+    void logConsole(const int &type, const QString &message);
 
     // Players
     QIcon getRankIcon(const int &rank);
@@ -78,7 +79,7 @@ private slots:
     void onPlayerLeave(const QString &player, const QString &info);
     void onPlayerSpawn(const QString &player, const int &teamdId);
     void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
-    void onPlayerChat(const QString &player, const QString &message, const QString &target);
+    void onPlayerChat(const QString &sender, const QString &message, const QString &target);
     void onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
     void onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
     void onPunkBusterMessage(const QString &message);

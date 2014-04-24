@@ -179,7 +179,7 @@ signals:
     void onPlayerLeave(const QString &player, const QString &info);
     void onPlayerSpawn(const QString &player, const int &teamId);
     void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
-    void onPlayerChat(const QString &player, const QString &message, const QString &target);
+    void onPlayerChat(const QString &sender, const QString &message, const QString &target);
     void onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
     void onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
     void onPunkBusterMessage(const QString &message);
