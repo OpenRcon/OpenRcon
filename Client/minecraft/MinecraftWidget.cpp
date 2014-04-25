@@ -24,8 +24,8 @@ MinecraftWidget::MinecraftWidget(const QString &host, const int &port, const QSt
     ui->setupUi(this);
 
     /* Events */
-    connect(con->commandHandler, SIGNAL(onDataSent(const QString&)), this, SLOT(onDataSent(const QString&)));
-    connect(con->commandHandler, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataSent(const QString&)));
+    connect(con->commandHandler, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con->commandHandler, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
 
     connect(con->commandHandler, SIGNAL(onAuthenticated(const bool&)), this, SLOT(onAuthenticated(const bool&)));
 
@@ -55,12 +55,12 @@ void MinecraftWidget::logMessage(const int &type, const QString &message)
 }
 
 /* Events */
-void MinecraftWidget::onDataSent(const QString &command)
+void MinecraftWidget::onDataSentEvent(const QString &request)
 {
-    logMessage(2, command);
+    logMessage(2, request);
 }
 
-void MinecraftWidget::onDataReceived(const QString &response)
+void MinecraftWidget::onDataReceivedEvent(const QString &response)
 {
     logMessage(3, response);
 }
