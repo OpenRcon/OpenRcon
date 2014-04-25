@@ -118,7 +118,7 @@
      <property name="title">
       <string>Toolbars</string>
      </property>
-     <addaction name="actionConnection"/>
+     <addaction name="actionServers"/>
     </widget>
     <addaction name="menuToolbars"/>
    </widget>
@@ -148,7 +148,7 @@
    <addaction name="actionServermanager"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionConnection">
+  <action name="actionServers">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -156,7 +156,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Connection</string>
+    <string>Servers</string>
    </property>
   </action>
   <action name="actionServermanager">

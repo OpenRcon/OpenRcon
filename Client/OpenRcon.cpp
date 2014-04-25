@@ -60,7 +60,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
 
-    connect(ui->actionConnection, SIGNAL(triggered()), this, SLOT(actionConnection_triggered()));
+    connect(ui->actionServers, SIGNAL(triggered()), this, SLOT(actionServers_triggered()));
 
     connect(ui->actionOptions, SIGNAL(triggered()), this, SLOT(actionOptions_triggered()));
 
@@ -124,10 +124,10 @@ void OpenRcon::readSettings()
 
         if (settings->value("actionConnection", true).toBool()) {
             ui->toolBar_sm->show();
-            ui->actionConnection->setChecked(true);
+            ui->actionServers->setChecked(true);
         } else {
             ui->toolBar_sm->hide();
-            ui->actionConnection->setChecked(false);
+            ui->actionServers->setChecked(false);
         }
     settings->endGroup();
 }
@@ -196,17 +196,17 @@ void OpenRcon::actionServermanager_triggered()
 }
 
 // View menu
-void OpenRcon::actionConnection_triggered()
+void OpenRcon::actionServers_triggered()
 {
     settings->beginGroup("OpenRcon");
-        if (ui->actionConnection->isChecked()) {
+        if (ui->actionServers->isChecked()) {
             ui->toolBar_sm->show();
             settings->setValue("actionConnection", true);
-            ui->actionConnection->setChecked(true);
+            ui->actionServers->setChecked(true);
         } else {
             ui->toolBar_sm->hide();
             settings->setValue("actionConnection", false);
-            ui->actionConnection->setChecked(false);
+            ui->actionServers->setChecked(false);
         }
     settings->endGroup();
 }

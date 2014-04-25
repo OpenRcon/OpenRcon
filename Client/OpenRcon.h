@@ -102,7 +102,7 @@ private slots:
     void actionServermanager_triggered();
 
     // View menu
-    void actionConnection_triggered();
+    void actionServers_triggered();
 
     // Setting menu
     void actionOptions_triggered();
