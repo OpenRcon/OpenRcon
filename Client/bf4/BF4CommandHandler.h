@@ -196,7 +196,7 @@ signals:
     void onServerInfoCommand(const ServerInfo &serverInfo);
     void onLogoutCommand();
     void onQuitCommand();
-    void onVersionCommand(const QString &type, const int &buildId, const QString &version);
+    void onVersionCommand(const QString &type, const int &build, const QString &version);
     void onCurrentLevelCommand();
     void onListPlayersCommand();
     void onAdminEventsEnabledCommand();
