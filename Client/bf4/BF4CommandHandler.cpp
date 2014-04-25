@@ -33,393 +33,391 @@ void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &
 {
     // Parse and call events.
     if (command == "player.onAuthenticated") {
-        eventOnPlayerAuthenticated(packet);
+        responsePlayerAuthenticatedEvent(packet);
     } else if (command == "player.onDisconnect") {
-        eventOnPlayerDisconnect(packet);
+        responsePlayerDisconnectEvent(packet);
     } else if (command == "player.onJoin") {
-        eventOnPlayerJoin(packet);
+        responsePlayerJoinEvent(packet);
     } else if (command == "player.onLeave") {
-        eventOnPlayerLeave(packet);
+        responsePlayerLeaveEvent(packet);
     } else if (command == "player.onSpawn") {
-        eventOnPlayerSpawn(packet);
+        responsePlayerSpawnEvent(packet);
     } else if (command == "player.onKill") {
-        eventOnPlayerKill(packet);
+        responsePlayerKillEvent(packet);
     } else if (command == "player.onChat") {
-        eventOnPlayerChat(packet);
+        responsePlayerChatEvent(packet);
     } else if (command == "server.onMaxPlayerCountChange") {
-        eventOnServerMaxPlayerCountChange(packet);
+        responseServerMaxPlayerCountChangeEvent(packet);
     } else if (command == "player.onSquadChange") {
-        eventOnPlayerSquadChange(packet);
+        responsePlayerSquadChangeEvent(packet);
     } else if (command == "player.onTeamChange") {
-        eventOnPlayerTeamChange(packet);
+        responsePlayerTeamChangeEvent(packet);
     } else if (command == "punkBuster.onMessage") {
-        eventOnPunkBusterMessage(packet);
+        responsePunkBusterMessageEvent(packet);
     } else if (command == "server.onLevelLoaded") {
-        eventOnServerLevelLoaded(packet);
+        responseServerLevelLoadedEvent(packet);
     } else if (command == "server.onRoundOver") {
-        eventOnServerRoundOver(packet);
+        responseServerRoundOverEvent(packet);
     } else if (command == "server.onRoundOverPlayers") {
-        eventOnServerRoundOverPlayers(packet);
+        responseServerRoundOverPlayersEvent(packet);
     } else if (command == "server.onRoundOverTeamScores") {
-        eventOnServerRoundOverTeamScores(packet);
+        responseServerRoundOverTeamScoresEvent(packet);
     }
 
     // Parse and call commands.
     if (command == "login.plainText") {
-        commandLoginPlainText(packet);
+        responseLoginPlainTextCommand(packet);
     } else if (command == "login.hashed") {
-        commandLoginHashed(packet, lastSentPacket);
+        responseLoginHashedCommand(packet, lastSentPacket);
     } else if (command == "serverInfo") {
-        commandServerInfo(packet);
+        responseServerInfoCommand(packet);
     } else if (command == "logout") {
-        commandLogout(packet);
+        responseLogoutCommand(packet);
     } else if (command == "quit") {
-        commandQuit(packet);
+        responseQuitCommand(packet);
     } else if (command ==  "version") {
-        commandVersion(packet);
+        responseVersionCommand(packet);
     } else if (command ==  "currentLevel") {
-        commandCurrentLevel(packet);
+        responseCurrentLevelCommand(packet);
     } else if (command ==  "listPlayers") {
-        commandListPlayers(packet);
+        responseListPlayersCommand(packet);
     } else if (command == "admin.eventsEnabled") {
-        commandAdminEventsEnabled(packet);
+        responseAdminEventsEnabledCommand(packet);
     } else if (command == "admin.help") {
-        commandAdminHelp(packet);
+        responseAdminHelpCommand(packet);
     } else if (command == "admin.kickPlayer") {
-        commandAdminKickPlayer(packet);
+        responseAdminKickPlayerCommand(packet);
     } else if (command == "admin.killPlayer") {
-        commandAdminKillPlayer(packet);
+        responseAdminKillPlayerCommand(packet);
     } else if (command == "admin.listPlayers") {
-        commandAdminListPlayers(packet);
+        responseAdminListPlayersCommand(packet);
     } else if (command == "admin.movePlayer") {
-        commandAdminMovePlayer(packet);
+        responseAdminMovePlayerCommand(packet);
     } else if (command == "admin.password") {
-        commandAdminPassword(packet);
+        responseAdminPasswordCommand(packet);
     } else if (command == "admin.say") {
-        commandAdminSay(packet);
+        responseAdminSayCommand(packet);
     } else if (command == "admin.shutDown") {
-        commandAdminShutDown(packet);
+        responseAdminShutDownCommand(packet);
     } else if (command == "admin.yell") {
-        commandAdminYell(packet);
+        responseAdminYellCommand(packet);
     } else if (command == "banList.add") {
-        commandBanListAdd(packet);
+        responseBanListAddCommand(packet);
     } else if (command == "banList.clear") {
-        commandBanListClear(packet);
+        responseBanListClearCommand(packet);
     } else if (command == "banList.list") {
-        commandBanListList(packet);
+        responseBanListListCommand(packet);
     } else if (command == "banList.load") {
-        commandBanListLoad(packet);
+        responseBanListLoadCommand(packet);
     } else if (command == "banList.remove") {
-        commandBanListRemove(packet);
+        responseBanListRemoveCommand(packet);
     } else if (command == "banList.save") {
-        commandBanListSave(packet);
+        responseBanListSaveCommand(packet);
     } else if (command == "fairFight.activate") {
-        commandFairFightActivate(packet);
+        responseFairFightActivateCommand(packet);
     } else if (command == "fairFight.deactivate") {
-        commandFairFightDeactivate(packet);
+        responseFairFightDeactivateCommand(packet);
     } else if (command == "fairFight.isActive") {
-        commandFairFightIsActive(packet);
+        responseFairFightIsActiveCommand(packet);
     } else if (command == "mapList.add") {
-        commandMapListAdd(packet);
+        responseMapListAddCommand(packet);
     } else if (command == "mapList.availableMaps") {
-        commandMapListAvailableMaps(packet);
+        responseMapListAvailableMapsCommand(packet);
     } else if (command == "mapList.clear") {
-        commandMapListClear(packet);
+        responseMapListClearCommand(packet);
     } else if (command == "mapList.endRound") {
-        commandMapListEndRound(packet);
+        responseMapListEndRoundCommand(packet);
     } else if (command == "mapList.getMapIndices") {
-        commandMapListGetMapIndices(packet);
+        responseMapListGetMapIndicesCommand(packet);
     } else if (command == "mapList.getRounds") {
-        commandMapListGetRounds(packet);
+        responseMapListGetRoundsCommand(packet);
     } else if (command == "maplist.list") { // case sensetive?
-        commandMapListList(packet);
+        responseMapListListCommand(packet);
     } else if (command == "mapList.load") {
-        commandMapListLoad(packet);
+        responseMapListLoadCommand(packet);
     } else if (command == "mapList.remove") {
-        commandMapListRemove(packet);
+        responseMapListRemoveCommand(packet);
     } else if (command == "mapList.restartRound") {
-        commandMapListRestartRound(packet);
+        responseMapListRestartRoundCommand(packet);
     } else if (command == "mapList.runNextRound") {
-        commandMapListRunNextRound(packet);
+        responseMapListRunNextRoundCommand(packet);
     } else if (command == "mapList.save") {
-        commandMapListSave(packet);
+        responseMapListSaveCommand(packet);
     } else if (command == "mapList.setNextMapIndex") {
-        commandMapListSetNextMapIndex(packet);
+        responseMapListSetNextMapIndexCommand(packet);
     } else if (command == "player.idleDuration") {
-        commandPlayerIdleDuration(packet);
+        responsePlayerIdleDurationCommand(packet);
     } else if (command == "player.isAlive") {
-        commandPlayerIsAlive(packet);
+        responsePlayerIsAliveCommand(packet);
     } else if (command == "player.ping") {
-        commandPlayerPing(packet);
+        responsePlayerPingCommand(packet);
     } else if (command == "punkBuster.activate") {
-        commandPunkBusterActivate(packet);
+        responsePunkBusterActivateCommand(packet);
     } else if (command == "punkBuster.isActive") {
-        commandPunkBusterIsActive(packet);
+        responsePunkBusterIsActiveCommand(packet);
     } else if (command == "punkBuster.pb_sv_command") {
-        commandPunkBusterPbSvCommand(packet);
+        responsePunkBusterPbSvCommandCommand(packet);
     } else if (command == "reservedSlotsList.add") {
-        commandReservedSlotsListAdd(packet);
+        responseReservedSlotsListAddCommand(packet);
     } else if (command == "reservedSlotsList.aggressiveJoin") {
-        commandReservedSlotsListAggressiveJoin(packet);
+        responseReservedSlotsListAggressiveJoinCommand(packet);
     } else if (command == "reservedSlotsList.clear") {
-        commandReservedSlotsListClear(packet);
+        responseReservedSlotsListClearCommand(packet);
     } else if (command == "reservedSlotsList.list") {
-        commandReservedSlotsListList(packet);
+        responseReservedSlotsListListCommand(packet);
     } else if (command == "reservedSlotsList.load") {
-        commandReservedSlotsListLoad(packet);
+        responseReservedSlotsListLoadCommand(packet);
     } else if (command == "reservedSlotsList.remove") {
-        commandReservedSlotsListRemove(packet);
+        responseReservedSlotsListRemoveCommand(packet);
     } else if (command == "reservedSlotsList.save") {
-        commandReservedSlotsListSave(packet);
+        responseReservedSlotsListSaveCommand(packet);
     } else if (command == "spectatorList.add") {
-        commandSpectatorListAdd(packet);
+        responseSpectatorListAddCommand(packet);
     } else if (command == "spectatorList.clear") {
-        commandSpectatorListClear(packet);
+        responseSpectatorListClearCommand(packet);
     } else if (command == "spectatorList.list") {
-        commandSpectatorListList(packet);
+        responseSpectatorListListCommand(packet);
     } else if (command == "spectatorList.remove") {
-        commandSpectatorListRemove(packet);
+        responseSpectatorListRemoveCommand(packet);
     } else if (command == "spectatorList.save") {
-        commandSpectatorListSave(packet);
+        responseSpectatorListSaveCommand(packet);
     } else if (command == "squad.leader") {
-        commandSquadLeader(packet);
+        responseSquadLeaderCommand(packet);
     } else if (command == "squad.listActive") {
-        commandSquadListActive(packet);
+        responseSquadListActiveCommand(packet);
     } else if (command == "squad.listPlayers") {
-        commandSquadListPlayers(packet);
+        responseSquadListPlayersCommand(packet);
     } else if (command == "squad.private") {
-        commandSquadPrivate(packet);
+        responseSquadPrivateCommand(packet);
     } else if (command == "vars.3dSpotting") {
-        commandVars3dSpotting(packet);
+        responseVars3dSpottingCommand(packet);
     } else if (command == "vars.3pCam") {
-        commandVars3pCam(packet);
+        responseVars3pCamCommand(packet);
     } else if (command == "vars.alwaysAllowSpectators") {
-        commandVarsAlwaysAllowSpectators(packet);
+        responseVarsAlwaysAllowSpectatorsCommand(packet);
     } else if (command == "vars.autoBalance") {
-        commandVarsAutoBalance(packet);
+        responseVarsAutoBalanceCommand(packet);
     } else if (command == "vars.bulletDamage") {
-        commandVarsBulletDamage(packet);
+        responseVarsBulletDamageCommand(packet);
     } else if (command == "vars.commander") {
-        commandVarsCommander(packet);
+        responseVarsCommanderCommand(packet);
     } else if (command == "vars.crossHair") {
-        commandVarsCrossHair(packet);
+        responseVarsCrossHairCommand(packet);
     } else if (command == "vars.forceReloadWholeMags") {
-        commandVarsForceReloadWholeMags(packet);
+        responseVarsForceReloadWholeMagsCommand(packet);
     } else if (command == "vars.friendlyFire") {
-        commandVarsFriendlyFire(packet);
+        responseVarsFriendlyFireCommand(packet);
     } else if (command == "vars.gameModeCounter") {
-        commandVarsGameModeCounter(packet);
+        responseVarsGameModeCounterCommand(packet);
     } else if (command == "vars.gamePassword") {
-        commandVarsGamePassword(packet);
+        responseVarsGamePasswordCommand(packet);
     } else if (command == "vars.hitIndicatorsEnabled") {
-        commandVarsHitIndicatorsEnabled(packet);
+        responseVarsHitIndicatorsEnabledCommand(packet);
     } else if (command == "vars.hud") {
-        commandVarsHud(packet);
+        responseVarsHudCommand(packet);
     } else if (command == "vars.idleBanRounds") {
-        commandVarsIdleBanRounds(packet);
+        responseVarsIdleBanRoundsCommand(packet);
     } else if (command == "vars.idleTimeout") {
-        commandVarsIdleTimeout(packet);
+        responseVarsIdleTimeoutCommand(packet);
     } else if (command == "vars.killCam") {
-        commandVarsKillCam(packet);
+        responseVarsKillCamCommand(packet);
     } else if (command == "vars.maxPlayers") {
-        commandVarsMaxPlayers(packet);
+        responseVarsMaxPlayersCommand(packet);
     } else if (command == "vars.maxSpectators") {
-        commandVarsMaxSpectators(packet);
+        responseVarsMaxSpectatorsCommand(packet);
     } else if (command == "vars.miniMap") {
-        commandVarsMiniMap(packet);
+        responseVarsMiniMapCommand(packet);
     } else if (command == "vars.miniMapSpotting") {
-        commandVarsMiniMapSpotting(packet);
+        responseVarsMiniMapSpottingCommand(packet);
     } else if (command == "vars.mpExperience") {
-        commandVarsMpExperience(packet);
+        responseVarsMpExperienceCommand(packet);
     } else if (command == "vars.nameTag") {
-        commandVarsNameTag(packet);
+        responseVarsNameTagCommand(packet);
     } else if (command == "vars.onlySquadLeaderSpawn") {
-        commandVarsOnlySquadLeaderSpawn(packet);
+        responseVarsOnlySquadLeaderSpawnCommand(packet);
     } else if (command == "vars.playerRespawnTime") {
-        commandVarsPlayerRespawnTime(packet);
+        responseVarsPlayerRespawnTimeCommand(packet);
     } else if (command == "vars.preset") {
-        commandVarsPreset(packet);
+        responseVarsPresetCommand(packet);
     } else if (command == "vars.regenerateHealth") {
-        commandVarsRegenerateHealth(packet);
+        responseVarsRegenerateHealthCommand(packet);
     } else if (command == "vars.roundLockdownCountdown") {
-        commandVarsRoundLockdownCountdown(packet);
+        responseVarsRoundLockdownCountdownCommand(packet);
     } else if (command == "vars.roundRestartPlayerCount") {
-        commandVarsRoundRestartPlayerCount(packet);
+        responseVarsRoundRestartPlayerCountCommand(packet);
     } else if (command == "vars.roundStartPlayerCount") {
-        commandVarsRoundStartPlayerCount(packet);
+        responseVarsRoundStartPlayerCountCommand(packet);
     } else if (command == "vars.roundTimeLimit") {
-        commandVarsRoundTimeLimit(packet);
+        responseVarsRoundTimeLimitCommand(packet);
     } else if (command == "vars.roundWarmupTimeout") {
-        commandVarsRoundWarmupTimeout(packet);
+        responseVarsRoundWarmupTimeoutCommand(packet);
     } else if (command == "vars.serverDescription") {
-        commandVarsServerDescription(packet);
+        responseVarsServerDescriptionCommand(packet);
     } else if (command == "vars.serverMessage") {
-        commandVarsServerMessage(packet);
+        responseVarsServerMessageCommand(packet);
     } else if (command == "vars.serverName") {
-        commandVarsServerName(packet);
+        responseVarsServerNameCommand(packet);
     } else if (command == "vars.serverType") {
-        commandVarsServerType(packet);
+        responseVarsServerTypeCommand(packet);
     } else if (command == "vars.soldierHealth") {
-        commandVarsSoldierHealth(packet);
+        responseVarsSoldierHealthCommand(packet);
     } else if (command == "vars.team1FactionOverride") {
-        commandVarsTeam1FactionOverride(packet);
+        responseVarsTeam1FactionOverrideCommand(packet);
     } else if (command == "vars.team2FactionOverride") {
-        commandVarsTeam2FactionOverride(packet);
+        responseVarsTeam2FactionOverrideCommand(packet);
     } else if (command == "vars.team3FactionOverride") {
-        commandVarsTeam3FactionOverride(packet);
+        responseVarsTeam3FactionOverrideCommand(packet);
     } else if (command == "vars.team4FactionOverride") {
-        commandVarsTeam4FactionOverride(packet);
+        responseVarsTeam4FactionOverrideCommand(packet);
     } else if (command == "vars.teamKillCountForKick") {
-        commandVarsTeamKillCountForKick(packet);
+        responseVarsTeamKillCountForKickCommand(packet);
     } else if (command == "vars.teamKillKickForBan") {
-        commandVarsTeamKillKickForBan(packet);
+        responseVarsTeamKillKickForBanCommand(packet);
     } else if (command == "vars.teamKillValueDecreasePerSecond") {
-        commandVarsTeamKillValueDecreasePerSecond(packet);
+        responseVarsTeamKillValueDecreasePerSecondCommand(packet);
     } else if (command == "vars.teamKillValueForKick") {
-        commandVarsTeamKillValueForKick(packet);
+        responseVarsTeamKillValueForKickCommand(packet);
     } else if (command == "vars.teamKillValueIncrease") {
-        commandVarsTeamKillValueIncrease(packet);
+        responseVarsTeamKillValueIncreaseCommand(packet);
     } else if (command == "vars.ticketBleedRate") {
-        commandVarsTicketBleedRate(packet);
+        responseVarsTicketBleedRateCommand(packet);
     } else if (command == "vars.unlockMode") {
-        commandVarsUnlockMode(packet);
+        responseVarsUnlockModeCommand(packet);
     } else if (command == "vars.vehicleSpawnAllowed") {
-        commandVarsVehicleSpawnAllowed(packet);
+        responseVarsVehicleSpawnAllowedCommand(packet);
     } else if (command == "vars.vehicleSpawnDelay") {
-        commandVarsVehicleSpawnDelay(packet);
+        responseVarsVehicleSpawnDelayCommand(packet);
     } else {
-        commandUnknown();
+        responseUnknownCommand();
     }
 }
 
 /* Events */
-void BF4CommandHandler::eventOnPlayerAuthenticated(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
     QString guid = packet.getWord(2).getContent();
 
-    emit(onPlayerAuthenticated(player, guid));
+    emit (onPlayerAuthenticatedEvent(player, guid));
 }
 
-void BF4CommandHandler::eventOnPlayerDisconnect(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerDisconnectEvent(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 
-    emit(onPlayerDisconnect());
+    emit (onPlayerDisconnectEvent());
 }
 
-void BF4CommandHandler::eventOnPlayerJoin(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerJoinEvent(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
 
-    emit(onPlayerJoin(player));
+    emit (onPlayerJoinEvent(player));
 }
 
-void BF4CommandHandler::eventOnPlayerLeave(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerLeaveEvent(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
     QString info = packet.getWord(2).getContent();
 
-    emit(onPlayerLeave(player, info));
+    emit (onPlayerLeaveEvent(player, info));
 }
 
-void BF4CommandHandler::eventOnPlayerSpawn(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerSpawnEvent(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
     int teamId = QString(packet.getWord(2).getContent()).toInt();
 
-    emit(onPlayerSpawn(player, teamId));
+    emit (onPlayerSpawnEvent(player, teamId));
 }
 
-void BF4CommandHandler::eventOnPlayerKill(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerKillEvent(const FrostbiteRconPacket &packet)
 {
     QString killer = packet.getWord(1).getContent();
     QString victim = packet.getWord(2).getContent();
     QString weapon = packet.getWord(3).getContent();
     bool headshot = packet.getWord(4).getContent();
 
-    qDebug() << "Bool is: " << headshot;
-
-    emit(onPlayerKill(killer, victim, weapon, headshot));
+    emit (onPlayerKillEvent(killer, victim, weapon, headshot));
 }
 
-void BF4CommandHandler::eventOnPlayerChat(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerChatEvent(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
     QString message = packet.getWord(2).getContent();
     QString target = packet.getWord(3).getContent();
 
-    emit(onPlayerChat(player, message, target));
+    emit (onPlayerChatEvent(player, message, target));
 }
 
-void BF4CommandHandler::eventOnPlayerSquadChange(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
     int teamId = QString(packet.getWord(2).getContent()).toInt();
     int squadId = QString(packet.getWord(3).getContent()).toInt();
 
-    emit(onPlayerSquadChange(player, teamId, squadId));
+    emit (onPlayerSquadChangeEvent(player, teamId, squadId));
 }
 
-void BF4CommandHandler::eventOnPlayerTeamChange(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
     int teamId = toInt(packet.getWord(2).getContent());
     int squadId = toInt(packet.getWord(3).getContent());
 
-    emit(onPlayerTeamChange(player, teamId, squadId));
+    emit (onPlayerTeamChangeEvent(player, teamId, squadId));
 }
 
-void BF4CommandHandler::eventOnPunkBusterMessage(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePunkBusterMessageEvent(const FrostbiteRconPacket &packet)
 {
     QString message = packet.getWord(1).getContent();
 
-    emit(onPunkBusterMessage(message));
+    emit (onPunkBusterMessageEvent(message));
 }
 
-void BF4CommandHandler::eventOnServerMaxPlayerCountChange(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::eventOnServerLevelLoaded(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseServerLevelLoadedEvent(const FrostbiteRconPacket &packet)
 {
     QString levelName = packet.getWord(1).getContent();
     QString gameModeName = packet.getWord(2).getContent();
     int roundsPlayed = QString(packet.getWord(3).getContent()).toInt();
     int roundsTotal = QString(packet.getWord(4).getContent()).toInt();
 
-    emit(onServerLevelLoaded(levelName, gameModeName, roundsPlayed, roundsTotal));
+    emit (onServerLevelLoadedEvent(levelName, gameModeName, roundsPlayed, roundsTotal));
 }
 
-void BF4CommandHandler::eventOnServerRoundOver(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseServerRoundOverEvent(const FrostbiteRconPacket &packet)
 {
     int winningTeamId = QString(packet.getWord(1).getContent()).toInt();
 
-    emit(onServerRoundOver(winningTeamId));
+    emit (onServerRoundOverEvent(winningTeamId));
 }
 
-void BF4CommandHandler::eventOnServerRoundOverPlayers(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet)
 {
     QString playerInfo = packet.getWord(1).getContent();
 
-    emit(onServerRoundOverPlayers(playerInfo));
+    emit (onServerRoundOverPlayersEvent(playerInfo));
 }
 
-void BF4CommandHandler::eventOnServerRoundOverTeamScores(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet)
 {
     QString teamScores = packet.getWord(1).getContent();
 
-    emit(onServerRoundOverTeamScores(teamScores));
+    emit (onServerRoundOverTeamScoresEvent(teamScores));
 }
 
 /* Commands */
-void BF4CommandHandler::commandLoginPlainText(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseLoginPlainTextCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandLoginHashed(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF4CommandHandler::responseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -438,7 +436,7 @@ void BF4CommandHandler::commandLoginHashed(const FrostbiteRconPacket &packet, co
     }
 }
 
-void BF4CommandHandler::commandServerInfo(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseServerInfoCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -473,17 +471,17 @@ void BF4CommandHandler::commandServerInfo(const FrostbiteRconPacket &packet)
     }
 }
 
-void BF4CommandHandler::commandLogout(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseLogoutCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandQuit(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseQuitCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVersion(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVersionCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -534,37 +532,37 @@ void BF4CommandHandler::commandVersion(const FrostbiteRconPacket &packet)
     }
 }
 
-void BF4CommandHandler::commandCurrentLevel(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseCurrentLevelCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandListPlayers(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseListPlayersCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandAdminEventsEnabled(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandAdminHelp(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminHelpCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandAdminKickPlayer(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminKickPlayerCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandAdminKillPlayer(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminKillPlayerCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandAdminListPlayers(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminListPlayersCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -600,42 +598,42 @@ void BF4CommandHandler::commandAdminListPlayers(const FrostbiteRconPacket &packe
     }
 }
 
-void BF4CommandHandler::commandAdminMovePlayer(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminMovePlayerCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandAdminPassword(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminPasswordCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandAdminSay(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminSayCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandAdminShutDown(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminShutDownCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandAdminYell(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminYellCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandBanListAdd(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseBanListAddCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandBanListClear(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseBanListClearCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandBanListList(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseBanListListCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -657,32 +655,32 @@ void BF4CommandHandler::commandBanListList(const FrostbiteRconPacket &packet)
     }
 }
 
-void BF4CommandHandler::commandBanListLoad(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseBanListLoadCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandBanListRemove(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseBanListRemoveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandBanListSave(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseBanListSaveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandFairFightActivate(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseFairFightActivateCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandFairFightDeactivate(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseFairFightDeactivateCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandFairFightIsActive(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseFairFightIsActiveCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -693,37 +691,37 @@ void BF4CommandHandler::commandFairFightIsActive(const FrostbiteRconPacket &pack
     }
 }
 
-void BF4CommandHandler::commandMapListAdd(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListAddCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListAvailableMaps(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListClear(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListClearCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListEndRound(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListEndRoundCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListGetMapIndices(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListGetMapIndicesCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListGetRounds(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListGetRoundsCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListListCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -760,57 +758,57 @@ void BF4CommandHandler::commandMapListList(const FrostbiteRconPacket &packet)
     }
 }
 
-void BF4CommandHandler::commandMapListLoad(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListLoadCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListRemove(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListRemoveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListRestartRound(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListRestartRoundCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListRunNextRound(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListRunNextRoundCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListSave(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListSaveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandMapListSetNextMapIndex(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandPlayerIdleDuration(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandPlayerIsAlive(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerIsAliveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandPlayerPing(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePlayerPingCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandPunkBusterActivate(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePunkBusterActivateCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandPunkBusterIsActive(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -821,27 +819,27 @@ void BF4CommandHandler::commandPunkBusterIsActive(const FrostbiteRconPacket &pac
     }
 }
 
-void BF4CommandHandler::commandPunkBusterPbSvCommand(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePunkBusterPbSvCommandCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandReservedSlotsListAdd(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandReservedSlotsListAggressiveJoin(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandReservedSlotsListClear(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandReservedSlotsListList(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseReservedSlotsListListCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -856,32 +854,32 @@ void BF4CommandHandler::commandReservedSlotsListList(const FrostbiteRconPacket &
     }
 }
 
-void BF4CommandHandler::commandReservedSlotsListLoad(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandReservedSlotsListRemove(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandReservedSlotsListSave(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandSpectatorListAdd(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseSpectatorListAddCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandSpectatorListClear(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseSpectatorListClearCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandSpectatorListList(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseSpectatorListListCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -896,107 +894,107 @@ void BF4CommandHandler::commandSpectatorListList(const FrostbiteRconPacket &pack
     }
 }
 
-void BF4CommandHandler::commandSpectatorListRemove(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseSpectatorListRemoveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandSpectatorListSave(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseSpectatorListSaveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandSquadLeader(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseSquadLeaderCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandSquadListActive(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseSquadListActiveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandSquadListPlayers(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseSquadListPlayersCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandSquadPrivate(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseSquadPrivateCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVars3dSpotting(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVars3dSpottingCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVars3pCam(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVars3pCamCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsAlwaysAllowSpectators(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsAutoBalance(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsBulletDamage(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsBulletDamageCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsCommander(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsCommanderCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsCrossHair(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsCrossHairCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsForceReloadWholeMags(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsForceReloadWholeMagsCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsFriendlyFire(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsGameModeCounter(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsGamePassword(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsGamePasswordCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsHitIndicatorsEnabled(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsHitIndicatorsEnabledCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsHud(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsHudCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsIdleBanRounds(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsIdleBanRoundsCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsIdleTimeout(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -1007,12 +1005,12 @@ void BF4CommandHandler::commandVarsIdleTimeout(const FrostbiteRconPacket &packet
     }
 }
 
-void BF4CommandHandler::commandVarsKillCam(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsKillCamCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsMaxPlayers(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsMaxPlayersCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -1023,7 +1021,7 @@ void BF4CommandHandler::commandVarsMaxPlayers(const FrostbiteRconPacket &packet)
     }
 }
 
-void BF4CommandHandler::commandVarsMaxSpectators(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsMaxSpectatorsCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -1034,72 +1032,72 @@ void BF4CommandHandler::commandVarsMaxSpectators(const FrostbiteRconPacket &pack
     }
 }
 
-void BF4CommandHandler::commandVarsMiniMap(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsMiniMapCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsMiniMapSpotting(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsMiniMapSpottingCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsMpExperience(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsMpExperienceCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsNameTag(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsNameTagCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsOnlySquadLeaderSpawn(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsOnlySquadLeaderSpawnCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsPlayerRespawnTime(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsPlayerRespawnTimeCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsPreset(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsPresetCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsRegenerateHealth(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsRegenerateHealthCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsRoundLockdownCountdown(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsRoundRestartPlayerCount(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsRoundStartPlayerCount(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsRoundTimeLimit(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsRoundTimeLimitCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsRoundWarmupTimeout(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsRoundWarmupTimeoutCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsServerDescription(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsServerDescriptionCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -1110,7 +1108,7 @@ void BF4CommandHandler::commandVarsServerDescription(const FrostbiteRconPacket &
     }
 }
 
-void BF4CommandHandler::commandVarsServerMessage(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsServerMessageCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -1121,7 +1119,7 @@ void BF4CommandHandler::commandVarsServerMessage(const FrostbiteRconPacket &pack
     }
 }
 
-void BF4CommandHandler::commandVarsServerName(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsServerNameCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -1132,7 +1130,7 @@ void BF4CommandHandler::commandVarsServerName(const FrostbiteRconPacket &packet)
     }
 }
 
-void BF4CommandHandler::commandVarsServerType(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsServerTypeCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -1143,72 +1141,72 @@ void BF4CommandHandler::commandVarsServerType(const FrostbiteRconPacket &packet)
     }
 }
 
-void BF4CommandHandler::commandVarsSoldierHealth(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsSoldierHealthCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTeam1FactionOverride(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTeam1FactionOverrideCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTeam2FactionOverride(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTeam2FactionOverrideCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTeam3FactionOverride(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTeam3FactionOverrideCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTeam4FactionOverride(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTeam4FactionOverrideCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTeamKillCountForKick(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTeamKillCountForKickCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTeamKillKickForBan(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTeamKillKickForBanCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTeamKillValueDecreasePerSecond(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTeamKillValueDecreasePerSecondCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTeamKillValueForKick(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTeamKillValueIncrease(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsTicketBleedRate(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsTicketBleedRateCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsUnlockMode(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsUnlockModeCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsVehicleSpawnAllowed(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsVehicleSpawnAllowedCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::commandVarsVehicleSpawnDelay(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }

@@ -29,7 +29,7 @@ MinecraftCommandHandler::~MinecraftCommandHandler()
 
 }
 
-void MinecraftCommandHandler::exec(MinecraftRconPacket &packet)
+void MinecraftCommandHandler::parse(MinecraftRconPacket &packet)
 {
     switch (packet.getRequestId()) {
         case 1:
@@ -42,15 +42,15 @@ void MinecraftCommandHandler::exec(MinecraftRconPacket &packet)
             break;
 
         case ListCommand:
-            commandList(packet);
+            responseListCommand(packet);
             break;
 
         default:
-            commandUnknown();
+            responseUnknownCommand();
     }
 }
 
-int MinecraftCommandHandler::getRequestIdForCommand(const QString &command)
+int MinecraftCommandHandler::getRequestIdFromCommand(const QString &command)
 {
     if (command == "list") {
         return ListCommand;
@@ -61,7 +61,7 @@ int MinecraftCommandHandler::getRequestIdForCommand(const QString &command)
     return UnknownCommand;
 }
 
-void MinecraftCommandHandler::commandList(MinecraftRconPacket &packet)
+void MinecraftCommandHandler::responseListCommand(MinecraftRconPacket &packet)
 {
     QStringList playerList = QString(packet.getContent()).split(" ");
 

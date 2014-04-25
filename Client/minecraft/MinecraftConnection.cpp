@@ -105,14 +105,13 @@ void MinecraftConnection::readyRead()
 void MinecraftConnection::sendCommand(const QString &command)
 {
     if (!command.isEmpty()) {
-        MinecraftRconPacket packet = MinecraftRconPacket(commandHandler->getRequestIdForCommand(command), MinecraftRconPacket::Command, command.toLatin1().data());
-
+        MinecraftRconPacket packet = MinecraftRconPacket(commandHandler->getRequestIdFromCommand(command), MinecraftRconPacket::Command, command.toLatin1().constData());
         sendPacket(packet);
     }
 }
 
 void MinecraftConnection::handlePacket(MinecraftRconPacket &packet)
 {
-    commandHandler->eventOnDataReceived(packet.getContent());
-    commandHandler->exec(packet);
+    commandHandler->responseDataReceivedEvent(packet.getContent());
+    commandHandler->parse(packet);
 }

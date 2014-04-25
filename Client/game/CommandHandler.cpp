@@ -30,17 +30,27 @@ CommandHandler::~CommandHandler()
 }
 
 /* These events is triggered everytime the client sends or receives data. */
-void CommandHandler::eventOnDataSent(const QString &command)
+void CommandHandler::responseDataSentEvent(const QString &request)
 {
-    emit(onDataSent(command));
+    emit(onDataSentEvent(request));
 }
 
-void CommandHandler::eventOnDataReceived(const QString &response)
+void CommandHandler::responseDataReceivedEvent(const QString &response)
 {
-    emit(onDataReceived(response));
+    emit(onDataReceivedEvent(response));
 }
 
-void CommandHandler::commandUnknown()
+void CommandHandler::responseUnknownCommand()
 {
     emit (onUnknownCommand());
+}
+
+int CommandHandler::toInt(const QString &value)
+{
+    return value.toInt();
+}
+
+bool CommandHandler::toBool(const QString &value)
+{
+    return value == "true";
 }

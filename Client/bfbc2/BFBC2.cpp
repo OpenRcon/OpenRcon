@@ -30,8 +30,8 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : BF
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con->commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
+    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
 }
 
 BFBC2::~BFBC2()

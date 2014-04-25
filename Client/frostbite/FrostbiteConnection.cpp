@@ -50,23 +50,6 @@ void FrostbiteConnection::sendPacket(const FrostbiteRconPacket &packet, bool res
     }
 }
 
-void FrostbiteConnection::sendCommand(const QString &command)
-{
-    if (!command.isEmpty()) {
-        FrostbiteRconPacket packet(FrostbiteRconPacket::ServerOrigin, FrostbiteRconPacket::Request, nextPacketSequence);
-        QStringList cmdList;
-        cmdList = command.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
-        cmdList.replaceInStrings("\"", "", Qt::CaseSensitive);
-
-        for (int i = 0; i < cmdList.size(); i++) {
-            packet.packWord(FrostbiteRconWord(cmdList.at(i).toLatin1().constData()));
-        }
-
-        sendPacket(packet);
-        nextPacketSequence++;
-    }
-}
-
 void FrostbiteConnection::readyRead()
 {
     bool exit = false;
@@ -132,9 +115,26 @@ void FrostbiteConnection::clear()
     nextPacketSequence = 0;
 }
 
+void FrostbiteConnection::sendCommand(const QString &command)
+{
+    if (!command.isEmpty()) {
+        FrostbiteRconPacket packet(FrostbiteRconPacket::ServerOrigin, FrostbiteRconPacket::Request, nextPacketSequence);
+        QStringList cmdList;
+        cmdList = command.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
+        cmdList.replaceInStrings("\"", "", Qt::CaseSensitive);
+
+        for (int i = 0; i < cmdList.size(); i++) {
+            packet.packWord(FrostbiteRconWord(cmdList.at(i).toLatin1().constData()));
+        }
+
+        sendPacket(packet);
+        nextPacketSequence++;
+    }
+}
+
 void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
 {
-    qDebug() << QString("We have %1 words in this packet:").arg(packet.getWordCount());
+    qDebug() << tr("We have %1 words in this packet:").arg(packet.getWordCount());
 
     if (packet.isResponse()) {
         QVector<FrostbiteRconPacket>::iterator it;
@@ -150,18 +150,17 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
 
             if (lastSentPacket.getSequenceNum() == packet.getSequenceNum()) {
                 if (lastSentPacket.getWordCount() > 0) {
-                    QString command(lastSentPacket.getWord(0).getContent());
+                    QString request = lastSentPacket.getWord(0).getContent();
 
                     if (packet.getWordCount() > 0) {
-                        unsigned int lastPacketWordCount = lastSentPacket.getWordCount();
-                        QString messages = command + " ";
+                        QString messages = request + " ";
 
-                        for (unsigned int i = 1; i < lastPacketWordCount; i++) {
+                        for (unsigned int i = 1; i < lastSentPacket.getWordCount(); i++) {
                             messages += lastSentPacket.getWord(i).getContent();
                             messages += " ";
                         }
 
-                        commandHandler->eventOnDataSent(messages);
+                        commandHandler->responseDataSentEvent(messages);
                         qDebug() << messages;
 
                         QString messager;
@@ -172,10 +171,9 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messager += " ";
                         }
 
-                        commandHandler->eventOnDataReceived(messager);
+                        commandHandler->responseDataReceivedEvent(messager);
+                        commandHandler->parse(request, packet, lastSentPacket);
                         qDebug() << messager;
-
-                        commandHandler->exec(command, packet, lastSentPacket);
                     }
                 }
             }
@@ -189,7 +187,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
             }
         }
     } else if (packet.getWordCount() > 0) {
-        QString command(packet.getWord(0).getContent());
+        QString request = packet.getWord(0).getContent();
         QString message;
 
         for (unsigned int i = 0; i < packet.getWordCount(); i++) {
@@ -197,7 +195,12 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
             message += " ";
         }
 
-        commandHandler->eventOnDataReceived(message);
-        commandHandler->exec(command, packet, FrostbiteRconPacket());
+        commandHandler->responseDataReceivedEvent(message);
+        commandHandler->parse(request, packet, FrostbiteRconPacket());
     }
+}
+
+FrostbiteCommandHandler* FrostbiteConnection::getCommandHandler()
+{
+    return commandHandler;
 }

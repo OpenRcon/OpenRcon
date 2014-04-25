@@ -35,7 +35,7 @@ public:
     explicit FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent = 0);
     ~FrostbiteConnection();
 
-    FrostbiteCommandHandler *commandHandler;
+    FrostbiteCommandHandler* getCommandHandler();
 
 public slots:
     void hostConnect(const QString &host, const int &port);
@@ -43,6 +43,8 @@ public slots:
     void sendCommand(const QString &command);
 
 private:
+    FrostbiteCommandHandler *commandHandler;
+
     int packetReadState;
     char lastHeader[MIN_PACKET_SIZE];
     QVector<FrostbiteRconPacket> packetSendQueue;

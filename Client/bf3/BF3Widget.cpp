@@ -24,8 +24,8 @@ BF3Widget::BF3Widget(const QString &host, const int &port, const QString &passwo
     ui->setupUi(this);
 
     /* Events */
-    connect(con->commandHandler, SIGNAL(onDataSent(const QString&)), this, SLOT(onDataSent(const QString&)));
-    connect(con->commandHandler, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataSent(const QString&)));
+    connect(con->getCommandHandler(), SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con->getCommandHandler(), SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
 
     /* User Interface */
 
@@ -73,12 +73,12 @@ void BF3Widget::logConsole(const int &type, const QString &message)
 }
 
 /* Events */
-void BF3Widget::onDataSent(const QString &command)
+void BF3Widget::onDataSentEvent(const QString &request)
 {
-    logConsole(0, command);
+    logConsole(0, request);
 }
 
-void BF3Widget::onDataReceived(const QString &response)
+void BF3Widget::onDataReceivedEvent(const QString &response)
 {
     logConsole(1, response);
 }

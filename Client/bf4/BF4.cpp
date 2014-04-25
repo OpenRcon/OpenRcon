@@ -30,8 +30,8 @@ BF4::BF4(const QString &host, const int &port, const QString &password) : BFBase
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con->commandHandler, SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
+    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
 }
 
 BF4::~BF4()
@@ -47,13 +47,6 @@ void BF4::onConnected()
     }
 }
 
-void BF4::onLoginHashedCommand(const bool &auth)
-{
-    Q_UNUSED(auth);
-
-    authenticated = true;
-}
-
 void BF4::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated()) {
@@ -65,6 +58,11 @@ void BF4::onLoginHashedCommand(const QByteArray &salt)
             con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
         }
     }
+}
+
+void BF4::onLoginHashedCommand(const bool &auth)
+{
+    authenticated = auth;
 }
 
 bool BF4::isAuthenticated()

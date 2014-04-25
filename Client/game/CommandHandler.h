@@ -30,15 +30,18 @@ public:
     explicit CommandHandler(QObject *parent = 0);
     ~CommandHandler();
 
-    void eventOnDataSent(const QString &command);
-    void eventOnDataReceived(const QString &response);
+    void responseDataSentEvent(const QString &request);
+    void responseDataReceivedEvent(const QString &response);
 
 protected:
-    void commandUnknown();
+    void responseUnknownCommand();
+
+    int toInt(const QString &value);
+    bool toBool(const QString &value);
 
 signals:
-    void onDataSent(const QString &command);
-    void onDataReceived(const QString &response);
+    void onDataSentEvent(const QString &command);
+    void onDataReceivedEvent(const QString &response);
 
     void onUnknownCommand();
 

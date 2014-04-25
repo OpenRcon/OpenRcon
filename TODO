@@ -4,10 +4,13 @@ OpenRcon:
     - Implement a type of class that handle connection requests, like create tab etc, manage closing of it.
     - Implement working plugin system that can be used by games to add more functionality.
     - When connect to a server, check that a similar connection not already exists.
-    - Update the comboBox_sm when a server is added, modified or removed.
+    - Update the comboBox_sm when a server is added, modified or removed in ServerListDialog.
 
     Frostbite:
-        - Debug and fix the "wrong word size" sigsegv error. - FIXED
+        - Debug and fix the "wrong word size" sigsegv error. - FIXED.
+        - Check that the game matches the server on connect, if not close connection.
+        - Rewrite the FrostbiteCommandHandler to parse responses, and add functions for sending commands.
+          The question is: How to do this without causing SIGSEGV, because FrostbiteCommandHandler needs to hold derived FrostbiteConnection and FrostBiteCommandHandler objects.
 
     BFBC2:
         - List bans in BanList.
@@ -15,10 +18,10 @@ OpenRcon:
         - Fix crash when click Run in maplist.
 		
     BF3:
-        - All we need for this is a BF3 server to test with.
+        - All we need for this is a BF3 server to test with, possible to use any public server but only for non-login commands. Tested that the Frostbite implementation works on BF3 as well.
 		
     BF4:
         - Fix malfunction when removeing multiplue maps from the current list.
 
     Minecraft:
-        - Fix that we're getting strange letters mixed up with the response.
+        - Fix that we're getting strange letters mixed up with the response. NOTE: Seems to be caused by that we reads char* not unsigned char*

@@ -32,8 +32,8 @@ public:
     explicit MinecraftCommandHandler(QObject *parent = 0);
     ~MinecraftCommandHandler();
 
-    void exec(MinecraftRconPacket &packet);
-    int getRequestIdForCommand(const QString &command);
+    void parse(MinecraftRconPacket &packet);
+    int getRequestIdFromCommand(const QString &command);
 
 private:
     enum CommandType {
@@ -42,12 +42,13 @@ private:
         UnknownCommand = 255
     };
 
-    void commandList(MinecraftRconPacket &packet);
+    void responseListCommand(MinecraftRconPacket &packet);
 
 signals:
     // Events
     void onAuthenticated(const bool &auth);
 
+    // Commands
     void onListCommand(const QStringList &list);
 
 };

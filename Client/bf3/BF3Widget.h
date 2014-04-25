@@ -41,8 +41,8 @@ private:
 
 private slots:
     /* Events */
-    void onDataSent(const QString &command);
-    void onDataReceived(const QString &response);
+    void onDataSentEvent(const QString &request);
+    void onDataReceivedEvent(const QString &response);
 
     /* Console */
     void pushButton_co_co_clicked();

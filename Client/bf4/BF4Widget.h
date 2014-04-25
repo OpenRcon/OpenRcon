@@ -71,23 +71,23 @@ private:
 
 private slots:
     /* Events */
-    void onDataSent(const QString &command);
-    void onDataReceived(const QString &response);
+    void onDataSentEvent(const QString &request);
+    void onDataReceivedEvent(const QString &response);
 
-    void onPlayerAuthenticated(const QString &player, const QString &guid);
-    void onPlayerJoin(const QString &player);
-    void onPlayerLeave(const QString &player, const QString &info);
-    void onPlayerSpawn(const QString &player, const int &teamdId);
-    void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
-    void onPlayerChat(const QString &sender, const QString &message, const QString &target);
-    void onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
-    void onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
-    void onPunkBusterMessage(const QString &message);
-    void onServerMaxPlayerCountChange();
-    void onServerLevelLoaded(const QString &levelName, const QString &gameModeName, const int &roundsPlayed, const int &roundsTotal);
-    void onServerRoundOver(const int &winningTeamId);
-    void onServerRoundOverPlayers(const QString &playerInfo);
-    void onServerRoundOverTeamScores(const QString &teamScores);
+    void onPlayerAuthenticatedEvent(const QString &player, const QString &guid);
+    void onPlayerJoinEvent(const QString &player);
+    void onPlayerLeaveEvent(const QString &player, const QString &info);
+    void onPlayerSpawnEvent(const QString &player, const int &teamdId);
+    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
+    void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
+    void onPlayerSquadChangeEvent(const QString &player, const int &teamId, const int &squadId);
+    void onPlayerTeamChangeEvent(const QString &player, const int &teamId, const int &squadId);
+    void onPunkBusterMessageEvent(const QString &message);
+    void onServerMaxPlayerCountChangeEvent();
+    void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, const int &roundsPlayed, const int &roundsTotal);
+    void onServerRoundOverEvent(const int &winningTeamId);
+    void onServerRoundOverPlayersEvent(const QString &playerInfo);
+    void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Commands */
     // Misc

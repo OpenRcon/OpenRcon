@@ -24,12 +24,12 @@ MinecraftRconPacket::MinecraftRconPacket()
 
 }
 
-MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const int &type) : requestId(requestId), type(type)
+MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const unsigned int &type) : requestId(requestId), type(type)
 {
 
 }
 
-MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const int &type, const char* payload) : requestId(requestId), type(type), content(payload)
+MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const unsigned int &type, const char* content) : requestId(requestId), type(type), content(content)
 {
 
 }
@@ -41,7 +41,7 @@ MinecraftRconPacket::~MinecraftRconPacket()
 
 int MinecraftRconPacket::getLength()
 {
-    return 10 + strlen(content);
+    return 10 + getContentSize();
 }
 
 int MinecraftRconPacket::getRequestId()
