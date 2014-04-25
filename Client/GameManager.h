@@ -21,6 +21,7 @@
 #define GAMEMANAGER_H
 
 #include "GameEntry.h"
+#include "ServerEntry.h"
 
 #include "BFBC2Widget.h"
 #include "BF3Widget.h"
@@ -37,8 +38,16 @@ public:
 
     GameEntry getGame(const int &index);
     QList<GameEntry> getGames();
+    Game* getGameObject(ServerEntry *server);
 
 private:
+    enum GameType {
+        BFBC2,
+        BF3,
+        BF4,
+        Minecraft
+    };
+
     QList<GameEntry> gameList;
 
 };

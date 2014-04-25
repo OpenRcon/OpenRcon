@@ -25,8 +25,6 @@ ServerManager::ServerManager(QObject *parent) : QObject(parent)
 
     // Load the stored servers.
     loadServers();
-
-    emit (onServerUpdate());
 }
 
 ServerManager::~ServerManager()

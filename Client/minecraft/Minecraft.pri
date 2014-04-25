@@ -1,8 +1,9 @@
-HEADERS += minecraft/Minecraft.h \
-           minecraft/MinecraftConnection.h \
+HEADERS += \
            minecraft/MinecraftRconPacket.h \
-           minecraft/MinecraftCommandHandler.h \
-           minecraft/MinecraftWidget.h
+           minecraft/MinecraftWidget.h \
+    minecraft/MinecraftConnection.h \
+    minecraft/MinecraftCommandHandler.h \
+    minecraft/Minecraft.h
 
 SOURCES += minecraft/Minecraft.cpp \
            minecraft/MinecraftConnection.cpp \

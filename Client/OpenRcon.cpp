@@ -141,35 +141,12 @@ void OpenRcon::writeSettings()
     settings->endGroup();
 }
 
-void OpenRcon::addTab(const int &game, const QString &name, const QString &host, const int port, const QString &password)
+void OpenRcon::addTab(ServerEntry *serverEntry)
 {
-    GameEntry entry = gameManager->getGame(game);
+    GameEntry gameEntry = gameManager->getGame(serverEntry->game);
+    Game *gameObject = gameManager->getGameObject(serverEntry);
 
-    if (game >= 0) {
-        Game *gameObject;
-
-        switch (game) {
-            case 0:
-                gameObject = new BFBC2Widget(host, port, password);
-                break;
-
-            case 1:
-                gameObject = new BF3Widget(host, port, password);
-                break;
-
-            case 2:
-                gameObject = new BF4Widget(host, port, password);
-                break;
-
-            case 3:
-                gameObject = new MinecraftWidget(host, port, password);
-                break;
-        }
-
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, entry.icon, QString("%1 [%2:%3]").arg(name, host).arg(port)));
-    } else {
-        qDebug() << tr("Unknown game specified, the id was: %1.").arg(game);
-    }
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, gameEntry.icon, QString("%1 [%2:%3]").arg(serverEntry->name, serverEntry->host).arg(serverEntry->port)));
 }
 
 GameManager* OpenRcon::getGameManager()
@@ -247,9 +224,9 @@ void OpenRcon::actionAbout_Qt_triggered()
 void OpenRcon::pushButton_sm_connect_clicked()
 {
     int index = comboBox_sm_server->currentIndex();
-    ServerEntry *server = serverManager->getServer(index);
+    ServerEntry *serverEntry= serverManager->getServer(index);
 
-    addTab(server->game, server->name, server->host, server->port, server->password);
+    addTab(serverEntry);
 }
 
 void OpenRcon::populateServers()

@@ -67,8 +67,7 @@ public:
         return instance;
     }
 
-    void addTab(const int &game, const QString &name, const QString &host, const int port, const QString &password);
-
+    void addTab(ServerEntry *serverEntry);
     GameManager* getGameManager();
 
 private:

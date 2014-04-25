@@ -22,10 +22,10 @@
 GameManager::GameManager(QObject *parent) : QObject(parent)
 {
     // Adds all games to the list.
-    gameList.append(GameEntry(0, "BFBC2", "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png"));
-    gameList.append(GameEntry(1, "BF3", "Battlefield 3", ":/bf3/icons/bf3.png"));
-    gameList.append(GameEntry(2, "BF4", "Battlefield 4", ":/bf4/icons/bf4.png"));
-    gameList.append(GameEntry(3, "MC", "Minecraft", ":/minecraft/icons/minecraft.png"));
+    gameList.append(GameEntry(BFBC2, "BFBC2", "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png"));
+    gameList.append(GameEntry(BF3, "BF3", "Battlefield 3", ":/bf3/icons/bf3.png"));
+    gameList.append(GameEntry(BF4, "BF4", "Battlefield 4", ":/bf4/icons/bf4.png"));
+    gameList.append(GameEntry(Minecraft, "MC", "Minecraft", ":/minecraft/icons/minecraft.png"));
 }
 
 GameManager::~GameManager()
@@ -41,4 +41,37 @@ GameEntry GameManager::getGame(const int &index)
 QList<GameEntry> GameManager::getGames()
 {
     return gameList;
+}
+
+Game* GameManager::getGameObject(ServerEntry *server)
+{
+    const int game = server->game;
+    QString host = server->host;
+    Game *gameObject;
+    const int port = server->port;
+    QString password = server->password;
+
+    switch (game) {
+        case BFBC2:
+            gameObject = new BFBC2Widget(host, port, password);
+            break;
+
+        case BF3:
+            gameObject = new BF3Widget(host, port, password);
+            break;
+
+        case BF4:
+            gameObject = new BF4Widget(host, port, password);
+            break;
+
+        case Minecraft:
+            gameObject = new MinecraftWidget(host, port, password);
+            break;
+
+        default:
+            qDebug() << tr("Unknown game specified, the id was: %1.").arg(game);
+            break;
+    }
+
+    return gameObject;
 }
