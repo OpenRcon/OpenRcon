@@ -33,7 +33,7 @@ public:
     explicit BFBC2CommandHandler(QObject *parent = 0);
     ~BFBC2CommandHandler();
 
-    void exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 private:
     // Call events.

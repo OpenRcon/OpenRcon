@@ -29,7 +29,7 @@ BF4CommandHandler::~BF4CommandHandler()
 
 }
 
-void BF4CommandHandler::exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF4CommandHandler::parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     // Parse and call events.
     if (command == "player.onAuthenticated") {

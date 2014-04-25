@@ -38,7 +38,7 @@ public:
     explicit BF4CommandHandler(QObject *parent = 0);
     ~BF4CommandHandler();
 
-    void exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 private:
     // Call events.

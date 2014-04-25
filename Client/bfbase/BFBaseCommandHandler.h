@@ -29,7 +29,7 @@ public:
     explicit BFBaseCommandHandler(QObject *parent = 0);
     ~BFBaseCommandHandler();
 
-    void exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 };
 

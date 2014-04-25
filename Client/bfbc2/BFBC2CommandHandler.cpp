@@ -29,7 +29,7 @@ BFBC2CommandHandler::~BFBC2CommandHandler()
 
 }
 
-void BFBC2CommandHandler::exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BFBC2CommandHandler::parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
 	// Parse and call events.
 	if (command == "player.onJoin") {

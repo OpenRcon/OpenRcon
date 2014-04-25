@@ -29,7 +29,7 @@ BF3CommandHandler::~BF3CommandHandler()
 
 }
 
-void BF3CommandHandler::exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF3CommandHandler::parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(command);
     Q_UNUSED(packet);

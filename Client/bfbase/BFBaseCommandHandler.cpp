@@ -29,7 +29,7 @@ BFBaseCommandHandler::~BFBaseCommandHandler()
 
 }
 
-void BFBaseCommandHandler::exec(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BFBaseCommandHandler::parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(command);
     Q_UNUSED(packet);
