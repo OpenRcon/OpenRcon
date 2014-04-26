@@ -29,263 +29,263 @@ BF4CommandHandler::~BF4CommandHandler()
 
 }
 
-void BF4CommandHandler::parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     // Parse and call events.
-    if (command == "player.onAuthenticated") {
+    if (request == "player.onAuthenticated") {
         responsePlayerAuthenticatedEvent(packet);
-    } else if (command == "player.onDisconnect") {
+    } else if (request == "player.onDisconnect") {
         responsePlayerDisconnectEvent(packet);
-    } else if (command == "player.onJoin") {
+    } else if (request == "player.onJoin") {
         responsePlayerJoinEvent(packet);
-    } else if (command == "player.onLeave") {
+    } else if (request == "player.onLeave") {
         responsePlayerLeaveEvent(packet);
-    } else if (command == "player.onSpawn") {
+    } else if (request == "player.onSpawn") {
         responsePlayerSpawnEvent(packet);
-    } else if (command == "player.onKill") {
+    } else if (request == "player.onKill") {
         responsePlayerKillEvent(packet);
-    } else if (command == "player.onChat") {
+    } else if (request == "player.onChat") {
         responsePlayerChatEvent(packet);
-    } else if (command == "server.onMaxPlayerCountChange") {
+    } else if (request == "server.onMaxPlayerCountChange") {
         responseServerMaxPlayerCountChangeEvent(packet);
-    } else if (command == "player.onSquadChange") {
+    } else if (request == "player.onSquadChange") {
         responsePlayerSquadChangeEvent(packet);
-    } else if (command == "player.onTeamChange") {
+    } else if (request == "player.onTeamChange") {
         responsePlayerTeamChangeEvent(packet);
-    } else if (command == "punkBuster.onMessage") {
+    } else if (request == "punkBuster.onMessage") {
         responsePunkBusterMessageEvent(packet);
-    } else if (command == "server.onLevelLoaded") {
+    } else if (request == "server.onLevelLoaded") {
         responseServerLevelLoadedEvent(packet);
-    } else if (command == "server.onRoundOver") {
+    } else if (request == "server.onRoundOver") {
         responseServerRoundOverEvent(packet);
-    } else if (command == "server.onRoundOverPlayers") {
+    } else if (request == "server.onRoundOverPlayers") {
         responseServerRoundOverPlayersEvent(packet);
-    } else if (command == "server.onRoundOverTeamScores") {
+    } else if (request == "server.onRoundOverTeamScores") {
         responseServerRoundOverTeamScoresEvent(packet);
     }
 
     // Parse and call commands.
-    if (command == "login.plainText") {
+    if (request == "login.plainText") {
         responseLoginPlainTextCommand(packet);
-    } else if (command == "login.hashed") {
+    } else if (request == "login.hashed") {
         responseLoginHashedCommand(packet, lastSentPacket);
-    } else if (command == "serverInfo") {
+    } else if (request == "serverInfo") {
         responseServerInfoCommand(packet);
-    } else if (command == "logout") {
+    } else if (request == "logout") {
         responseLogoutCommand(packet);
-    } else if (command == "quit") {
+    } else if (request == "quit") {
         responseQuitCommand(packet);
-    } else if (command ==  "version") {
+    } else if (request ==  "version") {
         responseVersionCommand(packet);
-    } else if (command ==  "currentLevel") {
+    } else if (request ==  "currentLevel") {
         responseCurrentLevelCommand(packet);
-    } else if (command ==  "listPlayers") {
+    } else if (request ==  "listPlayers") {
         responseListPlayersCommand(packet);
-    } else if (command == "admin.eventsEnabled") {
+    } else if (request == "admin.eventsEnabled") {
         responseAdminEventsEnabledCommand(packet);
-    } else if (command == "admin.help") {
+    } else if (request == "admin.help") {
         responseAdminHelpCommand(packet);
-    } else if (command == "admin.kickPlayer") {
+    } else if (request == "admin.kickPlayer") {
         responseAdminKickPlayerCommand(packet);
-    } else if (command == "admin.killPlayer") {
+    } else if (request == "admin.killPlayer") {
         responseAdminKillPlayerCommand(packet);
-    } else if (command == "admin.listPlayers") {
+    } else if (request == "admin.listPlayers") {
         responseAdminListPlayersCommand(packet);
-    } else if (command == "admin.movePlayer") {
+    } else if (request == "admin.movePlayer") {
         responseAdminMovePlayerCommand(packet);
-    } else if (command == "admin.password") {
+    } else if (request == "admin.password") {
         responseAdminPasswordCommand(packet);
-    } else if (command == "admin.say") {
+    } else if (request == "admin.say") {
         responseAdminSayCommand(packet);
-    } else if (command == "admin.shutDown") {
+    } else if (request == "admin.shutDown") {
         responseAdminShutDownCommand(packet);
-    } else if (command == "admin.yell") {
+    } else if (request == "admin.yell") {
         responseAdminYellCommand(packet);
-    } else if (command == "banList.add") {
+    } else if (request == "banList.add") {
         responseBanListAddCommand(packet);
-    } else if (command == "banList.clear") {
+    } else if (request == "banList.clear") {
         responseBanListClearCommand(packet);
-    } else if (command == "banList.list") {
+    } else if (request == "banList.list") {
         responseBanListListCommand(packet);
-    } else if (command == "banList.load") {
+    } else if (request == "banList.load") {
         responseBanListLoadCommand(packet);
-    } else if (command == "banList.remove") {
+    } else if (request == "banList.remove") {
         responseBanListRemoveCommand(packet);
-    } else if (command == "banList.save") {
+    } else if (request == "banList.save") {
         responseBanListSaveCommand(packet);
-    } else if (command == "fairFight.activate") {
+    } else if (request == "fairFight.activate") {
         responseFairFightActivateCommand(packet);
-    } else if (command == "fairFight.deactivate") {
+    } else if (request == "fairFight.deactivate") {
         responseFairFightDeactivateCommand(packet);
-    } else if (command == "fairFight.isActive") {
+    } else if (request == "fairFight.isActive") {
         responseFairFightIsActiveCommand(packet);
-    } else if (command == "mapList.add") {
+    } else if (request == "mapList.add") {
         responseMapListAddCommand(packet);
-    } else if (command == "mapList.availableMaps") {
+    } else if (request == "mapList.availableMaps") {
         responseMapListAvailableMapsCommand(packet);
-    } else if (command == "mapList.clear") {
+    } else if (request == "mapList.clear") {
         responseMapListClearCommand(packet);
-    } else if (command == "mapList.endRound") {
+    } else if (request == "mapList.endRound") {
         responseMapListEndRoundCommand(packet);
-    } else if (command == "mapList.getMapIndices") {
+    } else if (request == "mapList.getMapIndices") {
         responseMapListGetMapIndicesCommand(packet);
-    } else if (command == "mapList.getRounds") {
+    } else if (request == "mapList.getRounds") {
         responseMapListGetRoundsCommand(packet);
-    } else if (command == "maplist.list") { // case sensetive?
+    } else if (request == "maplist.list") { // case sensetive?
         responseMapListListCommand(packet);
-    } else if (command == "mapList.load") {
+    } else if (request == "mapList.load") {
         responseMapListLoadCommand(packet);
-    } else if (command == "mapList.remove") {
+    } else if (request == "mapList.remove") {
         responseMapListRemoveCommand(packet);
-    } else if (command == "mapList.restartRound") {
+    } else if (request == "mapList.restartRound") {
         responseMapListRestartRoundCommand(packet);
-    } else if (command == "mapList.runNextRound") {
+    } else if (request == "mapList.runNextRound") {
         responseMapListRunNextRoundCommand(packet);
-    } else if (command == "mapList.save") {
+    } else if (request == "mapList.save") {
         responseMapListSaveCommand(packet);
-    } else if (command == "mapList.setNextMapIndex") {
+    } else if (request == "mapList.setNextMapIndex") {
         responseMapListSetNextMapIndexCommand(packet);
-    } else if (command == "player.idleDuration") {
+    } else if (request == "player.idleDuration") {
         responsePlayerIdleDurationCommand(packet);
-    } else if (command == "player.isAlive") {
+    } else if (request == "player.isAlive") {
         responsePlayerIsAliveCommand(packet);
-    } else if (command == "player.ping") {
+    } else if (request == "player.ping") {
         responsePlayerPingCommand(packet);
-    } else if (command == "punkBuster.activate") {
+    } else if (request == "punkBuster.activate") {
         responsePunkBusterActivateCommand(packet);
-    } else if (command == "punkBuster.isActive") {
+    } else if (request == "punkBuster.isActive") {
         responsePunkBusterIsActiveCommand(packet);
-    } else if (command == "punkBuster.pb_sv_command") {
+    } else if (request == "punkBuster.pb_sv_command") {
         responsePunkBusterPbSvCommandCommand(packet);
-    } else if (command == "reservedSlotsList.add") {
+    } else if (request == "reservedSlotsList.add") {
         responseReservedSlotsListAddCommand(packet);
-    } else if (command == "reservedSlotsList.aggressiveJoin") {
+    } else if (request == "reservedSlotsList.aggressiveJoin") {
         responseReservedSlotsListAggressiveJoinCommand(packet);
-    } else if (command == "reservedSlotsList.clear") {
+    } else if (request == "reservedSlotsList.clear") {
         responseReservedSlotsListClearCommand(packet);
-    } else if (command == "reservedSlotsList.list") {
+    } else if (request == "reservedSlotsList.list") {
         responseReservedSlotsListListCommand(packet);
-    } else if (command == "reservedSlotsList.load") {
+    } else if (request == "reservedSlotsList.load") {
         responseReservedSlotsListLoadCommand(packet);
-    } else if (command == "reservedSlotsList.remove") {
+    } else if (request == "reservedSlotsList.remove") {
         responseReservedSlotsListRemoveCommand(packet);
-    } else if (command == "reservedSlotsList.save") {
+    } else if (request == "reservedSlotsList.save") {
         responseReservedSlotsListSaveCommand(packet);
-    } else if (command == "spectatorList.add") {
+    } else if (request == "spectatorList.add") {
         responseSpectatorListAddCommand(packet);
-    } else if (command == "spectatorList.clear") {
+    } else if (request == "spectatorList.clear") {
         responseSpectatorListClearCommand(packet);
-    } else if (command == "spectatorList.list") {
+    } else if (request == "spectatorList.list") {
         responseSpectatorListListCommand(packet);
-    } else if (command == "spectatorList.remove") {
+    } else if (request == "spectatorList.remove") {
         responseSpectatorListRemoveCommand(packet);
-    } else if (command == "spectatorList.save") {
+    } else if (request == "spectatorList.save") {
         responseSpectatorListSaveCommand(packet);
-    } else if (command == "squad.leader") {
+    } else if (request == "squad.leader") {
         responseSquadLeaderCommand(packet);
-    } else if (command == "squad.listActive") {
+    } else if (request == "squad.listActive") {
         responseSquadListActiveCommand(packet);
-    } else if (command == "squad.listPlayers") {
+    } else if (request == "squad.listPlayers") {
         responseSquadListPlayersCommand(packet);
-    } else if (command == "squad.private") {
+    } else if (request == "squad.private") {
         responseSquadPrivateCommand(packet);
-    } else if (command == "vars.3dSpotting") {
+    } else if (request == "vars.3dSpotting") {
         responseVars3dSpottingCommand(packet);
-    } else if (command == "vars.3pCam") {
+    } else if (request == "vars.3pCam") {
         responseVars3pCamCommand(packet);
-    } else if (command == "vars.alwaysAllowSpectators") {
+    } else if (request == "vars.alwaysAllowSpectators") {
         responseVarsAlwaysAllowSpectatorsCommand(packet);
-    } else if (command == "vars.autoBalance") {
+    } else if (request == "vars.autoBalance") {
         responseVarsAutoBalanceCommand(packet);
-    } else if (command == "vars.bulletDamage") {
+    } else if (request == "vars.bulletDamage") {
         responseVarsBulletDamageCommand(packet);
-    } else if (command == "vars.commander") {
+    } else if (request == "vars.commander") {
         responseVarsCommanderCommand(packet);
-    } else if (command == "vars.crossHair") {
+    } else if (request == "vars.crossHair") {
         responseVarsCrossHairCommand(packet);
-    } else if (command == "vars.forceReloadWholeMags") {
+    } else if (request == "vars.forceReloadWholeMags") {
         responseVarsForceReloadWholeMagsCommand(packet);
-    } else if (command == "vars.friendlyFire") {
+    } else if (request == "vars.friendlyFire") {
         responseVarsFriendlyFireCommand(packet);
-    } else if (command == "vars.gameModeCounter") {
+    } else if (request == "vars.gameModeCounter") {
         responseVarsGameModeCounterCommand(packet);
-    } else if (command == "vars.gamePassword") {
+    } else if (request == "vars.gamePassword") {
         responseVarsGamePasswordCommand(packet);
-    } else if (command == "vars.hitIndicatorsEnabled") {
+    } else if (request == "vars.hitIndicatorsEnabled") {
         responseVarsHitIndicatorsEnabledCommand(packet);
-    } else if (command == "vars.hud") {
+    } else if (request == "vars.hud") {
         responseVarsHudCommand(packet);
-    } else if (command == "vars.idleBanRounds") {
+    } else if (request == "vars.idleBanRounds") {
         responseVarsIdleBanRoundsCommand(packet);
-    } else if (command == "vars.idleTimeout") {
+    } else if (request == "vars.idleTimeout") {
         responseVarsIdleTimeoutCommand(packet);
-    } else if (command == "vars.killCam") {
+    } else if (request == "vars.killCam") {
         responseVarsKillCamCommand(packet);
-    } else if (command == "vars.maxPlayers") {
+    } else if (request == "vars.maxPlayers") {
         responseVarsMaxPlayersCommand(packet);
-    } else if (command == "vars.maxSpectators") {
+    } else if (request == "vars.maxSpectators") {
         responseVarsMaxSpectatorsCommand(packet);
-    } else if (command == "vars.miniMap") {
+    } else if (request == "vars.miniMap") {
         responseVarsMiniMapCommand(packet);
-    } else if (command == "vars.miniMapSpotting") {
+    } else if (request == "vars.miniMapSpotting") {
         responseVarsMiniMapSpottingCommand(packet);
-    } else if (command == "vars.mpExperience") {
+    } else if (request == "vars.mpExperience") {
         responseVarsMpExperienceCommand(packet);
-    } else if (command == "vars.nameTag") {
+    } else if (request == "vars.nameTag") {
         responseVarsNameTagCommand(packet);
-    } else if (command == "vars.onlySquadLeaderSpawn") {
+    } else if (request == "vars.onlySquadLeaderSpawn") {
         responseVarsOnlySquadLeaderSpawnCommand(packet);
-    } else if (command == "vars.playerRespawnTime") {
+    } else if (request == "vars.playerRespawnTime") {
         responseVarsPlayerRespawnTimeCommand(packet);
-    } else if (command == "vars.preset") {
+    } else if (request == "vars.preset") {
         responseVarsPresetCommand(packet);
-    } else if (command == "vars.regenerateHealth") {
+    } else if (request == "vars.regenerateHealth") {
         responseVarsRegenerateHealthCommand(packet);
-    } else if (command == "vars.roundLockdownCountdown") {
+    } else if (request == "vars.roundLockdownCountdown") {
         responseVarsRoundLockdownCountdownCommand(packet);
-    } else if (command == "vars.roundRestartPlayerCount") {
+    } else if (request == "vars.roundRestartPlayerCount") {
         responseVarsRoundRestartPlayerCountCommand(packet);
-    } else if (command == "vars.roundStartPlayerCount") {
+    } else if (request == "vars.roundStartPlayerCount") {
         responseVarsRoundStartPlayerCountCommand(packet);
-    } else if (command == "vars.roundTimeLimit") {
+    } else if (request == "vars.roundTimeLimit") {
         responseVarsRoundTimeLimitCommand(packet);
-    } else if (command == "vars.roundWarmupTimeout") {
+    } else if (request == "vars.roundWarmupTimeout") {
         responseVarsRoundWarmupTimeoutCommand(packet);
-    } else if (command == "vars.serverDescription") {
+    } else if (request == "vars.serverDescription") {
         responseVarsServerDescriptionCommand(packet);
-    } else if (command == "vars.serverMessage") {
+    } else if (request == "vars.serverMessage") {
         responseVarsServerMessageCommand(packet);
-    } else if (command == "vars.serverName") {
+    } else if (request == "vars.serverName") {
         responseVarsServerNameCommand(packet);
-    } else if (command == "vars.serverType") {
+    } else if (request == "vars.serverType") {
         responseVarsServerTypeCommand(packet);
-    } else if (command == "vars.soldierHealth") {
+    } else if (request == "vars.soldierHealth") {
         responseVarsSoldierHealthCommand(packet);
-    } else if (command == "vars.team1FactionOverride") {
+    } else if (request == "vars.team1FactionOverride") {
         responseVarsTeam1FactionOverrideCommand(packet);
-    } else if (command == "vars.team2FactionOverride") {
+    } else if (request == "vars.team2FactionOverride") {
         responseVarsTeam2FactionOverrideCommand(packet);
-    } else if (command == "vars.team3FactionOverride") {
+    } else if (request == "vars.team3FactionOverride") {
         responseVarsTeam3FactionOverrideCommand(packet);
-    } else if (command == "vars.team4FactionOverride") {
+    } else if (request == "vars.team4FactionOverride") {
         responseVarsTeam4FactionOverrideCommand(packet);
-    } else if (command == "vars.teamKillCountForKick") {
+    } else if (request == "vars.teamKillCountForKick") {
         responseVarsTeamKillCountForKickCommand(packet);
-    } else if (command == "vars.teamKillKickForBan") {
+    } else if (request == "vars.teamKillKickForBan") {
         responseVarsTeamKillKickForBanCommand(packet);
-    } else if (command == "vars.teamKillValueDecreasePerSecond") {
+    } else if (request == "vars.teamKillValueDecreasePerSecond") {
         responseVarsTeamKillValueDecreasePerSecondCommand(packet);
-    } else if (command == "vars.teamKillValueForKick") {
+    } else if (request == "vars.teamKillValueForKick") {
         responseVarsTeamKillValueForKickCommand(packet);
-    } else if (command == "vars.teamKillValueIncrease") {
+    } else if (request == "vars.teamKillValueIncrease") {
         responseVarsTeamKillValueIncreaseCommand(packet);
-    } else if (command == "vars.ticketBleedRate") {
+    } else if (request == "vars.ticketBleedRate") {
         responseVarsTicketBleedRateCommand(packet);
-    } else if (command == "vars.unlockMode") {
+    } else if (request == "vars.unlockMode") {
         responseVarsUnlockModeCommand(packet);
-    } else if (command == "vars.vehicleSpawnAllowed") {
+    } else if (request == "vars.vehicleSpawnAllowed") {
         responseVarsVehicleSpawnAllowedCommand(packet);
-    } else if (command == "vars.vehicleSpawnDelay") {
+    } else if (request == "vars.vehicleSpawnDelay") {
         responseVarsVehicleSpawnDelayCommand(packet);
     } else {
         responseUnknownCommand();
@@ -488,47 +488,8 @@ void BF4CommandHandler::responseVersionCommand(const FrostbiteRconPacket &packet
     if (response == "OK" && packet.getWordCount() > 1) {
         QString type = packet.getWord(1).getContent();
         int build = toInt(packet.getWord(2).getContent());
-        QString version = QString::number(build);
 
-        QMap<int, QString> versionMap;
-        versionMap.insert(70517, "OB-R2");
-        versionMap.insert(72879, "OB-R3");
-        versionMap.insert(77582, "OB-R4");
-        versionMap.insert(87884, "R4");
-        versionMap.insert(88031, "R5");
-        versionMap.insert(88058, "R6");
-        versionMap.insert(88472, "R7");
-        versionMap.insert(89702, "R8");
-        versionMap.insert(90165, "R9");
-        versionMap.insert(90519, "R10");
-        versionMap.insert(91697, "R11");
-        versionMap.insert(93111, "R12");
-        versionMap.insert(94318, "R13");
-        versionMap.insert(95851, "R14");
-        versionMap.insert(96245, "R15");
-        versionMap.insert(97870, "R16");
-        versionMap.insert(99392, "R17");
-        versionMap.insert(101684, "R18");
-        versionMap.insert(102560, "R19");
-        versionMap.insert(103064, "R20");
-        versionMap.insert(106318, "R21");
-        versionMap.insert(106533, "R22");
-        versionMap.insert(107145, "R23");
-        versionMap.insert(107436, "R24");
-        versionMap.insert(108751, "R25");
-        versionMap.insert(109758, "R26");
-        versionMap.insert(111118, "R27");
-        versionMap.insert(112943, "R28");
-        versionMap.insert(114240, "R29");
-        versionMap.insert(115397, "R30");
-        versionMap.insert(117719, "R31");
-        versionMap.insert(120511, "R32");
-
-        if (versionMap.contains(build)) {
-            version = versionMap.value(build);
-        }
-
-        emit (onVersionCommand(type, build, version));
+        emit (onVersionCommand(type, build));
     }
 }
 

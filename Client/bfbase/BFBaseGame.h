@@ -30,6 +30,7 @@ public:
     ~BFBaseGame();
 
 protected:
+    QMap<int, QString> versionMap;
     QStringList commandList;
 
     enum PlayerSubset {
@@ -50,6 +51,7 @@ protected:
         Hotel
     };
 
+    QString getVersionFromBuild(const int &build);
     QString getPlayerSubsetName(const int &playerSubset);
     QString getSquadName(const int &squadId);
 

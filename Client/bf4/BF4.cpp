@@ -26,6 +26,39 @@ BF4::BF4(const QString &host, const int &port, const QString &password) : BFBase
 
     levels = new BF4Levels(this);
 
+    versionMap.insert(70517, "OB-R2");
+    versionMap.insert(72879, "OB-R3");
+    versionMap.insert(77582, "OB-R4");
+    versionMap.insert(87884, "R4");
+    versionMap.insert(88031, "R5");
+    versionMap.insert(88058, "R6");
+    versionMap.insert(88472, "R7");
+    versionMap.insert(89702, "R8");
+    versionMap.insert(90165, "R9");
+    versionMap.insert(90519, "R10");
+    versionMap.insert(91697, "R11");
+    versionMap.insert(93111, "R12");
+    versionMap.insert(94318, "R13");
+    versionMap.insert(95851, "R14");
+    versionMap.insert(96245, "R15");
+    versionMap.insert(97870, "R16");
+    versionMap.insert(99392, "R17");
+    versionMap.insert(101684, "R18");
+    versionMap.insert(102560, "R19");
+    versionMap.insert(103064, "R20");
+    versionMap.insert(106318, "R21");
+    versionMap.insert(106533, "R22");
+    versionMap.insert(107145, "R23");
+    versionMap.insert(107436, "R24");
+    versionMap.insert(108751, "R25");
+    versionMap.insert(109758, "R26");
+    versionMap.insert(111118, "R27");
+    versionMap.insert(112943, "R28");
+    versionMap.insert(114240, "R29");
+    versionMap.insert(115397, "R30");
+    versionMap.insert(117719, "R31");
+    versionMap.insert(120511, "R32");
+
     commandList.append("login.plainText ");
     commandList.append("login.hashed");
     commandList.append("login.hashed ");
@@ -163,7 +196,7 @@ void BF4::onConnected()
 void BF4::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated()) {
-        if (!password.isEmpty()) {
+        if (!password.isEmpty() && password.length() <= 16) {
             QCryptographicHash hash(QCryptographicHash::Md5);
             hash.addData(salt);
             hash.addData(password.toLatin1().constData());

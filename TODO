@@ -11,6 +11,7 @@ OpenRcon:
         - Check that the game matches the server on connect, if not close connection.
         - Rewrite the FrostbiteCommandHandler to parse responses, and add functions for sending commands.
           The question is: How to do this without causing SIGSEGV, because FrostbiteCommandHandler needs to hold derived FrostbiteConnection and FrostBiteCommandHandler objects.
+        - Implement check that packets never is bigger than 16384 bytes.
 
     BFBC2:
         - List bans in BanList.

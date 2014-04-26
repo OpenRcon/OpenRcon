@@ -410,12 +410,11 @@ void BF4Widget::onLoginHashedCommand(const bool &auth)
     }
 }
 
-void BF4Widget::onVersionCommand(const QString &type, const int &buildId, const QString &version)
+void BF4Widget::onVersionCommand(const QString &type, const int &build)
 {
     Q_UNUSED(type);
-    Q_UNUSED(buildId);
 
-    ui->label_serverInfo_version->setText(tr("Version: %1").arg(version));
+    ui->label_serverInfo_version->setText(tr("Version: %1").arg(getVersionFromBuild(build)));
 }
 
 void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)

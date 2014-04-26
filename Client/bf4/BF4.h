@@ -33,7 +33,7 @@ public:
     explicit BF4(const QString &host, const int &port, const QString &password);
     ~BF4();
 
-    virtual Connection *getConnection() { return con; }
+    virtual Connection* getConnection() { return con; }
 
 protected:
     BF4Connection *con;

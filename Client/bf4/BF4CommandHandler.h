@@ -38,7 +38,7 @@ public:
     explicit BF4CommandHandler(QObject *parent = 0);
     ~BF4CommandHandler();
 
-    void parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 private:
     // Call events.
@@ -172,7 +172,7 @@ private:
     void responseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet);
 
 signals:
-    /* Event signals */
+    // Event signals
     void onPlayerAuthenticatedEvent(const QString &player, const QString &guid);
     void onPlayerDisconnectEvent();
     void onPlayerJoinEvent(const QString &player);
@@ -196,7 +196,7 @@ signals:
     void onServerInfoCommand(const ServerInfo &serverInfo);
     void onLogoutCommand();
     void onQuitCommand();
-    void onVersionCommand(const QString &type, const int &build, const QString &version);
+    void onVersionCommand(const QString &type, const int &build);
     void onCurrentLevelCommand();
     void onListPlayersCommand();
     void onAdminEventsEnabledCommand();
