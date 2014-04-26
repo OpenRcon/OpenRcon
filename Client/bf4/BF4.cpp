@@ -177,7 +177,7 @@ BF4::BF4(const QString &host, const int &port, const QString &password) : BFBase
     // Commands
     connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
     connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
-    connect(con->getCommandHandler(), SIGNAL(onVersionCommand(const QString&, const int&, const QString&)), this, SLOT(onVersionCommand(const QString&, const int&, const QString&)));
+    connect(con->getCommandHandler(), SIGNAL(onVersionCommand(const QString&, const int&)), this, SLOT(onVersionCommand(const QString&, const int&)));
 }
 
 BF4::~BF4()
@@ -211,13 +211,13 @@ void BF4::onLoginHashedCommand(const bool &auth)
     authenticated = auth;
 }
 
-void BF4::onVersionCommand(const QString &type, const int &build, const QString &version)
+void BF4::onVersionCommand(const QString &type, const int &build)
 {
     Q_UNUSED(build);
-    Q_UNUSED(version);
 
     if (type != "BF4") {
         con->hostDisconnect();
+
         qDebug() << tr("Wrong server type, disconnecting...");
     }
 }

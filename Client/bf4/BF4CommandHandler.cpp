@@ -440,7 +440,7 @@ void BF4CommandHandler::responseServerInfoCommand(const FrostbiteRconPacket &pac
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 0) {
+    if (response == "OK" && packet.getWordCount() > 1) {
         QString serverName = packet.getWord(1).getContent();
         int playerCount = QString(packet.getWord(2).getContent()).toInt();
         int maxPlayerCount = QString(packet.getWord(3).getContent()).toInt();
@@ -467,7 +467,33 @@ void BF4CommandHandler::responseServerInfoCommand(const FrostbiteRconPacket &pac
         int blazePlayerCount = QString(packet.getWord(22).getContent()).toInt();
         QString blazeGameState = packet.getWord(23).getContent();
 
-        emit (onServerInfoCommand(ServerInfo(serverName, playerCount, maxPlayerCount, gamemode, currentMap, roundsPlayed, roundsTotal, scores, onlineState, ranked, punkBuster, hasGamePassword, serverUpTime, roundTime, gameIpAndPort,  punkBusterVersion, joinQueueEnabled, region, closestPingSite, country,  matchMakingEnabled, blazePlayerCount, blazeGameState)));
+        ServerInfo serverInfo(
+                   serverName,
+                   playerCount,
+                   maxPlayerCount,
+                   gamemode,
+                   currentMap,
+                   roundsPlayed,
+                   roundsTotal,
+                   scores,
+                   onlineState,
+                   ranked,
+                   punkBuster,
+                   hasGamePassword,
+                   serverUpTime,
+                   roundTime,
+                   gameIpAndPort,
+                   punkBusterVersion,
+                   joinQueueEnabled,
+                   region,
+                   closestPingSite,
+                   country,
+                   matchMakingEnabled,
+                   blazePlayerCount,
+                   blazeGameState
+        );
+
+        emit (onServerInfoCommand(serverInfo));
     }
 }
 
