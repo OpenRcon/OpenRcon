@@ -40,7 +40,7 @@ void FrostbiteConnection::hostConnect(const QString &host, const int &port)
     }
 }
 
-void FrostbiteConnection::sendPacket(const FrostbiteRconPacket &packet, bool response)
+void FrostbiteConnection::sendPacket(const FrostbiteRconPacket &packet, const bool &response)
 {
     QDataStream out(tcpSocket);
     out << packet;
@@ -59,8 +59,9 @@ void FrostbiteConnection::readyRead()
         case PacketReadingHeader:
             if (tcpSocket->bytesAvailable() >= MIN_PACKET_SIZE) {
                 if (tcpSocket->read(lastHeader, MIN_PACKET_SIZE) != MIN_PACKET_SIZE) {
-                    qDebug() << "Error while reading header.";
                     exit = true;
+
+                    qDebug() << tr("Error while reading header.");
                     break;
                 }
             } else {
@@ -73,28 +74,30 @@ void FrostbiteConnection::readyRead()
             QDataStream hdrstream(QByteArray(lastHeader, MIN_PACKET_SIZE));
             hdrstream.setByteOrder(QDataStream::LittleEndian);
 
-            unsigned int seq, len, words;
-            hdrstream >> seq;
-            hdrstream >> len;
+            unsigned int sequence, length, words;
+            hdrstream >> sequence;
+            hdrstream >> length;
             hdrstream >> words;
 
-            if (tcpSocket->bytesAvailable() >= len - MIN_PACKET_SIZE) {
-                if (len >= MIN_PACKET_SIZE) {
-                    char* data = new char[len];
+            if (tcpSocket->bytesAvailable() >= length - MIN_PACKET_SIZE) {
+                if (length >= MIN_PACKET_SIZE) {
+                    char* data = new char[length];
                     memcpy(data, lastHeader, MIN_PACKET_SIZE);
-                    if (tcpSocket->read(data + MIN_PACKET_SIZE, len - MIN_PACKET_SIZE) == len - MIN_PACKET_SIZE) {
-                        QDataStream pstream(QByteArray(data, len));
+
+                    if (tcpSocket->read(data + MIN_PACKET_SIZE, length - MIN_PACKET_SIZE) == length - MIN_PACKET_SIZE) {
+                        QDataStream pstream(QByteArray(data, length));
                         FrostbiteRconPacket packet;
                         pstream >> packet;
                         handlePacket(packet);
-                        qDebug() << QByteArray(data, len).toHex();
+
+                        qDebug() << QByteArray(data, length).toHex();
                     } else {
-                        qDebug() << "Error while reading data.";
+                        qDebug() << tr("Error while reading data.");
                     }
 
                     delete[] data;
                 } else {
-                    qDebug() << "Malformed packet, ignoring...";
+                    qDebug() << tr("Malformed packet, ignoring...");
                 }
 
                 packetReadState = PacketReadingHeader;
@@ -119,12 +122,12 @@ void FrostbiteConnection::sendCommand(const QString &command)
 {
     if (!command.isEmpty()) {
         FrostbiteRconPacket packet(FrostbiteRconPacket::ServerOrigin, FrostbiteRconPacket::Request, nextPacketSequence);
-        QStringList cmdList;
-        cmdList = command.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
-        cmdList.replaceInStrings("\"", "", Qt::CaseSensitive);
+        QStringList commandList;
+        commandList = command.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
+        commandList.replaceInStrings("\"", "", Qt::CaseSensitive);
 
-        for (int i = 0; i < cmdList.size(); i++) {
-            packet.packWord(FrostbiteRconWord(cmdList.at(i).toLatin1().constData()));
+        foreach (QString command, commandList) {
+            packet.packWord(FrostbiteRconWord(command.toLatin1().constData()));
         }
 
         sendPacket(packet);
@@ -195,7 +198,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
             message += " ";
         }
 
-        commandHandler->responseDataReceivedEvent(message);
+        commandHandler->responseDataSentEvent(message);
         commandHandler->parse(request, packet, FrostbiteRconPacket());
     }
 }

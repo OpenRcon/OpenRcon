@@ -22,7 +22,8 @@
 
 #include "FrostbiteRconWord.h"
 
-//#define MAX_WORDS 100 // TODO: Think this right.
+#define MaxPacketSize 16384
+//#define MAX_WORDS 100 // TODO: Think this right.s
 
 class FrostbiteRconPacket
 {
@@ -34,12 +35,12 @@ public:
     FrostbiteRconPacket &operator= (const FrostbiteRconPacket &packet);
     ~FrostbiteRconPacket();
 
-    enum {
+    enum PacketOrigin {
         ServerOrigin,
         ClientOrigin
     };
 
-    enum {
+    enum PacketType {
         Request,
         Response
     };
@@ -109,23 +110,25 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconPacket &packet)
 
 inline QDataStream &operator << (QDataStream &out, const FrostbiteRconPacket &packet)
 {
-    QDataStream::ByteOrder oldbo;
-    oldbo = out.byteOrder();
+    if (packet.getFullSize() <= MaxPacketSize) {
+        QDataStream::ByteOrder oldbo;
+        oldbo = out.byteOrder();
 
-    if (oldbo != QDataStream::LittleEndian) {
-        out.setByteOrder(QDataStream::LittleEndian);
-    }
+        if (oldbo != QDataStream::LittleEndian) {
+            out.setByteOrder(QDataStream::LittleEndian);
+        }
 
-    out << packet.getSequence();
-    out << packet.getFullSize();
-    out << packet.getWordCount();
+        out << packet.getSequence();
+        out << packet.getFullSize();
+        out << packet.getWordCount();
 
-    for (unsigned int i = 0; i < packet.getWordCount(); i++) {
-        out << packet.getWord(i);
-    }
+        for (unsigned int i = 0; i < packet.getWordCount(); i++) {
+            out << packet.getWord(i);
+        }
 
-    if (oldbo != QDataStream::LittleEndian) {
-        out.setByteOrder(oldbo);
+        if (oldbo != QDataStream::LittleEndian) {
+            out.setByteOrder(oldbo);
+        }
     }
 
     return out;

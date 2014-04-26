@@ -39,7 +39,7 @@ public:
 
 public slots:
     void hostConnect(const QString &host, const int &port);
-    void sendPacket(const FrostbiteRconPacket &packet, bool response = false);
+    void sendPacket(const FrostbiteRconPacket &packet, const bool &response = false);
     void sendCommand(const QString &command);
 
 private:
