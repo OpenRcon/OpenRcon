@@ -27,11 +27,13 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     // Players
     menu_pl_players = new QMenu(ui->treeWidget_pl_players);
-    action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
     menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
+    action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
+    action_pl_players_reserveSlot = new QAction(tr("Reserve slot"), menu_pl_players);
 
-    menu_pl_players->addAction(action_pl_players_kill);
     menu_pl_players->addMenu(menu_pl_players_move);
+    menu_pl_players->addAction(action_pl_players_kill);
+    menu_pl_players->addAction(action_pl_players_reserveSlot);
 
     // Chat
     ui->comboBox_ch_mode->addItem(tr("Say"));
@@ -247,6 +249,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     // Players
     connect(ui->treeWidget_pl_players, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_pl_players_customContextMenuRequested(QPoint)));
     connect(action_pl_players_kill, SIGNAL(triggered()), this, SLOT(action_pl_players_kill_triggered()));
+    connect(action_pl_players_reserveSlot, SIGNAL(triggered()), this, SLOT(action_pl_players_reserveSlot_triggered()));
 
     // Update playerlist on following events.
     connect(con->getCommandHandler(), SIGNAL(onPlayerJoinEvent(const QString&)), this, SLOT(updatePlayerList()));
@@ -707,6 +710,14 @@ void BF4Widget::action_pl_players_kill_triggered()
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
     con->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
+}
+
+void BF4Widget::action_pl_players_reserveSlot_triggered()
+{
+    QString player = ui->treeWidget_pl_players->currentItem()->text(0);
+
+    con->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
+    con->sendCommand("reservedSlotsList.list");
 }
 
 /* Chat */
