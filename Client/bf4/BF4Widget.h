@@ -42,6 +42,8 @@ private:
     QMenu *menu_pl_players;
     QMenu *menu_pl_players_move;
     QAction *action_pl_players_kill;
+    QAction *action_pl_players_kick;
+    QAction *action_pl_players_ban;
     QAction *action_pl_players_reserveSlot;
 
     // Banlist
@@ -136,6 +138,8 @@ private slots:
     void updatePlayerList();
     void treeWidget_pl_players_customContextMenuRequested(const QPoint &pos);
     void action_pl_players_kill_triggered();
+    void action_pl_players_kick_triggered();
+    void action_pl_players_ban_triggered();
     void action_pl_players_reserveSlot_triggered();
 
     /* Chat */

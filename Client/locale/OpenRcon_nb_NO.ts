@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nb_NO">
+<TS version="2.0" language="nb_NO">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -113,8 +113,8 @@
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="99"/>
-        <location filename="../bf4/BF4.ui" line="514"/>
-        <location filename="../bf4/BF4.ui" line="595"/>
+        <location filename="../bf4/BF4.ui" line="518"/>
+        <location filename="../bf4/BF4.ui" line="599"/>
         <source>Name</source>
         <translation>Navn</translation>
     </message>
@@ -165,7 +165,7 @@
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="176"/>
-        <location filename="../bf4/BF4.ui" line="260"/>
+        <location filename="../bf4/BF4.ui" line="264"/>
         <source>Message</source>
         <translation>Melding</translation>
     </message>
@@ -176,325 +176,345 @@
     </message>
     <message>
         <location filename="../bf4/BF4.ui" line="208"/>
-        <location filename="../bf4/BF4.ui" line="988"/>
-        <location filename="../bf4/BF4.ui" line="1029"/>
+        <location filename="../bf4/BF4.ui" line="992"/>
+        <location filename="../bf4/BF4.ui" line="1033"/>
         <source>Send</source>
         <translation>Send</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="222"/>
+        <location filename="../bf4/BF4.ui" line="226"/>
         <source>Options</source>
         <translation>Alternativer</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="232"/>
+        <location filename="../bf4/BF4.ui" line="236"/>
         <source>Details</source>
         <translation>Detaljer</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="240"/>
+        <location filename="../bf4/BF4.ui" line="244"/>
         <source>Server name</source>
         <translation>Server navn</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="250"/>
+        <location filename="../bf4/BF4.ui" line="254"/>
         <source>Description</source>
         <translation>Beskrivelse</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="299"/>
+        <location filename="../bf4/BF4.ui" line="303"/>
         <source>Configuration</source>
         <translation>Konfigurasjon</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="307"/>
+        <location filename="../bf4/BF4.ui" line="311"/>
         <source>Type:</source>
         <translation>Type:</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="328"/>
+        <location filename="../bf4/BF4.ui" line="332"/>
         <source>FairFight</source>
         <translation>FairFight</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="342"/>
+        <location filename="../bf4/BF4.ui" line="346"/>
         <source>Player limit:</source>
         <translation>Spillergrense:</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="352"/>
+        <location filename="../bf4/BF4.ui" line="356"/>
         <source>Spectator limit:</source>
         <translation>Tilskuergrense:</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="388"/>
+        <location filename="../bf4/BF4.ui" line="392"/>
         <source>Gameplay</source>
         <translation>Spill</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="397"/>
+        <location filename="../bf4/BF4.ui" line="401"/>
         <source>Maplist</source>
         <translation>Kart</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="414"/>
-        <location filename="../bf4/BF4.ui" line="463"/>
+        <location filename="../bf4/BF4.ui" line="418"/>
+        <location filename="../bf4/BF4.ui" line="467"/>
         <source>Preview of selected map:</source>
         <translation>Forhåndsvisning av valgt kart:</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="428"/>
+        <location filename="../bf4/BF4.ui" line="432"/>
         <source>Current map:</source>
         <translation>Nåværende kart:</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="519"/>
-        <location filename="../bf4/BF4.ui" line="600"/>
+        <location filename="../bf4/BF4.ui" line="523"/>
+        <location filename="../bf4/BF4.ui" line="604"/>
         <source>Gamemode</source>
         <translation>Spillmodus</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="524"/>
-        <location filename="../bf4/BF4.ui" line="734"/>
+        <location filename="../bf4/BF4.ui" line="528"/>
+        <location filename="../bf4/BF4.ui" line="738"/>
         <source>Rounds</source>
         <translation>Runder</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="536"/>
+        <location filename="../bf4/BF4.ui" line="540"/>
         <source>Gamemode:</source>
         <translation>Spillermodus:</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="610"/>
+        <location filename="../bf4/BF4.ui" line="614"/>
         <source>Current maplist:</source>
         <translation>Nåværende kart:</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="632"/>
-        <location filename="../bf4/BF4.ui" line="785"/>
-        <location filename="../bf4/BF4.ui" line="861"/>
+        <location filename="../bf4/BF4.ui" line="636"/>
+        <location filename="../bf4/BF4.ui" line="789"/>
+        <location filename="../bf4/BF4.ui" line="865"/>
         <source>Add</source>
         <translation>Legg til</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="639"/>
+        <location filename="../bf4/BF4.ui" line="643"/>
         <source>Rounds:</source>
         <translation>Runder:</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="656"/>
+        <location filename="../bf4/BF4.ui" line="660"/>
         <source>Remove</source>
         <translation>Fjern</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="678"/>
+        <location filename="../bf4/BF4.ui" line="682"/>
         <source>Avaliable maps:</source>
         <translation>Tilgjengelige kart:</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="686"/>
+        <location filename="../bf4/BF4.ui" line="690"/>
         <source>Banlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="714"/>
+        <location filename="../bf4/BF4.ui" line="718"/>
         <source>Id-type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="719"/>
+        <location filename="../bf4/BF4.ui" line="723"/>
         <source>Id</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="724"/>
+        <location filename="../bf4/BF4.ui" line="728"/>
         <source>Ban-type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="729"/>
+        <location filename="../bf4/BF4.ui" line="733"/>
         <source>Seconds</source>
         <translation>Sekunder</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="739"/>
+        <location filename="../bf4/BF4.ui" line="743"/>
         <source>Reason</source>
         <translation>Årsak</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="748"/>
+        <location filename="../bf4/BF4.ui" line="752"/>
         <source>Reserved Slots</source>
         <translation>Reserverte plasser</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="807"/>
-        <location filename="../bf4/BF4.ui" line="893"/>
+        <location filename="../bf4/BF4.ui" line="811"/>
+        <location filename="../bf4/BF4.ui" line="897"/>
         <source>Load</source>
         <translation>Last</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="814"/>
-        <location filename="../bf4/BF4.ui" line="900"/>
+        <location filename="../bf4/BF4.ui" line="818"/>
+        <location filename="../bf4/BF4.ui" line="904"/>
         <source>Save</source>
         <translation>Lagre</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="821"/>
-        <location filename="../bf4/BF4.ui" line="907"/>
+        <location filename="../bf4/BF4.ui" line="825"/>
+        <location filename="../bf4/BF4.ui" line="911"/>
         <source>Clear</source>
         <translation>Tøm</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="853"/>
+        <location filename="../bf4/BF4.ui" line="857"/>
         <source>Spectator Slots</source>
         <translation>Tilskuerplasser</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="962"/>
-        <location filename="../bf4/BF4.ui" line="979"/>
+        <location filename="../bf4/BF4.ui" line="966"/>
+        <location filename="../bf4/BF4.ui" line="983"/>
         <source>Console</source>
         <translation>Konsoll</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4.ui" line="321"/>
-        <location filename="../bf4/BF4.ui" line="1013"/>
+        <location filename="../bf4/BF4.ui" line="325"/>
+        <location filename="../bf4/BF4.ui" line="1017"/>
         <source>PunkBuster</source>
         <translation>PunkBuster</translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4.cpp" line="188"/>
+        <source>Wrong server type, disconnecting...</source>
+        <translation>Feil server type, kobler fra...</translation>
     </message>
 </context>
 <context>
     <name>BF4Widget</name>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="30"/>
+        <location filename="../bf4/BF4Widget.cpp" line="31"/>
         <source>Kill</source>
         <translation>Drep</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="31"/>
+        <location filename="../bf4/BF4Widget.cpp" line="30"/>
         <source>Move</source>
         <translation>Flytt</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="37"/>
+        <location filename="../bf4/BF4Widget.cpp" line="32"/>
+        <source>Kick</source>
+        <translation>Spark ut</translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="33"/>
+        <source>Ban</source>
+        <translation>Utesteng</translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="34"/>
+        <source>Reserve slot</source>
+        <translation>Reserver plass</translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="43"/>
         <source>Say</source>
         <translation>Si</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="38"/>
+        <location filename="../bf4/BF4Widget.cpp" line="44"/>
         <source>Yell</source>
         <translation>Rop</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="43"/>
+        <location filename="../bf4/BF4Widget.cpp" line="49"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="44"/>
+        <location filename="../bf4/BF4Widget.cpp" line="50"/>
         <source>Team</source>
         <translation>Lag</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="45"/>
+        <location filename="../bf4/BF4Widget.cpp" line="51"/>
         <source>Squad</source>
         <translation>Skvadron</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="54"/>
         <location filename="../bf4/BF4Widget.cpp" line="60"/>
         <location filename="../bf4/BF4Widget.cpp" line="66"/>
+        <location filename="../bf4/BF4Widget.cpp" line="72"/>
         <source>Remove</source>
         <translation>Fjern</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="403"/>
+        <location filename="../bf4/BF4Widget.cpp" line="299"/>
         <source>Player %1 authenticated with GUID: %2.</source>
         <translation>Spiller %1 authentisert med GUID: %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="408"/>
+        <location filename="../bf4/BF4Widget.cpp" line="304"/>
         <source>Player %1 joined the game.</source>
         <translation>Spiller %1 ble med i spillet.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="415"/>
+        <location filename="../bf4/BF4Widget.cpp" line="311"/>
         <source>Player %1 left the game.</source>
         <translation>Spiller %1 forlot spillet.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="420"/>
+        <location filename="../bf4/BF4Widget.cpp" line="316"/>
         <source>Player %1 spawned, and is on team %2.</source>
         <translation>Spiller %1 spawnet, og er på lag %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="429"/>
+        <location filename="../bf4/BF4Widget.cpp" line="325"/>
         <source>Player %1 headshoted player %2 using %3.</source>
         <translation>Spiller %1 skjøt spiller %2 i hodet med %3.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="431"/>
+        <location filename="../bf4/BF4Widget.cpp" line="327"/>
         <source>Player %1 killed player %2 with %3.</source>
         <translation>Spiller %1 drepte spiller %2 med %3.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="434"/>
+        <location filename="../bf4/BF4Widget.cpp" line="330"/>
         <source>Player %1 commited sucide using %2.</source>
         <translation>Spiller %1 begikk selvmord med %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="453"/>
+        <location filename="../bf4/BF4Widget.cpp" line="349"/>
         <source>Player %1 changed squad to %2.</source>
         <translation>Spiller %1 byttet skvadron til %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="461"/>
+        <location filename="../bf4/BF4Widget.cpp" line="357"/>
         <source>Player %1 changed team to %2.</source>
         <translation>Spiller %1 byttet lag til %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="482"/>
+        <location filename="../bf4/BF4Widget.cpp" line="378"/>
         <source>Loading level %1 running gamemode %2.</source>
         <translation>Laster kart %1 som kjører spillmodus %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="487"/>
+        <location filename="../bf4/BF4Widget.cpp" line="383"/>
         <source>The round has just ended, and %1 won.</source>
         <translation>Runden er akkurat over, og %1 vant.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="492"/>
+        <location filename="../bf4/BF4Widget.cpp" line="388"/>
         <source>The round has just ended, and %1 is the final detailed player stats.</source>
         <translation>Runden er akkurat over, og %1 er den endelige detaljerte spiller statistikken.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="497"/>
+        <location filename="../bf4/BF4Widget.cpp" line="393"/>
         <source>The round has just ended, and %1 is the final ticket/kill/life count for each team.</source>
         <translation>Runden er akkurat over, og %1 er den endelige ticket/drap/liv tellingen for hvert lag.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="509"/>
+        <location filename="../bf4/BF4Widget.cpp" line="405"/>
         <source>Error</source>
         <translation>Feil</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="522"/>
+        <location filename="../bf4/BF4Widget.cpp" line="418"/>
         <source>Version: %1</source>
         <translation>Versjon: %1</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="531"/>
+        <location filename="../bf4/BF4Widget.cpp" line="427"/>
         <source>Players: %1/%2</source>
         <translation>Spillere: %1/%2</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="532"/>
+        <location filename="../bf4/BF4Widget.cpp" line="428"/>
         <source>Round: %1/%2</source>
         <translation>Runde: %1/%2</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="581"/>
+        <location filename="../bf4/BF4Widget.cpp" line="476"/>
         <source>Team %1</source>
-        <translation>Lag: %1</translation>
+        <translation>Lag %1</translation>
     </message>
 </context>
 <context>
@@ -511,7 +531,7 @@
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="58"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1337"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1341"/>
         <source>Name</source>
         <translation type="unfinished">Navn</translation>
     </message>
@@ -537,7 +557,7 @@
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="83"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1347"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1351"/>
         <source>GUID</source>
         <translation type="unfinished">GUID</translation>
     </message>
@@ -548,7 +568,7 @@
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="99"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1472"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1476"/>
         <source>Time</source>
         <translation type="unfinished">Tid</translation>
     </message>
@@ -594,374 +614,374 @@
     </message>
     <message>
         <location filename="../bfbc2/BFBC2.ui" line="213"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1652"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1727"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1660"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1735"/>
         <source>Send</source>
         <translation type="unfinished">Send</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="223"/>
+        <location filename="../bfbc2/BFBC2.ui" line="227"/>
         <source>Options</source>
         <translation type="unfinished">Alternativer</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="281"/>
+        <location filename="../bfbc2/BFBC2.ui" line="285"/>
         <source>Server Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="292"/>
+        <location filename="../bfbc2/BFBC2.ui" line="296"/>
         <source>Servername:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="309"/>
+        <location filename="../bfbc2/BFBC2.ui" line="313"/>
         <source>Description:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="326"/>
+        <location filename="../bfbc2/BFBC2.ui" line="330"/>
         <source>Banner URL:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="343"/>
+        <location filename="../bfbc2/BFBC2.ui" line="347"/>
         <source>Admin password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="375"/>
+        <location filename="../bfbc2/BFBC2.ui" line="379"/>
         <source>Game password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="410"/>
+        <location filename="../bfbc2/BFBC2.ui" line="414"/>
         <source>Player limit:</source>
         <translation type="unfinished">Spillergrense:</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="472"/>
+        <location filename="../bfbc2/BFBC2.ui" line="476"/>
         <source>Punkbuster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="482"/>
+        <location filename="../bfbc2/BFBC2.ui" line="486"/>
         <source>Ranked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="492"/>
+        <location filename="../bfbc2/BFBC2.ui" line="496"/>
         <source>Profanity filter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="515"/>
+        <location filename="../bfbc2/BFBC2.ui" line="519"/>
         <source>Game Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="532"/>
+        <location filename="../bfbc2/BFBC2.ui" line="536"/>
         <source>Hardcore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="542"/>
+        <location filename="../bfbc2/BFBC2.ui" line="546"/>
         <source>Crosshair</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="552"/>
+        <location filename="../bfbc2/BFBC2.ui" line="556"/>
         <source>Team balance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="562"/>
+        <location filename="../bfbc2/BFBC2.ui" line="566"/>
         <source>3D spotting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="572"/>
+        <location filename="../bfbc2/BFBC2.ui" line="576"/>
         <source>Friendly fire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="582"/>
+        <location filename="../bfbc2/BFBC2.ui" line="586"/>
         <source>Minimap spotting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="592"/>
+        <location filename="../bfbc2/BFBC2.ui" line="596"/>
         <source>Killcam</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="602"/>
+        <location filename="../bfbc2/BFBC2.ui" line="606"/>
         <source>3rd person vehicle cameras</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="612"/>
+        <location filename="../bfbc2/BFBC2.ui" line="616"/>
         <source>Minimap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="634"/>
+        <location filename="../bfbc2/BFBC2.ui" line="638"/>
         <source>Rank limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="662"/>
+        <location filename="../bfbc2/BFBC2.ui" line="666"/>
         <source>Text Chat Moderation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="676"/>
+        <location filename="../bfbc2/BFBC2.ui" line="680"/>
         <source>Moderation Mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="683"/>
+        <location filename="../bfbc2/BFBC2.ui" line="687"/>
         <source>Free - Normal, Voice, and Admin players can chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="690"/>
+        <location filename="../bfbc2/BFBC2.ui" line="694"/>
         <source>Moderated - Voice, and Admin players can chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="697"/>
+        <location filename="../bfbc2/BFBC2.ui" line="701"/>
         <source>Muted - only Admin players can chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="710"/>
+        <location filename="../bfbc2/BFBC2.ui" line="714"/>
         <source>Set the number of text messages required to trigger chat spam filter:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="743"/>
+        <location filename="../bfbc2/BFBC2.ui" line="747"/>
         <source>Set the length of the chat-spam detection time window (secounds):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="776"/>
+        <location filename="../bfbc2/BFBC2.ui" line="780"/>
         <source>Set the length of the chat-spam cooldown time (secounds):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="832"/>
+        <location filename="../bfbc2/BFBC2.ui" line="836"/>
         <source>Gameplay Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="843"/>
+        <location filename="../bfbc2/BFBC2.ui" line="847"/>
         <source>Idle timeout:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="853"/>
+        <location filename="../bfbc2/BFBC2.ui" line="857"/>
         <source>Number of teamkills before kick:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="870"/>
+        <location filename="../bfbc2/BFBC2.ui" line="874"/>
         <source>Maplist</source>
         <translation type="unfinished">Kart</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="881"/>
+        <location filename="../bfbc2/BFBC2.ui" line="885"/>
         <source>Gamemode:</source>
         <translation type="unfinished">Spillermodus:</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="892"/>
+        <location filename="../bfbc2/BFBC2.ui" line="896"/>
         <source>Rush</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="897"/>
+        <location filename="../bfbc2/BFBC2.ui" line="901"/>
         <source>Conquest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="902"/>
+        <location filename="../bfbc2/BFBC2.ui" line="906"/>
         <source>Squad Rush</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="907"/>
+        <location filename="../bfbc2/BFBC2.ui" line="911"/>
         <source>Squad Deathmatch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="918"/>
+        <location filename="../bfbc2/BFBC2.ui" line="922"/>
         <source>Current map:</source>
         <translation type="unfinished">Nåværende kart:</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="938"/>
+        <location filename="../bfbc2/BFBC2.ui" line="942"/>
         <source>Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="958"/>
+        <location filename="../bfbc2/BFBC2.ui" line="962"/>
         <source>Next map:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="984"/>
+        <location filename="../bfbc2/BFBC2.ui" line="988"/>
         <source>Run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1004"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1008"/>
         <source>Preview:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1040"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1751"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1044"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1759"/>
         <source>Mod:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1054"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1058"/>
         <source>Avaliable maps:</source>
         <translation type="unfinished">Tilgjengelige kart:</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1094"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1098"/>
         <source>Add</source>
         <translation type="unfinished">Legg til</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1114"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1118"/>
         <source>Remove</source>
         <translation type="unfinished">Fjern</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1144"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1148"/>
         <source>Current maps:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1200"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1244"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1513"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1204"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1248"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1517"/>
         <source>Clear</source>
         <translation type="unfinished">Tøm</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1207"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1251"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1527"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1211"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1255"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1531"/>
         <source>Save</source>
         <translation type="unfinished">Lagre</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1217"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1221"/>
         <source>Banlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1262"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1266"/>
         <source>Timeout:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1270"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1274"/>
         <source>Perm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1298"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1302"/>
         <source>Id:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1329"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1333"/>
         <source>Type:</source>
         <translation type="unfinished">Type:</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1342"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1346"/>
         <source>IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1391"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1395"/>
         <source>Ban</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1405"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1409"/>
         <source>Reason:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1457"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1461"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1462"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1466"/>
         <source>Id</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1467"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1471"/>
         <source>Ban Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1477"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1481"/>
         <source>Reason</source>
         <translation type="unfinished">Årsak</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1486"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1490"/>
         <source>Reserved Slots</source>
         <translation type="unfinished">Reserverte plasser</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1520"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1524"/>
         <source>Load</source>
         <translation type="unfinished">Load</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1536"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1540"/>
         <source>Reserved Slots:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1568"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1572"/>
         <source>Name:</source>
         <translation type="unfinished">Navn:</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1585"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1589"/>
         <source>Reserve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1608"/>
-        <location filename="../bfbc2/BFBC2.ui" line="1643"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1616"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1651"/>
         <source>Console</source>
         <translation type="unfinished">Konsoll</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1694"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1702"/>
         <source>PunkBuster</source>
         <translation type="unfinished">PunkBuster</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1758"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1766"/>
         <source>Round:</source>
         <translation type="unfinished">Runde:</translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2.ui" line="1765"/>
+        <location filename="../bfbc2/BFBC2.ui" line="1773"/>
         <source>Uptime:</source>
         <translation type="unfinished">Oppetid:</translation>
     </message>
@@ -1281,9 +1301,22 @@
 <context>
     <name>FrostbiteConnection</name>
     <message>
-        <location filename="../frostbite/FrostbiteConnection.cpp" line="42"/>
+        <location filename="../frostbite/FrostbiteConnection.cpp" line="39"/>
         <source>Already connected to %1:%2.</source>
         <translation>Allerede koblet til %1:%2.</translation>
+    </message>
+    <message>
+        <location filename="../frostbite/FrostbiteConnection.cpp" line="137"/>
+        <source>We have %1 words in this packet:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GameManager</name>
+    <message>
+        <location filename="../GameManager.cpp" line="72"/>
+        <source>Unknown game specified, the id was: %1.</source>
+        <translation type="unfinished">Ukjent spill spesifisert, id&apos;en var: %1.</translation>
     </message>
 </context>
 <context>
@@ -1392,8 +1425,8 @@
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="159"/>
-        <source>Connection</source>
-        <translation>Tilkobling</translation>
+        <source>Servers</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../OpenRcon.ui" line="168"/>
@@ -1411,27 +1444,27 @@
         <translation>Alternativer</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="187"/>
+        <location filename="../OpenRcon.ui" line="191"/>
         <source>Report bug</source>
         <translation>Rapporter feil</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="196"/>
+        <location filename="../OpenRcon.ui" line="200"/>
         <source>Documentation</source>
         <translation>Dokumentasjon</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="201"/>
+        <location filename="../OpenRcon.ui" line="205"/>
         <source>About</source>
         <translation>Om</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="206"/>
+        <location filename="../OpenRcon.ui" line="210"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.ui" line="211"/>
+        <location filename="../OpenRcon.ui" line="219"/>
         <source>Visit website</source>
         <translation>Besøk nettside</translation>
     </message>
@@ -1446,12 +1479,7 @@
         <translation>Koble til</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="171"/>
-        <source>Unknown game specified, the id was: %1.</source>
-        <translation>Ukjent spill spesifisert, id&apos;en var: %1.</translation>
-    </message>
-    <message>
-        <location filename="../OpenRcon.cpp" line="277"/>
+        <location filename="../OpenRcon.cpp" line="254"/>
         <source>No servers added yet.</source>
         <translation>Ingen tjenere lagt til enda.</translation>
     </message>
@@ -1474,17 +1502,17 @@
         <translation>Tilkobling</translation>
     </message>
     <message>
-        <location filename="../OptionsDialog.ui" line="56"/>
+        <location filename="../OptionsDialog.ui" line="60"/>
         <source>User Interface</source>
         <translation>Brukgergrensesnitt</translation>
     </message>
     <message>
-        <location filename="../OptionsDialog.ui" line="64"/>
+        <location filename="../OptionsDialog.ui" line="68"/>
         <source>Language:</source>
         <translation>Språk:</translation>
     </message>
     <message>
-        <location filename="../OptionsDialog.ui" line="74"/>
+        <location filename="../OptionsDialog.ui" line="78"/>
         <source>(Restart required)</source>
         <translation>(Omstart kreves)</translation>
     </message>

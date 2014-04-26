@@ -22,6 +22,8 @@ OpenRcon:
 		
     BF4:
         - Fix malfunction when removeing multiplue maps from the current list.
+        - Implement move menu in treeWidget_players_playerList with teams and squads.
+        - Implement dictionary for lookup team name by current level, gamemode and the team id.
 
     Minecraft:
         - Fix that we're getting strange letters mixed up with the response. NOTE: Seems to be caused by that we reads char* not unsigned char*
