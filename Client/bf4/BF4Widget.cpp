@@ -152,12 +152,12 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(action_pl_players_reserveSlot, SIGNAL(triggered()), this, SLOT(action_pl_players_reserveSlot_triggered()));
 
     // Update playerlist on following events.
-    connect(con->getCommandHandler(), SIGNAL(onPlayerJoinEvent(const QString&)), this, SLOT(updatePlayerList()));
-    connect(con->getCommandHandler(), SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(updatePlayerList()));
-    connect(con->getCommandHandler(), SIGNAL(onPlayerSpawnEvent(const QString&, const int&)), this, SLOT(updatePlayerList()));
-    connect(con->getCommandHandler(), SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, const bool&)), this, SLOT(updatePlayerList()));
-    connect(con->getCommandHandler(), SIGNAL(onPlayerSquadChangeEvent(const QString&, const int&, const int&)), this, SLOT(updatePlayerList()));
-    connect(con->getCommandHandler(), SIGNAL(onPlayerTeamChangeEvent(const QString&, const int&, const int&)), this, SLOT(updatePlayerList()));
+    connect(con->getCommandHandler(), SIGNAL(onPlayerJoinEvent(const QString&)), this, SLOT(updatePlayers()));
+    connect(con->getCommandHandler(), SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(updatePlayers()));
+    connect(con->getCommandHandler(), SIGNAL(onPlayerSpawnEvent(const QString&, const int&)), this, SLOT(updatePlayers()));
+    connect(con->getCommandHandler(), SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, const bool&)), this, SLOT(updatePlayers()));
+    connect(con->getCommandHandler(), SIGNAL(onPlayerSquadChangeEvent(const QString&, const int&, const int&)), this, SLOT(updatePlayers()));
+    connect(con->getCommandHandler(), SIGNAL(onPlayerTeamChangeEvent(const QString&, const int&, const int&)), this, SLOT(updatePlayers()));
 
     // Events
 
@@ -606,6 +606,11 @@ void BF4Widget::updateUpTime()
 }
 
 // Players
+void BF4Widget::updatePlayers()
+{
+    sendAdminListPlayersCommand(All);
+}
+
 void BF4Widget::treeWidget_pl_players_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->treeWidget_pl_players->itemAt(pos)) {

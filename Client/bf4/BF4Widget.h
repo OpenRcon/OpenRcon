@@ -146,6 +146,7 @@ private slots:
     void updateUpTime();
 
     // Players
+    void updatePlayers();
     void treeWidget_pl_players_customContextMenuRequested(const QPoint &pos);
     void action_pl_players_kill_triggered();
     void action_pl_players_kick_triggered();
