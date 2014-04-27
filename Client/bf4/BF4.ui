@@ -78,7 +78,7 @@
       <number>0</number>
      </property>
      <property name="documentMode">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <widget class="QWidget" name="tab_pl">
       <attribute name="icon">
