@@ -17,17 +17,17 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BFBASEGAME_H
-#define BFBASEGAME_H
+#ifndef FROSTBITEGAME_H
+#define FROSTBITEGAME_H
 
 #include "Game.h"
 
-class BFBaseGame : public Game
+class FrostbiteGame : public Game
 {
 
 public:
-    explicit BFBaseGame(const QString &host, const int &port, const QString &password);
-    ~BFBaseGame();
+    explicit FrostbiteGame(const QString &host, const int &port, const QString &password);
+    ~FrostbiteGame();
 
 protected:
     QMap<int, QString> versionMap;
@@ -50,4 +50,4 @@ protected:
 
 };
 
-#endif // BFBASEGAME_H
+#endif // FROSTBITEGAME_H

@@ -17,20 +17,36 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MAPLISTENTRY_H
-#define MAPLISTENTRY_H
+#ifndef BANLISTENTRY_H
+#define BANLISTENTRY_H
 
 #include <QString>
 
-struct MapListEntry {
-    MapListEntry(const QString &level, const QString &gameMode, const int &rounds) : level(level), gameMode(gameMode), rounds(rounds)
+// 6 words (Id-type, id, ban-type, seconds left, rounds left, and reason)
+
+struct BanListEntry {
+    BanListEntry(const QString &idType,
+                 const QString &id,
+                 const QString &banType,
+                 const int &seconds,
+                 const int &rounds,
+                 const QString &reason) :
+        idType(idType),
+        id(id),
+        banType(banType),
+        seconds(seconds),
+        rounds(rounds),
+        reason(reason)
     {
 
     }
 
-    QString level;
-    QString gameMode;
+    QString idType;
+    QString id;
+    QString banType;
+    int seconds;
     int rounds;
+    QString reason;
 };
 
-#endif // MAPLISTENTRY_H
+#endif // BANLISTENTRY_H

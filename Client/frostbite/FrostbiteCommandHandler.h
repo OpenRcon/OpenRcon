@@ -21,7 +21,6 @@
 #define FROSTBITECOMMANDHANDLER_H
 
 #include "CommandHandler.h"
-
 #include "FrostbiteRconPacket.h"
 
 class FrostbiteCommandHandler : public CommandHandler

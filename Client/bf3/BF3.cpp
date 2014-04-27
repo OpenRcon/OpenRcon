@@ -19,7 +19,7 @@
 
 #include "BF3.h"
 
-BF3::BF3(const QString &host, const int &port, const QString &password) : BFBaseGame(host, port, password)
+BF3::BF3(const QString &host, const int &port, const QString &password) : FrostbiteGame(host, port, password)
 {
     con = new BF3Connection(this);
     con->hostConnect(host, port);

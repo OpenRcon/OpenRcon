@@ -19,7 +19,7 @@
 
 #include "BF4.h"
 
-BF4::BF4(const QString &host, const int &port, const QString &password) : BFBaseGame(host, port, password), authenticated(false)
+BF4::BF4(const QString &host, const int &port, const QString &password) : FrostbiteGame(host, port, password), authenticated(false)
 {
     con = new BF4Connection(this);
     con->hostConnect(host, port);
@@ -272,7 +272,7 @@ void BF4::sendCurrentLevelCommand()
 
 void BF4::sendListPlayersCommand(const PlayerSubset &playerSubset)
 {
-    if (playerSubset == PlayerSubset::All) {
+    if (playerSubset == All) {
         con->sendCommand("\"listPlayers\" \"all\"");
     }
 }
@@ -300,7 +300,7 @@ void BF4::sendAdminKillPlayerCommand(const QString &player)
 
 void BF4::sendAdminListPlayersCommand(const PlayerSubset &playerSubset)
 {
-    if (playerSubset == PlayerSubset::All) {
+    if (playerSubset == All) {
         con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
     }
 }
@@ -322,7 +322,7 @@ void BF4::sendAdminPasswordCommand(const QString &password)
 
 void BF4::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset)
 {
-    if (playerSubset == PlayerSubset::All) {
+    if (playerSubset == All) {
         con->sendCommand(QString("\"admin.say\" \"%1\" \"all\"").arg(message));
     }
 }
@@ -350,7 +350,7 @@ void BF4::sendAdminYellCommand(const QString &message, const PlayerSubset &playe
 void BF4::sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset)
 {
     if (message.length() <= 256) {
-        if (playerSubset == PlayerSubset::All) {
+        if (playerSubset == All) {
             con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"all\"").arg(message).arg(duration));
         }
     }

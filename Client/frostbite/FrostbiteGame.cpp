@@ -17,24 +17,24 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BFBaseGame.h"
+#include "FrostbiteGame.h"
 
-BFBaseGame::BFBaseGame(const QString &host, const int &port, const QString &password) : Game(host, port, password)
+FrostbiteGame::FrostbiteGame(const QString &host, const int &port, const QString &password) : Game(host, port, password)
 {
 
 }
 
-BFBaseGame::~BFBaseGame()
+FrostbiteGame::~FrostbiteGame()
 {
 
 }
 
-QString BFBaseGame::getVersionFromBuild(const int &build)
+QString FrostbiteGame::getVersionFromBuild(const int &build)
 {
     return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);
 }
 
-//QString BFBaseGame::getPlayerSubsetName(const int &playerSubset)
+//QString FrostbiteGame::getPlayerSubsetName(const int &playerSubset)
 //{
 //    QString playerSubsetName;
 
@@ -59,7 +59,7 @@ QString BFBaseGame::getVersionFromBuild(const int &build)
 //    return playerSubsetName;
 //}
 
-QString BFBaseGame::getSquadName(const int &squadId)
+QString FrostbiteGame::getSquadName(const int &squadId)
 {
     QString squadName;
 

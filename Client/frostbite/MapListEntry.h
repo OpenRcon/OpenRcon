@@ -17,29 +17,25 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LEVELENTRY_H
-#define LEVELENTRY_H
+#ifndef MAPLISTENTRY_H
+#define MAPLISTENTRY_H
 
 #include <QString>
-#include <QPixmap>
 
-#include <QDebug>
-
-struct LevelEntry {
-    LevelEntry()
+struct MapListEntry {
+    MapListEntry(const QString &level,
+                 const QString &gameMode,
+                 const int &rounds) :
+        level(level),
+        gameMode(gameMode),
+        rounds(rounds)
     {
 
     }
 
-    LevelEntry(const QString &engineName, const QString &name, const QString &image) : engineName(engineName), name(name), image(QPixmap(image).scaled(QSize(320, 200), Qt::KeepAspectRatio))
-    {
-
-    }
-
-    QString engineName;
-    QString name;
-    QPixmap image;
-
+    QString level;
+    QString gameMode;
+    int rounds;
 };
 
-#endif // LEVELENTRY_H
+#endif // MAPLISTENTRY_H

@@ -17,22 +17,22 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BFBASELEVELS_H
-#define BFBASELEVELS_H
+#ifndef LEVELDICTIONARY_H
+#define LEVELDICTIONARY_H
 
 #include <QHash>
 
 #include "LevelEntry.h"
 #include "GameModeEntry.h"
 
-class BFBaseLevels : public QObject
+class LevelDictionary : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit BFBaseLevels(QObject *parent = 0);
-    explicit BFBaseLevels(const QString &imagePath, QObject *parent = 0);
-    ~BFBaseLevels();
+    explicit LevelDictionary(QObject *parent = 0);
+    explicit LevelDictionary(const QString &imagePath, QObject *parent = 0);
+    ~LevelDictionary();
 
     LevelEntry getLevel(const int &index);
     LevelEntry getLevel(const QString &name);
@@ -56,4 +56,4 @@ protected:
 
 };
 
-#endif // BFBASELEVELS_H
+#endif // LEVELDICTIONARY_H

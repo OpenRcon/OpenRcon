@@ -17,14 +17,34 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYERSUBSET_H
-#define PLAYERSUBSET_H
+#ifndef LEVELENTRY_H
+#define LEVELENTRY_H
 
-enum class PlayerSubset {
-    All,
-    Team,
-    Squad,
-    Player
+#include <QString>
+#include <QPixmap>
+
+#include <QDebug>
+
+struct LevelEntry {
+    LevelEntry()
+    {
+
+    }
+
+    LevelEntry(const QString &engineName,
+               const QString &name,
+               const QString &image) :
+        engineName(engineName),
+        name(name),
+        image(QPixmap(image).scaled(QSize(320, 200), Qt::KeepAspectRatio))
+    {
+
+    }
+
+    QString engineName;
+    QString name;
+    QPixmap image;
+
 };
 
-#endif // PLAYERSUBSET_H
+#endif // LEVELENTRY_H

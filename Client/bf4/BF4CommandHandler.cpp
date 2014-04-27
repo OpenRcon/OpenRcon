@@ -19,7 +19,7 @@
 
 #include "BF4CommandHandler.h"
 
-BF4CommandHandler::BF4CommandHandler(QObject *parent) : BFBaseCommandHandler(parent)
+BF4CommandHandler::BF4CommandHandler(QObject *parent) : FrostbiteCommandHandler(parent)
 {
 
 }
@@ -31,8 +31,6 @@ BF4CommandHandler::~BF4CommandHandler()
 
 void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    BFBaseCommandHandler::parse(request, packet, lastSentPacket);
-
     // Parse and call events.
     if (request == "player.onAuthenticated") {
         responsePlayerAuthenticatedEvent(packet);

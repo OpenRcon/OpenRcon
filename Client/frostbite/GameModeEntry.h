@@ -17,21 +17,30 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BFBASECOMMANDHANDLER_H
-#define BFBASECOMMANDHANDLER_H
+#ifndef GAMEMODEENTRY_H
+#define GAMEMODEENTRY_H
 
-#include "FrostbiteCommandHandler.h"
+#include <QString>
 
-class BFBaseCommandHandler : public FrostbiteCommandHandler
-{
-    Q_OBJECT
+struct GameModeEntry {
+    GameModeEntry() {
 
-public:
-    explicit BFBaseCommandHandler(QObject *parent = 0);
-    ~BFBaseCommandHandler();
+    }
 
-    void parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    GameModeEntry(const QString &engineName,
+                  const QString &name,
+                  const int &players) :
+        engineName(engineName),
+        name(name),
+        players(players)
+    {
+
+    }
+
+    QString engineName;
+    QString name;
+    int players;
 
 };
 
-#endif // BFBASECOMMANDHANDLER_H
+#endif // GAMEMODEENTRY_H

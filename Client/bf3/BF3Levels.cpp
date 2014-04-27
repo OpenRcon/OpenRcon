@@ -19,7 +19,7 @@
 
 #include "BF3Levels.h"
 
-BF3Levels::BF3Levels(QObject *parent) : BFBaseLevels(":/bf3/levels/", parent)
+BF3Levels::BF3Levels(QObject *parent) : LevelDictionary(":/bf3/levels/", parent)
 {
     /* List of all levels */
     levelList.append(LevelEntry("MP_001", "Grand Bazaar", imagePath + "grand_bazaar.png"));                 // 0

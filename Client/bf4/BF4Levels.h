@@ -20,10 +20,10 @@
 #ifndef BF4LEVELS_H
 #define BF4LEVELS_H
 
-#include "BFBaseLevels.h"
+#include "LevelDictionary.h"
 #include "BF4GameModeEntry.h"
 
-class BF4Levels : public BFBaseLevels
+class BF4Levels : public LevelDictionary
 {
     Q_OBJECT
 

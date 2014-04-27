@@ -22,11 +22,11 @@
 
 #include <QCryptographicHash>
 
-#include "BFBaseGame.h"
+#include "FrostbiteGame.h"
 #include "BF4Connection.h"
 #include "BF4Levels.h"
 
-class BF4 : public BFBaseGame {
+class BF4 : public FrostbiteGame {
     Q_OBJECT
 
 public:

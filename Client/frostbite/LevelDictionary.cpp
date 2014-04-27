@@ -17,29 +17,29 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BFBaseLevels.h"
+#include "LevelDictionary.h"
 
-BFBaseLevels::BFBaseLevels(QObject *parent) : QObject(parent)
+LevelDictionary::LevelDictionary(QObject *parent) : QObject(parent)
 {
 
 }
 
-BFBaseLevels::BFBaseLevels(const QString &imagePath, QObject *parent) : BFBaseLevels(parent)
+LevelDictionary::LevelDictionary(const QString &imagePath, QObject *parent) : LevelDictionary(parent)
 {
     this->imagePath = imagePath;
 }
 
-BFBaseLevels::~BFBaseLevels()
+LevelDictionary::~LevelDictionary()
 {
 
 }
 
-LevelEntry BFBaseLevels::getLevel(const int &index)
+LevelEntry LevelDictionary::getLevel(const int &index)
 {
     return levelList.at(index);
 }
 
-LevelEntry BFBaseLevels::getLevel(const QString &name)
+LevelEntry LevelDictionary::getLevel(const QString &name)
 {
     foreach (LevelEntry entry, levelList) {
         if (entry.engineName == name || entry.name == name) {
@@ -50,17 +50,17 @@ LevelEntry BFBaseLevels::getLevel(const QString &name)
     return LevelEntry();
 }
 
-LevelEntry BFBaseLevels::getLevel(const int &index, const int &gameModeIndex)
+LevelEntry LevelDictionary::getLevel(const int &index, const int &gameModeIndex)
 {
     return getLevels(gameModeIndex).at(index);
 }
 
-GameModeEntry BFBaseLevels::getGameMode(const int &index)
+GameModeEntry LevelDictionary::getGameMode(const int &index)
 {
     return gameModeList.at(index);
 }
 
-GameModeEntry BFBaseLevels::getGameMode(const QString &name)
+GameModeEntry LevelDictionary::getGameMode(const QString &name)
 {
     foreach (GameModeEntry entry, gameModeList) {
         if (entry.engineName == name || entry.name == name) {
@@ -71,12 +71,12 @@ GameModeEntry BFBaseLevels::getGameMode(const QString &name)
     return GameModeEntry();
 }
 
-QList<LevelEntry> BFBaseLevels::getLevels()
+QList<LevelEntry> LevelDictionary::getLevels()
 {
     return levelList;
 }
 
-QList<LevelEntry> BFBaseLevels::getLevels(const int &gameModeIndex)
+QList<LevelEntry> LevelDictionary::getLevels(const int &gameModeIndex)
 {
     QList<LevelEntry> list;
 
@@ -87,12 +87,12 @@ QList<LevelEntry> BFBaseLevels::getLevels(const int &gameModeIndex)
     return list;
 }
 
-QList<GameModeEntry> BFBaseLevels::getGameModes()
+QList<GameModeEntry> LevelDictionary::getGameModes()
 {
     return gameModeList;
 }
 
-QStringList BFBaseLevels::getLevelNames()
+QStringList LevelDictionary::getLevelNames()
 {
     QStringList list;
 
@@ -103,7 +103,7 @@ QStringList BFBaseLevels::getLevelNames()
     return list;
 }
 
-QStringList BFBaseLevels::getLevelNames(const int &gameModeIndex)
+QStringList LevelDictionary::getLevelNames(const int &gameModeIndex)
 {
     QStringList list;
 
@@ -114,7 +114,7 @@ QStringList BFBaseLevels::getLevelNames(const int &gameModeIndex)
     return list;
 }
 
-QStringList BFBaseLevels::getGameModeNames()
+QStringList LevelDictionary::getGameModeNames()
 {
     QStringList list;
 

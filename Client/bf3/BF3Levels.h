@@ -20,9 +20,9 @@
 #ifndef BF3LEVELS_H
 #define BF3LEVELS_H
 
-#include "BFBaseLevels.h"
+#include "LevelDictionary.h"
 
-class BF3Levels : public BFBaseLevels
+class BF3Levels : public LevelDictionary
 {
     Q_OBJECT
 

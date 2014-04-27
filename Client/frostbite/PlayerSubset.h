@@ -17,25 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BANLISTENTRY_H
-#define BANLISTENTRY_H
+#ifndef PLAYERSUBSET_H
+#define PLAYERSUBSET_H
 
-#include <QString>
-
-// 6 words (Id-type, id, ban-type, seconds left, rounds left, and reason)
-
-struct BanListEntry {
-    BanListEntry(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason) : idType(idType), id(id), banType(banType), seconds(seconds), rounds(rounds), reason(reason)
-    {
-
-    }
-
-    QString idType;
-    QString id;
-    QString banType;
-    int seconds;
-    int rounds;
-    QString reason;
+enum PlayerSubset {
+    All,
+    Team,
+    Squad,
+    Player
 };
 
-#endif // BANLISTENTRY_H
+#endif // PLAYERSUBSET_H

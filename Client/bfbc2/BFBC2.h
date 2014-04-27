@@ -25,13 +25,13 @@
 
 #include "Constants.h"
 
-#include "BFBaseGame.h"
+#include "FrostbiteGame.h"
 #include "BFBC2Connection.h"
 #include "BFBC2Levels.h"
 
 using namespace Constants;
 
-class BFBC2 : public BFBaseGame
+class BFBC2 : public FrostbiteGame
 {
     Q_OBJECT
 
