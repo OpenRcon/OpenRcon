@@ -31,7 +31,7 @@ BFBaseGame::~BFBaseGame()
 
 QString BFBaseGame::getVersionFromBuild(const int &build)
 {
-    return versionMap.value(build);
+    return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);
 }
 
 QString BFBaseGame::getPlayerSubsetName(const int &playerSubset)
