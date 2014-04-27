@@ -8,7 +8,8 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/GameModeEntry.h \
     frostbite/PlayerSubset.h \
     frostbite/MapListEntry.h \
-    frostbite/BanListEntry.h
+    frostbite/BanListEntry.h \
+    frostbite/TimeEntry.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteCommandHandler.cpp \

@@ -440,57 +440,89 @@ void BF4CommandHandler::responseServerInfoCommand(const FrostbiteRconPacket &pac
 {
     QString response = packet.getWord(0).getContent();
 
+//    OK OpenRcon 0 8 CarrierAssaultLarge0 XP2_001 0 2 2 65000 65000 0  true true false 382974 382964 82.145.47.195:25200 v1.883 | A1390 C2.333 true EU ams GB 0 IN_GAME
+
+//    OK <serverName: string>
+//    <current playercount: integer>
+//    <effective max playercount: integer>
+//    <current gamemode: string>
+//    <current map: string>
+//    <roundsPlayed: integer>
+//    <roundsTotal: string>
+
+//    <scores: team scores>
+//    <onlineState: online state>
+//    <ranked: boolean>
+//    <punkBuster: boolean>
+//    <hasGamePassword: boolean>
+//    <serverUpTime: seconds>
+//    <roundTime: seconds>
+//    <gameIpAndPort: IpPortPair>
+//    <punkBusterVersion: string>
+//    <joinQueueEnabled: boolean>
+//    <region: string>
+//    <closestPingSite: string>
+//    <country: string>
+//    <matchMakingEnabled: boolean>
+//    <blazePlayerCount: integer>
+//    <blazeGameState: string>
+
     if (response == "OK" && packet.getWordCount() > 1) {
         QString serverName = packet.getWord(1).getContent();
-        int playerCount = QString(packet.getWord(2).getContent()).toInt();
-        int maxPlayerCount = QString(packet.getWord(3).getContent()).toInt();
+        int playerCount = toInt(packet.getWord(2).getContent());
+        int maxPlayerCount = toInt(packet.getWord(3).getContent());
         QString gamemode = packet.getWord(4).getContent();
         QString currentMap = packet.getWord(5).getContent();
-        int roundsPlayed = QString(packet.getWord(6).getContent()).toInt();
-        int roundsTotal = QString(packet.getWord(7).getContent()).toInt();
+        int roundsPlayed = toInt(packet.getWord(6).getContent());
+        int roundsTotal = toInt(packet.getWord(7).getContent());
 
         // TODO: Check indexes here.
         QString scores = packet.getWord(8).getContent();
-        QString onlineState = packet.getWord(9).getContent();
-        bool ranked = toBool(packet.getWord(10).getContent());
-        bool punkBuster = toBool(packet.getWord(11).getContent());
-        bool hasGamePassword = toBool(packet.getWord(12).getContent());
-        int serverUpTime = QString(packet.getWord(13).getContent()).toInt();
-        int roundTime = QString(packet.getWord(14).getContent()).toInt();
-        QString gameIpAndPort = packet.getWord(15).getContent();
-        QString punkBusterVersion = packet.getWord(16).getContent();
-        bool joinQueueEnabled = toBool(packet.getWord(17).getContent());
-        QString region = packet.getWord(18).getContent();
-        QString closestPingSite = packet.getWord(19).getContent();
-        QString country = packet.getWord(20).getContent();
+        scores += packet.getWord(9).getContent();
+        scores += packet.getWord(10).getContent();
+        scores += packet.getWord(11).getContent();
+        QString onlineState = packet.getWord(12).getContent();
+
+        bool ranked = toBool(packet.getWord(13).getContent());
+        bool punkBuster = toBool(packet.getWord(14).getContent());
+        bool hasGamePassword = toBool(packet.getWord(15).getContent());
+        int serverUpTime = toInt(packet.getWord(16).getContent());
+        int roundTime = toInt(packet.getWord(17).getContent());
+        QString gameIpAndPort = packet.getWord(18).getContent();
+        QString punkBusterVersion = packet.getWord(19).getContent();
+        bool joinQueueEnabled = toBool(packet.getWord(20).getContent());
+        QString region = packet.getWord(21).getContent();
+        QString closestPingSite = packet.getWord(22).getContent();
+        QString country = packet.getWord(23).getContent();
+
         bool matchMakingEnabled = toBool(packet.getWord(21).getContent());
-        int blazePlayerCount = QString(packet.getWord(22).getContent()).toInt();
+        int blazePlayerCount = toInt(packet.getWord(22).getContent());
         QString blazeGameState = packet.getWord(23).getContent();
 
         ServerInfo serverInfo(
-                   serverName,
-                   playerCount,
-                   maxPlayerCount,
-                   gamemode,
-                   currentMap,
-                   roundsPlayed,
-                   roundsTotal,
-                   scores,
-                   onlineState,
-                   ranked,
-                   punkBuster,
-                   hasGamePassword,
-                   serverUpTime,
-                   roundTime,
-                   gameIpAndPort,
-                   punkBusterVersion,
-                   joinQueueEnabled,
-                   region,
-                   closestPingSite,
-                   country,
-                   matchMakingEnabled,
-                   blazePlayerCount,
-                   blazeGameState
+                    serverName,
+                    playerCount,
+                    maxPlayerCount,
+                    gamemode,
+                    currentMap,
+                    roundsPlayed,
+                    roundsTotal,
+                    scores,
+                    onlineState,
+                    ranked,
+                    punkBuster,
+                    hasGamePassword,
+                    serverUpTime,
+                    roundTime,
+                    gameIpAndPort,
+                    punkBusterVersion,
+                    joinQueueEnabled,
+                    region,
+                    closestPingSite,
+                    country,
+                    matchMakingEnabled,
+                    blazePlayerCount,
+                    blazeGameState
         );
 
         emit (onServerInfoCommand(serverInfo));

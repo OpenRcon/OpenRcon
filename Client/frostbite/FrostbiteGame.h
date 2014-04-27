@@ -22,6 +22,8 @@
 
 #include "Game.h"
 
+#include "TimeEntry.h"
+
 class FrostbiteGame : public Game
 {
 
@@ -47,6 +49,7 @@ protected:
     QString getVersionFromBuild(const int &build);
 //    QString getPlayerSubsetName(const int &playerSubset);
     QString getSquadName(const int &squadId);
+    TimeEntry getTimeFromSeconds(const int &elapsedSeconds);
 
 };
 

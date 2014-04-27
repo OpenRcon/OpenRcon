@@ -20,8 +20,9 @@
 #ifndef BF4WIDGET_H
 #define BF4WIDGET_H
 
-#include <QTime>
 #include <QMenu>
+#include <QTimer>
+#include <QTime>
 #include <QCompleter>
 
 #include "ui_BF4.h"
@@ -37,6 +38,10 @@ public:
 
 private:
     Ui::BF4 *ui;
+
+    // ServerInfo
+    QTimer *timer;
+    int serverUpTime;
 
     // Players
     QMenu *menu_pl_players;
@@ -133,6 +138,9 @@ private slots:
     void onVarsServerTypeCommand(const QString &type);
 
     /* User Interface */
+
+    /* ServerInfo */
+    void updateUpTime();
 
     /* Players */
     void updatePlayerList();

@@ -100,3 +100,13 @@ QString FrostbiteGame::getSquadName(const int &squadId)
 
     return squadName;
 }
+
+TimeEntry FrostbiteGame::getTimeFromSeconds(const int &elapsedSeconds)
+{
+    int days = elapsedSeconds / 60 / 60 / 24;
+    int hours = (elapsedSeconds / 60 / 60) % 24;
+    int minutes = (elapsedSeconds / 60) % 60;
+    int seconds = elapsedSeconds % 60;
+
+    return TimeEntry(days, hours, minutes, seconds);
+}

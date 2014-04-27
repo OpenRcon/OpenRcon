@@ -25,6 +25,9 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     /* User Inferface */
 
+    // ServerInfo
+    timer = new QTimer(this);
+
     // Players
     menu_pl_players = new QMenu(ui->treeWidget_pl_players);
     menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
@@ -414,17 +417,22 @@ void BF4Widget::onVersionCommand(const QString &type, const int &build)
 {
     Q_UNUSED(type);
 
-    ui->label_serverInfo_version->setText(tr("Version: %1").arg(getVersionFromBuild(build)));
+    ui->label_serverInfo_version->setText(tr("<b>Version</b>: %1").arg(getVersionFromBuild(build)));
 }
 
 void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
 {
     LevelEntry currentLevel = levels->getLevel(serverInfo.currentMap);
     GameModeEntry currentGameMode = levels->getGameMode(serverInfo.gameMode);
+    serverUpTime = serverInfo.serverUpTime;
 
-    ui->label_serverInfo_level->setText(QString("%1 - %2").arg(currentLevel.name).arg(currentGameMode.name));
-    ui->label_serverInfo_players->setText(tr("Players: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_serverInfo_round->setText(tr("Round: %1/%2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
+    ui->label_serverInfo_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(currentLevel.name).arg(currentGameMode.name));
+    ui->label_serverInfo_players->setText(tr("<b>Players</b>: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
+    ui->label_serverInfo_round->setText(tr("<b>Round</b>: %1/%2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
+
+    updateUpTime();
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateUpTime()));
+    timer->start(1000);
 
     // Set maplist.
     int gameModeIndex = levels->getGameModeNames().indexOf(currentGameMode.name);
@@ -589,6 +597,13 @@ void BF4Widget::addEvent(const QString &event, const QString &message)
     ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QTime::currentTime().toString()));
     ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
     ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
+}
+
+void BF4Widget::updateUpTime()
+{
+    TimeEntry upTime = getTimeFromSeconds(serverUpTime++);
+
+    ui->label_serverInfo_upTime->setText(tr("<b>Uptime:</b> %1d %2h %3m %4s").arg(upTime.days).arg(upTime.hours).arg(upTime.minutes).arg(upTime.seconds));
 }
 
 void BF4Widget::treeWidget_pl_players_customContextMenuRequested(const QPoint &pos)
