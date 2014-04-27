@@ -30,7 +30,7 @@ public:
     explicit BF3CommandHandler(QObject *parent = 0);
     ~BF3CommandHandler();
 
-    void parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 };
 
