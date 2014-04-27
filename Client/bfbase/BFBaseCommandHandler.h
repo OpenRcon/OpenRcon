@@ -24,12 +24,13 @@
 
 class BFBaseCommandHandler : public FrostbiteCommandHandler
 {
+    Q_OBJECT
 
 public:
     explicit BFBaseCommandHandler(QObject *parent = 0);
     ~BFBaseCommandHandler();
 
-    void parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 };
 

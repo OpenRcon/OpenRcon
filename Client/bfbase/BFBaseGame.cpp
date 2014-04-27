@@ -34,30 +34,30 @@ QString BFBaseGame::getVersionFromBuild(const int &build)
     return versionMap.value(build);
 }
 
-QString BFBaseGame::getPlayerSubsetName(const int &playerSubset)
-{
-    QString playerSubsetName;
+//QString BFBaseGame::getPlayerSubsetName(const int &playerSubset)
+//{
+//    QString playerSubsetName;
 
-    switch (playerSubset) {
-        case All:
-            playerSubsetName = "All";
-            break;
+//    switch (playerSubset) {
+//        case All:
+//            playerSubsetName = "All";
+//            break;
 
-        case Team:
-            playerSubsetName = "Team";
-            break;
+//        case Team:
+//            playerSubsetName = "Team";
+//            break;
 
-        case Squad:
-            playerSubsetName = "Squad";
-            break;
+//        case Squad:
+//            playerSubsetName = "Squad";
+//            break;
 
-        case Player:
-            playerSubsetName = "Player";
-            break;
-    }
+//        case Player:
+//            playerSubsetName = "Player";
+//            break;
+//    }
 
-    return playerSubsetName;
-}
+//    return playerSubsetName;
+//}
 
 QString BFBaseGame::getSquadName(const int &squadId)
 {

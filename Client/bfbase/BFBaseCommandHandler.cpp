@@ -29,9 +29,9 @@ BFBaseCommandHandler::~BFBaseCommandHandler()
 
 }
 
-void BFBaseCommandHandler::parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BFBaseCommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    Q_UNUSED(command);
+    Q_UNUSED(request);
     Q_UNUSED(packet);
     Q_UNUSED(lastSentPacket);
 

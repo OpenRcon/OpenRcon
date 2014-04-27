@@ -33,13 +33,6 @@ protected:
     QMap<int, QString> versionMap;
     QStringList commandList;
 
-    enum PlayerSubset {
-        All,
-        Team,
-        Squad,
-        Player
-    };
-
     enum Squad {
         Alpha,
         Bravo,
@@ -52,7 +45,7 @@ protected:
     };
 
     QString getVersionFromBuild(const int &build);
-    QString getPlayerSubsetName(const int &playerSubset);
+//    QString getPlayerSubsetName(const int &playerSubset);
     QString getSquadName(const int &squadId);
 
 };
