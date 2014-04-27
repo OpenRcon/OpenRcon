@@ -26,7 +26,6 @@ FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler
 
 FrostbiteConnection::~FrostbiteConnection()
 {
-    delete tcpSocket;
     delete commandHandler;
 }
 
@@ -175,8 +174,9 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                         }
 
                         commandHandler->responseDataReceivedEvent(messager);
-                        commandHandler->parse(request, packet, lastSentPacket);
                         qDebug() << messager;
+
+                        commandHandler->parse(request, packet, lastSentPacket);
                     }
                 }
             }

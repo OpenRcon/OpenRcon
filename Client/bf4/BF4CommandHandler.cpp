@@ -31,6 +31,8 @@ BF4CommandHandler::~BF4CommandHandler()
 
 void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
+    BFBaseCommandHandler::parse(request, packet, lastSentPacket);
+
     // Parse and call events.
     if (request == "player.onAuthenticated") {
         responsePlayerAuthenticatedEvent(packet);
@@ -90,7 +92,7 @@ void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
     } else if (request == "admin.killPlayer") {
         responseAdminKillPlayerCommand(packet);
     } else if (request == "admin.listPlayers") {
-        responseAdminListPlayersCommand(packet);
+        responseAdminListPlayersCommand(packet, lastSentPacket);
     } else if (request == "admin.movePlayer") {
         responseAdminMovePlayerCommand(packet);
     } else if (request == "admin.password") {
@@ -549,12 +551,11 @@ void BF4CommandHandler::responseAdminKillPlayerCommand(const FrostbiteRconPacket
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::responseAdminListPlayersCommand(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QString response = packet.getWord(0).getContent();
 
-    // OK 10 name guid teamId squadId kills deaths score rank ping type 1 halvorshalvors EA_76544D0431556D2ECC32046A5FDB5B49 1 1 0 0 0 7 44 0
-    if (response == "OK" && packet.getWordCount() > 0) {
+    if (response == "OK" && packet.getWordCount() > 1) {
         QList<PlayerInfo> playerList;
         int parameters = QString(packet.getWord(1).getContent()).toInt();
         int players = QString(packet.getWord(2 + parameters).getContent()).toInt();
@@ -579,9 +580,20 @@ void BF4CommandHandler::responseAdminListPlayersCommand(const FrostbiteRconPacke
             playerList.append(PlayerInfo(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
         }
 
-        emit (onAdminListPlayersCommand(playerList));
-    } else if (response == "InvalidArguments") {
-        emit (onUnknownCommand());
+        QString request = lastSentPacket.getWord(1).getContent();
+        PlayerSubset playerSubset;
+
+        if (request == "all") {
+            playerSubset = All;
+        } else if (request == "team") {
+            playerSubset = Team;
+        } else if (request == "squad") {
+            playerSubset = Squad;
+        } else if (request == "player") {
+            playerSubset = Player;
+        }
+
+        emit (onAdminListPlayersCommand(playerList, playerSubset));
     }
 }
 

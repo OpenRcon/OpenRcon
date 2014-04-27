@@ -196,13 +196,7 @@ void BF4::onConnected()
 void BF4::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated()) {
-        if (!password.isEmpty() && password.length() <= 16) {
-            QCryptographicHash hash(QCryptographicHash::Md5);
-            hash.addData(salt);
-            hash.addData(password.toLatin1().constData());
-
-            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
-        }
+        sendLoginHashedCommand(salt, password);
     }
 }
 
@@ -227,20 +221,137 @@ bool BF4::isAuthenticated()
     return authenticated;
 }
 
-void BF4::sendSayMessage(const QString &msg, const QString &group)
+/* Commands */
+
+// Misc
+void BF4::sendLoginPlainTextCommand(const QString &password)
 {
-    if (!group.isEmpty()) {
-        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(msg).arg(group));
-    } else {
-        con->sendCommand(QString("\"admin.say\" \"%1\" \"all\"").arg(msg));
+    con->sendCommand(QString("\"login.plainText\" \"%1\"").arg(password));
+}
+
+void BF4::sendLoginHashedCommand()
+{
+    con->sendCommand("login.hashed");
+}
+
+void BF4::sendLoginHashedCommand(const QByteArray &salt, const QString &password)
+{
+    if (!password.isEmpty() && password.length() <= 16) {
+        QCryptographicHash hash(QCryptographicHash::Md5);
+        hash.addData(salt);
+        hash.addData(password.toLatin1().constData());
+
+        con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
     }
 }
 
-void BF4::sendYellMessage(const QString &message, const int &duration, const QString &group)
+void BF4::sendServerInfoCommand()
 {
-    if (!group.isEmpty()) {
-        con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(group));
-    } else {
-        con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"all\"").arg(message).arg(duration));
+    con->sendCommand("serverInfo");
+}
+
+void BF4::sendLogoutCommand()
+{
+    con->sendCommand("logout");
+}
+
+void BF4::sendQuitCommand()
+{
+    con->sendCommand("quit");
+}
+
+void BF4::sendVersionCommand()
+{
+    con->sendCommand("version");
+}
+
+void BF4::sendCurrentLevelCommand()
+{
+    con->sendCommand("currentLevel");
+}
+
+void BF4::sendListPlayersCommand(const PlayerSubset &playerSubset)
+{
+    if (playerSubset == PlayerSubset::All) {
+        con->sendCommand("\"listPlayers\" \"all\"");
+    }
+}
+
+// Admin
+void BF4::sendAdminEventsEnabledCommand(const bool &enabled)
+{
+    con->sendCommand(QString("\"eventsEnabled\" \"%1\"").arg(enabled));
+}
+
+void BF4::sendAdminHelpCommand()
+{
+    con->sendCommand("admin.help");
+}
+
+void BF4::sendAdminKickPlayerCommand(const QString &player, const QString &reason)
+{
+    con->sendCommand(QString("\"admin.kickPlayer\" \"%1\" \"%2\"").arg(player, reason));
+}
+
+void BF4::sendAdminKillPlayerCommand(const QString &player)
+{
+    con->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
+}
+
+void BF4::sendAdminListPlayersCommand(const PlayerSubset &playerSubset)
+{
+    if (playerSubset == PlayerSubset::All) {
+        con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
+    }
+}
+
+void BF4::sendAdminMovePlayerCommand(const QString &player, const int &teamId, const int &squadId, const bool &forceKill)
+{
+    con->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(forceKill));
+}
+
+void BF4::sendAdminPasswordCommand()
+{
+    con->sendCommand("admin.password");
+}
+
+void BF4::sendAdminPasswordCommand(const QString &password)
+{
+    con->sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
+}
+
+void BF4::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset)
+{
+    if (playerSubset == PlayerSubset::All) {
+        con->sendCommand(QString("\"admin.say\" \"%1\" \"all\"").arg(message));
+    }
+}
+
+void BF4::sendAdminShutdownCommand()
+{
+    con->sendCommand("admin.shutDown");
+}
+
+void BF4::sendAdminShutdownCommand(const bool &graceful)
+{
+    con->sendCommand(QString("\"admin.shutDown\" \"%1\"").arg(graceful));
+}
+
+void BF4::sendAdminShutdownCommand(const bool &graceful, const int &seconds)
+{
+    con->sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(graceful, seconds));
+}
+
+void BF4::sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset)
+{
+    sendAdminYellCommand(message, 10, playerSubset);
+}
+
+void BF4::sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset)
+{
+    if (message.length() <= 256) {
+        if (playerSubset == PlayerSubset::All) {
+            con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"all\"").arg(message).arg(duration));
+        }
     }
 }

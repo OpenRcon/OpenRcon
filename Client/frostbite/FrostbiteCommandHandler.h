@@ -32,7 +32,7 @@ public:
     explicit FrostbiteCommandHandler(QObject *parent = 0);
     ~FrostbiteCommandHandler();
 
-    virtual void parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    virtual void parse(const QString &command, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) = 0;
 
 };
 

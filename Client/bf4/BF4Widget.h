@@ -99,7 +99,7 @@ private slots:
     void onServerInfoCommand(const ServerInfo &serverInfo);
 
     // Admin
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList);
+    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
     // Banning
     void onBanListListCommand(const BanList &banList);

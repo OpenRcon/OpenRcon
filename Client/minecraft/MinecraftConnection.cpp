@@ -26,7 +26,7 @@ MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent), 
 
 MinecraftConnection::~MinecraftConnection()
 {
-    delete tcpSocket;
+    delete commandHandler;
 }
 
 /* Length 	int 	Length of remainder of packet
@@ -56,6 +56,8 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
         qDebug() << "Request ID: " << packet.getRequestId();
         qDebug() << "Type: " << packet.getType();
         qDebug() << "Payload:" << packet.getContent() << "\n";
+
+        commandHandler->onDataSentEvent(packet.getContent());
     } else {
         qDebug() << "Payload data too long.";
     }

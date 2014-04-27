@@ -34,9 +34,10 @@ class MinecraftRconPacket
 {
 
 public:
-    explicit MinecraftRconPacket();
-    explicit MinecraftRconPacket(const int &requestId, const unsigned int &type);
     explicit MinecraftRconPacket(const int &requestId, const unsigned int &type, const char* content);
+    explicit MinecraftRconPacket(const int &requestId, const unsigned int &type);
+    explicit MinecraftRconPacket();
+
     ~MinecraftRconPacket();
 
     enum PacketType {

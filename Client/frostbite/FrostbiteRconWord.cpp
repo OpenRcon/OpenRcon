@@ -52,6 +52,8 @@ FrostbiteRconWord::FrostbiteRconWord(const FrostbiteRconWord &word) : wordSize(0
 FrostbiteRconWord::~FrostbiteRconWord()
 {
     clear();
+
+    delete[] wordContent;
 }
 
 FrostbiteRconWord &FrostbiteRconWord::operator = (const FrostbiteRconWord &word)

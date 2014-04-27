@@ -41,8 +41,34 @@ protected:
 
     bool isAuthenticated();
 
-    void sendSayMessage(const QString &msg, const QString &group);
-    void sendYellMessage(const QString &message, const int &duration, const QString &group);
+    /* Commands */
+
+    // Misc
+    void sendLoginPlainTextCommand(const QString &password);
+    void sendLoginHashedCommand();
+    void sendLoginHashedCommand(const QByteArray &salt, const QString &password);
+    void sendServerInfoCommand();
+    void sendLogoutCommand();
+    void sendQuitCommand();
+    void sendVersionCommand();
+    void sendCurrentLevelCommand();
+    void sendListPlayersCommand(const PlayerSubset &playerSubset);
+
+    // Admin
+    void sendAdminEventsEnabledCommand(const bool &enabled);
+    void sendAdminHelpCommand();
+    void sendAdminKickPlayerCommand(const QString &player, const QString &reason);
+    void sendAdminKillPlayerCommand(const QString &player);
+    void sendAdminListPlayersCommand(const PlayerSubset &playerSubset);
+    void sendAdminMovePlayerCommand(const QString &player, const int &teamId, const int &squadId, const bool &forceKill);
+    void sendAdminPasswordCommand();
+    void sendAdminPasswordCommand(const QString &password);
+    void sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset);
+    void sendAdminShutdownCommand();
+    void sendAdminShutdownCommand(const bool &graceful);
+    void sendAdminShutdownCommand(const bool &graceful, const int &seconds);
+    void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset);
+    void sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset);
 
 private:
     bool authenticated;

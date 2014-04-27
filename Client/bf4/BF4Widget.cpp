@@ -103,7 +103,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->getCommandHandler(), SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
 
     // Admin
-    connect(con->getCommandHandler(), SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&)));
+    connect(con->getCommandHandler(), SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)));
 
     // Banning
     connect(con->getCommandHandler(), SIGNAL(onBanListListCommand(const BanList&)), this, SLOT(onBanListListCommand(const BanList&)));
@@ -437,58 +437,60 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
 }
 
 // Admin
-void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList)
+void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
 {
-    ui->treeWidget_pl_players->clear();
+    if (playerSubset == All) {
+        ui->treeWidget_pl_players->clear();
 
-    QList<int> teamIds;
-    QStringList playerNames;
-    QMap<QString, int> teamItems;
-    QMap<QString, QTreeWidgetItem *> playerItems;
+        QList<int> teamIds;
+        QStringList playerNames;
+        QMap<QString, int> teamItems;
+        QMap<QString, QTreeWidgetItem *> playerItems;
 
-    foreach (PlayerInfo player, playerList) {
-        QStringList playerInfo;
-        playerInfo.append(player.name);
-        playerInfo.append(getSquadName(player.squadId));
-        playerInfo.append(QString::number(player.score));
-        playerInfo.append(QString::number(player.kills));
-        playerInfo.append(QString::number(player.deaths));
-        playerInfo.append(QString::number(player.ping));
-        playerInfo.append(player.guid);
-        playerNames.append(player.name);
+        foreach (PlayerInfo player, playerList) {
+            QStringList playerInfo;
+            playerInfo.append(player.name);
+            playerInfo.append(getSquadName(player.squadId));
+            playerInfo.append(QString::number(player.score));
+            playerInfo.append(QString::number(player.kills));
+            playerInfo.append(QString::number(player.deaths));
+            playerInfo.append(QString::number(player.ping));
+            playerInfo.append(player.guid);
+            playerNames.append(player.name);
 
-        // add player to parent teamItem
-        QTreeWidgetItem *item = new QTreeWidgetItem(playerInfo);
-        item->setIcon(0, getRankIcon(player.rank));
-        item->setData(0, Qt::UserRole, player.teamId);
-        playerItems.insert(player.name, item);
+            // add player to parent teamItem
+            QTreeWidgetItem *item = new QTreeWidgetItem(playerInfo);
+            item->setIcon(0, getRankIcon(player.rank));
+            item->setData(0, Qt::UserRole, player.teamId);
+            playerItems.insert(player.name, item);
 
-        // add team item and team id into map with key player name
-        teamItems.insert(player.name, player.teamId);
-        teamIds.append(player.teamId);
-    }
+            // add team item and team id into map with key player name
+            teamItems.insert(player.name, player.teamId);
+            teamIds.append(player.teamId);
+        }
 
-    playerNames.sort();
+        playerNames.sort();
 
-    foreach (int teamId, teamIds) {
-        QTreeWidgetItem *team = new QTreeWidgetItem(ui->treeWidget_pl_players);
-        team->setText(0, tr("Team %1").arg(teamId));
+        foreach (int teamId, teamIds) {
+            QTreeWidgetItem *team = new QTreeWidgetItem(ui->treeWidget_pl_players);
+            team->setText(0, tr("Team %1").arg(teamId));
 
-        foreach (QString name, playerNames) {
-            QTreeWidgetItem *player = playerItems.value(name);
+            foreach (QString name, playerNames) {
+                QTreeWidgetItem *player = playerItems.value(name);
 
-            if (teamId == player->data(0, Qt::UserRole)) {
-                team->addChild(player);
+                if (teamId == player->data(0, Qt::UserRole)) {
+                    team->addChild(player);
+                }
             }
         }
-    }
 
-    // Expand all player rows
-    ui->treeWidget_pl_players->expandAll();
+        // Expand all player rows
+        ui->treeWidget_pl_players->expandAll();
 
-    // Resize columns so that they fits the content.
-    for (int i = 0; i < ui->treeWidget_pl_players->columnCount(); i++) {
-        ui->treeWidget_pl_players->resizeColumnToContents(i);
+        // Resize columns so that they fits the content.
+        for (int i = 0; i < ui->treeWidget_pl_players->columnCount(); i++) {
+            ui->treeWidget_pl_players->resizeColumnToContents(i);
+        }
     }
 }
 
@@ -650,10 +652,11 @@ void BF4Widget::pushButton_ch_send_clicked()
     if (!message.isEmpty()) {
         switch (type) {
             case 0:
-                sendSayMessage(message, group);
+                sendAdminSayCommand(message, All); // TODO: Implement playerSubset here.
                 break;
+
             case 1:
-                sendYellMessage(message, duration, group);
+                sendAdminYellCommand(message, duration, All); // TODO: Implement playerSubset here.
                 break;
         }
 

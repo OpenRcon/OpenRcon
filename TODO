@@ -22,7 +22,7 @@ OpenRcon:
         - All we need for this is a BF3 server to test with, possible to use any public server but only for non-login commands. Tested that the Frostbite implementation works on BF3 as well.
 		
     BF4:
-        - Fix malfunction when removeing multiplue maps from the current list.
+        - Fix malfunction when removing multiplue maps from the current list.
         - Implement move menu in treeWidget_players_playerList with teams and squads.
         - Implement dictionary for lookup team name by current level, gamemode and the team id.
 

@@ -19,24 +19,24 @@
 
 #include "MinecraftRconPacket.h"
 
-MinecraftRconPacket::MinecraftRconPacket()
-{
-
-}
-
-MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const unsigned int &type) : requestId(requestId), type(type)
-{
-
-}
-
 MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const unsigned int &type, const char* content) : requestId(requestId), type(type), content(content)
+{
+
+}
+
+MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const unsigned int &type) : MinecraftRconPacket(requestId, type, 0)
+{
+
+}
+
+MinecraftRconPacket::MinecraftRconPacket() : MinecraftRconPacket(0, 0, 0)
 {
 
 }
 
 MinecraftRconPacket::~MinecraftRconPacket()
 {
-
+    // delete[] content; TODO: Fix this, causes SIGABRT.
 }
 
 int MinecraftRconPacket::getLength()

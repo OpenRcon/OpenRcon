@@ -58,16 +58,6 @@ public:
     void setSequenceNum(const unsigned int &sequence);
     void clear();
 
-    // Packet
-    /*
-        Sequence
-        Bit 31: 0 = The command in this command/response pair originated on the server
-        1 = The command in this command/response pair originated on the client
-        Bit 30: 0 = Request, 1 = Response
-        Bits 29..0: Sequence number (this is used to match requests/responses in a full duplex
-        transmission)
-    */
-
 private:
     unsigned int packetSequence;
     unsigned int packetSize; // Total size of packet, in bytes

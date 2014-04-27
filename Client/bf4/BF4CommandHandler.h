@@ -24,6 +24,7 @@
 
 #include "ServerInfo.h"
 #include "PlayerInfo.h"
+#include "PlayerSubset.h"
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
@@ -71,7 +72,7 @@ private:
     void responseAdminHelpCommand(const FrostbiteRconPacket &packet);
     void responseAdminKickPlayerCommand(const FrostbiteRconPacket &packet);
     void responseAdminKillPlayerCommand(const FrostbiteRconPacket &packet);
-    void responseAdminListPlayersCommand(const FrostbiteRconPacket &packet);
+    void responseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void responseAdminMovePlayerCommand(const FrostbiteRconPacket &packet);
     void responseAdminPasswordCommand(const FrostbiteRconPacket &packet);
     void responseAdminSayCommand(const FrostbiteRconPacket &packet);
@@ -203,7 +204,7 @@ signals:
     void onAdminHelpCommand();
     void onAdminKickPlayerCommand();
     void onAdminKillPlayerCommand();
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList);
+    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
     void onAdminMovePlayerCommand();
     void onAdminPasswordCommand();
     void onAdminSayCommand();
