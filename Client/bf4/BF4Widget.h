@@ -71,13 +71,16 @@ private:
     void logChat(const QString &sender, const QString &message, const QString &target);
     void logConsole(const int &type, const QString &message);
 
-    // Players
     QIcon getRankIcon(const int &rank);
 
     // Events
     void addEvent(const QString &event, const QString &message);
 
 private slots:
+    /* Connection */
+    void onConnected();
+    void onDisconnected();
+
     /* Events */
     void onDataSentEvent(const QString &request);
     void onDataReceivedEvent(const QString &response);
@@ -139,22 +142,21 @@ private slots:
 
     /* User Interface */
 
-    /* ServerInfo */
+    // ServerInfo
     void updateUpTime();
 
-    /* Players */
-    void updatePlayerList();
+    // Players
     void treeWidget_pl_players_customContextMenuRequested(const QPoint &pos);
     void action_pl_players_kill_triggered();
     void action_pl_players_kick_triggered();
     void action_pl_players_ban_triggered();
     void action_pl_players_reserveSlot_triggered();
 
-    /* Chat */
+    // Chat
     void comboBox_ch_mode_currentIndexChanged(const int &index);
     void pushButton_ch_send_clicked();
 
-    /* Maplist */
+    // Maplist
     void comboBox_ml_gameMode_currentIndexChanged(int);
     void tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous);
     void pushButton_ml_add_clicked();
@@ -166,13 +168,13 @@ private slots:
     void addCurrentMapListRow(const QString &name, const QString &gameMode, const int &rounds);
     void setCurrentMaplist(const MapList &mapList);
 
-    /* BanList */
+    // BanList
     void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);
 
     void addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason);
     void setBanlist(const BanList &banList);
 
-    /* Reserved Slots */
+    // Reserved Slots
     void listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos);
     void action_rs_reservedSlotsList_remove_triggered();
     void pushButton_rs_add_clicked();
@@ -180,7 +182,7 @@ private slots:
     void pushButton_rs_save_clicked();
     void pushButton_rs_clear_clicked();
 
-    /* Spectator List */
+    // Spectator List
     void listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos);
     void action_ss_spectatorList_remove_triggered();
     void pushButton_ss_add_clicked();
@@ -188,7 +190,7 @@ private slots:
     void pushButton_ss_save_clicked();
     void pushButton_ss_clear_clicked();
 
-    /* Options */
+    // Options
     void lineEdit_op_so_serverName_editingFinished();
     void textEdit_op_so_serverDescription_textChanged();
     void lineEdit_op_so_serverMessage_editingFinished();
@@ -196,7 +198,7 @@ private slots:
     void checkBox_so_co_punkBuster_toggled(bool checked);
     void checkBox_so_co_fairFight_toggled(bool checked);
 
-    /* Console */
+    // Console
     void pushButton_co_co_clicked();
     void pushButton_co_pb_clicked();
 

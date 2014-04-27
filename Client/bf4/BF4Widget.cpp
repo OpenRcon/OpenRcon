@@ -79,6 +79,10 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     completer = new QCompleter(commandList, this);
     ui->lineEdit_co_co->setCompleter(completer);
 
+    /* Connection */
+    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
+    connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
+
     /* Events */
     connect(con->getCommandHandler(), SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
     connect(con->getCommandHandler(), SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataReceivedEvent(const QString&)));
@@ -284,6 +288,17 @@ void BF4Widget::logConsole(const int &type, const QString &message)
             ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
             break;
     }
+}
+
+/* Connection */
+void BF4Widget::onConnected()
+{
+    logEvent("Connected", tr("Connected to %1:%2.").arg(con->tcpSocket->peerAddress().toString()).arg(con->tcpSocket->peerPort()));
+}
+
+void BF4Widget::onDisconnected()
+{
+    logEvent("Disconnected", tr("Disconnected from host."));
 }
 
 /* Events */
@@ -575,30 +590,14 @@ void BF4Widget::onVarsServerTypeCommand(const QString &type)
     ui->label_so_co_serverType->setText(type);
 }
 
-/* User Interface */
-
-/* Players */
 QIcon BF4Widget::getRankIcon(const int &rank)
 {
     return QIcon(QString(":/bf4/ranks/rank_%1.png").arg(rank));
 }
 
-void BF4Widget::updatePlayerList()
-{
-    con->sendCommand("\"admin.listPlayers\" \"all\"");
-}
+/* User Interface */
 
-/* Event */
-void BF4Widget::addEvent(const QString &event, const QString &message)
-{
-    int row = ui->tableWidget_ev_events->rowCount();
-
-    ui->tableWidget_ev_events->insertRow(row);
-    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QTime::currentTime().toString()));
-    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
-    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
-}
-
+// ServerInfo
 void BF4Widget::updateUpTime()
 {
     TimeEntry upTime = getTimeFromSeconds(serverUpTime++);
@@ -606,6 +605,7 @@ void BF4Widget::updateUpTime()
     ui->label_serverInfo_upTime->setText(tr("<b>Uptime:</b> %1d %2h %3m %4s").arg(upTime.days).arg(upTime.hours).arg(upTime.minutes).arg(upTime.seconds));
 }
 
+// Players
 void BF4Widget::treeWidget_pl_players_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->treeWidget_pl_players->itemAt(pos)) {
@@ -642,7 +642,18 @@ void BF4Widget::action_pl_players_reserveSlot_triggered()
     con->sendCommand("reservedSlotsList.list");
 }
 
-/* Chat */
+// Event
+void BF4Widget::addEvent(const QString &event, const QString &message)
+{
+    int row = ui->tableWidget_ev_events->rowCount();
+
+    ui->tableWidget_ev_events->insertRow(row);
+    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QTime::currentTime().toString()));
+    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
+    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
+}
+
+// Chat
 void BF4Widget::comboBox_ch_mode_currentIndexChanged(const int &index)
 {
     switch (index) {
@@ -679,7 +690,7 @@ void BF4Widget::pushButton_ch_send_clicked()
     }
 }
 
-/* Maplist */
+// Maplist
 void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
 {
     if (index >= 0) {
@@ -817,7 +828,7 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
     }
 }
 
-/* BanList */
+// BanList
 void BF4Widget::tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->tableWidget_bl_banList->itemAt(pos)) {
@@ -862,7 +873,7 @@ void BF4Widget::setBanlist(const BanList &banList)
     }
 }
 
-/* Reserved Slots */
+// Reserved Slots
 void BF4Widget::listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->listWidget_rs_reservedSlotsList->itemAt(pos)) {
@@ -913,7 +924,7 @@ void BF4Widget::pushButton_rs_clear_clicked()
     con->sendCommand("reservedSlotsList.list");
 }
 
-/* Spectator List */
+// Spectator List
 void BF4Widget::listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->listWidget_ss_spectatorList->itemAt(pos)) {
@@ -964,7 +975,7 @@ void BF4Widget::pushButton_ss_clear_clicked()
     con->sendCommand("spectatorList.list");
 }
 
-/* Options */
+// Options
 void BF4Widget::lineEdit_op_so_serverName_editingFinished()
 {
     QString serverName = ui->lineEdit_op_so_serverName->text();
@@ -994,13 +1005,9 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
 
 void BF4Widget::checkBox_so_co_punkBuster_toggled(bool checked)
 {
+    Q_UNUSED(checked); // TODO: Do this right.
+
     con->sendCommand("punkBuster.activate");
-
-    if (checked) {
-
-    } else {
-
-    }
 }
 
 void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
@@ -1012,7 +1019,7 @@ void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
     }
 }
 
-/* Console */
+// Console
 void BF4Widget::pushButton_co_co_clicked()
 {
     QString command = ui->lineEdit_co_co->text();
