@@ -26,6 +26,18 @@ BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : Fr
 
     levels = new BFBC2Levels(this);
 
+    versionMap.insert(571287, "R21");
+    versionMap.insert(581637, "R22");
+    versionMap.insert(584642, "R23");
+    versionMap.insert(593485, "R24");
+    versionMap.insert(602833, "R25");
+    versionMap.insert(609063, "R26");
+    versionMap.insert(617877, "R27");
+    versionMap.insert(621775, "R28");
+    versionMap.insert(638140, "R30");
+    versionMap.insert(720174, "R32");
+    versionMap.insert(851434, "R34");
+
     // Connection
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
