@@ -70,6 +70,35 @@ protected:
     void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset);
     void sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset);
 
+    // Banning
+    void sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason);
+    void sendBanListAddCommand(const QString &idType, const QString &id, const int &timeOut, const bool &useRounds, const QString &reason);
+    void sendBanListClearCommand();
+    void sendBanListListCommand(const int &index);
+    void sendBanListLoadCommand();
+    void sendBanListRemoveCommand(const QString &idType, const QString &id);
+    void sendBanListSaveCommand();
+
+    // FairFight
+    void sendFairFightActivateCommand();
+    void sendFairFightDeactivateCommand();
+    void sendFairFightIsActiveCommand();
+
+    // Maplist
+    void sendMapListAdd(const QString &level, const QString &gameMode, const int &rounds, const int &offSet);
+    void sendMapListAvailableMaps(const QString &filter);
+    void sendMapListClear();
+    void sendMapListEndRound(const int &teamId);
+    void sendMapListGetMapIndices();
+    void sendMapListGetRounds();
+    void sendMapListList(const int &index);
+    void sendMapListLoad();
+    void sendMapListRemove(const int &index);
+    void sendMapListRestartRound();
+    void sendMapListRunNextRound();
+    void sendMapListSave();
+    void sendMapListSetNextMapIndex(const int &index);
+
 private:
     bool authenticated;
 

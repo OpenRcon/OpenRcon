@@ -218,12 +218,12 @@ BF4Widget::~BF4Widget()
 
 void BF4Widget::startupCommands() {
     // Misc
-    con->sendCommand("\"admin.eventsEnabled\" \"true\"");
-    con->sendCommand("version");
-    con->sendCommand("serverInfo");
+    sendVersionCommand();
+    sendServerInfoCommand();
+    sendAdminEventsEnabledCommand(true);
 
     // Admins
-    con->sendCommand("\"admin.listPlayers\" \"all\"");
+    sendAdminListPlayersCommand(All);
 
     // Banning
     con->sendCommand("\"banList.list\" \"0\"");
@@ -298,7 +298,7 @@ void BF4Widget::onConnected()
 
 void BF4Widget::onDisconnected()
 {
-    logEvent("Disconnected", tr("Disconnected from host."));
+    logEvent("Disconnected", tr("Disconnected."));
 }
 
 /* Events */
@@ -622,14 +622,14 @@ void BF4Widget::action_pl_players_kill_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
+    sendAdminKillPlayerCommand(player);
 }
 
 void BF4Widget::action_pl_players_kick_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendCommand(QString("\"admin.kickPlayer\" \"%1\" \"Kicked by admin.\"").arg(player));
+    sendAdminKickPlayerCommand(player, "Kicked by admin.");
 }
 
 void BF4Widget::action_pl_players_ban_triggered()
