@@ -355,3 +355,123 @@ void BF4::sendAdminYellCommand(const QString &message, const int &duration, cons
         }
     }
 }
+
+// Banning
+void BF4::sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason)
+{
+    con->sendCommand(QString("banList.add %1 %2 perm %4").arg(idType, id, reason));
+}
+
+void BF4::sendBanListAddCommand(const QString &idType, const QString &id, const int &timeOut, const bool &useRounds, const QString &reason)
+{
+    QString timeOutType = useRounds ? "rounds" : "seconds";
+
+    con->sendCommand(QString("banList.add %1 %2 %3 %4 %5").arg(idType, id, timeOutType).arg(timeOut).arg(reason));
+}
+
+void BF4::sendBanListClearCommand()
+{
+    con->sendCommand("banList.clear");
+}
+
+void BF4::sendBanListListCommand(const int &index)
+{
+    con->sendCommand(QString("\"banList.list\" \"%1\"").arg(index));
+}
+
+void BF4::sendBanListLoadCommand()
+{
+    con->sendCommand("banList.load");
+}
+
+void BF4::sendBanListRemoveCommand(const QString &idType, const QString &id)
+{
+    con->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, id));
+}
+
+void BF4::sendBanListSaveCommand()
+{
+    con->sendCommand("banList.save");
+}
+
+// FairFight
+void BF4::sendFairFightActivateCommand()
+{
+    con->sendCommand("fairFight.activate");
+}
+
+void BF4::sendFairFightDeactivateCommand()
+{
+    con->sendCommand("fairfight.deactivate");
+}
+
+void BF4::sendFairFightIsActiveCommand()
+{
+    con->sendCommand("fairFight.isActive");
+}
+
+// Maplist
+void BF4::sendMapListAdd(const QString &level, const QString &gameMode, const int &rounds, const int &offSet)
+{
+    con->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(level).arg(gameMode).arg(rounds).arg(offSet));
+}
+
+void BF4::sendMapListAvailableMaps(const QString &filter)
+{
+    con->sendCommand(QString("\"mapList.availableMaps\" \"%1\"").arg(filter));
+}
+
+void BF4::sendMapListClear()
+{
+    con->sendCommand("mapList.clear");
+}
+
+void BF4::sendMapListEndRound(const int &teamId)
+{
+    con->sendCommand(QString("\"mapList.endRound\" \"%1\"").arg(teamId));
+}
+
+void BF4::sendMapListGetMapIndices()
+{
+    con->sendCommand("mapList.getMapIndices");
+}
+
+void BF4::sendMapListGetRounds()
+{
+    con->sendCommand("mapList.getRounds");
+}
+
+void BF4::sendMapListList(const int &index)
+{
+    con->sendCommand(QString("\"mapList.list\" \"%1\"").arg(index));
+}
+
+void BF4::sendMapListLoad()
+{
+    con->sendCommand("mapList.load");
+}
+
+void BF4::sendMapListRemove(const int &index)
+{
+    con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
+}
+
+void BF4::sendMapListRestartRound()
+{
+    con->sendCommand("mapList.restartRound");
+}
+
+void BF4::sendMapListRunNextRound()
+{
+    con->sendCommand("mapList.runNextRound");
+}
+
+void BF4::sendMapListSave()
+{
+    con->sendCommand("mapList.save");
+}
+
+void BF4::sendMapListSetNextMapIndex(const int &index)
+{
+    con->sendCommand(QString("\"mapList.setNextMapIndex\" \"%1\"").arg(index));
+}

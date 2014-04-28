@@ -47,6 +47,7 @@ struct BanListEntry {
     int seconds;
     int rounds;
     QString reason;
+
 };
 
 #endif // BANLISTENTRY_H
