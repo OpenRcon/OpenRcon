@@ -298,7 +298,7 @@ void BF4Widget::onConnected()
 
 void BF4Widget::onDisconnected()
 {
-    logEvent("Disconnected", tr("Disconnected from host."));
+    logEvent("Disconnected", tr("Disconnected."));
 }
 
 /* Events */
