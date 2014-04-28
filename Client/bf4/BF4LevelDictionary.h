@@ -17,20 +17,20 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4LEVELS_H
-#define BF4LEVELS_H
+#ifndef BF4LEVELDICTIONARY_H
+#define BF4LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
 #include "BF4GameModeEntry.h"
 
-class BF4Levels : public LevelDictionary
+class BF4LevelDictionary : public LevelDictionary
 {
     Q_OBJECT
 
 public:
-    explicit BF4Levels(QObject *parent = 0);
-    ~BF4Levels();
+    explicit BF4LevelDictionary(QObject *parent = 0);
+    ~BF4LevelDictionary();
 
 };
 
-#endif // BF4LEVELS_H
+#endif // BF4LEVELDICTIONARY_H

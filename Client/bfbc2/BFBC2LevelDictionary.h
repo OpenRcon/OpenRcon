@@ -17,19 +17,19 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF3LEVELS_H
-#define BF3LEVELS_H
+#ifndef BFBC2LEVELDICTIONARY_H
+#define BFBC2LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
+#include "BFBC2LevelEntry.h"
 
-class BF3Levels : public LevelDictionary
+class BFBC2LevelDictionary : public LevelDictionary
 {
-    Q_OBJECT
 
 public:
-    explicit BF3Levels(QObject *parent = 0);
-    ~BF3Levels();
+    explicit BFBC2LevelDictionary(QObject *parent = 0);
+    ~BFBC2LevelDictionary();
 
 };
 
-#endif // BF3LEVELS_H
+#endif // BFBC2LEVELDICTIONARY_H

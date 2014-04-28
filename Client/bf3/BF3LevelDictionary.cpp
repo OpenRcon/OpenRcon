@@ -17,9 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BF3Levels.h"
+#include "BF3LevelDictionary.h"
 
-BF3Levels::BF3Levels(QObject *parent) : LevelDictionary(":/bf3/levels/", parent)
+BF3LevelDictionary::BF3LevelDictionary(QObject *parent) : LevelDictionary(":/bf3/levels/", parent)
 {
     /* List of all levels */
     levelList.append(LevelEntry("MP_001", "Grand Bazaar", imagePath + "grand_bazaar.png"));                 // 0
@@ -387,7 +387,7 @@ BF3Levels::BF3Levels(QObject *parent) : LevelDictionary(":/bf3/levels/", parent)
     levelMap.insertMulti(15, 28);
 }
 
-BF3Levels::~BF3Levels()
+BF3LevelDictionary::~BF3LevelDictionary()
 {
 
 }

@@ -26,7 +26,7 @@
 
 #include "FrostbiteGame.h"
 #include "BF3Connection.h"
-#include "BF3Levels.h"
+#include "BF3LevelDictionary.h"
 
 class BF3 : public FrostbiteGame
 {
@@ -40,7 +40,7 @@ public:
 
 protected:
     BF3Connection *con;
-    BF3Levels *levels;
+    BF3LevelDictionary *levelDictionary;
 
 };
 

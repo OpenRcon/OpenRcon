@@ -27,7 +27,7 @@
 
 #include "FrostbiteGame.h"
 #include "BFBC2Connection.h"
-#include "BFBC2Levels.h"
+#include "BFBC2LevelDictionary.h"
 
 using namespace Constants;
 
@@ -53,7 +53,7 @@ private slots:
 
 protected:
     BFBC2Connection *con;
-    BFBC2Levels *levels;
+    BFBC2LevelDictionary *levelDictionary;
 
     QTimer *commandRefreshTimer;
 

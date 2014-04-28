@@ -17,9 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BFBC2Levels.h"
+#include "BFBC2LevelDictionary.h"
 
-BFBC2Levels::BFBC2Levels(QObject *parent) : LevelDictionary(":/bfbc2/levels/", parent)
+BFBC2LevelDictionary::BFBC2LevelDictionary(QObject *parent) : LevelDictionary(":/bfbc2/levels/", parent)
 {
     /* List of all levels */
     levelList.append(BFBC2LevelEntry("levels/mp_001", "Panama Canal", imagePath + "panama_canal.png", "BC2"));                          // 0
@@ -177,7 +177,7 @@ BFBC2Levels::BFBC2Levels(QObject *parent) : LevelDictionary(":/bfbc2/levels/", p
     levelMap.insertMulti(3, 60);
 }
 
-BFBC2Levels::~BFBC2Levels()
+BFBC2LevelDictionary::~BFBC2LevelDictionary()
 {
 
 }

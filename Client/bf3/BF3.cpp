@@ -24,7 +24,7 @@ BF3::BF3(const QString &host, const int &port, const QString &password) : Frostb
     con = new BF3Connection(this);
     con->hostConnect(host, port);
 
-    levels = new BF3Levels(this);
+    levelDictionary = new BF3LevelDictionary(this);
 
     versionMap.insert(872601, "OB-E");
     versionMap.insert(873274, "OB-F");
@@ -70,5 +70,5 @@ BF3::BF3(const QString &host, const int &port, const QString &password) : Frostb
 BF3::~BF3()
 {
     delete con;
-    delete levels;
+    delete levelDictionary;
 }

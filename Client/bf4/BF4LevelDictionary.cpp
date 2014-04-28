@@ -17,9 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BF4Levels.h"
+#include "BF4LevelDictionary.h"
 
-BF4Levels::BF4Levels(QObject *parent) : LevelDictionary(":/bf4/levels/", parent)
+BF4LevelDictionary::BF4LevelDictionary(QObject *parent) : LevelDictionary(":/bf4/levels/", parent)
 {
     /* List of all levels */
     levelList.append(LevelEntry("MP_Abandoned", "Zavod 311", imagePath + "zavod_311.png"));                                 // 0
@@ -350,7 +350,7 @@ BF4Levels::BF4Levels(QObject *parent) : LevelDictionary(":/bf4/levels/", parent)
     levelMap.insertMulti(11, 21);
 }
 
-BF4Levels::~BF4Levels()
+BF4LevelDictionary::~BF4LevelDictionary()
 {
 
 }

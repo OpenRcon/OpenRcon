@@ -24,7 +24,7 @@ BF4::BF4(const QString &host, const int &port, const QString &password) : Frostb
     con = new BF4Connection(this);
     con->hostConnect(host, port);
 
-    levels = new BF4Levels(this);
+    levelDictionary = new BF4LevelDictionary(this);
 
     versionMap.insert(70517, "OB-R2");
     versionMap.insert(72879, "OB-R3");
@@ -183,7 +183,7 @@ BF4::BF4(const QString &host, const int &port, const QString &password) : Frostb
 BF4::~BF4()
 {
     delete con;
-    delete levels;
+    delete levelDictionary;
 }
 
 void BF4::onConnected()
