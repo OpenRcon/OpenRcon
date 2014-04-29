@@ -599,25 +599,25 @@ QIcon BF4Widget::getRankIcon(const int &rank)
 void BF4Widget::updateUpTime()
 {
     TimeEntry upTime = getTimeFromSeconds(serverUpTime++);
-    QString text = tr("<b>Uptime:</b>");
+    QString text;
 
     if (upTime.days != 0) {
-        text += tr(" %1d").arg(upTime.days);
+        text += " " + tr("%1d").arg(upTime.days);
     }
 
     if (upTime.hours != 0) {
-        text += tr(" %1h").arg(upTime.hours);
+        text += " " + tr("%1h").arg(upTime.hours);
     }
 
     if (upTime.minutes != 0) {
-        text += tr(" %1m").arg(upTime.minutes);
+        text += " " + tr("%1m").arg(upTime.minutes);
     }
 
     if (upTime.seconds != 0) {
-        text += tr(" %1s").arg(upTime.seconds);
+        text += " " + tr("%1s").arg(upTime.seconds);
     }
 
-    ui->label_serverInfo_upTime->setText(text);
+    ui->label_serverInfo_upTime->setText(tr("<b>Uptime:</b> %1").arg(text));
 }
 
 // Players
