@@ -75,11 +75,11 @@ void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         responseLogoutCommand(packet);
     } else if (request == "quit") {
         responseQuitCommand(packet);
-    } else if (request ==  "version") {
+    } else if (request == "version") {
         responseVersionCommand(packet);
-    } else if (request ==  "currentLevel") {
+    } else if (request == "currentLevel") {
         responseCurrentLevelCommand(packet);
-    } else if (request ==  "listPlayers") {
+    } else if (request == "listPlayers") {
         responseListPlayersCommand(packet);
     } else if (request == "admin.eventsEnabled") {
         responseAdminEventsEnabledCommand(packet);
@@ -131,7 +131,7 @@ void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         responseMapListGetMapIndicesCommand(packet);
     } else if (request == "mapList.getRounds") {
         responseMapListGetRoundsCommand(packet);
-    } else if (request == "maplist.list") { // case sensetive?
+    } else if (request == "mapList.list") {
         responseMapListListCommand(packet);
     } else if (request == "mapList.load") {
         responseMapListLoadCommand(packet);
@@ -754,7 +754,7 @@ void BF4CommandHandler::responseMapListListCommand(const FrostbiteRconPacket &pa
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 0) {
+    if (response == "OK") {
         MapList mapList;
         int maps = QString(packet.getWord(1).getContent()).toInt();
         int parameters = QString(packet.getWord(2).getContent()).toInt();
