@@ -564,13 +564,13 @@ void BF4::sendReservedSlotsListSave()
 void BF4::sendSpectatorListAdd(const QString &player)
 {
     con->sendCommand(QString("\"spectatorList.add\" \"%1\"").arg(player));
-    sendReservedSlotsListList();
+    sendSpectatorListList();
 }
 
 void BF4::sendSpectatorListClear()
 {
     con->sendCommand("spectatorList.clear");
-    sendReservedSlotsListList();
+    sendSpectatorListList();
 }
 
 void BF4::sendSpectatorListList(const int &index)
@@ -585,13 +585,13 @@ void BF4::sendSpectatorListList(const int &index)
 void BF4::sendSpectatorListRemove(const QString &player)
 {
     con->sendCommand(QString("\"spectatorList.remove\" \"%1\"").arg(player));
-    sendReservedSlotsListList();
+    sendSpectatorListList();
 }
 
 void BF4::sendSpectatorListSave()
 {
     con->sendCommand("spectatorList.save");
-    sendReservedSlotsListList();
+    sendSpectatorListList();
 }
 
 // Squad
