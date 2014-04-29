@@ -255,7 +255,7 @@ signals:
     void onSquadPrivateCommand();
     void onVars3dSpottingCommand();
     void onVars3pCamCommand();
-    void onVarsAlwaysAllowSpectatorsCommand();
+    void onVarsAlwaysAllowSpectatorsCommand(const bool &enabled);
     void onVarsAutoBalanceCommand();
     void onVarsBulletDamageCommand();
     void onVarsCommanderCommand();

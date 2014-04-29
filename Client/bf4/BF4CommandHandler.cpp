@@ -965,7 +965,13 @@ void BF4CommandHandler::responseVars3pCamCommand(const FrostbiteRconPacket &pack
 
 void BF4CommandHandler::responseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK") {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsAlwaysAllowSpectatorsCommand(enabled));
+    }
 }
 
 void BF4CommandHandler::responseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet)

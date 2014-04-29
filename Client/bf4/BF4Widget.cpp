@@ -135,6 +135,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     // Squad
 
     // Variables
+    connect(con->getCommandHandler(), SIGNAL(onVarsAlwaysAllowSpectatorsCommand(const bool&)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(const bool&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsMaxPlayersCommand(const int&)), this, SLOT(onVarsMaxPlayersCommand(const int&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsMaxSpectatorsCommand(const int&)), this, SLOT(onVarsMaxSpectatorsCommand(const int&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
@@ -247,6 +248,7 @@ void BF4Widget::startupCommands() {
     // Squad
 
     // Variables
+    sendVarsAlwaysAllowSpectators();
     sendVarsMaxPlayers();
     sendVarsMaxSpectators();
     sendVarsServerName();
@@ -558,6 +560,11 @@ void BF4Widget::onSpectatorListListCommand(const QStringList &spectatorList)
 // Squad
 
 // Variables
+void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(const bool &enabled)
+{
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), !enabled);
+}
+
 void BF4Widget::onVarsMaxPlayersCommand(const int &playerCount)
 {
     ui->spinBox_so_co_maxPlayers->setValue(playerCount);
