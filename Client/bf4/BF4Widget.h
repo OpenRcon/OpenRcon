@@ -134,6 +134,7 @@ private slots:
 
     // Variables
     void onVarsAlwaysAllowSpectatorsCommand(const bool &enabled);
+    void onVarsIdleTimeoutCommand(const int &timeout);
     void onVarsMaxPlayersCommand(const int &playerCount);
     void onVarsMaxSpectatorsCommand(const int &spectatorCount);
     void onVarsServerNameCommand(const QString &serverName);
@@ -191,13 +192,18 @@ private slots:
     void pushButton_ss_save_clicked();
     void pushButton_ss_clear_clicked();
 
-    // Options
+    // Options -> Details
     void lineEdit_op_so_serverName_editingFinished();
     void textEdit_op_so_serverDescription_textChanged();
     void lineEdit_op_so_serverMessage_editingFinished();
 
-    void checkBox_so_co_punkBuster_toggled(bool checked);
-    void checkBox_so_co_fairFight_toggled(bool checked);
+    // Options -> Configuration
+    void checkBox_so_co_punkBuster_toggled(const bool &checked);
+    void checkBox_so_co_fairFight_toggled(const bool &checked);
+    void checkBox_so_co_idleTimeout_toggled(const bool &checked);
+    void spinBox_so_co_idleTimeout_valueChanged(const int &value);
+    void spinBox_so_co_maxPlayers_valueChanged(const int &value);
+    void spinBox_so_co_maxSpectators_valueChanged(const int &value);
 
     // Console
     void pushButton_co_co_clicked();

@@ -136,6 +136,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     // Variables
     connect(con->getCommandHandler(), SIGNAL(onVarsAlwaysAllowSpectatorsCommand(const bool&)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(const bool&)));
+    connect(con->getCommandHandler(), SIGNAL(onVarsIdleTimeoutCommand(const int&)), this, SLOT(onVarsIdleTimeoutCommand(const int&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsMaxPlayersCommand(const int&)), this, SLOT(onVarsMaxPlayersCommand(const int&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsMaxSpectatorsCommand(const int&)), this, SLOT(onVarsMaxSpectatorsCommand(const int&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
@@ -167,13 +168,18 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(ui->pushButton_ch_send, SIGNAL(clicked()), this, SLOT(pushButton_ch_send_clicked()));
     connect(ui->lineEdit_ch, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_send_clicked()));
 
-    // Options
+    // Options -> Details
     connect(ui->lineEdit_op_so_serverName, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverName_editingFinished()));
     connect(ui->textEdit_op_so_serverDescription, SIGNAL(textChanged()), this, SLOT(textEdit_op_so_serverDescription_textChanged()));
     connect(ui->lineEdit_op_so_serverMessage, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverMessage_editingFinished()));
 
+    // Options -> Configuration
     connect(ui->checkBox_so_co_punkBuster, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_punkBuster_toggled(bool)));
     connect(ui->checkBox_so_co_fairFight, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_fairFight_toggled(bool)));
+    connect(ui->checkBox_so_co_idleTimeout, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_idleTimeout_toggled(bool)));
+    connect(ui->spinBox_so_co_idleTimeout, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_idleTimeout_valueChanged(int)));
+    connect(ui->spinBox_so_co_maxPlayers, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxPlayers_valueChanged(int)));
+    connect(ui->spinBox_so_co_maxSpectators, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxSpectators_valueChanged(int)));
 
     // Maplist
     connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
@@ -249,6 +255,7 @@ void BF4Widget::startupCommands() {
 
     // Variables
     sendVarsAlwaysAllowSpectators();
+    sendVarsIdleTimeout();
     sendVarsMaxPlayers();
     sendVarsMaxSpectators();
     sendVarsServerName();
@@ -563,6 +570,17 @@ void BF4Widget::onSpectatorListListCommand(const QStringList &spectatorList)
 void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(const bool &enabled)
 {
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), !enabled);
+}
+
+void BF4Widget::onVarsIdleTimeoutCommand(const int &timeout)
+{
+    if (timeout >= 1) { // TODO: This cannot be disabled on ranked servers.
+        ui->checkBox_so_co_idleTimeout->setChecked(false);
+        ui->spinBox_so_co_idleTimeout->setValue(timeout);
+    } else {
+        ui->checkBox_so_co_idleTimeout->setChecked(true);
+        ui->spinBox_so_co_idleTimeout->setEnabled(false);
+    }
 }
 
 void BF4Widget::onVarsMaxPlayersCommand(const int &playerCount)
@@ -1013,19 +1031,55 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
     }
 }
 
-void BF4Widget::checkBox_so_co_punkBuster_toggled(bool checked)
+void BF4Widget::checkBox_so_co_punkBuster_toggled(const bool &checked)
 {
     Q_UNUSED(checked); // TODO: Do this right.
 
     sendPunkBusterActivate();
 }
 
-void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
+void BF4Widget::checkBox_so_co_fairFight_toggled(const bool &checked)
 {
     if (checked) {
         sendFairFightActivateCommand();
     } else {
         sendFairFightDeactivateCommand();
+    }
+}
+
+void BF4Widget::checkBox_so_co_idleTimeout_toggled(const bool &checked)
+{
+    int timeout;
+
+    if (checked) {
+        ui->spinBox_so_co_idleTimeout->setEnabled(false);
+        timeout = 0;
+    } else {
+        ui->spinBox_so_co_idleTimeout->setEnabled(true);
+        timeout = ui->spinBox_so_co_idleTimeout->value();
+    }
+
+    sendVarsIdleTimeout(timeout);
+}
+
+void BF4Widget::spinBox_so_co_idleTimeout_valueChanged(const int &value)
+{
+    if (value >= 1) {
+        sendVarsIdleTimeout(value);
+    }
+}
+
+void BF4Widget::spinBox_so_co_maxPlayers_valueChanged(const int &value)
+{
+    if (value >= 4) {
+        sendVarsMaxPlayers(value);
+    }
+}
+
+void BF4Widget::spinBox_so_co_maxSpectators_valueChanged(const int &value)
+{
+    if (value > 0) {
+        sendVarsMaxSpectators(value);
     }
 }
 

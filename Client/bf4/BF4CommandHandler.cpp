@@ -1034,7 +1034,7 @@ void BF4CommandHandler::responseVarsIdleTimeoutCommand(const FrostbiteRconPacket
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int timeout = QString(packet.getWord(1).getContent()).toInt();
+        int timeout = toInt(packet.getWord(1).getContent());
 
         emit (onVarsIdleTimeoutCommand(timeout));
     }
