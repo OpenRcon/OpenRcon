@@ -238,7 +238,7 @@ signals:
     void onPunkBusterIsActiveCommand(const bool &isActive);
     void onPunkBusterPbSvCommand();
     void onReservedSlotsListAddCommand();
-    void onReservedSlotsListAggressiveJoinCommand();
+    void onReservedSlotsListAggressiveJoinCommand(const bool &enabled);
     void onReservedSlotsListClearCommand();
     void onReservedSlotsListListCommand(const QStringList &reservedSlotList);
     void onReservedSlotsListLoadCommand();

@@ -232,7 +232,7 @@ void BF4::sendLoginPlainTextCommand(const QString &password)
 
 void BF4::sendLoginHashedCommand(const QByteArray &salt, const QString &password)
 {
-    if (salt == 0 && password == 0) {
+    if (salt.isNull() && password == 0) {
         con->sendCommand("login.hashed");
     } else {
         if (!password.isEmpty() && password.length() <= 16) {
@@ -528,7 +528,11 @@ void BF4::sendReservedSlotsListAdd(const QString &player)
 
 void BF4::sendReservedSlotsListAggressiveJoin(const bool &isEnabled)
 {
-    con->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
+    if (isEnabled == 0) {
+        con->sendCommand("reservedSlotsList.aggressiveJoin");
+    } else {
+        con->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
+    }
 }
 
 void BF4::sendReservedSlotsListClear()

@@ -372,20 +372,6 @@
              </property>
             </spacer>
            </item>
-           <item row="0" column="1">
-            <layout class="QFormLayout" name="formLayout_6">
-             <item row="0" column="0">
-              <widget class="QCheckBox" name="checkBox_so_co_idleTimeout">
-               <property name="text">
-                <string>Disable idle kick</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QSpinBox" name="spinBox_so_co_idleTimeout"/>
-             </item>
-            </layout>
-           </item>
            <item row="0" column="2">
             <spacer name="horizontalSpacer_6">
              <property name="orientation">
@@ -398,6 +384,27 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item row="0" column="1">
+            <layout class="QFormLayout" name="formLayout_6">
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="checkBox_so_co_idleTimeout">
+               <property name="text">
+                <string>Disable idle kick</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="spinBox_so_co_idleTimeout"/>
+             </item>
+             <item row="1" column="0" colspan="2">
+              <widget class="QCheckBox" name="checkBox_so_co_aggressiveJoin">
+               <property name="text">
+                <string>Aggresive join</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>

@@ -860,7 +860,13 @@ void BF4CommandHandler::responseReservedSlotsListAddCommand(const FrostbiteRconP
 
 void BF4CommandHandler::responseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onReservedSlotsListAggressiveJoinCommand(enabled));
+    }
 }
 
 void BF4CommandHandler::responseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet)

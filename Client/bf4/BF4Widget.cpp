@@ -127,6 +127,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->getCommandHandler(), SIGNAL(onPunkBusterIsActiveCommand(const bool&)), this, SLOT(onPunkBusterIsActiveCommand(const bool&)));
 
     // Reserved Slots
+    connect(con->getCommandHandler(), SIGNAL(onReservedSlotsListAggressiveJoinCommand(const bool&)), this, SLOT(onReservedSlotsListAggressiveJoinCommand(const bool&)));
     connect(con->getCommandHandler(), SIGNAL(onReservedSlotsListListCommand(const QStringList&)), this, SLOT(onReservedSlotsListListCommand(const QStringList&)));
 
     // Spectator list
@@ -178,6 +179,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(ui->checkBox_so_co_fairFight, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_fairFight_toggled(bool)));
     connect(ui->checkBox_so_co_idleTimeout, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_idleTimeout_toggled(bool)));
     connect(ui->spinBox_so_co_idleTimeout, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_idleTimeout_valueChanged(int)));
+    connect(ui->checkBox_so_co_aggressiveJoin, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_aggressiveJoin_toggled(bool)));
     connect(ui->spinBox_so_co_maxPlayers, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxPlayers_valueChanged(int)));
     connect(ui->spinBox_so_co_maxSpectators, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxSpectators_valueChanged(int)));
 
@@ -246,6 +248,7 @@ void BF4Widget::startupCommands() {
     sendPunkBusterPbSvCommand("pb_sv_plist");
 
     // Reserved Slots
+    sendReservedSlotsListAggressiveJoin();
     sendReservedSlotsListList();
 
     // Spectator list
@@ -551,6 +554,11 @@ void BF4Widget::onPunkBusterIsActiveCommand(const bool &isActive)
 }
 
 // Reserved Slots
+void BF4Widget::onReservedSlotsListAggressiveJoinCommand(const bool &enabled)
+{
+    ui->checkBox_so_co_aggressiveJoin->setChecked(enabled);
+}
+
 void BF4Widget::onReservedSlotsListListCommand(const QStringList &reservedSlotsList)
 {
     ui->listWidget_rs_reservedSlotsList->clear();
@@ -1069,8 +1077,14 @@ void BF4Widget::spinBox_so_co_idleTimeout_valueChanged(const int &value)
     }
 }
 
+void BF4Widget::checkBox_so_co_aggressiveJoin_toggled(const bool &checked)
+{
+    sendReservedSlotsListAggressiveJoin(checked);
+}
+
 void BF4Widget::spinBox_so_co_maxPlayers_valueChanged(const int &value)
 {
+    // Minimum player count is 4.
     if (value >= 4) {
         sendVarsMaxPlayers(value);
     }

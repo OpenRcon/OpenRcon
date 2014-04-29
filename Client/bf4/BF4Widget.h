@@ -125,6 +125,7 @@ private slots:
     void onPunkBusterIsActiveCommand(const bool &isActive);
 
     // Reserved Slots
+    void onReservedSlotsListAggressiveJoinCommand(const bool &enabled);
     void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
 
     // Spectator list
@@ -202,6 +203,7 @@ private slots:
     void checkBox_so_co_fairFight_toggled(const bool &checked);
     void checkBox_so_co_idleTimeout_toggled(const bool &checked);
     void spinBox_so_co_idleTimeout_valueChanged(const int &value);
+    void checkBox_so_co_aggressiveJoin_toggled(const bool &checked);
     void spinBox_so_co_maxPlayers_valueChanged(const int &value);
     void spinBox_so_co_maxSpectators_valueChanged(const int &value);
 

@@ -110,7 +110,7 @@ protected:
 
     // Reserved Slots
     void sendReservedSlotsListAdd(const QString &player);
-    void sendReservedSlotsListAggressiveJoin(const bool &isEnabled);
+    void sendReservedSlotsListAggressiveJoin(const bool &isEnabled = 0);
     void sendReservedSlotsListClear();
     void sendReservedSlotsListList();
     void sendReservedSlotsListLoad();
