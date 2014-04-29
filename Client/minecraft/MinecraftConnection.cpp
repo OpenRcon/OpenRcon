@@ -89,8 +89,6 @@ void MinecraftConnection::readyRead()
         char* content = new char[length - 10];
         in >> content;
 
-        //in.readRawData(content, length - 10);
-
         // Terminate the packet with 2 bytes of zeroes.
         unsigned char pad1, pad2;
         in >> pad1;

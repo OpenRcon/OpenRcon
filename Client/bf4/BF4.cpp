@@ -58,6 +58,7 @@ BF4::BF4(const QString &host, const int &port, const QString &password) : Frostb
     versionMap.insert(115397, "R30");
     versionMap.insert(117719, "R31");
     versionMap.insert(120511, "R32");
+    versionMap.insert(125871, "R33");
 
     commandList.append("login.plainText ");
     commandList.append("login.hashed");
