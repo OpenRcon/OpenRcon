@@ -45,7 +45,9 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
         out << packet.getLength();
         out << packet.getRequestId();
         out << packet.getType();
-        out.writeRawData(packet.getContent(), packet.getContentSize());
+        out << packet.getContent();
+
+        //out.writeRawData(packet.getContent(), packet.getContentSize());
 
         // Terminate the packet with 2 bytes of zeroes.
         out << (unsigned char) 0;
@@ -56,10 +58,13 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
         qDebug() << "Request ID: " << packet.getRequestId();
         qDebug() << "Type: " << packet.getType();
         qDebug() << "Payload:" << packet.getContent() << "\n";
+        qDebug() << "Hex data:" << QByteArray(packet.getContent()).toHex();
 
-        commandHandler->onDataSentEvent(packet.getContent());
+        if (packet.getType() == MinecraftRconPacket::Command) {
+            commandHandler->onDataSentEvent(packet.getContent());
+        }
     } else {
-        qDebug() << "Payload data too long.";
+        qDebug() << tr("Payload data too long.");
     }
 }
 
@@ -82,7 +87,9 @@ void MinecraftConnection::readyRead()
         in >> type;
 
         char* content = new char[length - 10];
-        in.readRawData(content, length - 10);
+        in >> content;
+
+        //in.readRawData(content, length - 10);
 
         // Terminate the packet with 2 bytes of zeroes.
         unsigned char pad1, pad2;
