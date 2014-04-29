@@ -47,9 +47,8 @@ protected:
     };
 
     QString getVersionFromBuild(const int &build);
-//    QString getPlayerSubsetName(const int &playerSubset);
-    QString getSquadName(const int &squadId);
     TimeEntry getTimeFromSeconds(const int &elapsedSeconds);
+    QString getSquadName(const int &squadId);
 
 };
 

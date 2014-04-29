@@ -22,6 +22,7 @@
 
 #include "CommandHandler.h"
 #include "FrostbiteRconPacket.h"
+#include "FrostbiteUtils.h"
 
 class FrostbiteCommandHandler : public CommandHandler
 {

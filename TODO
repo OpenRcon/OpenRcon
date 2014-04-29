@@ -11,7 +11,7 @@ OpenRcon:
         - Check that the game matches the server on connect, if not close connection.
         - Rewrite the FrostbiteCommandHandler to parse responses, and add functions for sending commands.
           The question is: How to do this without causing SIGSEGV, because FrostbiteCommandHandler needs to hold derived FrostbiteConnection and FrostBiteCommandHandler objects.
-        - Implement check that packets never is bigger than 16384 bytes.
+        - Implement check that packets never is bigger than 16384 bytes. - DONE.
 
     BFBC2:
         - List bans in BanList.
@@ -25,6 +25,7 @@ OpenRcon:
         - Fix malfunction when removing multiplue maps from the current list.
         - Implement move menu in treeWidget_players_playerList with teams and squads.
         - Implement dictionary for lookup team name by current level, gamemode and the team id.
+        - Hide spectatorslots tab when vars.alwaysAllowSpectators is false. Show when set to true in options.
 
     Minecraft:
         - Fix that we're getting strange letters mixed up with the response. NOTE: Seems to be caused by that we reads char* not unsigned char*

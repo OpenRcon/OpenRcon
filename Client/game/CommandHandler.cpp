@@ -49,8 +49,3 @@ int CommandHandler::toInt(const QString &value)
 {
     return value.toInt();
 }
-
-bool CommandHandler::toBool(const QString &value)
-{
-    return value == "true";
-}

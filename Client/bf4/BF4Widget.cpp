@@ -199,7 +199,6 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(action_ss_spectatorList_remove, SIGNAL(triggered()), this, SLOT(action_ss_spectatorList_remove_triggered()));
     connect(ui->lineEdit_ss_player, SIGNAL(returnPressed()), this, SLOT(pushButton_ss_add_clicked()));
     connect(ui->pushButton_ss_add, SIGNAL(clicked()), this, SLOT(pushButton_ss_add_clicked()));
-    connect(ui->pushButton_ss_load, SIGNAL(clicked()), this, SLOT(pushButton_ss_load_clicked()));
     connect(ui->pushButton_ss_save, SIGNAL(clicked()), this, SLOT(pushButton_ss_save_clicked()));
     connect(ui->pushButton_ss_clear, SIGNAL(clicked()), this, SLOT(pushButton_ss_clear_clicked()));
 
@@ -226,35 +225,34 @@ void BF4Widget::startupCommands() {
     sendAdminListPlayersCommand(All);
 
     // Banning
-    con->sendCommand("\"banList.list\" \"0\"");
+    sendBanListListCommand();
 
-    // FairFight
-    con->sendCommand("fairFight.isActive");
+    sendFairFightIsActiveCommand();
 
     // Maplist
-    con->sendCommand("\"mapList.list\" \"0\"");
+    sendMapListList();
 
     // Player
 
     // Punkbuster
-    con->sendCommand("punkBuster.isActive");
-    con->sendCommand("\"punkBuster.pb_sv_command\" \"pb_sv_plist\"");
+    sendPunkBusterIsActive();
+    sendPunkBusterPbSvCommand("pb_sv_plist");
 
     // Reserved Slots
-    con->sendCommand("reservedSlotsList.list");
+    sendReservedSlotsListList();
 
     // Spectator list
-    con->sendCommand("spectatorList.list");
+    sendSpectatorListList();
 
     // Squad
 
     // Variables
-    con->sendCommand("vars.maxPlayers");
-    con->sendCommand("vars.maxSpectators");
-    con->sendCommand("vars.serverName");
-    con->sendCommand("vars.serverDescription");
-    con->sendCommand("vars.serverMessage");
-    con->sendCommand("vars.serverType");
+    sendVarsMaxPlayers();
+    sendVarsMaxSpectators();
+    sendVarsServerName();
+    sendVarsServerDescription();
+    sendVarsServerMessage();
+    sendVarsServerType();
 }
 
 void BF4Widget::logEvent(const QString &event, const QString &message)
@@ -601,8 +599,25 @@ QIcon BF4Widget::getRankIcon(const int &rank)
 void BF4Widget::updateUpTime()
 {
     TimeEntry upTime = getTimeFromSeconds(serverUpTime++);
+    QString text = tr("<b>Uptime:</b>");
 
-    ui->label_serverInfo_upTime->setText(tr("<b>Uptime:</b> %1d %2h %3m %4s").arg(upTime.days).arg(upTime.hours).arg(upTime.minutes).arg(upTime.seconds));
+    if (upTime.days != 0) {
+        text += tr(" %1d").arg(upTime.days);
+    }
+
+    if (upTime.hours != 0) {
+        text += tr(" %1h").arg(upTime.hours);
+    }
+
+    if (upTime.minutes != 0) {
+        text += tr(" %1m").arg(upTime.minutes);
+    }
+
+    if (upTime.seconds != 0) {
+        text += tr(" %1s").arg(upTime.seconds);
+    }
+
+    ui->label_serverInfo_upTime->setText(text);
 }
 
 // Players
@@ -636,15 +651,14 @@ void BF4Widget::action_pl_players_ban_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendCommand(QString("\"banList.add\" \"%1\" \"perm\" \"Banned by admin.\"").arg(player));
+    sendBanListAddCommand("perm", player, "Banned by admin.");
 }
 
 void BF4Widget::action_pl_players_reserveSlot_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
-    con->sendCommand("reservedSlotsList.list");
+    sendReservedSlotsListAdd(player);
 }
 
 // Event
@@ -739,8 +753,8 @@ void BF4Widget::pushButton_ml_add_clicked()
                     ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
                 }
 
-                con->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\"").arg(level.engineName).arg(gameMode.engineName).arg(rounds));
                 addCurrentMapListRow(level.name, gameMode.name, rounds);
+                sendMapListAdd(level.engineName, gameMode.engineName, rounds);
             }
         }
     }
@@ -759,8 +773,8 @@ void BF4Widget::pushButton_ml_remove_clicked()
         foreach (QModelIndex index, indexList) {
             int row = index.row();
 
-            con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(row));
             ui->tableWidget_ml_current->removeRow(row);
+            sendMapListRemove(row);
         }
     }
 }
@@ -850,8 +864,7 @@ void BF4Widget::action_bl_banList_remove_triggered()
     if (!idType.isEmpty() && !player.isEmpty()) {
         ui->tableWidget_bl_banList->removeRow(row);
 
-        con->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, player));
-        con->sendCommand("\"banList.list\" \"0\"");
+        sendBanListRemoveCommand(idType, player);
     }
 }
 
@@ -893,8 +906,7 @@ void BF4Widget::action_rs_reservedSlotsList_remove_triggered()
     if (!player.isEmpty()) {
         delete ui->listWidget_rs_reservedSlotsList->currentItem();
 
-        con->sendCommand(QString("\"reservedSlotsList.remove\" \"%1\"").arg(player));
-        con->sendCommand("\"reservedSlotsList.list\" \"0\"");
+        sendReservedSlotsListRemove(player);
     }
 }
 
@@ -906,27 +918,23 @@ void BF4Widget::pushButton_rs_add_clicked()
         ui->lineEdit_rs_player->clear();
         ui->listWidget_rs_reservedSlotsList->addItem(player);
 
-        con->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
-        con->sendCommand("reservedSlotsList.list");
+        sendReservedSlotsListAdd(player);
     }
 }
 
 void BF4Widget::pushButton_rs_load_clicked()
 {
-    con->sendCommand("reservedSlotsList.load");
-    con->sendCommand("reservedSlotsList.list");
+    sendReservedSlotsListLoad();
 }
 
 void BF4Widget::pushButton_rs_save_clicked()
 {
-    con->sendCommand("reservedSlotsList.save");
-    con->sendCommand("reservedSlotsList.list");
+    sendReservedSlotsListSave();
 }
 
 void BF4Widget::pushButton_rs_clear_clicked()
 {
-    con->sendCommand("reservedSlotsList.clear");
-    con->sendCommand("reservedSlotsList.list");
+    sendReservedSlotsListClear();
 }
 
 // Spectator List
@@ -944,8 +952,7 @@ void BF4Widget::action_ss_spectatorList_remove_triggered()
     if (!player.isEmpty()) {
         delete ui->listWidget_ss_spectatorList->currentItem();
 
-        con->sendCommand(QString("\"spectatorList.remove\" \"%1\"").arg(player));
-        con->sendCommand("spectatorList.list");
+        sendSpectatorListRemove(player);
     }
 }
 
@@ -957,27 +964,18 @@ void BF4Widget::pushButton_ss_add_clicked()
         ui->lineEdit_ss_player->clear();
         ui->listWidget_ss_spectatorList->addItem(player);
 
-        con->sendCommand(QString("\"spectatorList.add\" \"%1\"").arg(player));
-        con->sendCommand("spectatorList.list");
+        sendSpectatorListAdd(player);
     }
-}
-
-void BF4Widget::pushButton_ss_load_clicked()
-{
-    con->sendCommand("spectatorList.load");
-    con->sendCommand("spectatorList.list");
 }
 
 void BF4Widget::pushButton_ss_save_clicked()
 {
-    con->sendCommand("spectatorList.save");
-    con->sendCommand("spectatorList.list");
+    sendSpectatorListSave();
 }
 
 void BF4Widget::pushButton_ss_clear_clicked()
 {
-    con->sendCommand("spectatorList.clear");
-    con->sendCommand("spectatorList.list");
+    sendSpectatorListClear();
 }
 
 // Options
@@ -986,7 +984,7 @@ void BF4Widget::lineEdit_op_so_serverName_editingFinished()
     QString serverName = ui->lineEdit_op_so_serverName->text();
 
     if (!serverName.isEmpty()) {
-        con->sendCommand(QString("\"vars.serverName\" \"%1\"").arg(serverName));
+        sendVarsServerName(serverName);
     }
 }
 
@@ -995,7 +993,7 @@ void BF4Widget::textEdit_op_so_serverDescription_textChanged()
     QString serverDescription = ui->textEdit_op_so_serverDescription->toPlainText();
 
     if (!serverDescription.isEmpty()) {
-        con->sendCommand(QString("\"vars.serverDescription\" \"%1\"").arg(serverDescription));
+        sendVarsServerDescription(serverDescription);
     }
 }
 
@@ -1004,7 +1002,7 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
     QString serverMessage = ui->lineEdit_op_so_serverMessage->text();
 
     if (!serverMessage.isEmpty()) {
-        con->sendCommand(QString("\"vars.serverMessage\" \"%1\"").arg(serverMessage));
+        sendVarsServerMessage(serverMessage);
     }
 }
 
@@ -1012,15 +1010,15 @@ void BF4Widget::checkBox_so_co_punkBuster_toggled(bool checked)
 {
     Q_UNUSED(checked); // TODO: Do this right.
 
-    con->sendCommand("punkBuster.activate");
+    sendPunkBusterActivate();
 }
 
 void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
 {
     if (checked) {
-        con->sendCommand("fairFight.activate");
+        sendFairFightActivateCommand();
     } else {
-        con->sendCommand("fairFight.deactivate");
+        sendFairFightDeactivateCommand();
     }
 }
 
@@ -1038,5 +1036,5 @@ void BF4Widget::pushButton_co_pb_clicked()
     QString command = ui->lineEdit_co_pb->text();
     ui->lineEdit_co_pb->clear();
 
-    con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
+    sendPunkBusterPbSvCommand(command);
 }

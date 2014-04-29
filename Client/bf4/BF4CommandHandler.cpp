@@ -483,19 +483,19 @@ void BF4CommandHandler::responseServerInfoCommand(const FrostbiteRconPacket &pac
         scores += packet.getWord(11).getContent();
         QString onlineState = packet.getWord(12).getContent();
 
-        bool ranked = toBool(packet.getWord(13).getContent());
-        bool punkBuster = toBool(packet.getWord(14).getContent());
-        bool hasGamePassword = toBool(packet.getWord(15).getContent());
+        bool ranked = FrostbiteUtils::toBool(packet.getWord(13).getContent());
+        bool punkBuster = FrostbiteUtils::toBool(packet.getWord(14).getContent());
+        bool hasGamePassword = FrostbiteUtils::toBool(packet.getWord(15).getContent());
         int serverUpTime = toInt(packet.getWord(16).getContent());
         int roundTime = toInt(packet.getWord(17).getContent());
         QString gameIpAndPort = packet.getWord(18).getContent();
         QString punkBusterVersion = packet.getWord(19).getContent();
-        bool joinQueueEnabled = toBool(packet.getWord(20).getContent());
+        bool joinQueueEnabled = FrostbiteUtils::toBool(packet.getWord(20).getContent());
         QString region = packet.getWord(21).getContent();
         QString closestPingSite = packet.getWord(22).getContent();
         QString country = packet.getWord(23).getContent();
 
-        bool matchMakingEnabled = toBool(packet.getWord(21).getContent());
+        bool matchMakingEnabled = FrostbiteUtils::toBool(packet.getWord(21).getContent());
         int blazePlayerCount = toInt(packet.getWord(22).getContent());
         QString blazeGameState = packet.getWord(23).getContent();
 
@@ -714,7 +714,7 @@ void BF4CommandHandler::responseFairFightIsActiveCommand(const FrostbiteRconPack
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool isActive = toBool(packet.getWord(1).getContent());
+        bool isActive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onFairFightIsActiveCommand(isActive));
     }
@@ -842,7 +842,7 @@ void BF4CommandHandler::responsePunkBusterIsActiveCommand(const FrostbiteRconPac
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool isActive = toBool(packet.getWord(1).getContent());
+        bool isActive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onPunkBusterIsActiveCommand(isActive));
     }

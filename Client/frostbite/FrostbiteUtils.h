@@ -12,38 +12,26 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COMMANDHANDLER_H
-#define COMMANDHANDLER_H
+#ifndef FROSTBITEUTILS_H
+#define FROSTBITEUTILS_H
 
-#include <QObject>
+#include <QString>
 
-class CommandHandler : public QObject
+class FrostbiteUtils
 {
-    Q_OBJECT
 
 public:
-    explicit CommandHandler(QObject *parent = 0);
-    ~CommandHandler();
+    FrostbiteUtils();
+    ~FrostbiteUtils();
 
-    void responseDataSentEvent(const QString &request);
-    void responseDataReceivedEvent(const QString &response);
-
-protected:
-    void responseUnknownCommand();
-
-    int toInt(const QString &value);
-
-signals:
-    void onDataSentEvent(const QString &command);
-    void onDataReceivedEvent(const QString &response);
-
-    void onUnknownCommand();
+    static bool toBool(const QString &value);
+    static QString toString(const bool &value);
 
 };
 
-#endif // COMMANDHANDLER_H
+#endif // FROSTBITEUTILS_H

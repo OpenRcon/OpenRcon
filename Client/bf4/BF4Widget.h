@@ -187,7 +187,6 @@ private slots:
     void listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos);
     void action_ss_spectatorList_remove_triggered();
     void pushButton_ss_add_clicked();
-    void pushButton_ss_load_clicked();
     void pushButton_ss_save_clicked();
     void pushButton_ss_clear_clicked();
 

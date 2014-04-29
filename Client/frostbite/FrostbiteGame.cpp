@@ -34,30 +34,15 @@ QString FrostbiteGame::getVersionFromBuild(const int &build)
     return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);
 }
 
-//QString FrostbiteGame::getPlayerSubsetName(const int &playerSubset)
-//{
-//    QString playerSubsetName;
+TimeEntry FrostbiteGame::getTimeFromSeconds(const int &elapsedSeconds)
+{
+    int days = elapsedSeconds / 60 / 60 / 24;
+    int hours = (elapsedSeconds / 60 / 60) % 24;
+    int minutes = (elapsedSeconds / 60) % 60;
+    int seconds = elapsedSeconds % 60;
 
-//    switch (playerSubset) {
-//        case All:
-//            playerSubsetName = "All";
-//            break;
-
-//        case Team:
-//            playerSubsetName = "Team";
-//            break;
-
-//        case Squad:
-//            playerSubsetName = "Squad";
-//            break;
-
-//        case Player:
-//            playerSubsetName = "Player";
-//            break;
-//    }
-
-//    return playerSubsetName;
-//}
+    return TimeEntry(days, hours, minutes, seconds);
+}
 
 QString FrostbiteGame::getSquadName(const int &squadId)
 {
@@ -99,14 +84,4 @@ QString FrostbiteGame::getSquadName(const int &squadId)
     }
 
     return squadName;
-}
-
-TimeEntry FrostbiteGame::getTimeFromSeconds(const int &elapsedSeconds)
-{
-    int days = elapsedSeconds / 60 / 60 / 24;
-    int hours = (elapsedSeconds / 60 / 60) % 24;
-    int minutes = (elapsedSeconds / 60) % 60;
-    int seconds = elapsedSeconds % 60;
-
-    return TimeEntry(days, hours, minutes, seconds);
 }
