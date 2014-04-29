@@ -653,7 +653,7 @@ void BF4::sendVarsAutoBalance(const bool &isEnabled)
 
 void BF4::sendVarsBulletDamage(const int &damage)
 {
-    if (damage == 0) {
+    if (damage == -1) {
         con->sendCommand("vars.bulletDamage");
     } else {
         con->sendCommand(QString("\"vars.bulletDamage\" \"%1\"").arg(damage));
@@ -689,7 +689,7 @@ void BF4::sendVarsFriendlyFire(const bool &isEnabled)
 
 void BF4::sendVarsGameModeCounter(const int &scale)
 {
-    if (scale == 0) {
+    if (scale == -1) {
         con->sendCommand("vars.gameModeCounter");
     } else {
         con->sendCommand(QString("\"vars.gameModeCounter\" \"%1\"").arg(scale));
@@ -725,7 +725,7 @@ void BF4::sendVarsHud(const bool &isEnabled)
 
 void BF4::sendVarsIdleBanRounds(const int &rounds)
 {
-    if (rounds == 0) {
+    if (rounds == -1) {
         con->sendCommand("vars.idleBanRounds");
     } else {
         con->sendCommand(QString("\"vars.idleBanRounds\" \"%1\"").arg(rounds));
@@ -734,7 +734,7 @@ void BF4::sendVarsIdleBanRounds(const int &rounds)
 
 void BF4::sendVarsIdleTimeout(const int &seconds)
 {
-    if (seconds == 0) {
+    if (seconds == -1) {
         con->sendCommand("vars.idleTimeout");
     } else {
         con->sendCommand(QString("\"vars.idleTimeout\" \"%1\"").arg(seconds));
@@ -752,7 +752,7 @@ void BF4::sendVarsKillCam(const bool &isEnabled)
 
 void BF4::sendVarsMaxPlayers(const int &players)
 {
-    if (players == 0) {
+    if (players == -1) {
         con->sendCommand("vars.maxPlayers");
     } else {
         con->sendCommand(QString("\"vars.maxPlayers\" \"%1\"").arg(players));
@@ -761,7 +761,7 @@ void BF4::sendVarsMaxPlayers(const int &players)
 
 void BF4::sendVarsMaxSpectators(const int &spectators)
 {
-    if (spectators == 0) {
+    if (spectators == -1) {
         con->sendCommand("vars.maxSpectators");
     } else {
         con->sendCommand(QString("\"vars.maxSpectators\" \"%1\"").arg(spectators));
@@ -815,7 +815,7 @@ void BF4::sendVarsOnlySquadLeaderSpawn(const bool &isEnabled)
 
 void BF4::sendVarsPlayerRespawnTime(const int &respawnTime)
 {
-    if (respawnTime == 0) {
+    if (respawnTime == -1) {
         con->sendCommand("vars.playerRespawnTime");
     } else {
         con->sendCommand(QString("\"vars.playerRespawnTime\" \"%1\"").arg(respawnTime));
@@ -842,7 +842,7 @@ void BF4::sendVarsRegenerateHealth(const bool &isEnabled)
 
 void BF4::sendVarsRoundLockdownCountdown(const int &seconds)
 {
-    if (seconds == 0) {
+    if (seconds == -1) {
         con->sendCommand("vars.roundLockdownCountdown");
     } else {
         con->sendCommand(QString("\"vars.roundLockdownCountdown\" \"%1\"").arg(seconds));
@@ -851,7 +851,7 @@ void BF4::sendVarsRoundLockdownCountdown(const int &seconds)
 
 void BF4::sendVarsRoundRestartPlayerCount(const int &players)
 {
-    if (players == 0) {
+    if (players == -1) {
         con->sendCommand("vars.roundRestartPlayerCount");
     } else {
         con->sendCommand(QString("\"vars.roundRestartPlayerCount\" \"%1\"").arg(players));
@@ -860,7 +860,7 @@ void BF4::sendVarsRoundRestartPlayerCount(const int &players)
 
 void BF4::sendVarsRoundStartPlayerCount(const int &players)
 {
-    if (players == 0) {
+    if (players == -1) {
         con->sendCommand("vars.roundStartPlayerCount");
     } else {
         con->sendCommand(QString("\"vars.roundStartPlayerCount\" \"%1\"").arg(players));
@@ -869,7 +869,7 @@ void BF4::sendVarsRoundStartPlayerCount(const int &players)
 
 void BF4::sendVarsRoundTimeLimit(const int &percent)
 {
-    if (percent == 0) {
+    if (percent == -1) {
         con->sendCommand("vars.roundTimeLimit");
     } else {
         con->sendCommand(QString("\"vars.roundTimeLimit\" \"%1\"").arg(percent));
@@ -878,7 +878,7 @@ void BF4::sendVarsRoundTimeLimit(const int &percent)
 
 void BF4::sendVarsRoundWarmupTimeout(const int &timeout)
 {
-    if (timeout == 0) {
+    if (timeout == -1) {
         con->sendCommand("vars.roundWarmupTimeout");
     } else {
         con->sendCommand(QString("\"vars.roundWarmupTimeout\" \"%1\"").arg(timeout));
@@ -923,7 +923,7 @@ void BF4::sendVarsServerType(const QString &type)
 
 void BF4::sendVarsSoldierHealth(const int &percent)
 {
-    if (percent == 0) {
+    if (percent == -1) {
         con->sendCommand("vars.soldierHealth");
     } else {
         con->sendCommand(QString("\"vars.soldierHealth\" \"%1\"").arg(percent));
@@ -932,7 +932,7 @@ void BF4::sendVarsSoldierHealth(const int &percent)
 
 void BF4::sendVarsTeamFactionOverride(const int &teamId, const int &factionId)
 {
-    if (teamId == 0 && factionId == 0) {
+    if (teamId == -1 && factionId == -1) {
         con->sendCommand("vars.teamFactionOverride");
     } else {
         con->sendCommand(QString("\"vars.teamFactionOverride\" \"%1\" \"%1\"").arg(teamId, factionId));
@@ -941,7 +941,7 @@ void BF4::sendVarsTeamFactionOverride(const int &teamId, const int &factionId)
 
 void BF4::sendVarsTeamKillCountForKick(const int &count)
 {
-    if (count == 0) {
+    if (count == -1) {
         con->sendCommand("vars.teamKillCountForKick");
     } else {
         con->sendCommand(QString("\"vars.teamKillCountForKick\" \"%1\"").arg(count));
@@ -950,7 +950,7 @@ void BF4::sendVarsTeamKillCountForKick(const int &count)
 
 void BF4::sendVarsTeamKillKickForBan(const int &count)
 {
-    if (count == 0) {
+    if (count == -1) {
         con->sendCommand("vars.teamKillKickForBan");
     } else {
         con->sendCommand(QString("\"vars.teamKillKickForBan\" \"%1\"").arg(count));
@@ -959,7 +959,7 @@ void BF4::sendVarsTeamKillKickForBan(const int &count)
 
 void BF4::sendVarsTeamKillValueDecreasePerSecond(const int &count)
 {
-    if (count == 0) {
+    if (count == -1) {
         con->sendCommand("vars.teamKillValueDecreasePerSecond");
     } else {
         con->sendCommand(QString("\"vars.teamKillValueDecreasePerSecond\" \"%1\"").arg(count));
@@ -968,7 +968,7 @@ void BF4::sendVarsTeamKillValueDecreasePerSecond(const int &count)
 
 void BF4::sendVarsTeamKillValueForKick(const int &count)
 {
-    if (count == 0) {
+    if (count == -1) {
         con->sendCommand("vars.teamKillValueForKick");
     } else {
         con->sendCommand(QString("\"vars.teamKillValueForKick\" \"%1\"").arg(count));
@@ -977,7 +977,7 @@ void BF4::sendVarsTeamKillValueForKick(const int &count)
 
 void BF4::sendVarsTeamKillValueIncrease(const int &count)
 {
-    if (count == 0) {
+    if (count == -1) {
         con->sendCommand("vars.teamKillValueIncrease");
     } else {
         con->sendCommand(QString("\"vars.teamKillValueIncrease\" \"%1\"").arg(count));
@@ -986,7 +986,7 @@ void BF4::sendVarsTeamKillValueIncrease(const int &count)
 
 void BF4::sendVarsTicketBleedRate(const int &percent)
 {
-    if (percent == 0) {
+    if (percent == -1) {
         con->sendCommand("vars.ticketBleedRate");
     } else {
         con->sendCommand(QString("\"vars.ticketBleedRate\" \"%1\"").arg(percent));
@@ -1013,7 +1013,7 @@ void BF4::sendVarsVehicleSpawnAllowed(const bool &isEnabled)
 
 void BF4::sendVarsVehicleSpawnDelay(const int &percent)
 {
-    if (percent == 0) {
+    if (percent == -1) {
         con->sendCommand("vars.vehicleSpawnDelay");
     } else {
         con->sendCommand(QString("\"vars.vehicleSpawnDelay\" \"%1\"").arg(percent));
