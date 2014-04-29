@@ -135,7 +135,10 @@ private slots:
 
     // Variables
     void onVarsAlwaysAllowSpectatorsCommand(const bool &enabled);
+    void onVarsCommanderCommand(const bool &enabled);
+    void onVarsFriendlyFireCommand(const bool &enabled);
     void onVarsIdleTimeoutCommand(const int &timeout);
+    void onVarsKillCamCommand(const bool &enabled);
     void onVarsMaxPlayersCommand(const int &playerCount);
     void onVarsMaxSpectatorsCommand(const int &spectatorCount);
     void onVarsServerNameCommand(const QString &serverName);
@@ -206,6 +209,12 @@ private slots:
     void checkBox_so_co_aggressiveJoin_toggled(const bool &checked);
     void spinBox_so_co_maxPlayers_valueChanged(const int &value);
     void spinBox_so_co_maxSpectators_valueChanged(const int &value);
+    void checkBox_so_co_alwaysAllowSpectators_toggled(const bool &checked);
+    void checkBox_so_co_commander_toggled(const bool &checked);
+
+    // Options -> Gameplay
+    void checkBox_so_go_friendlyFire_toggled(const bool &checked);
+    void checkBox_so_go_killCam_toggled(const bool &checked);
 
     // Console
     void pushButton_co_co_clicked();

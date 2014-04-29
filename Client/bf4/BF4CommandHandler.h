@@ -127,7 +127,6 @@ private:
     void responseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet);
     void responseVarsBulletDamageCommand(const FrostbiteRconPacket &packet);
     void responseVarsCommanderCommand(const FrostbiteRconPacket &packet);
-    void responseVarsCrossHairCommand(const FrostbiteRconPacket &packet);
     void responseVarsForceReloadWholeMagsCommand(const FrostbiteRconPacket &packet);
     void responseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet);
     void responseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet);
@@ -258,17 +257,16 @@ signals:
     void onVarsAlwaysAllowSpectatorsCommand(const bool &enabled);
     void onVarsAutoBalanceCommand();
     void onVarsBulletDamageCommand();
-    void onVarsCommanderCommand();
-    void onVarsCrossHairCommand();
+    void onVarsCommanderCommand(const bool &enabled);
     void onVarsForceReloadWholeMagsCommand();
-    void onVarsFriendlyFireCommand();
+    void onVarsFriendlyFireCommand(const bool &enabled);
     void onVarsGameModeCounterCommand();
     void onVarsGamePasswordCommand();
     void onVarsHitIndicatorsEnabledCommand();
     void onVarsHudCommand();
     void onVarsIdleBanRoundsCommand();
     void onVarsIdleTimeoutCommand(const int &seconds);
-    void onVarsKillCamCommand();
+    void onVarsKillCamCommand(const bool &enabled);
     void onVarsMaxPlayersCommand(const int &playerCount);
     void onVarsMaxSpectatorsCommand(const int &spectatorCount);
     void onVarsMiniMapCommand();

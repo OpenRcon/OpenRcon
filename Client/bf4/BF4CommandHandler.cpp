@@ -201,8 +201,6 @@ void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         responseVarsBulletDamageCommand(packet);
     } else if (request == "vars.commander") {
         responseVarsCommanderCommand(packet);
-    } else if (request == "vars.crossHair") {
-        responseVarsCrossHairCommand(packet);
     } else if (request == "vars.forceReloadWholeMags") {
         responseVarsForceReloadWholeMagsCommand(packet);
     } else if (request == "vars.friendlyFire") {
@@ -973,7 +971,7 @@ void BF4CommandHandler::responseVarsAlwaysAllowSpectatorsCommand(const Frostbite
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK") {
+    if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsAlwaysAllowSpectatorsCommand(enabled));
@@ -992,12 +990,13 @@ void BF4CommandHandler::responseVarsBulletDamageCommand(const FrostbiteRconPacke
 
 void BF4CommandHandler::responseVarsCommanderCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
-}
+    QString response = packet.getWord(0).getContent();
 
-void BF4CommandHandler::responseVarsCrossHairCommand(const FrostbiteRconPacket &packet)
-{
-    Q_UNUSED(packet);
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsCommanderCommand(enabled));
+    }
 }
 
 void BF4CommandHandler::responseVarsForceReloadWholeMagsCommand(const FrostbiteRconPacket &packet)
@@ -1007,7 +1006,13 @@ void BF4CommandHandler::responseVarsForceReloadWholeMagsCommand(const FrostbiteR
 
 void BF4CommandHandler::responseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsFriendlyFireCommand(enabled));
+    }
 }
 
 void BF4CommandHandler::responseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet)
@@ -1048,7 +1053,13 @@ void BF4CommandHandler::responseVarsIdleTimeoutCommand(const FrostbiteRconPacket
 
 void BF4CommandHandler::responseVarsKillCamCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsKillCamCommand(enabled));
+    }
 }
 
 void BF4CommandHandler::responseVarsMaxPlayersCommand(const FrostbiteRconPacket &packet)

@@ -137,7 +137,10 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
 
     // Variables
     connect(con->getCommandHandler(), SIGNAL(onVarsAlwaysAllowSpectatorsCommand(const bool&)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(const bool&)));
+    connect(con->getCommandHandler(), SIGNAL(onVarsCommanderCommand(const bool&)), this, SLOT(onVarsCommanderCommand(const bool&)));
+    connect(con->getCommandHandler(), SIGNAL(onVarsFriendlyFireCommand(const bool&)), this, SLOT(onVarsFriendlyFireCommand(const bool&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsIdleTimeoutCommand(const int&)), this, SLOT(onVarsIdleTimeoutCommand(const int&)));
+    connect(con->getCommandHandler(), SIGNAL(onVarsKillCamCommand(const bool&)), this, SLOT(onVarsKillCamCommand(const bool&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsMaxPlayersCommand(const int&)), this, SLOT(onVarsMaxPlayersCommand(const int&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsMaxSpectatorsCommand(const int&)), this, SLOT(onVarsMaxSpectatorsCommand(const int&)));
     connect(con->getCommandHandler(), SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
@@ -182,6 +185,12 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(ui->checkBox_so_co_aggressiveJoin, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_aggressiveJoin_toggled(bool)));
     connect(ui->spinBox_so_co_maxPlayers, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxPlayers_valueChanged(int)));
     connect(ui->spinBox_so_co_maxSpectators, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxSpectators_valueChanged(int)));
+    connect(ui->checkBox_so_co_alwaysAllowSpectators, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_alwaysAllowSpectators_toggled(bool)));
+    connect(ui->checkBox_so_co_commander, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_commander_toggled(bool)));
+
+    // Options -> Gameplay
+    connect(ui->checkBox_so_go_friendlyFire, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_go_friendlyFire_toggled(bool)));
+    connect(ui->checkBox_so_go_killCam, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_go_killCam_toggled(bool)));
 
     // Maplist
     connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
@@ -258,7 +267,10 @@ void BF4Widget::startupCommands() {
 
     // Variables
     sendVarsAlwaysAllowSpectators();
+    sendVarsCommander();
+    sendVarsFriendlyFire();
     sendVarsIdleTimeout();
+    sendVarsKillCam();
     sendVarsMaxPlayers();
     sendVarsMaxSpectators();
     sendVarsServerName();
@@ -578,6 +590,17 @@ void BF4Widget::onSpectatorListListCommand(const QStringList &spectatorList)
 void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(const bool &enabled)
 {
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), !enabled);
+    ui->checkBox_so_co_alwaysAllowSpectators->setChecked(enabled);
+}
+
+void BF4Widget::onVarsCommanderCommand(const bool &enabled)
+{
+    ui->checkBox_so_co_commander->setChecked(enabled);
+}
+
+void BF4Widget::onVarsFriendlyFireCommand(const bool &enabled)
+{
+    ui->checkBox_so_go_friendlyFire->setChecked(enabled);
 }
 
 void BF4Widget::onVarsIdleTimeoutCommand(const int &timeout)
@@ -589,6 +612,11 @@ void BF4Widget::onVarsIdleTimeoutCommand(const int &timeout)
         ui->checkBox_so_co_idleTimeout->setChecked(true);
         ui->spinBox_so_co_idleTimeout->setEnabled(false);
     }
+}
+
+void BF4Widget::onVarsKillCamCommand(const bool &enabled)
+{
+    ui->checkBox_so_go_killCam->setChecked(enabled);
 }
 
 void BF4Widget::onVarsMaxPlayersCommand(const int &playerCount)
@@ -1011,7 +1039,7 @@ void BF4Widget::pushButton_ss_clear_clicked()
     sendSpectatorListClear();
 }
 
-// Options
+// Options -> Details
 void BF4Widget::lineEdit_op_so_serverName_editingFinished()
 {
     QString serverName = ui->lineEdit_op_so_serverName->text();
@@ -1039,6 +1067,7 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
     }
 }
 
+// Options -> Configuration
 void BF4Widget::checkBox_so_co_punkBuster_toggled(const bool &checked)
 {
     Q_UNUSED(checked); // TODO: Do this right.
@@ -1095,6 +1124,27 @@ void BF4Widget::spinBox_so_co_maxSpectators_valueChanged(const int &value)
     if (value > 0) {
         sendVarsMaxSpectators(value);
     }
+}
+
+void BF4Widget::checkBox_so_co_alwaysAllowSpectators_toggled(const bool &checked)
+{
+    sendVarsAlwaysAllowSpectators(checked);
+}
+
+void BF4Widget::checkBox_so_co_commander_toggled(const bool &checked)
+{
+    sendVarsCommander(checked);
+}
+
+// Options -> Gameplay
+void BF4Widget::checkBox_so_go_friendlyFire_toggled(const bool &checked)
+{
+    sendVarsFriendlyFire(checked);
+}
+
+void BF4Widget::checkBox_so_go_killCam_toggled(const bool &checked)
+{
+    sendVarsKillCam(checked);
 }
 
 // Console
