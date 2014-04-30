@@ -286,7 +286,7 @@ void BF4Widget::logEvent(const QString &event, const QString &message)
 
 void BF4Widget::logChat(const QString &sender, const QString &message, const QString &target)
 {
-    ui->textEdit_ch->append(QString("[%1] (%2) %3: <span style=\"color:#008000\">%3</span>").arg(QTime::currentTime().toString(), target, sender, message));
+    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QTime::currentTime().toString(), target, sender, message));
 }
 
 void BF4Widget::logConsole(const int &type, const QString &message)
