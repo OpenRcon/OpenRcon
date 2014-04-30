@@ -110,7 +110,8 @@ protected:
 
     // Reserved Slots
     void sendReservedSlotsListAdd(const QString &player);
-    void sendReservedSlotsListAggressiveJoin(const bool &isEnabled = -1);
+    void sendReservedSlotsListAggressiveJoin();
+    void sendReservedSlotsListAggressiveJoin(const bool &isEnabled);
     void sendReservedSlotsListClear();
     void sendReservedSlotsListList();
     void sendReservedSlotsListLoad();
@@ -131,31 +132,46 @@ protected:
     void sendSquadPrivate(const int &teamId, const int &squadId, const bool &isPrivate);
 
     // Variables
-    void sendVars3dSpotting(const bool &isEnabled = -1);
-    void sendVars3pCam(const bool &isEnabled = -1);
-    void sendVarsAlwaysAllowSpectators(const bool &isEnabled = -1);
-    void sendVarsAutoBalance(const bool &isEnabled = -1);
+    void sendVars3dSpotting();
+    void sendVars3dSpotting(const bool &enabled);
+    void sendVars3pCam();
+    void sendVars3pCam(const bool &enabled);
+    void sendVarsAlwaysAllowSpectators();
+    void sendVarsAlwaysAllowSpectators(const bool &enabled);
+    void sendVarsAutoBalance();
+    void sendVarsAutoBalance(const bool &enabled);
     void sendVarsBulletDamage(const int &damage = -1);
-    void sendVarsCommander(const bool &isEnabled = -1);
-    void sendVarsForceReloadWholeMags(const bool &isEnabled = -1);
-    void sendVarsFriendlyFire(const bool &isEnabled = -1);
+    void sendVarsCommander();
+    void sendVarsCommander(const bool &enabled);
+    void sendVarsForceReloadWholeMags();
+    void sendVarsForceReloadWholeMags(const bool &enabled);
+    void sendVarsFriendlyFire();
+    void sendVarsFriendlyFire(const bool &enabled);
     void sendVarsGameModeCounter(const int &scale = -1);
     void sendVarsGamePassword(const QString &password = 0);
-    void sendVarsHitIndicatorsEnabled(const bool &isEnabled = -1);
-    void sendVarsHud(const bool &isEnabled = -1);
+    void sendVarsHitIndicatorsEnabled();
+    void sendVarsHitIndicatorsEnabled(const bool &enabled);
+    void sendVarsHud();
+    void sendVarsHud(const bool &enabled);
     void sendVarsIdleBanRounds(const int &rounds = -1);
     void sendVarsIdleTimeout(const int &seconds = -1);
-    void sendVarsKillCam(const bool &isEnabled = -1);
+    void sendVarsKillCam();
+    void sendVarsKillCam(const bool &enabled);
     void sendVarsMaxPlayers(const int &players = -1);
     void sendVarsMaxSpectators(const int &spectators = -1);
-    void sendVarsMiniMap(const bool &isEnabled = -1);
-    void sendVarsMiniMapSpotting(const bool &isEnabled = -1);
+    void sendVarsMiniMap();
+    void sendVarsMiniMap(const bool &enabled);
+    void sendVarsMiniMapSpotting();
+    void sendVarsMiniMapSpotting(const bool &enabled);
     void sendVarsMpExperience(const QString &experience = 0);
-    void sendVarsNameTag(const bool &isEnabled = -1);
-    void sendVarsOnlySquadLeaderSpawn(const bool &isEnabled = -1);
+    void sendVarsNameTag();
+    void sendVarsNameTag(const bool &enabled);
+    void sendVarsOnlySquadLeaderSpawn();
+    void sendVarsOnlySquadLeaderSpawn(const bool &enabled);
     void sendVarsPlayerRespawnTime(const int &respawnTime = -1);
     void sendVarsPreset(const QString &serverPreset = 0, const bool &lockPresetSetting = 0);
-    void sendVarsRegenerateHealth(const bool &isEnabled = -1);
+    void sendVarsRegenerateHealth();
+    void sendVarsRegenerateHealth(const bool &enabled);
     void sendVarsRoundLockdownCountdown(const int &seconds = -1);
     void sendVarsRoundRestartPlayerCount(const int &players = -1);
     void sendVarsRoundStartPlayerCount(const int &players = -1);
@@ -174,7 +190,8 @@ protected:
     void sendVarsTeamKillValueIncrease(const int &count = -1);
     void sendVarsTicketBleedRate(const int &percent = -1);
     void sendVarsUnlockMode(const QString &type = 0);
-    void sendVarsVehicleSpawnAllowed(const bool &isEnabled = -1);
+    void sendVarsVehicleSpawnAllowed();
+    void sendVarsVehicleSpawnAllowed(const bool &enabled);
     void sendVarsVehicleSpawnDelay(const int &percent = -1);
 
 private:
