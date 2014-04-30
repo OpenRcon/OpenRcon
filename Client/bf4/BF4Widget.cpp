@@ -459,7 +459,7 @@ void BF4Widget::onVersionCommand(const QString &type, const int &build)
 
 void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
 {
-    LevelEntry currentLevel = levelDictionary->getLevel(serverInfo.currentMap);
+    currentLevel = levelDictionary->getLevel(serverInfo.currentMap);
     GameModeEntry currentGameMode = levelDictionary->getGameMode(serverInfo.gameMode);
     serverUpTime = serverInfo.serverUpTime;
 
@@ -518,7 +518,7 @@ void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, c
 
         foreach (int teamId, teamIds) {
             QTreeWidgetItem *team = new QTreeWidgetItem(ui->treeWidget_pl_players);
-            team->setText(0, tr("Team %1").arg(teamId));
+            team->setText(0, levelDictionary->getTeams().at(teamId));
 
             foreach (QString name, playerNames) {
                 QTreeWidgetItem *player = playerItems.value(name);
@@ -1113,17 +1113,12 @@ void BF4Widget::checkBox_so_co_aggressiveJoin_toggled(const bool &checked)
 
 void BF4Widget::spinBox_so_co_maxPlayers_valueChanged(const int &value)
 {
-    // Minimum player count is 4.
-    if (value >= 4) {
-        sendVarsMaxPlayers(value);
-    }
+    sendVarsMaxPlayers(value);
 }
 
 void BF4Widget::spinBox_so_co_maxSpectators_valueChanged(const int &value)
 {
-    if (value > 0) {
-        sendVarsMaxSpectators(value);
-    }
+    sendVarsMaxSpectators(value);
 }
 
 void BF4Widget::checkBox_so_co_alwaysAllowSpectators_toggled(const bool &checked)

@@ -66,6 +66,8 @@ private:
     // Console
     QCompleter *completer;
 
+    LevelEntry currentLevel;
+
     void startupCommands();
     void logEvent(const QString &event, const QString &message);
     void logChat(const QString &sender, const QString &message, const QString &target);
