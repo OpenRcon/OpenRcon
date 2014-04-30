@@ -35,16 +35,17 @@ public:
     ~LevelDictionary();
 
     LevelEntry getLevel(const int &index);
-    LevelEntry getLevel(const QString &name);
+    LevelEntry getLevel(const QString &level);
     LevelEntry getLevel(const int &index, const int &gameModeIndex);
     GameModeEntry getGameMode(const int &index);
-    GameModeEntry getGameMode(const QString &name);
+    GameModeEntry getGameMode(const QString &level);
     QString getTeam(const int &index);
 
     QList<LevelEntry> getLevels();
     QList<LevelEntry> getLevels(const int &gameModeIndex);
     QList<GameModeEntry> getGameModes();
     QStringList getTeams();
+    QStringList getTeams(const LevelEntry &level);
 
     QStringList getLevelNames();
     QStringList getLevelNames(const int &gameModeIndex);
