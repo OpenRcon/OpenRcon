@@ -33,9 +33,13 @@ struct LevelEntry {
 
     LevelEntry(const QString &engineName,
                const QString &name,
+               const int &team1,
+               const int &team2,
                const QString &image) :
         engineName(engineName),
         name(name),
+        team1(team1),
+        team2(team2),
         image(QPixmap(image).scaled(QSize(320, 200), Qt::KeepAspectRatio))
     {
 
@@ -43,6 +47,8 @@ struct LevelEntry {
 
     QString engineName;
     QString name;
+    int team1;
+    int team2;
     QPixmap image;
 
 };

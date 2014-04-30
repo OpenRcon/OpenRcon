@@ -22,45 +22,45 @@
 BF3LevelDictionary::BF3LevelDictionary(QObject *parent) : LevelDictionary(":/bf3/levels/", parent)
 {
     /* List of all levels */
-    levelList.append(LevelEntry("MP_001", "Grand Bazaar", imagePath + "grand_bazaar.png"));                 // 0
-    levelList.append(LevelEntry("MP_003", "Teheran Highway", imagePath + "teheran_highway.png"));           // 1
-    levelList.append(LevelEntry("MP_007", "Caspian Border", imagePath + "caspian_border.png"));             // 2
-    levelList.append(LevelEntry("MP_011", "Seine Crossing", imagePath + "seine_crossing.png"));             // 3
-    levelList.append(LevelEntry("MP_012", "Operation Firestorm", imagePath + "operation_firestorm.png"));   // 4
-    levelList.append(LevelEntry("MP_013", "Damavand Peak", imagePath + "damavand_peak.png"));               // 5
-    levelList.append(LevelEntry("MP_017", "Noshahr Canals", imagePath + "noshahr_canals.png"));             // 6
-    levelList.append(LevelEntry("MP_018", "Kharg Island", imagePath + "kharg_island.png"));                 // 7
-    levelList.append(LevelEntry("MP_Subway", "Operation Metro", imagePath + "operation_metro.png"));        // 8
+    levelList.append(LevelEntry("MP_001", "Grand Bazaar", 0, 0, imagePath + "grand_bazaar.png"));                 // 0
+    levelList.append(LevelEntry("MP_003", "Teheran Highway", 0, 0, imagePath + "teheran_highway.png"));           // 1
+    levelList.append(LevelEntry("MP_007", "Caspian Border", 0, 0, imagePath + "caspian_border.png"));             // 2
+    levelList.append(LevelEntry("MP_011", "Seine Crossing", 0, 0, imagePath + "seine_crossing.png"));             // 3
+    levelList.append(LevelEntry("MP_012", "Operation Firestorm", 0, 0, imagePath + "operation_firestorm.png"));   // 4
+    levelList.append(LevelEntry("MP_013", "Damavand Peak", 0, 0, imagePath + "damavand_peak.png"));               // 5
+    levelList.append(LevelEntry("MP_017", "Noshahr Canals", 0, 0, imagePath + "noshahr_canals.png"));             // 6
+    levelList.append(LevelEntry("MP_018", "Kharg Island", 0, 0, imagePath + "kharg_island.png"));                 // 7
+    levelList.append(LevelEntry("MP_Subway", "Operation Metro", 0, 0, imagePath + "operation_metro.png"));        // 8
 
     // XP1 (Back to Karkand)
-    levelList.append(LevelEntry("XP1_001", "Strike at Karkand", imagePath + "strike_at_karkand.png"));      // 9
-    levelList.append(LevelEntry("XP1_002", "Gulf of Oman", imagePath + "gulf_of_oman.png"));                // 10
-    levelList.append(LevelEntry("XP1_003", "Sharqi Peninsula", imagePath + "sharqi_peninsula.png"));        // 11
-    levelList.append(LevelEntry("XP1_004", "Wake Island", imagePath + "wake_island.png"));                  // 12
+    levelList.append(LevelEntry("XP1_001", "Strike at Karkand", 0, 0, imagePath + "strike_at_karkand.png"));      // 9
+    levelList.append(LevelEntry("XP1_002", "Gulf of Oman", 0, 0, imagePath + "gulf_of_oman.png"));                // 10
+    levelList.append(LevelEntry("XP1_003", "Sharqi Peninsula", 0, 0, imagePath + "sharqi_peninsula.png"));        // 11
+    levelList.append(LevelEntry("XP1_004", "Wake Island", 0, 0, imagePath + "wake_island.png"));                  // 12
 
     // XP2 (Close Quarters)
-    levelList.append(LevelEntry("XP2_Factory", "Scrapmetal", imagePath + "scrapmetal.png"));                // 13
-    levelList.append(LevelEntry("XP2_Office", "Operation 925", imagePath + "operation_925.png"));           // 14
-    levelList.append(LevelEntry("XP2_Palace", "Donya Fortress", imagePath + "donya_fortress.png"));         // 15
-    levelList.append(LevelEntry("XP2_Skybar", "Ziba Tower", imagePath + "ziba_tower.png"));                 // 16
+    levelList.append(LevelEntry("XP2_Factory", "Scrapmetal", 0, 0, imagePath + "scrapmetal.png"));                // 13
+    levelList.append(LevelEntry("XP2_Office", "Operation 925", 0, 0, imagePath + "operation_925.png"));           // 14
+    levelList.append(LevelEntry("XP2_Palace", "Donya Fortress", 0, 0, imagePath + "donya_fortress.png"));         // 15
+    levelList.append(LevelEntry("XP2_Skybar", "Ziba Tower", 0, 0, imagePath + "ziba_tower.png"));                 // 16
 
     // XP3 (Armored Kill)
-    levelList.append(LevelEntry("XP3_Desert", "Bandar Desert", imagePath + "bandar_desert.png"));           // 17
-    levelList.append(LevelEntry("XP3_Alborz", "Alborz Mountains", imagePath + "alborz_mountains.png"));     // 18
-    levelList.append(LevelEntry("XP3_Shield", "Armored Shield", imagePath + "armored_shield.png"));         // 19
-    levelList.append(LevelEntry("XP3_Valley", "Death Valley", imagePath + "death_valley.png"));             // 20
+    levelList.append(LevelEntry("XP3_Desert", "Bandar Desert", 0, 0, imagePath + "bandar_desert.png"));           // 17
+    levelList.append(LevelEntry("XP3_Alborz", "Alborz Mountains", 0, 0, imagePath + "alborz_mountains.png"));     // 18
+    levelList.append(LevelEntry("XP3_Shield", "Armored Shield", 0, 0, imagePath + "armored_shield.png"));         // 19
+    levelList.append(LevelEntry("XP3_Valley", "Death Valley", 0, 0, imagePath + "death_valley.png"));             // 20
 
     // XP4 (Aftermath)
-    levelList.append(LevelEntry("XP4_Quake", "Epicenter", imagePath + "epicenter.png"));                    // 21
-    levelList.append(LevelEntry("XP4_FD", "Markaz Monolith", imagePath + "markaz_monolith.png"));           // 22
-    levelList.append(LevelEntry("XP4_Parl", "Azadi Palace", imagePath + "azadi_palace.png"));               // 23
-    levelList.append(LevelEntry("XP4_Rubble", "Talah Market", imagePath + "talah_market.png"));             // 24
+    levelList.append(LevelEntry("XP4_Quake", "Epicenter", 0, 0, imagePath + "epicenter.png"));                    // 21
+    levelList.append(LevelEntry("XP4_FD", "Markaz Monolith", 0, 0, imagePath + "markaz_monolith.png"));           // 22
+    levelList.append(LevelEntry("XP4_Parl", "Azadi Palace", 0, 0, imagePath + "azadi_palace.png"));               // 23
+    levelList.append(LevelEntry("XP4_Rubble", "Talah Market", 0, 0, imagePath + "talah_market.png"));             // 24
 
     // XP5 (Endgame)
-    levelList.append(LevelEntry("XP5_001", "Operation Riverside", imagePath + "operation_riverside.png"));  // 25
-    levelList.append(LevelEntry("XP5_002", "Nebandan Flats", imagePath + "nebandan_flats.png"));            // 26
-    levelList.append(LevelEntry("XP5_003", "Kiasar Railroad", imagePath + "kiasar_railroad.png"));          // 27
-    levelList.append(LevelEntry("XP5_004", "Sabalan Pipeline", imagePath + "sabalan_pipeline.png"));        // 28
+    levelList.append(LevelEntry("XP5_001", "Operation Riverside", 0, 0, imagePath + "operation_riverside.png"));  // 25
+    levelList.append(LevelEntry("XP5_002", "Nebandan Flats", 0, 0, imagePath + "nebandan_flats.png"));            // 26
+    levelList.append(LevelEntry("XP5_003", "Kiasar Railroad", 0, 0, imagePath + "kiasar_railroad.png"));          // 27
+    levelList.append(LevelEntry("XP5_004", "Sabalan Pipeline", 0, 0, imagePath + "sabalan_pipeline.png"));        // 28
 
     /* List of all gamemodes */
     gameModeList.append(GameModeEntry("ConquestLarge0", "Conquest Large", 64));                 // 0

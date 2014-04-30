@@ -71,6 +71,11 @@ GameModeEntry LevelDictionary::getGameMode(const QString &name)
     return GameModeEntry();
 }
 
+QString LevelDictionary::getTeam(const int &index)
+{
+    return teamList.at(index);
+}
+
 QList<LevelEntry> LevelDictionary::getLevels()
 {
     return levelList;
@@ -90,6 +95,11 @@ QList<LevelEntry> LevelDictionary::getLevels(const int &gameModeIndex)
 QList<GameModeEntry> LevelDictionary::getGameModes()
 {
     return gameModeList;
+}
+
+QStringList LevelDictionary::getTeams()
+{
+    return teamList;
 }
 
 QStringList LevelDictionary::getLevelNames()
