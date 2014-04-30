@@ -465,7 +465,7 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
 
     ui->label_serverInfo_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(currentLevel.name).arg(currentGameMode.name));
     ui->label_serverInfo_players->setText(tr("<b>Players</b>: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_serverInfo_round->setText(tr("<b>Round</b>: %1/%2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
+    ui->label_serverInfo_round->setText(tr("<b>Round</b>: %1/%2").arg(serverInfo.roundsPlayed + 1).arg(serverInfo.roundsTotal));
 
     updateUpTime();
     connect(timer, SIGNAL(timeout()), this, SLOT(updateUpTime()));
