@@ -30,7 +30,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     setWindowIcon(QIcon(APP_ICON));
 
     QDateTime current = QDateTime::currentDateTime();
-    ui->label_ab_info->setText(tr("<p>%1 is a cross-platform RCON administration tool.</p>").arg(APP_NAME));
+    ui->label_ab_info->setText(tr("<p>A open-source cross-platform RCON administration tool, written in C++.</p>"));
     ui->label_ab_built->setText(tr("<p>Built on %2 at %3</p>").arg(current.toString("dd MMMM yyyy")).arg(current.toString("hh:mm:ss")));
     ui->label_ab_copyright->setText(tr("<p>Copyright &copy; %4 %5</p>").arg(APP_YEAR).arg(APP_AUTHOR));
     ui->label_ab_disclaimer->setText("<p>The program is provided AS IS with NO WARRANTY OF ANY KIND, <br />"
