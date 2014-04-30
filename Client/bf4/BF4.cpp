@@ -528,7 +528,7 @@ void BF4::sendReservedSlotsListAdd(const QString &player)
 
 void BF4::sendReservedSlotsListAggressiveJoin(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("reservedSlotsList.aggressiveJoin");
     } else {
         con->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -622,7 +622,7 @@ void BF4::sendSquadPrivate(const int &teamId, const int &squadId, const bool &is
 // Variables
 void BF4::sendVars3dSpotting(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.3dSpotting");
     } else {
         con->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -631,7 +631,7 @@ void BF4::sendVars3dSpotting(const bool &isEnabled)
 
 void BF4::sendVars3pCam(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.3pCam");
     } else {
         con->sendCommand(QString("\"vars.3pCam\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -640,7 +640,7 @@ void BF4::sendVars3pCam(const bool &isEnabled)
 
 void BF4::sendVarsAlwaysAllowSpectators(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.alwaysAllowSpectators");
     } else {
         con->sendCommand(QString("\"vars.alwaysAllowSpectators\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -649,7 +649,7 @@ void BF4::sendVarsAlwaysAllowSpectators(const bool &isEnabled)
 
 void BF4::sendVarsAutoBalance(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.autoBalance");
     } else {
         con->sendCommand(QString("\"vars.autoBalance\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -667,7 +667,7 @@ void BF4::sendVarsBulletDamage(const int &damage)
 
 void BF4::sendVarsCommander(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.commander");
     } else {
         con->sendCommand(QString("\"vars.commander\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -676,7 +676,7 @@ void BF4::sendVarsCommander(const bool &isEnabled)
 
 void BF4::sendVarsForceReloadWholeMags(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.forceReloadWholeMags");
     } else {
         con->sendCommand(QString("\"vars.forceReloadWholeMags\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -685,7 +685,7 @@ void BF4::sendVarsForceReloadWholeMags(const bool &isEnabled)
 
 void BF4::sendVarsFriendlyFire(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.friendlyFire");
     } else {
         con->sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -712,7 +712,7 @@ void BF4::sendVarsGamePassword(const QString &password)
 
 void BF4::sendVarsHitIndicatorsEnabled(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.hitIndicatorsEnabled");
     } else {
         con->sendCommand(QString("\"vars.hitIndicatorsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -721,7 +721,7 @@ void BF4::sendVarsHitIndicatorsEnabled(const bool &isEnabled)
 
 void BF4::sendVarsHud(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.hud");
     } else {
         con->sendCommand(QString("\"vars.hud\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -748,7 +748,7 @@ void BF4::sendVarsIdleTimeout(const int &seconds)
 
 void BF4::sendVarsKillCam(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.killCam");
     } else {
         con->sendCommand(QString("\"vars.killCam\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -775,7 +775,7 @@ void BF4::sendVarsMaxSpectators(const int &spectators)
 
 void BF4::sendVarsMiniMap(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.");
     } else {
         con->sendCommand(QString("\"vars.\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -784,7 +784,7 @@ void BF4::sendVarsMiniMap(const bool &isEnabled)
 
 void BF4::sendVarsMiniMapSpotting(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.miniMap");
     } else {
         con->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -802,7 +802,7 @@ void BF4::sendVarsMpExperience(const QString &experience)
 
 void BF4::sendVarsNameTag(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.nameTag");
     } else {
         con->sendCommand(QString("\"vars.nameTag\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -811,7 +811,7 @@ void BF4::sendVarsNameTag(const bool &isEnabled)
 
 void BF4::sendVarsOnlySquadLeaderSpawn(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.onlySquadLeaderSpawn");
     } else {
         con->sendCommand(QString("\"vars.onlySquadLeaderSpawn\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -838,7 +838,7 @@ void BF4::sendVarsPreset(const QString &serverPreset, const bool &lockPresetSett
 
 void BF4::sendVarsRegenerateHealth(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.regenerateHealth");
     } else {
         con->sendCommand(QString("\"vars.regenerateHealth\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
@@ -1009,7 +1009,7 @@ void BF4::sendVarsUnlockMode(const QString &type)
 
 void BF4::sendVarsVehicleSpawnAllowed(const bool &isEnabled)
 {
-    if (isEnabled == 0) {
+    if (isEnabled == -1) {
         con->sendCommand("vars.vehicleSpawnAllowed");
     } else {
         con->sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(isEnabled)));
