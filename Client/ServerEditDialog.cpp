@@ -76,7 +76,7 @@ void ServerEditDialog::validate()
     ui->comboBox_sed_game->currentIndex() >= 0 &&
     !ui->lineEdit_sed_name->text().isEmpty() &&
     !ui->lineEdit_sed_host->text().isEmpty() &&
-    !ui->spinBox_sed_port->value() > 0);
+    ui->spinBox_sed_port->value() > 0);
 }
 
 void ServerEditDialog::accept()
@@ -87,9 +87,11 @@ void ServerEditDialog::accept()
         int answer = QMessageBox::question(this, tr("No password set"), tr("Are you sure you want to continue without a password? This may prevent you from some functionality."));
 
         if (answer == QMessageBox::Yes) {
-            QDialog::accept();
+            return;
         }
     }
+
+    QDialog::accept();
 }
 
 int ServerEditDialog::getGame()
