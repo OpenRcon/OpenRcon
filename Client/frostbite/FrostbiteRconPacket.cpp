@@ -19,12 +19,12 @@
 
 #include "FrostbiteRconPacket.h"
 
-FrostbiteRconPacket::FrostbiteRconPacket() : packetSequence(0), packetSize(0), packetWordCount(0)
+FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent), packetSequence(0), packetSize(0), packetWordCount(0)
 {
 
 }
 
-FrostbiteRconPacket::FrostbiteRconPacket(const int &origin, const int &type, const unsigned int &initseq) : packetSequence(initseq & 0x3FFFFFFF), packetSize(0), packetWordCount(0)
+FrostbiteRconPacket::FrostbiteRconPacket(const int &origin, const int &type, const unsigned int &initseq, QObject *parent) : QObject(parent), packetSequence(initseq & 0x3FFFFFFF), packetSize(0), packetWordCount(0)
 {
     if (origin == ClientOrigin) {
         packetSequence |= 0x80000000;
@@ -35,7 +35,7 @@ FrostbiteRconPacket::FrostbiteRconPacket(const int &origin, const int &type, con
     }
 }
 
-FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet) : packetSequence(0), packetSize(0), packetWordCount(0)
+FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent) : QObject(parent), packetSequence(0), packetSize(0), packetWordCount(0)
 {
     packetSequence = packet.getSequence();
 
