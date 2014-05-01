@@ -80,7 +80,7 @@ void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
     } else if (request == "currentLevel") {
         responseCurrentLevelCommand(packet);
     } else if (request == "listPlayers") {
-        responseListPlayersCommand(packet);
+        responseListPlayersCommand(packet, lastSentPacket);
     } else if (request == "admin.eventsEnabled") {
         responseAdminEventsEnabledCommand(packet);
     } else if (request == "admin.help") {
@@ -554,9 +554,12 @@ void BF4CommandHandler::responseCurrentLevelCommand(const FrostbiteRconPacket &p
     Q_UNUSED(packet);
 }
 
-void BF4CommandHandler::responseListPlayersCommand(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    Q_UNUSED(packet);
+    QList<PlayerInfo> playerList = getPlayerList(packet, lastSentPacket);
+    PlayerSubset playerSubset = getPlayerSubset(lastSentPacket.getWord(1).getContent());
+
+    emit (onListPlayersCommand(playerList, playerSubset));
 }
 
 void BF4CommandHandler::responseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet)
@@ -581,48 +584,10 @@ void BF4CommandHandler::responseAdminKillPlayerCommand(const FrostbiteRconPacket
 
 void BF4CommandHandler::responseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    QString response = packet.getWord(0).getContent();
+    QList<PlayerInfo> playerList = getPlayerList(packet, lastSentPacket);
+    PlayerSubset playerSubset = getPlayerSubset(lastSentPacket.getWord(1).getContent());
 
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QList<PlayerInfo> playerList;
-        int parameters = QString(packet.getWord(1).getContent()).toInt();
-        int players = QString(packet.getWord(2 + parameters).getContent()).toInt();
-
-        for (int i = 0; i < players; i++) {
-            QStringList list;
-
-            for (int j = 0; j < parameters; j++) {
-                list.append(packet.getWord(2 + parameters + 1 + i * parameters + j).getContent());
-            }
-
-            QString name = list.at(0);
-            QString guid = list.at(1);
-            int teamId = list.at(2).toInt();
-            int squadId = list.at(3).toInt();
-            int kills = list.at(4).toInt();
-            int deaths = list.at(5).toInt();
-            int score = list.at(6).toInt();
-            int rank = list.at(7).toInt();
-            int ping = list.at(8).toInt();
-
-            playerList.append(PlayerInfo(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
-        }
-
-        QString request = lastSentPacket.getWord(1).getContent();
-        PlayerSubset playerSubset;
-
-        if (request == "all") {
-            playerSubset = All;
-        } else if (request == "team") {
-            playerSubset = Team;
-        } else if (request == "squad") {
-            playerSubset = Squad;
-        } else if (request == "player") {
-            playerSubset = Player;
-        }
-
-        emit (onAdminListPlayersCommand(playerList, playerSubset));
-    }
+    emit (onAdminListPlayersCommand(playerList, playerSubset));
 }
 
 void BF4CommandHandler::responseAdminMovePlayerCommand(const FrostbiteRconPacket &packet)
@@ -1261,4 +1226,54 @@ void BF4CommandHandler::responseVarsVehicleSpawnAllowedCommand(const FrostbiteRc
 void BF4CommandHandler::responseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
+}
+
+QList<PlayerInfo> BF4CommandHandler::getPlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    QString response = packet.getWord(0).getContent();
+    QList<PlayerInfo> playerList;
+
+    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+        int parameters = QString(packet.getWord(1).getContent()).toInt();
+        int players = QString(packet.getWord(2 + parameters).getContent()).toInt();
+
+        for (int i = 0; i < players; i++) {
+            QStringList list;
+
+            for (int j = 0; j < parameters; j++) {
+                list.append(packet.getWord(2 + parameters + 1 + i * parameters + j).getContent());
+            }
+
+            QString name = list.at(0);
+            QString guid = list.at(1);
+            int teamId = toInt(list.at(2));
+            int squadId = toInt(list.at(3));
+            int kills = toInt(list.at(4));
+            int deaths = toInt(list.at(5));
+            int score = toInt(list.at(6));
+            int rank = toInt(list.at(7));
+            int ping = toInt(list.at(8));
+
+            playerList.append(PlayerInfo(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
+        }
+    }
+
+    return playerList;
+}
+
+PlayerSubset BF4CommandHandler::getPlayerSubset(const QString &playerSubsetString)
+{
+    PlayerSubset playerSubset;
+
+    if (playerSubsetString == "all") {
+        playerSubset = All;
+    } else if (playerSubsetString == "team") {
+        playerSubset = Team;
+    } else if (playerSubsetString == "squad") {
+        playerSubset = Squad;
+    } else if (playerSubsetString == "player") {
+        playerSubset = Player;
+    }
+
+    return playerSubset;
 }

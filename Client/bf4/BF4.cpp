@@ -63,7 +63,7 @@ BF4::BF4(ServerEntry *serverEntry) : FrostbiteGame(serverEntry), authenticated(f
     commandList.append("login.plainText ");
     commandList.append("login.hashed");
     commandList.append("login.hashed ");
-    commandList.append("serverinfo");
+    commandList.append("serverInfo");
     commandList.append("logout");
     commandList.append("quit");
     commandList.append("version");
@@ -189,14 +189,14 @@ BF4::~BF4()
 
 void BF4::onConnected()
 {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
         sendLoginHashedCommand();
     }
 }
 
 void BF4::onLoginHashedCommand(const QByteArray &salt)
 {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
         sendLoginHashedCommand(salt, serverEntry->password);
     }
 }

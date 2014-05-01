@@ -112,6 +112,7 @@ private slots:
     void onLoginHashedCommand(const bool &auth);
     void onVersionCommand(const QString &type, const int &build);
     void onServerInfoCommand(const ServerInfo &serverInfo);
+    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
     // Admin
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
@@ -160,6 +161,7 @@ private slots:
 
     // Players
     void updatePlayers();
+    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
     void treeWidget_pl_players_customContextMenuRequested(const QPoint &pos);
     void action_pl_players_kill_triggered();
     void action_pl_players_kick_triggered();

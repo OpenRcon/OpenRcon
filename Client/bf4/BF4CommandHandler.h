@@ -59,13 +59,13 @@ private:
 
     // Call commands.
     void responseLoginPlainTextCommand(const FrostbiteRconPacket &packet);
-    void responseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSendPacket);
+    void responseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void responseServerInfoCommand(const FrostbiteRconPacket &packet);
     void responseLogoutCommand(const FrostbiteRconPacket &packet);
     void responseQuitCommand(const FrostbiteRconPacket &packet);
     void responseVersionCommand(const FrostbiteRconPacket &packet);
     void responseCurrentLevelCommand(const FrostbiteRconPacket &packet);
-    void responseListPlayersCommand(const FrostbiteRconPacket &packet);
+    void responseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void responseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet);
     void responseAdminHelpCommand(const FrostbiteRconPacket &packet);
     void responseAdminKickPlayerCommand(const FrostbiteRconPacket &packet);
@@ -169,6 +169,9 @@ private:
     void responseVarsVehicleSpawnAllowedCommand(const FrostbiteRconPacket &packet);
     void responseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet);
 
+    QList<PlayerInfo> getPlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    PlayerSubset getPlayerSubset(const QString &playerSubsetString);
+
 signals:
     // Event signals
     void onPlayerAuthenticatedEvent(const QString &player);
@@ -196,7 +199,7 @@ signals:
     void onQuitCommand();
     void onVersionCommand(const QString &type, const int &build);
     void onCurrentLevelCommand();
-    void onListPlayersCommand();
+    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
     void onAdminEventsEnabledCommand();
     void onAdminHelpCommand();
     void onAdminKickPlayerCommand();
