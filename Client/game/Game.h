@@ -21,18 +21,17 @@
 #define GAME_H
 
 #include "ConnectionTabWidget.h"
+#include "ServerEntry.h"
 
 class Game : public ConnectionTabWidget
 {
 
 public:
-    explicit Game(const QString &host, const int &port, const QString &password);
+    explicit Game(ServerEntry *serverEntry);
     ~Game();
 
 protected:
-    QString host;
-    int port;
-    QString password;
+    ServerEntry *serverEntry;
 
 };
 

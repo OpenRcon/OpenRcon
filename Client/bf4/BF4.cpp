@@ -19,10 +19,10 @@
 
 #include "BF4.h"
 
-BF4::BF4(const QString &host, const int &port, const QString &password) : FrostbiteGame(host, port, password), authenticated(false)
+BF4::BF4(ServerEntry *serverEntry) : FrostbiteGame(serverEntry), authenticated(false)
 {
     con = new BF4Connection(this);
-    con->hostConnect(host, port);
+    con->hostConnect(serverEntry->host, serverEntry->port);
 
     levelDictionary = new BF4LevelDictionary(this);
 
@@ -197,7 +197,7 @@ void BF4::onConnected()
 void BF4::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated()) {
-        sendLoginHashedCommand(salt, password);
+        sendLoginHashedCommand(salt, serverEntry->password);
     }
 }
 

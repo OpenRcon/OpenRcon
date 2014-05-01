@@ -20,9 +20,7 @@
 #ifndef BF3_H
 #define BF3_H
 
-#include <QObject>
-#include <QCompleter>
-#include <QMenu>
+#include <QCryptographicHash>
 
 #include "FrostbiteGame.h"
 #include "BF3Connection.h"
@@ -33,7 +31,7 @@ class BF3 : public FrostbiteGame
     Q_OBJECT
 
 public:
-    explicit BF3(const QString &host, const int &port, const QString &password);
+    explicit BF3(ServerEntry *serverEntry);
     ~BF3();
 
     virtual Connection *getConnection() { return con; }
@@ -41,6 +39,29 @@ public:
 protected:
     BF3Connection *con;
     BF3LevelDictionary *levelDictionary;
+
+    bool isAuthenticated();
+
+    /* Commands */
+
+    // Misc
+    void sendLoginPlainTextCommand(const QString &password);
+    void sendLoginHashedCommand(const QByteArray &salt = 0, const QString &password = 0);
+    void sendServerInfoCommand();
+    void sendLogoutCommand();
+    void sendQuitCommand();
+    void sendVersionCommand();
+    void sendCurrentLevelCommand();
+    void sendListPlayersCommand(const PlayerSubset &playerSubset);
+
+private:
+    bool authenticated;
+
+private slots:
+    void onConnected();
+    void onLoginHashedCommand(const QByteArray &salt);
+    void onLoginHashedCommand(const bool &auth);
+    void onVersionCommand(const QString &type, const int &build);
 
 };
 

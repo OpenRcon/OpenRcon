@@ -23,7 +23,6 @@
 #include "FrostbiteCommandHandler.h"
 #include "ServerInfo.h"
 #include "PlayerInfo.h"
-#include "PlayerSubset.h"
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 

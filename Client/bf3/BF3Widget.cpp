@@ -19,7 +19,7 @@
 
 #include "BF3Widget.h"
 
-BF3Widget::BF3Widget(const QString &host, const int &port, const QString &password) : BF3(host, port, password), ui(new Ui::BF3)
+BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3)
 {
     ui->setupUi(this);
 

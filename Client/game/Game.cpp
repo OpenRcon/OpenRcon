@@ -19,7 +19,7 @@
 
 #include "Game.h"
 
-Game::Game(const QString &host, const int &port, const QString &password) : host(host), port(port), password(password)
+Game::Game(ServerEntry *serverEntry) : serverEntry(serverEntry)
 {
 
 }

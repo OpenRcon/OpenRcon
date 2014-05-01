@@ -43,29 +43,26 @@ QList<GameEntry> GameManager::getGames()
     return gameList;
 }
 
-Game* GameManager::getGameObject(ServerEntry *server)
+Game* GameManager::getGameObject(ServerEntry *serverEntry)
 {
-    const int game = server->game;
-    QString host = server->host;
+    int game = serverEntry->game;
     Game *gameObject;
-    const int port = server->port;
-    QString password = server->password;
 
     switch (game) {
         case BFBC2:
-            gameObject = new BFBC2Widget(host, port, password);
+            gameObject = new BFBC2Widget(serverEntry);
             break;
 
         case BF3:
-            gameObject = new BF3Widget(host, port, password);
+            gameObject = new BF3Widget(serverEntry);
             break;
 
         case BF4:
-            gameObject = new BF4Widget(host, port, password);
+            gameObject = new BF4Widget(serverEntry);
             break;
 
         case Minecraft:
-            gameObject = new MinecraftWidget(host, port, password);
+            gameObject = new MinecraftWidget(serverEntry);
             break;
 
         default:

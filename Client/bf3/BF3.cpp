@@ -19,10 +19,10 @@
 
 #include "BF3.h"
 
-BF3::BF3(const QString &host, const int &port, const QString &password) : FrostbiteGame(host, port, password)
+BF3::BF3(ServerEntry *serverEntry) : FrostbiteGame(serverEntry)
 {
     con = new BF3Connection(this);
-    con->hostConnect(host, port);
+    con->hostConnect(serverEntry->host, serverEntry->port);
 
     levelDictionary = new BF3LevelDictionary(this);
 
@@ -65,10 +65,106 @@ BF3::BF3(const QString &host, const int &port, const QString &password) : Frostb
     versionMap.insert(1125745, "R36");
     versionMap.insert(1139617, "R37");
     versionMap.insert(1149977, "R38");
+
+    // Connection
+    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
+
+    // Commands
+    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
+    connect(con->getCommandHandler(), SIGNAL(onVersionCommand(const QString&, const int&)), this, SLOT(onVersionCommand(const QString&, const int&)));
 }
 
 BF3::~BF3()
 {
     delete con;
     delete levelDictionary;
+}
+
+void BF3::onConnected()
+{
+    if (!isAuthenticated()) {
+        sendLoginHashedCommand();
+    }
+}
+
+void BF3::onLoginHashedCommand(const QByteArray &salt)
+{
+    if (!isAuthenticated()) {
+        sendLoginHashedCommand(salt, serverEntry->password);
+    }
+}
+
+void BF3::onLoginHashedCommand(const bool &auth)
+{
+    authenticated = auth;
+}
+
+void BF3::onVersionCommand(const QString &type, const int &build)
+{
+    Q_UNUSED(build);
+
+    if (type != "BF3") {
+        con->hostDisconnect();
+
+        qDebug() << tr("Wrong server type, disconnecting...");
+    }
+}
+
+bool BF3::isAuthenticated()
+{
+    return authenticated;
+}
+
+// Misc
+void BF3::sendLoginPlainTextCommand(const QString &password)
+{
+    con->sendCommand(QString("\"login.plainText\" \"%1\"").arg(password));
+}
+
+void BF3::sendLoginHashedCommand(const QByteArray &salt, const QString &password)
+{
+    if (salt.isNull() && password == 0) {
+        con->sendCommand("login.hashed");
+    } else {
+        if (!password.isEmpty() && password.length() <= 16) {
+            QCryptographicHash hash(QCryptographicHash::Md5);
+            hash.addData(salt);
+            hash.addData(password.toLatin1().constData());
+
+            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
+        }
+    }
+}
+
+void BF3::sendServerInfoCommand()
+{
+    con->sendCommand("serverInfo");
+}
+
+void BF3::sendLogoutCommand()
+{
+    con->sendCommand("logout");
+}
+
+void BF3::sendQuitCommand()
+{
+    con->sendCommand("quit");
+}
+
+void BF3::sendVersionCommand()
+{
+    con->sendCommand("version");
+}
+
+void BF3::sendCurrentLevelCommand()
+{
+    con->sendCommand("currentLevel");
+}
+
+void BF3::sendListPlayersCommand(const PlayerSubset &playerSubset)
+{
+    if (playerSubset == All) {
+        con->sendCommand("\"listPlayers\" \"all\"");
+    }
 }

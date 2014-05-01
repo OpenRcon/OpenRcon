@@ -19,10 +19,10 @@
 
 #include "BFBC2.h"
 
-BFBC2::BFBC2(const QString &host, const int &port, const QString &password) : FrostbiteGame(host, port, password), auth(false)
+BFBC2::BFBC2(ServerEntry *serverEntry) : FrostbiteGame(serverEntry), authenticated(false)
 {
     con = new BFBC2Connection();
-    con->hostConnect(host, port);
+    con->hostConnect(serverEntry->host, serverEntry->port);
 
     levelDictionary = new BFBC2LevelDictionary(this);
 
@@ -61,11 +61,13 @@ void BFBC2::onConnected()
 
 void BFBC2::onLoginHashedCommand()
 {
-    auth = true;
+    authenticated = true;
 }
 
 void BFBC2::onLoginHashedCommand(const QByteArray &salt)
 {
+    QString password = serverEntry->password;
+
     if (!isAuthenticated()) {
         if (!password.isEmpty()) {
             QCryptographicHash hash(QCryptographicHash::Md5);
@@ -79,7 +81,7 @@ void BFBC2::onLoginHashedCommand(const QByteArray &salt)
 
 bool BFBC2::isAuthenticated()
 {
-    return auth;
+    return authenticated;
 }
 
 void BFBC2::slotCommandMapListListRounds(QStringList ml)

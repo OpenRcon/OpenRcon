@@ -28,7 +28,7 @@ class FrostbiteGame : public Game
 {
 
 public:
-    explicit FrostbiteGame(const QString &host, const int &port, const QString &password);
+    explicit FrostbiteGame(ServerEntry *serverEntry);
     ~FrostbiteGame();
 
 protected:

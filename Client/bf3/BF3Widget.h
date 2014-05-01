@@ -30,7 +30,7 @@ class BF3Widget : public BF3
     Q_OBJECT
 
 public:
-    explicit BF3Widget(const QString &host, const int &port, const QString &password);
+    explicit BF3Widget(ServerEntry *serverEntry);
     ~BF3Widget();
 
 private:

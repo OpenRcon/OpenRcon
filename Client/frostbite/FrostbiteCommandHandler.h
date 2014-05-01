@@ -24,6 +24,8 @@
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteUtils.h"
 
+#include "PlayerSubset.h"
+
 class FrostbiteCommandHandler : public CommandHandler
 {
     Q_OBJECT

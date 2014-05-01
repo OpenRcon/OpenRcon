@@ -19,7 +19,7 @@
 
 #include "BFBC2Widget.h"
 
-BFBC2Widget::BFBC2Widget(const QString &host, const int &port, const QString &password) : BFBC2(host, port, password), ui(new Ui::BFBC2)
+BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new Ui::BFBC2)
 {
     ui->setupUi(this);
 

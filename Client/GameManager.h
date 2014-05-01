@@ -38,7 +38,7 @@ public:
 
     GameEntry getGame(const int &index);
     QList<GameEntry> getGames();
-    Game* getGameObject(ServerEntry *server);
+    Game* getGameObject(ServerEntry *serverEntry);
 
 private:
     enum GameType {

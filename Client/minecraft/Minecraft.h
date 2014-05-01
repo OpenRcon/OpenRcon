@@ -28,7 +28,7 @@ class Minecraft : public Game
     Q_OBJECT
 
 public:
-    explicit Minecraft(const QString &host, const int &port, const QString &password);
+    explicit Minecraft(ServerEntry *serverEntry);
     ~Minecraft();
 
     virtual Connection *getConnection() { return con; }

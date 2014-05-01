@@ -30,7 +30,7 @@ class BF4 : public FrostbiteGame {
     Q_OBJECT
 
 public:
-    explicit BF4(const QString &host, const int &port, const QString &password);
+    explicit BF4(ServerEntry *serverEntry);
     ~BF4();
 
     virtual Connection* getConnection() { return con; }

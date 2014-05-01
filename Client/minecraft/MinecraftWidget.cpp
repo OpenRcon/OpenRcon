@@ -19,7 +19,7 @@
 
 #include "MinecraftWidget.h"
 
-MinecraftWidget::MinecraftWidget(const QString &host, const int &port, const QString &password) : Minecraft(host, port, password), ui(new Ui::Minecraft)
+MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEntry), ui(new Ui::Minecraft)
 {
     ui->setupUi(this);
 

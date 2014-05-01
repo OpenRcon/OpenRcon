@@ -19,7 +19,7 @@
 
 #include "FrostbiteGame.h"
 
-FrostbiteGame::FrostbiteGame(const QString &host, const int &port, const QString &password) : Game(host, port, password)
+FrostbiteGame::FrostbiteGame(ServerEntry *serverEntry) : Game(serverEntry)
 {
 
 }

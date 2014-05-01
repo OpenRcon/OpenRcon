@@ -23,26 +23,22 @@
 #include <QTimer>
 #include <QCryptographicHash>
 
-#include "Constants.h"
-
 #include "FrostbiteGame.h"
 #include "BFBC2Connection.h"
 #include "BFBC2LevelDictionary.h"
-
-using namespace Constants;
 
 class BFBC2 : public FrostbiteGame
 {
     Q_OBJECT
 
 public:
-    explicit BFBC2(const QString &host, const int &port, const QString &password);
+    explicit BFBC2(ServerEntry *serverEntry);
     ~BFBC2();
 
     virtual Connection *getConnection() { return con; }
 
 private:
-    bool auth;
+    bool authenticated;
 
 private slots: 
     void onConnected();

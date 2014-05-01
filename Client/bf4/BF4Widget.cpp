@@ -19,7 +19,7 @@
 
 #include "BF4Widget.h"
 
-BF4Widget::BF4Widget(const QString &host, const int &port, const QString &password) : BF4(host, port, password), ui(new Ui::BF4)
+BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4)
 {
     ui->setupUi(this);
 
