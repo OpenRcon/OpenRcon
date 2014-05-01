@@ -73,7 +73,8 @@ private:
 
     LevelEntry currentLevel;
 
-    void startupCommands();
+    void setAuthenticated(const bool &authenticated);
+    void startupCommands(const bool &authenticated);
     void logEvent(const QString &event, const QString &message);
     void logChat(const QString &sender, const QString &message, const QString &target);
     void logConsole(const int &type, const QString &message);

@@ -244,50 +244,69 @@ BF4Widget::~BF4Widget()
     delete ui;
 }
 
-void BF4Widget::startupCommands() {
+void BF4Widget::setAuthenticated(const bool &authenticated)
+{
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_rs), authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_co), authenticated);
+
+    startupCommands(authenticated);
+}
+
+void BF4Widget::startupCommands(const bool &authenticated)
+{
     // Misc
     sendVersionCommand();
     sendServerInfoCommand();
-    sendAdminEventsEnabledCommand(true);
 
-    // Admins
-    sendAdminListPlayersCommand(All);
+    if (authenticated) {
+        sendAdminEventsEnabledCommand(true);
 
-    // Banning
-    sendBanListListCommand();
+        // Admins
+        sendAdminListPlayersCommand(All);
 
-    sendFairFightIsActiveCommand();
+        // Banning
+        sendBanListListCommand();
 
-    // Maplist
-    sendMapListList();
+        sendFairFightIsActiveCommand();
 
-    // Player
+        // Maplist
+        sendMapListList();
 
-    // Punkbuster
-    sendPunkBusterIsActive();
-    sendPunkBusterPbSvCommand("pb_sv_plist");
+        // Player
 
-    // Reserved Slots
-    sendReservedSlotsListAggressiveJoin();
-    sendReservedSlotsListList();
+        // Punkbuster
+        sendPunkBusterIsActive();
+        sendPunkBusterPbSvCommand("pb_sv_plist");
 
-    // Spectator list
-    sendSpectatorListList();
+        // Reserved Slots
+        sendReservedSlotsListAggressiveJoin();
+        sendReservedSlotsListList();
 
-    // Squad
+        // Spectator list
+        sendSpectatorListList();
 
-    // Variables
-    sendVarsAlwaysAllowSpectators();
-    sendVarsCommander();
-    sendVarsFriendlyFire();
-    sendVarsIdleTimeout();
-    sendVarsKillCam();
-    sendVarsMaxPlayers();
-    sendVarsMaxSpectators();
-    sendVarsServerName();
-    sendVarsServerDescription();
-    sendVarsServerMessage();
-    sendVarsServerType();
+        // Squad
+
+        // Variables
+        sendVarsAlwaysAllowSpectators();
+        sendVarsCommander();
+        sendVarsFriendlyFire();
+        sendVarsIdleTimeout();
+        sendVarsKillCam();
+        sendVarsMaxPlayers();
+        sendVarsMaxSpectators();
+        sendVarsServerName();
+        sendVarsServerDescription();
+        sendVarsServerMessage();
+        sendVarsServerType();
+    } else {
+        sendListPlayersCommand(All);
+    }
 }
 
 void BF4Widget::logEvent(const QString &event, const QString &message)
@@ -326,6 +345,8 @@ void BF4Widget::logConsole(const int &type, const QString &message)
 /* Connection */
 void BF4Widget::onConnected()
 {
+    setAuthenticated(false);
+
     logEvent("Connected", tr("Connected to %1:%2.").arg(con->tcpSocket->peerAddress().toString()).arg(con->tcpSocket->peerPort()));
 }
 
@@ -451,7 +472,7 @@ void BF4Widget::onLoginHashedCommand(const bool &auth)
 {
     if (auth) {
         // Call commands on startup.
-        startupCommands();
+        setAuthenticated(true);
     } else {
         int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
 
@@ -664,9 +685,9 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
             playerItem->setIcon(0, getRankIcon(player.rank));
             playerItem->setText(0, player.name);
             playerItem->setText(1, getSquadName(player.squadId));
-            playerItem->setText(2, QString::number(player.score));
-            playerItem->setText(3, QString::number(player.kills));
-            playerItem->setText(4, QString::number(player.deaths));
+            playerItem->setText(2, QString::number(player.kills));
+            playerItem->setText(3, QString::number(player.deaths));
+            playerItem->setText(4, QString::number(player.score));
             playerItem->setText(5, QString::number(player.ping));
             playerItem->setText(6, player.guid);
             playerItem->setData(0, Qt::UserRole, player.teamId);
@@ -677,9 +698,9 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
         }
 
         foreach (int teamId, teamIds) {
-            if (teamId > 0) {
+            if (teamId > 0) { // Don't list team with id 0, as this is the neutrual team.
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
-                teamItem->setText(0, levelDictionary->getTeam(teamId - 1) + QString::number(teamId));
+                teamItem->setText(0, levelDictionary->getTeam(teamId - 1));
 
                 foreach (QTreeWidgetItem *playerItem, playerItems) {
                     if (teamId == playerItem->data(0, Qt::UserRole)) {
@@ -691,6 +712,9 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
 
         // Expand all player rows
         ui->treeWidget_pl_players->expandAll();
+
+        // Sort players based on score.
+        ui->treeWidget_pl_players->sortItems(4, Qt::AscendingOrder);
 
         // Resize columns so that they fits the content.
         for (int i = 0; i < ui->treeWidget_pl_players->columnCount(); i++) {
