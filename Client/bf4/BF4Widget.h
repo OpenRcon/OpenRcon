@@ -21,6 +21,7 @@
 #define BF4WIDGET_H
 
 #include <QMenu>
+#include <QClipboard>
 #include <QTimer>
 #include <QTime>
 #include <QCompleter>
@@ -44,12 +45,16 @@ private:
     int serverUpTime;
 
     // Players
+    QClipboard *clipboard;
     QMenu *menu_pl_players;
     QMenu *menu_pl_players_move;
     QAction *action_pl_players_kill;
     QAction *action_pl_players_kick;
     QAction *action_pl_players_ban;
     QAction *action_pl_players_reserveSlot;
+    QMenu *menu_pl_players_copyTo;
+    QAction *action_pl_players_copyTo_name;
+    QAction *action_pl_players_copyTo_guid;
 
     // Banlist
     QMenu *menu_bl_banList;
@@ -87,8 +92,8 @@ private slots:
     void onDataSentEvent(const QString &request);
     void onDataReceivedEvent(const QString &response);
 
-    void onPlayerAuthenticatedEvent(const QString &player, const QString &guid);
-    void onPlayerJoinEvent(const QString &player);
+    void onPlayerAuthenticatedEvent(const QString &player);
+    void onPlayerJoinEvent(const QString &player, const QString &guid);
     void onPlayerLeaveEvent(const QString &player, const QString &info);
     void onPlayerSpawnEvent(const QString &player, const int &teamdId);
     void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
@@ -160,6 +165,8 @@ private slots:
     void action_pl_players_kick_triggered();
     void action_pl_players_ban_triggered();
     void action_pl_players_reserveSlot_triggered();
+    void action_pl_players_copyTo_name_triggered();
+    void action_pl_players_copyTo_guid_triggered();
 
     // Chat
     void comboBox_ch_mode_currentIndexChanged(const int &index);

@@ -294,9 +294,8 @@ void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 void BF4CommandHandler::responsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
-    QString guid = packet.getWord(2).getContent();
 
-    emit (onPlayerAuthenticatedEvent(player, guid));
+    emit (onPlayerAuthenticatedEvent(player));
 }
 
 void BF4CommandHandler::responsePlayerDisconnectEvent(const FrostbiteRconPacket &packet)
@@ -309,8 +308,9 @@ void BF4CommandHandler::responsePlayerDisconnectEvent(const FrostbiteRconPacket 
 void BF4CommandHandler::responsePlayerJoinEvent(const FrostbiteRconPacket &packet)
 {
     QString player = packet.getWord(1).getContent();
+    QString guid = packet.getWord(2).getContent();
 
-    emit (onPlayerJoinEvent(player));
+    emit (onPlayerJoinEvent(player, guid));
 }
 
 void BF4CommandHandler::responsePlayerLeaveEvent(const FrostbiteRconPacket &packet)

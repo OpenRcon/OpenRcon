@@ -172,9 +172,9 @@ private:
 
 signals:
     // Event signals
-    void onPlayerAuthenticatedEvent(const QString &player, const QString &guid);
+    void onPlayerAuthenticatedEvent(const QString &player);
     void onPlayerDisconnectEvent();
-    void onPlayerJoinEvent(const QString &player);
+    void onPlayerJoinEvent(const QString &player, const QString &guid);
     void onPlayerLeaveEvent(const QString &player, const QString &info);
     void onPlayerSpawnEvent(const QString &player, const int &teamId);
     void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);

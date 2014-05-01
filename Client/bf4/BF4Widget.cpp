@@ -29,18 +29,25 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     timer = new QTimer(this);
 
     // Players
+    clipboard = QApplication::clipboard();
     menu_pl_players = new QMenu(ui->treeWidget_pl_players);
     menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
-    action_pl_players_ban = new QAction(tr("Kill"), menu_pl_players);
     action_pl_players_kill = new QAction(tr("Kick"), menu_pl_players);
     action_pl_players_kick = new QAction(tr("Ban"), menu_pl_players);
+    action_pl_players_ban = new QAction(tr("Kill"), menu_pl_players);
     action_pl_players_reserveSlot = new QAction(tr("Reserve slot"), menu_pl_players);
+    menu_pl_players_copyTo = new QMenu(tr("Move"), menu_pl_players);
+    action_pl_players_copyTo_name = new QAction(tr("Name"), this);
+    action_pl_players_copyTo_guid = new QAction(tr("GUID"), this);
 
     menu_pl_players->addMenu(menu_pl_players_move);
     menu_pl_players->addAction(action_pl_players_kill);
     menu_pl_players->addAction(action_pl_players_kick);
     menu_pl_players->addAction(action_pl_players_ban);
     menu_pl_players->addAction(action_pl_players_reserveSlot);
+    menu_pl_players->addMenu(menu_pl_players_copyTo);
+    menu_pl_players_copyTo->addAction(action_pl_players_copyTo_name);
+    menu_pl_players_copyTo->addAction(action_pl_players_copyTo_guid);
 
     // Chat
     ui->comboBox_ch_mode->addItem(tr("Say"));
@@ -87,9 +94,9 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->getCommandHandler(), SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
     connect(con->getCommandHandler(), SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataReceivedEvent(const QString&)));
 
-    connect(con->getCommandHandler(), SIGNAL(onPlayerAuthenticatedEvent(const QString&, const QString&)), this, SLOT(onPlayerAuthenticatedEvent(const QString&, const QString&)));
+    connect(con->getCommandHandler(), SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(onPlayerAuthenticatedEvent(const QString&)));
     // Disconnect?
-    connect(con->getCommandHandler(), SIGNAL(onPlayerJoinEvent(const QString&)), this, SLOT(onPlayerJoinEvent(const QString&)));
+    connect(con->getCommandHandler(), SIGNAL(onPlayerJoinEvent(const QString&, const QString&)), this, SLOT(onPlayerJoinEvent(const QString&, const QString&)));
     connect(con->getCommandHandler(), SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(onPlayerLeaveEvent(const QString&, const QString&)));
     connect(con->getCommandHandler(), SIGNAL(onPlayerSpawnEvent(const QString&, const int&)), this, SLOT(onPlayerSpawnEvent(const QString&, const int&)));
     connect(con->getCommandHandler(), SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, const bool&)), this, SLOT(onPlayerKillEvent(const QString&, const QString&, const QString&, const bool&)));
@@ -104,6 +111,7 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(con->getCommandHandler(), SIGNAL(onServerRoundOverTeamScoresEvent(const QString&)), this, SLOT(onServerRoundOverTeamScoresEvent(const QString&)));
 
     /* Commands */
+
     // Misc
     connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
     connect(con->getCommandHandler(), SIGNAL(onVersionCommand(const QString&, const int&)), this, SLOT(onVersionCommand(const QString&, const int&)));
@@ -156,9 +164,11 @@ BF4Widget::BF4Widget(const QString &host, const int &port, const QString &passwo
     connect(action_pl_players_kick, SIGNAL(triggered()), this, SLOT(action_pl_players_kick_triggered()));
     connect(action_pl_players_ban, SIGNAL(triggered()), this, SLOT(action_pl_players_ban_triggered()));
     connect(action_pl_players_reserveSlot, SIGNAL(triggered()), this, SLOT(action_pl_players_reserveSlot_triggered()));
+    connect(action_pl_players_copyTo_name, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_name_triggered()));
+    connect(action_pl_players_copyTo_guid, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_guid_triggered()));
 
     // Update playerlist on following events.
-    connect(con->getCommandHandler(), SIGNAL(onPlayerJoinEvent(const QString&)), this, SLOT(updatePlayers()));
+    connect(con->getCommandHandler(), SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(updatePlayers()));
     connect(con->getCommandHandler(), SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(updatePlayers()));
     connect(con->getCommandHandler(), SIGNAL(onPlayerSpawnEvent(const QString&, const int&)), this, SLOT(updatePlayers()));
     connect(con->getCommandHandler(), SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, const bool&)), this, SLOT(updatePlayers()));
@@ -334,14 +344,14 @@ void BF4Widget::onDataReceivedEvent(const QString &response)
     logConsole(1, response);
 }
 
-void BF4Widget::onPlayerAuthenticatedEvent(const QString &player, const QString &guid)
+void BF4Widget::onPlayerAuthenticatedEvent(const QString &player)
 {
-    logEvent("PlayerAuthenticated", tr("Player %1 authenticated with GUID: %2.").arg(player).arg(guid));
+    logEvent("PlayerAuthenticated", tr("Player %1 authenticated.").arg(player));
 }
 
-void BF4Widget::onPlayerJoinEvent(const QString &player)
+void BF4Widget::onPlayerJoinEvent(const QString &player, const QString &guid)
 {
-    logEvent("PlayerJoin", tr("Player %1 joined the game.").arg(player));
+    logEvent("PlayerJoin", tr("Player %1 joined the game (GUID: %2).").arg(player, guid));
 }
 
 void BF4Widget::onPlayerLeaveEvent(const QString &player, const QString &info)
@@ -722,6 +732,16 @@ void BF4Widget::action_pl_players_reserveSlot_triggered()
     sendReservedSlotsListAdd(player);
 }
 
+void BF4Widget::action_pl_players_copyTo_name_triggered()
+{
+    clipboard->setText(ui->treeWidget_pl_players->currentItem()->text(0));
+}
+
+void BF4Widget::action_pl_players_copyTo_guid_triggered()
+{
+    clipboard->setText(ui->treeWidget_pl_players->currentItem()->text(6));
+}
+
 // Event
 void BF4Widget::addEvent(const QString &event, const QString &message)
 {
@@ -731,6 +751,7 @@ void BF4Widget::addEvent(const QString &event, const QString &message)
     ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QTime::currentTime().toString()));
     ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
     ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
+    ui->tableWidget_ev_events->resizeColumnsToContents();
 }
 
 // Chat
