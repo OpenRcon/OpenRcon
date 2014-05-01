@@ -51,6 +51,7 @@ private:
 
 private slots:
     void validate();
+    void accept();
 
 };
 
