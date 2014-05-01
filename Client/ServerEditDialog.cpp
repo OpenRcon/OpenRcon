@@ -73,10 +73,10 @@ ServerEditDialog::~ServerEditDialog()
 void ServerEditDialog::validate()
 {   
     ui->pushButton_sed_ok->setEnabled(
-    ui->comboBox_sed_game->currentIndex() != -1 &&
+    ui->comboBox_sed_game->currentIndex() >= 0 &&
     !ui->lineEdit_sed_name->text().isEmpty() &&
     !ui->lineEdit_sed_host->text().isEmpty() &&
-    !ui->spinBox_sed_port->text().isEmpty());
+    !ui->spinBox_sed_port->value() > 0);
 }
 
 void ServerEditDialog::accept()
