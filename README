@@ -1,7 +1,7 @@
 OpenRcon
 
     Description:
-        A open-sourcem cross-platform RCON administration tool written in C++.
+        A open-sourcem cross-platform RCON administration tool, written in C++.
 
     Other:
         For more information please visit: http://openrcon.org/
