@@ -100,18 +100,18 @@ const FrostbiteRconWord& FrostbiteRconPacket::getWord(const unsigned int &index)
     if (index < packetWordCount) {
         return packetWords[index];
     } else {
-        qDebug() << QString("Wrong word index %1.").arg(index);
+        qDebug() << tr("Wrong word index %1.").arg(index);
     }
 
-    return *((FrostbiteRconWord *) 0);
+    return FrostbiteRconWord("");
 }
 
-void FrostbiteRconPacket::setSequence(const unsigned int &sequence)
+void FrostbiteRconPacket::setSequence(const int &sequence)
 {
     packetSequence = sequence;
 }
 
-void FrostbiteRconPacket::setSequenceNum(const unsigned int &sequence)
+void FrostbiteRconPacket::setSequenceNum(const int &sequence)
 {
     packetSequence = (packetSequence & 0xC0000000) | (sequence & 0x3FFFFFFF);
 }

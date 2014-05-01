@@ -25,8 +25,9 @@
 #define MaxPacketSize 16384
 //#define MAX_WORDS 100 // TODO: Think this right.s
 
-class FrostbiteRconPacket
+class FrostbiteRconPacket : public QObject
 {
+    Q_OBJECT
 
 public:
     explicit FrostbiteRconPacket();
@@ -54,8 +55,8 @@ public:
     bool isResponse() const;
     bool isRequest() const;
     const FrostbiteRconWord& getWord(const unsigned int &index) const;
-    void setSequence(const unsigned int &sequence);
-    void setSequenceNum(const unsigned int &sequence);
+    void setSequence(const int &sequence);
+    void setSequenceNum(const int &sequence);
     void clear();
 
 private:

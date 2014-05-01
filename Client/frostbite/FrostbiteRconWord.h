@@ -23,13 +23,14 @@
 #include <QDebug>
 #include <QDataStream>
 
-class FrostbiteRconWord
+class FrostbiteRconWord : public QObject
 {
+    Q_OBJECT
 
 public:
-    explicit FrostbiteRconWord();
-    explicit FrostbiteRconWord(const FrostbiteRconWord &word);
-    explicit FrostbiteRconWord(const char *string);
+    explicit FrostbiteRconWord(QObject *parent = 0);
+    explicit FrostbiteRconWord(const char *str, QObject *parent = 0);
+    explicit FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent = 0);
     FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
     ~FrostbiteRconWord();
 

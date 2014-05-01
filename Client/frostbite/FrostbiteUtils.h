@@ -20,13 +20,14 @@
 #ifndef FROSTBITEUTILS_H
 #define FROSTBITEUTILS_H
 
+#include <QObject>
 #include <QString>
 
-class FrostbiteUtils
+class FrostbiteUtils : public QObject
 {
 
 public:
-    FrostbiteUtils();
+    FrostbiteUtils(QObject *parent = 0);
     ~FrostbiteUtils();
 
     static bool toBool(const QString &value);

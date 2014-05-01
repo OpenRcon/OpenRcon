@@ -19,12 +19,12 @@
 
 #include "FrostbiteRconWord.h"
 
-FrostbiteRconWord::FrostbiteRconWord() : wordSize(0), wordContent(0), wordTerminator(0)
+FrostbiteRconWord::FrostbiteRconWord(QObject *parent) : QObject(parent), wordSize(0), wordContent(0), wordTerminator(0)
 {
 
 }
 
-FrostbiteRconWord::FrostbiteRconWord(const char* str) : wordSize(0), wordContent(0), wordTerminator(0)
+FrostbiteRconWord::FrostbiteRconWord(const char* str, QObject *parent) : QObject(parent), wordSize(0), wordContent(0), wordTerminator(0)
 {
     clear();
     wordTerminator = 0;
@@ -37,7 +37,7 @@ FrostbiteRconWord::FrostbiteRconWord(const char* str) : wordSize(0), wordContent
     }
 }
 
-FrostbiteRconWord::FrostbiteRconWord(const FrostbiteRconWord &word) : wordSize(0), wordContent(0), wordTerminator(0)
+FrostbiteRconWord::FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent) : QObject(parent), wordSize(0), wordContent(0), wordTerminator(0)
 {
     wordTerminator = word.getTerminator();
     wordSize = word.getSize();

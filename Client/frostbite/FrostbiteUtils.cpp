@@ -19,7 +19,7 @@
 
 #include "FrostbiteUtils.h"
 
-FrostbiteUtils::FrostbiteUtils()
+FrostbiteUtils::FrostbiteUtils(QObject *parent) : QObject(parent)
 {
 
 }
