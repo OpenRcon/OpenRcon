@@ -1708,8 +1708,8 @@
     </message>
     <message>
         <location filename="../ServerEditDialog.cpp" line="87"/>
-        <source>Are you sure you want to continue without a password? This may limit functionality.</source>
-        <translation>Er du sikker på at du vil forsette uten et passord? Dette kan begrense funjsonaliteten.</translation>
+        <source>Are you sure you want to continue without a password? This may limit you to just some functionality.</source>
+        <translation>Er du sikker på at du vil fortsette uten et passord? Dette kan begrense funksonaliteten.</translation>
     </message>
 </context>
 <context>
