@@ -84,7 +84,7 @@ void ServerEditDialog::accept()
     QString password = ui->lineEdit_sed_password->text();
 
     if (password.isEmpty()) {
-        int answer = QMessageBox::question(this, tr("No password set"), tr("Are you sure you want to continue without a password? This may prevent you from some functionality."));
+        int answer = QMessageBox::question(this, tr("Password not set"), tr("Are you sure you want to continue without a password? This may limit functionality."));
 
         if (answer == QMessageBox::Yes) {
             return;
