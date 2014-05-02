@@ -26,9 +26,10 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     /* User Inferface */
 
     // ServerInfo
-    timer = new QTimer(this);
+    timerStartupInfoUpTime = new QTimer(this);
 
     // Players
+    timerPlayerList = new QTimer(this);
     clipboard = QApplication::clipboard();
     menu_pl_players = new QMenu(ui->treeWidget_pl_players);
     menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
@@ -252,7 +253,6 @@ void BF4Widget::setAuthenticated(const bool &authenticated)
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), authenticated);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_rs), authenticated);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), authenticated);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_co), authenticated);
 
     startupCommands(authenticated);
 }
@@ -305,7 +305,9 @@ void BF4Widget::startupCommands(const bool &authenticated)
         sendVarsServerMessage();
         sendVarsServerType();
     } else {
-        sendListPlayersCommand(All);
+        timerPlayerList->stop();
+        connect(timerPlayerList, SIGNAL(timeout()), this, SLOT(updatePlayerList()));
+        timerPlayerList->start(1000);
     }
 }
 
@@ -496,12 +498,13 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
     serverUpTime = serverInfo.serverUpTime;
 
     ui->label_serverInfo_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(currentLevel.name).arg(currentGameMode.name));
-    ui->label_serverInfo_players->setText(tr("<b>Players</b>: %1/%2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_serverInfo_round->setText(tr("<b>Round</b>: %1/%2").arg(serverInfo.roundsPlayed + 1).arg(serverInfo.roundsTotal));
+    ui->label_serverInfo_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
+    ui->label_serverInfo_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed + 1).arg(serverInfo.roundsTotal));
 
+    timerStartupInfoUpTime->stop();
+    connect(timerStartupInfoUpTime, SIGNAL(timeout()), this, SLOT(updateUpTime()));
+    timerStartupInfoUpTime->start(1000);
     updateUpTime();
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateUpTime()));
-    timer->start(1000);
 
     // Set maplist.
     int gameModeIndex = levelDictionary->getGameModeNames().indexOf(currentGameMode.name);
@@ -642,6 +645,11 @@ QIcon BF4Widget::getRankIcon(const int &rank)
 /* User Interface */
 
 // ServerInfo
+void BF4Widget::updateServerInfo()
+{
+    sendServerInfoCommand();
+}
+
 void BF4Widget::updateUpTime()
 {
     TimeEntry upTime = getTimeFromSeconds(serverUpTime++);
@@ -667,9 +675,13 @@ void BF4Widget::updateUpTime()
 }
 
 // Players
-void BF4Widget::updatePlayers()
+void BF4Widget::updatePlayerList()
 {
-    sendAdminListPlayersCommand(All);
+    if (isAuthenticated()) {
+        sendAdminListPlayersCommand(All);
+    } else {
+        sendListPlayersCommand(All);
+    }
 }
 
 void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)

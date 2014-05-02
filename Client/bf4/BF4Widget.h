@@ -41,10 +41,11 @@ private:
     Ui::BF4 *ui;
 
     // ServerInfo
-    QTimer *timer;
+    QTimer *timerStartupInfoUpTime;
     int serverUpTime;
 
     // Players
+    QTimer *timerPlayerList;
     QClipboard *clipboard;
     QMenu *menu_pl_players;
     QMenu *menu_pl_players_move;
@@ -158,10 +159,11 @@ private slots:
     /* User Interface */
 
     // ServerInfo
+    void updateServerInfo();
     void updateUpTime();
 
     // Players
-    void updatePlayers();
+    void updatePlayerList();
     void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
     void treeWidget_pl_players_customContextMenuRequested(const QPoint &pos);
     void action_pl_players_kill_triggered();
