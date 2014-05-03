@@ -22,8 +22,6 @@
 
 #include <QString>
 
-// 6 words (Id-type, id, ban-type, seconds left, rounds left, and reason)
-
 struct BanListEntry {
     BanListEntry(const QString &idType,
                  const QString &id,

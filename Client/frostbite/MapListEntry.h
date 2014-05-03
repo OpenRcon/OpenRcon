@@ -36,6 +36,7 @@ struct MapListEntry {
     QString level;
     QString gameMode;
     int rounds;
+
 };
 
 #endif // MAPLISTENTRY_H

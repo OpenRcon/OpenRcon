@@ -22,8 +22,19 @@
 
 #include "LevelEntry.h"
 
-struct BFBC2LevelEntry : LevelEntry {
-    BFBC2LevelEntry(const QString &engineName, const QString &name, const int &team1, const int &team2, const QString &image, const QString &mod) : LevelEntry(engineName, name, team1, team2, image), mod(mod)
+struct BFBC2LevelEntry : public LevelEntry {
+    BFBC2LevelEntry(const QString &engineName,
+                    const QString &name,
+                    const int &team1,
+                    const int &team2,
+                    const QString &image,
+                    const QString &mod) :
+        LevelEntry(engineName,
+                   name,
+                   team1,
+                   team2,
+                   image),
+        mod(mod)
     {
 
     }

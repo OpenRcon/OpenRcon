@@ -22,14 +22,24 @@
 
 #include "GameModeEntry.h"
 
-struct BF4GameModeEntry : GameModeEntry {
-    BF4GameModeEntry(const QString &engineName, const QString &name, const int &players, const int &commanders, const int &spectators) : GameModeEntry(engineName, name, players), commanders(commanders), spectators(spectators)
+struct BF4GameModeEntry : public GameModeEntry {
+    BF4GameModeEntry(const QString &engineName,
+                     const QString &name,
+                     const int &players,
+                     const int &commanders,
+                     const int &spectators) :
+        GameModeEntry(engineName,
+                      name,
+                      players),
+        commanders(commanders),
+        spectators(spectators)
     {
 
     }
 
     int commanders;
     int spectators;
+
 };
 
 #endif // BF4GAMEMODEENTRY_H

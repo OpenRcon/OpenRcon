@@ -3,6 +3,7 @@ include(game/Game.pri)
 
 include(frostbite/Frostbite.pri)
 include(bfbc2/BFBC2.pri)
+include(frostbite2/Frostbite2.pri)
 include(bf3/BF3.pri)
 include(bf4/BF4.pri)
 
@@ -20,6 +21,7 @@ TEMPLATE = app
 INCLUDEPATH += game \
     frostbite \
     bfbc2 \
+    frostbite2 \
     bf3 \
     bf4 \
     minecraft
@@ -27,6 +29,7 @@ INCLUDEPATH += game \
 DEPENDPATH += game \
     frostbite \
     bfbc2 \
+    frostbite2 \
     bf3 \
     bf4 \
     minecraft
