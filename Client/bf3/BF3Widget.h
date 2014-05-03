@@ -21,6 +21,7 @@
 #define BF3WIDGET_H
 
 #include <QTime>
+#include <QTimer>
 
 #include "ui_BF3.h"
 #include "BF3.h"
@@ -36,15 +37,84 @@ public:
 private:
     Ui::BF3 *ui;
 
-    void startupCommands();
+    /* User Interface */
+
+    // ServerInfo
+
+    // Players
+    QTimer *timerPlayerList;
+
+    // Banlist
+
+    // Reserved Slots
+
+    // Spectator List
+
+    // Console
+    QCompleter *completer;
+
+    void setAuthenticated(const bool &authenticated);
+    void startupCommands(const bool &authenticated);
     void logConsole(const int &type, const QString &message);
+    QIcon getRankIcon(const int &rank);
 
 private slots:
+    /* Connection */
+    void onConnected();
+    void onDisconnected();
+
     /* Events */
     void onDataSentEvent(const QString &request);
     void onDataReceivedEvent(const QString &response);
 
-    /* Console */
+    /* Commands */
+
+    // Misc
+    void onLoginHashedCommand(const bool &auth);
+    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+
+    // Admin
+    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+
+    // Banning
+
+    // FairFight
+
+    // Maplist
+
+    // Player
+
+    // Punkbuster
+
+    // Reserved Slots
+
+    // Spectator list
+
+    // Squad
+
+    // Variables
+
+    /* User Interface */
+
+    // ServerInfo
+
+    // Players
+    void updatePlayerList();
+    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+
+    // Chat
+
+    // Maplist
+
+    // BanList
+
+    // Reserved Slots
+
+    // Spectator List
+
+    // Options
+
+    // Console
     void pushButton_co_co_clicked();
     void pushButton_co_pb_clicked();
 

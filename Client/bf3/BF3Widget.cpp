@@ -42,11 +42,53 @@ BF3Widget::~BF3Widget()
     delete ui;
 }
 
-void BF3Widget::startupCommands() {
+void BF3Widget::setAuthenticated(const bool &authenticated)
+{
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_rs), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), authenticated);
+
+    startupCommands(authenticated);
+}
+
+void BF3Widget::startupCommands(const bool &authenticated)
+{
     // Misc
-    con->sendCommand("\"admin.eventsEnabled\" \"true\"");
-    con->sendCommand("version");
-    con->sendCommand("serverInfo");
+    sendVersionCommand();
+    sendServerInfoCommand();
+
+    if (authenticated) {
+//        sendAdminEventsEnabledCommand(true);
+
+        // Admins
+//        sendAdminListPlayersCommand(All);
+
+        // Banning
+
+        // Maplist
+
+        // Player
+
+        // Punkbuster
+//        sendPunkBusterIsActive();
+//        sendPunkBusterPbSvCommand("pb_sv_plist");
+
+        // Reserved Slots
+
+        // Spectator list
+
+        // Squad
+
+        // Variables
+
+    } else {
+        timerPlayerList->stop();
+        connect(timerPlayerList, SIGNAL(timeout()), this, SLOT(updatePlayerList()));
+        timerPlayerList->start(1000);
+    }
 }
 
 void BF3Widget::logConsole(const int &type, const QString &message)
@@ -72,6 +114,19 @@ void BF3Widget::logConsole(const int &type, const QString &message)
     }
 }
 
+/* Connection */
+void BF3Widget::onConnected()
+{
+    setAuthenticated(false);
+
+//    logEvent("Connected", tr("Connected to %1:%2.").arg(con->tcpSocket->peerAddress().toString()).arg(con->tcpSocket->peerPort()));
+}
+
+void BF3Widget::onDisconnected()
+{
+//    logEvent("Disconnected", tr("Disconnected."));
+}
+
 /* Events */
 void BF3Widget::onDataSentEvent(const QString &request)
 {
@@ -83,7 +138,121 @@ void BF3Widget::onDataReceivedEvent(const QString &response)
     logConsole(1, response);
 }
 
-/* Console */
+/* Commands */
+
+// Misc
+void BF3Widget::onLoginHashedCommand(const bool &auth)
+{
+    if (auth) {
+        // Call commands on startup.
+        setAuthenticated(true);
+    } else {
+        int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
+
+        if (ret) {
+            con->hostDisconnect();
+        }
+    }
+}
+
+void BF3Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
+{
+    listPlayers(playerList, playerSubset);
+}
+
+// Admin
+void BF3Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
+{
+    listPlayers(playerList, playerSubset);
+}
+
+// Banning
+
+// FairFight
+
+// Maplist
+
+// Player
+
+// Punkbuster
+
+// Reserved Slots
+
+// Spectator list
+
+// Squad
+
+// Variables
+
+QIcon BF3Widget::getRankIcon(const int &rank)
+{
+    return QIcon(QString(":/bf3/ranks/rank_%1.png").arg(rank));
+}
+
+/* User Interface */
+
+// Players
+void BF3Widget::updatePlayerList()
+{
+    if (isAuthenticated()) {
+//        sendAdminListPlayersCommand(All);
+    } else {
+        sendListPlayersCommand(All);
+    }
+}
+
+void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
+{
+    if (playerSubset == All) {
+        ui->treeWidget_pl_players->clear();
+
+        QList<QTreeWidgetItem *> playerItems;
+        QSet<int> teamIds;
+
+        foreach (PlayerInfo player, playerList) {
+            QTreeWidgetItem *playerItem = new QTreeWidgetItem();
+            playerItem->setIcon(0, getRankIcon(player.rank));
+            playerItem->setText(0, player.name);
+            playerItem->setText(1, getSquadName(player.squadId));
+            playerItem->setText(2, QString::number(player.kills));
+            playerItem->setText(3, QString::number(player.deaths));
+            playerItem->setText(4, QString::number(player.score));
+            playerItem->setText(5, QString::number(player.ping));
+            playerItem->setText(6, player.guid);
+            playerItem->setData(0, Qt::UserRole, player.teamId);
+
+            // Add player item and team id to lists.
+            playerItems.append(playerItem);
+            teamIds.insert(player.teamId);
+        }
+
+        foreach (int teamId, teamIds) {
+            if (teamId > 0) { // Don't list team with id 0, as this is the neutrual team.
+                QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
+                teamItem->setText(0, levelDictionary->getTeam(teamId - 1));
+
+                foreach (QTreeWidgetItem *playerItem, playerItems) {
+                    if (teamId == playerItem->data(0, Qt::UserRole)) {
+                        teamItem->addChild(playerItem);
+                    }
+                }
+            }
+        }
+
+        // Expand all player rows
+        ui->treeWidget_pl_players->expandAll();
+
+        // Sort players based on their score.
+        ui->treeWidget_pl_players->sortItems(4, Qt::AscendingOrder);
+
+        // Resize columns so that they fits the content.
+        for (int i = 0; i < ui->treeWidget_pl_players->columnCount(); i++) {
+            ui->treeWidget_pl_players->resizeColumnToContents(i);
+        }
+    }
+}
+
+// Console
 void BF3Widget::pushButton_co_co_clicked()
 {
     QString command = ui->lineEdit_co_co->text();

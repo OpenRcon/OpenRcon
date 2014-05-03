@@ -40,6 +40,8 @@ public:
 private:
     Ui::BF4 *ui;
 
+    /* User Interface */
+
     // ServerInfo
     QTimer *timerStartupInfoUpTime;
     int serverUpTime;
@@ -110,6 +112,7 @@ private slots:
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Commands */
+
     // Misc
     void onLoginHashedCommand(const bool &auth);
     void onVersionCommand(const QString &type, const int &build);
@@ -121,7 +124,7 @@ private slots:
 
     // Banning
     void onBanListListCommand(const BanList &banList);
-    void action_bl_banList_remove_triggered();
+
 
     // FairFight
     void onFairFightIsActiveCommand(const bool &isActive);
@@ -191,7 +194,7 @@ private slots:
 
     // BanList
     void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);
-
+    void action_bl_banList_remove_triggered();
     void addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason);
     void setBanlist(const BanList &banList);
 

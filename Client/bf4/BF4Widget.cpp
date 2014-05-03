@@ -725,7 +725,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
         // Expand all player rows
         ui->treeWidget_pl_players->expandAll();
 
-        // Sort players based on score.
+        // Sort players based on their score.
         ui->treeWidget_pl_players->sortItems(4, Qt::AscendingOrder);
 
         // Resize columns so that they fits the content.

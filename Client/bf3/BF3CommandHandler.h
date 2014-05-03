@@ -22,6 +22,8 @@
 
 #include "FrostbiteCommandHandler.h"
 
+#include "PlayerInfo.h"
+
 class BF3CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT

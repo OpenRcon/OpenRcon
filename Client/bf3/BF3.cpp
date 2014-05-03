@@ -83,14 +83,14 @@ BF3::~BF3()
 
 void BF3::onConnected()
 {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
         sendLoginHashedCommand();
     }
 }
 
 void BF3::onLoginHashedCommand(const QByteArray &salt)
 {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
         sendLoginHashedCommand(salt, serverEntry->password);
     }
 }

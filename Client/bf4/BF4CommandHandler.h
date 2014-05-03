@@ -21,6 +21,7 @@
 #define BF4COMMANDHANDLER_H
 
 #include "FrostbiteCommandHandler.h"
+
 #include "ServerInfo.h"
 #include "PlayerInfo.h"
 #include "BanListEntry.h"
