@@ -4,7 +4,9 @@ HEADERS += \
     bfbc2/BFBC2Widget.h \
     bfbc2/BFBC2CommandHandler.h \
     bfbc2/BFBC2LevelEntry.h \
-    bfbc2/BFBC2LevelDictionary.h
+    bfbc2/BFBC2LevelDictionary.h \
+    bfbc2/BFBC2ServerInfo.h \
+    bfbc2/GameMod.h
 
 SOURCES += bfbc2/BFBC2.cpp \
     bfbc2/BFBC2Connection.cpp \

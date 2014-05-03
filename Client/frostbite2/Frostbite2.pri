@@ -1,2 +1,3 @@
-HEADERS += frostbite2/ServerInfo.h \
-    frostbite2/PlayerInfo.h
+HEADERS += \
+    frostbite2/PlayerInfo.h \
+    frostbite2/Frostbite2ServerInfo.h

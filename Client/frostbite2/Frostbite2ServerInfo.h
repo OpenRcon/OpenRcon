@@ -17,21 +17,23 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SERVERINFO_H
-#define SERVERINFO_H
+#ifndef FROSTBITE2SERVERINFO_H
+#define FROSTBITE2SERVERINFO_H
 
 #include <QString>
 
-struct ServerInfo {
-    ServerInfo(const QString &serverName,
+#include "ServerInfo.h"
+
+struct Frostbite2ServerInfo : public ServerInfo {
+    Frostbite2ServerInfo(const QString &serverName,
                const int &playerCount,
                const int &maxPlayerCount,
                const QString &gameMode,
                const QString &currentMap,
                const int &roundsPlayed,
                const int &roundsTotal,
-               const QString &scores,
-               const QString &onlineState,
+               const TeamScores &scores,
+               const OnlineState &onlineState,
                const bool &ranked,
                const bool &punkBuster,
                const bool &hasGamePassword,
@@ -43,50 +45,32 @@ struct ServerInfo {
                const QString &region,
                const QString &closestPingSite,
                const QString &country,
-               const bool &matchMakingEnabled,
-               const int &blazePlayerCount,
-               const QString &blazeGameState) :
-        serverName(serverName),
-        playerCount(playerCount),
-        maxPlayerCount(maxPlayerCount),
-        gameMode(gameMode),
-        currentMap(currentMap),
-        roundsPlayed(roundsPlayed),
-        roundsTotal(roundsTotal),
-        scores(scores),
-        onlineState(onlineState),
-        ranked(ranked),
-        punkBuster(punkBuster),
-        hasGamePassword(hasGamePassword),
-        serverUpTime(serverUpTime),
-        roundTime(roundTime),
+               const bool &matchMakingEnabled) :
+        ServerInfo(serverName,
+                   playerCount,
+                   maxPlayerCount,
+                   gameMode,
+                   currentMap,
+                   roundsPlayed,
+                   roundsTotal,
+                   scores,
+                   onlineState,
+                   ranked,
+                   punkBuster,
+                   hasGamePassword,
+                   serverUpTime,
+                   roundTime),
         gameIpAndPort(gameIpAndPort),
         punkBusterVersion(punkBusterVersion),
         joinQueueEnabled(joinQueueEnabled),
         region(region),
         closestPingSite(closestPingSite),
         country(country),
-        matchMakingEnabled(matchMakingEnabled),
-        blazePlayerCount(blazePlayerCount),
-        blazeGameState(blazeGameState)
+        matchMakingEnabled(matchMakingEnabled)
     {
 
     }
 
-    QString serverName;
-    int playerCount;
-    int maxPlayerCount;
-    QString gameMode;
-    QString currentMap;
-    int roundsPlayed;
-    int roundsTotal;
-    QString scores;
-    QString onlineState;
-    bool ranked;
-    bool punkBuster;
-    bool hasGamePassword;
-    int serverUpTime;
-    int roundTime;
     QString gameIpAndPort;
     QString punkBusterVersion;
     bool joinQueueEnabled;
@@ -94,9 +78,7 @@ struct ServerInfo {
     QString closestPingSite;
     QString country;
     bool matchMakingEnabled;
-    int blazePlayerCount;
-    QString blazeGameState;
 
 };
 
-#endif // SERVERINFO_H
+#endif // FROSTBITE2SERVERINFO_H

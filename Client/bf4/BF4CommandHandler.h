@@ -22,7 +22,7 @@
 
 #include "FrostbiteCommandHandler.h"
 
-#include "ServerInfo.h"
+#include "BF4ServerInfo.h"
 #include "PlayerInfo.h"
 #include "BanListEntry.h"
 #include "MapListEntry.h"

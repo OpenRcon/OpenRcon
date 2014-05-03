@@ -17,37 +17,29 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4SERVERINFO_H
-#define BF4SERVERINFO_H
+#ifndef BFBC2SERVERINFO_H
+#define BFBC2SERVERINFO_H
 
-#include <QString>
+#include "ServerInfo.h"
 
-#include "Frostbite2ServerInfo.h"
-
-struct BF4ServerInfo : public Frostbite2ServerInfo {
-    BF4ServerInfo(const QString &serverName,
+struct BFBC2ServerInfo : public ServerInfo {
+    BFBC2ServerInfo(const QString &serverName,
                const int &playerCount,
                const int &maxPlayerCount,
                const QString &gameMode,
                const QString &currentMap,
                const int &roundsPlayed,
                const int &roundsTotal,
-               const TeamScores &scores,
+               const QString &scores,
                const OnlineState &onlineState,
                const bool &ranked,
                const bool &punkBuster,
                const bool &hasGamePassword,
                const int &serverUpTime,
                const int &roundTime,
-               const QString &gameIpAndPort,
-               const QString &punkBusterVersion,
-               const bool &joinQueueEnabled,
-               const QString &region,
-               const QString &closestPingSite,
-               const QString &country,
-               const bool &matchMakingEnabled,
-               const int &blazePlayerCount,
-               const QString &blazeGameState) :
+               const int &gameModId,
+               const int &mapPack,
+               const QString &externalGameIpAndPort) :
         Frostbite2ServerInfo(serverName,
                              playerCount,
                              maxPlayerCount,
@@ -75,9 +67,10 @@ struct BF4ServerInfo : public Frostbite2ServerInfo {
 
     }
 
-    int blazePlayerCount;
-    QString blazeGameState;
+    int gameModId;
+    int mapPack;
+    QString externalGameIpAndPort;
 
 };
 
-#endif // BF4SERVERINFO_H
+#endif // BFBC2SERVERINFO_H

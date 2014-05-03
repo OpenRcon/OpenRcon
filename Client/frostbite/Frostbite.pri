@@ -10,7 +10,10 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/MapListEntry.h \
     frostbite/BanListEntry.h \
     frostbite/TimeEntry.h \
-    frostbite/FrostbiteUtils.h
+    frostbite/FrostbiteUtils.h \
+    frostbite/ServerInfo.h \
+    frostbite/OnlineState.h \
+    frostbite/TeamScores.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteCommandHandler.cpp \

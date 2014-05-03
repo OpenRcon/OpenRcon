@@ -447,7 +447,6 @@ void BF4CommandHandler::responseServerInfoCommand(const FrostbiteRconPacket &pac
 //    <current map: string>
 //    <roundsPlayed: integer>
 //    <roundsTotal: string>
-
 //    <scores: team scores>
 //    <onlineState: online state>
 //    <ranked: boolean>
@@ -474,12 +473,33 @@ void BF4CommandHandler::responseServerInfoCommand(const FrostbiteRconPacket &pac
         int roundsPlayed = toInt(packet.getWord(6).getContent());
         int roundsTotal = toInt(packet.getWord(7).getContent());
 
-        // TODO: Check indexes here.
-        QString scores = packet.getWord(8).getContent();
-        scores += packet.getWord(9).getContent();
-        scores += packet.getWord(10).getContent();
-        scores += packet.getWord(11).getContent();
-        QString onlineState = packet.getWord(12).getContent();
+        // Parsing team scores.
+        int entries = toInt(packet.getWord(8).getContent());
+        QList<int> scoreList;
+        int targetScore;
+
+        for (int i = 9; i < entries; i++) {
+            scoreList.append(toInt(packet.getWord(i).getContent()));
+
+            if (i == entries) {
+                targetScore = toInt(packet.getWord(i + 1).getContent());
+            }
+        }
+
+        TeamScores scores(scoreList,
+                          targetScore);
+
+        // Parsing online state.
+        QString onlineStateString = packet.getWord(12).getContent();
+        OnlineState onlineState;
+
+        if (onlineStateString == "NotConnected") {
+            onlineState = NotConnected;
+        } else if (onlineStateString == "ConnectedToBackend") {
+            onlineState = ConnectedToBackend;
+        } else if (onlineStateString == "AcceptingPlayers") {
+            onlineState = AcceptingPlayers;
+        }
 
         bool ranked = FrostbiteUtils::toBool(packet.getWord(13).getContent());
         bool punkBuster = FrostbiteUtils::toBool(packet.getWord(14).getContent());
@@ -497,7 +517,7 @@ void BF4CommandHandler::responseServerInfoCommand(const FrostbiteRconPacket &pac
         int blazePlayerCount = toInt(packet.getWord(22).getContent());
         QString blazeGameState = packet.getWord(23).getContent();
 
-        ServerInfo serverInfo(
+        BF4ServerInfo serverInfo(
                     serverName,
                     playerCount,
                     maxPlayerCount,
