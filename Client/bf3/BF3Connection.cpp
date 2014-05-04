@@ -278,7 +278,7 @@ void BF3Connection::sendCurrentLevelCommand()
 
 void BF3Connection::sendListPlayersCommand(const PlayerSubset &playerSubset)
 {
-    if (playerSubset == All) {
+    if (playerSubset == PlayerSubset::All) {
         sendCommand("\"listPlayers\" \"all\"");
     }
 }

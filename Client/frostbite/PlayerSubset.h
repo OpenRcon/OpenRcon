@@ -20,7 +20,7 @@
 #ifndef PLAYERSUBSET_H
 #define PLAYERSUBSET_H
 
-enum PlayerSubset {
+enum class PlayerSubset {
     All,
     Team,
     Squad,

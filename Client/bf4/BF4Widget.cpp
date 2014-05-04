@@ -267,7 +267,7 @@ void BF4Widget::startupCommands(const bool &authenticated)
         con->sendAdminEventsEnabledCommand(true);
 
         // Admins
-        con->sendAdminListPlayersCommand(All);
+        con->sendAdminListPlayersCommand(PlayerSubset::All);
 
         // Banning
         con->sendBanListListCommand();
@@ -679,15 +679,15 @@ void BF4Widget::updateUpTime()
 void BF4Widget::updatePlayerList()
 {
     if (isAuthenticated()) {
-        con->sendAdminListPlayersCommand(All);
+        con->sendAdminListPlayersCommand(PlayerSubset::All);
     } else {
-        con->sendListPlayersCommand(All);
+        con->sendListPlayersCommand(PlayerSubset::All);
     }
 }
 
 void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
 {
-    if (playerSubset == All) {
+    if (playerSubset == PlayerSubset::All) {
         ui->treeWidget_pl_players->clear();
         menu_pl_players_move->clear();
 
@@ -830,11 +830,11 @@ void BF4Widget::pushButton_ch_send_clicked()
     if (!message.isEmpty()) {
         switch (type) {
             case 0:
-                con->sendAdminSayCommand(message, All); // TODO: Implement playerSubset here.
+                con->sendAdminSayCommand(message, PlayerSubset::All); // TODO: Implement playerSubset here.
                 break;
 
             case 1:
-                con->sendAdminYellCommand(message, duration, All); // TODO: Implement playerSubset here.
+                con->sendAdminYellCommand(message, duration, PlayerSubset::All); // TODO: Implement playerSubset here.
                 break;
         }
 

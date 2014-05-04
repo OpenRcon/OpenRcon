@@ -20,7 +20,7 @@
 #ifndef GAMEMOD_H
 #define GAMEMOD_H
 
-enum GameMod {
+enum class GameMod {
     BC2,
     VIETNAM
 };

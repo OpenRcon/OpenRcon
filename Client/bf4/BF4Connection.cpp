@@ -340,7 +340,7 @@ void BF4Connection::sendCurrentLevelCommand()
 
 void BF4Connection::sendListPlayersCommand(const PlayerSubset &playerSubset)
 {
-    if (playerSubset == All) {
+    if (playerSubset == PlayerSubset::All) {
         sendCommand("\"listPlayers\" \"all\"");
     }
 }
@@ -368,7 +368,7 @@ void BF4Connection::sendAdminKillPlayerCommand(const QString &player)
 
 void BF4Connection::sendAdminListPlayersCommand(const PlayerSubset &playerSubset)
 {
-    if (playerSubset == All) {
+    if (playerSubset == PlayerSubset::All) {
         sendCommand(QString("\"admin.listPlayers\" \"all\""));
     }
 }
@@ -390,7 +390,7 @@ void BF4Connection::sendAdminPasswordCommand(const QString &password)
 
 void BF4Connection::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset)
 {
-    if (playerSubset == All) {
+    if (playerSubset == PlayerSubset::All) {
         sendCommand(QString("\"admin.say\" \"%1\" \"all\"").arg(message));
     }
 }
@@ -418,7 +418,7 @@ void BF4Connection::sendAdminYellCommand(const QString &message, const PlayerSub
 void BF4Connection::sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset)
 {
     if (message.length() <= 256) {
-        if (playerSubset == All) {
+        if (playerSubset == PlayerSubset::All) {
             sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"all\"").arg(message).arg(duration));
         }
     }
@@ -1316,11 +1316,11 @@ void BF4Connection::responseServerInfoCommand(const FrostbiteRconPacket &packet)
         OnlineState onlineState;
 
         if (onlineStateString == "NotConnected") {
-            onlineState = NotConnected;
+            onlineState = OnlineState::NotConnected;
         } else if (onlineStateString == "ConnectedToBackend") {
-            onlineState = ConnectedToBackend;
+            onlineState = OnlineState::ConnectedToBackend;
         } else if (onlineStateString == "AcceptingPlayers") {
-            onlineState = AcceptingPlayers;
+            onlineState = OnlineState::AcceptingPlayers;
         }
 
         bool ranked = toBool(packet.getWord(13).getContent());
@@ -2108,13 +2108,13 @@ PlayerSubset BF4Connection::getPlayerSubset(const QString &playerSubsetString)
     PlayerSubset playerSubset;
 
     if (playerSubsetString == "all") {
-        playerSubset = All;
+        playerSubset = PlayerSubset::All;
     } else if (playerSubsetString == "team") {
-        playerSubset = Team;
+        playerSubset = PlayerSubset::Team;
     } else if (playerSubsetString == "squad") {
-        playerSubset = Squad;
+        playerSubset = PlayerSubset::Squad;
     } else if (playerSubsetString == "player") {
-        playerSubset = Player;
+        playerSubset = PlayerSubset::Player;
     }
 
     return playerSubset;

@@ -197,13 +197,13 @@ void BF3Widget::updatePlayerList()
     if (isAuthenticated()) {
 //        con->sendAdminListPlayersCommand(All);
     } else {
-        con->sendListPlayersCommand(All);
+        con->sendListPlayersCommand(PlayerSubset::All);
     }
 }
 
 void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
 {
-    if (playerSubset == All) {
+    if (playerSubset == PlayerSubset::All) {
         ui->treeWidget_pl_players->clear();
 
         QList<QTreeWidgetItem *> playerItems;

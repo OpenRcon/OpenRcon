@@ -20,7 +20,7 @@
 #ifndef ONLINESTATE_H
 #define ONLINESTATE_H
 
-enum OnlineState {
+enum class OnlineState {
     NotConnected,
     ConnectedToBackend,
     AcceptingPlayers
