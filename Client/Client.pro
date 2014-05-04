@@ -36,7 +36,6 @@ DEPENDPATH += game \
 
 HEADERS += OpenRcon.h \
     Constants.h \
-    Directory.h \
     GameEntry.h \
     ServerEntry.h \
     LanguageEntry.h \
@@ -53,7 +52,6 @@ HEADERS += OpenRcon.h \
 
 SOURCES += Main.cpp \
     OpenRcon.cpp \
-    Directory.cpp \
     GameManager.cpp \
     ServerManager.cpp \
     LanguageManager.cpp \

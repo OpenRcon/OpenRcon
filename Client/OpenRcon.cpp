@@ -25,10 +25,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {
     ui->setupUi(this);
 
-    directory = new Directory(this);
     gameManager = new GameManager(this);
     serverManager = new ServerManager(this);
-
     //serverListDialog = new ServerListDialog(this);
     optionsDialog = new OptionsDialog(this);
     aboutDialog = new AboutDialog(this);
@@ -82,7 +80,6 @@ OpenRcon::~OpenRcon()
 {
     delete ui;
 
-    delete directory;
     delete settings;
     delete gameManager;
     delete serverManager;

@@ -35,7 +35,6 @@
 #include "ui_OpenRcon.h"
 
 #include "Constants.h"
-#include "Directory.h"
 #include "GameManager.h"
 #include "ServerManager.h"
 
@@ -75,10 +74,8 @@ private:
 
     Ui::OpenRcon *ui;
 
-    Directory *directory;
     GameManager *gameManager;
     ServerManager *serverManager;
-
     //ServerListDialog *serverListDialog;
     OptionsDialog *optionsDialog;
     AboutDialog *aboutDialog;
