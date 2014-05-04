@@ -223,8 +223,6 @@ void BF3Connection::parse(const QString &request, const FrostbiteRconPacket &pac
         responseVarsRoundsPerMapCommand(packet);
     } else if (request == "vars.gunMasterWeaponsPreset") {
         responseVarsGunMasterWeaponsPresetCommand(packet);
-    } else {
-        responseUnknownCommand();
     }
 }
 

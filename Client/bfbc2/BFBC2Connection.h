@@ -148,11 +148,6 @@ private:
     void responseLevelVarsListCommand(const FrostbiteRconPacket &packet);
 
 signals:
-    void onLogMessage(const int &type, const QString &message);
-    void onRefresh();
-    void onLogEvent(const QString &event, const QString &message);
-    void onIngameCommands(const QString &player, const QString &command);
-
     // Events
     void onPlayerJoinEvent(const QString &player);
     void onPlayerAuthenticatedEvent(const QString &player, const QString &guid);
@@ -177,7 +172,7 @@ signals:
     void onLoginHashedCommand();
     void onLogoutCommand(const QString &response);
     void onQuitCommand(const QString &response);
-    void onVersionCommand(const QString &type, const int &buildId, const QString &version);
+    void onVersionCommand(const QString &type, const int &build);
     void onListPlayersCommand();
     void onEventsEnabledCommand();
     void onHelpCommand(const QStringList &helpList);

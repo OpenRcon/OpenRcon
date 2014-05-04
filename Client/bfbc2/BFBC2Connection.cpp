@@ -243,8 +243,6 @@ void BFBC2Connection::parse(const QString &request, const FrostbiteRconPacket &p
         responseLevelVarsClearCommand(packet);
     } else if (request == "LevelVars.list") {
         responseLevelVarsListCommand(packet);
-    } else {
-        responseUnknownCommand();
     }
 }
 
@@ -414,8 +412,6 @@ void BFBC2Connection::responseLogoutCommand(const FrostbiteRconPacket &packet)
 
     if (response == "OK") {
         emit (onLogoutCommand(tr("You are now logged out.")));
-    } else if (response == "InvalidArguments"){
-        emit (onUnknownCommand());
     }
 }
 
@@ -425,8 +421,6 @@ void BFBC2Connection::responseQuitCommand(const FrostbiteRconPacket &packet)
 
     if (response == "OK") {
         emit (onQuitCommand(tr("Disconnected.")));
-    } else if (response == "InvalidArguments"){
-        emit (onUnknownCommand());
     }
 }
 
@@ -434,33 +428,11 @@ void BFBC2Connection::responseVersionCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() == 3) {
+    if (response == "OK" && packet.getWordCount() > 1) {
         QString type = packet.getWord(1).getContent();
-        int buildId = QString(packet.getWord(2).getContent()).toInt();
-        QString version;
+        int build = toInt(packet.getWord(2).getContent());
 
-        QMap<int, QString> versionMap;
-        versionMap.insert(571287, "R21");
-        versionMap.insert(581637, "R22");
-        versionMap.insert(584642, "R23");
-        versionMap.insert(593485, "R24");
-        versionMap.insert(602833, "R25");
-        versionMap.insert(609063, "R26");
-        versionMap.insert(617877, "R27");
-        versionMap.insert(621775, "R28");
-        versionMap.insert(638140, "R30");
-        versionMap.insert(720174, "R32");
-        versionMap.insert(851434, "R34");
-
-        if (versionMap.contains(buildId)) {
-            version = versionMap.value(buildId);
-        }
-
-        emit (onVersionCommand(type, buildId, version));
-
-        emit (onLogMessage(0, tr("<b>%1</b> server version: <b>%2</b>.").arg(type, version)));
-    } else if (response == "InvalidArguments") {
-        emit (onUnknownCommand());
+        emit (onVersionCommand(type, build));
     }
 }
 
@@ -470,8 +442,6 @@ void BFBC2Connection::responseListPlayersCommand(const FrostbiteRconPacket &pack
 
     if (response == "OK") {
         emit (onListPlayersCommand());
-    } else if (response == "InvalidArguments") {
-        emit (onUnknownCommand());
     }
 }
 
@@ -617,8 +587,6 @@ void BFBC2Connection::responseAdminListPlayersCommand(const FrostbiteRconPacket 
         }
 
         emit (onAdminListPlayersCommand(playerList));
-    } else if (response == "InvalidArguments") {
-        emit (onUnknownCommand());
     }
 }
 

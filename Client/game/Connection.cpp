@@ -19,10 +19,8 @@
 
 #include "Connection.h"
 
-Connection::Connection(QObject *parent)
+Connection::Connection(QObject *parent) : QObject(parent)
 {
-    Q_UNUSED(parent);
-
     tcpSocket = new QTcpSocket(this);
 
     connect(tcpSocket, SIGNAL(connected()), this, SLOT(connected()));
@@ -91,17 +89,12 @@ void Connection::displayError(QAbstractSocket::SocketError socketError)
 /* These events is triggered everytime the client sends or receives data. */
 void Connection::responseDataSentEvent(const QString &request)
 {
-    emit(onDataSentEvent(request));
+    emit (onDataSentEvent(request));
 }
 
 void Connection::responseDataReceivedEvent(const QString &response)
 {
-    emit(onDataReceivedEvent(response));
-}
-
-void Connection::responseUnknownCommand()
-{
-    emit (onUnknownCommand());
+    emit (onDataReceivedEvent(response));
 }
 
 int Connection::toInt(const QString &value)

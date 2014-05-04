@@ -285,8 +285,6 @@ void BF4Connection::parse(const QString &request, const FrostbiteRconPacket &pac
         responseVarsVehicleSpawnAllowedCommand(packet);
     } else if (request == "vars.vehicleSpawnDelay") {
         responseVarsVehicleSpawnDelayCommand(packet);
-    } else {
-        responseUnknownCommand();
     }
 }
 

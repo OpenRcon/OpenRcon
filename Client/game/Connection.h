@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -55,11 +55,8 @@ private slots:
 signals:
     void onConnected();
     void onDisconnected();
-
     void onDataSentEvent(const QString &command);
     void onDataReceivedEvent(const QString &response);
-
-    void onUnknownCommand();
 
 };
 

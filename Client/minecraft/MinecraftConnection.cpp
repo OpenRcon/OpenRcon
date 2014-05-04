@@ -138,9 +138,6 @@ void MinecraftConnection::parse(MinecraftRconPacket &packet)
         case ListCommand:
             responseListCommand(packet);
             break;
-
-        default:
-            responseUnknownCommand();
     }
 }
 
