@@ -23,7 +23,6 @@
 #include "Connection.h"
 
 #include "FrostbiteRconPacket.h"
-#include "FrostbiteUtils.h"
 
 #include "PlayerSubset.h"
 
@@ -42,6 +41,9 @@ public:
 
 protected:
     virtual void parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) = 0;
+
+    bool toBool(const QString &value);
+    QString toString(const bool &value);
 
 private:
     int packetReadState;

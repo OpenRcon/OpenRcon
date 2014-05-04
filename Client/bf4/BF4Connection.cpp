@@ -348,7 +348,7 @@ void BF4Connection::sendListPlayersCommand(const PlayerSubset &playerSubset)
 // Admin
 void BF4Connection::sendAdminEventsEnabledCommand(const bool &enabled)
 {
-    sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendAdminHelpCommand()
@@ -375,7 +375,7 @@ void BF4Connection::sendAdminListPlayersCommand(const PlayerSubset &playerSubset
 
 void BF4Connection::sendAdminMovePlayerCommand(const QString &player, const int &teamId, const int &squadId, const bool &forceKill)
 {
-    sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(FrostbiteUtils::toString(forceKill)));
+    sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(toString(forceKill)));
 }
 
 void BF4Connection::sendAdminPasswordCommand()
@@ -402,12 +402,12 @@ void BF4Connection::sendAdminShutdownCommand()
 
 void BF4Connection::sendAdminShutdownCommand(const bool &graceful)
 {
-    sendCommand(QString("\"admin.shutDown\" \"%1\"").arg(FrostbiteUtils::toString(graceful)));
+    sendCommand(QString("\"admin.shutDown\" \"%1\"").arg(toString(graceful)));
 }
 
 void BF4Connection::sendAdminShutdownCommand(const bool &graceful, const int &seconds)
 {
-    sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(FrostbiteUtils::toString(graceful)).arg(seconds));
+    sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(toString(graceful)).arg(seconds));
 }
 
 void BF4Connection::sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset)
@@ -435,7 +435,7 @@ void BF4Connection::sendBanListAddCommand(const QString &idType, const QString &
 {
     QString timeoutType = useRounds ? "rounds" : "seconds";
 
-    sendCommand(QString("banList.add %1 %2 %3 %4 %5").arg(idType, id, timeoutType).arg(FrostbiteUtils::toString(timeout), reason));
+    sendCommand(QString("banList.add %1 %2 %3 %4 %5").arg(idType, id, timeoutType).arg(toString(timeout), reason));
     sendBanListListCommand();
 }
 
@@ -601,7 +601,7 @@ void BF4Connection::sendReservedSlotsListAggressiveJoin()
 
 void BF4Connection::sendReservedSlotsListAggressiveJoin(const bool &enabled)
 {
-    sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendReservedSlotsListClear()
@@ -685,7 +685,7 @@ void BF4Connection::sendSquadListPlayers(const int &teamId, const int &squadId)
 
 void BF4Connection::sendSquadPrivate(const int &teamId, const int &squadId, const bool &isPrivate)
 {
-    sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(isPrivate)));
+    sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(toString(isPrivate)));
 }
 
 // Variables
@@ -696,7 +696,7 @@ void BF4Connection::sendVars3dSpotting()
 
 void BF4Connection::sendVars3dSpotting(const bool &enabled)
 {
-    sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVars3pCam()
@@ -706,7 +706,7 @@ void BF4Connection::sendVars3pCam()
 
 void BF4Connection::sendVars3pCam(const bool &enabled)
 {
-    sendCommand(QString("\"vars.3pCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.3pCam\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsAlwaysAllowSpectators()
@@ -716,7 +716,7 @@ void BF4Connection::sendVarsAlwaysAllowSpectators()
 
 void BF4Connection::sendVarsAlwaysAllowSpectators(const bool &enabled)
 {
-    sendCommand(QString("\"vars.alwaysAllowSpectators\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.alwaysAllowSpectators\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsAutoBalance()
@@ -726,7 +726,7 @@ void BF4Connection::sendVarsAutoBalance()
 
 void BF4Connection::sendVarsAutoBalance(const bool &enabled)
 {
-    sendCommand(QString("\"vars.autoBalance\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.autoBalance\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsBulletDamage(const int &damage)
@@ -745,7 +745,7 @@ void BF4Connection::sendVarsCommander()
 
 void BF4Connection::sendVarsCommander(const bool &enabled)
 {
-    sendCommand(QString("\"vars.commander\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.commander\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsForceReloadWholeMags()
@@ -755,7 +755,7 @@ void BF4Connection::sendVarsForceReloadWholeMags()
 
 void BF4Connection::sendVarsForceReloadWholeMags(const bool &enabled)
 {
-    sendCommand(QString("\"vars.forceReloadWholeMags\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.forceReloadWholeMags\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsFriendlyFire()
@@ -765,7 +765,7 @@ void BF4Connection::sendVarsFriendlyFire()
 
 void BF4Connection::sendVarsFriendlyFire(const bool &enabled)
 {
-    sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsGameModeCounter(const int &scale)
@@ -793,7 +793,7 @@ void BF4Connection::sendVarsHitIndicatorsEnabled()
 
 void BF4Connection::sendVarsHitIndicatorsEnabled(const bool &enabled)
 {
-    sendCommand(QString("\"vars.hitIndicatorsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.hitIndicatorsEnabled\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsHud()
@@ -803,7 +803,7 @@ void BF4Connection::sendVarsHud()
 
 void BF4Connection::sendVarsHud(const bool &enabled)
 {
-    sendCommand(QString("\"vars.hud\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.hud\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsIdleBanRounds(const int &rounds)
@@ -831,7 +831,7 @@ void BF4Connection::sendVarsKillCam()
 
 void BF4Connection::sendVarsKillCam(const bool &enabled)
 {
-    sendCommand(QString("\"vars.killCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.killCam\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsMaxPlayers(const int &players)
@@ -859,7 +859,7 @@ void BF4Connection::sendVarsMiniMap()
 
 void BF4Connection::sendVarsMiniMap(const bool &enabled)
 {
-    sendCommand(QString("\"vars.\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsMiniMapSpotting()
@@ -869,7 +869,7 @@ void BF4Connection::sendVarsMiniMapSpotting()
 
 void BF4Connection::sendVarsMiniMapSpotting(const bool &enabled)
 {
-    sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsMpExperience(const QString &experience)
@@ -888,7 +888,7 @@ void BF4Connection::sendVarsNameTag()
 
 void BF4Connection::sendVarsNameTag(const bool &enabled)
 {
-    sendCommand(QString("\"vars.nameTag\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.nameTag\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsOnlySquadLeaderSpawn()
@@ -898,7 +898,7 @@ void BF4Connection::sendVarsOnlySquadLeaderSpawn()
 
 void BF4Connection::sendVarsOnlySquadLeaderSpawn(const bool &enabled)
 {
-    sendCommand(QString("\"vars.onlySquadLeaderSpawn\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.onlySquadLeaderSpawn\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsPlayerRespawnTime(const int &respawnTime)
@@ -915,7 +915,7 @@ void BF4Connection::sendVarsPreset(const QString &serverPreset, const bool &lock
     if (serverPreset == 0 && lockPresetSetting == 0) {
         sendCommand("vars.preset");
     } else {
-        sendCommand(QString("\"vars.preset\" \"%1\" \"%2\"").arg(serverPreset, FrostbiteUtils::toString(lockPresetSetting)));
+        sendCommand(QString("\"vars.preset\" \"%1\" \"%2\"").arg(serverPreset, toString(lockPresetSetting)));
     }
 }
 
@@ -926,7 +926,7 @@ void BF4Connection::sendVarsRegenerateHealth()
 
 void BF4Connection::sendVarsRegenerateHealth(const bool &enabled)
 {
-    sendCommand(QString("\"vars.regenerateHealth\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.regenerateHealth\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsRoundLockdownCountdown(const int &seconds)
@@ -1098,7 +1098,7 @@ void BF4Connection::sendVarsVehicleSpawnAllowed()
 
 void BF4Connection::sendVarsVehicleSpawnAllowed(const bool &enabled)
 {
-    sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(toString(enabled)));
 }
 
 void BF4Connection::sendVarsVehicleSpawnDelay(const int &percent)
@@ -1323,19 +1323,19 @@ void BF4Connection::responseServerInfoCommand(const FrostbiteRconPacket &packet)
             onlineState = AcceptingPlayers;
         }
 
-        bool ranked = FrostbiteUtils::toBool(packet.getWord(13).getContent());
-        bool punkBuster = FrostbiteUtils::toBool(packet.getWord(14).getContent());
-        bool hasGamePassword = FrostbiteUtils::toBool(packet.getWord(15).getContent());
+        bool ranked = toBool(packet.getWord(13).getContent());
+        bool punkBuster = toBool(packet.getWord(14).getContent());
+        bool hasGamePassword = toBool(packet.getWord(15).getContent());
         int serverUpTime = toInt(packet.getWord(16).getContent());
         int roundTime = toInt(packet.getWord(17).getContent());
         QString gameIpAndPort = packet.getWord(18).getContent();
         QString punkBusterVersion = packet.getWord(19).getContent();
-        bool joinQueueEnabled = FrostbiteUtils::toBool(packet.getWord(20).getContent());
+        bool joinQueueEnabled = toBool(packet.getWord(20).getContent());
         QString region = packet.getWord(21).getContent();
         QString closestPingSite = packet.getWord(22).getContent();
         QString country = packet.getWord(23).getContent();
 
-        bool matchMakingEnabled = FrostbiteUtils::toBool(packet.getWord(21).getContent());
+        bool matchMakingEnabled = toBool(packet.getWord(21).getContent());
         int blazePlayerCount = toInt(packet.getWord(22).getContent());
         QString blazeGameState = packet.getWord(23).getContent();
 
@@ -1519,7 +1519,7 @@ void BF4Connection::responseFairFightIsActiveCommand(const FrostbiteRconPacket &
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool isActive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+        bool isActive = toBool(packet.getWord(1).getContent());
 
         emit (onFairFightIsActiveCommand(isActive));
     }
@@ -1647,7 +1647,7 @@ void BF4Connection::responsePunkBusterIsActiveCommand(const FrostbiteRconPacket 
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool isActive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+        bool isActive = toBool(packet.getWord(1).getContent());
 
         emit (onPunkBusterIsActiveCommand(isActive));
     }
@@ -1668,7 +1668,7 @@ void BF4Connection::responseReservedSlotsListAggressiveJoinCommand(const Frostbi
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+        bool enabled = toBool(packet.getWord(1).getContent());
 
         emit (onReservedSlotsListAggressiveJoinCommand(enabled));
     }
@@ -1779,7 +1779,7 @@ void BF4Connection::responseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRcon
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+        bool enabled = toBool(packet.getWord(1).getContent());
 
         emit (onVarsAlwaysAllowSpectatorsCommand(enabled));
     }
@@ -1800,7 +1800,7 @@ void BF4Connection::responseVarsCommanderCommand(const FrostbiteRconPacket &pack
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+        bool enabled = toBool(packet.getWord(1).getContent());
 
         emit (onVarsCommanderCommand(enabled));
     }
@@ -1816,7 +1816,7 @@ void BF4Connection::responseVarsFriendlyFireCommand(const FrostbiteRconPacket &p
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+        bool enabled = toBool(packet.getWord(1).getContent());
 
         emit (onVarsFriendlyFireCommand(enabled));
     }
@@ -1863,7 +1863,7 @@ void BF4Connection::responseVarsKillCamCommand(const FrostbiteRconPacket &packet
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+        bool enabled = toBool(packet.getWord(1).getContent());
 
         emit (onVarsKillCamCommand(enabled));
     }
