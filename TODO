@@ -12,6 +12,7 @@ OpenRcon:
         - Rewrite the FrostbiteCommandHandler to parse responses, and add functions for sending commands.
           The question is: How to do this without causing SIGSEGV, because FrostbiteCommandHandler needs to hold derived FrostbiteConnection and FrostBiteCommandHandler objects.
         - Implement check that packets never is bigger than 16384 bytes. - DONE.
+        - Check if Frostbite2 and Frostbite differs on the onlineState value of the response for the ServerInfo command.
 
     BFBC2:
         - List bans in BanList.
