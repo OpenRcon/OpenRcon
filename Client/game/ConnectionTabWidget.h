@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -29,7 +29,7 @@ class ConnectionTabWidget : public QTabWidget
     Q_OBJECT
 
 public:
-    virtual Connection *getConnection() = 0;
+    virtual Connection* getConnection() = 0;
 
 };
 

@@ -83,7 +83,6 @@ OpenRcon::~OpenRcon()
     delete settings;
     delete gameManager;
     delete serverManager;
-
 //    delete serverListDialog;
     delete optionsDialog;
     delete aboutDialog;
