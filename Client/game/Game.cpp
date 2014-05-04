@@ -26,5 +26,5 @@ Game::Game(ServerEntry *serverEntry) : serverEntry(serverEntry)
 
 Game::~Game()
 {
-
+    delete serverEntry;
 }

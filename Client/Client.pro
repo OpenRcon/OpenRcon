@@ -9,9 +9,9 @@ include(bf4/BF4.pri)
 
 include(minecraft/Minecraft.pri)
 
-QT += core \
-      gui \
-      network
+QT += core \     
+    network \
+    gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

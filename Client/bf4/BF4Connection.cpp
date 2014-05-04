@@ -2119,4 +2119,3 @@ PlayerSubset BF4Connection::getPlayerSubset(const QString &playerSubsetString)
 
     return playerSubset;
 }
-
