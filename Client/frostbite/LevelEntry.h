@@ -23,8 +23,6 @@
 #include <QString>
 #include <QPixmap>
 
-#include <QDebug>
-
 struct LevelEntry {
     LevelEntry()
     {
