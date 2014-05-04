@@ -24,9 +24,9 @@
 #include <QFile>
 #include <QTextStream>
 
-#include "ui_AboutDialog.h"
-
 #include "Constants.h"
+
+#include "ui_AboutDialog.h"
 
 using namespace Constants;
 

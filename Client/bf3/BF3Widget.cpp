@@ -24,8 +24,8 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
     ui->setupUi(this);
 
     /* Events */
-    connect(con->getCommandHandler(), SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
-    connect(con->getCommandHandler(), SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
 
     /* User Interface */
 
@@ -57,14 +57,14 @@ void BF3Widget::setAuthenticated(const bool &authenticated)
 void BF3Widget::startupCommands(const bool &authenticated)
 {
     // Misc
-    sendVersionCommand();
-    sendServerInfoCommand();
+    con->sendVersionCommand();
+    con->sendServerInfoCommand();
 
     if (authenticated) {
-//        sendAdminEventsEnabledCommand(true);
+//        con->sendAdminEventsEnabledCommand(true);
 
         // Admins
-//        sendAdminListPlayersCommand(All);
+//        con->sendAdminListPlayersCommand(All);
 
         // Banning
 
@@ -73,8 +73,8 @@ void BF3Widget::startupCommands(const bool &authenticated)
         // Player
 
         // Punkbuster
-//        sendPunkBusterIsActive();
-//        sendPunkBusterPbSvCommand("pb_sv_plist");
+//        con->sendPunkBusterIsActive();
+//        con->sendPunkBusterPbSvCommand("pb_sv_plist");
 
         // Reserved Slots
 
@@ -195,9 +195,9 @@ QIcon BF3Widget::getRankIcon(const int &rank)
 void BF3Widget::updatePlayerList()
 {
     if (isAuthenticated()) {
-//        sendAdminListPlayersCommand(All);
+//        con->sendAdminListPlayersCommand(All);
     } else {
-        sendListPlayersCommand(All);
+        con->sendListPlayersCommand(All);
     }
 }
 

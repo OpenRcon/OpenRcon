@@ -87,3 +87,24 @@ void Connection::displayError(QAbstractSocket::SocketError socketError)
         qDebug() << tr("Unknown error: %1.").arg(tcpSocket->errorString());
     }
 }
+
+/* These events is triggered everytime the client sends or receives data. */
+void Connection::responseDataSentEvent(const QString &request)
+{
+    emit(onDataSentEvent(request));
+}
+
+void Connection::responseDataReceivedEvent(const QString &response)
+{
+    emit(onDataReceivedEvent(response));
+}
+
+void Connection::responseUnknownCommand()
+{
+    emit (onUnknownCommand());
+}
+
+int Connection::toInt(const QString &value)
+{
+    return value.toInt();
+}

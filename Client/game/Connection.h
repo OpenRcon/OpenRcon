@@ -40,6 +40,13 @@ public slots:
     virtual void hostConnect(const QString &host, const int &port);
     virtual void hostDisconnect();
 
+protected:
+    void responseDataSentEvent(const QString &request);
+    void responseDataReceivedEvent(const QString &response);
+    void responseUnknownCommand();
+
+    int toInt(const QString &value);
+
 private slots:
     void connected();
     void disconnected();
@@ -48,6 +55,11 @@ private slots:
 signals:
     void onConnected();
     void onDisconnected();
+
+    void onDataSentEvent(const QString &command);
+    void onDataReceivedEvent(const QString &response);
+
+    void onUnknownCommand();
 
 };
 

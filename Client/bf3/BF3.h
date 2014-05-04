@@ -42,18 +42,6 @@ protected:
 
     bool isAuthenticated();
 
-    /* Commands */
-
-    // Misc
-    void sendLoginPlainTextCommand(const QString &password);
-    void sendLoginHashedCommand(const QByteArray &salt = 0, const QString &password = 0);
-    void sendServerInfoCommand();
-    void sendLogoutCommand();
-    void sendQuitCommand();
-    void sendVersionCommand();
-    void sendCurrentLevelCommand();
-    void sendListPlayersCommand(const PlayerSubset &playerSubset);
-
 private:
     bool authenticated;
 

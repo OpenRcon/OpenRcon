@@ -36,15 +36,31 @@ public:
     void sendPacket(MinecraftRconPacket &packet);
     void sendCommand(const QString &command);
 
-    MinecraftCommandHandler *commandHandler;
-
 private:
     QVector<MinecraftRconPacket> packetSendQueue;
 
+    enum CommandType {
+        ListCommand = 8,
+        KillCommand = 9,
+        UnknownCommand = 255
+    };
+
+    int getRequestIdFromCommand(const QString &command);
     void handlePacket(MinecraftRconPacket &packet);
+
+    void parse(MinecraftRconPacket &packet);
+
+    void responseListCommand(MinecraftRconPacket &packet);
 
 private slots:
     void readyRead();
+
+signals:
+    // Events
+    void onAuthenticated(const bool &auth);
+
+    // Commands
+    void onListCommand(const QStringList &list);
 
 };
 

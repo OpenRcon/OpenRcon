@@ -42,8 +42,8 @@ BFBC2::BFBC2(ServerEntry *serverEntry) : FrostbiteGame(serverEntry), authenticat
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
+    connect(con, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(con, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
 }
 
 BFBC2::~BFBC2()

@@ -23,7 +23,9 @@
 #include "Connection.h"
 
 #include "FrostbiteRconPacket.h"
-#include "FrostbiteCommandHandler.h"
+#include "FrostbiteUtils.h"
+
+#include "PlayerSubset.h"
 
 #define MIN_PACKET_SIZE 12
 
@@ -32,25 +34,23 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    explicit FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent = 0);
+    explicit FrostbiteConnection(QObject *parent = 0);
     ~FrostbiteConnection();
 
-    FrostbiteCommandHandler* getCommandHandler();
-
-public slots:
     void hostConnect(const QString &host, const int &port);
-    void sendPacket(const FrostbiteRconPacket &packet, const bool &response = false);
     void sendCommand(const QString &command);
 
-private:
-    FrostbiteCommandHandler *commandHandler;
+protected:
+    virtual void parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) = 0;
 
+private:
     int packetReadState;
     char lastHeader[MIN_PACKET_SIZE];
     QVector<FrostbiteRconPacket> packetSendQueue;
     unsigned int nextPacketSequence;
 
     void clear();
+    void sendPacket(const FrostbiteRconPacket &packet, const bool &response = false);
     void handlePacket(const FrostbiteRconPacket &packet);
 
     enum PacketReading {

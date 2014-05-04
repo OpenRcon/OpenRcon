@@ -19,14 +19,14 @@
 
 #include "FrostbiteConnection.h"
 
-FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent) : Connection(parent), commandHandler(commandHandler), packetReadState(PacketReadingHeader), nextPacketSequence(0)
+FrostbiteConnection::FrostbiteConnection(QObject *parent) : Connection(parent), packetReadState(PacketReadingHeader), nextPacketSequence(0)
 {
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
 
 FrostbiteConnection::~FrostbiteConnection()
 {
-    delete commandHandler;
+
 }
 
 void FrostbiteConnection::hostConnect(const QString &host, const int &port)
@@ -162,7 +162,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messages += " ";
                         }
 
-                        commandHandler->responseDataSentEvent(messages);
+                        responseDataSentEvent(messages);
                         qDebug() << messages;
 
                         QString messager;
@@ -173,10 +173,10 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messager += " ";
                         }
 
-                        commandHandler->responseDataReceivedEvent(messager);
+                        responseDataReceivedEvent(messager);
                         qDebug() << messager;
 
-                        commandHandler->parse(request, packet, lastSentPacket);
+                        parse(request, packet, lastSentPacket);
                     }
                 }
             }
@@ -198,12 +198,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
             message += " ";
         }
 
-        commandHandler->responseDataSentEvent(message);
-        commandHandler->parse(request, packet, FrostbiteRconPacket());
+        responseDataSentEvent(message);
+        parse(request, packet, FrostbiteRconPacket());
     }
-}
-
-FrostbiteCommandHandler* FrostbiteConnection::getCommandHandler()
-{
-    return commandHandler;
 }

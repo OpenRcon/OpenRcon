@@ -24,10 +24,10 @@ MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEnt
     ui->setupUi(this);
 
     /* Events */
-    connect(con->commandHandler, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
-    connect(con->commandHandler, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
 
-    connect(con->commandHandler, SIGNAL(onAuthenticated(const bool&)), this, SLOT(onAuthenticated(const bool&)));
+    connect(con, SIGNAL(onAuthenticated(const bool&)), this, SLOT(onAuthenticated(const bool&)));
 
     connect(ui->lineEdit_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_send_clicked()));
 }

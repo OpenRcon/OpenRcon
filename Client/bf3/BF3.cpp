@@ -70,9 +70,9 @@ BF3::BF3(ServerEntry *serverEntry) : FrostbiteGame(serverEntry)
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con->getCommandHandler(), SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
-    connect(con->getCommandHandler(), SIGNAL(onVersionCommand(const QString&, const int&)), this, SLOT(onVersionCommand(const QString&, const int&)));
+    connect(con, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(con, SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
+    connect(con, SIGNAL(onVersionCommand(const QString&, const int&)), this, SLOT(onVersionCommand(const QString&, const int&)));
 }
 
 BF3::~BF3()
@@ -84,14 +84,14 @@ BF3::~BF3()
 void BF3::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
-        sendLoginHashedCommand();
+        con->sendLoginHashedCommand();
     }
 }
 
 void BF3::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
-        sendLoginHashedCommand(salt, serverEntry->password);
+        con->sendLoginHashedCommand(salt, serverEntry->password);
     }
 }
 
@@ -114,57 +114,4 @@ void BF3::onVersionCommand(const QString &type, const int &build)
 bool BF3::isAuthenticated()
 {
     return authenticated;
-}
-
-// Misc
-void BF3::sendLoginPlainTextCommand(const QString &password)
-{
-    con->sendCommand(QString("\"login.plainText\" \"%1\"").arg(password));
-}
-
-void BF3::sendLoginHashedCommand(const QByteArray &salt, const QString &password)
-{
-    if (salt.isNull() && password == 0) {
-        con->sendCommand("login.hashed");
-    } else {
-        if (!password.isEmpty() && password.length() <= 16) {
-            QCryptographicHash hash(QCryptographicHash::Md5);
-            hash.addData(salt);
-            hash.addData(password.toLatin1().constData());
-
-            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
-        }
-    }
-}
-
-void BF3::sendServerInfoCommand()
-{
-    con->sendCommand("serverInfo");
-}
-
-void BF3::sendLogoutCommand()
-{
-    con->sendCommand("logout");
-}
-
-void BF3::sendQuitCommand()
-{
-    con->sendCommand("quit");
-}
-
-void BF3::sendVersionCommand()
-{
-    con->sendCommand("version");
-}
-
-void BF3::sendCurrentLevelCommand()
-{
-    con->sendCommand("currentLevel");
-}
-
-void BF3::sendListPlayersCommand(const PlayerSubset &playerSubset)
-{
-    if (playerSubset == All) {
-        con->sendCommand("\"listPlayers\" \"all\"");
-    }
 }

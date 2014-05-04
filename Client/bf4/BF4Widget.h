@@ -50,11 +50,13 @@ private:
     QTimer *timerPlayerList;
     QClipboard *clipboard;
     QMenu *menu_pl_players;
-    QMenu *menu_pl_players_move;
     QAction *action_pl_players_kill;
     QAction *action_pl_players_kick;
     QAction *action_pl_players_ban;
     QAction *action_pl_players_reserveSlot;
+    QMenu *menu_pl_players_move;
+    QAction *action_pl_players_move_team;
+    QAction *action_pl_players_move_squad;
     QMenu *menu_pl_players_copyTo;
     QAction *action_pl_players_copyTo_name;
     QAction *action_pl_players_copyTo_guid;

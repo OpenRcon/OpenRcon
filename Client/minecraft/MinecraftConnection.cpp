@@ -19,14 +19,14 @@
 
 #include "MinecraftConnection.h"
 
-MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent), commandHandler(new MinecraftCommandHandler(this))
+MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent)
 {
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
 
 MinecraftConnection::~MinecraftConnection()
 {
-    delete commandHandler;
+
 }
 
 /* Length 	int 	Length of remainder of packet
@@ -61,7 +61,7 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
         qDebug() << "Hex data:" << QByteArray(packet.getContent()).toHex();
 
         if (packet.getType() == MinecraftRconPacket::Command) {
-            commandHandler->onDataSentEvent(packet.getContent());
+            responseDataSentEvent(packet.getContent());
         }
     } else {
         qDebug() << tr("Payload data too long.");
@@ -112,13 +112,53 @@ void MinecraftConnection::readyRead()
 void MinecraftConnection::sendCommand(const QString &command)
 {
     if (!command.isEmpty()) {
-        MinecraftRconPacket packet = MinecraftRconPacket(commandHandler->getRequestIdFromCommand(command), MinecraftRconPacket::Command, command.toLatin1().constData());
+        MinecraftRconPacket packet = MinecraftRconPacket(getRequestIdFromCommand(command), MinecraftRconPacket::Command, command.toLatin1().constData());
         sendPacket(packet);
     }
 }
 
 void MinecraftConnection::handlePacket(MinecraftRconPacket &packet)
 {
-    commandHandler->responseDataReceivedEvent(packet.getContent());
-    commandHandler->parse(packet);
+    responseDataReceivedEvent(packet.getContent());
+    parse(packet);
 }
+
+void MinecraftConnection::parse(MinecraftRconPacket &packet)
+{
+    switch (packet.getRequestId()) {
+        case 1:
+            if (packet.getType() == MinecraftRconPacket::Login) {
+                emit (onAuthenticated(true));
+            } else {
+                emit (onAuthenticated(false));
+            }
+
+            break;
+
+        case ListCommand:
+            responseListCommand(packet);
+            break;
+
+        default:
+            responseUnknownCommand();
+    }
+}
+
+int MinecraftConnection::getRequestIdFromCommand(const QString &command)
+{
+    if (command == "list") {
+        return ListCommand;
+    } else if (command == "kill") {
+        return KillCommand;
+    }
+
+    return UnknownCommand;
+}
+
+void MinecraftConnection::responseListCommand(MinecraftRconPacket &packet)
+{
+    QStringList playerList = QString(packet.getContent()).split(" ");
+
+    emit (onListCommand(playerList));
+}
+
