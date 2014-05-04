@@ -37,7 +37,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     action_pl_players_kick = new QAction(tr("Ban"), menu_pl_players);
     action_pl_players_ban = new QAction(tr("Kill"), menu_pl_players);
     action_pl_players_reserveSlot = new QAction(tr("Reserve slot"), menu_pl_players);
-    menu_pl_players_copyTo = new QMenu(tr("Move"), menu_pl_players);
+    menu_pl_players_copyTo = new QMenu(tr("Copy"), menu_pl_players);
     action_pl_players_copyTo_name = new QAction(tr("Name"), this);
     action_pl_players_copyTo_guid = new QAction(tr("GUID"), this);
 
@@ -709,7 +709,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
             teamIds.insert(player.teamId);
         }
 
-        foreach (int teamId, teamIds) {
+        for (int teamId = 0; teamId < teamIds.size(); teamId++) {
             if (teamId > 0) { // Don't list team with id 0, as this is the neutrual team.
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
                 teamItem->setText(0, levelDictionary->getTeam(teamId - 1));

@@ -156,7 +156,7 @@ void BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
     } else if (request == "punkBuster.isActive") {
         responsePunkBusterIsActiveCommand(packet);
     } else if (request == "punkBuster.pb_sv_command") {
-        responsePunkBusterPbSvCommandCommand(packet);
+        responsePunkBusterPbSvCommand(packet);
     } else if (request == "reservedSlotsList.add") {
         responseReservedSlotsListAddCommand(packet);
     } else if (request == "reservedSlotsList.aggressiveJoin") {
@@ -831,7 +831,7 @@ void BF4CommandHandler::responsePunkBusterIsActiveCommand(const FrostbiteRconPac
     }
 }
 
-void BF4CommandHandler::responsePunkBusterPbSvCommandCommand(const FrostbiteRconPacket &packet)
+void BF4CommandHandler::responsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }

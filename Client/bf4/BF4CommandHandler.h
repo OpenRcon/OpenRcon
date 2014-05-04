@@ -104,7 +104,7 @@ private:
     void responsePlayerPingCommand(const FrostbiteRconPacket &packet);
     void responsePunkBusterActivateCommand(const FrostbiteRconPacket &packet);
     void responsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet);
-    void responsePunkBusterPbSvCommandCommand(const FrostbiteRconPacket &packet);
+    void responsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet);
     void responseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet);
     void responseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet);
     void responseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet);
