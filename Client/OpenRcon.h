@@ -31,7 +31,6 @@
 #include <QComboBox>
 #include <QMessageBox>
 #include <QPushButton>
-
 #include "ui_OpenRcon.h"
 
 #include "Constants.h"

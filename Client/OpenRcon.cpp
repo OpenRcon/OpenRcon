@@ -141,8 +141,10 @@ void OpenRcon::addTab(ServerEntry *serverEntry)
 {
     GameEntry gameEntry = gameManager->getGame(serverEntry->game);
     Game *gameObject = gameManager->getGameObject(serverEntry);
+    int index = ui->tabWidget->addTab(gameObject, gameEntry.icon, serverEntry->name);
 
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(gameObject, gameEntry.icon, QString("%1 [%2:%3]").arg(serverEntry->name, serverEntry->host).arg(serverEntry->port)));
+    ui->tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->host).arg(serverEntry->port));
+    ui->tabWidget->setCurrentIndex(index);
 }
 
 GameManager* OpenRcon::getGameManager()
