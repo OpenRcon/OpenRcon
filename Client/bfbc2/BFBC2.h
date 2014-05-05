@@ -35,8 +35,6 @@ public:
     explicit BFBC2(ServerEntry *serverEntry);
     ~BFBC2();
 
-    virtual Connection *getConnection() { return con; }
-
 private:
     bool authenticated;
 

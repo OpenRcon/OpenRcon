@@ -40,6 +40,8 @@ public:
     explicit BFBC2Widget(ServerEntry *serverEntry);
     ~BFBC2Widget();
 
+    virtual Connection* getConnection() { return con; }
+
 private:
     Ui::BFBC2 *ui;
 

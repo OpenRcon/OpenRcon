@@ -34,6 +34,8 @@ public:
     explicit BF3Widget(ServerEntry *serverEntry);
     ~BF3Widget();
 
+    virtual Connection* getConnection() { return con; }
+
 private:
     Ui::BF3 *ui;
 

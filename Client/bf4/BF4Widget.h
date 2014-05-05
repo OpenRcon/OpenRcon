@@ -37,6 +37,8 @@ public:
     explicit BF4Widget(ServerEntry *serverEntry);
     ~BF4Widget();
 
+    virtual Connection* getConnection() { return con; }
+
 private:
     Ui::BF4 *ui;
 

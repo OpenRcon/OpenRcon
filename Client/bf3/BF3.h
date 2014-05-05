@@ -23,6 +23,7 @@
 #include <QCryptographicHash>
 
 #include "FrostbiteGame.h"
+
 #include "BF3Connection.h"
 #include "BF3LevelDictionary.h"
 
@@ -33,8 +34,6 @@ class BF3 : public FrostbiteGame
 public:
     explicit BF3(ServerEntry *serverEntry);
     ~BF3();
-
-    virtual Connection *getConnection() { return con; }
 
 protected:
     BF3Connection *con;
