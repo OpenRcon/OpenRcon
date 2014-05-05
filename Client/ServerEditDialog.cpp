@@ -86,7 +86,7 @@ void ServerEditDialog::accept()
     if (password.isEmpty()) {
         int answer = QMessageBox::question(this, tr("Password not set"), tr("Are you sure you want to continue without a password? This may limit functionality."));
 
-        if (answer == QMessageBox::Yes) {
+        if (answer == QMessageBox::No) {
             return;
         }
     }
