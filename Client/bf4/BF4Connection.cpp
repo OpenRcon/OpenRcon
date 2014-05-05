@@ -1552,7 +1552,18 @@ void BF4Connection::parseMapListAddCommand(const FrostbiteRconPacket &packet)
 
 void BF4Connection::parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString value = packet.getWord(1).getContent();
+        QStringList list;
+
+        for (unsigned int i = 2; i < packet.getWordCount(); i++) {
+            list.append(packet.getWord(i).getContent());
+        }
+
+        emit (onMapListAvailableMapsCommand(value, list));
+    }
 }
 
 void BF4Connection::parseMapListClearCommand(const FrostbiteRconPacket &packet)
@@ -1567,12 +1578,26 @@ void BF4Connection::parseMapListEndRoundCommand(const FrostbiteRconPacket &packe
 
 void BF4Connection::parseMapListGetMapIndicesCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int currentMapIndex = toInt(packet.getWord(1).getContent());
+        int nextMapIndex = toInt(packet.getWord(2).getContent());
+
+        emit (onMapListGetMapIndicesCommand(currentMapIndex, nextMapIndex));
+    }
 }
 
 void BF4Connection::parseMapListGetRoundsCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int currentRound = toInt(packet.getWord(1).getContent());
+        int totalRounds = toInt(packet.getWord(2).getContent());
+
+        emit (onMapListGetRoundsCommand(currentRound, totalRounds));
+    }
 }
 
 void BF4Connection::parseMapListListCommand(const FrostbiteRconPacket &packet)
@@ -1644,17 +1669,36 @@ void BF4Connection::parseMapListSetNextMapIndexCommand(const FrostbiteRconPacket
 
 void BF4Connection::parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() == 2) {
+        float idleDuration = toFloat(packet.getWord(1).getContent());
+
+        emit (onPlayerIdleDurationCommand(idleDuration));
+    }
 }
 
 void BF4Connection::parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() == 2) {
+        bool alive = toBool(packet.getWord(1).getContent());
+
+        emit (onPlayerIsAliveCommand(alive));
+    }
 }
 
 void BF4Connection::parsePlayerPingCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() == 3) {
+        QString player = packet.getWord(1).getContent();
+        int ping = toInt(packet.getWord(2).getContent());
+
+        emit (onPlayerPingCommand(player, ping));
+    }
 }
 
 void BF4Connection::parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet)
@@ -1666,7 +1710,7 @@ void BF4Connection::parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &pa
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() == 2) {
         bool isActive = toBool(packet.getWord(1).getContent());
 
         emit (onPunkBusterIsActiveCommand(isActive));
@@ -1687,7 +1731,7 @@ void BF4Connection::parseReservedSlotsListAggressiveJoinCommand(const FrostbiteR
 {
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() == 2) {
         bool enabled = toBool(packet.getWord(1).getContent());
 
         emit (onReservedSlotsListAggressiveJoinCommand(enabled));

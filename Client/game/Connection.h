@@ -46,6 +46,7 @@ protected:
     void responseUnknownCommand();
 
     int toInt(const QString &value);
+    float toFloat(const QString &value);
 
 private slots:
     void connected();

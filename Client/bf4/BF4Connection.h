@@ -378,11 +378,11 @@ signals:
     void onFairFightDeactivateCommand();
     void onFairFightIsActiveCommand(const bool &isActive);
     void onMapListAddCommand();
-    void onMapListAvailableMapsCommand();
+    void onMapListAvailableMapsCommand(const QString &value, const QStringList &list);
     void onMapListClearCommand();
     void onMapListEndRoundCommand();
-    void onMapListGetMapIndicesCommand();
-    void onMapListGetRoundsCommand();
+    void onMapListGetMapIndicesCommand(int &currentMapIndex, int &nextMapIndex);
+    void onMapListGetRoundsCommand(int &currentRound, int &totalRounds);
     void onMapListListCommand(const MapList &mapList);
     void onMapListLoadCommand();
     void onMapListRemoveCommand();
@@ -390,9 +390,9 @@ signals:
     void onMapListRunNextRoundCommand();
     void onMapListSaveCommand();
     void onMapListSetNextMapIndexCommand();
-    void onPlayerIdleDurationCommand();
-    void onPlayerIsAliveCommand();
-    void onPlayerPingCommand();
+    void onPlayerIdleDurationCommand(float &idleDuration);
+    void onPlayerIsAliveCommand(bool &alive);
+    void onPlayerPingCommand(const QString &player, int &ping);
     void onPunkBusterActivateCommand();
     void onPunkBusterIsActiveCommand(const bool &isActive);
     void onPunkBusterPbSvCommand();
