@@ -32,197 +32,194 @@ BF3Connection::~BF3Connection()
 void BF3Connection::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     // Parse events.
-    if (request == "") {
-
-    }
 
     // Parse commands.
     if (request == "login.plainText") {
-        responseLoginPlainTextCommand(packet);
+        parseLoginPlainTextCommand(packet);
     } else if (request == "login.hashed") {
-        responseLoginHashedCommand(packet, lastSentPacket);
+        parseLoginHashedCommand(packet, lastSentPacket);
     } else if (request == "serverinfo") {
-        responseServerInfoCommand(packet);
+        parseServerInfoCommand(packet);
     } else if (request == "admin.help") {
-        responseAdminHelpCommand(packet);
+        parseAdminHelpCommand(packet);
     } else if (request == "logout") {
-        responseLogoutCommand(packet);
+        parseLogoutCommand(packet);
     } else if (request == "quit") {
-        responseQuitCommand(packet);
+        parseQuitCommand(packet);
     } else if (request == "version") {
-        responseVersionCommand(packet);
+        parseVersionCommand(packet);
     } else if (request == "listPlayers") {
-        responseListPlayersCommand(packet);
+        parseListPlayersCommand(packet);
     } else if (request == "admin.eventsEnabled") {
-        responseAdminEventsEnabledCommand(packet);
+        parseAdminEventsEnabledCommand(packet);
     } else if (request == "admin.password") {
-        responseAdminPasswordCommand(packet);
+        parseAdminPasswordCommand(packet);
     } else if (request == "admin.effectiveMaxPlayers") {
-        responseAdminEffectiveMaxPlayersCommand(packet);
+        parseAdminEffectiveMaxPlayersCommand(packet);
     } else if (request == "admin.say") {
-        responseAdminSayCommand(packet);
+        parseAdminSayCommand(packet);
     } else if (request == "admin.yell") {
-        responseAdminYellCommand(packet);
+        parseAdminYellCommand(packet);
     } else if (request == "admin.kickPlayer") {
-        responseAdminKickPlayerCommand(packet);
+        parseAdminKickPlayerCommand(packet);
     } else if (request == "admin.listPlayers") {
-        responseAdminListPlayersCommand(packet, lastSentPacket);
+        parseAdminListPlayersCommand(packet, lastSentPacket);
     } else if (request == "admin.movePlayer") {
-        responseAdminMovePlayerCommand(packet);
+        parseAdminMovePlayerCommand(packet);
     } else if (request == "admin.killPlayer") {
-        responseAdminKillPlayerCommand(packet);
+        parseAdminKillPlayerCommand(packet);
     } else if (request == "player.idleDuration") {
-        responsePlayerIdleDurationCommand(packet);
+        parsePlayerIdleDurationCommand(packet);
     } else if (request == "player.isAlive") {
-        responsePlayerIsAliveCommand(packet);
+        parsePlayerIsAliveCommand(packet);
     } else if (request == "player.ping") {
-        responsePlayerPingCommand(packet);
+        parsePlayerPingCommand(packet);
     } else if (request == "squad.listActive") {
-        responseSquadListActiveCommand(packet);
+        parseSquadListActiveCommand(packet);
     } else if (request == "squad.listPlayers") {
-        responseSquadListPlayersCommand(packet);
+        parseSquadListPlayersCommand(packet);
     } else if (request == "squad.private") {
-        responseSquadPrivateCommand(packet);
+        parseSquadPrivateCommand(packet);
     } else if (request == "squad.leader") {
-        responseSquadLeaderCommand(packet);
+        parseSquadLeaderCommand(packet);
     } else if (request == "punkBuster.isActive") {
-        responsePunkBusterIsActiveCommand(packet);
+        parsePunkBusterIsActiveCommand(packet);
     } else if (request == "punkBuster.activate") {
-        responsePunkBusterActivateCommand(packet);
+        parsePunkBusterActivateCommand(packet);
     } else if (request == "punkBuster.pb_sv_command") {
-        responsePunkBusterPbSvCommandCommand(packet);
+        parsePunkBusterPbSvCommandCommand(packet);
     } else if (request == "banList.load") {
-        responseBanListLoadCommand(packet);
+        parseBanListLoadCommand(packet);
     } else if (request == "banList.save") {
-        responseBanListSaveCommand(packet);
+        parseBanListSaveCommand(packet);
     } else if (request == "banList.add") {
-        responseBanListAddCommand(packet);
+        parseBanListAddCommand(packet);
     } else if (request == "banList.remove") {
-        responseBanListRemoveCommand(packet);
+        parseBanListRemoveCommand(packet);
     } else if (request == "banList.clear") {
-        responseBanListClearCommand(packet);
+        parseBanListClearCommand(packet);
     } else if (request == "banList.list") {
-        responseBanListListCommand(packet);
+        parseBanListListCommand(packet);
     } else if (request == "reservedSlotsList.load") {
-        responseReservedSlotsListLoadCommand(packet);
+        parseReservedSlotsListLoadCommand(packet);
     } else if (request == "reservedSlotsList.save") {
-        responseReservedSlotsListSaveCommand(packet);
+        parseReservedSlotsListSaveCommand(packet);
     } else if (request == "reservedSlotsList.add") {
-        responseReservedSlotsListAddCommand(packet);
+        parseReservedSlotsListAddCommand(packet);
     } else if (request == "reservedSlotsList.remove") {
-        responseReservedSlotsListRemoveCommand(packet);
+        parseReservedSlotsListRemoveCommand(packet);
     } else if (request == "reservedSlotsList.clear") {
-        responseReservedSlotsListClearCommand(packet);
+        parseReservedSlotsListClearCommand(packet);
     } else if (request == "reservedSlotsList.list") {
-        responseReservedSlotsListListCommand(packet);
+        parseReservedSlotsListListCommand(packet);
     } else if (request == "reservedSlotsList.aggressiveJoin") {
-        responseReservedSlotsListAggressiveJoinCommand(packet);
+        parseReservedSlotsListAggressiveJoinCommand(packet);
     } else if (request == "mapList.load") {
-        responseMapListLoadCommand(packet);
+        parseMapListLoadCommand(packet);
     } else if (request == "mapList.save") {
-        responseMapListSaveCommand(packet);
+        parseMapListSaveCommand(packet);
     } else if (request == "mapList.add") {
-        responseMapListAddCommand(packet);
+        parseMapListAddCommand(packet);
     } else if (request == "mapList.remove") {
-        responseMapListRemoveCommand(packet);
+        parseMapListRemoveCommand(packet);
     } else if (request == "mapList.clear") {
-        responseMapListClearCommand(packet);
+        parseMapListClearCommand(packet);
     } else if (request == "mapList.list") {
-        responseMapListListCommand(packet);
+        parseMapListListCommand(packet);
     } else if (request == "mapList.setNextMapIndex") {
-        responseMapListSetNextMapIndexCommand(packet);
+        parseMapListSetNextMapIndexCommand(packet);
     } else if (request == "mapList.getMapIndices") {
-        responseMapListGetMapIndicesCommand(packet);
+        parseMapListGetMapIndicesCommand(packet);
     } else if (request == "mapList.getRounds") {
-        responseMapListGetRoundsCommand(packet);
+        parseMapListGetRoundsCommand(packet);
     } else if (request == "mapList.endRound") {
-        responseMapListEndRoundCommand(packet);
+        parseMapListEndRoundCommand(packet);
     } else if (request == "mapList.runNextRound") {
-        responseMapListRunNextRoundCommand(packet);
+        parseMapListRunNextRoundCommand(packet);
     } else if (request == "mapList.restartRound") {
-        responseMapListRestartRoundCommand(packet);
+        parseMapListRestartRoundCommand(packet);
     } else if (request == "mapList.availableMaps") {
-        responseMapListAvailableMapsCommand(packet);
+        parseMapListAvailableMapsCommand(packet);
     } else if (request == "vars.ranked") {
-        responseVarsRankedCommand(packet);
+        parseVarsRankedCommand(packet);
     } else if (request == "vars.serverName") {
-        responseVarsServerNameCommand(packet);
+        parseVarsServerNameCommand(packet);
     } else if (request == "vars.gamePassword") {
-        responseVarsGamePasswordCommand(packet);
+        parseVarsGamePasswordCommand(packet);
     } else if (request == "vars.autoBalance") {
-        responseVarsAutoBalanceCommand(packet);
+        parseVarsAutoBalanceCommand(packet);
     } else if (request == "vars.roundStartPlayerCount") {
-        responseVarsRoundStartPlayerCountCommand(packet);
+        parseVarsRoundStartPlayerCountCommand(packet);
     } else if (request == "vars.roundRestartPlayerCount") {
-        responseVarsRoundRestartPlayerCountCommand(packet);
+        parseVarsRoundRestartPlayerCountCommand(packet);
     } else if (request == "vars.roundLockdownCountdown") {
-        responseVarsRoundLockdownCountdownCommand(packet);
+        parseVarsRoundLockdownCountdownCommand(packet);
     } else if (request == "vars.serverMessage") {
-        responseVarsServerMessageCommand(packet);
+        parseVarsServerMessageCommand(packet);
     } else if (request == "vars.friendlyFire") {
-        responseVarsFriendlyFireCommand(packet);
+        parseVarsFriendlyFireCommand(packet);
     } else if (request == "vars.maxPlayers") {
-        responseVarsMaxPlayersCommand(packet);
+        parseVarsMaxPlayersCommand(packet);
     } else if (request == "vars.serverDescription") {
-        responseVarsServerDescriptionCommand(packet);
+        parseVarsServerDescriptionCommand(packet);
     } else if (request == "vars.killCam") {
-        responseVarsKillCamCommand(packet);
+        parseVarsKillCamCommand(packet);
     } else if (request == "vars.miniMap") {
-        responseVarsMiniMapCommand(packet);
+        parseVarsMiniMapCommand(packet);
     } else if (request == "vars.hud") {
-        responseVarsHudCommand(packet);
+        parseVarsHudCommand(packet);
     } else if (request == "vars.crossHair") {
-        responseVarsCrossHairCommand(packet);
+        parseVarsCrossHairCommand(packet);
     } else if (request == "vars.3dSpotting") {
-        responsevars3dSpottingCommand(packet);
+        parsevars3dSpottingCommand(packet);
     } else if (request == "vars.miniMapSpotting") {
-        responseVarsMiniMapSpottingCommand(packet);
+        parseVarsMiniMapSpottingCommand(packet);
     } else if (request == "vars.nameTag") {
-        responseVarsNameTagCommand(packet);
+        parseVarsNameTagCommand(packet);
     } else if (request == "vars.3pCam") {
-        responseVars3pCamCommand(packet);
+        parseVars3pCamCommand(packet);
     } else if (request == "vars.regenerateHealth") {
-        responseVarsRegenerateHealthCommand(packet);
+        parseVarsRegenerateHealthCommand(packet);
     } else if (request == "vars.teamKillCountForKick") {
-        responseVarsTeamKillCountForKickCommand(packet);
+        parseVarsTeamKillCountForKickCommand(packet);
     } else if (request == "vars.teamKillValueForKick") {
-        responseVarsTeamKillValueForKickCommand(packet);
+        parseVarsTeamKillValueForKickCommand(packet);
     } else if (request == "vars.teamKillValueIncrease") {
-        responseVarsTeamKillValueIncreaseCommand(packet);
+        parseVarsTeamKillValueIncreaseCommand(packet);
     } else if (request == "vars.teamKillValueDecreasePerSecond") {
-        responseVarsTeamKillValueDecreasePerSecondCommand(packet);
+        parseVarsTeamKillValueDecreasePerSecondCommand(packet);
     } else if (request == "vars.teamKillKickForBan") {
-        responseVarsTeamKillKickForBanCommand(packet);
+        parseVarsTeamKillKickForBanCommand(packet);
     } else if (request == "vars.idleTimeout") {
-        responseVarsIdleTimeoutCommand(packet);
+        parseVarsIdleTimeoutCommand(packet);
     } else if (request == "vars.idleBanRounds") {
-        responseVarsIdleBanRoundsCommand(packet);
+        parseVarsIdleBanRoundsCommand(packet);
     } else if (request == "vars.vehicleSpawnAllowed") {
-        responseVarsVehicleSpawnAllowedCommand(packet);
+        parseVarsVehicleSpawnAllowedCommand(packet);
     } else if (request == "vars.vehicleSpawnDelay") {
-        responseVarsVehicleSpawnDelayCommand(packet);
+        parseVarsVehicleSpawnDelayCommand(packet);
     } else if (request == "vars.soldierHealth") {
-        responseVarsSoldierHealthCommand(packet);
+        parseVarsSoldierHealthCommand(packet);
     } else if (request == "vars.playerRespawnTime") {
-        responseVarsPlayerRespawnTimeCommand(packet);
+        parseVarsPlayerRespawnTimeCommand(packet);
     } else if (request == "vars.playerManDownTime") {
-        responseVarsPlayerManDownTimeCommand(packet);
+        parseVarsPlayerManDownTimeCommand(packet);
     } else if (request == "vars.bulletDamage") {
-        responseVarsBulletDamageCommand(packet);
+        parseVarsBulletDamageCommand(packet);
     } else if (request == "vars.gameModeCounter") {
-        responseVarsGameModeCounterCommand(packet);
+        parseVarsGameModeCounterCommand(packet);
     } else if (request == "vars.onlySquadLeaderSpawn") {
-        responseVarsOnlySquadLeaderSpawnCommand(packet);
+        parseVarsOnlySquadLeaderSpawnCommand(packet);
     } else if (request == "vars.unlockMode") {
-        responseVarsUnlockModeCommand(packet);
+        parseVarsUnlockModeCommand(packet);
     } else if (request == "vars.premiumStatus") {
-        responseVarsPremiumStatusCommand(packet);
+        parseVarsPremiumStatusCommand(packet);
     } else if (request == "vars.bannerUrl") {
-        responseVarsBannerUrlCommand(packet);
+        parseVarsBannerUrlCommand(packet);
     } else if (request == "vars.roundsPerMap") {
-        responseVarsRoundsPerMapCommand(packet);
+        parseVarsRoundsPerMapCommand(packet);
     } else if (request == "vars.gunMasterWeaponsPreset") {
-        responseVarsGunMasterWeaponsPresetCommand(packet);
+        parseVarsGunMasterWeaponsPresetCommand(packet);
     }
 }
 
@@ -286,12 +283,12 @@ void BF3Connection::sendListPlayersCommand(const PlayerSubset &playerSubset)
 // Events
 
 // Commands
-void BF3Connection::responseLoginPlainTextCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseLoginPlainTextCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF3Connection::parseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -310,27 +307,27 @@ void BF3Connection::responseLoginHashedCommand(const FrostbiteRconPacket &packet
     }
 }
 
-void BF3Connection::responseServerInfoCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseServerInfoCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseAdminHelpCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseAdminHelpCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseLogoutCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseLogoutCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseQuitCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseQuitCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVersionCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVersionCommand(const FrostbiteRconPacket &packet)
 {
     QString response = packet.getWord(0).getContent();
 
@@ -342,433 +339,433 @@ void BF3Connection::responseVersionCommand(const FrostbiteRconPacket &packet)
     }
 }
 
-void BF3Connection::responseListPlayersCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseListPlayersCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseAdminPasswordCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseAdminPasswordCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseAdminSayCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseAdminSayCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseAdminYellCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseAdminYellCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseAdminKickPlayerCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF3Connection::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(packet);
     Q_UNUSED(lastSentPacket)
 }
 
-void BF3Connection::responseAdminMovePlayerCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseAdminKillPlayerCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseAdminKillPlayerCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responsePlayerIsAliveCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responsePlayerPingCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parsePlayerPingCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseSquadListActiveCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseSquadListActiveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseSquadListPlayersCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseSquadListPlayersCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseSquadPrivateCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseSquadPrivateCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseSquadLeaderCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseSquadLeaderCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responsePunkBusterActivateCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responsePunkBusterPbSvCommandCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parsePunkBusterPbSvCommandCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseBanListLoadCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseBanListLoadCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseBanListSaveCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseBanListSaveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseBanListAddCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseBanListAddCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseBanListRemoveCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseBanListRemoveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseBanListClearCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseBanListClearCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseBanListListCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseBanListListCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseReservedSlotsListListCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListLoadCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListLoadCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListSaveCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListSaveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListAddCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListAddCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListRemoveCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListRemoveCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListClearCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListClearCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListListCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListListCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListGetMapIndicesCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListGetMapIndicesCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListGetRoundsCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListGetRoundsCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListEndRoundCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListEndRoundCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListRunNextRoundCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListRunNextRoundCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListRestartRoundCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListRestartRoundCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsRankedCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsRankedCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsServerNameCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsServerNameCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsGamePasswordCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsGamePasswordCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsServerMessageCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsServerMessageCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsMaxPlayersCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsMaxPlayersCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsServerDescriptionCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsServerDescriptionCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsKillCamCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsKillCamCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsMiniMapCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsMiniMapCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsHudCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsHudCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsCrossHairCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsCrossHairCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responsevars3dSpottingCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parsevars3dSpottingCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsMiniMapSpottingCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsMiniMapSpottingCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsNameTagCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsNameTagCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVars3pCamCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVars3pCamCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsRegenerateHealthCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsRegenerateHealthCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsTeamKillCountForKickCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsTeamKillCountForKickCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsTeamKillValueDecreasePerSecondCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsTeamKillValueDecreasePerSecondCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsTeamKillKickForBanCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsTeamKillKickForBanCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsIdleBanRoundsCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsIdleBanRoundsCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsVehicleSpawnAllowedCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsVehicleSpawnAllowedCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsSoldierHealthCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsSoldierHealthCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsPlayerRespawnTimeCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsPlayerRespawnTimeCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsPlayerManDownTimeCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsPlayerManDownTimeCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsBulletDamageCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsBulletDamageCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsOnlySquadLeaderSpawnCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsOnlySquadLeaderSpawnCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsUnlockModeCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsUnlockModeCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsPremiumStatusCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsPremiumStatusCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsBannerUrlCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsBannerUrlCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsRoundsPerMapCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsRoundsPerMapCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }
 
-void BF3Connection::responseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet)
+void BF3Connection::parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet)
 {
     Q_UNUSED(packet);
 }

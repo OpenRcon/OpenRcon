@@ -10,7 +10,7 @@ OpenRcon:
         - Debug and fix the "wrong word size" sigsegv error. - FIXED.
         - Check that the game matches the server on connect, if not close connection.
         - Rewrite the FrostbiteCommandHandler to parse responses, and add functions for sending commands.
-          The question is: How to do this without causing SIGSEGV, because FrostbiteCommandHandler needs to hold derived FrostbiteConnection and FrostBiteCommandHandler objects.
+          The question is: How to do this without causing SIGSEGV, because FrostbiteCommandHandler needs to hold derived FrostbiteConnection and FrostBiteCommandHandler objects. - DONE.
         - Implement check that packets never is bigger than 16384 bytes. - DONE.
         - Check if Frostbite2 and Frostbite differs on the onlineState value of the response for the ServerInfo command.
 
@@ -25,7 +25,7 @@ OpenRcon:
     BF4:
         - Fix malfunction when removing multiplue maps from the current list.
         - Implement move menu in treeWidget_players_playerList with teams and squads.
-        - Implement dictionary for lookup team name by current level, gamemode and the team id.
+        - Implement dictionary for lookup team name by current level, gamemode and the team id. - DONE.
         - Hide spectatorslots tab when vars.alwaysAllowSpectators is false. Show when set to true in options. - DONE.
 
     Minecraft:
