@@ -97,13 +97,16 @@ unsigned int FrostbiteRconPacket::getWordCount() const
 
 const FrostbiteRconWord& FrostbiteRconPacket::getWord(const unsigned int &index) const
 {
+    static FrostbiteRconWord emptyWord("");
+
+    // TODO: Use Q_ASSERT here?
     if (index < packetWordCount) {
         return packetWords[index];
     } else {
         qDebug() << tr("Wrong word index %1.").arg(index);
     }
 
-    return FrostbiteRconWord("");
+    return emptyWord;
 }
 
 void FrostbiteRconPacket::setSequence(const int &sequence)
