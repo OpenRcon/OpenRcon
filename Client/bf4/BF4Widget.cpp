@@ -170,12 +170,12 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(action_pl_players_copyTo_guid, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_guid_triggered()));
 
     // Update playerlist on following events.
-    connect(con, SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(updatePlayers()));
-    connect(con, SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(updatePlayers()));
-    connect(con, SIGNAL(onPlayerSpawnEvent(const QString&, const int&)), this, SLOT(updatePlayers()));
-    connect(con, SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, const bool&)), this, SLOT(updatePlayers()));
-    connect(con, SIGNAL(onPlayerSquadChangeEvent(const QString&, const int&, const int&)), this, SLOT(updatePlayers()));
-    connect(con, SIGNAL(onPlayerTeamChangeEvent(const QString&, const int&, const int&)), this, SLOT(updatePlayers()));
+    connect(con, SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(updatePlayerList()));
+    connect(con, SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(updatePlayerList()));
+    connect(con, SIGNAL(onPlayerSpawnEvent(const QString&, const int&)), this, SLOT(updatePlayerList()));
+    connect(con, SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, const bool&)), this, SLOT(updatePlayerList()));
+    connect(con, SIGNAL(onPlayerSquadChangeEvent(const QString&, const int&, const int&)), this, SLOT(updatePlayerList()));
+    connect(con, SIGNAL(onPlayerTeamChangeEvent(const QString&, const int&, const int&)), this, SLOT(updatePlayerList()));
 
     // Events
 
