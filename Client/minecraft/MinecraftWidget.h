@@ -30,7 +30,7 @@ class MinecraftWidget : public Minecraft
     Q_OBJECT
 
 public:
-    explicit MinecraftWidget(ServerEntry *serverEntry);
+    MinecraftWidget(ServerEntry *serverEntry);
     ~MinecraftWidget();
 
     void logMessage(const int &type, const QString &message);

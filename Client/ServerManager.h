@@ -33,7 +33,7 @@ class ServerManager : public QObject
     Q_OBJECT
 
 public:
-    explicit ServerManager(QObject *parent);
+    ServerManager(QObject *parent);
     ~ServerManager();
 
     ServerEntry* getServer(const int &index);

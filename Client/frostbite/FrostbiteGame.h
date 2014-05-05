@@ -28,7 +28,7 @@ class FrostbiteGame : public Game
 {
 
 public:
-    explicit FrostbiteGame(ServerEntry *serverEntry);
+    FrostbiteGame(ServerEntry *serverEntry);
     ~FrostbiteGame();
 
 protected:

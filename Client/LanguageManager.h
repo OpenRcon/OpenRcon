@@ -30,7 +30,7 @@ class LanguageManager : public QObject
     Q_OBJECT
 
 public:
-    explicit LanguageManager(QObject *parent = 0);
+    LanguageManager(QObject *parent = 0);
     ~LanguageManager();
 
     LanguageEntry getLanguage(const int &index);

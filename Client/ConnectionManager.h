@@ -27,7 +27,7 @@ class ConnectionManager : public QObject
     Q_OBJECT
 
 public:
-    explicit ConnectionManager(QObject *parent = 0);
+    ConnectionManager(QObject *parent = 0);
     ~ConnectionManager();
 
 };

@@ -55,7 +55,7 @@ class OpenRcon : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit OpenRcon(QWidget *parent = 0);
+    OpenRcon(QWidget *parent = 0);
     ~OpenRcon();
 
     static OpenRcon* getInstance(QWidget *parent = 0) {

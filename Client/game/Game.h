@@ -27,7 +27,7 @@ class Game : public ConnectionTabWidget
 {
 
 public:
-    explicit Game(ServerEntry *serverEntry);
+    Game(ServerEntry *serverEntry);
     ~Game();
 
 protected:

@@ -28,7 +28,7 @@ class Minecraft : public Game
     Q_OBJECT
 
 public:
-    explicit Minecraft(ServerEntry *serverEntry);
+    Minecraft(ServerEntry *serverEntry);
     ~Minecraft();
 
     virtual Connection *getConnection() { return con; }

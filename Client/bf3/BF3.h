@@ -32,7 +32,7 @@ class BF3 : public FrostbiteGame
     Q_OBJECT
 
 public:
-    explicit BF3(ServerEntry *serverEntry);
+    BF3(ServerEntry *serverEntry);
     ~BF3();
 
 protected:

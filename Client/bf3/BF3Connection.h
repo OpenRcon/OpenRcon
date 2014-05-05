@@ -31,7 +31,7 @@ class BF3Connection : public FrostbiteConnection
     Q_OBJECT
 
 public:
-    explicit BF3Connection(QObject *parent = 0);
+    BF3Connection(QObject *parent = 0);
     ~BF3Connection();
 
     /* Send */

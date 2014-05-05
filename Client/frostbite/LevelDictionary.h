@@ -30,8 +30,8 @@ class LevelDictionary : public QObject
     Q_OBJECT
 
 public:
-    explicit LevelDictionary(QObject *parent = 0);
-    explicit LevelDictionary(const QString &imagePath, QObject *parent = 0);
+    LevelDictionary(QObject *parent = 0);
+    LevelDictionary(const QString &imagePath, QObject *parent = 0);
     ~LevelDictionary();
 
     LevelEntry getLevel(const int &index);

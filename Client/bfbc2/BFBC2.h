@@ -32,7 +32,7 @@ class BFBC2 : public FrostbiteGame
     Q_OBJECT
 
 public:
-    explicit BFBC2(ServerEntry *serverEntry);
+    BFBC2(ServerEntry *serverEntry);
     ~BFBC2();
 
 private:

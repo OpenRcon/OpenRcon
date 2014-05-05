@@ -40,7 +40,7 @@ class ServerListDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ServerListDialog(QWidget *parent = 0);
+    ServerListDialog(QWidget *parent = 0);
     ~ServerListDialog();
 
 private:
@@ -49,7 +49,10 @@ private:
     GameManager *gameManager;
     ServerManager *serverManager;
 
-    QMenu *menu_sld_serverEntry;
+    QMenu *menu_serverEntry;
+    QAction *action_serverEntry_edit;
+    QAction *action_serverEntry_remove;
+
     QList<ServerEntry *> serverEntries;
 
     void createTreeData();

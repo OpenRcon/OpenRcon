@@ -37,7 +37,7 @@ class BFBC2Widget : public BFBC2
     Q_OBJECT
 
 public:
-    explicit BFBC2Widget(ServerEntry *serverEntry);
+    BFBC2Widget(ServerEntry *serverEntry);
     ~BFBC2Widget();
 
     virtual Connection* getConnection() { return con; }

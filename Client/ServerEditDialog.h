@@ -34,8 +34,8 @@ class ServerEditDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ServerEditDialog(QWidget *parent = 0);
-    explicit ServerEditDialog(const int &game, const QString &name, const QString &host, const int &port, const QString &password, QWidget *parent = 0);
+    ServerEditDialog(QWidget *parent = 0);
+    ServerEditDialog(const int &game, const QString &name, const QString &host, const int &port, const QString &password, QWidget *parent = 0);
     ~ServerEditDialog();
 
     int getGame();

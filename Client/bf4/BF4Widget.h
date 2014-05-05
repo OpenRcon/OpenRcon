@@ -34,7 +34,7 @@ class BF4Widget : public BF4
     Q_OBJECT
 
 public:
-    explicit BF4Widget(ServerEntry *serverEntry);
+    BF4Widget(ServerEntry *serverEntry);
     ~BF4Widget();
 
     virtual Connection* getConnection() { return con; }

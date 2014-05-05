@@ -33,7 +33,7 @@ class GameManager : public QObject
     Q_OBJECT
 
 public:
-    explicit GameManager(QObject *parent = 0);
+    GameManager(QObject *parent = 0);
     ~GameManager();
 
     GameEntry getGame(const int &index);

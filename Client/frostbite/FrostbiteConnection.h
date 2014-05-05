@@ -33,7 +33,7 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    explicit FrostbiteConnection(QObject *parent = 0);
+    FrostbiteConnection(QObject *parent = 0);
     ~FrostbiteConnection();
 
     void hostConnect(const QString &host, const int &port);

@@ -30,7 +30,10 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     setWindowIcon(QIcon(APP_ICON));
 
     // Add a menu for the ServerItems
-    menu_sld_serverEntry = new QMenu(ui->treeWidget);
+    menu_serverEntry = new QMenu(ui->treeWidget);
+    action_serverEntry_edit = QAction(tr("Edit"), menu_serverEntry);
+    action_serverEntry_remove = QAction(tr("Remove"), menu_serverEntry);
+
     menu_sld_serverEntry->addAction(ui->actionEdit);
     menu_sld_serverEntry->addAction(ui->actionRemove);
 
@@ -42,8 +45,8 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     connect(ui->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
     connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(accept()));
 
-    connect(ui->actionEdit, SIGNAL(triggered()), this, SLOT(editItem()));
-    connect(ui->actionRemove, SIGNAL(triggered()), this, SLOT(removeItem()));
+    connect(actionEdit, SIGNAL(triggered()), this, SLOT(editItem()));
+    connect(actionRemove, SIGNAL(triggered()), this, SLOT(removeItem()));
     connect(ui->pushButton_sld_add, SIGNAL(clicked()), this, SLOT(addItem()));
     connect(ui->pushButton_sld_connect, SIGNAL(clicked()), this, SLOT(accept()));
     connect(ui->pushButton_sld_cancel, SIGNAL(clicked()), this, SLOT(reject()));

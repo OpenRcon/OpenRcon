@@ -33,7 +33,7 @@ class DragDropListWidget : public QListWidget
     Q_OBJECT
 
 public:
-    explicit DragDropListWidget(QWidget *parent = 0);
+    DragDropListWidget(QWidget *parent = 0);
     ~DragDropListWidget();
 
 protected:

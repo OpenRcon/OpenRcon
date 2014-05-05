@@ -28,9 +28,9 @@ class FrostbiteRconWord : public QObject
     Q_OBJECT
 
 public:
-    explicit FrostbiteRconWord(QObject *parent = 0);
-    explicit FrostbiteRconWord(const char *str, QObject *parent = 0);
-    explicit FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent = 0);
+    FrostbiteRconWord(QObject *parent = 0);
+    FrostbiteRconWord(const char *str, QObject *parent = 0);
+    FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent = 0);
     FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
     ~FrostbiteRconWord();
 
