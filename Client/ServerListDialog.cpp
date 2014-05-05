@@ -31,11 +31,11 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 
     // Add a menu for the ServerItems
     menu_serverEntry = new QMenu(ui->treeWidget);
-    action_serverEntry_edit = QAction(tr("Edit"), menu_serverEntry);
-    action_serverEntry_remove = QAction(tr("Remove"), menu_serverEntry);
+    action_serverEntry_edit = new QAction(tr("Edit"), menu_serverEntry);
+    action_serverEntry_remove = new QAction(tr("Remove"), menu_serverEntry);
 
-    menu_sld_serverEntry->addAction(ui->actionEdit);
-    menu_sld_serverEntry->addAction(ui->actionRemove);
+    menu_serverEntry->addAction(action_serverEntry_edit);
+    menu_serverEntry->addAction(action_serverEntry_remove);
 
     ui->pushButton_sld_connect->setEnabled(false);
 
@@ -45,8 +45,8 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     connect(ui->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
     connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(accept()));
 
-    connect(actionEdit, SIGNAL(triggered()), this, SLOT(editItem()));
-    connect(actionRemove, SIGNAL(triggered()), this, SLOT(removeItem()));
+    connect(action_serverEntry_edit, SIGNAL(triggered()), this, SLOT(editItem()));
+    connect(action_serverEntry_remove, SIGNAL(triggered()), this, SLOT(removeItem()));
     connect(ui->pushButton_sld_add, SIGNAL(clicked()), this, SLOT(addItem()));
     connect(ui->pushButton_sld_connect, SIGNAL(clicked()), this, SLOT(accept()));
     connect(ui->pushButton_sld_cancel, SIGNAL(clicked()), this, SLOT(reject()));
@@ -62,7 +62,7 @@ ServerListDialog::~ServerListDialog()
 void ServerListDialog::treeWidget_customContextMenuRequested(QPoint pos)
 {
     if (ui->treeWidget->itemAt(pos) && ui->treeWidget->currentItem()->parent()) {
-        menu_sld_serverEntry->exec(QCursor::pos());
+        menu_serverEntry->exec(QCursor::pos());
     }
 }
 

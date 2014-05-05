@@ -84,16 +84,6 @@
     </layout>
    </item>
   </layout>
-  <action name="actionEdit">
-   <property name="text">
-    <string>Edit</string>
-   </property>
-  </action>
-  <action name="actionRemove">
-   <property name="text">
-    <string>Remove</string>
-   </property>
-  </action>
  </widget>
  <tabstops>
   <tabstop>pushButton_sld_connect</tabstop>
