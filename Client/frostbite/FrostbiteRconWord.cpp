@@ -52,8 +52,6 @@ FrostbiteRconWord::FrostbiteRconWord(const FrostbiteRconWord &word, QObject *par
 FrostbiteRconWord::~FrostbiteRconWord()
 {
     clear();
-
-    delete[] wordContent;
 }
 
 FrostbiteRconWord &FrostbiteRconWord::operator = (const FrostbiteRconWord &word)
@@ -109,8 +107,8 @@ void FrostbiteRconWord::loadData(const char* data, const unsigned int &size)
 void FrostbiteRconWord::clear()
 {
     if (wordContent) {
+        delete[] wordContent;
         wordContent = 0;
-        delete[] wordContent; // TODO: This causes SIGABRT on Linux x64.
     }
 
     wordSize = 0;
