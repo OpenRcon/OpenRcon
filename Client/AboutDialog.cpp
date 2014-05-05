@@ -21,8 +21,6 @@
 
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDialog)
 {
-    Q_UNUSED(parent);
-
     ui->setupUi(this);
 
     // Sets application title and icon

@@ -21,8 +21,6 @@
 
 OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::OptionsDialog)
 {
-    Q_UNUSED(parent);
-
     ui->setupUi(this);
 
     settings = new QSettings(APP_NAME, APP_NAME, this);

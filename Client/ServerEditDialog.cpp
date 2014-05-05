@@ -21,8 +21,6 @@
 
 ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui::ServerEditDialog)
 {
-    Q_UNUSED(parent);
-
     ui->setupUi(this);
 
     // Sets application icon
