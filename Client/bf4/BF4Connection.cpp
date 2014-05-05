@@ -240,11 +240,11 @@ void BF4Connection::parse(const QString &request, const FrostbiteRconPacket &pac
     } else if (request == "vars.regenerateHealth") {
         parseVarsRegenerateHealthCommand(packet);
     } else if (request == "vars.roundLockdownCountdown") {
-        parseVarsRoundLockdownCountdownCommand(packet);
+        parseVarsRoundLockdownCountdownCommand(packet, lastSentPacket);
     } else if (request == "vars.roundRestartPlayerCount") {
-        parseVarsRoundRestartPlayerCountCommand(packet);
+        parseVarsRoundRestartPlayerCountCommand(packet, lastSentPacket);
     } else if (request == "vars.roundStartPlayerCount") {
-        parseVarsRoundStartPlayerCountCommand(packet);
+        parseVarsRoundStartPlayerCountCommand(packet, lastSentPacket);
     } else if (request == "vars.roundTimeLimit") {
         parseVarsRoundTimeLimitCommand(packet);
     } else if (request == "vars.roundWarmupTimeout") {
@@ -259,14 +259,8 @@ void BF4Connection::parse(const QString &request, const FrostbiteRconPacket &pac
         parseVarsServerTypeCommand(packet);
     } else if (request == "vars.soldierHealth") {
         parseVarsSoldierHealthCommand(packet);
-    } else if (request == "vars.team1FactionOverride") {
-        parseVarsTeam1FactionOverrideCommand(packet);
-    } else if (request == "vars.team2FactionOverride") {
-        parseVarsTeam2FactionOverrideCommand(packet);
-    } else if (request == "vars.team3FactionOverride") {
-        parseVarsTeam3FactionOverrideCommand(packet);
-    } else if (request == "vars.team4FactionOverride") {
-        parseVarsTeam4FactionOverrideCommand(packet);
+    } else if (request == "vars.teamFactionOverride") {
+        parseVarsTeamFactionOverrideCommand(packet);
     } else if (request == "vars.teamKillCountForKick") {
         parseVarsTeamKillCountForKickCommand(packet);
     } else if (request == "vars.teamKillKickForBan") {
@@ -1232,7 +1226,13 @@ void BF4Connection::parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacke
 // Commands
 void BF4Connection::parseLoginPlainTextCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK") {
+        emit (onLoginPlainTextCommand(true));
+    } else {
+        emit (onLoginPlainTextCommand(false));
+    }
 }
 
 void BF4Connection::parseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -1248,7 +1248,7 @@ void BF4Connection::parseLoginHashedCommand(const FrostbiteRconPacket &packet, c
     } else if (lastSentPacket.getWordCount() == 2) {
         if (response == "OK") {
             emit (onLoginHashedCommand(true));
-        } else if (response == "InvalidPasswordHash") {
+        } else {
             emit (onLoginHashedCommand(false));
         }
     }
@@ -1402,7 +1402,7 @@ void BF4Connection::parseCurrentLevelCommand(const FrostbiteRconPacket &packet)
 
 void BF4Connection::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    QList<PlayerInfo> playerList = getPlayerList(packet, lastSentPacket);
+    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
     PlayerSubset playerSubset = getPlayerSubset(lastSentPacket.getWord(1).getContent());
 
     emit (onListPlayersCommand(playerList, playerSubset));
@@ -1410,7 +1410,13 @@ void BF4Connection::parseListPlayersCommand(const FrostbiteRconPacket &packet, c
 
 void BF4Connection::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onAdminEventsEnabledCommand(enabled));
+    }
 }
 
 void BF4Connection::parseAdminHelpCommand(const FrostbiteRconPacket &packet)
@@ -1440,7 +1446,7 @@ void BF4Connection::parseAdminKillPlayerCommand(const FrostbiteRconPacket &packe
 
 void BF4Connection::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    QList<PlayerInfo> playerList = getPlayerList(packet, lastSentPacket);
+    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
     PlayerSubset playerSubset = getPlayerSubset(lastSentPacket.getWord(1).getContent());
 
     emit (onAdminListPlayersCommand(playerList, playerSubset));
@@ -1810,7 +1816,13 @@ void BF4Connection::parseSpectatorListSaveCommand(const FrostbiteRconPacket &pac
 
 void BF4Connection::parseSquadLeaderCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString player = packet.getWord(1).getContent();
+
+        emit (onSquadLeaderCommand(player));
+    }
 }
 
 void BF4Connection::parseSquadListActiveCommand(const FrostbiteRconPacket &packet)
@@ -1820,22 +1832,51 @@ void BF4Connection::parseSquadListActiveCommand(const FrostbiteRconPacket &packe
 
 void BF4Connection::parseSquadListPlayersCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int playerCount = toInt(packet.getWord(1).getContent());
+        QStringList playerList;
+
+        for (int i = 2; i < playerCount; i++) {
+            playerList.append(packet.getWord(i).getContent());
+        }
+
+        emit (onSquadListPlayersCommand(playerList));
+    }
 }
 
 void BF4Connection::parseSquadPrivateCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool isPrivate = toBool(packet.getWord(1).getContent());
+
+        emit (onSquadPrivateCommand(isPrivate));
+    }
 }
 
 void BF4Connection::parseVars3dSpottingCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVars3dSpottingCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVars3pCamCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVars3pCamCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRconPacket &packet)
@@ -1851,12 +1892,24 @@ void BF4Connection::parseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRconPac
 
 void BF4Connection::parseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsAutoBalanceCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsBulletDamageCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsBulletDamageCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsCommanderCommand(const FrostbiteRconPacket &packet)
@@ -1872,7 +1925,13 @@ void BF4Connection::parseVarsCommanderCommand(const FrostbiteRconPacket &packet)
 
 void BF4Connection::parseVarsForceReloadWholeMagsCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsForceReloadWholeMagsCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet)
@@ -1888,27 +1947,57 @@ void BF4Connection::parseVarsFriendlyFireCommand(const FrostbiteRconPacket &pack
 
 void BF4Connection::parseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int scale = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsGameModeCounterCommand(scale));
+    }
 }
 
 void BF4Connection::parseVarsGamePasswordCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString password = packet.getWord(1).getContent();
+
+        emit (onVarsGamePasswordCommand(password));
+    }
 }
 
 void BF4Connection::parseVarsHitIndicatorsEnabledCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsHitIndicatorsEnabledCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsHudCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsHudCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsIdleBanRoundsCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int rounds = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsIdleBanRoundsCommand(rounds));
+    }
 }
 
 void BF4Connection::parseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packet)
@@ -1916,9 +2005,9 @@ void BF4Connection::parseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packe
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int timeout = toInt(packet.getWord(1).getContent());
+        int seconds = toInt(packet.getWord(1).getContent());
 
-        emit (onVarsIdleTimeoutCommand(timeout));
+        emit (onVarsIdleTimeoutCommand(seconds));
     }
 }
 
@@ -1957,67 +2046,146 @@ void BF4Connection::parseVarsMaxSpectatorsCommand(const FrostbiteRconPacket &pac
 
 void BF4Connection::parseVarsMiniMapCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsMiniMapCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsMiniMapSpottingCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsMiniMapSpottingCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsMpExperienceCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString experience = packet.getWord(1).getContent();
+
+        emit (onVarsMpExperienceCommand(experience));
+    }
 }
 
 void BF4Connection::parseVarsNameTagCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsNameTagCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsOnlySquadLeaderSpawnCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsOnlySquadLeaderSpawnCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsPlayerRespawnTimeCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int respawnTime = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsPlayerRespawnTimeCommand(respawnTime));
+    }
 }
 
 void BF4Connection::parseVarsPresetCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() == 2) {
+        QString serverPreset = packet.getWord(1).getContent();
+        bool lockPresetSetting = toBool(packet.getWord(2).getContent());
+
+        emit (onVarsPresetCommand(serverPreset, lockPresetSetting));
+    }
 }
 
 void BF4Connection::parseVarsRegenerateHealthCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsRegenerateHealthCommand(enabled));
+    }
 }
 
-void BF4Connection::parseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet)
+void BF4Connection::parseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastPacketSent)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1 && lastPacketSent.getWordCount() > 1) {
+        int seconds = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsRoundLockdownCountdownCommand(seconds));
+    }
 }
 
-void BF4Connection::parseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet)
+void BF4Connection::parseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastPacketSent)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1 && lastPacketSent.getWordCount() > 1) {
+        int players = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsRoundRestartPlayerCountCommand(players));
+    }
 }
 
-void BF4Connection::parseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet)
+void BF4Connection::parseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastPacketSent)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1 && lastPacketSent.getWordCount() > 1) {
+        int players = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsRoundStartPlayerCountCommand(players));
+    }
 }
 
 void BF4Connection::parseVarsRoundTimeLimitCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int percentage = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsRoundTimeLimitCommand(percentage));
+    }
 }
 
 void BF4Connection::parseVarsRoundWarmupTimeoutCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int time = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsRoundWarmupTimeoutCommand(time));
+    }
 }
 
 void BF4Connection::parseVarsServerDescriptionCommand(const FrostbiteRconPacket &packet)
@@ -2025,9 +2193,9 @@ void BF4Connection::parseVarsServerDescriptionCommand(const FrostbiteRconPacket 
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        QString serverDescription = packet.getWord(1).getContent();
+        QString description = packet.getWord(1).getContent();
 
-        emit (onVarsServerDescriptionCommand(serverDescription));
+        emit (onVarsServerDescriptionCommand(description));
     }
 }
 
@@ -2036,9 +2204,9 @@ void BF4Connection::parseVarsServerMessageCommand(const FrostbiteRconPacket &pac
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        QString serverMessage = packet.getWord(1).getContent();
+        QString message = packet.getWord(1).getContent();
 
-        emit (onVarsServerMessageCommand(serverMessage));
+        emit (onVarsServerMessageCommand(message));
     }
 }
 
@@ -2047,9 +2215,9 @@ void BF4Connection::parseVarsServerNameCommand(const FrostbiteRconPacket &packet
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        QString serverName = packet.getWord(1).getContent();
+        QString name = packet.getWord(1).getContent();
 
-        emit (onVarsServerNameCommand(serverName));
+        emit (onVarsServerNameCommand(name));
     }
 }
 
@@ -2066,75 +2234,129 @@ void BF4Connection::parseVarsServerTypeCommand(const FrostbiteRconPacket &packet
 
 void BF4Connection::parseVarsSoldierHealthCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int health = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsSoldierHealthCommand(health));
+    }
 }
 
-void BF4Connection::parseVarsTeam1FactionOverrideCommand(const FrostbiteRconPacket &packet)
+void BF4Connection::parseVarsTeamFactionOverrideCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
-}
+    QString response = packet.getWord(0).getContent();
 
-void BF4Connection::parseVarsTeam2FactionOverrideCommand(const FrostbiteRconPacket &packet)
-{
-    Q_UNUSED(packet);
-}
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int team1 = toInt(packet.getWord(1).getContent());
+        int team2 = toInt(packet.getWord(2).getContent());
+        int team3 = toInt(packet.getWord(3).getContent());
+        int team4 = toInt(packet.getWord(4).getContent());
 
-void BF4Connection::parseVarsTeam3FactionOverrideCommand(const FrostbiteRconPacket &packet)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4Connection::parseVarsTeam4FactionOverrideCommand(const FrostbiteRconPacket &packet)
-{
-    Q_UNUSED(packet);
+        emit (onVarsTeamFactionOverrideCommand(team1, team2, team3, team4));
+    }
 }
 
 void BF4Connection::parseVarsTeamKillCountForKickCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillCountForKickCommand(count));
+    }
 }
 
 void BF4Connection::parseVarsTeamKillKickForBanCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillKickForBanCommand(count));
+    }
 }
 
 void BF4Connection::parseVarsTeamKillValueDecreasePerSecondCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillValueDecreasePerSecondCommand(count));
+    }
 }
 
 void BF4Connection::parseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillValueForKickCommand(count));
+    }
 }
 
 void BF4Connection::parseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillValueIncreaseCommand(count));
+    }
 }
 
 void BF4Connection::parseVarsTicketBleedRateCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int percent = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTicketBleedRateCommand(percent));
+    }
 }
 
 void BF4Connection::parseVarsUnlockModeCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString type = packet.getWord(1).getContent();
+
+        emit (onVarsUnlockModeCommand(type));
+    }
 }
 
 void BF4Connection::parseVarsVehicleSpawnAllowedCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = toBool(packet.getWord(1).getContent());
+
+        emit (onVarsVehicleSpawnAllowedCommand(enabled));
+    }
 }
 
 void BF4Connection::parseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int delay = toInt(packet.getWord(1).getContent());
+
+        emit (onVarsVehicleSpawnDelayCommand(delay));
+    }
 }
 
-QList<PlayerInfo> BF4Connection::getPlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+QList<PlayerInfo> BF4Connection::parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QString response = packet.getWord(0).getContent();
     QList<PlayerInfo> playerList;
