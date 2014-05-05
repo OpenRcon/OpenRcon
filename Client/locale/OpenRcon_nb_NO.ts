@@ -67,19 +67,59 @@
 <context>
     <name>BF3</name>
     <message>
-        <location filename="../bf3/BF3.ui" line="31"/>
-        <location filename="../bf3/BF3.ui" line="45"/>
+        <location filename="../bf3/BF3.ui" line="27"/>
+        <source>Players</source>
+        <translation>Spillere</translation>
+    </message>
+    <message>
+        <location filename="../bf3/BF3.ui" line="37"/>
+        <source>Name</source>
+        <translation>Navn</translation>
+    </message>
+    <message>
+        <location filename="../bf3/BF3.ui" line="42"/>
+        <source>Squad</source>
+        <translation>Skvadron</translation>
+    </message>
+    <message>
+        <location filename="../bf3/BF3.ui" line="47"/>
+        <source>Kills</source>
+        <translation>Drap</translation>
+    </message>
+    <message>
+        <location filename="../bf3/BF3.ui" line="52"/>
+        <source>Deaths</source>
+        <translation>Dødsfall</translation>
+    </message>
+    <message>
+        <location filename="../bf3/BF3.ui" line="57"/>
+        <source>Score</source>
+        <translation>Poeng</translation>
+    </message>
+    <message>
+        <location filename="../bf3/BF3.ui" line="62"/>
+        <source>Ping</source>
+        <translation>Ping</translation>
+    </message>
+    <message>
+        <location filename="../bf3/BF3.ui" line="67"/>
+        <source>GUID</source>
+        <translation>GUID</translation>
+    </message>
+    <message>
+        <location filename="../bf3/BF3.ui" line="80"/>
+        <location filename="../bf3/BF3.ui" line="94"/>
         <source>Console</source>
         <translation>Konsoll</translation>
     </message>
     <message>
-        <location filename="../bf3/BF3.ui" line="67"/>
-        <location filename="../bf3/BF3.ui" line="91"/>
+        <location filename="../bf3/BF3.ui" line="116"/>
+        <location filename="../bf3/BF3.ui" line="140"/>
         <source>Send</source>
         <translation>Send</translation>
     </message>
     <message>
-        <location filename="../bf3/BF3.ui" line="79"/>
+        <location filename="../bf3/BF3.ui" line="128"/>
         <source>PunkBuster</source>
         <translation>PunkBuster</translation>
     </message>
@@ -87,6 +127,14 @@
         <location filename="../bf3/BF3.cpp" line="110"/>
         <source>Wrong server type, disconnecting...</source>
         <translation>Feil server type, kobler fra...</translation>
+    </message>
+</context>
+<context>
+    <name>BF3Widget</name>
+    <message>
+        <location filename="../bf3/BF3Widget.cpp" line="150"/>
+        <source>Error</source>
+        <translation>Feil</translation>
     </message>
 </context>
 <context>
@@ -434,191 +482,195 @@
 <context>
     <name>BF4Widget</name>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="37"/>
+        <location filename="../bf4/BF4Widget.cpp" line="38"/>
         <source>Kill</source>
         <translation>Drep</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="34"/>
-        <location filename="../bf4/BF4Widget.cpp" line="39"/>
+        <location filename="../bf4/BF4Widget.cpp" line="35"/>
         <source>Move</source>
         <translation>Flytt</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="35"/>
+        <location filename="../bf4/BF4Widget.cpp" line="36"/>
         <source>Kick</source>
         <translation>Spark ut</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="36"/>
+        <location filename="../bf4/BF4Widget.cpp" line="37"/>
         <source>Ban</source>
         <translation>Utesteng</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="38"/>
+        <location filename="../bf4/BF4Widget.cpp" line="39"/>
         <source>Reserve slot</source>
         <translation>Reserver plass</translation>
     </message>
     <message>
         <location filename="../bf4/BF4Widget.cpp" line="40"/>
+        <source>Copy</source>
+        <translation>Kopier</translation>
+    </message>
+    <message>
+        <location filename="../bf4/BF4Widget.cpp" line="41"/>
         <source>Name</source>
         <translatorcomment>Navn</translatorcomment>
         <translation>Navn</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="41"/>
+        <location filename="../bf4/BF4Widget.cpp" line="42"/>
         <source>GUID</source>
         <translation>GUID</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="53"/>
+        <location filename="../bf4/BF4Widget.cpp" line="54"/>
         <source>Say</source>
         <translation>Snakk</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="54"/>
+        <location filename="../bf4/BF4Widget.cpp" line="55"/>
         <source>Yell</source>
         <translation>Rop</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="59"/>
+        <location filename="../bf4/BF4Widget.cpp" line="60"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="60"/>
+        <location filename="../bf4/BF4Widget.cpp" line="61"/>
         <source>Team</source>
         <translation>Lag</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="61"/>
+        <location filename="../bf4/BF4Widget.cpp" line="62"/>
         <source>Squad</source>
         <translation>Skvadron</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="70"/>
-        <location filename="../bf4/BF4Widget.cpp" line="76"/>
-        <location filename="../bf4/BF4Widget.cpp" line="82"/>
+        <location filename="../bf4/BF4Widget.cpp" line="71"/>
+        <location filename="../bf4/BF4Widget.cpp" line="77"/>
+        <location filename="../bf4/BF4Widget.cpp" line="83"/>
         <source>Remove</source>
         <translation>Fjern</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="350"/>
+        <location filename="../bf4/BF4Widget.cpp" line="353"/>
         <source>Connected to %1:%2.</source>
         <translation>Koblet til %1:%2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="355"/>
+        <location filename="../bf4/BF4Widget.cpp" line="358"/>
         <source>Disconnected.</source>
         <translation>Koblet fra.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="371"/>
+        <location filename="../bf4/BF4Widget.cpp" line="374"/>
         <source>Player %1 authenticated.</source>
         <translation>Spiller %1 ble autentisert.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="376"/>
+        <location filename="../bf4/BF4Widget.cpp" line="379"/>
         <source>Player %1 joined the game (GUID: %2).</source>
         <translation>Spiller %1 ble med i spillet (GUID: %2).</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="383"/>
+        <location filename="../bf4/BF4Widget.cpp" line="386"/>
         <source>Player %1 left the game.</source>
         <translation>Spiller %1 forlot spillet.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="388"/>
+        <location filename="../bf4/BF4Widget.cpp" line="391"/>
         <source>Player %1 spawned, and is on team %2.</source>
         <translation>Spiller %1 spawnet, og er på lag %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="397"/>
+        <location filename="../bf4/BF4Widget.cpp" line="400"/>
         <source>Player %1 headshoted player %2 using %3.</source>
         <translation>Spiller %1 skjøt spiller %2 i hodet med %3.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="399"/>
+        <location filename="../bf4/BF4Widget.cpp" line="402"/>
         <source>Player %1 killed player %2 with %3.</source>
         <translation>Spiller %1 drepte spiller %2 med %3.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="402"/>
+        <location filename="../bf4/BF4Widget.cpp" line="405"/>
         <source>Player %1 commited sucide using %2.</source>
         <translation>Spiller %1 begikk selvmord med %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="421"/>
+        <location filename="../bf4/BF4Widget.cpp" line="424"/>
         <source>Player %1 changed squad to %2.</source>
         <translation>Spiller %1 byttet skvadron til %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="429"/>
+        <location filename="../bf4/BF4Widget.cpp" line="432"/>
         <source>Player %1 changed team to %2.</source>
         <translation>Spiller %1 byttet lag til %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="450"/>
+        <location filename="../bf4/BF4Widget.cpp" line="453"/>
         <source>Loading level %1 running gamemode %2.</source>
         <translation>Laster kart %1 som kjører spillmodus %2.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="455"/>
+        <location filename="../bf4/BF4Widget.cpp" line="458"/>
         <source>The round has just ended, and %1 won.</source>
         <translation>Runden er akkurat over, og %1 vant.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="460"/>
+        <location filename="../bf4/BF4Widget.cpp" line="463"/>
         <source>The round has just ended, and %1 is the final detailed player stats.</source>
         <translation>Runden er akkurat over, og %1 er den endelige detaljerte spiller statistikken.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="465"/>
+        <location filename="../bf4/BF4Widget.cpp" line="468"/>
         <source>The round has just ended, and %1 is the final ticket/kill/life count for each team.</source>
         <translation>Runden er akkurat over, og %1 er den endelige ticket/drap/liv tellingen for hvert lag.</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="477"/>
+        <location filename="../bf4/BF4Widget.cpp" line="480"/>
         <source>Error</source>
         <translation>Feil</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="489"/>
+        <location filename="../bf4/BF4Widget.cpp" line="492"/>
         <source>&lt;b&gt;Version&lt;/b&gt;: %1</source>
         <translation>&lt;b&gt;Versjon&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="499"/>
+        <location filename="../bf4/BF4Widget.cpp" line="502"/>
         <source>&lt;b&gt;Players&lt;/b&gt;: %1 of %2</source>
         <translation>&lt;b&gt;Spillere&lt;/b&gt;: %1 av %2</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="500"/>
+        <location filename="../bf4/BF4Widget.cpp" line="503"/>
         <source>&lt;b&gt;Round&lt;/b&gt;: %1 of %2</source>
         <translation>&lt;b&gt;Runde&lt;/b&gt;: %1 av %2</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="651"/>
+        <location filename="../bf4/BF4Widget.cpp" line="660"/>
         <source>%1d</source>
         <translation>%1d</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="655"/>
+        <location filename="../bf4/BF4Widget.cpp" line="664"/>
         <source>%1h</source>
         <translation>%1t</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="659"/>
+        <location filename="../bf4/BF4Widget.cpp" line="668"/>
         <source>%1m</source>
         <translation>%1m</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="663"/>
+        <location filename="../bf4/BF4Widget.cpp" line="672"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="666"/>
+        <location filename="../bf4/BF4Widget.cpp" line="675"/>
         <source>&lt;b&gt;Uptime:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Oppetid:&lt;/b&gt; %1</translation>
     </message>
@@ -1093,26 +1145,21 @@
     </message>
 </context>
 <context>
-    <name>BFBC2CommandHandler</name>
+    <name>BFBC2Connection</name>
     <message>
-        <location filename="../bfbc2/BFBC2CommandHandler.cpp" line="389"/>
+        <location filename="../bfbc2/BFBC2Connection.cpp" line="387"/>
         <source>You have successfully logged in.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2CommandHandler.cpp" line="416"/>
+        <location filename="../bfbc2/BFBC2Connection.cpp" line="414"/>
         <source>You are now logged out.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bfbc2/BFBC2CommandHandler.cpp" line="427"/>
+        <location filename="../bfbc2/BFBC2Connection.cpp" line="423"/>
         <source>Disconnected.</source>
         <translation type="unfinished">Koblet fra.</translation>
-    </message>
-    <message>
-        <location filename="../bfbc2/BFBC2CommandHandler.cpp" line="461"/>
-        <source>&lt;b&gt;%1&lt;/b&gt; server version: &lt;b&gt;%2&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1313,95 +1360,72 @@
 <context>
     <name>Connection</name>
     <message>
-        <location filename="../game/Connection.cpp" line="43"/>
+        <location filename="../game/Connection.cpp" line="41"/>
         <source>Already connected to %1:%2.</source>
         <translation>Allerede koblet til %1:%2.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="52"/>
+        <location filename="../game/Connection.cpp" line="50"/>
         <source>Could not disconnect, because there was no open sockets to close.</source>
         <translation>Kunne ikke koble fra, fordi det ikke var noen åpen forbindelse å lukke.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="58"/>
+        <location filename="../game/Connection.cpp" line="56"/>
         <source>Connected to %1:%2.</source>
         <translation>Koblet til %1:%2.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="65"/>
+        <location filename="../game/Connection.cpp" line="63"/>
         <source>Disconnected from %1:%2.</source>
         <translation>Koblet fra %1:%2.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="74"/>
-        <location filename="../game/Connection.cpp" line="78"/>
-        <location filename="../game/Connection.cpp" line="82"/>
-        <location filename="../game/Connection.cpp" line="86"/>
+        <location filename="../game/Connection.cpp" line="72"/>
+        <location filename="../game/Connection.cpp" line="76"/>
+        <location filename="../game/Connection.cpp" line="80"/>
+        <location filename="../game/Connection.cpp" line="84"/>
         <source>Error</source>
         <translation>Feil</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="74"/>
+        <location filename="../game/Connection.cpp" line="72"/>
         <source>The remote host closed the connection.</source>
         <translation>Tjeneren lukket tilkoblingen.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="75"/>
+        <location filename="../game/Connection.cpp" line="73"/>
         <source>Remote host closed the connection: %1.</source>
         <translation>Tjeneren lukket tilkoblingen: %1.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="78"/>
+        <location filename="../game/Connection.cpp" line="76"/>
         <source>The host address was not found.</source>
         <translation>Tjenerens addresse ble ikke funnet.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="79"/>
+        <location filename="../game/Connection.cpp" line="77"/>
         <source>Host not found: %1.</source>
         <translation>Tjener ikke funnet: %1.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="82"/>
+        <location filename="../game/Connection.cpp" line="80"/>
         <source>The connection was refused by the peer (or timed out).</source>
         <translation>Tilkoblingen ble nektet av tjeneren (eller tidsavbrutt).</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="83"/>
+        <location filename="../game/Connection.cpp" line="81"/>
         <source>Connection refused: %1.</source>
         <translation>Tilkobling nektet: %1.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="86"/>
+        <location filename="../game/Connection.cpp" line="84"/>
         <source>The following error occurred: %1.</source>
         <translation>Følgende feil oppstod: %1.</translation>
     </message>
     <message>
-        <location filename="../game/Connection.cpp" line="87"/>
+        <location filename="../game/Connection.cpp" line="85"/>
         <source>Unknown error: %1.</source>
         <translation>Ukjent feil: %1.</translation>
-    </message>
-</context>
-<context>
-    <name>Directory</name>
-    <message>
-        <location filename="../Directory.cpp" line="28"/>
-        <source>Directory %1 exists.</source>
-        <translation>Mappen %1 eksisterer.</translation>
-    </message>
-    <message>
-        <location filename="../Directory.cpp" line="32"/>
-        <source>Made directory %1.</source>
-        <translation>Lagde mappen %1.</translation>
-    </message>
-    <message>
-        <location filename="../Directory.cpp" line="34"/>
-        <source>Tried make directory %1, but failed.</source>
-        <translation>Prøvde å lage mappen %1, men feilet.</translation>
-    </message>
-    <message>
-        <location filename="../Directory.cpp" line="38"/>
-        <source>Directory path is: %1.</source>
-        <translation>Mappe sti er: %1.</translation>
     </message>
 </context>
 <context>
@@ -1530,7 +1554,7 @@
     <message>
         <location filename="../minecraft/MinecraftConnection.cpp" line="67"/>
         <source>Payload data too long.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyttelast for lang.</translation>
     </message>
 </context>
 <context>
@@ -1606,17 +1630,17 @@
         <translation>Besøk nettside</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="47"/>
+        <location filename="../OpenRcon.cpp" line="45"/>
         <source>About &amp;%1</source>
         <translation>Om &amp;%1</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="52"/>
+        <location filename="../OpenRcon.cpp" line="50"/>
         <source>Connect</source>
         <translation>Koble til</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="254"/>
+        <location filename="../OpenRcon.cpp" line="250"/>
         <source>No servers added yet.</source>
         <translation>Ingen tjenere lagt til enda.</translation>
     </message>
@@ -1708,8 +1732,8 @@
     </message>
     <message>
         <location filename="../ServerEditDialog.cpp" line="87"/>
-        <source>Are you sure you want to continue without a password? This may limit you to just some functionality.</source>
-        <translation>Er du sikker på at du vil fortsette uten et passord? Dette kan begrense funksonaliteten.</translation>
+        <source>Are you sure you want to continue without a password? This may limit functionality.</source>
+        <translation>Er du sikker på at du vil fortsette uten et passord? Dette kan begrense noe funksjonalitet.</translation>
     </message>
 </context>
 <context>
