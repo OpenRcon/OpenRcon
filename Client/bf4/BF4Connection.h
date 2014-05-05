@@ -356,15 +356,15 @@ signals:
     void onLogoutCommand();
     void onQuitCommand();
     void onVersionCommand(const QString &type, const int &build);
-    void onCurrentLevelCommand();
+    void onCurrentLevelCommand(const QString &level);
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
     void onAdminEventsEnabledCommand();
-    void onAdminHelpCommand();
+    void onAdminHelpCommand(const QStringList &commandList);
     void onAdminKickPlayerCommand();
     void onAdminKillPlayerCommand();
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
     void onAdminMovePlayerCommand();
-    void onAdminPasswordCommand();
+    void onAdminPasswordCommand(const QString &password);
     void onAdminSayCommand();
     void onAdminShutDownCommand();
     void onAdminYellCommand();

@@ -3,7 +3,7 @@ OpenRcon:
     - Implement language option to Settings.
     - Implement a type of class that handle connection requests, like create tab etc, manage closing of it.
     - Implement working plugin system that can be used by games to add more functionality.
-    - When connect to a server, check that a similar connection not already exists.
+    -
     - Update the comboBox_sm when a server is added, modified or removed in ServerListDialog.
 
     Frostbite:

@@ -1195,7 +1195,7 @@ void BF4Connection::parsePunkBusterMessageEvent(const FrostbiteRconPacket &packe
 
 void BF4Connection::parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    Q_UNUSED(packet); // TODO: Implement this.
 }
 
 void BF4Connection::parseServerLevelLoadedEvent(const FrostbiteRconPacket &packet)
@@ -1391,7 +1391,13 @@ void BF4Connection::parseVersionCommand(const FrostbiteRconPacket &packet)
 
 void BF4Connection::parseCurrentLevelCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString level = packet.getWord(1).getContent();
+
+        emit (onCurrentLevelCommand(level));
+    }
 }
 
 void BF4Connection::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -1409,7 +1415,17 @@ void BF4Connection::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &pa
 
 void BF4Connection::parseAdminHelpCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK") {
+        QStringList commandList;
+
+        for (unsigned int i = 0; i < packet.getWordCount(); i++) {
+            commandList.append(packet.getWord(i).getContent());
+        }
+
+        emit (onAdminHelpCommand(commandList));
+    }
 }
 
 void BF4Connection::parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet)
@@ -1437,7 +1453,13 @@ void BF4Connection::parseAdminMovePlayerCommand(const FrostbiteRconPacket &packe
 
 void BF4Connection::parseAdminPasswordCommand(const FrostbiteRconPacket &packet)
 {
-    Q_UNUSED(packet);
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString password = packet.getWord(1).getContent();
+
+        emit (onAdminPasswordCommand(password));
+    }
 }
 
 void BF4Connection::parseAdminSayCommand(const FrostbiteRconPacket &packet)
