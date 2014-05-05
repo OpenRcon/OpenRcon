@@ -12,6 +12,7 @@ SOURCES += bfbc2/BFBC2.cpp \
     bfbc2/BFBC2Widget.cpp \
     bfbc2/BFBC2LevelDictionary.cpp
 
-FORMS += bfbc2/BFBC2.ui
+FORMS += \
+    bfbc2/BFBC2Widget.ui
 
 RESOURCES += bfbc2/BFBC2.qrc
