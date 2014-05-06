@@ -26,7 +26,8 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     /* User Inferface */
 
     // ServerInfo
-    timerStartupInfoUpTime = new QTimer(this);
+    timerServerInfoRoundTime = new QTimer(this);
+    timerServerInfoUpTime = new QTimer(this);
 
     // Players
     timerPlayerList = new QTimer(this);
@@ -496,15 +497,19 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
 {
     currentLevel = levelDictionary->getLevel(serverInfo.currentMap);
     GameModeEntry currentGameMode = levelDictionary->getGameMode(serverInfo.gameMode);
+    roundTime = serverInfo.roundTime;
     serverUpTime = serverInfo.serverUpTime;
 
     ui->label_serverInfo_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(currentLevel.name).arg(currentGameMode.name));
     ui->label_serverInfo_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_serverInfo_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed + 1).arg(serverInfo.roundsTotal));
+    ui->label_serverInfo_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
 
-    timerStartupInfoUpTime->stop();
-    connect(timerStartupInfoUpTime, SIGNAL(timeout()), this, SLOT(updateUpTime()));
-    timerStartupInfoUpTime->start(1000);
+    connect(timerServerInfoRoundTime, SIGNAL(timeout()), this, SLOT(updateRoundTime()));
+    timerServerInfoRoundTime->start(1000);
+    updateRoundTime();
+
+    connect(timerServerInfoUpTime, SIGNAL(timeout()), this, SLOT(updateUpTime()));
+    timerServerInfoUpTime->start(1000);
     updateUpTime();
 
     // Set maplist.
@@ -651,25 +656,49 @@ void BF4Widget::updateServerInfo()
     con->sendServerInfoCommand();
 }
 
-void BF4Widget::updateUpTime()
+void BF4Widget::updateRoundTime()
 {
-    TimeEntry upTime = getTimeFromSeconds(serverUpTime++);
+    TimeEntry time = getTimeFromSeconds(roundTime++);
     QString text;
 
-    if (upTime.days != 0) {
-        text += " " + tr("%1d").arg(upTime.days);
+    if (time.days != 0) {
+        text += " " + tr("%1d").arg(time.days);
     }
 
-    if (upTime.hours != 0) {
-        text += " " + tr("%1h").arg(upTime.hours);
+    if (time.hours != 0) {
+        text += " " + tr("%1h").arg(time.hours);
     }
 
-    if (upTime.minutes != 0) {
-        text += " " + tr("%1m").arg(upTime.minutes);
+    if (time.minutes != 0) {
+        text += " " + tr("%1m").arg(time.minutes);
     }
 
-    if (upTime.seconds != 0) {
-        text += " " + tr("%1s").arg(upTime.seconds);
+    if (time.seconds != 0) {
+        text += " " + tr("%1s").arg(time.seconds);
+    }
+
+    ui->label_serverInfo_round->setToolTip(text);
+}
+
+void BF4Widget::updateUpTime()
+{
+    TimeEntry time = getTimeFromSeconds(serverUpTime++);
+    QString text;
+
+    if (time.days != 0) {
+        text += " " + tr("%1d").arg(time.days);
+    }
+
+    if (time.hours != 0) {
+        text += " " + tr("%1h").arg(time.hours);
+    }
+
+    if (time.minutes != 0) {
+        text += " " + tr("%1m").arg(time.minutes);
+    }
+
+    if (time.seconds != 0) {
+        text += " " + tr("%1s").arg(time.seconds);
     }
 
     ui->label_serverInfo_upTime->setText(tr("<b>Uptime:</b> %1").arg(text));
@@ -808,34 +837,52 @@ void BF4Widget::addEvent(const QString &event, const QString &message)
 // Chat
 void BF4Widget::comboBox_ch_mode_currentIndexChanged(const int &index)
 {
-    switch (index) {
-        case 0:
-            ui->comboBox_ch_target->setEnabled(false);
-            break;
-
-        case 1:
-            ui->comboBox_ch_target->setEnabled(true);
-            break;
-    }
+    ui->spinBox_ch_duration->setEnabled(index != 0);
 }
 
 void BF4Widget::pushButton_ch_send_clicked()
 {
-    int type = ui->comboBox_ch_mode->currentIndex();
-
     QString message = ui->lineEdit_ch->text();
+    int target = ui->comboBox_ch_target->currentIndex();
+    int type = ui->comboBox_ch_mode->currentIndex();
     int duration = ui->spinBox_ch_duration->value();
-    QString group = ui->comboBox_ch_target->currentText().toLower();
 
     if (!message.isEmpty()) {
-        switch (type) {
-            case 0:
-                con->sendAdminSayCommand(message, PlayerSubset::All); // TODO: Implement playerSubset here.
-                break;
+        PlayerSubset playerSubset;
+        int parameter;
 
-            case 1:
-                con->sendAdminYellCommand(message, duration, PlayerSubset::All); // TODO: Implement playerSubset here.
-                break;
+        switch (target) {
+        case 0:
+            playerSubset = PlayerSubset::All;
+            break;
+
+        case 1:
+            playerSubset = PlayerSubset::Team;
+            parameter = 0;
+            break;
+
+        case 2:
+            playerSubset = PlayerSubset::Team;
+            parameter = 1;
+            break;
+        }
+
+        switch (type) {
+        case 0:
+            if (parameter) {
+                con->sendAdminSayCommand(message, playerSubset, parameter);
+            } else {
+                con->sendAdminSayCommand(message, playerSubset);
+            }
+            break;
+
+        case 1:
+            if (parameter) {
+                con->sendAdminYellCommand(message, duration, playerSubset, parameter);
+            } else {
+                con->sendAdminYellCommand(message, duration, playerSubset);
+            }
+            break;
         }
 
         ui->lineEdit_ch->clear();

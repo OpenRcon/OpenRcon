@@ -380,10 +380,12 @@ void BF4Connection::sendAdminPasswordCommand(const QString &password)
     sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
 }
 
-void BF4Connection::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset)
+void BF4Connection::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
 {
     if (playerSubset == PlayerSubset::All) {
-        sendCommand(QString("\"admin.say\" \"%1\" \"all\"").arg(message));
+        sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, getPlayerSubsetString(playerSubset)));
+    } else {
+        sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, getPlayerSubsetString(playerSubset)).arg(parameter));
     }
 }
 
@@ -402,16 +404,18 @@ void BF4Connection::sendAdminShutdownCommand(const bool &graceful, const int &se
     sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(toString(graceful)).arg(seconds));
 }
 
-void BF4Connection::sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset)
+void BF4Connection::sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
 {
     sendAdminYellCommand(message, 10, playerSubset);
 }
 
-void BF4Connection::sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset)
+void BF4Connection::sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset, int parameter)
 {
     if (message.length() <= 256) {
         if (playerSubset == PlayerSubset::All) {
-            sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"all\"").arg(message).arg(duration));
+            sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)));
+        } else {
+            sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)).arg(parameter));
         }
     }
 }
@@ -1306,8 +1310,7 @@ void BF4Connection::parseServerInfoCommand(const FrostbiteRconPacket &packet)
             }
         }
 
-        TeamScores scores(scoreList,
-                          targetScore);
+        TeamScores scores(scoreList, targetScore);
 
         // Parsing online state.
         QString onlineStateString = packet.getWord(12).getContent();
@@ -2404,4 +2407,29 @@ PlayerSubset BF4Connection::getPlayerSubset(const QString &playerSubsetString)
     }
 
     return playerSubset;
+}
+
+QString BF4Connection::getPlayerSubsetString(const PlayerSubset &playerSubset)
+{
+    QString playerSubsetString;
+
+    switch (playerSubset) {
+    case PlayerSubset::All:
+        playerSubsetString = "all";
+        break;
+
+    case PlayerSubset::Team:
+        playerSubsetString = "team";
+        break;
+
+    case PlayerSubset::Squad:
+        playerSubsetString = "squad";
+        break;
+
+    case PlayerSubset::Player:
+        playerSubsetString = "player";
+        break;
+    }
+
+    return playerSubsetString;
 }

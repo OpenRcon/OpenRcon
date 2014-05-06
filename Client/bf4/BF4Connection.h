@@ -61,12 +61,12 @@ public:
     void sendAdminMovePlayerCommand(const QString &player, const int &teamId, const int &squadId, const bool &forceKill);
     void sendAdminPasswordCommand();
     void sendAdminPasswordCommand(const QString &password);
-    void sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset);
+    void sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
     void sendAdminShutdownCommand();
     void sendAdminShutdownCommand(const bool &graceful);
     void sendAdminShutdownCommand(const bool &graceful, const int &seconds);
-    void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset);
-    void sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset);
+    void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
+    void sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset, int parameter = -1);
 
     // Banning
     void sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason);
@@ -326,6 +326,7 @@ private:
 
     QList<PlayerInfo> parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     PlayerSubset getPlayerSubset(const QString &playerSubsetString);
+    QString getPlayerSubsetString(const PlayerSubset &playerSubset);
 
 signals:
     // Events

@@ -45,7 +45,9 @@ private:
     /* User Interface */
 
     // ServerInfo
-    QTimer *timerStartupInfoUpTime;
+    QTimer *timerServerInfoRoundTime;
+    QTimer *timerServerInfoUpTime;
+    int roundTime;
     int serverUpTime;
 
     // Players
@@ -167,6 +169,7 @@ private slots:
 
     // ServerInfo
     void updateServerInfo();
+    void updateRoundTime();
     void updateUpTime();
 
     // Players
