@@ -59,6 +59,7 @@ BF4::BF4(ServerEntry *serverEntry) : FrostbiteGame(serverEntry), authenticated(f
     versionMap.insert(117719, "R31");
     versionMap.insert(120511, "R32");
     versionMap.insert(125871, "R33");
+    versionMap.insert(126936, "R34");
 
     commandList.append("login.plainText");
     commandList.append("login.hashed");
