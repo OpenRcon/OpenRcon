@@ -153,16 +153,16 @@ signals:
     void onPlayerAuthenticatedEvent(const QString &player, const QString &guid);
     void onPlayerLeaveEvent(const QString &player, const QString &info);
     void onPlayerSpawnEvent(const QString &player, const QString &kit, const QStringList &weaponList);
-    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
+    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
     void onPlayerChatEvent(const QString &player, const QString &message, const QString &target);
     void onPlayerKickedEvent(const QString &player, const QString &reason);
-    void onPlayerSquadChangeEvent(const QString &player, const int &teamId, const int &squadId);
-    void onPlayerTeamChangeEvent(const QString &player, const int &teamId, const int &squadId);
+    void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
+    void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
     void onPunkBusterMessageEvent(const QString &message);
     void onPunkBusterVersionEvent(const QString &version);
-    void onServerLoadingLevelEvent(const QString &levelName, const int &roundsPlayed, const int &roundsTotal);
+    void onServerLoadingLevelEvent(const QString &levelName, int roundsPlayed, int roundsTotal);
     void onServerLevelStartedEvent();
-    void onServerRoundOverEvent(const int &winningTeamId);
+    void onServerRoundOverEvent(int winningTeamId);
     void onServerRoundOverPlayersEvent(const QString &playerInfo);
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
@@ -172,7 +172,7 @@ signals:
     void onLoginHashedCommand();
     void onLogoutCommand(const QString &parse);
     void onQuitCommand(const QString &parse);
-    void onVersionCommand(const QString &type, const int &build);
+    void onVersionCommand(const QString &type, int build);
     void onListPlayersCommand();
     void onEventsEnabledCommand();
     void onHelpCommand(const QStringList &helpList);
@@ -187,7 +187,7 @@ signals:
     void onAdminRunNextLevelCommand();
     void onAdminRestartMapCommand();
     void onAdminCurrentLevelCommand();
-    void onMapListNextLevelIndexCommand(const int &index);
+    void onMapListNextLevelIndexCommand(int index);
     void onAdminSupportedMapsCommand();
     void onAdminSetPlaylistCommand();
     void onAdminGetPlaylistCommand();
@@ -197,9 +197,9 @@ signals:
     void onAdminMovePlayerCommand();
     void onAdminKillPlayerCommand();
     void onVarsTextChatModerationModeCommand(const QString &mode);
-    void onVarsTextChatSpamTriggerCountCommand(const int &count);
-    void onVarsTextChatSpamDetectionTimeCommand(const int &count);
-    void onVarsTextChatSpamCoolDownTimeCommand(const int &count);
+    void onVarsTextChatSpamTriggerCountCommand(int count);
+    void onVarsTextChatSpamDetectionTimeCommand(int count);
+    void onVarsTextChatSpamCoolDownTimeCommand(int count);
     void onTextChatModerationListLoadCommand();
     void onTextChatModerationListSaveCommand();
     void onTextChatModerationListAddCommand();
@@ -249,7 +249,7 @@ signals:
     void onVarsTeamKillValueForKickCommand();
     void onVarsTeamKillValueIncreaseCommand();
     void onVarsTeamKillValueDecreasePerSecondCommand();
-    void onVarsIdleTimeoutCommand(const int &seconds);
+    void onVarsIdleTimeoutCommand(int seconds);
     void onVarsProfanityFilterCommand();
     void onLevelVarsSetCommand();
     void onLevelVarsGetCommand();

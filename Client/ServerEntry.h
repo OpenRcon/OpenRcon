@@ -28,10 +28,10 @@ struct ServerEntry {
 
     }
 
-    ServerEntry(const int &game,
+    ServerEntry(int game,
                 const QString &name,
                 const QString &host,
-                const int &port,
+                int port,
                 const QString &password) :
                 game(game),
                 name(name),

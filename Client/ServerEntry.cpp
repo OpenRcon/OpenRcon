@@ -19,7 +19,7 @@
 
 #include "ServerEntry.h"
 
-ServerEntry::ServerEntry(const QString &game, const QString &name, const QHostAddress &host, const int &port, const QString &password)
+ServerEntry::ServerEntry(const QString &game, const QString &name, const QHostAddress &host, int port, const QString &password)
 {
     this->game = game;
     this->name = name;

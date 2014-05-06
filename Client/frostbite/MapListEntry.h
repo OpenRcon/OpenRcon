@@ -25,7 +25,7 @@
 struct MapListEntry {
     MapListEntry(const QString &level,
                  const QString &gameMode,
-                 const int &rounds) :
+                 int rounds) :
         level(level),
         gameMode(gameMode),
         rounds(rounds)

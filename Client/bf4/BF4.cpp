@@ -172,8 +172,8 @@ BF4::BF4(ServerEntry *serverEntry) : FrostbiteGame(serverEntry), authenticated(f
 
     // Commands
     connect(con, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con, SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
-    connect(con, SIGNAL(onVersionCommand(const QString&, const int&)), this, SLOT(onVersionCommand(const QString&, const int&)));
+    connect(con, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
+    connect(con, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
 }
 
 BF4::~BF4()
@@ -196,12 +196,12 @@ void BF4::onLoginHashedCommand(const QByteArray &salt)
     }
 }
 
-void BF4::onLoginHashedCommand(const bool &auth)
+void BF4::onLoginHashedCommand(bool auth)
 {
     authenticated = auth;
 }
 
-void BF4::onVersionCommand(const QString &type, const int &build)
+void BF4::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(build);
 

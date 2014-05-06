@@ -36,14 +36,14 @@ public:
     FrostbiteConnection(QObject *parent = 0);
     ~FrostbiteConnection();
 
-    void hostConnect(const QString &host, const int &port);
+    void hostConnect(const QString &host, int port);
     void sendCommand(const QString &command);
 
 protected:
     virtual void parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) = 0;
 
     bool toBool(const QString &value);
-    QString toString(const bool &value);
+    QString toString(bool value);
 
 private:
     int packetReadState;
@@ -52,7 +52,7 @@ private:
     unsigned int nextPacketSequence;
 
     void clear();
-    void sendPacket(const FrostbiteRconPacket &packet, const bool &response = false);
+    void sendPacket(const FrostbiteRconPacket &packet, bool response = false);
     void handlePacket(const FrostbiteRconPacket &packet);
 
     enum PacketReading {

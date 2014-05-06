@@ -34,8 +34,8 @@ class MinecraftRconPacket
 {
 
 public:
-    MinecraftRconPacket(const int &requestId, const unsigned int &type, const char* content);
-    MinecraftRconPacket(const int &requestId, const unsigned int &type);
+    MinecraftRconPacket(int requestId, unsigned int type, const char* content);
+    MinecraftRconPacket(int requestId, unsigned int type);
     MinecraftRconPacket();
     ~MinecraftRconPacket();
 

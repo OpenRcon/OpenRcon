@@ -25,9 +25,9 @@
 struct BF4GameModeEntry : public GameModeEntry {
     BF4GameModeEntry(const QString &engineName,
                      const QString &name,
-                     const int &players,
-                     const int &commanders,
-                     const int &spectators) :
+                     int players,
+                     int commanders,
+                     int spectators) :
         GameModeEntry(engineName,
                       name,
                       players),

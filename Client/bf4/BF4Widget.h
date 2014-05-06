@@ -82,13 +82,13 @@ private:
 
     LevelEntry currentLevel;
 
-    void setAuthenticated(const bool &authenticated);
-    void startupCommands(const bool &authenticated);
+    void setAuthenticated(bool authenticated);
+    void startupCommands(bool authenticated);
     void logEvent(const QString &event, const QString &message);
     void logChat(const QString &sender, const QString &message, const QString &target);
-    void logConsole(const int &type, const QString &message);
+    void logConsole(int type, const QString &message);
 
-    QIcon getRankIcon(const int &rank);
+    QIcon getRankIcon(int rank);
 
     // Events
     void addEvent(const QString &event, const QString &message);
@@ -105,23 +105,23 @@ private slots:
     void onPlayerAuthenticatedEvent(const QString &player);
     void onPlayerJoinEvent(const QString &player, const QString &guid);
     void onPlayerLeaveEvent(const QString &player, const QString &info);
-    void onPlayerSpawnEvent(const QString &player, const int &teamdId);
-    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
+    void onPlayerSpawnEvent(const QString &player, int teamdId);
+    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
     void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
-    void onPlayerSquadChangeEvent(const QString &player, const int &teamId, const int &squadId);
-    void onPlayerTeamChangeEvent(const QString &player, const int &teamId, const int &squadId);
+    void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
+    void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
     void onPunkBusterMessageEvent(const QString &message);
     void onServerMaxPlayerCountChangeEvent();
-    void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, const int &roundsPlayed, const int &roundsTotal);
-    void onServerRoundOverEvent(const int &winningTeamId);
+    void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
+    void onServerRoundOverEvent(int winningTeamId);
     void onServerRoundOverPlayersEvent(const QString &playerInfo);
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Commands */
 
     // Misc
-    void onLoginHashedCommand(const bool &auth);
-    void onVersionCommand(const QString &type, const int &build);
+    void onLoginHashedCommand(bool auth);
+    void onVersionCommand(const QString &type, int build);
     void onServerInfoCommand(const ServerInfo &serverInfo);
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
@@ -133,7 +133,7 @@ private slots:
 
 
     // FairFight
-    void onFairFightIsActiveCommand(const bool &isActive);
+    void onFairFightIsActiveCommand(bool isActive);
 
     // Maplist
     void onMapListListCommand(const MapList &mapList);
@@ -141,10 +141,10 @@ private slots:
     // Player
 
     // Punkbuster
-    void onPunkBusterIsActiveCommand(const bool &isActive);
+    void onPunkBusterIsActiveCommand(bool isActive);
 
     // Reserved Slots
-    void onReservedSlotsListAggressiveJoinCommand(const bool &enabled);
+    void onReservedSlotsListAggressiveJoinCommand(bool enabled);
     void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
 
     // Spectator list
@@ -153,13 +153,13 @@ private slots:
     // Squad
 
     // Variables
-    void onVarsAlwaysAllowSpectatorsCommand(const bool &enabled);
-    void onVarsCommanderCommand(const bool &enabled);
-    void onVarsFriendlyFireCommand(const bool &enabled);
-    void onVarsIdleTimeoutCommand(const int &timeout);
-    void onVarsKillCamCommand(const bool &enabled);
-    void onVarsMaxPlayersCommand(const int &playerCount);
-    void onVarsMaxSpectatorsCommand(const int &spectatorCount);
+    void onVarsAlwaysAllowSpectatorsCommand(bool enabled);
+    void onVarsCommanderCommand(bool enabled);
+    void onVarsFriendlyFireCommand(bool enabled);
+    void onVarsIdleTimeoutCommand(int timeout);
+    void onVarsKillCamCommand(bool enabled);
+    void onVarsMaxPlayersCommand(int playerCount);
+    void onVarsMaxSpectatorsCommand(int spectatorCount);
     void onVarsServerNameCommand(const QString &serverName);
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsServerMessageCommand(const QString &serverMessage);
@@ -184,7 +184,7 @@ private slots:
     void action_pl_players_copyTo_guid_triggered();
 
     // Chat
-    void comboBox_ch_mode_currentIndexChanged(const int &index);
+    void comboBox_ch_mode_currentIndexChanged(int index);
     void pushButton_ch_send_clicked();
 
     // Maplist
@@ -195,14 +195,14 @@ private slots:
     void tableWidget_ml_current_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous);
 
     void addAvaliableMapListRow(const QString &name, const QString &gameMode);
-    void setAvaliableMaplist(const int &gameModeIndex);
-    void addCurrentMapListRow(const QString &name, const QString &gameMode, const int &rounds);
+    void setAvaliableMaplist(int gameModeIndex);
+    void addCurrentMapListRow(const QString &name, const QString &gameMode, int rounds);
     void setCurrentMaplist(const MapList &mapList);
 
     // BanList
     void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);
     void action_bl_banList_remove_triggered();
-    void addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason);
+    void addBanListRow(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason);
     void setBanlist(const BanList &banList);
 
     // Reserved Slots
@@ -226,19 +226,19 @@ private slots:
     void lineEdit_op_so_serverMessage_editingFinished();
 
     // Options -> Configuration
-    void checkBox_so_co_punkBuster_toggled(const bool &checked);
-    void checkBox_so_co_fairFight_toggled(const bool &checked);
-    void checkBox_so_co_idleTimeout_toggled(const bool &checked);
-    void spinBox_so_co_idleTimeout_valueChanged(const int &value);
-    void checkBox_so_co_aggressiveJoin_toggled(const bool &checked);
-    void spinBox_so_co_maxPlayers_valueChanged(const int &value);
-    void spinBox_so_co_maxSpectators_valueChanged(const int &value);
-    void checkBox_so_co_alwaysAllowSpectators_toggled(const bool &checked);
-    void checkBox_so_co_commander_toggled(const bool &checked);
+    void checkBox_so_co_punkBuster_toggled(bool checked);
+    void checkBox_so_co_fairFight_toggled(bool checked);
+    void checkBox_so_co_idleTimeout_toggled(bool checked);
+    void spinBox_so_co_idleTimeout_valueChanged(int value);
+    void checkBox_so_co_aggressiveJoin_toggled(bool checked);
+    void spinBox_so_co_maxPlayers_valueChanged(int value);
+    void spinBox_so_co_maxSpectators_valueChanged(int value);
+    void checkBox_so_co_alwaysAllowSpectators_toggled(bool checked);
+    void checkBox_so_co_commander_toggled(bool checked);
 
     // Options -> Gameplay
-    void checkBox_so_go_friendlyFire_toggled(const bool &checked);
-    void checkBox_so_go_killCam_toggled(const bool &checked);
+    void checkBox_so_go_friendlyFire_toggled(bool checked);
+    void checkBox_so_go_killCam_toggled(bool checked);
 
     // Console
     void pushButton_co_co_clicked();

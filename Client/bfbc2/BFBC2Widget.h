@@ -75,7 +75,7 @@ private:
 
     QSettings *settings;
 
-    void logMessage(const int &type, const QString &message);
+    void logMessage(int type, const QString &message);
     void startupCommands();
 
 private slots:
@@ -87,16 +87,16 @@ private slots:
     void onPlayerAuthenticated(const QString &player, const QString &guid);
     void onPlayerLeave(const QString &player, const QString &info);
     void onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weapons);
-    void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot);
+    void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
     void onPlayerChat(const QString &player, const QString &message, const QString &target);
     void onPlayerKicked(const QString &player, const QString &reason);
-    void onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId);
-    void onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId);
+    void onPlayerSquadChange(const QString &player, int teamId, int squadId);
+    void onPlayerTeamChange(const QString &player, int teamId, int squadId);
     void onPunkBusterMessage(const QString &message);
     void onPunkBusterVersion(const QString &version);
-    void onServerLoadingLevel(const QString &levelName, const int &roundsPlayed, const int &roundsTotal);
+    void onServerLoadingLevel(const QString &levelName, int roundsPlayed, int roundsTotal);
     void onServerLevelStarted();
-    void onServerRoundOver(const int &winningTeamId);
+    void onServerRoundOver(int winningTeamId);
     void onServerRoundOverPlayers(const QString &playerInfo);
     void onServerRoundOverTeamScores(const QString &teamScores);
 
@@ -108,14 +108,14 @@ private slots:
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsBannerUrlCommand(const QString &bannerUrl);
     void onMapListListCommand(const QStringList &mapList);
-    void onMapListNextLevelIndexCommand(const int &index);
+    void onMapListNextLevelIndexCommand(int index);
     void onBanListListCommand(const QStringList &banList);
     void onReservedSlotsListCommand(const QStringList &reservedSlotList);
     void onVarsTextChatModerationModeCommand(const QString &mode);
-    void onVarsTextChatSpamTriggerCountCommand(const int &count);
-    void onVarsTextChatSpamDetectionTimeCommand(const int &count);
-    void onVarsTextChatSpamCoolDownTimeCommand(const int &count);
-    void onVarsIdleTimeoutCommand(const int &seconds);
+    void onVarsTextChatSpamTriggerCountCommand(int count);
+    void onVarsTextChatSpamDetectionTimeCommand(int count);
+    void onVarsTextChatSpamCoolDownTimeCommand(int count);
+    void onVarsIdleTimeoutCommand(int seconds);
 
     /* User Interface */
 

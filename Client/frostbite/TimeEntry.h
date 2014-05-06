@@ -21,10 +21,10 @@
 #define TIMEENTRY_H
 
 struct TimeEntry {
-    TimeEntry(const int &days,
-              const int &hours,
-              const int &minutes,
-              const int &seconds) :
+    TimeEntry(int days,
+              int hours,
+              int minutes,
+              int seconds) :
         days(days),
         hours(hours),
         minutes(minutes),

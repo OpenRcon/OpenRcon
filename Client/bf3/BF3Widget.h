@@ -55,10 +55,10 @@ private:
     // Console
     QCompleter *completer;
 
-    void setAuthenticated(const bool &authenticated);
-    void startupCommands(const bool &authenticated);
-    void logConsole(const int &type, const QString &message);
-    QIcon getRankIcon(const int &rank);
+    void setAuthenticated(bool authenticated);
+    void startupCommands(bool authenticated);
+    void logConsole(int type, const QString &message);
+    QIcon getRankIcon(int rank);
 
 private slots:
     /* Connection */
@@ -72,7 +72,7 @@ private slots:
     /* Commands */
 
     // Misc
-    void onLoginHashedCommand(const bool &auth);
+    void onLoginHashedCommand(bool auth);
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
     // Admin

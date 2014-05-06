@@ -46,9 +46,9 @@ protected:
         Hotel
     };
 
-    QString getVersionFromBuild(const int &build);
-    TimeEntry getTimeFromSeconds(const int &elapsedSeconds);
-    QString getSquadName(const int &squadId);
+    QString getVersionFromBuild(int build);
+    TimeEntry getTimeFromSeconds(int elapsedSeconds);
+    QString getSquadName(int squadId);
 
 };
 

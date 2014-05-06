@@ -31,8 +31,8 @@ struct LevelEntry {
 
     LevelEntry(const QString &engineName,
                const QString &name,
-               const int &team1,
-               const int &team2,
+               int team1,
+               int team2,
                const QString &image) :
         engineName(engineName),
         name(name),

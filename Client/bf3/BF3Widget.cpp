@@ -42,7 +42,7 @@ BF3Widget::~BF3Widget()
     delete ui;
 }
 
-void BF3Widget::setAuthenticated(const bool &authenticated)
+void BF3Widget::setAuthenticated(bool authenticated)
 {
 //    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), authenticated);
 //    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), authenticated);
@@ -54,7 +54,7 @@ void BF3Widget::setAuthenticated(const bool &authenticated)
     startupCommands(authenticated);
 }
 
-void BF3Widget::startupCommands(const bool &authenticated)
+void BF3Widget::startupCommands(bool authenticated)
 {
     // Misc
     con->sendVersionCommand();
@@ -91,7 +91,7 @@ void BF3Widget::startupCommands(const bool &authenticated)
     }
 }
 
-void BF3Widget::logConsole(const int &type, const QString &message)
+void BF3Widget::logConsole(int type, const QString &message)
 {
     QString time = QTime::currentTime().toString();
 
@@ -141,7 +141,7 @@ void BF3Widget::onDataReceivedEvent(const QString &response)
 /* Commands */
 
 // Misc
-void BF3Widget::onLoginHashedCommand(const bool &auth)
+void BF3Widget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
         // Call commands on startup.
@@ -184,7 +184,7 @@ void BF3Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, c
 
 // Variables
 
-QIcon BF3Widget::getRankIcon(const int &rank)
+QIcon BF3Widget::getRankIcon(int rank)
 {
     return QIcon(QString(":/bf3/ranks/rank_%1.png").arg(rank));
 }

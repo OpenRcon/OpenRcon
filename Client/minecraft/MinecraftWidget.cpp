@@ -27,7 +27,7 @@ MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEnt
     connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
     connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
 
-    connect(con, SIGNAL(onAuthenticated(const bool&)), this, SLOT(onAuthenticated(const bool&)));
+    connect(con, SIGNAL(onAuthenticated(bool)), this, SLOT(onAuthenticated(bool)));
 
     connect(ui->lineEdit_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_send_clicked()));
 }
@@ -37,7 +37,7 @@ MinecraftWidget::~MinecraftWidget()
     delete ui;
 }
 
-void MinecraftWidget::logMessage(const int &type, const QString &message)
+void MinecraftWidget::logMessage(int type, const QString &message)
 {
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
@@ -65,7 +65,7 @@ void MinecraftWidget::onDataReceivedEvent(const QString &response)
     logMessage(3, response);
 }
 
-void MinecraftWidget::onAuthenticated(const bool &auth)
+void MinecraftWidget::onAuthenticated(bool auth)
 {
     if (auth) {
         logMessage(0, "Successfully logged in!");

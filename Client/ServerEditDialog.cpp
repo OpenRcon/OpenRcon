@@ -54,7 +54,7 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     validate();
 }
 
-ServerEditDialog::ServerEditDialog(const int &game, const QString &name, const QString &host, const int &port, const QString &password, QWidget *parent) : ServerEditDialog(parent)
+ServerEditDialog::ServerEditDialog(int game, const QString &name, const QString &host, int port, const QString &password, QWidget *parent) : ServerEditDialog(parent)
 {
     ui->comboBox_sed_game->setCurrentIndex(game);
     ui->lineEdit_sed_name->setText(name);

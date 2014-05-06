@@ -29,7 +29,7 @@ struct GameModeEntry {
 
     GameModeEntry(const QString &engineName,
                   const QString &name,
-                  const int &players) :
+                  int players) :
         engineName(engineName),
         name(name),
         players(players)

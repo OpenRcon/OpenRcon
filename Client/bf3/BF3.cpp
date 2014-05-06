@@ -71,8 +71,8 @@ BF3::BF3(ServerEntry *serverEntry) : FrostbiteGame(serverEntry)
 
     // Commands
     connect(con, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con, SIGNAL(onLoginHashedCommand(const bool&)), this, SLOT(onLoginHashedCommand(const bool&)));
-    connect(con, SIGNAL(onVersionCommand(const QString&, const int&)), this, SLOT(onVersionCommand(const QString&, const int&)));
+    connect(con, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
+    connect(con, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
 }
 
 BF3::~BF3()
@@ -95,12 +95,12 @@ void BF3::onLoginHashedCommand(const QByteArray &salt)
     }
 }
 
-void BF3::onLoginHashedCommand(const bool &auth)
+void BF3::onLoginHashedCommand(bool auth)
 {
     authenticated = auth;
 }
 
-void BF3::onVersionCommand(const QString &type, const int &build)
+void BF3::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(build);
 

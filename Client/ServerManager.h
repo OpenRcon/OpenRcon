@@ -36,15 +36,15 @@ public:
     ServerManager(QObject *parent);
     ~ServerManager();
 
-    ServerEntry* getServer(const int &index);
+    ServerEntry* getServer(int index);
     ServerEntry* getServer(ServerEntry *serverEntry);
     void setServers(const QList<ServerEntry *> &list);
 
     QList<ServerEntry *> getServers();
-    QList<ServerEntry *> getServers(const int &gameIndex);
+    QList<ServerEntry *> getServers(int gameIndex);
 
     void addServer(ServerEntry *serverEntry);
-    void removeServer(const int &index);
+    void removeServer(int index);
     void removeServer(ServerEntry *serverEntry);
 
 private:

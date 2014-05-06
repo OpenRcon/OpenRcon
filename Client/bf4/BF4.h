@@ -45,8 +45,8 @@ private:
 private slots:
     void onConnected();
     void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand(const bool &auth);
-    void onVersionCommand(const QString &type, const int &build);
+    void onLoginHashedCommand(bool auth);
+    void onVersionCommand(const QString &type, int build);
 
 };
 
