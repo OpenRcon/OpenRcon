@@ -858,18 +858,18 @@ void BF4Widget::pushButton_ch_send_clicked()
 
         case 1:
             playerSubset = PlayerSubset::Team;
-            parameter = 0;
+            parameter = 1;
             break;
 
         case 2:
             playerSubset = PlayerSubset::Team;
-            parameter = 1;
+            parameter = 2;
             break;
         }
 
         switch (type) {
         case 0:
-            if (parameter) {
+            if (parameter >= 0) {
                 con->sendAdminSayCommand(message, playerSubset, parameter);
             } else {
                 con->sendAdminSayCommand(message, playerSubset);
@@ -877,7 +877,7 @@ void BF4Widget::pushButton_ch_send_clicked()
             break;
 
         case 1:
-            if (parameter) {
+            if (parameter >= 0) {
                 con->sendAdminYellCommand(message, duration, playerSubset, parameter);
             } else {
                 con->sendAdminYellCommand(message, duration, playerSubset);
