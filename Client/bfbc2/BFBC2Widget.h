@@ -29,7 +29,7 @@
 
 #include "Game.h"
 
-#include "ui_BFBC2.h"
+#include "ui_BFBC2Widget.h"
 #include "BFBC2.h"
 
 class BFBC2Widget : public BFBC2
@@ -43,7 +43,7 @@ public:
     virtual Connection* getConnection() { return con; }
 
 private:
-    Ui::BFBC2 *ui;
+    Ui::BFBC2Widget *ui;
 
     QAction *action_pl_sendmessage;
     QAction *action_pl_textchatmoderation_muted;

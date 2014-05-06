@@ -19,7 +19,7 @@
 
 #include "BFBC2Widget.h"
 
-BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new Ui::BFBC2)
+BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new Ui::BFBC2Widget)
 {
     ui->setupUi(this);
 
