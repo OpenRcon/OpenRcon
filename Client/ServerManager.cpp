@@ -78,7 +78,7 @@ void ServerManager::saveServers()
     settings->endGroup();
 }
 
-ServerEntry* ServerManager::getServer(const int &index)
+ServerEntry* ServerManager::getServer(int index)
 {
     return serverList.at(index);
 }
@@ -101,7 +101,7 @@ QList<ServerEntry *> ServerManager::getServers()
     return serverList;
 }
 
-QList<ServerEntry *> ServerManager::getServers(const int &gameIndex)
+QList<ServerEntry *> ServerManager::getServers(int gameIndex)
 {
     QList<ServerEntry *> list;
 
@@ -121,7 +121,7 @@ void ServerManager::addServer(ServerEntry *serverEntry)
     emit (onServerUpdate());
 }
 
-void ServerManager::removeServer(const int &index)
+void ServerManager::removeServer(int index)
 {
     serverList.removeAt(index);
 

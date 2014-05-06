@@ -98,7 +98,7 @@ void BFBC2::sendSayMessage(const QString &msg, const QString &group)
     }
 }
 
-void BFBC2::sendYellMessage(const QString &message, const int &duration, const QString &group)
+void BFBC2::sendYellMessage(const QString &message, int duration, const QString &group)
 {
     if (!group.isEmpty()) {
         con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(group));

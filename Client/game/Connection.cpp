@@ -33,7 +33,7 @@ Connection::~Connection()
     delete tcpSocket;
 }
 
-void Connection::hostConnect(const QString &host, const int &port)
+void Connection::hostConnect(const QString &host, int port)
 {
     if (!tcpSocket->isOpen()) {
         tcpSocket->connectToHost(host, port);

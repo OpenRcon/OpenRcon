@@ -27,19 +27,19 @@
 
 struct ServerInfo {
     ServerInfo(const QString &serverName,
-               const int &playerCount,
-               const int &maxPlayerCount,
+               int playerCount,
+               int maxPlayerCount,
                const QString &gameMode,
                const QString &currentMap,
-               const int &roundsPlayed,
-               const int &roundsTotal,
+               int roundsPlayed,
+               int roundsTotal,
                const TeamScores &scores,
                const OnlineState &onlineState,
-               const bool &ranked,
-               const bool &punkBuster,
-               const bool &hasGamePassword,
-               const int &serverUpTime,
-               const int &roundTime) :
+               bool ranked,
+               bool punkBuster,
+               bool hasGamePassword,
+               int serverUpTime,
+               int roundTime) :
         serverName(serverName),
         playerCount(playerCount),
         maxPlayerCount(maxPlayerCount),

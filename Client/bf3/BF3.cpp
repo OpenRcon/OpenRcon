@@ -95,12 +95,12 @@ void BF3::onLoginHashedCommand(const QByteArray &salt)
     }
 }
 
-void BF3::onLoginHashedCommand(const bool &auth)
+void BF3::onLoginHashedCommand(bool auth)
 {
     authenticated = auth;
 }
 
-void BF3::onVersionCommand(const QString &type, const int &build)
+void BF3::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(build);
 

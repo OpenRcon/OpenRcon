@@ -30,7 +30,7 @@ LanguageManager::~LanguageManager()
 
 }
 
-LanguageEntry LanguageManager::getLanguage(const int &index)
+LanguageEntry LanguageManager::getLanguage(int index)
 {
     return languageList.at(index);
 }

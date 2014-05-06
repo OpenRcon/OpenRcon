@@ -37,7 +37,7 @@ MinecraftWidget::~MinecraftWidget()
     delete ui;
 }
 
-void MinecraftWidget::logMessage(const int &type, const QString &message)
+void MinecraftWidget::logMessage(int type, const QString &message)
 {
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
@@ -65,7 +65,7 @@ void MinecraftWidget::onDataReceivedEvent(const QString &response)
     logMessage(3, response);
 }
 
-void MinecraftWidget::onAuthenticated(const bool &auth)
+void MinecraftWidget::onAuthenticated(bool auth)
 {
     if (auth) {
         logMessage(0, "Successfully logged in!");

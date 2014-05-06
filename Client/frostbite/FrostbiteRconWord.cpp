@@ -91,7 +91,7 @@ char FrostbiteRconWord::getTerminator() const
     return wordTerminator;
 }
 
-void FrostbiteRconWord::loadData(const char* data, const unsigned int &size)
+void FrostbiteRconWord::loadData(const char* data, unsigned int size)
 {
     clear();
     wordTerminator = 0;

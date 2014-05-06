@@ -37,7 +37,7 @@ public:
     QTcpSocket *tcpSocket;
 
 public slots:
-    virtual void hostConnect(const QString &host, const int &port);
+    virtual void hostConnect(const QString &host, int port);
     virtual void hostDisconnect();
 
 protected:

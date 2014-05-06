@@ -33,7 +33,7 @@ public:
     LanguageManager(QObject *parent = 0);
     ~LanguageManager();
 
-    LanguageEntry getLanguage(const int &index);
+    LanguageEntry getLanguage(int index);
     LanguageEntry getLanguage(const QString &code);
     QList<LanguageEntry> getLanguages();
 

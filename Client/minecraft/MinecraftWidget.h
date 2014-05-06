@@ -33,13 +33,13 @@ public:
     MinecraftWidget(ServerEntry *serverEntry);
     ~MinecraftWidget();
 
-    void logMessage(const int &type, const QString &message);
+    void logMessage(int type, const QString &message);
 
 private slots:
     void onDataSentEvent(const QString &command);
     void onDataReceivedEvent(const QString &response);
 
-    void onAuthenticated(const bool &auth);
+    void onAuthenticated(bool auth);
 
     void on_pushButton_co_send_clicked();
 

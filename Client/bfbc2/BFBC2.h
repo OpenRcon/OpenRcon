@@ -60,7 +60,7 @@ protected:
     bool isAuthenticated();
 
     void sendSayMessage(const QString &msg, const QString &group);
-    void sendYellMessage(const QString &message, const int &duration, const QString &group);
+    void sendYellMessage(const QString &message, int duration, const QString &group);
     void killPlayer(const QString &player);
     void kickPlayer(const QString &player, const QString &reason);
     void banPlayer(const QString &type, const QString &id, const QString &timeout, const QString &reason);

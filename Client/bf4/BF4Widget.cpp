@@ -245,7 +245,7 @@ BF4Widget::~BF4Widget()
     delete ui;
 }
 
-void BF4Widget::setAuthenticated(const bool &authenticated)
+void BF4Widget::setAuthenticated(bool authenticated)
 {
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), authenticated);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), authenticated);
@@ -257,7 +257,7 @@ void BF4Widget::setAuthenticated(const bool &authenticated)
     startupCommands(authenticated);
 }
 
-void BF4Widget::startupCommands(const bool &authenticated)
+void BF4Widget::startupCommands(bool authenticated)
 {
     // Misc
     con->sendVersionCommand();
@@ -322,7 +322,7 @@ void BF4Widget::logChat(const QString &sender, const QString &message, const QSt
     ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QTime::currentTime().toString(), target, sender, message));
 }
 
-void BF4Widget::logConsole(const int &type, const QString &message)
+void BF4Widget::logConsole(int type, const QString &message)
 {
     QString time = QTime::currentTime().toString();
 
@@ -386,12 +386,12 @@ void BF4Widget::onPlayerLeaveEvent(const QString &player, const QString &info)
     logEvent("PlayerLeave", tr("Player %1 left the game.").arg(player)); // TODO: Impelment score stuffs here?
 }
 
-void BF4Widget::onPlayerSpawnEvent(const QString &player, const int &teamId)
+void BF4Widget::onPlayerSpawnEvent(const QString &player, int teamId)
 {
     logEvent("PlayerSpawn", tr("Player %1 spawned, and is on team %2.").arg(player).arg(teamId));
 }
 
-void BF4Widget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot)
+void BF4Widget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
 {
     QString message;
 
@@ -416,7 +416,7 @@ void BF4Widget::onPlayerChatEvent(const QString &sender, const QString &message,
     logChat(sender, message, target);
 }
 
-void BF4Widget::onPlayerSquadChangeEvent(const QString &player, const int &teamId, const int &squadId)
+void BF4Widget::onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId)
 {
     Q_UNUSED(teamId);
 
@@ -425,7 +425,7 @@ void BF4Widget::onPlayerSquadChangeEvent(const QString &player, const int &teamI
     }
 }
 
-void BF4Widget::onPlayerTeamChangeEvent(const QString &player, const int &teamId, const int &squadId)
+void BF4Widget::onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId)
 {
     Q_UNUSED(squadId);
 
@@ -442,7 +442,7 @@ void BF4Widget::onServerMaxPlayerCountChangeEvent()
 
 }
 
-void BF4Widget::onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, const int &roundsPlayed, const int &roundsTotal)
+void BF4Widget::onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal)
 {
     Q_UNUSED(roundsPlayed);
     Q_UNUSED(roundsTotal);
@@ -453,7 +453,7 @@ void BF4Widget::onServerLevelLoadedEvent(const QString &levelName, const QString
     logEvent("ServerLevelLoaded", tr("Loading level %1 running gamemode %2.").arg(level.name).arg(gameMode.name));
 }
 
-void BF4Widget::onServerRoundOverEvent(const int &winningTeamId)
+void BF4Widget::onServerRoundOverEvent(int winningTeamId)
 {
     logEvent("ServerRoundOver", tr("The round has just ended, and %1 won.").arg(winningTeamId));
 }
@@ -471,7 +471,7 @@ void BF4Widget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
 /* Commands */
 
 // Misc
-void BF4Widget::onLoginHashedCommand(const bool &auth)
+void BF4Widget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
         // Call commands on startup.
@@ -485,7 +485,7 @@ void BF4Widget::onLoginHashedCommand(const bool &auth)
     }
 }
 
-void BF4Widget::onVersionCommand(const QString &type, const int &build)
+void BF4Widget::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(type);
 
@@ -535,7 +535,7 @@ void BF4Widget::onBanListListCommand(const BanList &banList)
 }
 
 // FairFight
-void BF4Widget::onFairFightIsActiveCommand(const bool &isActive)
+void BF4Widget::onFairFightIsActiveCommand(bool isActive)
 {
     ui->checkBox_so_co_fairFight->setChecked(isActive);
 }
@@ -549,13 +549,13 @@ void BF4Widget::onMapListListCommand(const MapList &mapList)
 // Player
 
 // Punkbuster
-void BF4Widget::onPunkBusterIsActiveCommand(const bool &isActive)
+void BF4Widget::onPunkBusterIsActiveCommand(bool isActive)
 {
     ui->checkBox_so_co_punkBuster->setChecked(isActive);
 }
 
 // Reserved Slots
-void BF4Widget::onReservedSlotsListAggressiveJoinCommand(const bool &enabled)
+void BF4Widget::onReservedSlotsListAggressiveJoinCommand(bool enabled)
 {
     ui->checkBox_so_co_aggressiveJoin->setChecked(enabled);
 }
@@ -576,23 +576,23 @@ void BF4Widget::onSpectatorListListCommand(const QStringList &spectatorList)
 // Squad
 
 // Variables
-void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(const bool &enabled)
+void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(bool enabled)
 {
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), !enabled);
     ui->checkBox_so_co_alwaysAllowSpectators->setChecked(enabled);
 }
 
-void BF4Widget::onVarsCommanderCommand(const bool &enabled)
+void BF4Widget::onVarsCommanderCommand(bool enabled)
 {
     ui->checkBox_so_co_commander->setChecked(enabled);
 }
 
-void BF4Widget::onVarsFriendlyFireCommand(const bool &enabled)
+void BF4Widget::onVarsFriendlyFireCommand(bool enabled)
 {
     ui->checkBox_so_go_friendlyFire->setChecked(enabled);
 }
 
-void BF4Widget::onVarsIdleTimeoutCommand(const int &timeout)
+void BF4Widget::onVarsIdleTimeoutCommand(int timeout)
 {
     if (timeout >= 1) { // TODO: This cannot be disabled on ranked servers.
         ui->checkBox_so_co_idleTimeout->setChecked(false);
@@ -603,17 +603,17 @@ void BF4Widget::onVarsIdleTimeoutCommand(const int &timeout)
     }
 }
 
-void BF4Widget::onVarsKillCamCommand(const bool &enabled)
+void BF4Widget::onVarsKillCamCommand(bool enabled)
 {
     ui->checkBox_so_go_killCam->setChecked(enabled);
 }
 
-void BF4Widget::onVarsMaxPlayersCommand(const int &playerCount)
+void BF4Widget::onVarsMaxPlayersCommand(int playerCount)
 {
     ui->spinBox_so_co_maxPlayers->setValue(playerCount);
 }
 
-void BF4Widget::onVarsMaxSpectatorsCommand(const int &spectatorCount)
+void BF4Widget::onVarsMaxSpectatorsCommand(int spectatorCount)
 {
     ui->spinBox_so_co_maxSpectators->setValue(spectatorCount);
 }
@@ -638,7 +638,7 @@ void BF4Widget::onVarsServerTypeCommand(const QString &type)
     ui->label_so_co_serverType->setText(type);
 }
 
-QIcon BF4Widget::getRankIcon(const int &rank)
+QIcon BF4Widget::getRankIcon(int rank)
 {
     return QIcon(QString(":/bf4/ranks/rank_%1.png").arg(rank));
 }
@@ -806,7 +806,7 @@ void BF4Widget::addEvent(const QString &event, const QString &message)
 }
 
 // Chat
-void BF4Widget::comboBox_ch_mode_currentIndexChanged(const int &index)
+void BF4Widget::comboBox_ch_mode_currentIndexChanged(int index)
 {
     switch (index) {
         case 0:
@@ -935,7 +935,7 @@ void BF4Widget::addAvaliableMapListRow(const QString &name, const QString &gameM
     ui->tableWidget_ml_avaliable->setItem(row, 1, new QTableWidgetItem(gameMode));
 }
 
-void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
+void BF4Widget::setAvaliableMaplist(int gameModeIndex)
 {
     QList<LevelEntry> levelList = levelDictionary->getLevels(gameModeIndex);
     GameModeEntry gameMode = levelDictionary->getGameMode(gameModeIndex);
@@ -952,7 +952,7 @@ void BF4Widget::setAvaliableMaplist(const int &gameModeIndex)
     }
 }
 
-void BF4Widget::addCurrentMapListRow(const QString &name, const QString &gameMode, const int &rounds)
+void BF4Widget::addCurrentMapListRow(const QString &name, const QString &gameMode, int rounds)
 {
     int row = ui->tableWidget_ml_current->rowCount();
 
@@ -1001,7 +1001,7 @@ void BF4Widget::action_bl_banList_remove_triggered()
     }
 }
 
-void BF4Widget::addBanListRow(const QString &idType, const QString &id, const QString &banType, const int &seconds, const int &rounds, const QString &reason)
+void BF4Widget::addBanListRow(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason)
 {
     int row = ui->tableWidget_bl_banList->rowCount();
 
@@ -1140,14 +1140,14 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
 }
 
 // Options -> Configuration
-void BF4Widget::checkBox_so_co_punkBuster_toggled(const bool &checked)
+void BF4Widget::checkBox_so_co_punkBuster_toggled(bool checked)
 {
     Q_UNUSED(checked); // TODO: Do this right.
 
     con->sendPunkBusterActivate();
 }
 
-void BF4Widget::checkBox_so_co_fairFight_toggled(const bool &checked)
+void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
 {
     if (checked) {
         con->sendFairFightActivateCommand();
@@ -1156,7 +1156,7 @@ void BF4Widget::checkBox_so_co_fairFight_toggled(const bool &checked)
     }
 }
 
-void BF4Widget::checkBox_so_co_idleTimeout_toggled(const bool &checked)
+void BF4Widget::checkBox_so_co_idleTimeout_toggled(bool checked)
 {
     int timeout;
 
@@ -1171,45 +1171,45 @@ void BF4Widget::checkBox_so_co_idleTimeout_toggled(const bool &checked)
     con->sendVarsIdleTimeout(timeout);
 }
 
-void BF4Widget::spinBox_so_co_idleTimeout_valueChanged(const int &value)
+void BF4Widget::spinBox_so_co_idleTimeout_valueChanged(int value)
 {
     if (value >= 1) {
         con->sendVarsIdleTimeout(value);
     }
 }
 
-void BF4Widget::checkBox_so_co_aggressiveJoin_toggled(const bool &checked)
+void BF4Widget::checkBox_so_co_aggressiveJoin_toggled(bool checked)
 {
     con->sendReservedSlotsListAggressiveJoin(checked);
 }
 
-void BF4Widget::spinBox_so_co_maxPlayers_valueChanged(const int &value)
+void BF4Widget::spinBox_so_co_maxPlayers_valueChanged(int value)
 {
     con->sendVarsMaxPlayers(value);
 }
 
-void BF4Widget::spinBox_so_co_maxSpectators_valueChanged(const int &value)
+void BF4Widget::spinBox_so_co_maxSpectators_valueChanged(int value)
 {
     con->sendVarsMaxSpectators(value);
 }
 
-void BF4Widget::checkBox_so_co_alwaysAllowSpectators_toggled(const bool &checked)
+void BF4Widget::checkBox_so_co_alwaysAllowSpectators_toggled(bool checked)
 {
     con->sendVarsAlwaysAllowSpectators(checked);
 }
 
-void BF4Widget::checkBox_so_co_commander_toggled(const bool &checked)
+void BF4Widget::checkBox_so_co_commander_toggled(bool checked)
 {
     con->sendVarsCommander(checked);
 }
 
 // Options -> Gameplay
-void BF4Widget::checkBox_so_go_friendlyFire_toggled(const bool &checked)
+void BF4Widget::checkBox_so_go_friendlyFire_toggled(bool checked)
 {
     con->sendVarsFriendlyFire(checked);
 }
 
-void BF4Widget::checkBox_so_go_killCam_toggled(const bool &checked)
+void BF4Widget::checkBox_so_go_killCam_toggled(bool checked)
 {
     con->sendVarsKillCam(checked);
 }

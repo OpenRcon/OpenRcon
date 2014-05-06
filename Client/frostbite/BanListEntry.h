@@ -26,8 +26,8 @@ struct BanListEntry {
     BanListEntry(const QString &idType,
                  const QString &id,
                  const QString &banType,
-                 const int &seconds,
-                 const int &rounds,
+                 int seconds,
+                 int rounds,
                  const QString &reason) :
         idType(idType),
         id(id),

@@ -238,7 +238,7 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     connect(con, SIGNAL(onMapListNextLevelIndexCommand(const int&)), this, SLOT(onMapListNextLevelIndexCommand(const int&)));
     connect(con, SIGNAL(onBanListListCommand(const QStringList&)), this, SLOT(onBanListListCommand(const QStringList&)));
     connect(con, SIGNAL(onReservedSlotsListCommand(const QStringList&)), this, SLOT(onReservedSlotsListCommand(const QStringList&)));
-    connect(con, SIGNAL(onVarsIdleTimeoutCommand(const int &)), this, SLOT(onVarsIdleTimeoutCommand(const int &)));
+    connect(con, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
 
     /* User Interface */
 
@@ -308,7 +308,7 @@ BFBC2Widget::~BFBC2Widget()
     delete ui;
 }
 
-void BFBC2Widget::logMessage(const int &type, const QString &message)
+void BFBC2Widget::logMessage(int type, const QString &message)
 {
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
@@ -362,7 +362,7 @@ void BFBC2Widget::onPlayerSpawn(const QString &player, const QString &kit, const
     logMessage(0, tr("Player <b>%1</b> spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(player).arg(kit).arg(weaponList.at(0)).arg(weaponList.at(1)).arg(weaponList.at(2))); // TODO: Implement dynamic length on selected weapons.
 }
 
-void BFBC2Widget::onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, const bool &headshot)
+void BFBC2Widget::onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
 {
     if (killer != victim) {
         if (headshot) {
@@ -387,7 +387,7 @@ void BFBC2Widget::onPlayerKicked(const QString &player, const QString &reason)
     logMessage(0, tr("Player <b>%1</b> was kicked from the game, the reason was: <b>%2</b>.").arg(player).arg(reason));
 }
 
-void BFBC2Widget::onPlayerSquadChange(const QString &player, const int &teamId, const int &squadId)
+void BFBC2Widget::onPlayerSquadChange(const QString &player, int teamId, int squadId)
 {
     Q_UNUSED(teamId);
 
@@ -396,7 +396,7 @@ void BFBC2Widget::onPlayerSquadChange(const QString &player, const int &teamId, 
     }
 }
 
-void BFBC2Widget::onPlayerTeamChange(const QString &player, const int &teamId, const int &squadId)
+void BFBC2Widget::onPlayerTeamChange(const QString &player, int teamId, int squadId)
 {
     Q_UNUSED(squadId);
 
@@ -413,7 +413,7 @@ void BFBC2Widget::onPunkBusterVersion(const QString &version)
     logMessage(5, version);
 }
 
-void BFBC2Widget::onServerLoadingLevel(const QString &levelName, const int &roundsPlayed, const int &roundsTotal)
+void BFBC2Widget::onServerLoadingLevel(const QString &levelName, int roundsPlayed, int roundsTotal)
 {
     Q_UNUSED(roundsPlayed);
     Q_UNUSED(roundsTotal);
@@ -426,7 +426,7 @@ void BFBC2Widget::onServerLevelStarted()
     logMessage(0, tr("Level started"));
 }
 
-void BFBC2Widget::onServerRoundOver(const int &winningTeamId)
+void BFBC2Widget::onServerRoundOver(int winningTeamId)
 {
     logMessage(0, tr("The round has just ended, and <b>%1</b> won").arg(winningTeamId));
 }
@@ -597,7 +597,7 @@ void BFBC2Widget::onMapListListCommand(const QStringList &mapList)
 //    }
 }
 
-void BFBC2Widget::onMapListNextLevelIndexCommand(const int &index)
+void BFBC2Widget::onMapListNextLevelIndexCommand(int index)
 {
     nextLevelIndex = index;
 }
@@ -625,22 +625,22 @@ void BFBC2Widget::onVarsTextChatModerationModeCommand(const QString &mode)
     }
 }
 
-void BFBC2Widget::onVarsTextChatSpamTriggerCountCommand(const int &count)
+void BFBC2Widget::onVarsTextChatSpamTriggerCountCommand(int count)
 {
     ui->spinBox_op_tcm_spamtriggercount->setValue(count);
 }
 
-void BFBC2Widget::onVarsTextChatSpamDetectionTimeCommand(const int &count)
+void BFBC2Widget::onVarsTextChatSpamDetectionTimeCommand(int count)
 {
     ui->spinBox_op_tcm_spamdetectiontime->setValue(count);
 }
 
-void BFBC2Widget::onVarsTextChatSpamCoolDownTimeCommand(const int &count)
+void BFBC2Widget::onVarsTextChatSpamCoolDownTimeCommand(int count)
 {
     ui->spinBox_op_tcm_spamcooldowntime->setValue(count);
 }
 
-void BFBC2Widget::onVarsIdleTimeoutCommand(const int &seconds)
+void BFBC2Widget::onVarsIdleTimeoutCommand(int seconds)
 {
     ui->spinBox_op_gpo_idleTimeout->setValue(seconds);
 }

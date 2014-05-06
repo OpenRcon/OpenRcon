@@ -19,12 +19,12 @@
 
 #include "MinecraftRconPacket.h"
 
-MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const unsigned int &type, const char* content) : requestId(requestId), type(type), content(content)
+MinecraftRconPacket::MinecraftRconPacket(int requestId, unsigned int type, const char* content) : requestId(requestId), type(type), content(content)
 {
 
 }
 
-MinecraftRconPacket::MinecraftRconPacket(const int &requestId, const unsigned int &type) : MinecraftRconPacket(requestId, type, 0)
+MinecraftRconPacket::MinecraftRconPacket(int requestId, unsigned int type) : MinecraftRconPacket(requestId, type, 0)
 {
 
 }

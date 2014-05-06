@@ -31,7 +31,7 @@ class FrostbiteRconPacket : public QObject
 
 public:
     FrostbiteRconPacket(QObject *parent = 0);
-    FrostbiteRconPacket(const int &origin, const int &type, const unsigned int &initseq = 0, QObject *parent = 0);
+    FrostbiteRconPacket(int origin, int type, unsigned int initseq = 0, QObject *parent = 0);
     FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent = 0);
     FrostbiteRconPacket &operator= (const FrostbiteRconPacket &packet);
     ~FrostbiteRconPacket();
@@ -54,9 +54,9 @@ public:
     unsigned int getWordCount() const;
     bool isResponse() const;
     bool isRequest() const;
-    const FrostbiteRconWord& getWord(const unsigned int &index) const;
-    void setSequence(const int &sequence);
-    void setSequenceNum(const int &sequence);
+    const FrostbiteRconWord& getWord(unsigned int index) const;
+    void setSequence(int sequence);
+    void setSequenceNum(int sequence);
     void clear();
 
 private:

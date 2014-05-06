@@ -56,7 +56,7 @@ private slots:
 
 signals:
     // Events
-    void onAuthenticated(const bool &auth);
+    void onAuthenticated(bool auth);
 
     // Commands
     void onListCommand(const QStringList &list);

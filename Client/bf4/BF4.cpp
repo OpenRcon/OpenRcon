@@ -196,12 +196,12 @@ void BF4::onLoginHashedCommand(const QByteArray &salt)
     }
 }
 
-void BF4::onLoginHashedCommand(const bool &auth)
+void BF4::onLoginHashedCommand(bool auth)
 {
     authenticated = auth;
 }
 
-void BF4::onVersionCommand(const QString &type, const int &build)
+void BF4::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(build);
 

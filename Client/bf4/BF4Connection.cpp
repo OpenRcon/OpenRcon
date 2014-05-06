@@ -338,7 +338,7 @@ void BF4Connection::sendListPlayersCommand(const PlayerSubset &playerSubset)
 }
 
 // Admin
-void BF4Connection::sendAdminEventsEnabledCommand(const bool &enabled)
+void BF4Connection::sendAdminEventsEnabledCommand(bool enabled)
 {
     sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(toString(enabled)));
 }
@@ -365,7 +365,7 @@ void BF4Connection::sendAdminListPlayersCommand(const PlayerSubset &playerSubset
     }
 }
 
-void BF4Connection::sendAdminMovePlayerCommand(const QString &player, const int &teamId, const int &squadId, const bool &forceKill)
+void BF4Connection::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
 {
     sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(toString(forceKill)));
 }
@@ -392,12 +392,12 @@ void BF4Connection::sendAdminShutdownCommand()
     sendCommand("admin.shutDown");
 }
 
-void BF4Connection::sendAdminShutdownCommand(const bool &graceful)
+void BF4Connection::sendAdminShutdownCommand(bool graceful)
 {
     sendCommand(QString("\"admin.shutDown\" \"%1\"").arg(toString(graceful)));
 }
 
-void BF4Connection::sendAdminShutdownCommand(const bool &graceful, const int &seconds)
+void BF4Connection::sendAdminShutdownCommand(bool graceful, int seconds)
 {
     sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(toString(graceful)).arg(seconds));
 }
@@ -407,7 +407,7 @@ void BF4Connection::sendAdminYellCommand(const QString &message, const PlayerSub
     sendAdminYellCommand(message, 10, playerSubset);
 }
 
-void BF4Connection::sendAdminYellCommand(const QString &message, const int &duration, const PlayerSubset &playerSubset)
+void BF4Connection::sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset)
 {
     if (message.length() <= 256) {
         if (playerSubset == PlayerSubset::All) {
@@ -423,7 +423,7 @@ void BF4Connection::sendBanListAddCommand(const QString &idType, const QString &
     sendBanListListCommand();
 }
 
-void BF4Connection::sendBanListAddCommand(const QString &idType, const QString &id, const int &timeout, const bool &useRounds, const QString &reason)
+void BF4Connection::sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason)
 {
     QString timeoutType = useRounds ? "rounds" : "seconds";
 
@@ -436,7 +436,7 @@ void BF4Connection::sendBanListClearCommand()
     sendCommand("banList.clear");
 }
 
-void BF4Connection::sendBanListListCommand(const int &index)
+void BF4Connection::sendBanListListCommand(int index)
 {
     if (index == 0) {
         sendCommand("banList.list");
@@ -478,7 +478,7 @@ void BF4Connection::sendFairFightIsActiveCommand()
 }
 
 // Maplist
-void BF4Connection::sendMapListAdd(const QString &level, const QString &gameMode, const int &rounds, const int &offSet)
+void BF4Connection::sendMapListAdd(const QString &level, const QString &gameMode, int rounds, int offSet)
 {
     sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(level).arg(gameMode).arg(rounds).arg(offSet));
     sendMapListList();
@@ -494,7 +494,7 @@ void BF4Connection::sendMapListClear()
     sendCommand("mapList.clear");
 }
 
-void BF4Connection::sendMapListEndRound(const int &teamId)
+void BF4Connection::sendMapListEndRound(int teamId)
 {
     sendCommand(QString("\"mapList.endRound\" \"%1\"").arg(teamId));
 }
@@ -509,7 +509,7 @@ void BF4Connection::sendMapListGetRounds()
     sendCommand("mapList.getRounds");
 }
 
-void BF4Connection::sendMapListList(const int &index)
+void BF4Connection::sendMapListList(int index)
 {
     if (index == 0) {
         sendCommand("mapList.list");
@@ -523,7 +523,7 @@ void BF4Connection::sendMapListLoad()
     sendCommand("mapList.load");
 }
 
-void BF4Connection::sendMapListRemove(const int &index)
+void BF4Connection::sendMapListRemove(int index)
 {
     sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
 }
@@ -543,7 +543,7 @@ void BF4Connection::sendMapListSave()
     sendCommand("mapList.save");
 }
 
-void BF4Connection::sendMapListSetNextMapIndex(const int &index)
+void BF4Connection::sendMapListSetNextMapIndex(int index)
 {
     sendCommand(QString("\"mapList.setNextMapIndex\" \"%1\"").arg(index));
 }
@@ -591,7 +591,7 @@ void BF4Connection::sendReservedSlotsListAggressiveJoin()
     sendCommand("reservedSlotsList.aggressiveJoin");
 }
 
-void BF4Connection::sendReservedSlotsListAggressiveJoin(const bool &enabled)
+void BF4Connection::sendReservedSlotsListAggressiveJoin(bool enabled)
 {
     sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(toString(enabled)));
 }
@@ -638,7 +638,7 @@ void BF4Connection::sendSpectatorListClear()
     sendSpectatorListList();
 }
 
-void BF4Connection::sendSpectatorListList(const int &index)
+void BF4Connection::sendSpectatorListList(int index)
 {
     if (index == 0) {
         sendCommand("spectatorList.list");
@@ -660,22 +660,22 @@ void BF4Connection::sendSpectatorListSave()
 }
 
 // Squad
-void BF4Connection::sendSquadLeader(const int &teamId, const int &squadId, const QString &player)
+void BF4Connection::sendSquadLeader(int teamId, int squadId, const QString &player)
 {
     sendCommand(QString("\"squad.leader\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(player));
 }
 
-void BF4Connection::sendSquadListActive(const int &teamId)
+void BF4Connection::sendSquadListActive(int teamId)
 {
     sendCommand(QString("\"squad.listActive\" \"%1\"").arg(teamId));
 }
 
-void BF4Connection::sendSquadListPlayers(const int &teamId, const int &squadId)
+void BF4Connection::sendSquadListPlayers(int teamId, int squadId)
 {
     sendCommand(QString("\"squad.listPlayers\" \"%1\" \"%2\"").arg(teamId).arg(squadId));
 }
 
-void BF4Connection::sendSquadPrivate(const int &teamId, const int &squadId, const bool &isPrivate)
+void BF4Connection::sendSquadPrivate(int teamId, int squadId, bool isPrivate)
 {
     sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(toString(isPrivate)));
 }
@@ -686,7 +686,7 @@ void BF4Connection::sendVars3dSpotting()
     sendCommand("vars.3dSpotting");
 }
 
-void BF4Connection::sendVars3dSpotting(const bool &enabled)
+void BF4Connection::sendVars3dSpotting(bool enabled)
 {
     sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(toString(enabled)));
 }
@@ -696,7 +696,7 @@ void BF4Connection::sendVars3pCam()
     sendCommand("vars.3pCam");
 }
 
-void BF4Connection::sendVars3pCam(const bool &enabled)
+void BF4Connection::sendVars3pCam(bool enabled)
 {
     sendCommand(QString("\"vars.3pCam\" \"%1\"").arg(toString(enabled)));
 }
@@ -706,7 +706,7 @@ void BF4Connection::sendVarsAlwaysAllowSpectators()
     sendCommand("vars.alwaysAllowSpectators");
 }
 
-void BF4Connection::sendVarsAlwaysAllowSpectators(const bool &enabled)
+void BF4Connection::sendVarsAlwaysAllowSpectators(bool enabled)
 {
     sendCommand(QString("\"vars.alwaysAllowSpectators\" \"%1\"").arg(toString(enabled)));
 }
@@ -716,12 +716,12 @@ void BF4Connection::sendVarsAutoBalance()
     sendCommand("vars.autoBalance");
 }
 
-void BF4Connection::sendVarsAutoBalance(const bool &enabled)
+void BF4Connection::sendVarsAutoBalance(bool enabled)
 {
     sendCommand(QString("\"vars.autoBalance\" \"%1\"").arg(toString(enabled)));
 }
 
-void BF4Connection::sendVarsBulletDamage(const int &damage)
+void BF4Connection::sendVarsBulletDamage(int damage)
 {
     if (damage == -1) {
         sendCommand("vars.bulletDamage");
@@ -735,7 +735,7 @@ void BF4Connection::sendVarsCommander()
     sendCommand("vars.commander");
 }
 
-void BF4Connection::sendVarsCommander(const bool &enabled)
+void BF4Connection::sendVarsCommander(bool enabled)
 {
     sendCommand(QString("\"vars.commander\" \"%1\"").arg(toString(enabled)));
 }
@@ -745,7 +745,7 @@ void BF4Connection::sendVarsForceReloadWholeMags()
     sendCommand("vars.forceReloadWholeMags");
 }
 
-void BF4Connection::sendVarsForceReloadWholeMags(const bool &enabled)
+void BF4Connection::sendVarsForceReloadWholeMags(bool enabled)
 {
     sendCommand(QString("\"vars.forceReloadWholeMags\" \"%1\"").arg(toString(enabled)));
 }
@@ -755,12 +755,12 @@ void BF4Connection::sendVarsFriendlyFire()
     sendCommand("vars.friendlyFire");
 }
 
-void BF4Connection::sendVarsFriendlyFire(const bool &enabled)
+void BF4Connection::sendVarsFriendlyFire(bool enabled)
 {
     sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(toString(enabled)));
 }
 
-void BF4Connection::sendVarsGameModeCounter(const int &scale)
+void BF4Connection::sendVarsGameModeCounter(int scale)
 {
     if (scale == -1) {
         sendCommand("vars.gameModeCounter");
@@ -783,7 +783,7 @@ void BF4Connection::sendVarsHitIndicatorsEnabled()
     sendCommand("vars.hitIndicatorsEnabled");
 }
 
-void BF4Connection::sendVarsHitIndicatorsEnabled(const bool &enabled)
+void BF4Connection::sendVarsHitIndicatorsEnabled(bool enabled)
 {
     sendCommand(QString("\"vars.hitIndicatorsEnabled\" \"%1\"").arg(toString(enabled)));
 }
@@ -793,12 +793,12 @@ void BF4Connection::sendVarsHud()
     sendCommand("vars.hud");
 }
 
-void BF4Connection::sendVarsHud(const bool &enabled)
+void BF4Connection::sendVarsHud(bool enabled)
 {
     sendCommand(QString("\"vars.hud\" \"%1\"").arg(toString(enabled)));
 }
 
-void BF4Connection::sendVarsIdleBanRounds(const int &rounds)
+void BF4Connection::sendVarsIdleBanRounds(int rounds)
 {
     if (rounds == -1) {
         sendCommand("vars.idleBanRounds");
@@ -807,7 +807,7 @@ void BF4Connection::sendVarsIdleBanRounds(const int &rounds)
     }
 }
 
-void BF4Connection::sendVarsIdleTimeout(const int &seconds)
+void BF4Connection::sendVarsIdleTimeout(int seconds)
 {
     if (seconds == -1) {
         sendCommand("vars.idleTimeout");
@@ -821,12 +821,12 @@ void BF4Connection::sendVarsKillCam()
     sendCommand("vars.killCam");
 }
 
-void BF4Connection::sendVarsKillCam(const bool &enabled)
+void BF4Connection::sendVarsKillCam(bool enabled)
 {
     sendCommand(QString("\"vars.killCam\" \"%1\"").arg(toString(enabled)));
 }
 
-void BF4Connection::sendVarsMaxPlayers(const int &players)
+void BF4Connection::sendVarsMaxPlayers(int players)
 {
     if (players == -1) {
         sendCommand("vars.maxPlayers");
@@ -835,7 +835,7 @@ void BF4Connection::sendVarsMaxPlayers(const int &players)
     }
 }
 
-void BF4Connection::sendVarsMaxSpectators(const int &spectators)
+void BF4Connection::sendVarsMaxSpectators(int spectators)
 {
     if (spectators == -1) {
         sendCommand("vars.maxSpectators");
@@ -849,7 +849,7 @@ void BF4Connection::sendVarsMiniMap()
     sendCommand("vars.");
 }
 
-void BF4Connection::sendVarsMiniMap(const bool &enabled)
+void BF4Connection::sendVarsMiniMap(bool enabled)
 {
     sendCommand(QString("\"vars.\" \"%1\"").arg(toString(enabled)));
 }
@@ -859,7 +859,7 @@ void BF4Connection::sendVarsMiniMapSpotting()
     sendCommand("vars.miniMap");
 }
 
-void BF4Connection::sendVarsMiniMapSpotting(const bool &enabled)
+void BF4Connection::sendVarsMiniMapSpotting(bool enabled)
 {
     sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(toString(enabled)));
 }
@@ -878,7 +878,7 @@ void BF4Connection::sendVarsNameTag()
     sendCommand("vars.nameTag");
 }
 
-void BF4Connection::sendVarsNameTag(const bool &enabled)
+void BF4Connection::sendVarsNameTag(bool enabled)
 {
     sendCommand(QString("\"vars.nameTag\" \"%1\"").arg(toString(enabled)));
 }
@@ -888,12 +888,12 @@ void BF4Connection::sendVarsOnlySquadLeaderSpawn()
     sendCommand("vars.onlySquadLeaderSpawn");
 }
 
-void BF4Connection::sendVarsOnlySquadLeaderSpawn(const bool &enabled)
+void BF4Connection::sendVarsOnlySquadLeaderSpawn(bool enabled)
 {
     sendCommand(QString("\"vars.onlySquadLeaderSpawn\" \"%1\"").arg(toString(enabled)));
 }
 
-void BF4Connection::sendVarsPlayerRespawnTime(const int &respawnTime)
+void BF4Connection::sendVarsPlayerRespawnTime(int respawnTime)
 {
     if (respawnTime == -1) {
         sendCommand("vars.playerRespawnTime");
@@ -902,7 +902,7 @@ void BF4Connection::sendVarsPlayerRespawnTime(const int &respawnTime)
     }
 }
 
-void BF4Connection::sendVarsPreset(const QString &serverPreset, const bool &lockPresetSetting)
+void BF4Connection::sendVarsPreset(const QString &serverPreset, bool lockPresetSetting)
 {
     if (serverPreset == 0 && lockPresetSetting == 0) {
         sendCommand("vars.preset");
@@ -916,12 +916,12 @@ void BF4Connection::sendVarsRegenerateHealth()
     sendCommand("vars.regenerateHealth");
 }
 
-void BF4Connection::sendVarsRegenerateHealth(const bool &enabled)
+void BF4Connection::sendVarsRegenerateHealth(bool enabled)
 {
     sendCommand(QString("\"vars.regenerateHealth\" \"%1\"").arg(toString(enabled)));
 }
 
-void BF4Connection::sendVarsRoundLockdownCountdown(const int &seconds)
+void BF4Connection::sendVarsRoundLockdownCountdown(int seconds)
 {
     if (seconds == -1) {
         sendCommand("vars.roundLockdownCountdown");
@@ -930,7 +930,7 @@ void BF4Connection::sendVarsRoundLockdownCountdown(const int &seconds)
     }
 }
 
-void BF4Connection::sendVarsRoundRestartPlayerCount(const int &players)
+void BF4Connection::sendVarsRoundRestartPlayerCount(int players)
 {
     if (players == -1) {
         sendCommand("vars.roundRestartPlayerCount");
@@ -939,7 +939,7 @@ void BF4Connection::sendVarsRoundRestartPlayerCount(const int &players)
     }
 }
 
-void BF4Connection::sendVarsRoundStartPlayerCount(const int &players)
+void BF4Connection::sendVarsRoundStartPlayerCount(int players)
 {
     if (players == -1) {
         sendCommand("vars.roundStartPlayerCount");
@@ -948,7 +948,7 @@ void BF4Connection::sendVarsRoundStartPlayerCount(const int &players)
     }
 }
 
-void BF4Connection::sendVarsRoundTimeLimit(const int &percent)
+void BF4Connection::sendVarsRoundTimeLimit(int percent)
 {
     if (percent == -1) {
         sendCommand("vars.roundTimeLimit");
@@ -957,7 +957,7 @@ void BF4Connection::sendVarsRoundTimeLimit(const int &percent)
     }
 }
 
-void BF4Connection::sendVarsRoundWarmupTimeout(const int &timeout)
+void BF4Connection::sendVarsRoundWarmupTimeout(int timeout)
 {
     if (timeout == -1) {
         sendCommand("vars.roundWarmupTimeout");
@@ -1002,7 +1002,7 @@ void BF4Connection::sendVarsServerType(const QString &type)
     }
 }
 
-void BF4Connection::sendVarsSoldierHealth(const int &percent)
+void BF4Connection::sendVarsSoldierHealth(int percent)
 {
     if (percent == -1) {
         sendCommand("vars.soldierHealth");
@@ -1011,7 +1011,7 @@ void BF4Connection::sendVarsSoldierHealth(const int &percent)
     }
 }
 
-void BF4Connection::sendVarsTeamFactionOverride(const int &teamId, const int &factionId)
+void BF4Connection::sendVarsTeamFactionOverride(int teamId, int factionId)
 {
     if (teamId == -1 && factionId == -1) {
         sendCommand("vars.teamFactionOverride");
@@ -1020,7 +1020,7 @@ void BF4Connection::sendVarsTeamFactionOverride(const int &teamId, const int &fa
     }
 }
 
-void BF4Connection::sendVarsTeamKillCountForKick(const int &count)
+void BF4Connection::sendVarsTeamKillCountForKick(int count)
 {
     if (count == -1) {
         sendCommand("vars.teamKillCountForKick");
@@ -1029,7 +1029,7 @@ void BF4Connection::sendVarsTeamKillCountForKick(const int &count)
     }
 }
 
-void BF4Connection::sendVarsTeamKillKickForBan(const int &count)
+void BF4Connection::sendVarsTeamKillKickForBan(int count)
 {
     if (count == -1) {
         sendCommand("vars.teamKillKickForBan");
@@ -1038,7 +1038,7 @@ void BF4Connection::sendVarsTeamKillKickForBan(const int &count)
     }
 }
 
-void BF4Connection::sendVarsTeamKillValueDecreasePerSecond(const int &count)
+void BF4Connection::sendVarsTeamKillValueDecreasePerSecond(int count)
 {
     if (count == -1) {
         sendCommand("vars.teamKillValueDecreasePerSecond");
@@ -1047,7 +1047,7 @@ void BF4Connection::sendVarsTeamKillValueDecreasePerSecond(const int &count)
     }
 }
 
-void BF4Connection::sendVarsTeamKillValueForKick(const int &count)
+void BF4Connection::sendVarsTeamKillValueForKick(int count)
 {
     if (count == -1) {
         sendCommand("vars.teamKillValueForKick");
@@ -1056,7 +1056,7 @@ void BF4Connection::sendVarsTeamKillValueForKick(const int &count)
     }
 }
 
-void BF4Connection::sendVarsTeamKillValueIncrease(const int &count)
+void BF4Connection::sendVarsTeamKillValueIncrease(int count)
 {
     if (count == -1) {
         sendCommand("vars.teamKillValueIncrease");
@@ -1065,7 +1065,7 @@ void BF4Connection::sendVarsTeamKillValueIncrease(const int &count)
     }
 }
 
-void BF4Connection::sendVarsTicketBleedRate(const int &percent)
+void BF4Connection::sendVarsTicketBleedRate(int percent)
 {
     if (percent == -1) {
         sendCommand("vars.ticketBleedRate");
@@ -1088,12 +1088,12 @@ void BF4Connection::sendVarsVehicleSpawnAllowed()
     sendCommand("vars.vehicleSpawnAllowed");
 }
 
-void BF4Connection::sendVarsVehicleSpawnAllowed(const bool &enabled)
+void BF4Connection::sendVarsVehicleSpawnAllowed(bool enabled)
 {
     sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(toString(enabled)));
 }
 
-void BF4Connection::sendVarsVehicleSpawnDelay(const int &percent)
+void BF4Connection::sendVarsVehicleSpawnDelay(int percent)
 {
     if (percent == -1) {
         sendCommand("vars.vehicleSpawnDelay");

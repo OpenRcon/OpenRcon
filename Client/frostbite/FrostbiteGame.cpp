@@ -29,12 +29,12 @@ FrostbiteGame::~FrostbiteGame()
 
 }
 
-QString FrostbiteGame::getVersionFromBuild(const int &build)
+QString FrostbiteGame::getVersionFromBuild(int build)
 {
     return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);
 }
 
-TimeEntry FrostbiteGame::getTimeFromSeconds(const int &elapsedSeconds)
+TimeEntry FrostbiteGame::getTimeFromSeconds(int elapsedSeconds)
 {
     int days = elapsedSeconds / 60 / 60 / 24;
     int hours = (elapsedSeconds / 60 / 60) % 24;
@@ -44,7 +44,7 @@ TimeEntry FrostbiteGame::getTimeFromSeconds(const int &elapsedSeconds)
     return TimeEntry(days, hours, minutes, seconds);
 }
 
-QString FrostbiteGame::getSquadName(const int &squadId)
+QString FrostbiteGame::getSquadName(int squadId)
 {
     QString squadName;
 
@@ -75,7 +75,7 @@ QString FrostbiteGame::getSquadName(const int &squadId)
 
         case Golf:
             squadName = "Golf";
-        break;
+            break;
 
         case Hotel:
             squadName = "Hotel";

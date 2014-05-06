@@ -35,7 +35,7 @@ public:
     ~FrostbiteRconWord();
 
     void clear();
-    void loadData(const char* data, const unsigned int &size);
+    void loadData(const char* data, unsigned int size);
     unsigned int getSize() const;
     unsigned int getFullSize() const;
     const char* getContent() const;

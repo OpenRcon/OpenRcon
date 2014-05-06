@@ -154,12 +154,12 @@ signals:
     // Commands
     void onLoginPlainTextCommand();
     void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand(const bool &auth);
+    void onLoginHashedCommand(bool auth);
     void onServerInfoCommand();
     void onAdminHelpCommand();
     void onLogoutCommand();
     void onQuitCommand();
-    void onVersionCommand(const QString &type, const int &build);
+    void onVersionCommand(const QString &type, int build);
     void onListPlayersCommand();
     void onAdminEventsEnabledCommand();
     void onAdminPasswordCommand();

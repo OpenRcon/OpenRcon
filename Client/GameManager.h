@@ -36,7 +36,7 @@ public:
     GameManager(QObject *parent = 0);
     ~GameManager();
 
-    GameEntry getGame(const int &index);
+    GameEntry getGame(int index);
     QList<GameEntry> getGames();
     Game* getGameObject(ServerEntry *serverEntry);
 

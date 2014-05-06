@@ -24,7 +24,7 @@ FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent), pac
 
 }
 
-FrostbiteRconPacket::FrostbiteRconPacket(const int &origin, const int &type, const unsigned int &initseq, QObject *parent) : QObject(parent), packetSequence(initseq & 0x3FFFFFFF), packetSize(0), packetWordCount(0)
+FrostbiteRconPacket::FrostbiteRconPacket(int origin, int type, unsigned int initseq, QObject *parent) : QObject(parent), packetSequence(initseq & 0x3FFFFFFF), packetSize(0), packetWordCount(0)
 {
     if (origin == ClientOrigin) {
         packetSequence |= 0x80000000;
@@ -95,7 +95,7 @@ unsigned int FrostbiteRconPacket::getWordCount() const
     return packetWordCount;
 }
 
-const FrostbiteRconWord& FrostbiteRconPacket::getWord(const unsigned int &index) const
+const FrostbiteRconWord& FrostbiteRconPacket::getWord(unsigned int index) const
 {
     static FrostbiteRconWord emptyWord("");
 
@@ -109,12 +109,12 @@ const FrostbiteRconWord& FrostbiteRconPacket::getWord(const unsigned int &index)
     return emptyWord;
 }
 
-void FrostbiteRconPacket::setSequence(const int &sequence)
+void FrostbiteRconPacket::setSequence(int sequence)
 {
     packetSequence = sequence;
 }
 
-void FrostbiteRconPacket::setSequenceNum(const int &sequence)
+void FrostbiteRconPacket::setSequenceNum(int sequence)
 {
     packetSequence = (packetSequence & 0xC0000000) | (sequence & 0x3FFFFFFF);
 }

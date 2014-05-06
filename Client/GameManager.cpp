@@ -33,7 +33,7 @@ GameManager::~GameManager()
 
 }
 
-GameEntry GameManager::getGame(const int &index)
+GameEntry GameManager::getGame(int index)
 {
     return gameList.at(index);
 }

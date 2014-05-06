@@ -29,7 +29,7 @@ FrostbiteConnection::~FrostbiteConnection()
 
 }
 
-void FrostbiteConnection::hostConnect(const QString &host, const int &port)
+void FrostbiteConnection::hostConnect(const QString &host, int port)
 {
     if (!tcpSocket->isOpen()) {
         clear();
@@ -39,7 +39,7 @@ void FrostbiteConnection::hostConnect(const QString &host, const int &port)
     }
 }
 
-void FrostbiteConnection::sendPacket(const FrostbiteRconPacket &packet, const bool &response)
+void FrostbiteConnection::sendPacket(const FrostbiteRconPacket &packet, bool response)
 {
     QDataStream out(tcpSocket);
     out << packet;
@@ -208,7 +208,7 @@ bool FrostbiteConnection::toBool(const QString &value)
     return value == "true";
 }
 
-QString FrostbiteConnection::toString(const bool &value)
+QString FrostbiteConnection::toString(bool value)
 {
     return value ? "true" : "false";
 }
