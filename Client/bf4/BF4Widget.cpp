@@ -491,6 +491,7 @@ void BF4Widget::onVersionCommand(const QString &type, int build)
     Q_UNUSED(type);
 
     ui->label_serverInfo_version->setText(tr("<b>Version</b>: %1").arg(getVersionFromBuild(build)));
+    ui->label_serverInfo_version->setToolTip(QString::number(build));
 }
 
 void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
