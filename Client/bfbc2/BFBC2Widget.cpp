@@ -19,7 +19,7 @@
 
 #include "BFBC2Widget.h"
 
-BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new Ui::BFBC2)
+BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new Ui::BFBC2Widget)
 {
     ui->setupUi(this);
 
@@ -205,40 +205,40 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     connect(con, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataReceived(const QString&)));
 
     /* Events */
-    connect(con, SIGNAL(onPlayerJoin(const QString&)), this, SLOT(onPlayerJoin(const QString&)));
-    connect(con, SIGNAL(onPlayerAuthenticated(const QString&, const QString&)), this, SLOT(onPlayerAuthenticated(const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerLeave(const QString&, const QString&)), this, SLOT(onPlayerLeave(const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerSpawn(const QString&, const QString&, const QStringList&)), this, SLOT(onPlayerSpawn(const QString&, const QString&, const QStringList&)));
-    connect(con, SIGNAL(onPlayerKill(const QString&, const QString&, const QString&, bool)), this, SLOT(onPlayerKill(const QString&, const QString&, const QString&, bool)));
-    connect(con, SIGNAL(onPlayerChat(const QString&, const QString&, const QString&)), this, SLOT(onPlayerChat(const QString&, const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerKicked(const QString&, const QString&)), this, SLOT(onPlayerKicked(const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerSquadChange(const QString&, int, int)), this, SLOT(onPlayerSquadChange(const QString&, int, int)));
-    connect(con, SIGNAL(onPlayerTeamChange(const QString&, int, int)), this, SLOT(onPlayerTeamChange(const QString&, int, int)));
-    connect(con, SIGNAL(onPunkBusterMessage(const QString&)), this, SLOT(onPunkBusterMessage(const QString&)));
-    connect(con, SIGNAL(onPunkBusterVersion(const QString&)), this, SLOT(onPunkBusterVersion(const QString&)));
-    connect(con, SIGNAL(onServerLoadingLevel(const QString&, int, int)), this, SLOT(onServerLoadingLevel(const QString&, int, int)));
-    connect(con, SIGNAL(onServerLevelStarted()), this, SLOT(onServerLevelStarted()));
-    connect(con, SIGNAL(onServerRoundOver(int)), this, SLOT(onServerRoundOver(int)));
-    connect(con, SIGNAL(onServerRoundOverPlayers(const QString&)), this, SLOT(onServerRoundOverPlayers(const QString&)));
-    connect(con, SIGNAL(onServerRoundOverTeamScores(const QString&)), this, SLOT(onServerRoundOverTeamScores(const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerJoin(const QString&)), this, SLOT(onPlayerJoin(const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerAuthenticated(const QString&, const QString&)), this, SLOT(onPlayerAuthenticated(const QString&, const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerLeave(const QString&, const QString&)), this, SLOT(onPlayerLeave(const QString&, const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerSpawn(const QString&, const QString&, const QStringList&)), this, SLOT(onPlayerSpawn(const QString&, const QString&, const QStringList&)));
+    connect(commandHandler, SIGNAL(onPlayerKill(const QString&, const QString&, const QString&, bool)), this, SLOT(onPlayerKill(const QString&, const QString&, const QString&, bool)));
+    connect(commandHandler, SIGNAL(onPlayerChat(const QString&, const QString&, const QString&)), this, SLOT(onPlayerChat(const QString&, const QString&, const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerKicked(const QString&, const QString&)), this, SLOT(onPlayerKicked(const QString&, const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerSquadChange(const QString&, int, int)), this, SLOT(onPlayerSquadChange(const QString&, int, int)));
+    connect(commandHandler, SIGNAL(onPlayerTeamChange(const QString&, int, int)), this, SLOT(onPlayerTeamChange(const QString&, int, int)));
+    connect(commandHandler, SIGNAL(onPunkBusterMessage(const QString&)), this, SLOT(onPunkBusterMessage(const QString&)));
+    connect(commandHandler, SIGNAL(onPunkBusterVersion(const QString&)), this, SLOT(onPunkBusterVersion(const QString&)));
+    connect(commandHandler, SIGNAL(onServerLoadingLevel(const QString&, int, int)), this, SLOT(onServerLoadingLevel(const QString&, int, int)));
+    connect(commandHandler, SIGNAL(onServerLevelStarted()), this, SLOT(onServerLevelStarted()));
+    connect(commandHandler, SIGNAL(onServerRoundOver(int)), this, SLOT(onServerRoundOver(int)));
+    connect(commandHandler, SIGNAL(onServerRoundOverPlayers(const QString&)), this, SLOT(onServerRoundOverPlayers(const QString&)));
+    connect(commandHandler, SIGNAL(onServerRoundOverTeamScores(const QString&)), this, SLOT(onServerRoundOverTeamScores(const QString&)));
 
     // Commands
-    connect(con, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
 
-    connect(con, SIGNAL(onServerInfoCommand(const QStringList&)), this, SLOT(onServerInfoCommand(const QStringList&)));
-    connect(con, SIGNAL(onAdminListPlayersCommand(const PlayerList&)), this, SLOT(onAdminListPlayersCommand(const PlayerList&)));
-    connect(con, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
-    connect(con, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
-    connect(con, SIGNAL(onVarsBannerUrlCommand(const QString&)), this, SLOT(onVarsBannerUrlCommand(const QString&)));
-    connect(con, SIGNAL(onVarsTextChatModerationModeCommand(const QString&)), this, SLOT(onVarsTextChatModerationModeCommand(const QString&)));
-    connect(con, SIGNAL(onVarsTextChatSpamTriggerCountCommand(int)), this, SLOT(onVarsTextChatSpamTriggerCountCommand(int)));
-    connect(con, SIGNAL(onVarsTextChatSpamDetectionTimeCommand(int)), this, SLOT(onVarsTextChatSpamDetectionTimeCommand(int)));
-    connect(con, SIGNAL(onVarsTextChatSpamCoolDownTimeCommand(int)), this, SLOT(onVarsTextChatSpamCoolDownTimeCommand(int)));
-    connect(con, SIGNAL(onMapListListCommand(const QStringList&)), this, SLOT(onMapListListCommand(const QStringList&)));
-    connect(con, SIGNAL(onMapListNextLevelIndexCommand(int)), this, SLOT(onMapListNextLevelIndexCommand(int)));
-    connect(con, SIGNAL(onBanListListCommand(const QStringList&)), this, SLOT(onBanListListCommand(const QStringList&)));
-    connect(con, SIGNAL(onReservedSlotsListCommand(const QStringList&)), this, SLOT(onReservedSlotsListCommand(const QStringList&)));
-    connect(con, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
+    connect(commandHandler, SIGNAL(onServerInfoCommand(const QStringList&)), this, SLOT(onServerInfoCommand(const QStringList&)));
+    connect(commandHandler, SIGNAL(onAdminListPlayersCommand(const PlayerList&)), this, SLOT(onAdminListPlayersCommand(const PlayerList&)));
+    connect(commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
+    connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
+    connect(commandHandler, SIGNAL(onVarsBannerUrlCommand(const QString&)), this, SLOT(onVarsBannerUrlCommand(const QString&)));
+    connect(commandHandler, SIGNAL(onVarsTextChatModerationModeCommand(const QString&)), this, SLOT(onVarsTextChatModerationModeCommand(const QString&)));
+    connect(commandHandler, SIGNAL(onVarsTextChatSpamTriggerCountCommand(int)), this, SLOT(onVarsTextChatSpamTriggerCountCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsTextChatSpamDetectionTimeCommand(int)), this, SLOT(onVarsTextChatSpamDetectionTimeCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsTextChatSpamCoolDownTimeCommand(int)), this, SLOT(onVarsTextChatSpamCoolDownTimeCommand(int)));
+    connect(commandHandler, SIGNAL(onMapListListCommand(const QStringList&)), this, SLOT(onMapListListCommand(const QStringList&)));
+    connect(commandHandler, SIGNAL(onMapListNextLevelIndexCommand(int)), this, SLOT(onMapListNextLevelIndexCommand(int)));
+    connect(commandHandler, SIGNAL(onBanListListCommand(const QStringList&)), this, SLOT(onBanListListCommand(const QStringList&)));
+    connect(commandHandler, SIGNAL(onReservedSlotsListCommand(const QStringList&)), this, SLOT(onReservedSlotsListCommand(const QStringList&)));
+    connect(commandHandler, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
 
     /* User Interface */
 
@@ -1178,7 +1178,7 @@ void BFBC2Widget::slotChangePlayerTeam(const QString &player, const QString &alt
 void BFBC2Widget::refreshPlayerList()
 {
     con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
-    connect(con, SIGNAL(onplayerListChange()), this, SLOT(slotPlayerListChange())); // TODO: Change to adminListPlayersAll
+    connect(commandHandler, SIGNAL(onplayerListChange()), this, SLOT(slotPlayerListChange())); // TODO: Change to adminListPlayersAll
 }
 
 void BFBC2Widget::playerListUpdate(int oldRow)

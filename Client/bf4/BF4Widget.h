@@ -26,7 +26,7 @@
 #include <QTime>
 #include <QCompleter>
 
-#include "ui_BF4.h"
+#include "ui_BF4Widget.h"
 #include "BF4.h"
 
 class BF4Widget : public BF4
@@ -40,7 +40,7 @@ public:
     virtual Connection* getConnection() { return con; }
 
 private:
-    Ui::BF4 *ui;
+    Ui::BF4Widget *ui;
 
     /* User Interface */
 

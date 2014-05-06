@@ -24,8 +24,6 @@
 
 #include "FrostbiteRconPacket.h"
 
-#include "PlayerSubset.h"
-
 #define MIN_PACKET_SIZE 12
 
 class FrostbiteConnection : public Connection
@@ -38,12 +36,6 @@ public:
 
     void hostConnect(const QString &host, int port);
     void sendCommand(const QString &command);
-
-protected:
-    virtual void parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) = 0;
-
-    bool toBool(const QString &value);
-    QString toString(bool value);
 
 private:
     int packetReadState;

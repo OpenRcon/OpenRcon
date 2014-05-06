@@ -70,9 +70,9 @@ BF3::BF3(ServerEntry *serverEntry) : FrostbiteGame(serverEntry)
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(con, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(con, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
+    connect(commandHandler, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
 }
 
 BF3::~BF3()
@@ -84,14 +84,14 @@ BF3::~BF3()
 void BF3::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
-        con->sendLoginHashedCommand();
+        commandHandler->sendLoginHashedCommand();
     }
 }
 
 void BF3::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
-        con->sendLoginHashedCommand(salt, serverEntry->password);
+        commandHandler->sendLoginHashedCommand(salt, serverEntry->password);
     }
 }
 

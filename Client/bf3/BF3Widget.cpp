@@ -19,7 +19,7 @@
 
 #include "BF3Widget.h"
 
-BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3)
+BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);
 
@@ -57,14 +57,14 @@ void BF3Widget::setAuthenticated(bool authenticated)
 void BF3Widget::startupCommands(bool authenticated)
 {
     // Misc
-    con->sendVersionCommand();
-    con->sendServerInfoCommand();
+    commandHandler->sendVersionCommand();
+    commandHandler->sendServerInfoCommand();
 
     if (authenticated) {
-//        con->sendAdminEventsEnabledCommand(true);
+//        commandHandler->sendAdminEventsEnabledCommand(true);
 
         // Admins
-//        con->sendAdminListPlayersCommand(All);
+//        commandHandler->sendAdminListPlayersCommand(All);
 
         // Banning
 
@@ -73,8 +73,8 @@ void BF3Widget::startupCommands(bool authenticated)
         // Player
 
         // Punkbuster
-//        con->sendPunkBusterIsActive();
-//        con->sendPunkBusterPbSvCommand("pb_sv_plist");
+//        commandHandler->sendPunkBusterIsActive();
+//        commandHandler->sendPunkBusterPbSvCommand("pb_sv_plist");
 
         // Reserved Slots
 
@@ -119,7 +119,7 @@ void BF3Widget::onConnected()
 {
     setAuthenticated(false);
 
-//    logEvent("Connected", tr("Connected to %1:%2.").arg(con->tcpSocket->peerAddress().toString()).arg(con->tcpSocket->peerPort()));
+//    logEvent("Connected", tr("Connected to %1:%2.").arg(commandHandler->tcpSocket->peerAddress().toString()).arg(commandHandler->tcpSocket->peerPort()));
 }
 
 void BF3Widget::onDisconnected()
@@ -195,9 +195,9 @@ QIcon BF3Widget::getRankIcon(int rank)
 void BF3Widget::updatePlayerList()
 {
     if (isAuthenticated()) {
-//        con->sendAdminListPlayersCommand(All);
+//        commandHandler->sendAdminListPlayersCommand(All);
     } else {
-        con->sendListPlayersCommand(PlayerSubset::All);
+        commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
 }
 

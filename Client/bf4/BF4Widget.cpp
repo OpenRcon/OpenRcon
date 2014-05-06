@@ -19,7 +19,7 @@
 
 #include "BF4Widget.h"
 
-BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4)
+BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4Widget)
 {
     ui->setupUi(this);
 
@@ -96,68 +96,68 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
     connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataReceivedEvent(const QString&)));
 
-    connect(con, SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(onPlayerAuthenticatedEvent(const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(onPlayerAuthenticatedEvent(const QString&)));
     // Disconnect?
-    connect(con, SIGNAL(onPlayerJoinEvent(const QString&, const QString&)), this, SLOT(onPlayerJoinEvent(const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(onPlayerLeaveEvent(const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerSpawnEvent(const QString&, int)), this, SLOT(onPlayerSpawnEvent(const QString&, int)));
-    connect(con, SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)), this, SLOT(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)));
-    connect(con, SIGNAL(onPlayerChatEvent(const QString&, const QString&, const QString&)), this, SLOT(onPlayerChatEvent(const QString&, const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerSquadChangeEvent(const QString&, int, int)), this, SLOT(onPlayerSquadChangeEvent(const QString&, int, int)));
-    connect(con, SIGNAL(onPlayerTeamChangeEvent(const QString&, int, int)), this, SLOT(onPlayerTeamChangeEvent(const QString&, int, int)));
-    connect(con, SIGNAL(onPunkBusterMessageEvent(const QString&)), this, SLOT(onPunkBusterMessageEvent(const QString&)));
-    connect(con, SIGNAL(onServerMaxPlayerCountChangeEvent()), this, SLOT(onServerMaxPlayerCountChangeEvent()));
-    connect(con, SIGNAL(onServerLevelLoadedEvent(const QString&, const QString&, int, int)), this, SLOT(onServerLevelLoadedEvent(const QString&, const QString&, int, int)));
-    connect(con, SIGNAL(onServerRoundOverEvent(int)), this, SLOT(onServerRoundOverEvent(int)));
-    connect(con, SIGNAL(onServerRoundOverPlayersEvent(const QString&)), this, SLOT(onServerRoundOverPlayersEvent(const QString&)));
-    connect(con, SIGNAL(onServerRoundOverTeamScoresEvent(const QString&)), this, SLOT(onServerRoundOverTeamScoresEvent(const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerJoinEvent(const QString&, const QString&)), this, SLOT(onPlayerJoinEvent(const QString&, const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(onPlayerLeaveEvent(const QString&, const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(const QString&, int)), this, SLOT(onPlayerSpawnEvent(const QString&, int)));
+    connect(commandHandler, SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)), this, SLOT(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)));
+    connect(commandHandler, SIGNAL(onPlayerChatEvent(const QString&, const QString&, const QString&)), this, SLOT(onPlayerChatEvent(const QString&, const QString&, const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(const QString&, int, int)), this, SLOT(onPlayerSquadChangeEvent(const QString&, int, int)));
+    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(const QString&, int, int)), this, SLOT(onPlayerTeamChangeEvent(const QString&, int, int)));
+    connect(commandHandler, SIGNAL(onPunkBusterMessageEvent(const QString&)), this, SLOT(onPunkBusterMessageEvent(const QString&)));
+    connect(commandHandler, SIGNAL(onServerMaxPlayerCountChangeEvent()), this, SLOT(onServerMaxPlayerCountChangeEvent()));
+    connect(commandHandler, SIGNAL(onServerLevelLoadedEvent(const QString&, const QString&, int, int)), this, SLOT(onServerLevelLoadedEvent(const QString&, const QString&, int, int)));
+    connect(commandHandler, SIGNAL(onServerRoundOverEvent(int)), this, SLOT(onServerRoundOverEvent(int)));
+    connect(commandHandler, SIGNAL(onServerRoundOverPlayersEvent(const QString&)), this, SLOT(onServerRoundOverPlayersEvent(const QString&)));
+    connect(commandHandler, SIGNAL(onServerRoundOverTeamScoresEvent(const QString&)), this, SLOT(onServerRoundOverTeamScoresEvent(const QString&)));
 
     /* Commands */
 
     // Misc
-    connect(con, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(con, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
-    connect(con, SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
-    connect(con, SIGNAL(onListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)), this, SLOT(onListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
+    connect(commandHandler, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
+    connect(commandHandler, SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
+    connect(commandHandler, SIGNAL(onListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)), this, SLOT(onListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)));
 
     // Admin
-    connect(con, SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)));
+    connect(commandHandler, SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)));
 
     // Banning
-    connect(con, SIGNAL(onBanListListCommand(const BanList&)), this, SLOT(onBanListListCommand(const BanList&)));
+    connect(commandHandler, SIGNAL(onBanListListCommand(const BanList&)), this, SLOT(onBanListListCommand(const BanList&)));
 
     // FairFight
-    connect(con, SIGNAL(onFairFightIsActiveCommand(bool)), this, SLOT(onFairFightIsActiveCommand(bool)));
+    connect(commandHandler, SIGNAL(onFairFightIsActiveCommand(bool)), this, SLOT(onFairFightIsActiveCommand(bool)));
 
     // Maplist
-    connect(con, SIGNAL(onMapListListCommand(const MapList&)), this, SLOT(onMapListListCommand(const MapList&)));
+    connect(commandHandler, SIGNAL(onMapListListCommand(const MapList&)), this, SLOT(onMapListListCommand(const MapList&)));
 
     // Player
 
     // Punkbuster
-    connect(con, SIGNAL(onPunkBusterIsActiveCommand(bool)), this, SLOT(onPunkBusterIsActiveCommand(bool)));
+    connect(commandHandler, SIGNAL(onPunkBusterIsActiveCommand(bool)), this, SLOT(onPunkBusterIsActiveCommand(bool)));
 
     // Reserved Slots
-    connect(con, SIGNAL(onReservedSlotsListAggressiveJoinCommand(bool)), this, SLOT(onReservedSlotsListAggressiveJoinCommand(bool)));
-    connect(con, SIGNAL(onReservedSlotsListListCommand(const QStringList&)), this, SLOT(onReservedSlotsListListCommand(const QStringList&)));
+    connect(commandHandler, SIGNAL(onReservedSlotsListAggressiveJoinCommand(bool)), this, SLOT(onReservedSlotsListAggressiveJoinCommand(bool)));
+    connect(commandHandler, SIGNAL(onReservedSlotsListListCommand(const QStringList&)), this, SLOT(onReservedSlotsListListCommand(const QStringList&)));
 
     // Spectator list
-    connect(con, SIGNAL(onSpectatorListListCommand(const QStringList&)), this, SLOT(onSpectatorListListCommand(const QStringList&)));
+    connect(commandHandler, SIGNAL(onSpectatorListListCommand(const QStringList&)), this, SLOT(onSpectatorListListCommand(const QStringList&)));
 
     // Squad
 
     // Variables
-    connect(con, SIGNAL(onVarsAlwaysAllowSpectatorsCommand(bool)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(bool)));
-    connect(con, SIGNAL(onVarsCommanderCommand(bool)), this, SLOT(onVarsCommanderCommand(bool)));
-    connect(con, SIGNAL(onVarsFriendlyFireCommand(bool)), this, SLOT(onVarsFriendlyFireCommand(bool)));
-    connect(con, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
-    connect(con, SIGNAL(onVarsKillCamCommand(bool)), this, SLOT(onVarsKillCamCommand(bool)));
-    connect(con, SIGNAL(onVarsMaxPlayersCommand(int)), this, SLOT(onVarsMaxPlayersCommand(int)));
-    connect(con, SIGNAL(onVarsMaxSpectatorsCommand(int)), this, SLOT(onVarsMaxSpectatorsCommand(int)));
-    connect(con, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
-    connect(con, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
-    connect(con, SIGNAL(onVarsServerMessageCommand(const QString&)), this, SLOT(onVarsServerMessageCommand(const QString&)));
-    connect(con, SIGNAL(onVarsServerTypeCommand(const QString&)), this, SLOT(onVarsServerTypeCommand(const QString&)));
+    connect(commandHandler, SIGNAL(onVarsAlwaysAllowSpectatorsCommand(bool)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsCommanderCommand(bool)), this, SLOT(onVarsCommanderCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsFriendlyFireCommand(bool)), this, SLOT(onVarsFriendlyFireCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsKillCamCommand(bool)), this, SLOT(onVarsKillCamCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsMaxPlayersCommand(int)), this, SLOT(onVarsMaxPlayersCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsMaxSpectatorsCommand(int)), this, SLOT(onVarsMaxSpectatorsCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
+    connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
+    connect(commandHandler, SIGNAL(onVarsServerMessageCommand(const QString&)), this, SLOT(onVarsServerMessageCommand(const QString&)));
+    connect(commandHandler, SIGNAL(onVarsServerTypeCommand(const QString&)), this, SLOT(onVarsServerTypeCommand(const QString&)));
 
     /* User Interface */
 
@@ -171,12 +171,12 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(action_pl_players_copyTo_guid, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_guid_triggered()));
 
     // Update playerlist on following events.
-    connect(con, SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(updatePlayerList()));
-    connect(con, SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(updatePlayerList()));
-    connect(con, SIGNAL(onPlayerSpawnEvent(const QString&, int)), this, SLOT(updatePlayerList()));
-    connect(con, SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)), this, SLOT(updatePlayerList()));
-    connect(con, SIGNAL(onPlayerSquadChangeEvent(const QString&, int, int)), this, SLOT(updatePlayerList()));
-    connect(con, SIGNAL(onPlayerTeamChangeEvent(const QString&, int, int)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(const QString&, int)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(const QString&, int, int)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(const QString&, int, int)), this, SLOT(updatePlayerList()));
 
     // Events
 
@@ -261,53 +261,53 @@ void BF4Widget::setAuthenticated(bool authenticated)
 void BF4Widget::startupCommands(bool authenticated)
 {
     // Misc
-    con->sendVersionCommand();
-    con->sendServerInfoCommand();
+    commandHandler->sendVersionCommand();
+    commandHandler->sendServerInfoCommand();
 
     if (authenticated) {
-        con->sendAdminEventsEnabledCommand(true);
+        commandHandler->sendAdminEventsEnabledCommand(true);
 
         // Admins
-        con->sendAdminListPlayersCommand(PlayerSubset::All);
+        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
 
         // Banning
-        con->sendBanListListCommand();
+        commandHandler->sendBanListListCommand();
 
-        con->sendFairFightIsActiveCommand();
+        commandHandler->sendFairFightIsActiveCommand();
 
         // Maplist
-        con->sendMapListList();
+        commandHandler->sendMapListList();
 
         // Player
 
         // Punkbuster
-        con->sendPunkBusterIsActive();
-        con->sendPunkBusterPbSvCommand("pb_sv_plist");
+        commandHandler->sendPunkBusterIsActive();
+        commandHandler->sendPunkBusterPbSvCommand("pb_sv_plist");
 
         // Reserved Slots
-        con->sendReservedSlotsListAggressiveJoin();
-        con->sendReservedSlotsListList();
+        commandHandler->sendReservedSlotsListAggressiveJoin();
+        commandHandler->sendReservedSlotsListList();
 
         // Spectator list
-        con->sendSpectatorListList();
+        commandHandler->sendSpectatorListList();
 
         // Squad
 
         // Variables
-        con->sendVarsAlwaysAllowSpectators();
-        con->sendVarsCommander();
-        con->sendVarsFriendlyFire();
-        con->sendVarsIdleTimeout();
-        con->sendVarsKillCam();
-        con->sendVarsMaxPlayers();
-        con->sendVarsMaxSpectators();
-        con->sendVarsServerName();
-        con->sendVarsServerDescription();
-        con->sendVarsServerMessage();
-        con->sendVarsServerType();
+        commandHandler->sendVarsAlwaysAllowSpectators();
+        commandHandler->sendVarsCommander();
+        commandHandler->sendVarsFriendlyFire();
+        commandHandler->sendVarsIdleTimeout();
+        commandHandler->sendVarsKillCam();
+        commandHandler->sendVarsMaxPlayers();
+        commandHandler->sendVarsMaxSpectators();
+        commandHandler->sendVarsServerName();
+        commandHandler->sendVarsServerDescription();
+        commandHandler->sendVarsServerMessage();
+        commandHandler->sendVarsServerType();
     } else {
 //        timerPlayerList->stop();
-//        connect(timerPlayerList, SIGNAL(timeout()), this, SLOT(updatePlayerList()));
+//        commandHandlernect(timerPlayerList, SIGNAL(timeout()), this, SLOT(updatePlayerList()));
 //        timerPlayerList->start(1000);
         updatePlayerList();
     }
@@ -653,7 +653,7 @@ QIcon BF4Widget::getRankIcon(int rank)
 // ServerInfo
 void BF4Widget::updateServerInfo()
 {
-    con->sendServerInfoCommand();
+    commandHandler->sendServerInfoCommand();
 }
 
 void BF4Widget::updateRoundTime()
@@ -708,9 +708,9 @@ void BF4Widget::updateUpTime()
 void BF4Widget::updatePlayerList()
 {
     if (isAuthenticated()) {
-        con->sendAdminListPlayersCommand(PlayerSubset::All);
+        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
     } else {
-        con->sendListPlayersCommand(PlayerSubset::All);
+        commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
 }
 
@@ -788,28 +788,28 @@ void BF4Widget::action_pl_players_kill_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendAdminKillPlayerCommand(player);
+    commandHandler->sendAdminKillPlayerCommand(player);
 }
 
 void BF4Widget::action_pl_players_kick_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendAdminKickPlayerCommand(player, "Kicked by admin.");
+    commandHandler->sendAdminKickPlayerCommand(player, "Kicked by admin.");
 }
 
 void BF4Widget::action_pl_players_ban_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendBanListAddCommand("perm", player, "Banned by admin.");
+    commandHandler->sendBanListAddCommand("perm", player, "Banned by admin.");
 }
 
 void BF4Widget::action_pl_players_reserveSlot_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    con->sendReservedSlotsListAdd(player);
+    commandHandler->sendReservedSlotsListAdd(player);
 }
 
 void BF4Widget::action_pl_players_copyTo_name_triggered()
@@ -858,29 +858,29 @@ void BF4Widget::pushButton_ch_send_clicked()
 
         case 1:
             playerSubset = PlayerSubset::Team;
-            parameter = 1;
+            parameter = 0;
             break;
 
         case 2:
             playerSubset = PlayerSubset::Team;
-            parameter = 2;
+            parameter = 1;
             break;
         }
 
         switch (type) {
         case 0:
-            if (parameter >= 0) {
-                con->sendAdminSayCommand(message, playerSubset, parameter);
+            if (parameter) {
+                commandHandler->sendAdminSayCommand(message, playerSubset, parameter);
             } else {
-                con->sendAdminSayCommand(message, playerSubset);
+                commandHandler->sendAdminSayCommand(message, playerSubset);
             }
             break;
 
         case 1:
-            if (parameter >= 0) {
-                con->sendAdminYellCommand(message, duration, playerSubset, parameter);
+            if (parameter) {
+                commandHandler->sendAdminYellCommand(message, duration, playerSubset, parameter);
             } else {
-                con->sendAdminYellCommand(message, duration, playerSubset);
+                commandHandler->sendAdminYellCommand(message, duration, playerSubset);
             }
             break;
         }
@@ -934,7 +934,7 @@ void BF4Widget::pushButton_ml_add_clicked()
                 }
 
                 addCurrentMapListRow(level.name, gameMode.name, rounds);
-                con->sendMapListAdd(level.engineName, gameMode.engineName, rounds);
+                commandHandler->sendMapListAdd(level.engineName, gameMode.engineName, rounds);
             }
         }
     }
@@ -954,7 +954,7 @@ void BF4Widget::pushButton_ml_remove_clicked()
             int row = index.row();
 
             ui->tableWidget_ml_current->removeRow(row);
-            con->sendMapListRemove(row);
+            commandHandler->sendMapListRemove(row);
         }
     }
 }
@@ -1044,7 +1044,7 @@ void BF4Widget::action_bl_banList_remove_triggered()
     if (!idType.isEmpty() && !player.isEmpty()) {
         ui->tableWidget_bl_banList->removeRow(row);
 
-        con->sendBanListRemoveCommand(idType, player);
+        commandHandler->sendBanListRemoveCommand(idType, player);
     }
 }
 
@@ -1086,7 +1086,7 @@ void BF4Widget::action_rs_reservedSlotsList_remove_triggered()
     if (!player.isEmpty()) {
         delete ui->listWidget_rs_reservedSlotsList->currentItem();
 
-        con->sendReservedSlotsListRemove(player);
+        commandHandler->sendReservedSlotsListRemove(player);
     }
 }
 
@@ -1098,23 +1098,23 @@ void BF4Widget::pushButton_rs_add_clicked()
         ui->lineEdit_rs_player->clear();
         ui->listWidget_rs_reservedSlotsList->addItem(player);
 
-        con->sendReservedSlotsListAdd(player);
+        commandHandler->sendReservedSlotsListAdd(player);
     }
 }
 
 void BF4Widget::pushButton_rs_load_clicked()
 {
-    con->sendReservedSlotsListLoad();
+    commandHandler->sendReservedSlotsListLoad();
 }
 
 void BF4Widget::pushButton_rs_save_clicked()
 {
-    con->sendReservedSlotsListSave();
+    commandHandler->sendReservedSlotsListSave();
 }
 
 void BF4Widget::pushButton_rs_clear_clicked()
 {
-    con->sendReservedSlotsListClear();
+    commandHandler->sendReservedSlotsListClear();
 }
 
 // Spectator List
@@ -1132,7 +1132,7 @@ void BF4Widget::action_ss_spectatorList_remove_triggered()
     if (!player.isEmpty()) {
         delete ui->listWidget_ss_spectatorList->currentItem();
 
-        con->sendSpectatorListRemove(player);
+        commandHandler->sendSpectatorListRemove(player);
     }
 }
 
@@ -1144,18 +1144,18 @@ void BF4Widget::pushButton_ss_add_clicked()
         ui->lineEdit_ss_player->clear();
         ui->listWidget_ss_spectatorList->addItem(player);
 
-        con->sendSpectatorListAdd(player);
+        commandHandler->sendSpectatorListAdd(player);
     }
 }
 
 void BF4Widget::pushButton_ss_save_clicked()
 {
-    con->sendSpectatorListSave();
+    commandHandler->sendSpectatorListSave();
 }
 
 void BF4Widget::pushButton_ss_clear_clicked()
 {
-    con->sendSpectatorListClear();
+    commandHandler->sendSpectatorListClear();
 }
 
 // Options -> Details
@@ -1164,7 +1164,7 @@ void BF4Widget::lineEdit_op_so_serverName_editingFinished()
     QString serverName = ui->lineEdit_op_so_serverName->text();
 
     if (!serverName.isEmpty()) {
-        con->sendVarsServerName(serverName);
+        commandHandler->sendVarsServerName(serverName);
     }
 }
 
@@ -1173,7 +1173,7 @@ void BF4Widget::textEdit_op_so_serverDescription_textChanged()
     QString serverDescription = ui->textEdit_op_so_serverDescription->toPlainText();
 
     if (!serverDescription.isEmpty()) {
-        con->sendVarsServerDescription(serverDescription);
+        commandHandler->sendVarsServerDescription(serverDescription);
     }
 }
 
@@ -1182,7 +1182,7 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
     QString serverMessage = ui->lineEdit_op_so_serverMessage->text();
 
     if (!serverMessage.isEmpty()) {
-        con->sendVarsServerMessage(serverMessage);
+        commandHandler->sendVarsServerMessage(serverMessage);
     }
 }
 
@@ -1191,15 +1191,15 @@ void BF4Widget::checkBox_so_co_punkBuster_toggled(bool checked)
 {
     Q_UNUSED(checked); // TODO: Do this right.
 
-    con->sendPunkBusterActivate();
+    commandHandler->sendPunkBusterActivate();
 }
 
 void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
 {
     if (checked) {
-        con->sendFairFightActivateCommand();
+        commandHandler->sendFairFightActivateCommand();
     } else {
-        con->sendFairFightDeactivateCommand();
+        commandHandler->sendFairFightDeactivateCommand();
     }
 }
 
@@ -1215,50 +1215,50 @@ void BF4Widget::checkBox_so_co_idleTimeout_toggled(bool checked)
         timeout = ui->spinBox_so_co_idleTimeout->value();
     }
 
-    con->sendVarsIdleTimeout(timeout);
+    commandHandler->sendVarsIdleTimeout(timeout);
 }
 
 void BF4Widget::spinBox_so_co_idleTimeout_valueChanged(int value)
 {
     if (value >= 1) {
-        con->sendVarsIdleTimeout(value);
+        commandHandler->sendVarsIdleTimeout(value);
     }
 }
 
 void BF4Widget::checkBox_so_co_aggressiveJoin_toggled(bool checked)
 {
-    con->sendReservedSlotsListAggressiveJoin(checked);
+    commandHandler->sendReservedSlotsListAggressiveJoin(checked);
 }
 
 void BF4Widget::spinBox_so_co_maxPlayers_valueChanged(int value)
 {
-    con->sendVarsMaxPlayers(value);
+    commandHandler->sendVarsMaxPlayers(value);
 }
 
 void BF4Widget::spinBox_so_co_maxSpectators_valueChanged(int value)
 {
-    con->sendVarsMaxSpectators(value);
+    commandHandler->sendVarsMaxSpectators(value);
 }
 
 void BF4Widget::checkBox_so_co_alwaysAllowSpectators_toggled(bool checked)
 {
-    con->sendVarsAlwaysAllowSpectators(checked);
+    commandHandler->sendVarsAlwaysAllowSpectators(checked);
 }
 
 void BF4Widget::checkBox_so_co_commander_toggled(bool checked)
 {
-    con->sendVarsCommander(checked);
+    commandHandler->sendVarsCommander(checked);
 }
 
 // Options -> Gameplay
 void BF4Widget::checkBox_so_go_friendlyFire_toggled(bool checked)
 {
-    con->sendVarsFriendlyFire(checked);
+    commandHandler->sendVarsFriendlyFire(checked);
 }
 
 void BF4Widget::checkBox_so_go_killCam_toggled(bool checked)
 {
-    con->sendVarsKillCam(checked);
+    commandHandler->sendVarsKillCam(checked);
 }
 
 // Console
@@ -1275,5 +1275,5 @@ void BF4Widget::pushButton_co_pb_clicked()
     QString command = ui->lineEdit_co_pb->text();
     ui->lineEdit_co_pb->clear();
 
-    con->sendPunkBusterPbSvCommand(command);
+    commandHandler->sendPunkBusterPbSvCommand(command);
 }

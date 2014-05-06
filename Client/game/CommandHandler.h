@@ -20,12 +20,20 @@
 #ifndef COMMANDHANDLER_H
 #define COMMANDHANDLER_H
 
-class CommandHandler
+#include <QObject>
+#include <QString>
+
+class CommandHandler : public QObject
 {
+    Q_OBJECT
 
 public:
-    CommandHandler();
+    CommandHandler(QObject *parent = 0);
     ~CommandHandler();
+
+protected:
+    int toInt(const QString &value);
+    float toFloat(const QString &value);
 
 };
 

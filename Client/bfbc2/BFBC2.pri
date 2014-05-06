@@ -5,12 +5,14 @@ HEADERS += \
     bfbc2/BFBC2LevelEntry.h \
     bfbc2/BFBC2LevelDictionary.h \
     bfbc2/BFBC2ServerInfo.h \
-    bfbc2/GameMod.h
+    bfbc2/GameMod.h \
+    bfbc2/BFBC2CommandHandler.h
 
 SOURCES += bfbc2/BFBC2.cpp \
     bfbc2/BFBC2Connection.cpp \
     bfbc2/BFBC2Widget.cpp \
-    bfbc2/BFBC2LevelDictionary.cpp
+    bfbc2/BFBC2LevelDictionary.cpp \
+    bfbc2/BFBC2CommandHandler.cpp
 
 FORMS += \
     bfbc2/BFBC2Widget.ui

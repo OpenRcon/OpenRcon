@@ -24,6 +24,7 @@
 
 #include "FrostbiteGame.h"
 #include "BF4Connection.h"
+#include "BF4CommandHandler.h"
 #include "BF4LevelDictionary.h"
 
 class BF4 : public FrostbiteGame {
@@ -35,6 +36,7 @@ public:
 
 protected:
     BF4Connection *con;
+    BF4CommandHandler *commandHandler;
     BF4LevelDictionary *levelDictionary;
 
     bool isAuthenticated();

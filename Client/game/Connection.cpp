@@ -96,13 +96,3 @@ void Connection::responseDataReceivedEvent(const QString &response)
 {
     emit (onDataReceivedEvent(response));
 }
-
-int Connection::toInt(const QString &value)
-{
-    return value.toInt();
-}
-
-float Connection::toFloat(const QString &value)
-{
-    return value.toFloat();
-}

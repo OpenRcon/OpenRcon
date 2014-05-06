@@ -12,19 +12,29 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BF4Connection.h"
+#include "FrostbiteCommandHandler.h"
 
-BF4Connection::BF4Connection(QObject *parent) : FrostbiteConnection(parent)
+FrostbiteCommandHandler::FrostbiteCommandHandler(QObject *parent) : CommandHandler(parent)
 {
 
 }
 
-BF4Connection::~BF4Connection()
+FrostbiteCommandHandler::~FrostbiteCommandHandler()
 {
 
+}
+
+bool FrostbiteCommandHandler::toBool(const QString &value)
+{
+    return value == "true";
+}
+
+QString FrostbiteCommandHandler::toString(bool value)
+{
+    return value ? "true" : "false";
 }

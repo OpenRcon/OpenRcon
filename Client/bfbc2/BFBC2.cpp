@@ -21,7 +21,7 @@
 
 BFBC2::BFBC2(ServerEntry *serverEntry) : FrostbiteGame(serverEntry), authenticated(false)
 {
-    con = new BFBC2Connection();
+    con = new BFBC2Connection(this);
     con->hostConnect(serverEntry->host, serverEntry->port);
 
     levelDictionary = new BFBC2LevelDictionary(this);

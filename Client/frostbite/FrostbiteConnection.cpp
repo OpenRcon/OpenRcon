@@ -162,7 +162,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messages += " ";
                         }
 
-                        responseDataSentEvent(messages);
+                        //sresponseDataSentEvent(messages);
                         qDebug() << messages;
 
                         QString messager;
@@ -173,10 +173,10 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messager += " ";
                         }
 
-                        responseDataReceivedEvent(messager);
+                        //responseDataReceivedEvent(messager);
                         qDebug() << messager;
 
-                        parse(request, packet, lastSentPacket);
+                        //parse(request, packet, lastSentPacket);
                     }
                 }
             }
@@ -198,17 +198,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
             message += " ";
         }
 
-        responseDataSentEvent(message);
-        parse(request, packet, FrostbiteRconPacket());
+        //responseDataSentEvent(message);
+        //parse(request, packet, FrostbiteRconPacket());
     }
-}
-
-bool FrostbiteConnection::toBool(const QString &value)
-{
-    return value == "true";
-}
-
-QString FrostbiteConnection::toString(bool value)
-{
-    return value ? "true" : "false";
 }

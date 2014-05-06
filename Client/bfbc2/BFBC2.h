@@ -24,7 +24,9 @@
 #include <QCryptographicHash>
 
 #include "FrostbiteGame.h"
+
 #include "BFBC2Connection.h"
+#include "BFBC2CommandHandler.h"
 #include "BFBC2LevelDictionary.h"
 
 class BFBC2 : public FrostbiteGame
@@ -47,6 +49,7 @@ private slots:
 
 protected:
     BFBC2Connection *con;
+    BFBC2CommandHandler *commandHandler;
     BFBC2LevelDictionary *levelDictionary;
 
     QTimer *commandRefreshTimer;

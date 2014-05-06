@@ -23,7 +23,7 @@
 #include <QTime>
 #include <QTimer>
 
-#include "ui_BF3.h"
+#include "ui_BF3Widget.h"
 #include "BF3.h"
 
 class BF3Widget : public BF3
@@ -37,7 +37,7 @@ public:
     virtual Connection* getConnection() { return con; }
 
 private:
-    Ui::BF3 *ui;
+    Ui::BF3Widget *ui;
 
     /* User Interface */
 
