@@ -50,6 +50,7 @@ private:
     GameManager *gameManager;
 
 private slots:
+    void detect(const QString &value);
     void validate();
     void accept();
 
