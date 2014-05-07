@@ -84,9 +84,6 @@ private:
     QComboBox *comboBox_sm_server;
     QPushButton *pushButton_sm_connect;
 
-    void changeEvent(QEvent *event);
-    void closeEvent(QCloseEvent *event);
-
     void readSettings();
     void writeSettings();
 

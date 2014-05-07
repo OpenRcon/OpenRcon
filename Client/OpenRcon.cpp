@@ -78,6 +78,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
 OpenRcon::~OpenRcon()
 {
+    writeSettings();
+
     delete ui;
 
     delete settings;
@@ -86,26 +88,6 @@ OpenRcon::~OpenRcon()
 //    delete serverListDialog;
     delete optionsDialog;
     delete aboutDialog;
-}
-
-void OpenRcon::changeEvent(QEvent *e)
-{
-    QMainWindow::changeEvent(e);
-
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        ui->retranslateUi(this);
-        break;
-    default:
-        break;
-    }
-}
-
-void OpenRcon::closeEvent(QCloseEvent *e)
-{
-    Q_UNUSED(e);
-
-    writeSettings();
 }
 
 void OpenRcon::readSettings()
