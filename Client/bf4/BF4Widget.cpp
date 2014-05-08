@@ -67,6 +67,14 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     setAvaliableMaplist(0);
     ui->spinBox_ml_rounds->setValue(2);
 
+    menu_ml_avaliable = new QMenu(ui->treeWidget_ml_avaliable);
+    action_ml_avaliable_add = new QAction(tr("Add"), menu_ml_avaliable);
+    menu_ml_current = new QMenu(ui->treeWidget_ml_current);
+    action_ml_current_remove = new QAction(tr("Remove"), menu_ml_current);
+
+    menu_ml_avaliable->addAction(action_ml_avaliable_add);
+    menu_ml_current->addAction(action_ml_current_remove);
+
     // Banlist
     menu_bl_banList = new QMenu(ui->tableWidget_bl_banList);
     action_bl_banList_remove = new QAction(tr("Remove"), menu_bl_banList);
@@ -207,10 +215,14 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // Maplist
     connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
-    connect(ui->tableWidget_ml_avaliable, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
+    connect(ui->treeWidget_ml_avaliable, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_ml_avaliable_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
+    connect(ui->treeWidget_ml_avaliable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_avaliable_customContextMenuRequested(QPoint)));
+    connect(action_ml_avaliable_add, SIGNAL(triggered()), this, SLOT(pushButton_ml_add_clicked()));
     connect(ui->pushButton_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_ml_add_clicked()));
     connect(ui->pushButton_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_ml_remove_clicked()));
-    connect(ui->tableWidget_ml_current, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_ml_current_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
+    connect(ui->treeWidget_ml_current, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_ml_current_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
+    connect(ui->treeWidget_ml_current, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_current_customContextMenuRequested(QPoint)));
+    connect(action_ml_current_remove, SIGNAL(triggered()), this, SLOT(pushButton_ml_remove_clicked()));
 
     // Banlist
     connect(ui->tableWidget_bl_banList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(tableWidget_bl_banList_customContextMenuRequested(QPoint)));
@@ -899,122 +911,115 @@ void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
     }
 }
 
-void BF4Widget::tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
+void BF4Widget::treeWidget_ml_avaliable_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
     Q_UNUSED(current);
     Q_UNUSED(previous);
 
-    int row = ui->tableWidget_ml_avaliable->currentRow();
+    LevelEntry level = levelDictionary->getLevel(ui->treeWidget_ml_avaliable->currentItem()->text(0));
 
-    if (row >= 0) {
-        LevelEntry level = levelDictionary->getLevel(ui->tableWidget_ml_avaliable->item(row, 0)->text());
+    ui->label_ml_avaliableSelectedMapImage->setPixmap(level.image);
+}
 
-        ui->label_ml_avaliableSelectedMapImage->setPixmap(level.image);
+void BF4Widget::treeWidget_ml_avaliable_customContextMenuRequested(const QPoint &pos)
+{
+    if (ui->treeWidget_ml_avaliable->itemAt(pos)) {
+        menu_ml_avaliable->exec(QCursor::pos());
     }
 }
 
 void BF4Widget::pushButton_ml_add_clicked()
 {
-    // Make sure that tableWidget_ml_avaliable selected item count is greater than zero.
-    if (ui->tableWidget_ml_avaliable->selectedItems().length() > 0) {
+    // Make sure that treeWidget_ml_avaliable selected item count is greater than zero.
+    if (ui->treeWidget_ml_avaliable->selectedItems().length() > 0) {
         int rounds = ui->spinBox_ml_rounds->value();
 
         if (rounds > 0) {
-            QModelIndexList indexList = ui->tableWidget_ml_avaliable->selectionModel()->selectedRows();
+            LevelEntry level = levelDictionary->getLevel(ui->treeWidget_ml_avaliable->currentItem()->text(0));
+            GameModeEntry gameMode = levelDictionary->getGameMode(ui->treeWidget_ml_avaliable->currentItem()->text(1));
 
-            foreach (QModelIndex index, indexList) {
-                int row = index.row();
+            ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
 
-                QString levelName = ui->tableWidget_ml_avaliable->item(row, 0)->text();
-                QString gameModeName = ui->tableWidget_ml_avaliable->item(row, 1)->text();
-
-                LevelEntry level = levelDictionary->getLevel(levelName);
-                GameModeEntry gameMode = levelDictionary->getGameMode(gameModeName);
-
-                if (ui->tableWidget_ml_current->rowCount() < 1) {
-                    ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
-                }
-
-                addCurrentMapListRow(level.name, gameMode.name, rounds);
-                con->sendMapListAdd(level.engineName, gameMode.engineName, rounds);
-            }
+            addCurrentMapListRow(level.name, gameMode.name, rounds);
+            con->sendMapListAdd(level.engineName, gameMode.engineName, rounds);
         }
     }
 }
 
 void BF4Widget::pushButton_ml_remove_clicked()
 {
-    // Make sure that tableWidget_ml_current selected item count is greater than zero.
-    if (ui->tableWidget_ml_current->selectedItems().length() > 0) {
-        if (ui->tableWidget_ml_current->rowCount() >= 1) {
+    // Make sure that treeWidget_ml_current selected item count is greater than zero.
+    if (ui->treeWidget_ml_current->selectedItems().length() > 0) {
+        if (ui->treeWidget_ml_current->topLevelItemCount() >= 1) {
             ui->label_ml_currentSelectedMapImage->clear();
         }
 
-        QModelIndexList indexList = ui->tableWidget_ml_current->selectionModel()->selectedRows();
+        int index = ui->treeWidget_ml_current->currentIndex().row();
 
-        foreach (QModelIndex index, indexList) {
-            int row = index.row();
-
-            ui->tableWidget_ml_current->removeRow(row);
-            con->sendMapListRemove(row);
-        }
-    }
-}
-
-void BF4Widget::tableWidget_ml_current_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
-{
-    Q_UNUSED(current);
-    Q_UNUSED(previous);
-
-    int row = ui->tableWidget_ml_current->currentRow();
-
-    if (row >= 0) {
-        LevelEntry level = levelDictionary->getLevel(ui->tableWidget_ml_current->item(row, 0)->text());
-
-        ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
+        ui->treeWidget_ml_current->takeTopLevelItem(index);
+        con->sendMapListRemove(index);
     }
 }
 
 void BF4Widget::addAvaliableMapListRow(const QString &name, const QString &gameMode)
 {
-    int row = ui->tableWidget_ml_avaliable->rowCount();
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    item->setText(0, name);
+    item->setText(1, gameMode);
 
-    ui->tableWidget_ml_avaliable->insertRow(row);
-    ui->tableWidget_ml_avaliable->setItem(row, 0, new QTableWidgetItem(name));
-    ui->tableWidget_ml_avaliable->setItem(row, 1, new QTableWidgetItem(gameMode));
+    ui->treeWidget_ml_avaliable->addTopLevelItem(item);
 }
 
 void BF4Widget::setAvaliableMaplist(int gameModeIndex)
 {
+    ui->treeWidget_ml_avaliable->clear();
+
     QList<LevelEntry> levelList = levelDictionary->getLevels(gameModeIndex);
     GameModeEntry gameMode = levelDictionary->getGameMode(gameModeIndex);
 
     ui->label_ml_avaliableSelectedMapImage->setPixmap(levelList.first().image);
-
-    ui->tableWidget_ml_avaliable->clearContents();
-    ui->tableWidget_ml_avaliable->setRowCount(0);
 
     for (int i = 0; i < levelList.length(); i++) {
         LevelEntry level = levelList.at(i);
 
         addAvaliableMapListRow(level.name, gameMode.name);
     }
+
+    // Resize columns so that they fits the content.
+    for (int i = 0; i < ui->treeWidget_ml_avaliable->columnCount(); i++) {
+        ui->treeWidget_ml_avaliable->resizeColumnToContents(i);
+    }
+}
+
+void BF4Widget::treeWidget_ml_current_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+{
+    Q_UNUSED(current);
+    Q_UNUSED(previous);
+
+    LevelEntry level = levelDictionary->getLevel(ui->treeWidget_ml_current->currentItem()->text(0));
+    ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
+}
+
+void BF4Widget::treeWidget_ml_current_customContextMenuRequested(const QPoint &pos)
+{
+    if (ui->treeWidget_ml_current->itemAt(pos)) {
+        menu_ml_current->exec(QCursor::pos());
+    }
 }
 
 void BF4Widget::addCurrentMapListRow(const QString &name, const QString &gameMode, int rounds)
 {
-    int row = ui->tableWidget_ml_current->rowCount();
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    item->setText(0, name);
+    item->setText(1, gameMode);
+    item->setText(2, QString::number(rounds));
 
-    ui->tableWidget_ml_current->insertRow(row);
-    ui->tableWidget_ml_current->setItem(row, 0, new QTableWidgetItem(name));
-    ui->tableWidget_ml_current->setItem(row, 1, new QTableWidgetItem(gameMode));
-    ui->tableWidget_ml_current->setItem(row, 2, new QTableWidgetItem(QString::number(rounds)));
+    ui->treeWidget_ml_current->addTopLevelItem(item);
 }
 
 void BF4Widget::setCurrentMaplist(const MapList &mapList)
 {
-    ui->tableWidget_ml_current->clearContents();
-    ui->tableWidget_ml_current->setRowCount(0);
+    ui->treeWidget_ml_current->clear();
 
     for (int i = 0; i < mapList.length(); i++) {
         MapListEntry entry = mapList.at(i);
@@ -1026,6 +1031,11 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
         }
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
+    }
+
+    // Resize columns so that they fits the content.
+    for (int i = 0; i < ui->treeWidget_ml_avaliable->columnCount(); i++) {
+        ui->treeWidget_ml_current->resizeColumnToContents(i);
     }
 }
 

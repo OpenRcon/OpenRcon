@@ -65,6 +65,13 @@ private:
     QAction *action_pl_players_copyTo_name;
     QAction *action_pl_players_copyTo_guid;
 
+    // Maplist
+    QMenu *menu_ml_avaliable;
+    QAction *action_ml_avaliable_add;
+
+    QMenu *menu_ml_current;
+    QAction *action_ml_current_remove;
+
     // Banlist
     QMenu *menu_bl_banList;
     QAction *action_bl_banList_remove;
@@ -189,10 +196,12 @@ private slots:
 
     // Maplist
     void comboBox_ml_gameMode_currentIndexChanged(int);
-    void tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous);
+    void treeWidget_ml_avaliable_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void treeWidget_ml_avaliable_customContextMenuRequested(const QPoint &pos);
     void pushButton_ml_add_clicked();
     void pushButton_ml_remove_clicked();
-    void tableWidget_ml_current_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous);
+    void treeWidget_ml_current_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void treeWidget_ml_current_customContextMenuRequested(const QPoint &pos);
 
     void addAvaliableMapListRow(const QString &name, const QString &gameMode);
     void setAvaliableMaplist(int gameModeIndex);
