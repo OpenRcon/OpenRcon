@@ -201,26 +201,26 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
 
     /* Connecting signals to slots */
     /* Messages and events */
-    connect(con, SIGNAL(onDataSent(const QString&)), this, SLOT(onDataSent(const QString&)));
-    connect(con, SIGNAL(onDataReceived(const QString&)), this, SLOT(onDataReceived(const QString&)));
+    connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataReceivedEvent(const QString&)));
 
     /* Events */
-    connect(con, SIGNAL(onPlayerJoin(const QString&)), this, SLOT(onPlayerJoin(const QString&)));
-    connect(con, SIGNAL(onPlayerAuthenticated(const QString&, const QString&)), this, SLOT(onPlayerAuthenticated(const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerLeave(const QString&, const QString&)), this, SLOT(onPlayerLeave(const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerSpawn(const QString&, const QString&, const QStringList&)), this, SLOT(onPlayerSpawn(const QString&, const QString&, const QStringList&)));
-    connect(con, SIGNAL(onPlayerKill(const QString&, const QString&, const QString&, bool)), this, SLOT(onPlayerKill(const QString&, const QString&, const QString&, bool)));
-    connect(con, SIGNAL(onPlayerChat(const QString&, const QString&, const QString&)), this, SLOT(onPlayerChat(const QString&, const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerKicked(const QString&, const QString&)), this, SLOT(onPlayerKicked(const QString&, const QString&)));
-    connect(con, SIGNAL(onPlayerSquadChange(const QString&, int, int)), this, SLOT(onPlayerSquadChange(const QString&, int, int)));
-    connect(con, SIGNAL(onPlayerTeamChange(const QString&, int, int)), this, SLOT(onPlayerTeamChange(const QString&, int, int)));
-    connect(con, SIGNAL(onPunkBusterMessage(const QString&)), this, SLOT(onPunkBusterMessage(const QString&)));
-    connect(con, SIGNAL(onPunkBusterVersion(const QString&)), this, SLOT(onPunkBusterVersion(const QString&)));
-    connect(con, SIGNAL(onServerLoadingLevel(const QString&, int, int)), this, SLOT(onServerLoadingLevel(const QString&, int, int)));
-    connect(con, SIGNAL(onServerLevelStarted()), this, SLOT(onServerLevelStarted()));
-    connect(con, SIGNAL(onServerRoundOver(int)), this, SLOT(onServerRoundOver(int)));
-    connect(con, SIGNAL(onServerRoundOverPlayers(const QString&)), this, SLOT(onServerRoundOverPlayers(const QString&)));
-    connect(con, SIGNAL(onServerRoundOverTeamScores(const QString&)), this, SLOT(onServerRoundOverTeamScores(const QString&)));
+    connect(con, SIGNAL(onPlayerJoinEvent(const QString&)), this, SLOT(onPlayerJoinEvent(const QString&)));
+    connect(con, SIGNAL(onPlayerAuthenticatedEvent(const QString&, const QString&)), this, SLOT(onPlayerAuthenticatedEvent(const QString&, const QString&)));
+    connect(con, SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(onPlayerLeaveEvent(const QString&, const QString&)));
+    connect(con, SIGNAL(onPlayerSpawnEvent(const QString&, const QString&, const QStringList&)), this, SLOT(onPlayerSpawnEvent(const QString&, const QString&, const QStringList&)));
+    connect(con, SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)), this, SLOT(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)));
+    connect(con, SIGNAL(onPlayerChatEvent(const QString&, const QString&, const QString&)), this, SLOT(onPlayerChatEvent(const QString&, const QString&, const QString&)));
+    connect(con, SIGNAL(onPlayerKickedEvent(const QString&, const QString&)), this, SLOT(onPlayerKickedEvent(const QString&, const QString&)));
+    connect(con, SIGNAL(onPlayerSquadChangeEvent(const QString&, int, int)), this, SLOT(onPlayerSquadChangeEvent(const QString&, int, int)));
+    connect(con, SIGNAL(onPlayerTeamChangeEvent(const QString&, int, int)), this, SLOT(onPlayerTeamChangeEvent(const QString&, int, int)));
+    connect(con, SIGNAL(onPunkBusterMessageEvent(const QString&)), this, SLOT(onPunkBusterMessageEvent(const QString&)));
+    connect(con, SIGNAL(onPunkBusterVersionEvent(const QString&)), this, SLOT(onPunkBusterVersionEvent(const QString&)));
+    connect(con, SIGNAL(onServerLoadingLevelEvent(const QString&, int, int)), this, SLOT(onServerLoadingLevelEvent(const QString&, int, int)));
+    connect(con, SIGNAL(onServerLevelStartedEvent()), this, SLOT(onServerLevelStartedEvent()));
+    connect(con, SIGNAL(onServerRoundOverEvent(int)), this, SLOT(onServerRoundOverEvent(int)));
+    connect(con, SIGNAL(onServerRoundOverPlayersEvent(const QString&)), this, SLOT(onServerRoundOverPlayersEvent(const QString&)));
+    connect(con, SIGNAL(onServerRoundOverTeamScoresEvent(const QString&)), this, SLOT(onServerRoundOverTeamScoresEvent(const QString&)));
 
     // Commands
     connect(con, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
@@ -289,14 +289,12 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     connect(ui->tableWidget_bl, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_bl_customContextMenuRequested(QPoint)));
     connect(action_bl_remove, SIGNAL(triggered()), this, SLOT(action_bl_remove_triggered()));
 
-    connect(ui->lineEdit_ch, SIGNAL(returnPressed()), this, SLOT(on_pushButton_ch_send_clicked()));
+    connect(ui->lineEdit_ch, SIGNAL(returnPressed()), this, SLOT(pushButton_ch_send_clicked()));
     connect(ui->comboBox_ch_type, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ch_type_currentIndexChanged(int)));
 
     connect(action_rs_remove, SIGNAL(triggered()), this, SLOT(action_rs_remove_triggered()));
     connect(ui->listWidget_rs, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_rs_customContextMenuRequested(QPoint)));
     connect(ui->lineEdit_rs_player, SIGNAL(returnPressed()), this, SLOT(on_pushButton_rs_reserve_clicked()));
-
-    connect(action_ic_remove, SIGNAL(triggered()), this, SLOT(action_ic_remove_triggered()));
 
     connect(ui->lineEdit_co_co, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_co_send_clicked()));
     connect(ui->lineEdit_co_pb, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_pb_send_clicked()));
@@ -328,41 +326,41 @@ void BFBC2Widget::logMessage(int type, const QString &message)
 }
 
 /* Events */
-void BFBC2Widget::onDataSent(const QString &command)
+void BFBC2Widget::onDataSentEvent(const QString &command)
 {
     logMessage(2, command);
 }
 
-void BFBC2Widget::onDataReceived(const QString &response)
+void BFBC2Widget::onDataReceivedEvent(const QString &response)
 {
     logMessage(3, response);
 }
 
-void BFBC2Widget::onPlayerJoin(const QString &player)
+void BFBC2Widget::onPlayerJoinEvent(const QString &player)
 {
     logMessage(0, tr("Player <b>%1</b> joined the game.").arg(player));
 
     con->sendCommand("\"admin.listPlayers\" \"all\"");
 }
 
-void BFBC2Widget::onPlayerAuthenticated(const QString &player, const QString &guid)
+void BFBC2Widget::onPlayerAuthenticatedEvent(const QString &player, const QString &guid)
 {
     logMessage(0, tr("Player <b>%1</b> authenticated with GUID: <b>%2</b>.").arg(player).arg(guid));
 }
 
-void BFBC2Widget::onPlayerLeave(const QString &player, const QString &info)
+void BFBC2Widget::onPlayerLeaveEvent(const QString &player, const QString &info)
 {
     logMessage(0, tr("Player <b>%1</b> left the game.").arg(player).arg(info)); // TODO: Impelment score stuffs here?
 
     con->sendCommand("\"admin.listPlayers\" \"all\"");
 }
 
-void BFBC2Widget::onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weaponList)
+void BFBC2Widget::onPlayerSpawnEvent(const QString &player, const QString &kit, const QStringList &weaponList)
 {
     logMessage(0, tr("Player <b>%1</b> spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(player).arg(kit).arg(weaponList.at(0)).arg(weaponList.at(1)).arg(weaponList.at(2))); // TODO: Implement dynamic length on selected weapons.
 }
 
-void BFBC2Widget::onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
+void BFBC2Widget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
 {
     if (killer != victim) {
         if (headshot) {
@@ -375,19 +373,19 @@ void BFBC2Widget::onPlayerKill(const QString &killer, const QString &victim, con
     }
 }
 
-void BFBC2Widget::onPlayerChat(const QString &player, const QString &message, const QString &target)
+void BFBC2Widget::onPlayerChatEvent(const QString &player, const QString &message, const QString &target)
 {
     Q_UNUSED(target)
 
     logMessage(4, tr("<b>%2</b>: %3").arg(player).arg(message));
 }
 
-void BFBC2Widget::onPlayerKicked(const QString &player, const QString &reason)
+void BFBC2Widget::onPlayerKickedEvent(const QString &player, const QString &reason)
 {
     logMessage(0, tr("Player <b>%1</b> was kicked from the game, the reason was: <b>%2</b>.").arg(player).arg(reason));
 }
 
-void BFBC2Widget::onPlayerSquadChange(const QString &player, int teamId, int squadId)
+void BFBC2Widget::onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId)
 {
     Q_UNUSED(teamId);
 
@@ -396,24 +394,24 @@ void BFBC2Widget::onPlayerSquadChange(const QString &player, int teamId, int squ
     }
 }
 
-void BFBC2Widget::onPlayerTeamChange(const QString &player, int teamId, int squadId)
+void BFBC2Widget::onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId)
 {
     Q_UNUSED(squadId);
 
     logMessage(0, tr("Player <b>%1</b> changed team to <b>%2</b>.").arg(player).arg(teamId));
 }
 
-void BFBC2Widget::onPunkBusterMessage(const QString &message)
+void BFBC2Widget::onPunkBusterMessageEvent(const QString &message)
 {
     logMessage(5, message);
 }
 
-void BFBC2Widget::onPunkBusterVersion(const QString &version)
+void BFBC2Widget::onPunkBusterVersionEvent(const QString &version)
 {
     logMessage(5, version);
 }
 
-void BFBC2Widget::onServerLoadingLevel(const QString &levelName, int roundsPlayed, int roundsTotal)
+void BFBC2Widget::onServerLoadingLevelEvent(const QString &levelName, int roundsPlayed, int roundsTotal)
 {
     Q_UNUSED(roundsPlayed);
     Q_UNUSED(roundsTotal);
@@ -421,22 +419,22 @@ void BFBC2Widget::onServerLoadingLevel(const QString &levelName, int roundsPlaye
     logMessage(0, tr("Loading level: <b>%1</b>").arg(levelName)); // TODO: Transelate internal level name to human readable.
 }
 
-void BFBC2Widget::onServerLevelStarted()
+void BFBC2Widget::onServerLevelStartedEvent()
 {
     logMessage(0, tr("Level started"));
 }
 
-void BFBC2Widget::onServerRoundOver(int winningTeamId)
+void BFBC2Widget::onServerRoundOverEvent(int winningTeamId)
 {
     logMessage(0, tr("The round has just ended, and <b>%1</b> won").arg(winningTeamId));
 }
 
-void BFBC2Widget::onServerRoundOverPlayers(const QString &playerInfo)
+void BFBC2Widget::onServerRoundOverPlayersEvent(const QString &playerInfo)
 {
     logMessage(0, tr("The round has just ended, and <b>%1</b> is the final detailed player stats").arg(playerInfo)); // TODO: Check what this actually outputs.
 }
 
-void BFBC2Widget::onServerRoundOverTeamScores(const QString &teamScores)
+void BFBC2Widget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
 {
     logMessage(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team").arg(teamScores));
 }
@@ -855,27 +853,6 @@ void BFBC2Widget::on_radioButton_op_tcm_moderated_clicked()
 void BFBC2Widget::on_radioButton_op_tcm_muted_clicked()
 {
     con->sendCommand(QString("\"vars.textChatModerationMode\" \"muted\""));
-}
-
-void BFBC2Widget::on_pushButton_so_tcm_spamtriggercount_clicked()
-{
-    QString count = QString(ui->spinBox_op_tcm_spamtriggercount->value());
-
-    con->sendCommand(QString("\"vars.textChatSpamTriggerCount\" \"%1\"").arg(count));
-}
-
-void BFBC2Widget::on_pushButton_so_tcm_spamdetectiontime_clicked()
-{
-    QString count = QString(ui->spinBox_op_tcm_spamdetectiontime->value());
-
-    con->sendCommand(QString("\"vars.textChatSpamDetectionTime\" \"%1\"").arg(count));
-}
-
-void BFBC2Widget::on_pushButton_so_tcm_spamcooldowntime_clicked()
-{
-    QString count = QString(ui->spinBox_op_tcm_spamcooldowntime->value());
-
-    con->sendCommand(QString("\"vars.textChatSpamCoolDownTime\" \"%1\"").arg(count));
 }
 
 /* Gamplay Options */

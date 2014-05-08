@@ -79,26 +79,26 @@ private:
     void startupCommands();
 
 private slots:
-    void onDataSent(const QString &command);
-    void onDataReceived(const QString &response);
+    void onDataSentEvent(const QString &request);
+    void onDataReceivedEvent(const QString &response);
 
     /* Event signals */
-    void onPlayerJoin(const QString &player);
-    void onPlayerAuthenticated(const QString &player, const QString &guid);
-    void onPlayerLeave(const QString &player, const QString &info);
-    void onPlayerSpawn(const QString &player, const QString &kit, const QStringList &weapons);
-    void onPlayerKill(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
-    void onPlayerChat(const QString &player, const QString &message, const QString &target);
-    void onPlayerKicked(const QString &player, const QString &reason);
-    void onPlayerSquadChange(const QString &player, int teamId, int squadId);
-    void onPlayerTeamChange(const QString &player, int teamId, int squadId);
-    void onPunkBusterMessage(const QString &message);
-    void onPunkBusterVersion(const QString &version);
-    void onServerLoadingLevel(const QString &levelName, int roundsPlayed, int roundsTotal);
-    void onServerLevelStarted();
-    void onServerRoundOver(int winningTeamId);
-    void onServerRoundOverPlayers(const QString &playerInfo);
-    void onServerRoundOverTeamScores(const QString &teamScores);
+    void onPlayerJoinEvent(const QString &player);
+    void onPlayerAuthenticatedEvent(const QString &player, const QString &guid);
+    void onPlayerLeaveEvent(const QString &player, const QString &info);
+    void onPlayerSpawnEvent(const QString &player, const QString &kit, const QStringList &weapons);
+    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
+    void onPlayerChatEvent(const QString &player, const QString &message, const QString &target);
+    void onPlayerKickedEvent(const QString &player, const QString &reason);
+    void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
+    void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
+    void onPunkBusterMessageEvent(const QString &message);
+    void onPunkBusterVersionEvent(const QString &version);
+    void onServerLoadingLevelEvent(const QString &levelName, int roundsPlayed, int roundsTotal);
+    void onServerLevelStartedEvent();
+    void onServerRoundOverEvent(int winningTeamId);
+    void onServerRoundOverPlayersEvent(const QString &playerInfo);
+    void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     // Commands
     void onLoginHashedCommand();
@@ -151,9 +151,6 @@ private slots:
     void on_radioButton_op_tcm_free_clicked();
     void on_radioButton_op_tcm_moderated_clicked();
     void on_radioButton_op_tcm_muted_clicked();
-    void on_pushButton_so_tcm_spamtriggercount_clicked();
-    void on_pushButton_so_tcm_spamdetectiontime_clicked();
-    void on_pushButton_so_tcm_spamcooldowntime_clicked();
 
     /* Maplist Tab */
     void comboBox_ml_gamemode_currentIndexChanged(int index);
