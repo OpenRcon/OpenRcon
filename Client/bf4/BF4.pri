@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 HEADERS += bf4/BF4.h \
     bf4/BF4Connection.h \
     bf4/BF4Widget.h \

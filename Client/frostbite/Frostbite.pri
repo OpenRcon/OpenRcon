@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/FrostbiteRconPacket.h \
     frostbite/FrostbiteRconWord.h \

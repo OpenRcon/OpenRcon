@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 HEADERS += bfbc2/BFBC2.h \
     bfbc2/BFBC2Connection.h \
     bfbc2/BFBC2Widget.h \

@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 HEADERS += game/Game.h \
     game/Connection.h \
     game/ConnectionTabWidget.h

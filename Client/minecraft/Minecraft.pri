@@ -1,3 +1,6 @@
+INCLUDEPATH += $$PWD
+DEPENDPATH += $$PWD
+
 HEADERS += minecraft/Minecraft.h \
     minecraft/MinecraftConnection.h \
     minecraft/MinecraftRconPacket.h \

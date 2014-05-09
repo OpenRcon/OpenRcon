@@ -20,22 +20,6 @@ CONFIG += c++11
 TARGET = openrcon
 TEMPLATE = app
 
-INCLUDEPATH += game \
-    frostbite \
-    bfbc2 \
-    frostbite2 \
-    bf3 \
-    bf4 \
-    minecraft
-
-DEPENDPATH += game \
-    frostbite \
-    bfbc2 \
-    frostbite2 \
-    bf3 \
-    bf4 \
-    minecraft
-
 HEADERS += OpenRcon.h \
     Constants.h \
     GameEntry.h \
