@@ -565,14 +565,14 @@
          <item>
           <layout class="QFormLayout" name="formLayout">
            <item row="1" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_avaliableSelectedMapImage">
+            <widget class="QLabel" name="label_ml_availableSelectedMapImage">
              <property name="text">
               <string/>
              </property>
             </widget>
            </item>
            <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_avaliableSelectedMapText">
+            <widget class="QLabel" name="label_ml_availableSelectedMapText">
              <property name="text">
               <string>Preview of selected map:</string>
              </property>
@@ -661,7 +661,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="label_ml_rounds">
            <property name="text">
             <string>Rounds:</string>
            </property>
@@ -700,7 +700,7 @@
         </layout>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_ml_avaliableMaps">
+        <widget class="QLabel" name="label_ml_availableMaps">
          <property name="text">
           <string>Avaliable maps:</string>
          </property>
@@ -758,7 +758,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QTreeWidget" name="treeWidget_ml_avaliable">
+          <widget class="QTreeWidget" name="treeWidget_ml_available">
            <property name="contextMenuPolicy">
             <enum>Qt::CustomContextMenu</enum>
            </property>
