@@ -39,37 +39,37 @@ DEPENDPATH += game \
 HEADERS += OpenRcon.h \
     Constants.h \
     GameEntry.h \
-    ServerEntry.h \
-    LanguageEntry.h \
     GameManager.h \
+    ServerEntry.h \
     ServerManager.h \
+    ConnectionManager.h \
+    LanguageEntry.h \
     LanguageManager.h \
     ServerListDialog.h \
     ServerEditDialog.h \
+    OptionsDialog.h \
     AboutDialog.h \
     DragDropListWidget.h \
-    DragDropTreeWidget.h \
-    ConnectionManager.h \
-    OptionsDialog.h
+    DragDropTreeWidget.h
 
 SOURCES += Main.cpp \
     OpenRcon.cpp \
     GameManager.cpp \
     ServerManager.cpp \
+    ConnectionManager.cpp \
     LanguageManager.cpp \
     ServerListDialog.cpp \
     ServerEditDialog.cpp \
+    OptionsDialog.cpp \
     AboutDialog.cpp \
     DragDropListWidget.cpp \
-    DragDropTreeWidget.cpp \
-    ConnectionManager.cpp \
-    OptionsDialog.cpp
+    DragDropTreeWidget.cpp
 
 FORMS += OpenRcon.ui \
     ServerListDialog.ui \
     ServerEditDialog.ui \
-    AboutDialog.ui \
-    OptionsDialog.ui
+    OptionsDialog.ui \
+    AboutDialog.ui
 
 RESOURCES += OpenRcon.qrc
 

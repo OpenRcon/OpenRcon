@@ -10,7 +10,6 @@ SOURCES += bf4/BF4.cpp \
     bf4/BF4Widget.cpp \
     bf4/BF4LevelDictionary.cpp
 
-FORMS += \
-    bf4/BF4Widget.ui
+FORMS += bf4/BF4Widget.ui
 
 RESOURCES += bf4/BF4.qrc

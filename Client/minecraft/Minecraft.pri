@@ -1,13 +1,12 @@
-HEADERS += \
-           minecraft/MinecraftRconPacket.h \
-           minecraft/MinecraftWidget.h \
+HEADERS += minecraft/Minecraft.h \
     minecraft/MinecraftConnection.h \
-    minecraft/Minecraft.h
+    minecraft/MinecraftRconPacket.h \
+    minecraft/MinecraftWidget.h
 
 SOURCES += minecraft/Minecraft.cpp \
-           minecraft/MinecraftConnection.cpp \
-           minecraft/MinecraftRconPacket.cpp \
-           minecraft/MinecraftWidget.cpp
+    minecraft/MinecraftConnection.cpp \
+    minecraft/MinecraftRconPacket.cpp \
+    minecraft/MinecraftWidget.cpp
 
 FORMS += minecraft/Minecraft.ui
 
