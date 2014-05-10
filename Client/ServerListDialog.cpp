@@ -43,6 +43,7 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 
     connect(ui->treeWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_customContextMenuRequested(QPoint)));
     connect(ui->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
+    connect(ui->treeWidget, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(treeWidget_itemChanged(QTreeWidgetItem*, int)));
     connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(accept()));
 
     connect(action_serverEntry_edit, SIGNAL(triggered()), this, SLOT(editItem()));
@@ -73,6 +74,20 @@ void ServerListDialog::treeWidget_currentItemChanged(QTreeWidgetItem *current, Q
     ui->pushButton_sld_connect->setEnabled(current && current->parent());
 }
 
+void ServerListDialog::treeWidget_itemChanged(QTreeWidgetItem *item, int column)
+{
+    if (column == 3) {
+        QVariant variant = item->data(0, Qt::UserRole);
+        ServerEntry *entry = variant.value<ServerEntry *>();
+
+        // Sets the checked state of autoconnect.
+        entry->autoConnect = item->checkState(column) == Qt::Checked ? true : false;
+
+        // Set the server to the new values obtained by ServerEditDialog.
+        serverManager->setServers(serverEntries);
+    }
+}
+
 void ServerListDialog::createTreeData()
 {
     deleteTreeData();
@@ -94,6 +109,8 @@ void ServerListDialog::createTreeData()
                     childItem->setText(0, serverEntry->name);
                     childItem->setText(1, serverEntry->host);
                     childItem->setText(2, QString::number(serverEntry->port));
+                    childItem->setFlags(childItem->flags() | Qt::ItemIsUserCheckable);
+                    childItem->setCheckState(3, serverEntry->autoConnect ? Qt::Checked : Qt::Unchecked);
                 }
             }
         }
@@ -122,7 +139,8 @@ void ServerListDialog::addItem()
             sed->getName(),
             sed->getHost(),
             sed->getPort(),
-            sed->getPassword().replace(" ", "")
+            sed->getPassword().replace(" ", ""),
+            sed->getAutoConnect()
         );
 
         serverManager->addServer(entry);
@@ -151,7 +169,8 @@ void ServerListDialog::editItem()
                 sed->getName(),
                 sed->getHost(),
                 sed->getPort(),
-                sed->getPassword().replace(" ", "")
+                sed->getPassword().replace(" ", ""),
+                sed->getAutoConnect()
             );
 
             // Set the server to the new values obtained by ServerEditDialog.

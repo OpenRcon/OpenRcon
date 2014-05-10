@@ -35,7 +35,7 @@ class ServerEditDialog : public QDialog
 
 public:
     ServerEditDialog(QWidget *parent = 0);
-    ServerEditDialog(int game, const QString &name, const QString &host, int port, const QString &password, QWidget *parent = 0);
+    ServerEditDialog(int game, const QString &name, const QString &host, int port, const QString &password = 0, bool autoConnect = false, QWidget *parent = 0);
     ~ServerEditDialog();
 
     int getGame();
@@ -43,6 +43,7 @@ public:
     QString getHost();
     int getPort();
     QString getPassword();
+    bool getAutoConnect();
 
 private:
     Ui::ServerEditDialog *ui;

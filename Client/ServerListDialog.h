@@ -61,6 +61,7 @@ private:
 private slots:
     void treeWidget_customContextMenuRequested(QPoint pos);
     void treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void treeWidget_itemChanged(QTreeWidgetItem *item, int column);
 
     void addItem();
     void editItem();

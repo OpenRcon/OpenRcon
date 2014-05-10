@@ -57,13 +57,14 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     validate();
 }
 
-ServerEditDialog::ServerEditDialog(int game, const QString &name, const QString &host, int port, const QString &password, QWidget *parent) : ServerEditDialog(parent)
+ServerEditDialog::ServerEditDialog(int game, const QString &name, const QString &host, int port, const QString &password, bool autoConnect, QWidget *parent) : ServerEditDialog(parent)
 {
     ui->comboBox_sed_game->setCurrentIndex(game);
     ui->lineEdit_sed_name->setText(name);
     ui->lineEdit_sed_host->setText(host);
     ui->spinBox_sed_port->setValue(port);
     ui->lineEdit_sed_password->setText(password);
+    ui->checkBox_sed_autoConnect->setChecked(autoConnect);
 }
 
 ServerEditDialog::~ServerEditDialog()
@@ -128,4 +129,9 @@ int ServerEditDialog::getPort()
 QString ServerEditDialog::getPassword()
 {
     return ui->lineEdit_sed_password->text();
+}
+
+bool ServerEditDialog::getAutoConnect()
+{
+    return ui->checkBox_sed_autoConnect->isChecked();
 }
