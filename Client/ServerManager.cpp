@@ -107,7 +107,7 @@ QList<ServerEntry *> ServerManager::getServers(int gameIndex)
 {
     QList<ServerEntry *> list;
 
-    foreach (ServerEntry *entry, serverList) {
+    for (ServerEntry *entry : serverList) {
         if (entry->game == gameIndex) {
             list.append(entry);
         }

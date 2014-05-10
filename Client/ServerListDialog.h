@@ -49,23 +49,28 @@ private:
     GameManager *gameManager;
     ServerManager *serverManager;
 
+    QList<ServerEntry *> serverEntries;
+
+    QMenu *menu_gameEntry;
+    QAction *action_gameEntry_add;
+
     QMenu *menu_serverEntry;
     QAction *action_serverEntry_edit;
     QAction *action_serverEntry_remove;
-
-    QList<ServerEntry *> serverEntries;
 
     void createTreeData();
     void deleteTreeData();
 
 private slots:
-    void treeWidget_customContextMenuRequested(QPoint pos);
+    void treeWidget_customContextMenuRequested(const QPoint &pos);
     void treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
-    void treeWidget_itemChanged(QTreeWidgetItem *item, int column);
+    void treeWidget_itemClicked(QTreeWidgetItem *item, int column);
+    void action_gameEntry_add_triggered();
 
-    void addItem();
+    void addItem(int game = -1);
     void editItem();
     void removeItem();
+    void connectToItem();
 
     void accept();
 
