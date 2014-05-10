@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2010 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,20 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BFBC2LEVELDICTIONARY_H
-#define BFBC2LEVELDICTIONARY_H
+#include "FrostbiteUtils.h"
 
-#include "LevelDictionary.h"
-#include "BFBC2LevelEntry.h"
-
-class BFBC2LevelDictionary : public LevelDictionary
+bool FrostbiteUtils::toBool(const QString &value)
 {
-    Q_OBJECT
+    return value == "true";
+}
 
-public:
-    BFBC2LevelDictionary(QObject *parent = 0);
-    ~BFBC2LevelDictionary();
-
-};
-
-#endif // BFBC2LEVELDICTIONARY_H
+QString FrostbiteUtils::toString(bool value)
+{
+    return value ? "true" : "false";
+}

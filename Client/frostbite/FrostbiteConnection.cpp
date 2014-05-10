@@ -202,13 +202,3 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
         parse(request, packet, FrostbiteRconPacket());
     }
 }
-
-bool FrostbiteConnection::toBool(const QString &value)
-{
-    return value == "true";
-}
-
-QString FrostbiteConnection::toString(bool value)
-{
-    return value ? "true" : "false";
-}

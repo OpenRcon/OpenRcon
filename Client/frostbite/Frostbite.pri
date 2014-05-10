@@ -14,10 +14,12 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/ServerInfo.h \
     frostbite/TimeEntry.h \
     frostbite/OnlineState.h \
-    frostbite/TeamScores.h
+    frostbite/TeamScores.h \
+    frostbite/FrostbiteUtils.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteRconPacket.cpp \
     frostbite/FrostbiteRconWord.cpp \
     frostbite/FrostbiteGame.cpp \
-    frostbite/LevelDictionary.cpp
+    frostbite/LevelDictionary.cpp \
+    frostbite/FrostbiteUtils.cpp

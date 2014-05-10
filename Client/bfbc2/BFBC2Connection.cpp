@@ -287,7 +287,7 @@ void BFBC2Connection::parsePlayerKillEvent(const FrostbiteRconPacket &packet)
     QString killer = packet.getWord(1).getContent();
     QString victim = packet.getWord(2).getContent();
     QString weapon = packet.getWord(3).getContent();
-    bool headshot = toBool(packet.getWord(4).getContent());
+    bool headshot = FrostbiteUtils::toBool(packet.getWord(4).getContent());
 
     emit (onPlayerKillEvent(killer, victim, weapon, headshot));
 }
