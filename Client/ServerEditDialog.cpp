@@ -30,7 +30,7 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 
     ui->comboBox_sed_game->clear();
 
-    foreach (GameEntry entry, gameManager->getGames()) {
+    for (GameEntry entry : gameManager->getGames()) {
         ui->comboBox_sed_game->addItem(entry.icon, entry.name, entry.id);
     }
 

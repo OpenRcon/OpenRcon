@@ -125,7 +125,7 @@ void FrostbiteConnection::sendCommand(const QString &command)
         commandList = command.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
         commandList.replaceInStrings("\"", "", Qt::CaseSensitive);
 
-        foreach (QString command, commandList) {
+        for (QString command : commandList) {
             packet.packWord(FrostbiteRconWord(command.toLatin1().constData()));
         }
 

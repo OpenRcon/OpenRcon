@@ -32,7 +32,7 @@ OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Opti
     // Add languages to comboBox_ge_language.
     ui->comboBox_be_language->addItem(tr("<System Language>"));
 
-    foreach (LanguageEntry language, languageManager->getLanguages()) {
+    for (LanguageEntry language : languageManager->getLanguages()) {
         ui->comboBox_be_language->addItem(language.icon, language.name);
     }
 

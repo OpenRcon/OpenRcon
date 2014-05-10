@@ -37,7 +37,7 @@ LanguageEntry LanguageManager::getLanguage(int index)
 
 LanguageEntry LanguageManager::getLanguage(const QString &code)
 {
-    foreach (LanguageEntry language, languageList) {
+    for (LanguageEntry language : languageList) {
         if (language.code == code) {
             return language;
         }

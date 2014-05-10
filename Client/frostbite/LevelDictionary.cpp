@@ -41,7 +41,7 @@ LevelEntry LevelDictionary::getLevel(int index)
 
 LevelEntry LevelDictionary::getLevel(const QString &level)
 {
-    foreach (LevelEntry entry, levelList) {
+    for (LevelEntry entry : levelList) {
         if (entry.engineName == level || entry.name == level) {
             return entry;
         }
@@ -62,7 +62,7 @@ GameModeEntry LevelDictionary::getGameMode(int index)
 
 GameModeEntry LevelDictionary::getGameMode(const QString &level)
 {
-    foreach (GameModeEntry entry, gameModeList) {
+    for (GameModeEntry entry : gameModeList) {
         if (entry.engineName == level || entry.name == level) {
             return entry;
         }
@@ -85,7 +85,7 @@ QList<LevelEntry> LevelDictionary::getLevels(int gameModeIndex)
 {
     QList<LevelEntry> list;
 
-    foreach (int index, levelMap.values(gameModeIndex)) {
+    for (int index : levelMap.values(gameModeIndex)) {
         list.append(levelList.at(index));
     }
 
@@ -119,7 +119,7 @@ QStringList LevelDictionary::getLevelNames()
 {
     QStringList list;
 
-    foreach (LevelEntry entry, levelList) {
+    for (LevelEntry entry : levelList) {
         list.append(entry.name);
     }
 
@@ -130,7 +130,7 @@ QStringList LevelDictionary::getLevelNames(int gameModeIndex)
 {
     QStringList list;
 
-    foreach (LevelEntry entry, getLevels(gameModeIndex)) {
+    for (LevelEntry entry : getLevels(gameModeIndex)) {
         list.append(entry.name);
     }
 
@@ -141,7 +141,7 @@ QStringList LevelDictionary::getGameModeNames()
 {
     QStringList list;
 
-    foreach (GameModeEntry entry, gameModeList) {
+    for (GameModeEntry entry : gameModeList) {
         list.append(entry.name);
     }
 

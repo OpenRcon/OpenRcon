@@ -231,7 +231,7 @@ void OpenRcon::populateServers()
         comboBox_sm_server->setEnabled(true);
         pushButton_sm_connect->setEnabled(true);
 
-        foreach (ServerEntry *server, serverList) {
+        for (ServerEntry *server : serverList) {
             GameEntry game = gameManager->getGame(server->game);
 
             comboBox_sm_server->addItem(game.icon, server->name);

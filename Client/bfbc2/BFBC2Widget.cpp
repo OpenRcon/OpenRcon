@@ -505,7 +505,7 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     QMap<QString, QString> teamItems;
     QMap<QString, QTreeWidgetItem *> playerItems;
 
-    foreach (PlayerListItem player, playerList) {
+    for (PlayerListItem player : playerList) {
         QStringList playerInfo;
         QString teamId = player.value("teamId");
         QString clanTag = player.value("clanTag");
@@ -541,11 +541,12 @@ void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
     playerNames.sort();
     menu_pl_move->clear();
 
-    foreach (QString id, teamIds) {
+    for (QString id : teamIds) {
         QTreeWidgetItem *team = new QTreeWidgetItem(ui->treeWidget_pl_players);
         QString teamName = tr("Team %1").arg(id);
         team->setText(0, teamName);
-        foreach (QString name, playerNames) {
+
+        for (QString name : playerNames) {
             QTreeWidgetItem *player = playerItems.value(name);
             if (id == player->data(0, Qt::UserRole)) {
                 team->addChild(player);
@@ -580,7 +581,7 @@ void BFBC2Widget::onVarsBannerUrlCommand(const QString &bannerUrl)
 
 void BFBC2Widget::onMapListListCommand(const QStringList &mapList)
 {
-    foreach (QString engineName, mapList) {
+    for (QString engineName : mapList) {
         LevelEntry level = levelDictionary->getLevel(engineName);
 
         ui->listWidget_ml_currentmaps->addItem(level.name);
@@ -674,7 +675,8 @@ void BFBC2Widget::treeWidget_pl_players_customContextMenuRequested(const QPoint 
     if (ui->treeWidget_pl_players->itemAt(pos)) {
         // Something crash here.
         QString hideTeam = ui->treeWidget_pl_players->itemAt(pos)->parent()->text(0);
-        foreach (QAction *team, menu_pl_move->actions()) {
+
+        for (QAction *team : menu_pl_move->actions()) {
             qDebug () << team->text();
             if (team->text () == hideTeam) {
                 menu_pl_move->removeAction(team);
@@ -886,7 +888,7 @@ void BFBC2Widget::comboBox_ml_gamemode_currentIndexChanged(int index)
     //    }
 
     //    con->sendCommand (QString("mapList.clear"));
-    //    foreach (QString mapPath, mapPaths) {
+    //    for (QString mapPath : mapPaths) {
     //        con->sendCommand (QString("mapList.append %1 %2").arg (mapPath).arg (rounds));
     //    }
 
