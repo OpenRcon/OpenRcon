@@ -17,35 +17,63 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QLabel" name="label_serverInfo_level">
+      <widget class="QLabel" name="label_si_level">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_serverInfo_players">
+      <widget class="QPushButton" name="pushButton_si_restartRound">
+       <property name="toolTip">
+        <string>Restart round</string>
+       </property>
        <property name="text">
-        <string>Players:</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/images/icons/level-restart.png</normaloff>:/icons/images/icons/level-restart.png</iconset>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_serverInfo_round">
+      <widget class="QPushButton" name="pushButton_si_runNextRound">
+       <property name="toolTip">
+        <string>Run next round</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/images/icons/level-next.png</normaloff>:/icons/images/icons/level-next.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_si_round">
        <property name="text">
         <string>Round:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_serverInfo_upTime">
+      <widget class="QLabel" name="label_si_players">
+       <property name="text">
+        <string>Players:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_si_upTime">
        <property name="text">
         <string>Uptime:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_serverInfo_version">
+      <widget class="QLabel" name="label_si_version">
        <property name="text">
         <string>Version:</string>
        </property>
@@ -826,7 +854,7 @@
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>68</height>
+               <height>67</height>
               </size>
              </property>
             </spacer>
@@ -839,7 +867,7 @@
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>69</height>
+               <height>67</height>
               </size>
              </property>
             </spacer>
@@ -852,7 +880,7 @@
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>68</height>
+               <height>67</height>
               </size>
              </property>
             </spacer>

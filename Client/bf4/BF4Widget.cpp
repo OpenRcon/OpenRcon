@@ -169,6 +169,10 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     /* User Interface */
 
+    // Server Information
+    connect(ui->pushButton_si_restartRound, SIGNAL(clicked()), this, SLOT(pushButton_si_restartRound_clicked()));
+    connect(ui->pushButton_si_runNextRound, SIGNAL(clicked()), this, SLOT(pushButton_si_runNextRound_clicked()));
+
     // Players
     connect(ui->treeWidget_pl_players, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_pl_players_customContextMenuRequested(QPoint)));
     connect(action_pl_players_kill, SIGNAL(triggered()), this, SLOT(action_pl_players_kill_triggered()));
@@ -502,8 +506,8 @@ void BF4Widget::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(type);
 
-    ui->label_serverInfo_version->setText(tr("<b>Version</b>: %1").arg(getVersionFromBuild(build)));
-    ui->label_serverInfo_version->setToolTip(QString::number(build));
+    ui->label_si_version->setText(tr("<b>Version</b>: %1").arg(getVersionFromBuild(build)));
+    ui->label_si_version->setToolTip(QString::number(build));
 }
 
 void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
@@ -513,10 +517,10 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
     roundTime = serverInfo.roundTime;
     serverUpTime = serverInfo.serverUpTime;
 
-    ui->label_serverInfo_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(currentLevel.name).arg(currentGameMode.name));
-    ui->label_serverInfo_level->setToolTip(QString("%1 - %2").arg(currentLevel.engineName, currentGameMode.engineName));
-    ui->label_serverInfo_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_serverInfo_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
+    ui->label_si_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(currentLevel.name).arg(currentGameMode.name));
+    ui->label_si_level->setToolTip(QString("%1 - %2").arg(currentLevel.engineName, currentGameMode.engineName));
+    ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
+    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
 
     connect(timerServerInfoRoundTime, SIGNAL(timeout()), this, SLOT(updateRoundTime()));
     timerServerInfoRoundTime->start(1000);
@@ -670,6 +674,16 @@ void BF4Widget::updateServerInfo()
     con->sendServerInfoCommand();
 }
 
+void BF4Widget::pushButton_si_restartRound_clicked()
+{
+    con->sendMapListRestartRound();
+}
+
+void BF4Widget::pushButton_si_runNextRound_clicked()
+{
+    con->sendMapListRunNextRound();
+}
+
 void BF4Widget::updateRoundTime()
 {
     TimeEntry time = getTimeFromSeconds(roundTime++);
@@ -691,7 +705,7 @@ void BF4Widget::updateRoundTime()
         text += " " + tr("%1s").arg(time.seconds);
     }
 
-    ui->label_serverInfo_round->setToolTip(text);
+    ui->label_si_round->setToolTip(text);
 }
 
 void BF4Widget::updateUpTime()
@@ -715,7 +729,7 @@ void BF4Widget::updateUpTime()
         text += " " + tr("%1s").arg(time.seconds);
     }
 
-    ui->label_serverInfo_upTime->setText(tr("<b>Uptime:</b> %1").arg(text));
+    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(text));
 }
 
 // Players

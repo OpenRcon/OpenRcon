@@ -174,8 +174,10 @@ private slots:
 
     /* User Interface */
 
-    // ServerInfo
+    // Server Information
     void updateServerInfo();
+    void pushButton_si_restartRound_clicked();
+    void pushButton_si_runNextRound_clicked();
     void updateRoundTime();
     void updateUpTime();
 
