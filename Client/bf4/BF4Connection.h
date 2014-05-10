@@ -350,7 +350,7 @@ signals:
     void onLoginPlainTextCommand(bool auth);
     void onLoginHashedCommand(const QByteArray &salt);
     void onLoginHashedCommand(bool auth);
-    void onServerInfoCommand(const ServerInfo &serverInfo);
+    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
 //    void onLogoutCommand();
 //    void onQuitCommand();
     void onVersionCommand(const QString &type, int build);

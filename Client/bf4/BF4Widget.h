@@ -129,7 +129,7 @@ private slots:
     // Misc
     void onLoginHashedCommand(bool auth);
     void onVersionCommand(const QString &type, int build);
-    void onServerInfoCommand(const ServerInfo &serverInfo);
+    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
     // Admin
@@ -175,7 +175,6 @@ private slots:
     /* User Interface */
 
     // Server Information
-    void updateServerInfo();
     void pushButton_si_restartRound_clicked();
     void pushButton_si_runNextRound_clicked();
     void updateRoundTime();

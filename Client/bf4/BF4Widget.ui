@@ -66,16 +66,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_si_upTime">
+      <widget class="QLabel" name="label_si_version">
        <property name="text">
-        <string>Uptime:</string>
+        <string>Version:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_si_version">
+      <widget class="QLabel" name="label_si_upTime">
        <property name="text">
-        <string>Version:</string>
+        <string>Uptime:</string>
        </property>
       </widget>
      </item>
@@ -103,7 +103,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -257,7 +257,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget_op">
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_so_de">
           <attribute name="title">

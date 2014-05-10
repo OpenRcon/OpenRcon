@@ -125,7 +125,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     // Misc
     connect(con, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
     connect(con, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
-    connect(con, SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
+    connect(con, SIGNAL(onServerInfoCommand(const BF4ServerInfo&)), this, SLOT(onServerInfoCommand(const BF4ServerInfo&)));
     connect(con, SIGNAL(onListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)), this, SLOT(onListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)));
 
     // Admin
@@ -510,7 +510,7 @@ void BF4Widget::onVersionCommand(const QString &type, int build)
     ui->label_si_version->setToolTip(QString::number(build));
 }
 
-void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
+void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     currentLevel = levelDictionary->getLevel(serverInfo.currentMap);
     GameModeEntry currentGameMode = levelDictionary->getGameMode(serverInfo.gameMode);
@@ -518,7 +518,64 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
     serverUpTime = serverInfo.serverUpTime;
 
     ui->label_si_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(currentLevel.name).arg(currentGameMode.name));
-    ui->label_si_level->setToolTip(QString("%1 - %2").arg(currentLevel.engineName, currentGameMode.engineName));
+
+    ui->label_si_level->setToolTip(tr("<table>"
+                                          "<tr>"
+                                              "<td>External IP address and port:</td>"
+                                              "<td>%1</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Join queue enabled:</td>"
+                                              "<td>%2</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Matchmaking enabled:</td>"
+                                              "<td>%3</td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td></td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td>Region:</td>"
+                                              "<td>%4</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Country:</td>"
+                                              "<td>%5</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Closest ping site:</td>"
+                                              "<td>%6</td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td></td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td>Blaze player count:</td>"
+                                              "<td>%7</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Blaze game stat:</td>"
+                                              "<td>%8</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Punkbuster Server:</td>"
+                                              "<td>%9</td>"
+                                          "</tr>"
+                                      "</table>").arg(serverInfo.gameIpAndPort)
+                                                 .arg(FrostbiteUtils::toString(serverInfo.joinQueueEnabled),
+                                                      FrostbiteUtils::toString(serverInfo.matchMakingEnabled),
+                                                      serverInfo.region,
+                                                      serverInfo.country,
+                                                      serverInfo.closestPingSite)
+                                                 .arg(serverInfo.blazePlayerCount)
+                                                 .arg(serverInfo.blazeGameState,
+                                                      serverInfo.punkBusterVersion));
+
     ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
     ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
 
@@ -669,11 +726,6 @@ QIcon BF4Widget::getRankIcon(int rank)
 /* User Interface */
 
 // ServerInfo
-void BF4Widget::updateServerInfo()
-{
-    con->sendServerInfoCommand();
-}
-
 void BF4Widget::pushButton_si_restartRound_clicked()
 {
     con->sendMapListRestartRound();
@@ -751,7 +803,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
         QList<QTreeWidgetItem *> playerItems;
         QSet<int> teamIds;
 
-        foreach (PlayerInfo player, playerList) {
+        for (PlayerInfo player : playerList) {
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
             playerItem->setIcon(0, getRankIcon(player.rank));
             playerItem->setText(0, player.name);
@@ -773,7 +825,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
                 teamItem->setText(0, levelDictionary->getTeam(teamId - 1));
 
-                foreach (QTreeWidgetItem *playerItem, playerItems) {
+                for (QTreeWidgetItem *playerItem : playerItems) {
                     if (teamId == playerItem->data(0, Qt::UserRole)) {
                         teamItem->addChild(playerItem);
                     }
@@ -1092,7 +1144,7 @@ void BF4Widget::setBanlist(const BanList &banList)
     ui->tableWidget_bl_banList->clearContents();
     ui->tableWidget_bl_banList->setRowCount(0);
 
-    foreach (BanListEntry entry, banList) {
+    for (BanListEntry entry : banList) {
         addBanListRow(entry.idType, entry.id, entry.banType, entry.seconds, entry.rounds, entry.reason);
     }
 }
