@@ -18,7 +18,6 @@
  */
 
 #include "BF4Connection.h"
-#include "BF4CommandHandler.h"
 
 BF4Connection::BF4Connection(QObject *parent) : FrostbiteConnection(parent)
 {

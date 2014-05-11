@@ -35,7 +35,7 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="0" colspan="3">
-        <widget class="DragDropTreeWidget" name="treeWidget_pl_players">
+        <widget class="QTreeWidget" name="treeWidget_pl_players">
          <property name="contextMenuPolicy">
           <enum>Qt::CustomContextMenu</enum>
          </property>
@@ -220,7 +220,7 @@ p, li { white-space: pre-wrap; }
      </widget>
      <widget class="QWidget" name="tab_op">
       <attribute name="icon">
-       <iconset resource="../OpenRcon.qrc">
+       <iconset>
         <normaloff>:/icons/images/icons/options.png</normaloff>:/icons/images/icons/options.png</iconset>
       </attribute>
       <attribute name="title">
@@ -266,7 +266,7 @@ p, li { white-space: pre-wrap; }
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <property name="usesScrollButtons">
           <bool>true</bool>
@@ -1060,7 +1060,7 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
          <item>
-          <widget class="DragDropListWidget" name="listWidget_ml_avaliablemaps">
+          <widget class="QListWidget" name="listWidget_ml_avaliablemaps">
            <property name="locale">
             <locale language="English" country="UnitedStates"/>
            </property>
@@ -1150,7 +1150,7 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
          <item>
-          <widget class="DragDropListWidget" name="listWidget_ml_currentmaps">
+          <widget class="QListWidget" name="listWidget_ml_currentmaps">
            <property name="locale">
             <locale language="English" country="UnitedStates"/>
            </property>
@@ -1785,18 +1785,6 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>DragDropListWidget</class>
-   <extends>QListWidget</extends>
-   <header>DragDropListWidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>DragDropTreeWidget</class>
-   <extends>QTreeWidget</extends>
-   <header>DragDropTreeWidget.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="../OpenRcon.qrc"/>
  </resources>

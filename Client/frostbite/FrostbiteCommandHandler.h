@@ -25,7 +25,6 @@
 #include "CommandHandler.h"
 
 #include "FrostbiteConnection.h"
-#include "FrostbiteRconPacket.h"
 #include "PlayerSubset.h"
 
 class FrostbiteConnection;

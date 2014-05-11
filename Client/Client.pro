@@ -21,9 +21,7 @@ HEADERS += OpenRcon.h \
     ServerListDialog.h \
     ServerEditDialog.h \
     OptionsDialog.h \
-    AboutDialog.h \
-    DragDropListWidget.h \
-    DragDropTreeWidget.h
+    AboutDialog.h
 
 SOURCES += Main.cpp \
     OpenRcon.cpp \
@@ -34,9 +32,7 @@ SOURCES += Main.cpp \
     ServerListDialog.cpp \
     ServerEditDialog.cpp \
     OptionsDialog.cpp \
-    AboutDialog.cpp \
-    DragDropListWidget.cpp \
-    DragDropTreeWidget.cpp
+    AboutDialog.cpp
 
 FORMS += OpenRcon.ui \
     ServerListDialog.ui \

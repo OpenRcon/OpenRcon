@@ -21,6 +21,7 @@
 #define BFBC2CONNECTION_H
 
 #include "FrostbiteConnection.h"
+
 #include "BFBC2CommandHandler.h"
 
 class BFBC2CommandHandler;

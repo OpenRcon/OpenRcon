@@ -23,7 +23,7 @@
 #include "FrostbiteRconWord.h"
 
 #define MaxPacketSize 16384
-//#define MAX_WORDS 100 // TODO: Think this right.s
+//#define MAX_WORDS 100 // TODO: Think this right.
 
 class FrostbiteRconPacket : public QObject
 {

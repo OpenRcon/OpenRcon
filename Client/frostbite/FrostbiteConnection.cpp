@@ -18,7 +18,6 @@
  */
 
 #include "FrostbiteConnection.h"
-#include "FrostbiteCommandHandler.h"
 
 FrostbiteConnection::FrostbiteConnection(QObject *parent) :
     Connection(parent),

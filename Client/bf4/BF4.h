@@ -23,6 +23,7 @@
 #include <QCryptographicHash>
 
 #include "FrostbiteGame.h"
+
 #include "BF4Connection.h"
 #include "BF4LevelDictionary.h"
 

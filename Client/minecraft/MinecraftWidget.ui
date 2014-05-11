@@ -31,7 +31,7 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_tab_pl">
        <item row="1" column="0" colspan="2">
-        <widget class="DragDropTreeWidget" name="treeWidget_pl">
+        <widget class="QTreeWidget" name="treeWidget_pl">
          <property name="locale">
           <locale language="English" country="UnitedKingdom"/>
          </property>
@@ -177,13 +177,6 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>DragDropTreeWidget</class>
-   <extends>QTreeWidget</extends>
-   <header>DragDropTreeWidget.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

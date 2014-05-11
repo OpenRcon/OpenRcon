@@ -23,6 +23,7 @@
 #include "Connection.h"
 
 #include "FrostbiteRconPacket.h"
+#include "FrostbiteCommandHandler.h"
 #include "FrostbiteUtils.h"
 
 #define MIN_PACKET_SIZE 12
