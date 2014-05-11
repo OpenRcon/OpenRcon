@@ -319,6 +319,7 @@ void BF4Widget::startupCommands(bool authenticated)
         commandHandler->sendVarsAlwaysAllowSpectators();
         commandHandler->sendVarsCommander();
         commandHandler->sendVarsFriendlyFire();
+        commandHandler->sendVarsGamePassword();
         commandHandler->sendVarsIdleTimeout();
         commandHandler->sendVarsKillCam();
         commandHandler->sendVarsMaxPlayers();

@@ -41,7 +41,7 @@ public:
     BFBC2Widget(ServerEntry *serverEntry);
     ~BFBC2Widget();
 
-    virtual Connection* getConnection() { return con; }
+    virtual Connection *getConnection() { return con; }
 
 private:
     Ui::BFBC2Widget *ui;
