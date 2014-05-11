@@ -336,17 +336,23 @@ void BF4Widget::startupCommands(bool authenticated)
 
 void BF4Widget::logEvent(const QString &event, const QString &message)
 {
-    addEvent(event, message);
+    int row = ui->tableWidget_ev_events->rowCount();
+
+    ui->tableWidget_ev_events->insertRow(row);
+    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss")));
+    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
+    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
+    ui->tableWidget_ev_events->resizeColumnsToContents();
 }
 
 void BF4Widget::logChat(const QString &sender, const QString &message, const QString &target)
 {
-    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QTime::currentTime().toString(), target, sender, message));
+    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
 }
 
 void BF4Widget::logConsole(int type, const QString &message)
 {
-    QString time = QDateTime::currentDateTime().toString();
+    QString time = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
 
     switch (type) {
         case 0: // Server con->send
@@ -910,16 +916,6 @@ void BF4Widget::action_pl_players_copyTo_guid_triggered()
 }
 
 // Event
-void BF4Widget::addEvent(const QString &event, const QString &message)
-{
-    int row = ui->tableWidget_ev_events->rowCount();
-
-    ui->tableWidget_ev_events->insertRow(row);
-    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QTime::currentTime().toString()));
-    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
-    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
-    ui->tableWidget_ev_events->resizeColumnsToContents();
-}
 
 // Chat
 void BF4Widget::comboBox_ch_mode_currentIndexChanged(int index)
