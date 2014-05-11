@@ -71,7 +71,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     // QuickConnect toolbar.
     comboBox_quickConnect_server = new QComboBox(ui->toolBar_quickConnect);
-    comboBox_quickConnect_server->setToolTip(tr("Let's you select a prevously stoted server."));
+    comboBox_quickConnect_server->setToolTip(tr("Let's you select a prevously stored server."));
     pushButton_quickConnect_connect = new QPushButton(tr("Connect"), ui->toolBar_quickConnect);
     pushButton_quickConnect_connect->setToolTip(tr("Connect's to the server selected in the combobox."));
 

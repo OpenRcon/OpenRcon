@@ -37,7 +37,7 @@ ServerManager::~ServerManager()
 void ServerManager::loadServers()
 {
     settings->beginGroup("ServerManager");
-        int size = settings->beginReadArray("Servers");
+        int size = settings->beginReadArray("ServerEntries");
 
         for (int i = 0; i < size; i++) {
             settings->setArrayIndex(i);
@@ -61,10 +61,10 @@ void ServerManager::loadServers()
 void ServerManager::saveServers()
 {
     settings->beginGroup("ServerManager");
-        settings->remove("Servers");
+        settings->remove("ServerEntries");
 
         int size = serverList.size();
-        settings->beginWriteArray("Servers");
+        settings->beginWriteArray("ServerEntries");
             for (int i = 0; i < size; i++) {
                 settings->setArrayIndex(i);
 

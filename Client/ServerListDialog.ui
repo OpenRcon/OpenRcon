@@ -49,7 +49,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Connect automatically</string>
+       <string>Connect automatically?</string>
       </property>
      </column>
     </widget>
