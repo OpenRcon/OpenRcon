@@ -130,6 +130,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // Admin
     connect(con, SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)));
+    connect(con, SIGNAL(onAdminPasswordCommand(const QString&)), this, SLOT(onAdminPasswordCommand(const QString&)));
 
     // Banning
     connect(con, SIGNAL(onBanListListCommand(const BanList&)), this, SLOT(onBanListListCommand(const BanList&)));
@@ -158,6 +159,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(con, SIGNAL(onVarsAlwaysAllowSpectatorsCommand(bool)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(bool)));
     connect(con, SIGNAL(onVarsCommanderCommand(bool)), this, SLOT(onVarsCommanderCommand(bool)));
     connect(con, SIGNAL(onVarsFriendlyFireCommand(bool)), this, SLOT(onVarsFriendlyFireCommand(bool)));
+    connect(con, SIGNAL(onVarsGamePasswordCommand(const QString&)), this, SLOT(onVarsGamePasswordCommand(const QString&)));
     connect(con, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
     connect(con, SIGNAL(onVarsKillCamCommand(bool)), this, SLOT(onVarsKillCamCommand(bool)));
     connect(con, SIGNAL(onVarsMaxPlayersCommand(int)), this, SLOT(onVarsMaxPlayersCommand(int)));
@@ -608,6 +610,11 @@ void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, c
     listPlayers(playerList, playerSubset);
 }
 
+void BF4Widget::onAdminPasswordCommand(const QString &password)
+{
+    ui->lineEdit_so_co_adminPassword->setText(password);
+}
+
 // Banning
 void BF4Widget::onBanListListCommand(const BanList &banList)
 {
@@ -670,6 +677,11 @@ void BF4Widget::onVarsCommanderCommand(bool enabled)
 void BF4Widget::onVarsFriendlyFireCommand(bool enabled)
 {
     ui->checkBox_so_go_friendlyFire->setChecked(enabled);
+}
+
+void BF4Widget::onVarsGamePasswordCommand(const QString &password)
+{
+    ui->lineEdit_so_co_gamePassword->setText(password);
 }
 
 void BF4Widget::onVarsIdleTimeoutCommand(int timeout)

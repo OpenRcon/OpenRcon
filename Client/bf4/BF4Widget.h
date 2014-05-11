@@ -134,10 +134,10 @@ private slots:
 
     // Admin
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+    void onAdminPasswordCommand(const QString &password);
 
     // Banning
     void onBanListListCommand(const BanList &banList);
-
 
     // FairFight
     void onFairFightIsActiveCommand(bool isActive);
@@ -163,6 +163,7 @@ private slots:
     void onVarsAlwaysAllowSpectatorsCommand(bool enabled);
     void onVarsCommanderCommand(bool enabled);
     void onVarsFriendlyFireCommand(bool enabled);
+    void onVarsGamePasswordCommand(const QString &password);
     void onVarsIdleTimeoutCommand(int timeout);
     void onVarsKillCamCommand(bool enabled);
     void onVarsMaxPlayersCommand(int playerCount);
