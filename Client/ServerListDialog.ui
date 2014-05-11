@@ -45,7 +45,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Autoconnect</string>
+       <string>Connect automatically</string>
       </property>
      </column>
     </widget>
