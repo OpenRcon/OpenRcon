@@ -46,7 +46,6 @@ private:
     Ui::ServerListDialog *ui;
 
     OpenRcon *openRcon;
-    GameManager *gameManager;
     ServerManager *serverManager;
 
     QMenu *menu_gameEntry;
@@ -66,7 +65,7 @@ private slots:
     void treeWidget_itemClicked(QTreeWidgetItem *item, int column);
     void action_gameEntry_add_triggered();
 
-    void addItem(int game = -1);
+    void addItem(GameType gameType = GameType::Unknown);
     void editItem();
     void removeItem();
     void connectToItem();

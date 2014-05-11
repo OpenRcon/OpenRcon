@@ -19,23 +19,15 @@
 
 #include "GameManager.h"
 
-GameManager::GameManager(QObject *parent) : QObject(parent)
-{
-    // Adds all games to the list.
-    gameList.append(GameEntry(BFBC2, "BFBC2", "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png"));
-    gameList.append(GameEntry(BF3, "BF3", "Battlefield 3", ":/bf3/icons/bf3.png"));
-    gameList.append(GameEntry(BF4, "BF4", "Battlefield 4", ":/bf4/icons/bf4.png"));
-    gameList.append(GameEntry(Minecraft, "Minecraft", "Minecraft", ":/minecraft/icons/minecraft.png"));
-}
+// Adds all games to the list.
+QList<GameEntry> GameManager::gameList = { GameEntry(GameType::BFBC2, "BFBC2", "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png"),
+                                           GameEntry(GameType::BF3, "BF3", "Battlefield 3", ":/bf3/icons/bf3.png"),
+                                           GameEntry(GameType::BF4, "BF4", "Battlefield 4", ":/bf4/icons/bf4.png"),
+                                           GameEntry(GameType::Minecraft, "Minecraft", "Minecraft", ":/minecraft/icons/minecraft.png") };
 
-GameManager::~GameManager()
+GameEntry GameManager::getGame(GameType gameType)
 {
-
-}
-
-GameEntry GameManager::getGame(int index)
-{
-    return gameList.at(index);
+    return gameList.at(static_cast<int>(gameType));
 }
 
 QList<GameEntry> GameManager::getGames()
@@ -45,28 +37,28 @@ QList<GameEntry> GameManager::getGames()
 
 Game* GameManager::getGameObject(ServerEntry *serverEntry)
 {
-    int game = serverEntry->game;
+    GameType gameType = serverEntry->gameType;
     Game *gameObject;
 
-    switch (game) {
-        case BFBC2:
+    switch (gameType) {
+        case GameType::BFBC2:
             gameObject = new BFBC2Widget(serverEntry);
             break;
 
-        case BF3:
+        case GameType::BF3:
             gameObject = new BF3Widget(serverEntry);
             break;
 
-        case BF4:
+        case GameType::BF4:
             gameObject = new BF4Widget(serverEntry);
             break;
 
-        case Minecraft:
+        case GameType::Minecraft:
             gameObject = new MinecraftWidget(serverEntry);
             break;
 
         default:
-            qDebug() << tr("Unknown game specified, the id was: %1.").arg(game);
+            qDebug() << tr("Unknown game specified, the id was: %1.").arg(static_cast<int>(gameType));
             break;
     }
 

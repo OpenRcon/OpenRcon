@@ -23,13 +23,22 @@
 #include <QString>
 #include <QIcon>
 
+#include "GameType.h"
+
 struct GameEntry {
-    GameEntry(int id, const QString &prefix, const QString &name, const QString &icon) : id(id), prefix(prefix), name(name), icon(QIcon(icon))
+    GameEntry(GameType gameType,
+              const QString &prefix,
+              const QString &name,
+              const QString &icon) :
+        gameType(gameType),
+        prefix(prefix),
+        name(name),
+        icon(QIcon(icon))
     {
 
     }
 
-    int id;
+    GameType gameType;
     QString prefix;
     QString name;
     QIcon icon;

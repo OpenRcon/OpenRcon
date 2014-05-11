@@ -23,7 +23,8 @@ HEADERS += OpenRcon.h \
     OptionsDialog.h \
     AboutDialog.h \
     DragDropListWidget.h \
-    DragDropTreeWidget.h
+    DragDropTreeWidget.h \
+    GameType.h
 
 SOURCES += Main.cpp \
     OpenRcon.cpp \

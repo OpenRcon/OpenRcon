@@ -43,7 +43,7 @@ void ServerManager::loadServers()
             settings->setArrayIndex(i);
 
             ServerEntry *entry = new ServerEntry(
-                settings->value("Game").toInt(),
+                static_cast<GameType>(settings->value("Game").toInt()),
                 settings->value("Name").toString(),
                 settings->value("Host").toString(),
                 settings->value("Port").toInt(),
@@ -69,7 +69,7 @@ void ServerManager::saveServers()
                 settings->setArrayIndex(i);
 
                 ServerEntry *entry = serverList.at(i);
-                settings->setValue("Game", entry->game);
+                settings->setValue("Game", static_cast<int>(entry->gameType));
                 settings->setValue("Name", entry->name);
                 settings->setValue("Host", entry->host);
                 settings->setValue("Port", entry->port);
@@ -103,12 +103,12 @@ QList<ServerEntry *> ServerManager::getServers()
     return serverList;
 }
 
-QList<ServerEntry *> ServerManager::getServers(int gameIndex)
+QList<ServerEntry *> ServerManager::getServers(GameType gameType)
 {
     QList<ServerEntry *> list;
 
     for (ServerEntry *entry : serverList) {
-        if (entry->game == gameIndex) {
+        if (entry->gameType == gameType) {
             list.append(entry);
         }
     }

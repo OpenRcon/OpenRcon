@@ -12,34 +12,21 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAMEMANAGER_H
-#define GAMEMANAGER_H
+#ifndef GAMETYPE_H
+#define GAMETYPE_H
 
-#include "GameEntry.h"
-#include "ServerEntry.h"
-
-#include "BFBC2Widget.h"
-#include "BF3Widget.h"
-#include "BF4Widget.h"
-#include "MinecraftWidget.h"
-
-class GameManager : public QObject
-{
-    Q_OBJECT
-
-public:
-    static GameEntry getGame(GameType gameType);
-    static QList<GameEntry> getGames();
-    static Game *getGameObject(ServerEntry *serverEntry);
-
-private: 
-    static QList<GameEntry> gameList;
+enum class GameType {
+    Unknown,
+    BFBC2,
+    BF3,
+    BF4,
+    Minecraft
 
 };
 
-#endif // GAMEMANAGER_H
+#endif // GAMETYPE_H

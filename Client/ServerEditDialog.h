@@ -31,11 +31,11 @@ class ServerEditDialog : public QDialog
 
 public:
     ServerEditDialog(QWidget *parent = nullptr);
-    ServerEditDialog(int game, QWidget *parent = nullptr);
-    ServerEditDialog(int game, const QString &name = 0, const QString &host = 0, int port = 0, const QString &password = 0, bool autoConnect = false, QWidget *parent = nullptr);
+    ServerEditDialog(GameType gameType, QWidget *parent = nullptr);
+    ServerEditDialog(GameType gameType, const QString &name = 0, const QString &host = 0, int port = 0, const QString &password = 0, bool autoConnect = false, QWidget *parent = nullptr);
     ~ServerEditDialog();
 
-    int getGame();
+    GameType getGameType();
     QString getName();
     QString getHost();
     int getPort();
@@ -44,8 +44,6 @@ public:
 
 private:
     Ui::ServerEditDialog *ui;
-
-    GameManager *gameManager;
 
 private slots:
     void detect(const QString &value);
