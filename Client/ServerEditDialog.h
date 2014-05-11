@@ -23,11 +23,7 @@
 #include <QDialog>
 
 #include "ui_ServerEditDialog.h"
-
-#include "OpenRcon.h"
-#include "Constants.h"
-
-using namespace Constants;
+#include "GameManager.h"
 
 class ServerEditDialog : public QDialog
 {

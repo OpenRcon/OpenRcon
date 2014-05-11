@@ -31,17 +31,16 @@
 #include <QComboBox>
 #include <QMessageBox>
 #include <QPushButton>
-#include "ui_OpenRcon.h"
 
+#include "ui_OpenRcon.h"
 #include "Constants.h"
 #include "GameManager.h"
 #include "ServerManager.h"
-
-#include "ConnectionTabWidget.h"
-
 #include "ServerListDialog.h"
 #include "OptionsDialog.h"
 #include "AboutDialog.h"
+
+#include "ConnectionTabWidget.h"
 
 using namespace Constants;
 
@@ -49,6 +48,7 @@ namespace Ui {
     class MainWindow;
 }
 
+class ServerListDialog;
 class OpenRcon : public QMainWindow
 {
     Q_OBJECT
@@ -57,25 +57,16 @@ public:
     OpenRcon(QWidget *parent = nullptr);
     ~OpenRcon();
 
-    static OpenRcon* getInstance(QWidget *parent = nullptr) {
-        if (!instance) {
-            instance = new OpenRcon(parent);
-        }
-
-        return instance;
-    }
-
     void addTab(ServerEntry *serverEntry);
-    GameManager* getGameManager();
+    GameManager *getGameManager();
+    ServerManager *getServerManager();
 
 private:
-    static OpenRcon *instance;
-
     Ui::OpenRcon *ui;
 
     GameManager *gameManager;
     ServerManager *serverManager;
-    //ServerListDialog *serverListDialog;
+    ServerListDialog *serverListDialog;
     OptionsDialog *optionsDialog;
     AboutDialog *aboutDialog;
 
@@ -89,6 +80,7 @@ private:
 
 private slots:
     void closeTab(int index);
+    void updateServerList();
 
     // Application menu
     void actionServermanager_triggered();
@@ -108,7 +100,6 @@ private slots:
 
     // ServerManager
     void pushButton_sm_connect_clicked();
-    void populateServers();
 
 };
 

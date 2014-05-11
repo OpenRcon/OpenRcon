@@ -24,16 +24,16 @@
 #include <QMenu>
 #include <QMessageBox>
 
-#include "ui_ServerListDialog.h"
-
 #include "OpenRcon.h"
-
 #include "GameManager.h"
 #include "ServerManager.h"
 #include "ServerEditDialog.h"
 
+#include "ui_ServerListDialog.h"
+
 using namespace Constants;
 
+class OpenRcon;
 class ServerListDialog : public QDialog
 {
     Q_OBJECT
@@ -45,10 +45,9 @@ public:
 private:
     Ui::ServerListDialog *ui;
 
+    OpenRcon *openRcon;
     GameManager *gameManager;
     ServerManager *serverManager;
-
-    QList<ServerEntry *> serverEntries;
 
     QMenu *menu_gameEntry;
     QAction *action_gameEntry_add;
@@ -57,8 +56,9 @@ private:
     QAction *action_serverEntry_edit;
     QAction *action_serverEntry_remove;
 
+    QList<ServerEntry *> serverEntries;
+
     void createTreeData();
-    void deleteTreeData();
 
 private slots:
     void treeWidget_customContextMenuRequested(const QPoint &pos);

@@ -31,6 +31,10 @@
   <property name="acceptDrops">
    <bool>false</bool>
   </property>
+  <property name="windowIcon">
+   <iconset resource="OpenRcon.qrc">
+    <normaloff>:/icons/openrcon.png</normaloff>:/icons/openrcon.png</iconset>
+  </property>
   <property name="statusTip">
    <string/>
   </property>
@@ -90,7 +94,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuTools">

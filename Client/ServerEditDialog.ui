@@ -28,6 +28,10 @@
   <property name="windowTitle">
    <string>Server details</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="OpenRcon.qrc">
+    <normaloff>:/icons/openrcon.png</normaloff>:/icons/openrcon.png</iconset>
+  </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
@@ -182,6 +186,8 @@
   <tabstop>pushButton_sed_ok</tabstop>
   <tabstop>pushButton_sed_cancel</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="OpenRcon.qrc"/>
+ </resources>
  <connections/>
 </ui>

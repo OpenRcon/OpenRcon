@@ -23,9 +23,6 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 {
     ui->setupUi(this);
 
-    // Sets application icon
-    setWindowIcon(QIcon(APP_ICON));
-
     gameManager = new GameManager(this);
 
     ui->comboBox_sed_game->clear();
@@ -75,6 +72,7 @@ ServerEditDialog::ServerEditDialog(int game, const QString &name, const QString 
 ServerEditDialog::~ServerEditDialog()
 {
     delete ui;
+    delete gameManager;
 }
 
 void ServerEditDialog::detect(const QString &value)

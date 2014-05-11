@@ -23,13 +23,11 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 {
     ui->setupUi(this);
 
-    gameManager = new GameManager(this);
-    serverManager = new ServerManager(this);
+    openRcon = dynamic_cast<OpenRcon *>(parent);
+    gameManager = openRcon->getGameManager();
+    serverManager = openRcon->getServerManager();
 
-    // Sets application icon
-    setWindowIcon(QIcon(APP_ICON));
-
-    // Fetch serverEntries from ServerManager.
+    // Fetch ServerEntries from ServerManager.
     serverEntries = serverManager->getServers();
 
     // Menu showing when right-clicking an topLevelItem.
@@ -46,8 +44,10 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     menu_serverEntry->addAction(action_serverEntry_edit);
     menu_serverEntry->addAction(action_serverEntry_remove);
 
+    // Disable connect button, will be enabled when a valid ServerEntry is selected.
     ui->pushButton_sld_connect->setEnabled(false);
 
+    // Load GameEnrties and ServerEntries from ServerManager and add them to the QTreeWidget.
     createTreeData();
 
     connect(ui->treeWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_customContextMenuRequested(QPoint)));
@@ -61,7 +61,6 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 
     connect(ui->pushButton_sld_add, SIGNAL(clicked()), this, SLOT(addItem()));
     connect(ui->pushButton_sld_connect, SIGNAL(clicked()), this, SLOT(connectToItem()));
-
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
@@ -72,8 +71,6 @@ ServerListDialog::~ServerListDialog()
     serverEntries.clear();
 
     delete ui;
-    delete gameManager;
-    delete serverManager;
 }
 
 void ServerListDialog::treeWidget_customContextMenuRequested(const QPoint &pos)
@@ -202,7 +199,6 @@ void ServerListDialog::editItem()
 
             // Set the server to the new values obtained by ServerEditDialog.
             *entry = editEntry;
-
             createTreeData();
         }
 
@@ -224,7 +220,6 @@ void ServerListDialog::removeItem()
             ServerEntry *entry = variant.value<ServerEntry *>();
 
             serverEntries.removeAt(serverEntries.indexOf(entry));
-
             createTreeData();
         }
     }
@@ -240,10 +235,9 @@ void ServerListDialog::connectToItem()
         QVariant variant = item->data(0, Qt::UserRole);
         ServerEntry *entry = variant.value<ServerEntry *>();
 
-        OpenRcon *openRcon = OpenRcon::getInstance();
+        // Connect to the ServerEntry and add the tab to OpenRcon's QTabWidget.
         openRcon->addTab(entry);
-
-        QDialog::accept();
+        accept();
     }
 }
 

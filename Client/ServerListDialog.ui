@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Server Manager</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="OpenRcon.qrc">
+    <normaloff>:/icons/openrcon.png</normaloff>:/icons/openrcon.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="3">
     <widget class="QTreeWidget" name="treeWidget">
@@ -93,6 +97,8 @@
  <tabstops>
   <tabstop>treeWidget</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="OpenRcon.qrc"/>
+ </resources>
  <connections/>
 </ui>
