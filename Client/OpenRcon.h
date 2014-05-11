@@ -64,16 +64,29 @@ public:
 private:
     Ui::OpenRcon *ui;
 
+    QSettings *settings;
+
     GameManager *gameManager;
     ServerManager *serverManager;
     ServerListDialog *serverListDialog;
     OptionsDialog *optionsDialog;
     AboutDialog *aboutDialog;
 
-    QSettings *settings;
+    QComboBox *comboBox_quickConnect_server;
+    QPushButton *pushButton_quickConnect_connect;
 
-    QComboBox *comboBox_sm_server;
-    QPushButton *pushButton_sm_connect;
+    QAction *actionServerManager;
+    QAction *actionExit;
+
+    QAction *actionQuickConnect;
+
+    QAction *actionOptions;
+
+    QAction *actionDocumentation;
+    QAction *actionVisitWebsite;
+    QAction *actionReportBug;
+    QAction *actionAbout;
+    QAction *actionAboutQt;
 
     void readSettings();
     void writeSettings();
@@ -83,23 +96,23 @@ private slots:
     void updateServerList();
 
     // Application menu
-    void actionServermanager_triggered();
+    void actionServerManager_triggered();
 
     // View menu
-    void actionServers_triggered();
+    void actionQuickConnect_triggered();
 
     // Setting menu
     void actionOptions_triggered();
 
     // Help menu
-    void actionReport_bug_triggered();
-    void actionVisit_website_triggered();
     void actionDocumentation_triggered();
+    void actionVisitWebsite_triggered();
+    void actionReportBug_triggered();
     void actionAbout_triggered();
-    void actionAbout_Qt_triggered();
+    void actionAboutQt_triggered();
 
     // ServerManager
-    void pushButton_sm_connect_clicked();
+    void pushButton_quickConnect_connect_clicked();
 
 };
 

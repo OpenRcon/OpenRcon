@@ -35,23 +35,49 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     optionsDialog = new OptionsDialog(this);
     aboutDialog = new AboutDialog(this);
 
-    // Sets application title
+    // Sets window title
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
 
     // Create and read settings
     readSettings();
 
     // Actions
-    ui->actionAbout->setIcon(QIcon(APP_ICON));
-    ui->actionAbout->setText(tr("About &%1").arg(APP_NAME));
-    ui->actionAbout_Qt->setIcon(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
+    actionServerManager = new QAction(QIcon(":/icons/servermanager.png"), tr("Server Manager"), this);
+    actionServerManager->setToolTip(tr("Opens the ServerManager."));
+    actionExit = new QAction(tr("Exit"), this);
 
-    // ServerManager
-    comboBox_sm_server = new QComboBox(ui->toolBar_sm);
-    pushButton_sm_connect = new QPushButton(tr("Connect"), ui->toolBar_sm);
+    actionQuickConnect = new QAction(tr("Quickconnect"), this);
+    actionQuickConnect->setCheckable(true);
+    //actionQuickConnect->setChecked(true);
 
-    ui->toolBar_sm->addWidget(comboBox_sm_server);
-    ui->toolBar_sm->addWidget(pushButton_sm_connect);
+    actionOptions = new QAction(QIcon(":/icons/"), tr("Options"), this);
+
+    actionDocumentation = new QAction(QIcon(""), tr("Documentation"), this);
+    actionVisitWebsite = new QAction(QIcon(":/icons/internet.png"), tr("Visit website"), this);
+    actionReportBug = new QAction(QIcon(":/icons/report-bug.png"), tr("Report bug"), this);
+    actionAbout = new QAction(QIcon(APP_ICON), tr("About &%1").arg(APP_NAME), this);
+    actionAboutQt = new QAction(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"), tr("About Qt"), this);
+
+    ui->menuApplication->addAction(actionServerManager);
+    ui->menuApplication->addAction(actionExit);
+    ui->menuToolbars->addAction(actionQuickConnect);
+    ui->menuTools->addAction(actionOptions);
+    ui->menuHelp->addAction(actionDocumentation);
+    ui->menuHelp->addAction(actionVisitWebsite);
+    ui->menuHelp->addAction(actionReportBug);
+    ui->menuHelp->addSeparator();
+    ui->menuHelp->addAction(actionAbout);
+    ui->menuHelp->addAction(actionAboutQt);
+
+    // QuickConnect toolbar.
+    comboBox_quickConnect_server = new QComboBox(ui->toolBar_quickConnect);
+    comboBox_quickConnect_server->setToolTip(tr("Let's you select a prevously stoted server."));
+    pushButton_quickConnect_connect = new QPushButton(tr("Connect"), ui->toolBar_quickConnect);
+    pushButton_quickConnect_connect->setToolTip(tr("Connect's to the server selected in the combobox."));
+
+    ui->toolBar_quickConnect->addAction(actionServerManager);
+    ui->toolBar_quickConnect->addWidget(comboBox_quickConnect_server);
+    ui->toolBar_quickConnect->addWidget(pushButton_quickConnect_connect);
 
     updateServerList();
 
@@ -65,18 +91,18 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     }
 
     // Actions
-    connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
-    connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
-    connect(ui->actionServers, SIGNAL(triggered()), this, SLOT(actionServers_triggered()));
-    connect(ui->actionOptions, SIGNAL(triggered()), this, SLOT(actionOptions_triggered()));
-    connect(ui->actionDocumentation, SIGNAL(triggered()), this, SLOT(actionDocumentation_triggered()));
-    connect(ui->actionVisit_website, SIGNAL(triggered()), this, SLOT(actionVisit_website_triggered()));
-    connect(ui->actionReport_bug, SIGNAL(triggered()), this, SLOT(actionReport_bug_triggered()));
-    connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(actionAbout_triggered()));
-    connect(ui->actionAbout_Qt, SIGNAL(triggered()), this, SLOT(actionAbout_Qt_triggered()));
+    connect(actionServerManager, SIGNAL(triggered()), this, SLOT(actionServerManager_triggered()));
+    connect(actionExit, SIGNAL(triggered()), this, SLOT(close()));
+    connect(actionQuickConnect, SIGNAL(triggered()), this, SLOT(actionQuickConnect_triggered()));
+    connect(actionOptions, SIGNAL(triggered()), this, SLOT(actionOptions_triggered()));
+    connect(actionDocumentation, SIGNAL(triggered()), this, SLOT(actionDocumentation_triggered()));
+    connect(actionVisitWebsite, SIGNAL(triggered()), this, SLOT(actionVisitWebsite_triggered()));
+    connect(actionReportBug, SIGNAL(triggered()), this, SLOT(actionReportBug_triggered()));
+    connect(actionAbout, SIGNAL(triggered()), this, SLOT(actionAbout_triggered()));
+    connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(actionAboutQt_triggered()));
 
     // Toolbars
-    connect(pushButton_sm_connect, SIGNAL(clicked()), this, SLOT(pushButton_sm_connect_clicked()));
+    connect(pushButton_quickConnect_connect, SIGNAL(clicked()), this, SLOT(pushButton_quickConnect_connect_clicked()));
     connect(serverManager, SIGNAL(onServerUpdate()), this, SLOT(updateServerList()));
 
     // TabWidget
@@ -106,12 +132,12 @@ void OpenRcon::readSettings()
             showMaximized();
         }
 
-        if (settings->value("actionConnection", true).toBool()) {
-            ui->toolBar_sm->show();
-            ui->actionServers->setChecked(true);
+        if (settings->value("actionQuickConnect", true).toBool()) {
+            ui->toolBar_quickConnect->show();
+            actionQuickConnect->setChecked(true);
         } else {
-            ui->toolBar_sm->hide();
-            ui->actionServers->setChecked(false);
+            ui->toolBar_quickConnect->hide();
+            actionQuickConnect->setChecked(false);
         }
     settings->endGroup();
 }
@@ -119,8 +145,8 @@ void OpenRcon::readSettings()
 void OpenRcon::writeSettings()
 {
     settings->beginGroup(APP_NAME);
-        settings->setValue("IsMaximized", isMaximized());
         settings->setValue("Size", size());
+        settings->setValue("IsMaximized", isMaximized());
         settings->setValue("Position", pos());
     settings->endGroup();
 }
@@ -156,48 +182,48 @@ void OpenRcon::closeTab(int index)
 
 void OpenRcon::updateServerList()
 {
-    qDebug() << "ServerList updated!";
+    comboBox_quickConnect_server->clear();
 
-    comboBox_sm_server->clear();
-
-    // Add the server to the comboBox only if it's not empty, otherwhise disable it.
+    // Add the server to the comboBox only if it's not empty, otherwise disable it.
     QList<ServerEntry *> serverList = serverManager->getServers();
 
     if (!serverList.isEmpty()) {
-        comboBox_sm_server->setEnabled(true);
-        pushButton_sm_connect->setEnabled(true);
+        comboBox_quickConnect_server->setEnabled(true);
+        pushButton_quickConnect_connect->setEnabled(true);
 
         for (ServerEntry *server : serverList) {
             GameEntry game = gameManager->getGame(server->game);
 
-            comboBox_sm_server->addItem(game.icon, server->name);
+            comboBox_quickConnect_server->addItem(game.icon, server->name);
         }
     } else {
-        comboBox_sm_server->setEnabled(false);
-        pushButton_sm_connect->setEnabled(false);
+        comboBox_quickConnect_server->setEnabled(false);
+        pushButton_quickConnect_connect->setEnabled(false);
 
-        comboBox_sm_server->addItem(tr("No servers added yet."));
+        comboBox_quickConnect_server->addItem(tr("No servers added yet."));
     }
 }
 
 // Application menu
-void OpenRcon::actionServermanager_triggered()
+void OpenRcon::actionServerManager_triggered()
 {
     serverListDialog->exec();
 }
 
 // View menu
-void OpenRcon::actionServers_triggered()
+void OpenRcon::actionQuickConnect_triggered()
 {
-    settings->beginGroup("OpenRcon");
-        if (ui->actionServers->isChecked()) {
-            ui->toolBar_sm->show();
-            settings->setValue("actionConnection", true);
-            ui->actionServers->setChecked(true);
+    qDebug() << "Called!";
+
+    settings->beginGroup(APP_NAME);
+        if (actionQuickConnect->isChecked()) {
+            ui->toolBar_quickConnect->show();
+            settings->setValue("actionQuickConnect", true);
+            actionQuickConnect->setChecked(true);
         } else {
-            ui->toolBar_sm->hide();
-            settings->setValue("actionConnection", false);
-            ui->actionServers->setChecked(false);
+            ui->toolBar_quickConnect->hide();
+            settings->setValue("actionQuickConnect", false);
+            actionQuickConnect->setChecked(false);
         }
     settings->endGroup();
 }
@@ -209,19 +235,19 @@ void OpenRcon::actionOptions_triggered()
 }
 
 // Help menu
-void OpenRcon::actionReport_bug_triggered()
+void OpenRcon::actionDocumentation_triggered()
 {
-    QDesktopServices::openUrl(QUrl(APP_BUG));
+    QDesktopServices::openUrl(QUrl(APP_DOC));
 }
 
-void OpenRcon::actionVisit_website_triggered()
+void OpenRcon::actionVisitWebsite_triggered()
 {
     QDesktopServices::openUrl(QUrl(APP_URL));
 }
 
-void OpenRcon::actionDocumentation_triggered()
+void OpenRcon::actionReportBug_triggered()
 {
-    QDesktopServices::openUrl(QUrl(APP_DOC));
+    QDesktopServices::openUrl(QUrl(APP_BUG));
 }
 
 void OpenRcon::actionAbout_triggered()
@@ -229,15 +255,15 @@ void OpenRcon::actionAbout_triggered()
     aboutDialog->exec();
 }
 
-void OpenRcon::actionAbout_Qt_triggered()
+void OpenRcon::actionAboutQt_triggered()
 {
     QMessageBox::aboutQt(this);
 }
 
-// ServerManager toolbar
-void OpenRcon::pushButton_sm_connect_clicked()
+// QuickConnect toolbar
+void OpenRcon::pushButton_quickConnect_connect_clicked()
 {
-    ServerEntry *serverEntry = serverManager->getServer(comboBox_sm_server->currentIndex());
+    ServerEntry *serverEntry = serverManager->getServer(comboBox_quickConnect_server->currentIndex());
 
     addTab(serverEntry);
 }

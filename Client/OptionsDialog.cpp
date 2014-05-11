@@ -27,7 +27,7 @@ OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Opti
     languageManager = new LanguageManager(this);
 
     // Add languages to comboBox_ge_language.
-    ui->comboBox_be_language->addItem(tr("<System Language>"));
+    ui->comboBox_be_language->addItem(tr("System Default"));
 
     for (LanguageEntry language : languageManager->getLanguages()) {
         ui->comboBox_be_language->addItem(language.icon, language.name);
@@ -55,7 +55,7 @@ OptionsDialog::~OptionsDialog()
 
 void OptionsDialog::readSettings()
 {
-    QString locale = settings->value("Settings/General/Locale").toString();
+    QString language = settings->value("Settings/General/Language").toString();
 
     // TODO: Set the current language index here.
 }
@@ -79,7 +79,7 @@ void OptionsDialog::pushButton_ok_clicked()
     int index = ui->comboBox_be_language->currentIndex();
     QString language = index >= 1 ? languageManager->getLanguage(index - 1).code : language = QLocale::system().name();
 
-    settings->setValue("Settings/General/Locale", language);
+    settings->setValue("Settings/General/Language", language);
 
     QDialog::accept();
 }

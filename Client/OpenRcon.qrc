@@ -8,14 +8,14 @@
     <qresource prefix="/icons">
         <file alias="openrcon.png">images/icons/openrcon.png</file>
         <file>images/icons/console.png</file>
-        <file>images/icons/internet.png</file>
-        <file>images/icons/network-server.png</file>
-        <file>images/icons/options.png</file>
+        <file alias="internet.png">images/icons/internet.png</file>
+        <file alias="servermanager.png">images/icons/network-server.png</file>
+        <file alias="options.png">images/icons/options.png</file>
         <file>images/icons/options-behavior.png</file>
         <file>images/icons/punkbuster.png</file>
         <file>images/icons/level-next.png</file>
         <file>images/icons/level-restart.png</file>
-        <file>images/icons/report-bug.png</file>
+        <file alias="report-bug.png">images/icons/report-bug.png</file>
         <file>images/icons/connection.png</file>
     </qresource>
     <qresource prefix="/flags">
