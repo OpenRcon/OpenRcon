@@ -19,7 +19,11 @@
 
 #include "BF3.h"
 
-BF3::BF3(ServerEntry *serverEntry) : FrostbiteGame(serverEntry)
+BF3::BF3(ServerEntry *serverEntry) :
+    FrostbiteGame(serverEntry),
+    con(new BF3Connection(this)),
+    commandHandler(con->commandHandler()),
+    authenticated(false)
 {
     con = new BF3Connection(this);
     con->hostConnect(serverEntry->host, serverEntry->port);
@@ -77,8 +81,8 @@ BF3::BF3(ServerEntry *serverEntry) : FrostbiteGame(serverEntry)
 
 BF3::~BF3()
 {
-    delete con;
-    delete levelDictionary;
+    //delete con;
+    //delete levelDictionary;
 }
 
 void BF3::onConnected()

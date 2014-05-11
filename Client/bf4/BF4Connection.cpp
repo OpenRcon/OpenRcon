@@ -18,10 +18,16 @@
  */
 
 #include "BF4Connection.h"
+#include "BF4CommandHandler.h"
 
 BF4Connection::BF4Connection(QObject *parent) : FrostbiteConnection(parent)
 {
+    setCommandHandler(new BF4CommandHandler(this));
+}
 
+BF4CommandHandler *BF4Connection::commandHandler() const
+{
+    return static_cast<BF4CommandHandler *>(FrostbiteConnection::commandHandler());
 }
 
 BF4Connection::~BF4Connection()

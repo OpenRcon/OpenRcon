@@ -26,6 +26,8 @@
 
 #define MIN_PACKET_SIZE 12
 
+class FrostbiteCommandHandler;
+
 class FrostbiteConnection : public Connection
 {
     Q_OBJECT
@@ -34,10 +36,15 @@ public:
     FrostbiteConnection(QObject *parent = 0);
     ~FrostbiteConnection();
 
+    void setCommandHandler(FrostbiteCommandHandler * cmdHandler);
+    FrostbiteCommandHandler * commandHandler() const;
+
     void hostConnect(const QString &host, int port);
     void sendCommand(const QString &command);
 
 private:
+    FrostbiteCommandHandler * m_commandHandler;
+
     int packetReadState;
     char lastHeader[MIN_PACKET_SIZE];
     QVector<FrostbiteRconPacket> packetSendQueue;

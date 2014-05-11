@@ -21,6 +21,7 @@
 #define BF3CONNECTION_H
 
 #include "FrostbiteConnection.h"
+#include "BF3CommandHandler.h"
 
 class BF3Connection : public FrostbiteConnection
 {
@@ -28,6 +29,7 @@ class BF3Connection : public FrostbiteConnection
 
 public:
     BF3Connection(QObject *parent = 0);
+    BF3CommandHandler * commandHandler() const;
     ~BF3Connection();
 
 };

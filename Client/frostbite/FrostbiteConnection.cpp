@@ -18,8 +18,13 @@
  */
 
 #include "FrostbiteConnection.h"
+#include "FrostbiteCommandHandler.h"
 
-FrostbiteConnection::FrostbiteConnection(QObject *parent) : Connection(parent), packetReadState(PacketReadingHeader), nextPacketSequence(0)
+FrostbiteConnection::FrostbiteConnection(QObject *parent) :
+    Connection(parent),
+    m_commandHandler(nullptr),
+    packetReadState(PacketReadingHeader),
+    nextPacketSequence(0)
 {
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
@@ -27,6 +32,16 @@ FrostbiteConnection::FrostbiteConnection(QObject *parent) : Connection(parent), 
 FrostbiteConnection::~FrostbiteConnection()
 {
 
+}
+
+void FrostbiteConnection::setCommandHandler(FrostbiteCommandHandler * cmdHandler)
+{
+    m_commandHandler = cmdHandler;
+}
+
+FrostbiteCommandHandler *FrostbiteConnection::commandHandler() const
+{
+    return m_commandHandler;
 }
 
 void FrostbiteConnection::hostConnect(const QString &host, int port)
@@ -173,10 +188,10 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messager += " ";
                         }
 
-                        //responseDataReceivedEvent(messager);
+                        responseDataReceivedEvent(messager);
                         qDebug() << messager;
 
-                        //parse(request, packet, lastSentPacket);
+                        m_commandHandler->parse(request, packet, lastSentPacket);
                     }
                 }
             }
@@ -198,7 +213,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
             message += " ";
         }
 
-        //responseDataSentEvent(message);
-        //parse(request, packet, FrostbiteRconPacket());
+        responseDataSentEvent(message);
+        m_commandHandler->parse(request, packet, FrostbiteRconPacket());
     }
 }

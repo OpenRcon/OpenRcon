@@ -19,9 +19,12 @@
 
 #include "BF4.h"
 
-BF4::BF4(ServerEntry *serverEntry) : FrostbiteGame(serverEntry), authenticated(false)
+BF4::BF4(ServerEntry *serverEntry) :
+    FrostbiteGame(serverEntry),
+    con(new BF4Connection(this)),
+    commandHandler(con->commandHandler()),
+    authenticated(false)
 {
-    con = new BF4Connection(this);
     con->hostConnect(serverEntry->host, serverEntry->port);
 
     levelDictionary = new BF4LevelDictionary(this);
@@ -171,15 +174,15 @@ BF4::BF4(ServerEntry *serverEntry) : FrostbiteGame(serverEntry), authenticated(f
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(con, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(con, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
+    connect(commandHandler, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
 }
 
 BF4::~BF4()
 {
-    delete con;
-    delete levelDictionary;
+    //delete con;
+    //delete levelDictionary;
 }
 
 void BF4::onConnected()

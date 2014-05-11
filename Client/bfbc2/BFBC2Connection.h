@@ -21,6 +21,7 @@
 #define BFBC2CONNECTION_H
 
 #include "FrostbiteConnection.h"
+#include "BFBC2CommandHandler.h"
 
 class BFBC2Connection : public FrostbiteConnection
 {
@@ -28,6 +29,7 @@ class BFBC2Connection : public FrostbiteConnection
 
 public:
     BFBC2Connection(QObject *parent = 0);
+    BFBC2CommandHandler * commandHandler() const;
     ~BFBC2Connection();
 
 };

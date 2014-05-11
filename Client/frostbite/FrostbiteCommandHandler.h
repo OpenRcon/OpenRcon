@@ -21,19 +21,31 @@
 #define FROSTBITECOMMANDHANDLER_H
 
 #include "CommandHandler.h"
+#include "FrostbiteRconPacket.h"
 
-#include "FrostbiteConnection.h"
 #include "PlayerSubset.h"
+
+class FrostbiteConnection;
 
 class FrostbiteCommandHandler : public CommandHandler
 {
     Q_OBJECT
 
 public:
-    FrostbiteCommandHandler(QObject *parent = 0);
+    FrostbiteCommandHandler(FrostbiteConnection *parent = 0);
     ~FrostbiteCommandHandler();
 
-    virtual void parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) = 0;
+    virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
+    void sendLoginPlainTextCommand(const QString &password);
+
+signals:
+    void onLoginPlainTextCommand(bool auth);
+    void onLoginHashedCommand(const QByteArray &salt);
+    void onLoginHashedCommand(bool auth);
+    void onLogoutCommand();
+    void onQuitCommand();
+    void onVersionCommand(const QString &type, int build);
 
 protected:
     FrostbiteConnection *con;
@@ -41,6 +53,12 @@ protected:
     bool toBool(const QString &value);
     QString toString(bool value);
 
+private:
+    void parseLoginPlainTextCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseLogoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 };
 
 #endif // FROSTBITECOMMANDHANDLER_H
