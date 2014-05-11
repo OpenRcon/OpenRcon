@@ -357,9 +357,12 @@ signals:
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Command signals */
-    void onServerInfoCommand(const ServerInfo &serverInfo);
+    // Misc
+    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
     void onCurrentLevelCommand(const QString &level);
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+
+    // Admin
     void onAdminEventsEnabledCommand(bool enabled);
     void onAdminHelpCommand(const QStringList &commandList);
 //    void onAdminKickPlayerCommand();
@@ -370,15 +373,21 @@ signals:
 //    void onAdminSayCommand();
 //    void onAdminShutDownCommand();
 //    void onAdminYellCommand();
+
+    // BanList
 //    void onBanListAddCommand();
 //    void onBanListClearCommand();
     void onBanListListCommand(const BanList &banList);
 //    void onBanListLoadCommand();
 //    void onBanListRemoveCommand();
 //    void onBanListSaveCommand();
+
+    // FairFight
 //    void onFairFightActivateCommand();
 //    void onFairFightDeactivateCommand();
     void onFairFightIsActiveCommand(bool isActive);
+
+    // MapList
     void onMapListAddCommand();
     void onMapListAvailableMapsCommand(const QString &value, const QStringList &list);
 //    void onMapListClearCommand();
@@ -392,12 +401,18 @@ signals:
 //    void onMapListRunNextRoundCommand();
 //    void onMapListSaveCommand();
 //    void onMapListSetNextMapIndexCommand();
+
+    // Player
     void onPlayerIdleDurationCommand(float idleDuration);
     void onPlayerIsAliveCommand(bool alive);
     void onPlayerPingCommand(const QString &player, int ping);
+
+    // Punkbuster
 //    void onPunkBusterActivateCommand();
     void onPunkBusterIsActiveCommand(bool isActive);
 //    void onPunkBusterPbSvCommand();
+
+    // Reserved Slots
 //    void onReservedSlotsListAddCommand();
     void onReservedSlotsListAggressiveJoinCommand(bool enabled);
 //    void onReservedSlotsListClearCommand();
@@ -405,15 +420,21 @@ signals:
 //    void onReservedSlotsListLoadCommand();
 //    void onReservedSlotsListRemoveCommand();
 //    void onReservedSlotsListSaveCommand();
+
+    // Spectator List
 //    void onSpectatorListAddCommand();
 //    void onSpectatorListClearCommand();
     void onSpectatorListListCommand(const QStringList &spectatorList);
 //    void onSpectatorListRemoveCommand();
 //    void onSpectatorListSaveCommand();
+
+    // Squad
     void onSquadLeaderCommand(const QString &player);
     void onSquadListActiveCommand();
     void onSquadListPlayersCommand(const QStringList &playerList);
     void onSquadPrivateCommand(bool isPrivate);
+
+    // Vars
     void onVars3dSpottingCommand(bool enabled);
     void onVars3pCamCommand(bool enabled);
     void onVarsAlwaysAllowSpectatorsCommand(bool enabled);
