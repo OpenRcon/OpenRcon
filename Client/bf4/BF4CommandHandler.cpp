@@ -18,7 +18,6 @@
  */
 
 #include "BF4CommandHandler.h"
-#include "BF4Connection.h"
 
 BF4CommandHandler::BF4CommandHandler(BF4Connection *parent) : FrostbiteCommandHandler(parent)
 {
@@ -1135,32 +1134,6 @@ void BF4CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &packet
     Q_UNUSED(lastSentPacket);
 
     QString response = packet.getWord(0).getContent();
-
-//    OK OpenRcon 0 8 CarrierAssaultLarge0 XP2_001 0 2 2 65000 65000 0  true true false 382974 382964 82.145.47.195:25200 v1.883 | A1390 C2.333 true EU ams GB 0 IN_GAME
-
-//    OK <serverName: string>
-//    <current playercount: integer>
-//    <effective max playercount: integer>
-//    <current gamemode: string>
-//    <current map: string>
-//    <roundsPlayed: integer>
-//    <roundsTotal: string>
-//    <scores: team scores>
-//    <onlineState: online state>
-//    <ranked: boolean>
-//    <punkBuster: boolean>
-//    <hasGamePassword: boolean>
-//    <serverUpTime: seconds>
-//    <roundTime: seconds>
-//    <gameIpAndPort: IpPortPair>
-//    <punkBusterVersion: string>
-//    <joinQueueEnabled: boolean>
-//    <region: string>
-//    <closestPingSite: string>
-//    <country: string>
-//    <matchMakingEnabled: boolean>
-//    <blazePlayerCount: integer>
-//    <blazeGameState: string>
 
     if (response == "OK" && packet.getWordCount() > 1) {
         QString serverName = packet.getWord(1).getContent();

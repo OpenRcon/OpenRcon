@@ -18,7 +18,6 @@
  */
 
 #include "BF3CommandHandler.h"
-#include "BF3Connection.h"
 
 BF3CommandHandler::BF3CommandHandler(BF3Connection *parent) : FrostbiteCommandHandler(parent)
 {

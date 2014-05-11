@@ -23,6 +23,7 @@
 #include "FrostbiteConnection.h"
 #include "BFBC2CommandHandler.h"
 
+class BFBC2CommandHandler;
 class BFBC2Connection : public FrostbiteConnection
 {
     Q_OBJECT

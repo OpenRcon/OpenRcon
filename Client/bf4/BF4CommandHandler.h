@@ -23,11 +23,12 @@
 #include <QCryptographicHash>
 
 #include "FrostbiteCommandHandler.h"
-
-#include "BF4ServerInfo.h"
 #include "PlayerInfo.h"
 #include "BanListEntry.h"
 #include "MapListEntry.h"
+
+#include "BF4Connection.h"
+#include "BF4ServerInfo.h"
 
 typedef QList<BanListEntry> BanList;
 typedef QList<MapListEntry> MapList;

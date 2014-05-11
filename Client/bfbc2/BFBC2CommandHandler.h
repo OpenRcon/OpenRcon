@@ -22,6 +22,8 @@
 
 #include "FrostbiteCommandHandler.h"
 
+#include "BFBC2Connection.h"
+
 typedef QMap<QString, QString> PlayerListItem;
 typedef QVector<PlayerListItem> PlayerList;
 

@@ -25,6 +25,8 @@
 #include "FrostbiteCommandHandler.h"
 #include "PlayerInfo.h"
 
+#include "BF3Connection.h"
+
 class BF3Connection;
 class BF3CommandHandler : public FrostbiteCommandHandler
 {
@@ -156,9 +158,12 @@ signals:
     /* Event signals */
 
     /* Command signals */
+    // Misc
     void onServerInfoCommand();
     void onAdminHelpCommand();
     void onListPlayersCommand();
+
+    // Admin
     void onAdminEventsEnabledCommand();
     void onAdminPasswordCommand();
     void onAdminEffectiveMaxPlayersCommand();
@@ -168,22 +173,32 @@ signals:
     void onAdminListPlayersCommand();
     void onAdminMovePlayerCommand();
     void onAdminKillPlayerCommand();
+
+    // Player
     void onPlayerIdleDurationCommand();
     void onPlayerIsAliveCommand();
     void onPlayerPingCommand();
+
+    // Squad
     void onSquadListActiveCommand();
     void onSquadListPlayersCommand();
     void onSquadPrivateCommand();
     void onSquadLeaderCommand();
+
+    // Punkbuster
     void onPunkBusterIsActiveCommand();
     void onPunkBusterActivateCommand();
     void onPunkBusterPbSvCommandCommand();
+
+    // BanList
     void onBanListLoadCommand();
     void onBanListSaveCommand();
     void onBanListAddCommand();
     void onBanListRemoveCommand();
     void onBanListClearCommand();
     void onBanListListCommand();
+
+    // Reserved Slots
     void onReservedSlotsListLoadCommand();
     void onReservedSlotsListSaveCommand();
     void onReservedSlotsListAddCommand();
@@ -191,6 +206,8 @@ signals:
     void onReservedSlotsListClearCommand();
     void onReservedSlotsListListCommand();
     void onReservedSlotsListAggressiveJoinCommand();
+
+    // MapList
     void onMapListLoadCommand();
     void onMapListSaveCommand();
     void onMapListAddCommand();
@@ -204,6 +221,8 @@ signals:
     void onMapListRunNextRoundCommand();
     void onMapListRestartRoundCommand();
     void onMapListAvailableMapsCommand();
+
+    // Vars
     void onVarsRankedCommand();
     void onVarsServerNameCommand();
     void onVarsGamePasswordCommand();

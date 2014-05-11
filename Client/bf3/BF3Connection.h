@@ -23,6 +23,7 @@
 #include "FrostbiteConnection.h"
 #include "BF3CommandHandler.h"
 
+class BF3CommandHandler;
 class BF3Connection : public FrostbiteConnection
 {
     Q_OBJECT
