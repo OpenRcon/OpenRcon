@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Options</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="OpenRcon.qrc">
+    <normaloff>:/icons/openrcon.png</normaloff>:/icons/openrcon.png</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <widget class="QSplitter" name="splitter">
@@ -128,9 +132,6 @@
     </layout>
    </item>
   </layout>
-  <zorder>listWidget</zorder>
-  <zorder>stackedWidget</zorder>
-  <zorder>splitter</zorder>
  </widget>
  <resources>
   <include location="OpenRcon.qrc"/>

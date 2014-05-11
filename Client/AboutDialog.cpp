@@ -23,9 +23,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
 {
     ui->setupUi(this);
 
-    // Sets application title and icon
+    // Sets application title
     setWindowTitle(tr("About %1 %2").arg(APP_NAME, APP_VERSION));
-    setWindowIcon(QIcon(APP_ICON));
 
     QDateTime current = QDateTime::currentDateTime();
     ui->label_ab_info->setText(tr("<p>A open-source cross-platform RCON administration tool, written in C++.</p>"));

@@ -22,6 +22,10 @@
     <height>450</height>
    </size>
   </property>
+  <property name="windowIcon">
+   <iconset resource="OpenRcon.qrc">
+    <normaloff>:/icons/openrcon.png</normaloff>:/icons/openrcon.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>
@@ -318,6 +322,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>textBrowser_tr</tabstop>
   <tabstop>textBrowser_li</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="OpenRcon.qrc"/>
+ </resources>
  <connections/>
 </ui>

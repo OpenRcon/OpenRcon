@@ -26,9 +26,6 @@ OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Opti
     settings = new QSettings(APP_NAME, APP_NAME, this);
     languageManager = new LanguageManager(this);
 
-    // Sets application icon
-    setWindowIcon(QIcon(APP_ICON));
-
     // Add languages to comboBox_ge_language.
     ui->comboBox_be_language->addItem(tr("<System Language>"));
 
