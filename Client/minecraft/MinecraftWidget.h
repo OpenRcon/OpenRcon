@@ -22,7 +22,7 @@
 
 #include <QTime>
 
-#include "ui_Minecraft.h"
+#include "ui_MinecraftWidget.h"
 #include "Minecraft.h"
 
 class MinecraftWidget : public Minecraft
@@ -44,7 +44,7 @@ private slots:
     void on_pushButton_co_send_clicked();
 
 private:
-    Ui::Minecraft *ui;
+    Ui::MinecraftWidget *ui;
 
 };
 

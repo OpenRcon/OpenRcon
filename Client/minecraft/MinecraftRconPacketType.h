@@ -17,23 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Minecraft.h"
+#ifndef MINECRAFTRCONPACKETTYPE_H
+#define MINECRAFTRCONPACKETTYPE_H
 
-Minecraft::Minecraft(ServerEntry *serverEntry) : Game(serverEntry)
-{
-    con = new MinecraftConnection(this);
-    con->hostConnect(serverEntry->host, serverEntry->port);
+enum class MinecraftRconPacketType {
+    Unknown = 0,
+    Command = 2,
+    Login = 3
 
-    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
-}
+};
 
-Minecraft::~Minecraft()
-{
-
-}
-
-void Minecraft::onConnected()
-{
-    MinecraftRconPacket packet(1, MinecraftRconPacketType::Login, serverEntry->password.toLatin1().data());
-    con->sendPacket(packet);
-}
+#endif // MINECRAFTRCONPACKETTYPE_H
