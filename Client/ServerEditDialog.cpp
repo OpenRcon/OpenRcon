@@ -64,6 +64,7 @@ ServerEditDialog::ServerEditDialog(int game, QWidget *parent) : ServerEditDialog
 
 ServerEditDialog::ServerEditDialog(int game, const QString &name, const QString &host, int port, const QString &password, bool autoConnect, QWidget *parent) : ServerEditDialog(game, parent)
 {
+    ui->comboBox_sed_game->setCurrentIndex(game);
     ui->lineEdit_sed_name->setText(name);
     ui->lineEdit_sed_host->setText(host);
     ui->spinBox_sed_port->setValue(port);

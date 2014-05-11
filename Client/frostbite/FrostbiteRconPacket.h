@@ -30,9 +30,9 @@ class FrostbiteRconPacket : public QObject
     Q_OBJECT
 
 public:
-    FrostbiteRconPacket(QObject *parent = 0);
-    FrostbiteRconPacket(int origin, int type, unsigned int initseq = 0, QObject *parent = 0);
-    FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent = 0);
+    FrostbiteRconPacket(QObject *parent = nullptr);
+    FrostbiteRconPacket(int origin, int type, unsigned int initseq = 0, QObject *parent = nullptr);
+    FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent = nullptr);
     FrostbiteRconPacket &operator= (const FrostbiteRconPacket &packet);
     ~FrostbiteRconPacket();
 

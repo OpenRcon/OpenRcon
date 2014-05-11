@@ -37,14 +37,14 @@ class BF4Connection : public FrostbiteConnection
     Q_OBJECT
 
 public:
-    BF4Connection(QObject *parent = 0);
+    BF4Connection(QObject *parent = nullptr);
     ~BF4Connection();
 
     /* Send */
 
     // Misc
     void sendLoginPlainTextCommand(const QString &password);
-    void sendLoginHashedCommand(const QByteArray &salt = 0, const QString &password = 0);
+    void sendLoginHashedCommand(const QByteArray &salt = QByteArray(), const QString &password = QString());
     void sendServerInfoCommand();
     void sendLogoutCommand();
     void sendQuitCommand();
@@ -147,7 +147,7 @@ public:
     void sendVarsFriendlyFire();
     void sendVarsFriendlyFire(bool enabled);
     void sendVarsGameModeCounter(int scale = -1);
-    void sendVarsGamePassword(const QString &password = 0);
+    void sendVarsGamePassword(const QString &password = QString());
     void sendVarsHitIndicatorsEnabled();
     void sendVarsHitIndicatorsEnabled(bool enabled);
     void sendVarsHud();
@@ -162,13 +162,13 @@ public:
     void sendVarsMiniMap(bool enabled);
     void sendVarsMiniMapSpotting();
     void sendVarsMiniMapSpotting(bool enabled);
-    void sendVarsMpExperience(const QString &experience = 0);
+    void sendVarsMpExperience(const QString &experience = QString());
     void sendVarsNameTag();
     void sendVarsNameTag(bool enabled);
     void sendVarsOnlySquadLeaderSpawn();
     void sendVarsOnlySquadLeaderSpawn(bool enabled);
     void sendVarsPlayerRespawnTime(int respawnTime = -1);
-    void sendVarsPreset(const QString &serverPreset = 0, bool lockPresetSetting = 0);
+    void sendVarsPreset(const QString &serverPreset = QString(), bool lockPresetSetting = false);
     void sendVarsRegenerateHealth();
     void sendVarsRegenerateHealth(bool enabled);
     void sendVarsRoundLockdownCountdown(int seconds = -1);
@@ -176,10 +176,10 @@ public:
     void sendVarsRoundStartPlayerCount(int players = -1);
     void sendVarsRoundTimeLimit(int percent = -1);
     void sendVarsRoundWarmupTimeout(int timeout = -1);
-    void sendVarsServerDescription(const QString &description = 0);
-    void sendVarsServerMessage(const QString &message = 0);
-    void sendVarsServerName(const QString &name = 0);
-    void sendVarsServerType(const QString &type = 0);
+    void sendVarsServerDescription(const QString &description = QString());
+    void sendVarsServerMessage(const QString &message = QString());
+    void sendVarsServerName(const QString &name = QString());
+    void sendVarsServerType(const QString &type = QString());
     void sendVarsSoldierHealth(int percent = -1);
     void sendVarsTeamFactionOverride(int teamId = -1, int factionId = -1);
     void sendVarsTeamKillCountForKick(int count = -1);
@@ -188,7 +188,7 @@ public:
     void sendVarsTeamKillValueForKick(int count = -1);
     void sendVarsTeamKillValueIncrease(int count = -1);
     void sendVarsTicketBleedRate(int percent = -1);
-    void sendVarsUnlockMode(const QString &type = 0);
+    void sendVarsUnlockMode(const QString &type = QString());
     void sendVarsVehicleSpawnAllowed();
     void sendVarsVehicleSpawnAllowed(bool enabled);
     void sendVarsVehicleSpawnDelay(int percent = -1);

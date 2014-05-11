@@ -31,14 +31,14 @@ class BF3Connection : public FrostbiteConnection
     Q_OBJECT
 
 public:
-    BF3Connection(QObject *parent = 0);
+    BF3Connection(QObject *parent = nullptr);
     ~BF3Connection();
 
     /* Send */
 
     // Misc
     void sendLoginPlainTextCommand(const QString &password);
-    void sendLoginHashedCommand(const QByteArray &salt = 0, const QString &password = 0);
+    void sendLoginHashedCommand(const QByteArray &salt = QByteArray(), const QString &password = QString());
     void sendServerInfoCommand();
     void sendLogoutCommand();
     void sendQuitCommand();

@@ -33,7 +33,7 @@ class ServerManager : public QObject
     Q_OBJECT
 
 public:
-    ServerManager(QObject *parent);
+    ServerManager(QObject *parent = nullptr);
     ~ServerManager();
 
     ServerEntry* getServer(int index);

@@ -34,7 +34,7 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    FrostbiteConnection(QObject *parent = 0);
+    FrostbiteConnection(QObject *parent = nullptr);
     ~FrostbiteConnection();
 
     void hostConnect(const QString &host, int port);

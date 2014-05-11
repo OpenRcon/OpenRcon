@@ -1,14 +1,3 @@
-include(locale/Locale.pri)
-include(game/Game.pri)
-
-include(frostbite/Frostbite.pri)
-include(bfbc2/BFBC2.pri)
-include(frostbite2/Frostbite2.pri)
-include(bf3/BF3.pri)
-include(bf4/BF4.pri)
-
-include(minecraft/Minecraft.pri)
-
 QT += core \     
     network \
     gui
@@ -64,3 +53,12 @@ macx {
     ICON = openrcon.icns
     QMAKE_INFO_PLIST = Info.plist
 }
+
+include(locale/Locale.pri)
+include(game/Game.pri)
+include(frostbite/Frostbite.pri)
+include(bfbc2/BFBC2.pri)
+include(frostbite2/Frostbite2.pri)
+include(bf3/BF3.pri)
+include(bf4/BF4.pri)
+include(minecraft/Minecraft.pri)

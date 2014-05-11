@@ -30,7 +30,7 @@ class LanguageManager : public QObject
     Q_OBJECT
 
 public:
-    LanguageManager(QObject *parent = 0);
+    LanguageManager(QObject *parent = nullptr);
     ~LanguageManager();
 
     LanguageEntry getLanguage(int index);

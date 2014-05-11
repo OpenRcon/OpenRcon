@@ -20,7 +20,6 @@
 #ifndef SERVERLISTDIALOG_H
 #define SERVERLISTDIALOG_H
 
-#include <QDebug>
 #include <QDialog>
 #include <QMenu>
 #include <QMessageBox>
@@ -40,7 +39,7 @@ class ServerListDialog : public QDialog
     Q_OBJECT
 
 public:
-    ServerListDialog(QWidget *parent = 0);
+    ServerListDialog(QWidget *parent = nullptr);
     ~ServerListDialog();
 
 private:

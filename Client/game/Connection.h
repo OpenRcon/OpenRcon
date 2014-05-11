@@ -31,7 +31,7 @@ class Connection : public QObject
     Q_OBJECT
 
 public:
-    Connection(QObject *parent = 0);
+    Connection(QObject *parent = nullptr);
     virtual ~Connection();
 
     QTcpSocket *tcpSocket;
