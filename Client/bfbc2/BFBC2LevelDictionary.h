@@ -25,9 +25,10 @@
 
 class BFBC2LevelDictionary : public LevelDictionary
 {
+    Q_OBJECT
 
 public:
-    BFBC2LevelDictionary(QObject *parent = 0);
+    BFBC2LevelDictionary(QObject *parent = nullptr);
     ~BFBC2LevelDictionary();
 
 };

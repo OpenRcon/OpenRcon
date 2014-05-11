@@ -54,10 +54,10 @@ class OpenRcon : public QMainWindow
     Q_OBJECT
 
 public:
-    OpenRcon(QWidget *parent = 0);
+    OpenRcon(QWidget *parent = nullptr);
     ~OpenRcon();
 
-    static OpenRcon* getInstance(QWidget *parent = 0) {
+    static OpenRcon* getInstance(QWidget *parent = nullptr) {
         if (!instance) {
             instance = new OpenRcon(parent);
         }
@@ -83,9 +83,6 @@ private:
 
     QComboBox *comboBox_sm_server;
     QPushButton *pushButton_sm_connect;
-
-    void changeEvent(QEvent *event);
-    void closeEvent(QCloseEvent *event);
 
     void readSettings();
     void writeSettings();

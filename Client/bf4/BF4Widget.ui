@@ -17,37 +17,65 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QLabel" name="label_serverInfo_level">
+      <widget class="QLabel" name="label_si_level">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_serverInfo_players">
+      <widget class="QPushButton" name="pushButton_si_restartRound">
+       <property name="toolTip">
+        <string>Restart round</string>
+       </property>
        <property name="text">
-        <string>Players:</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/images/icons/level-restart.png</normaloff>:/icons/images/icons/level-restart.png</iconset>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_serverInfo_round">
+      <widget class="QPushButton" name="pushButton_si_runNextRound">
+       <property name="toolTip">
+        <string>Run next round</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/images/icons/level-next.png</normaloff>:/icons/images/icons/level-next.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_si_round">
        <property name="text">
         <string>Round:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_serverInfo_upTime">
+      <widget class="QLabel" name="label_si_players">
        <property name="text">
-        <string>Uptime:</string>
+        <string>Players:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_serverInfo_version">
+      <widget class="QLabel" name="label_si_version">
        <property name="text">
         <string>Version:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_si_upTime">
+       <property name="text">
+        <string>Uptime:</string>
        </property>
       </widget>
      </item>
@@ -75,7 +103,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -237,38 +265,51 @@
           </attribute>
           <layout class="QGridLayout" name="gridLayout_9">
            <item row="0" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item>
+            <layout class="QFormLayout" name="formLayout_5">
+             <item row="0" column="0">
               <widget class="QLabel" name="label_op_so_serverName">
                <property name="text">
-                <string>Server name</string>
+                <string>Name</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="0" column="1">
               <widget class="QLineEdit" name="lineEdit_op_so_serverName"/>
              </item>
-             <item>
+             <item row="1" column="0">
               <widget class="QLabel" name="label_op_so_serverDescription">
                <property name="text">
                 <string>Description</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="1" column="1">
               <widget class="QTextEdit" name="textEdit_op_so_serverDescription"/>
              </item>
-             <item>
+             <item row="2" column="0">
               <widget class="QLabel" name="label_op_so_serverMessage">
                <property name="text">
                 <string>Message</string>
                </property>
               </widget>
              </item>
-             <item>
+             <item row="2" column="1">
               <widget class="QLineEdit" name="lineEdit_op_so_serverMessage"/>
              </item>
             </layout>
+           </item>
+           <item row="0" column="1">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>422</width>
+               <height>168</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item row="1" column="0">
             <spacer name="verticalSpacer_3">
@@ -277,21 +318,8 @@
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="1" rowspan="2">
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
+               <width>208</width>
+               <height>164</height>
               </size>
              </property>
             </spacer>
@@ -303,43 +331,124 @@
            <string>Configuration</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_13">
-           <item row="0" column="2">
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
+           <item row="1" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <item>
+                <widget class="QLabel" name="label_so_co_gamePassword">
+                 <property name="text">
+                  <string>Game password</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_so_co_gamePassword">
+                 <property name="echoMode">
+                  <enum>QLineEdit::Password</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <item>
+                <widget class="QLabel" name="label_so_co_adminPassword">
+                 <property name="text">
+                  <string>Admin password</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_so_co_adminPassword">
+                 <property name="echoMode">
+                  <enum>QLineEdit::Password</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </item>
-           <item row="1" column="0">
-            <layout class="QFormLayout" name="formLayout_5">
-             <property name="fieldGrowthPolicy">
-              <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-             </property>
+           <item row="0" column="0">
+            <layout class="QFormLayout" name="formLayout_4">
              <item row="0" column="0">
-              <widget class="QLabel" name="label_so_co_maxPlayers">
+              <widget class="QLabel" name="label_so_co_serverTypeText">
                <property name="text">
-                <string>Max players:</string>
+                <string>Server Type</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QSpinBox" name="spinBox_so_co_maxPlayers"/>
+              <widget class="QLabel" name="label_so_co_serverType">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_so_co_maxSpectators">
+              <widget class="QCheckBox" name="checkBox_so_co_punkBuster">
                <property name="text">
-                <string>Max spectators:</string>
+                <string>PunkBuster</string>
                </property>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QSpinBox" name="spinBox_so_co_maxSpectators"/>
+              <widget class="QCheckBox" name="checkBox_so_co_fairFight">
+               <property name="text">
+                <string>FairFight</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QLabel" name="label_so_co_maxPlayers">
+                 <property name="text">
+                  <string>Player limit</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_so_co_maxPlayers"/>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QLabel" name="label_so_co_maxSpectators">
+                 <property name="text">
+                  <string>Spectator limit</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_so_co_maxSpectators"/>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="1">
+              <widget class="QCheckBox" name="checkBox_so_co_alwaysAllowSpectators">
+               <property name="text">
+                <string>Public spectators</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="QLabel" name="label_so_co_effectivePlayerLimit">
+                 <property name="text">
+                  <string>Effective player limit</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_so_co_effectivePlayerLimit"/>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
@@ -369,18 +478,7 @@
                </property>
               </widget>
              </item>
-            </layout>
-           </item>
-           <item row="2" column="0">
-            <layout class="QFormLayout" name="formLayout_7">
-             <item row="0" column="0" colspan="2">
-              <widget class="QCheckBox" name="checkBox_so_co_alwaysAllowSpectators">
-               <property name="text">
-                <string>Public spectators</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0" colspan="2">
+             <item row="2" column="0" colspan="2">
               <widget class="QCheckBox" name="checkBox_so_co_commander">
                <property name="text">
                 <string>Commander</string>
@@ -389,7 +487,7 @@
              </item>
             </layout>
            </item>
-           <item row="3" column="0">
+           <item row="2" column="0" colspan="2">
             <spacer name="verticalSpacer_6">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -402,69 +500,18 @@
              </property>
             </spacer>
            </item>
-           <item row="0" column="0">
-            <layout class="QFormLayout" name="formLayout_4">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_so_co_serverTypeText">
-               <property name="text">
-                <string>Type:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="label_so_co_serverType">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="QCheckBox" name="checkBox_so_co_punkBuster">
-               <property name="text">
-                <string>PunkBuster</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0" colspan="2">
-              <widget class="QCheckBox" name="checkBox_so_co_fairFight">
-               <property name="text">
-                <string>FairFight</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="1" column="1">
-            <layout class="QFormLayout" name="formLayout_9">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_so_co_gamePassword">
-               <property name="text">
-                <string>Game password:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_so_co_adminPassword">
-               <property name="text">
-                <string>Admin password:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit_so_co_gamePassword">
-               <property name="echoMode">
-                <enum>QLineEdit::Password</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit_so_co_adminPassword">
-               <property name="echoMode">
-                <enum>QLineEdit::Password</enum>
-               </property>
-              </widget>
-             </item>
-            </layout>
+           <item row="0" column="2" rowspan="2">
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -473,8 +520,15 @@
            <string>Gameplay</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_17">
-           <item row="0" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item row="0" column="0" rowspan="3">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QCheckBox" name="checkBox">
+               <property name="text">
+                <string>Hardcore</string>
+               </property>
+              </widget>
+             </item>
              <item>
               <widget class="QCheckBox" name="checkBox_so_go_friendlyFire">
                <property name="text">
@@ -496,10 +550,94 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_2">
+               <property name="text">
+                <string>Crosshair</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_3">
+               <property name="text">
+                <string>Show nametags</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_4">
+               <property name="text">
+                <string>Regenerate health</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_5">
+               <property name="text">
+                <string>Show HUD</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_6">
+               <property name="text">
+                <string>Spawn only in squad leader</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_10">
+               <item>
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>Unlock unlocks</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="comboBox"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_7">
+               <property name="text">
+                <string>Vehicles</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_11">
+               <item>
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>Vehicle spawn delay (%)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_8">
+               <property name="text">
+                <string>Hit indicators</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_9">
+               <property name="text">
+                <string>Force reload of whole mags</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
-           <item row="0" column="1">
-            <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item row="0" column="1" rowspan="2">
+            <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
               <widget class="QCheckBox" name="checkBox_so_go_3dSpotting">
                <property name="text">
@@ -521,22 +659,220 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_10">
+               <property name="text">
+                <string>Team balance</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_12">
+               <item>
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Bullet damage (%)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_2"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_13">
+               <item>
+                <widget class="QLabel" name="label_4">
+                 <property name="text">
+                  <string>Round restart player count</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_5"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_14">
+               <item>
+                <widget class="QLabel" name="label_5">
+                 <property name="text">
+                  <string>Round start player count</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_4"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_15">
+               <item>
+                <widget class="QLabel" name="label_6">
+                 <property name="text">
+                  <string>Solider health (%)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_3"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_16">
+               <item>
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Player respawn time (%)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_6"/>
+               </item>
+              </layout>
+             </item>
             </layout>
            </item>
            <item row="0" column="2">
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_22">
+               <item>
+                <widget class="QLabel" name="label_13">
+                 <property name="text">
+                  <string>Game preset (Server side)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="comboBox_2"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_11">
+               <property name="text">
+                <string>Lock preset related values</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_17">
+               <item>
+                <widget class="QLabel" name="label_8">
+                 <property name="text">
+                  <string>Lockdown countdown</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_7"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_18">
+               <item>
+                <widget class="QLabel" name="label_9">
+                 <property name="text">
+                  <string>Warmup timeout</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_8"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_19">
+               <item>
+                <widget class="QLabel" name="label_10">
+                 <property name="text">
+                  <string>Gamemode counter (%)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_9"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_20">
+               <item>
+                <widget class="QLabel" name="label_11">
+                 <property name="text">
+                  <string>Round time limit (%)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_10"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_21">
+               <item>
+                <widget class="QLabel" name="label_12">
+                 <property name="text">
+                  <string>Ticket bleed rate (%)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSpinBox" name="spinBox_11"/>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="3" rowspan="3">
             <spacer name="horizontalSpacer_9">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>502</width>
-               <height>20</height>
+               <width>289</width>
+               <height>325</height>
               </size>
              </property>
             </spacer>
            </item>
-           <item row="1" column="0">
+           <item row="1" column="2">
+            <spacer name="verticalSpacer_11">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>67</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="1">
+            <spacer name="verticalSpacer_10">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>67</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="0">
             <spacer name="verticalSpacer_9">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -544,7 +880,7 @@
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>319</height>
+               <height>67</height>
               </size>
              </property>
             </spacer>
@@ -565,16 +901,16 @@
          <item>
           <layout class="QFormLayout" name="formLayout">
            <item row="1" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_avaliableSelectedMapImage">
+            <widget class="QLabel" name="label_ml_availableSelectedMapImage">
              <property name="text">
               <string/>
              </property>
             </widget>
            </item>
            <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="label_ml_avaliableSelectedMapText">
+            <widget class="QLabel" name="label_ml_availableSelectedMapText">
              <property name="text">
-              <string>Preview of selected map:</string>
+              <string>Preview of selected map</string>
              </property>
             </widget>
            </item>
@@ -588,7 +924,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label_ml_currentMapText">
              <property name="text">
-              <string>Current map:</string>
+              <string>Current map</string>
              </property>
             </widget>
            </item>
@@ -623,7 +959,7 @@
            <item row="0" column="0" colspan="2">
             <widget class="QLabel" name="label_ml_currentSelectedMapText">
              <property name="text">
-              <string>Preview of selected map:</string>
+              <string>Preview of selected map</string>
              </property>
             </widget>
            </item>
@@ -631,150 +967,7 @@
          </item>
         </layout>
        </item>
-       <item row="2" column="2">
-        <widget class="QTableWidget" name="tableWidget_ml_current">
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="showDropIndicator" stdset="0">
-          <bool>false</bool>
-         </property>
-         <property name="selectionMode">
-          <enum>QAbstractItemView::MultiSelection</enum>
-         </property>
-         <property name="selectionBehavior">
-          <enum>QAbstractItemView::SelectRows</enum>
-         </property>
-         <property name="showGrid">
-          <bool>false</bool>
-         </property>
-         <property name="rowCount">
-          <number>0</number>
-         </property>
-         <property name="columnCount">
-          <number>3</number>
-         </property>
-         <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>200</number>
-         </attribute>
-         <attribute name="horizontalHeaderHighlightSections">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="verticalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderDefaultSectionSize">
-          <number>17</number>
-         </attribute>
-         <attribute name="verticalHeaderHighlightSections">
-          <bool>false</bool>
-         </attribute>
-         <column>
-          <property name="text">
-           <string>Name</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Gamemode</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Rounds</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <item>
-            <widget class="QLabel" name="label_ml_gameMode">
-             <property name="text">
-              <string>Gamemode:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="comboBox_ml_gameMode"/>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QTableWidget" name="tableWidget_ml_avaliable">
-           <property name="editTriggers">
-            <set>QAbstractItemView::NoEditTriggers</set>
-           </property>
-           <property name="selectionMode">
-            <enum>QAbstractItemView::MultiSelection</enum>
-           </property>
-           <property name="selectionBehavior">
-            <enum>QAbstractItemView::SelectRows</enum>
-           </property>
-           <property name="showGrid">
-            <bool>false</bool>
-           </property>
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>200</number>
-           </attribute>
-           <attribute name="horizontalHeaderHighlightSections">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="horizontalHeaderStretchLastSection">
-            <bool>true</bool>
-           </attribute>
-           <attribute name="verticalHeaderVisible">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>17</number>
-           </attribute>
-           <attribute name="verticalHeaderHighlightSections">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderMinimumSectionSize">
-            <number>17</number>
-           </attribute>
-           <column>
-            <property name="text">
-             <string>Name</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Gamemode</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_ml_currentMaps">
-         <property name="text">
-          <string>Current maplist:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" rowspan="2">
+       <item row="2" column="1">
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
           <spacer name="verticalSpacer">
@@ -797,9 +990,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="label_ml_rounds">
            <property name="text">
-            <string>Rounds:</string>
+            <string>Rounds</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -835,11 +1028,70 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_ml_avaliableMaps">
-         <property name="text">
-          <string>Avaliable maps:</string>
+       <item row="1" column="0" colspan="3">
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_ml_gameMode">
+           <property name="text">
+            <string>Gamemode:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_ml_gameMode"/>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
+        <widget class="QTreeWidget" name="treeWidget_ml_available">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
          </property>
+         <column>
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Gamemode</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QTreeWidget" name="treeWidget_ml_current">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
+         <column>
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Gamemode</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Rounds</string>
+          </property>
+         </column>
         </widget>
        </item>
       </layout>
@@ -1016,6 +1268,19 @@
        <string>Spectator Slots</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_16">
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item row="0" column="1">
         <layout class="QGridLayout" name="gridLayout_15">
          <item row="1" column="1">
@@ -1080,19 +1345,6 @@
           </layout>
          </item>
         </layout>
-       </item>
-       <item row="0" column="0">
-        <spacer name="horizontalSpacer_7">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item row="0" column="2">
         <spacer name="horizontalSpacer_8">

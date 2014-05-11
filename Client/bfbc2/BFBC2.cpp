@@ -46,8 +46,8 @@ BFBC2::BFBC2(ServerEntry *serverEntry) :
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(con, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
-    connect(con, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(QByteArray)), this, SLOT(onLoginHashedCommand(QByteArray)));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
 }
 
 BFBC2::~BFBC2()
@@ -58,7 +58,7 @@ BFBC2::~BFBC2()
 
 void BFBC2::onConnected()
 {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
         con->sendCommand("login.hashed");
     }
 }
@@ -72,14 +72,12 @@ void BFBC2::onLoginHashedCommand(const QByteArray &salt)
 {
     QString password = serverEntry->password;
 
-    if (!isAuthenticated()) {
-        if (!password.isEmpty()) {
-            QCryptographicHash hash(QCryptographicHash::Md5);
-            hash.addData(salt);
-            hash.addData(password.toLatin1().constData());
+    if (!isAuthenticated() && !password.isEmpty()) {
+        QCryptographicHash hash(QCryptographicHash::Md5);
+        hash.addData(salt);
+        hash.addData(password.toLatin1().constData());
 
-            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
-        }
+        con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
     }
 }
 

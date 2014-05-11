@@ -23,6 +23,7 @@
 #include "Connection.h"
 
 #include "FrostbiteRconPacket.h"
+#include "FrostbiteUtils.h"
 
 #define MIN_PACKET_SIZE 12
 
@@ -33,7 +34,7 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    FrostbiteConnection(QObject *parent = 0);
+    FrostbiteConnection(QObject *parent = nullptr);
     ~FrostbiteConnection();
 
     void setCommandHandler(FrostbiteCommandHandler * cmdHandler);

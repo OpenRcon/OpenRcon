@@ -29,13 +29,6 @@ MinecraftConnection::~MinecraftConnection()
 
 }
 
-/* Length 	int 	Length of remainder of packet
- * Request ID 	int 	Client-generated ID
- * Type 	int 	3 for login, 2 to run a command
- * Payload 	byte[] 	ASCII text
- * 2-byte pad 	byte, byte 	Two null bytes
- */
-
 void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
 {
     QDataStream out(tcpSocket);
@@ -44,36 +37,27 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
     if (packet.getLength() < 1460 - 10) {    
         out << packet.getLength();
         out << packet.getRequestId();
-        out << packet.getType();
-        out << packet.getContent();
-
-        //out.writeRawData(packet.getContent(), packet.getContentSize());
+        out << static_cast<std::underlying_type<MinecraftRconPacketType>::type>(packet.getType());
+        out.writeRawData(packet.getContent(), packet.getContentSize());
 
         // Terminate the packet with 2 bytes of zeroes.
         out << (unsigned char) 0;
         out << (unsigned char) 0;
 
-        qDebug() << "Sent packet: ";
-        qDebug() << "Length: " << packet.getLength();
-        qDebug() << "Request ID: " << packet.getRequestId();
-        qDebug() << "Type: " << packet.getType();
-        qDebug() << "Payload:" << packet.getContent() << "\n";
+        qDebug() << "Sent packet:";
+        qDebug() << "Length:" << packet.getLength();
+        qDebug() << "Request ID:" << packet.getRequestId();
+        qDebug() << "Type: " << static_cast<std::underlying_type<MinecraftRconPacketType>::type>(packet.getType());
+        qDebug() << "Payload:" << packet.getContent();
         qDebug() << "Hex data:" << QByteArray(packet.getContent()).toHex();
 
-        if (packet.getType() == MinecraftRconPacket::Command) {
+        if (packet.getType() == MinecraftRconPacketType::Command) {
             responseDataSentEvent(packet.getContent());
         }
     } else {
         qDebug() << tr("Payload data too long.");
     }
 }
-
-/* Length 	int 	Length of remainder of packet
- * Request ID 	int 	Client-generated ID
- * Type 	int 	3 for login, 2 to run a command
- * Payload 	byte[] 	ASCII text
- * 2-byte pad 	byte, byte 	Two null bytes
- */
 
 void MinecraftConnection::readyRead()
 {
@@ -102,7 +86,7 @@ void MinecraftConnection::readyRead()
         qDebug() << "Hex data:" << QByteArray(content).toHex();
 
         // Create and handle the packet.
-        MinecraftRconPacket packet(id, type, content);
+        MinecraftRconPacket packet(id, static_cast<MinecraftRconPacketType>(type), content);
         handlePacket(packet);
 
         delete[] content;
@@ -112,7 +96,7 @@ void MinecraftConnection::readyRead()
 void MinecraftConnection::sendCommand(const QString &command)
 {
     if (!command.isEmpty()) {
-        MinecraftRconPacket packet = MinecraftRconPacket(getRequestIdFromCommand(command), MinecraftRconPacket::Command, command.toLatin1().constData());
+        MinecraftRconPacket packet(getRequestIdFromCommand(command), MinecraftRconPacketType::Command, command.toLatin1().data());
         sendPacket(packet);
     }
 }
@@ -127,7 +111,7 @@ void MinecraftConnection::parse(MinecraftRconPacket &packet)
 {
     switch (packet.getRequestId()) {
         case 1:
-            if (packet.getType() == MinecraftRconPacket::Login) {
+            if (packet.getType() == MinecraftRconPacketType::Login) {
                 emit (onAuthenticated(true));
             } else {
                 emit (onAuthenticated(false));

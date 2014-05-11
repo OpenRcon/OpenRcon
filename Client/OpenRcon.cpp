@@ -54,6 +54,15 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     ui->toolBar_sm->addWidget(comboBox_sm_server);
     ui->toolBar_sm->addWidget(pushButton_sm_connect);
 
+    // Autoconnect which has the autoconnect option set to true.
+    QList<ServerEntry*> serverList = serverManager->getServers();
+
+    for (ServerEntry *entry : serverList) {
+        if (entry->autoConnect) {
+            addTab(entry);
+        }
+    }
+
     // Actions
     connect(ui->actionServermanager, SIGNAL(triggered()), this, SLOT(actionServermanager_triggered()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(close()));
@@ -78,6 +87,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
 OpenRcon::~OpenRcon()
 {
+    writeSettings();
+
     delete ui;
 
     delete settings;
@@ -86,26 +97,6 @@ OpenRcon::~OpenRcon()
 //    delete serverListDialog;
     delete optionsDialog;
     delete aboutDialog;
-}
-
-void OpenRcon::changeEvent(QEvent *e)
-{
-    QMainWindow::changeEvent(e);
-
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        ui->retranslateUi(this);
-        break;
-    default:
-        break;
-    }
-}
-
-void OpenRcon::closeEvent(QCloseEvent *e)
-{
-    Q_UNUSED(e);
-
-    writeSettings();
 }
 
 void OpenRcon::readSettings()
@@ -240,7 +231,7 @@ void OpenRcon::populateServers()
         comboBox_sm_server->setEnabled(true);
         pushButton_sm_connect->setEnabled(true);
 
-        foreach (ServerEntry *server, serverList) {
+        for (ServerEntry *server : serverList) {
             GameEntry game = gameManager->getGame(server->game);
 
             comboBox_sm_server->addItem(game.icon, server->name);

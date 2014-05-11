@@ -28,7 +28,7 @@ class BFBC2Connection : public FrostbiteConnection
     Q_OBJECT
 
 public:
-    BFBC2Connection(QObject *parent = 0);
+    BFBC2Connection(QObject *parent = nullptr);
     BFBC2CommandHandler * commandHandler() const;
     ~BFBC2Connection();
 

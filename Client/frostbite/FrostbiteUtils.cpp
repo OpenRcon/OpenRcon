@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2010 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,21 +17,19 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF3CONNECTION_H
-#define BF3CONNECTION_H
+#include "FrostbiteUtils.h"
 
-#include "FrostbiteConnection.h"
-#include "BF3CommandHandler.h"
-
-class BF3Connection : public FrostbiteConnection
+int FrostbiteUtils::toInt(const QString &value)
 {
-    Q_OBJECT
+    return value.toInt();
+}
 
-public:
-    BF3Connection(QObject *parent = nullptr);
-    BF3CommandHandler * commandHandler() const;
-    ~BF3Connection();
+bool FrostbiteUtils::toBool(const QString &value)
+{
+    return value == "true";
+}
 
-};
-
-#endif // BF3CONNECTION_H
+QString FrostbiteUtils::toString(bool value)
+{
+    return value ? "true" : "false";
+}

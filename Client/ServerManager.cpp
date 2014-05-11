@@ -47,7 +47,8 @@ void ServerManager::loadServers()
                 settings->value("Name").toString(),
                 settings->value("Host").toString(),
                 settings->value("Port").toInt(),
-                settings->value("Password").toString()
+                settings->value("Password").toString(),
+                settings->value("AutoConnect").toBool()
             );
 
             serverList.append(entry);
@@ -73,6 +74,7 @@ void ServerManager::saveServers()
                 settings->setValue("Host", entry->host);
                 settings->setValue("Port", entry->port);
                 settings->setValue("Password", entry->password);
+                settings->setValue("AutoConnect", entry->autoConnect);
             }
         settings->endArray();
     settings->endGroup();
@@ -105,7 +107,7 @@ QList<ServerEntry *> ServerManager::getServers(int gameIndex)
 {
     QList<ServerEntry *> list;
 
-    foreach (ServerEntry *entry, serverList) {
+    for (ServerEntry *entry : serverList) {
         if (entry->game == gameIndex) {
             list.append(entry);
         }

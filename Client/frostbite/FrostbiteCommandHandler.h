@@ -39,6 +39,16 @@ public:
 
     void sendLoginPlainTextCommand(const QString &password);
 
+protected:
+    FrostbiteConnection *con;
+
+private:
+    void parseLoginPlainTextCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseLogoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
 signals:
     void onLoginPlainTextCommand(bool auth);
     void onLoginHashedCommand(const QByteArray &salt);
@@ -47,18 +57,6 @@ signals:
     void onQuitCommand();
     void onVersionCommand(const QString &type, int build);
 
-protected:
-    FrostbiteConnection *con;
-
-    bool toBool(const QString &value);
-    QString toString(bool value);
-
-private:
-    void parseLoginPlainTextCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseLogoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 };
 
 #endif // FROSTBITECOMMANDHANDLER_H

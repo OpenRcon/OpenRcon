@@ -27,10 +27,14 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // ServerInfo
     timerServerInfoRoundTime = new QTimer(this);
+    connect(timerServerInfoRoundTime, SIGNAL(timeout()), this, SLOT(updateRoundTime()));
+    timerServerInfoRoundTime->start(1000);
+
     timerServerInfoUpTime = new QTimer(this);
+    connect(timerServerInfoUpTime, SIGNAL(timeout()), this, SLOT(updateUpTime()));
+    timerServerInfoUpTime->start(1000);
 
     // Players
-    timerPlayerList = new QTimer(this);
     clipboard = QApplication::clipboard();
     menu_pl_players = new QMenu(ui->treeWidget_pl_players);
     menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
@@ -64,8 +68,16 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // Maplist
     ui->comboBox_ml_gameMode->addItems(levelDictionary->getGameModeNames());
-    setAvaliableMaplist(0);
+    setavailableMaplist(0);
     ui->spinBox_ml_rounds->setValue(2);
+
+    menu_ml_available = new QMenu(ui->treeWidget_ml_available);
+    action_ml_available_add = new QAction(tr("Add"), menu_ml_available);
+    menu_ml_current = new QMenu(ui->treeWidget_ml_current);
+    action_ml_current_remove = new QAction(tr("Remove"), menu_ml_current);
+
+    menu_ml_available->addAction(action_ml_available_add);
+    menu_ml_current->addAction(action_ml_current_remove);
 
     // Banlist
     menu_bl_banList = new QMenu(ui->tableWidget_bl_banList);
@@ -92,45 +104,46 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
     connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
 
-    /* Events */
-    connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
-    connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataReceivedEvent(const QString&)));
+    /* Events */ 
+    connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
+    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataReceivedEvent(QString)));
 
-    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(onPlayerAuthenticatedEvent(const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString)), this, SLOT(onPlayerAuthenticatedEvent(QString)));
     // Disconnect?
-    connect(commandHandler, SIGNAL(onPlayerJoinEvent(const QString&, const QString&)), this, SLOT(onPlayerJoinEvent(const QString&, const QString&)));
-    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(onPlayerLeaveEvent(const QString&, const QString&)));
-    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(const QString&, int)), this, SLOT(onPlayerSpawnEvent(const QString&, int)));
-    connect(commandHandler, SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)), this, SLOT(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)));
-    connect(commandHandler, SIGNAL(onPlayerChatEvent(const QString&, const QString&, const QString&)), this, SLOT(onPlayerChatEvent(const QString&, const QString&, const QString&)));
-    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(const QString&, int, int)), this, SLOT(onPlayerSquadChangeEvent(const QString&, int, int)));
-    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(const QString&, int, int)), this, SLOT(onPlayerTeamChangeEvent(const QString&, int, int)));
-    connect(commandHandler, SIGNAL(onPunkBusterMessageEvent(const QString&)), this, SLOT(onPunkBusterMessageEvent(const QString&)));
+    connect(commandHandler, SIGNAL(onPlayerJoinEvent(QString, QString)), this, SLOT(onPlayerJoinEvent(QString, QString)));
+    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(onPlayerLeaveEvent(QString, QString)));
+    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(QString, int)), this, SLOT(onPlayerSpawnEvent(QString, int)));
+    connect(commandHandler, SIGNAL(onPlayerKillEvent(QString, QString, QString, bool)), this, SLOT(onPlayerKillEvent(QString, QString, QString, bool)));
+    connect(commandHandler, SIGNAL(onPlayerChatEvent(QString, QString, QString)), this, SLOT(onPlayerChatEvent(QString, QString, QString)));
+    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(QString, int, int)), this, SLOT(onPlayerSquadChangeEvent(QString, int, int)));
+    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(QString, int, int)), this, SLOT(onPlayerTeamChangeEvent(QString, int, int)));
+    connect(commandHandler, SIGNAL(onPunkBusterMessageEvent(QString)), this, SLOT(onPunkBusterMessageEvent(QString)));
     connect(commandHandler, SIGNAL(onServerMaxPlayerCountChangeEvent()), this, SLOT(onServerMaxPlayerCountChangeEvent()));
-    connect(commandHandler, SIGNAL(onServerLevelLoadedEvent(const QString&, const QString&, int, int)), this, SLOT(onServerLevelLoadedEvent(const QString&, const QString&, int, int)));
+    connect(commandHandler, SIGNAL(onServerLevelLoadedEvent(QString, QString, int, int)), this, SLOT(onServerLevelLoadedEvent(QString, QString, int, int)));
     connect(commandHandler, SIGNAL(onServerRoundOverEvent(int)), this, SLOT(onServerRoundOverEvent(int)));
-    connect(commandHandler, SIGNAL(onServerRoundOverPlayersEvent(const QString&)), this, SLOT(onServerRoundOverPlayersEvent(const QString&)));
-    connect(commandHandler, SIGNAL(onServerRoundOverTeamScoresEvent(const QString&)), this, SLOT(onServerRoundOverTeamScoresEvent(const QString&)));
+    connect(commandHandler, SIGNAL(onServerRoundOverPlayersEvent(QString)), this, SLOT(onServerRoundOverPlayersEvent(QString)));
+    connect(commandHandler, SIGNAL(onServerRoundOverTeamScoresEvent(QString)), this, SLOT(onServerRoundOverTeamScoresEvent(QString)));
 
     /* Commands */
 
     // Misc
     connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
-    connect(commandHandler, SIGNAL(onServerInfoCommand(const ServerInfo&)), this, SLOT(onServerInfoCommand(const ServerInfo&)));
-    connect(commandHandler, SIGNAL(onListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)), this, SLOT(onListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)));
+    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
+    connect(commandHandler, SIGNAL(onServerInfoCommand(BF4ServerInfo)), this, SLOT(onServerInfoCommand(BF4ServerInfo)));
+    connect(commandHandler, SIGNAL(onListPlayersCommand(QList<PlayerInfo>, PlayerSubset)), this, SLOT(onListPlayersCommand(QList<PlayerInfo>, PlayerSubset)));
 
     // Admin
-    connect(commandHandler, SIGNAL(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)), this, SLOT(onAdminListPlayersCommand(const QList<PlayerInfo>&, const PlayerSubset&)));
+    connect(commandHandler, SIGNAL(onAdminListPlayersCommand(QList<PlayerInfo>, PlayerSubset)), this, SLOT(onAdminListPlayersCommand(QList<PlayerInfo>, PlayerSubset)));
+    connect(commandHandler, SIGNAL(onAdminPasswordCommand(QString)), this, SLOT(onAdminPasswordCommand(QString)));
 
     // Banning
-    connect(commandHandler, SIGNAL(onBanListListCommand(const BanList&)), this, SLOT(onBanListListCommand(const BanList&)));
+    connect(commandHandler, SIGNAL(onBanListListCommand(BanList)), this, SLOT(onBanListListCommand(BanList)));
 
     // FairFight
     connect(commandHandler, SIGNAL(onFairFightIsActiveCommand(bool)), this, SLOT(onFairFightIsActiveCommand(bool)));
 
     // Maplist
-    connect(commandHandler, SIGNAL(onMapListListCommand(const MapList&)), this, SLOT(onMapListListCommand(const MapList&)));
+    connect(commandHandler, SIGNAL(onMapListListCommand(MapList)), this, SLOT(onMapListListCommand(MapList)));
 
     // Player
 
@@ -139,10 +152,10 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // Reserved Slots
     connect(commandHandler, SIGNAL(onReservedSlotsListAggressiveJoinCommand(bool)), this, SLOT(onReservedSlotsListAggressiveJoinCommand(bool)));
-    connect(commandHandler, SIGNAL(onReservedSlotsListListCommand(const QStringList&)), this, SLOT(onReservedSlotsListListCommand(const QStringList&)));
+    connect(commandHandler, SIGNAL(onReservedSlotsListListCommand(QStringList)), this, SLOT(onReservedSlotsListListCommand(QStringList)));
 
     // Spectator list
-    connect(commandHandler, SIGNAL(onSpectatorListListCommand(const QStringList&)), this, SLOT(onSpectatorListListCommand(const QStringList&)));
+    connect(commandHandler, SIGNAL(onSpectatorListListCommand(QStringList)), this, SLOT(onSpectatorListListCommand(QStringList)));
 
     // Squad
 
@@ -150,16 +163,21 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onVarsAlwaysAllowSpectatorsCommand(bool)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsCommanderCommand(bool)), this, SLOT(onVarsCommanderCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsFriendlyFireCommand(bool)), this, SLOT(onVarsFriendlyFireCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsGamePasswordCommand(QString)), this, SLOT(onVarsGamePasswordCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
     connect(commandHandler, SIGNAL(onVarsKillCamCommand(bool)), this, SLOT(onVarsKillCamCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsMaxPlayersCommand(int)), this, SLOT(onVarsMaxPlayersCommand(int)));
     connect(commandHandler, SIGNAL(onVarsMaxSpectatorsCommand(int)), this, SLOT(onVarsMaxSpectatorsCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsServerNameCommand(const QString&)), this, SLOT(onVarsServerNameCommand(const QString&)));
-    connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(const QString&)), this, SLOT(onVarsServerDescriptionCommand(const QString&)));
-    connect(commandHandler, SIGNAL(onVarsServerMessageCommand(const QString&)), this, SLOT(onVarsServerMessageCommand(const QString&)));
-    connect(commandHandler, SIGNAL(onVarsServerTypeCommand(const QString&)), this, SLOT(onVarsServerTypeCommand(const QString&)));
+    connect(commandHandler, SIGNAL(onVarsServerNameCommand(QString)), this, SLOT(onVarsServerNameCommand(QString)));
+    connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(QString)), this, SLOT(onVarsServerDescriptionCommand(QString)));
+    connect(commandHandler, SIGNAL(onVarsServerMessageCommand(QString)), this, SLOT(onVarsServerMessageCommand(QString)));
+    connect(commandHandler, SIGNAL(onVarsServerTypeCommand(QString)), this, SLOT(onVarsServerTypeCommand(QString)));
 
     /* User Interface */
+
+    // Server Information
+    connect(ui->pushButton_si_restartRound, SIGNAL(clicked()), this, SLOT(pushButton_si_restartRound_clicked()));
+    connect(ui->pushButton_si_runNextRound, SIGNAL(clicked()), this, SLOT(pushButton_si_runNextRound_clicked()));
 
     // Players
     connect(ui->treeWidget_pl_players, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_pl_players_customContextMenuRequested(QPoint)));
@@ -171,13 +189,12 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(action_pl_players_copyTo_guid, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_guid_triggered()));
 
     // Update playerlist on following events.
-    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(const QString&)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(const QString&, const QString&)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(const QString&, int)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerKillEvent(const QString&, const QString&, const QString&, bool)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(const QString&, int, int)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(const QString&, int, int)), this, SLOT(updatePlayerList()));
-
+    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(QString, int)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerKillEvent(QString, QString, QString, bool)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(QString, int, int)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(QString, int, int)), this, SLOT(updatePlayerList()));
     // Events
 
     // Chat
@@ -207,10 +224,14 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // Maplist
     connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
-    connect(ui->tableWidget_ml_avaliable, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
+    connect(ui->treeWidget_ml_available, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_ml_available_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
+    connect(ui->treeWidget_ml_available, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_available_customContextMenuRequested(QPoint)));
+    connect(action_ml_available_add, SIGNAL(triggered()), this, SLOT(pushButton_ml_add_clicked()));
     connect(ui->pushButton_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_ml_add_clicked()));
     connect(ui->pushButton_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_ml_remove_clicked()));
-    connect(ui->tableWidget_ml_current, SIGNAL(currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)), this, SLOT(tableWidget_ml_current_currentItemChanged(QTableWidgetItem*, QTableWidgetItem*)));
+    connect(ui->treeWidget_ml_current, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_ml_current_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
+    connect(ui->treeWidget_ml_current, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_current_customContextMenuRequested(QPoint)));
+    connect(action_ml_current_remove, SIGNAL(triggered()), this, SLOT(pushButton_ml_remove_clicked()));
 
     // Banlist
     connect(ui->tableWidget_bl_banList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(tableWidget_bl_banList_customContextMenuRequested(QPoint)));
@@ -269,6 +290,7 @@ void BF4Widget::startupCommands(bool authenticated)
 
         // Admins
         commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
+        commandHandler->sendAdminPasswordCommand();
 
         // Banning
         commandHandler->sendBanListListCommand();
@@ -306,26 +328,29 @@ void BF4Widget::startupCommands(bool authenticated)
         commandHandler->sendVarsServerMessage();
         commandHandler->sendVarsServerType();
     } else {
-//        timerPlayerList->stop();
-//        commandHandlernect(timerPlayerList, SIGNAL(timeout()), this, SLOT(updatePlayerList()));
-//        timerPlayerList->start(1000);
-        updatePlayerList();
+        commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
 }
 
 void BF4Widget::logEvent(const QString &event, const QString &message)
 {
-    addEvent(event, message);
+    int row = ui->tableWidget_ev_events->rowCount();
+
+    ui->tableWidget_ev_events->insertRow(row);
+    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss")));
+    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
+    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
+    ui->tableWidget_ev_events->resizeColumnsToContents();
 }
 
 void BF4Widget::logChat(const QString &sender, const QString &message, const QString &target)
 {
-    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QTime::currentTime().toString(), target, sender, message));
+    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
 }
 
 void BF4Widget::logConsole(int type, const QString &message)
 {
-    QString time = QTime::currentTime().toString();
+    QString time = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
 
     switch (type) {
         case 0: // Server con->send
@@ -451,7 +476,7 @@ void BF4Widget::onServerLevelLoadedEvent(const QString &levelName, const QString
     LevelEntry level = levelDictionary->getLevel(levelName);
     GameModeEntry gameMode = levelDictionary->getGameMode(gameModeName);
 
-    logEvent("ServerLevelLoaded", tr("Loading level %1 running gamemode %2.").arg(level.name).arg(gameMode.name));
+    logEvent("ServerLevelLoaded", tr("Loading level %1 with gamemode %2.").arg(level.name).arg(gameMode.name));
 }
 
 void BF4Widget::onServerRoundOverEvent(int winningTeamId)
@@ -490,27 +515,78 @@ void BF4Widget::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(type);
 
-    ui->label_serverInfo_version->setText(tr("<b>Version</b>: %1").arg(getVersionFromBuild(build)));
+    ui->label_si_version->setText(tr("<b>Version</b>: %1").arg(getVersionFromBuild(build)));
+    ui->label_si_version->setToolTip(QString::number(build));
 }
 
-void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
+void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     currentLevel = levelDictionary->getLevel(serverInfo.currentMap);
     GameModeEntry currentGameMode = levelDictionary->getGameMode(serverInfo.gameMode);
     roundTime = serverInfo.roundTime;
     serverUpTime = serverInfo.serverUpTime;
 
-    ui->label_serverInfo_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(currentLevel.name).arg(currentGameMode.name));
-    ui->label_serverInfo_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_serverInfo_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
+    ui->label_si_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(currentLevel.name).arg(currentGameMode.name));
 
-    connect(timerServerInfoRoundTime, SIGNAL(timeout()), this, SLOT(updateRoundTime()));
-    timerServerInfoRoundTime->start(1000);
-    updateRoundTime();
+    ui->label_si_level->setToolTip(tr("<table>"
+                                          "<tr>"
+                                              "<td>External IP address and port:</td>"
+                                              "<td>%1</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Join queue enabled:</td>"
+                                              "<td>%2</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Matchmaking enabled:</td>"
+                                              "<td>%3</td>"
+                                          "</tr>"
 
-    connect(timerServerInfoUpTime, SIGNAL(timeout()), this, SLOT(updateUpTime()));
-    timerServerInfoUpTime->start(1000);
-    updateUpTime();
+                                          "<tr>"
+                                              "<td></td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td>Region:</td>"
+                                              "<td>%4</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Country:</td>"
+                                              "<td>%5</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Closest ping site:</td>"
+                                              "<td>%6</td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td></td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td>Blaze player count:</td>"
+                                              "<td>%7</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Blaze game stat:</td>"
+                                              "<td>%8</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Punkbuster Server:</td>"
+                                              "<td>%9</td>"
+                                          "</tr>"
+                                      "</table>").arg(serverInfo.gameIpAndPort)
+                                                 .arg(FrostbiteUtils::toString(serverInfo.joinQueueEnabled),
+                                                      FrostbiteUtils::toString(serverInfo.matchMakingEnabled),
+                                                      serverInfo.region,
+                                                      serverInfo.country,
+                                                      serverInfo.closestPingSite)
+                                                 .arg(serverInfo.blazePlayerCount)
+                                                 .arg(serverInfo.blazeGameState,
+                                                      serverInfo.punkBusterVersion));
+
+    ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
+    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
 
     // Set maplist.
     int gameModeIndex = levelDictionary->getGameModeNames().indexOf(currentGameMode.name);
@@ -519,7 +595,7 @@ void BF4Widget::onServerInfoCommand(const ServerInfo &serverInfo)
     ui->label_ml_currentMapValue->setText(currentLevel.name);
 
     ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
-    setAvaliableMaplist(gameModeIndex);
+    setavailableMaplist(gameModeIndex);
 }
 
 void BF4Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
@@ -531,6 +607,11 @@ void BF4Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const 
 void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
 {
     listPlayers(playerList, playerSubset);
+}
+
+void BF4Widget::onAdminPasswordCommand(const QString &password)
+{
+    ui->lineEdit_so_co_adminPassword->setText(password);
 }
 
 // Banning
@@ -597,6 +678,11 @@ void BF4Widget::onVarsFriendlyFireCommand(bool enabled)
     ui->checkBox_so_go_friendlyFire->setChecked(enabled);
 }
 
+void BF4Widget::onVarsGamePasswordCommand(const QString &password)
+{
+    ui->lineEdit_so_co_gamePassword->setText(password);
+}
+
 void BF4Widget::onVarsIdleTimeoutCommand(int timeout)
 {
     if (timeout >= 1) { // TODO: This cannot be disabled on ranked servers.
@@ -651,13 +737,18 @@ QIcon BF4Widget::getRankIcon(int rank)
 /* User Interface */
 
 // ServerInfo
-void BF4Widget::updateServerInfo()
+void BF4Widget::pushButton_si_restartRound_clicked()
 {
-    commandHandler->sendServerInfoCommand();
+    commandHandler->sendMapListRestartRound();
+}
+
+void BF4Widget::pushButton_si_runNextRound_clicked()
+{
+    commandHandler->sendMapListRunNextRound();
 }
 
 void BF4Widget::updateRoundTime()
-{
+{ 
     TimeEntry time = getTimeFromSeconds(roundTime++);
     QString text;
 
@@ -677,7 +768,7 @@ void BF4Widget::updateRoundTime()
         text += " " + tr("%1s").arg(time.seconds);
     }
 
-    ui->label_serverInfo_round->setToolTip(text);
+    ui->label_si_round->setToolTip(text);
 }
 
 void BF4Widget::updateUpTime()
@@ -701,7 +792,7 @@ void BF4Widget::updateUpTime()
         text += " " + tr("%1s").arg(time.seconds);
     }
 
-    ui->label_serverInfo_upTime->setText(tr("<b>Uptime:</b> %1").arg(text));
+    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(text));
 }
 
 // Players
@@ -723,7 +814,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
         QList<QTreeWidgetItem *> playerItems;
         QSet<int> teamIds;
 
-        foreach (PlayerInfo player, playerList) {
+        for (PlayerInfo player : playerList) {
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
             playerItem->setIcon(0, getRankIcon(player.rank));
             playerItem->setText(0, player.name);
@@ -745,7 +836,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
                 teamItem->setText(0, levelDictionary->getTeam(teamId - 1));
 
-                foreach (QTreeWidgetItem *playerItem, playerItems) {
+                for (QTreeWidgetItem *playerItem : playerItems) {
                     if (teamId == playerItem->data(0, Qt::UserRole)) {
                         teamItem->addChild(playerItem);
                     }
@@ -823,16 +914,6 @@ void BF4Widget::action_pl_players_copyTo_guid_triggered()
 }
 
 // Event
-void BF4Widget::addEvent(const QString &event, const QString &message)
-{
-    int row = ui->tableWidget_ev_events->rowCount();
-
-    ui->tableWidget_ev_events->insertRow(row);
-    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QTime::currentTime().toString()));
-    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
-    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
-    ui->tableWidget_ev_events->resizeColumnsToContents();
-}
 
 // Chat
 void BF4Widget::comboBox_ch_mode_currentIndexChanged(int index)
@@ -893,126 +974,119 @@ void BF4Widget::pushButton_ch_send_clicked()
 void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
 {
     if (index >= 0) {
-        setAvaliableMaplist(index);
+        setavailableMaplist(index);
     }
 }
 
-void BF4Widget::tableWidget_ml_avaliable_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
+void BF4Widget::treeWidget_ml_available_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
     Q_UNUSED(current);
     Q_UNUSED(previous);
 
-    int row = ui->tableWidget_ml_avaliable->currentRow();
+    LevelEntry level = levelDictionary->getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
 
-    if (row >= 0) {
-        LevelEntry level = levelDictionary->getLevel(ui->tableWidget_ml_avaliable->item(row, 0)->text());
+    ui->label_ml_availableSelectedMapImage->setPixmap(level.image);
+}
 
-        ui->label_ml_avaliableSelectedMapImage->setPixmap(level.image);
+void BF4Widget::treeWidget_ml_available_customContextMenuRequested(const QPoint &pos)
+{
+    if (ui->treeWidget_ml_available->itemAt(pos)) {
+        menu_ml_available->exec(QCursor::pos());
     }
 }
 
 void BF4Widget::pushButton_ml_add_clicked()
 {
-    // Make sure that tableWidget_ml_avaliable selected item count is greater than zero.
-    if (ui->tableWidget_ml_avaliable->selectedItems().length() > 0) {
+    // Make sure that treeWidget_ml_available selected item count is greater than zero.
+    if (ui->treeWidget_ml_available->selectedItems().length() > 0) {
         int rounds = ui->spinBox_ml_rounds->value();
 
         if (rounds > 0) {
-            QModelIndexList indexList = ui->tableWidget_ml_avaliable->selectionModel()->selectedRows();
+            LevelEntry level = levelDictionary->getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
+            GameModeEntry gameMode = levelDictionary->getGameMode(ui->treeWidget_ml_available->currentItem()->text(1));
 
-            foreach (QModelIndex index, indexList) {
-                int row = index.row();
+            ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
 
-                QString levelName = ui->tableWidget_ml_avaliable->item(row, 0)->text();
-                QString gameModeName = ui->tableWidget_ml_avaliable->item(row, 1)->text();
-
-                LevelEntry level = levelDictionary->getLevel(levelName);
-                GameModeEntry gameMode = levelDictionary->getGameMode(gameModeName);
-
-                if (ui->tableWidget_ml_current->rowCount() < 1) {
-                    ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
-                }
-
-                addCurrentMapListRow(level.name, gameMode.name, rounds);
-                commandHandler->sendMapListAdd(level.engineName, gameMode.engineName, rounds);
-            }
+            addCurrentMapListRow(level.name, gameMode.name, rounds);
+            commandHandler->sendMapListAdd(level.engineName, gameMode.engineName, rounds);
         }
     }
 }
 
 void BF4Widget::pushButton_ml_remove_clicked()
 {
-    // Make sure that tableWidget_ml_current selected item count is greater than zero.
-    if (ui->tableWidget_ml_current->selectedItems().length() > 0) {
-        if (ui->tableWidget_ml_current->rowCount() >= 1) {
+    // Make sure that treeWidget_ml_current selected item count is greater than zero.
+    if (ui->treeWidget_ml_current->selectedItems().length() > 0) {
+        if (ui->treeWidget_ml_current->topLevelItemCount() >= 1) {
             ui->label_ml_currentSelectedMapImage->clear();
         }
 
-        QModelIndexList indexList = ui->tableWidget_ml_current->selectionModel()->selectedRows();
+        int index = ui->treeWidget_ml_current->currentIndex().row();
 
-        foreach (QModelIndex index, indexList) {
-            int row = index.row();
-
-            ui->tableWidget_ml_current->removeRow(row);
-            commandHandler->sendMapListRemove(row);
-        }
+        ui->treeWidget_ml_current->takeTopLevelItem(index);
+        commandHandler->sendMapListRemove(index);
     }
 }
 
-void BF4Widget::tableWidget_ml_current_currentItemChanged(QTableWidgetItem *current, QTableWidgetItem *previous)
+void BF4Widget::addavailableMapListRow(const QString &name, const QString &gameMode)
 {
-    Q_UNUSED(current);
-    Q_UNUSED(previous);
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    item->setText(0, name);
+    item->setText(1, gameMode);
 
-    int row = ui->tableWidget_ml_current->currentRow();
-
-    if (row >= 0) {
-        LevelEntry level = levelDictionary->getLevel(ui->tableWidget_ml_current->item(row, 0)->text());
-
-        ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
-    }
+    ui->treeWidget_ml_available->addTopLevelItem(item);
 }
 
-void BF4Widget::addAvaliableMapListRow(const QString &name, const QString &gameMode)
+void BF4Widget::setavailableMaplist(int gameModeIndex)
 {
-    int row = ui->tableWidget_ml_avaliable->rowCount();
+    ui->treeWidget_ml_available->clear();
 
-    ui->tableWidget_ml_avaliable->insertRow(row);
-    ui->tableWidget_ml_avaliable->setItem(row, 0, new QTableWidgetItem(name));
-    ui->tableWidget_ml_avaliable->setItem(row, 1, new QTableWidgetItem(gameMode));
-}
-
-void BF4Widget::setAvaliableMaplist(int gameModeIndex)
-{
     QList<LevelEntry> levelList = levelDictionary->getLevels(gameModeIndex);
     GameModeEntry gameMode = levelDictionary->getGameMode(gameModeIndex);
 
-    ui->label_ml_avaliableSelectedMapImage->setPixmap(levelList.first().image);
-
-    ui->tableWidget_ml_avaliable->clearContents();
-    ui->tableWidget_ml_avaliable->setRowCount(0);
+    ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().image);
 
     for (int i = 0; i < levelList.length(); i++) {
         LevelEntry level = levelList.at(i);
 
-        addAvaliableMapListRow(level.name, gameMode.name);
+        addavailableMapListRow(level.name, gameMode.name);
+    }
+
+    // Resize columns so that they fits the content.
+    for (int i = 0; i < ui->treeWidget_ml_available->columnCount(); i++) {
+        ui->treeWidget_ml_available->resizeColumnToContents(i);
+    }
+}
+
+void BF4Widget::treeWidget_ml_current_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+{
+    Q_UNUSED(current);
+    Q_UNUSED(previous);
+
+    LevelEntry level = levelDictionary->getLevel(ui->treeWidget_ml_current->currentItem()->text(0));
+    ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
+}
+
+void BF4Widget::treeWidget_ml_current_customContextMenuRequested(const QPoint &pos)
+{
+    if (ui->treeWidget_ml_current->itemAt(pos)) {
+        menu_ml_current->exec(QCursor::pos());
     }
 }
 
 void BF4Widget::addCurrentMapListRow(const QString &name, const QString &gameMode, int rounds)
 {
-    int row = ui->tableWidget_ml_current->rowCount();
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    item->setText(0, name);
+    item->setText(1, gameMode);
+    item->setText(2, QString::number(rounds));
 
-    ui->tableWidget_ml_current->insertRow(row);
-    ui->tableWidget_ml_current->setItem(row, 0, new QTableWidgetItem(name));
-    ui->tableWidget_ml_current->setItem(row, 1, new QTableWidgetItem(gameMode));
-    ui->tableWidget_ml_current->setItem(row, 2, new QTableWidgetItem(QString::number(rounds)));
+    ui->treeWidget_ml_current->addTopLevelItem(item);
 }
 
 void BF4Widget::setCurrentMaplist(const MapList &mapList)
 {
-    ui->tableWidget_ml_current->clearContents();
-    ui->tableWidget_ml_current->setRowCount(0);
+    ui->treeWidget_ml_current->clear();
 
     for (int i = 0; i < mapList.length(); i++) {
         MapListEntry entry = mapList.at(i);
@@ -1024,6 +1098,11 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
         }
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
+    }
+
+    // Resize columns so that they fits the content.
+    for (int i = 0; i < ui->treeWidget_ml_available->columnCount(); i++) {
+        ui->treeWidget_ml_current->resizeColumnToContents(i);
     }
 }
 
@@ -1066,7 +1145,7 @@ void BF4Widget::setBanlist(const BanList &banList)
     ui->tableWidget_bl_banList->clearContents();
     ui->tableWidget_bl_banList->setRowCount(0);
 
-    foreach (BanListEntry entry, banList) {
+    for (BanListEntry entry : banList) {
         addBanListRow(entry.idType, entry.id, entry.banType, entry.seconds, entry.rounds, entry.reason);
     }
 }

@@ -34,8 +34,9 @@ class ServerEditDialog : public QDialog
     Q_OBJECT
 
 public:
-    ServerEditDialog(QWidget *parent = 0);
-    ServerEditDialog(int game, const QString &name, const QString &host, int port, const QString &password, QWidget *parent = 0);
+    ServerEditDialog(QWidget *parent = nullptr);
+    ServerEditDialog(int game, QWidget *parent = nullptr);
+    ServerEditDialog(int game, const QString &name = 0, const QString &host = 0, int port = 0, const QString &password = 0, bool autoConnect = false, QWidget *parent = nullptr);
     ~ServerEditDialog();
 
     int getGame();
@@ -43,6 +44,7 @@ public:
     QString getHost();
     int getPort();
     QString getPassword();
+    bool getAutoConnect();
 
 private:
     Ui::ServerEditDialog *ui;
@@ -50,6 +52,7 @@ private:
     GameManager *gameManager;
 
 private slots:
+    void detect(const QString &value);
     void validate();
     void accept();
 

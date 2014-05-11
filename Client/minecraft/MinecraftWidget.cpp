@@ -19,13 +19,13 @@
 
 #include "MinecraftWidget.h"
 
-MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEntry), ui(new Ui::Minecraft)
+MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEntry), ui(new Ui::MinecraftWidget)
 {
     ui->setupUi(this);
 
     /* Events */
-    connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
-    connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
+    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataSentEvent(QString)));
 
     connect(con, SIGNAL(onAuthenticated(bool)), this, SLOT(onAuthenticated(bool)));
 
@@ -42,8 +42,10 @@ void MinecraftWidget::logMessage(int type, const QString &message)
     QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
 
     if (type == 0) { // Info
+        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
 //        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 1) { // Error
+        ui->textEdit_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));
 //        ui->textEdit_ev_output->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime).arg(message));
     } else if (type == 2) { // Send
         ui->textEdit_co_output->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime).arg(message));

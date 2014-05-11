@@ -200,7 +200,7 @@ void BFBC2CommandHandler::parsePlayerKillEvent(const FrostbiteRconPacket &packet
     QString killer = packet.getWord(1).getContent();
     QString victim = packet.getWord(2).getContent();
     QString weapon = packet.getWord(3).getContent();
-    bool headshot = toBool(packet.getWord(4).getContent());
+    bool headshot = FrostbiteUtils::toBool(packet.getWord(4).getContent());
 
     emit (onPlayerKillEvent(killer, victim, weapon, headshot));
 }
@@ -231,8 +231,8 @@ void BFBC2CommandHandler::parsePlayerSquadChangeEvent(const FrostbiteRconPacket 
     Q_UNUSED(lastSentPacket);
 
     QString player = packet.getWord(1).getContent();
-    int teamId = toInt(packet.getWord(2).getContent());
-    int squadId = toInt(packet.getWord(3).getContent());
+    int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+    int squadId = FrostbiteUtils::toInt(packet.getWord(3).getContent());
 
     emit (onPlayerSquadChangeEvent(player, teamId, squadId));
 }
@@ -242,8 +242,8 @@ void BFBC2CommandHandler::parsePlayerTeamChangeEvent(const FrostbiteRconPacket &
     Q_UNUSED(lastSentPacket);
 
     QString player = packet.getWord(1).getContent();
-    int teamId = toInt(packet.getWord(2).getContent());
-    int squadId = toInt(packet.getWord(3).getContent());
+    int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+    int squadId = FrostbiteUtils::toInt(packet.getWord(3).getContent());
 
     emit (onPlayerTeamChangeEvent(player, teamId, squadId));
 }

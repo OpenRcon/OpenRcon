@@ -24,8 +24,8 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
     ui->setupUi(this);
 
     /* Events */
-    connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
-    connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
+    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataSentEvent(QString)));
 
     /* User Interface */
 
@@ -209,7 +209,7 @@ void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
         QList<QTreeWidgetItem *> playerItems;
         QSet<int> teamIds;
 
-        foreach (PlayerInfo player, playerList) {
+        for (PlayerInfo player : playerList) {
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
             playerItem->setIcon(0, getRankIcon(player.rank));
             playerItem->setText(0, player.name);
@@ -226,7 +226,7 @@ void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
             teamIds.insert(player.teamId);
         }
 
-        foreach (int teamId, teamIds) {
+        for (int teamId : teamIds) {
             if (teamId > 0) { // Don't list team with id 0, as this is the neutrual team.
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
                 teamItem->setText(0, levelDictionary->getTeam(teamId - 1));

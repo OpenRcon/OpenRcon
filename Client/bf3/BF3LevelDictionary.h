@@ -27,7 +27,7 @@ class BF3LevelDictionary : public LevelDictionary
     Q_OBJECT
 
 public:
-    BF3LevelDictionary(QObject *parent = 0);
+    BF3LevelDictionary(QObject *parent = nullptr);
     ~BF3LevelDictionary();
 
 };

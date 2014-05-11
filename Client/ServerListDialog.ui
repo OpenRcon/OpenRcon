@@ -43,6 +43,11 @@
        <string>Port</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>Connect automatically</string>
+      </property>
+     </column>
     </widget>
    </item>
    <item row="1" column="0" colspan="3">
@@ -51,6 +56,13 @@
       <widget class="QPushButton" name="pushButton_sld_add">
        <property name="text">
         <string>Add</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_sld_connect">
+       <property name="text">
+        <string>Connect</string>
        </property>
       </widget>
      </item>
@@ -68,16 +80,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_sld_connect">
-       <property name="text">
-        <string>Connect</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_sld_cancel">
-       <property name="text">
-        <string>Cancel</string>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
@@ -86,7 +91,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButton_sld_connect</tabstop>
   <tabstop>treeWidget</tabstop>
  </tabstops>
  <resources/>

@@ -17,21 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF3CONNECTION_H
-#define BF3CONNECTION_H
+#ifndef MINECRAFTRCONPACKETTYPE_H
+#define MINECRAFTRCONPACKETTYPE_H
 
-#include "FrostbiteConnection.h"
-#include "BF3CommandHandler.h"
-
-class BF3Connection : public FrostbiteConnection
-{
-    Q_OBJECT
-
-public:
-    BF3Connection(QObject *parent = nullptr);
-    BF3CommandHandler * commandHandler() const;
-    ~BF3Connection();
+enum class MinecraftRconPacketType {
+    Unknown = 0,
+    Command = 2,
+    Login = 3
 
 };
 
-#endif // BF3CONNECTION_H
+#endif // MINECRAFTRCONPACKETTYPE_H

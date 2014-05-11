@@ -57,6 +57,7 @@ QString AboutDialog::getFile(const QString &fileName)
 
     if (file.open(QIODevice::ReadOnly)) {
         QTextStream stream(&file);
+        stream.setCodec("UTF-8");
 
         return stream.readAll();
     }

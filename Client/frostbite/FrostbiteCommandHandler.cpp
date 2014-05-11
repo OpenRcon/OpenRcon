@@ -36,31 +36,23 @@ bool FrostbiteCommandHandler::parse(const QString & request, const FrostbiteRcon
     typedef void (FrostbiteCommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
     static QHash<QString, ResponseFunction> responses = {
-        {"login.plainText", &FrostbiteCommandHandler::parseLoginPlainTextCommand},
-        {"login.hashed",    &FrostbiteCommandHandler::parseLoginHashedCommand},
-        {"logout",          &FrostbiteCommandHandler::parseLogoutCommand},
-        {"version",         &FrostbiteCommandHandler::parseVersionCommand}
+        { "login.plainText", &FrostbiteCommandHandler::parseLoginPlainTextCommand },
+        { "login.hashed",    &FrostbiteCommandHandler::parseLoginHashedCommand },
+        { "logout",          &FrostbiteCommandHandler::parseLogoutCommand },
+        { "version",         &FrostbiteCommandHandler::parseVersionCommand }
     };
 
     if (responses.contains(request)) {
         ResponseFunction res = responses[request];
+
         if (res) {
             (this->*res)(packet, lastSentPacket);
         }
+
         return true;
     }
 
     return false;
-}
-
-bool FrostbiteCommandHandler::toBool(const QString &value)
-{
-    return value == "true";
-}
-
-QString FrostbiteCommandHandler::toString(bool value)
-{
-    return value ? "true" : "false";
 }
 
 void FrostbiteCommandHandler::parseLoginPlainTextCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

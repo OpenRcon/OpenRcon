@@ -12,41 +12,14 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "LanguageManager.h"
+#include "MinecraftRconPacketType.h"
 
-LanguageManager::LanguageManager(QObject *parent) : QObject(parent)
-{
-    languageList.append(LanguageEntry(tr("English"), "en_US", ":/flags/united_kingdom.png"));
-    languageList.append(LanguageEntry(tr("Norwegian"), "nb_NO", ":/flags/norway.png"));
-}
-
-LanguageManager::~LanguageManager()
+MinecraftRconPacketType::MinecraftRconPacketType()
 {
 
-}
-
-LanguageEntry LanguageManager::getLanguage(int index)
-{
-    return languageList.at(index);
-}
-
-LanguageEntry LanguageManager::getLanguage(const QString &code)
-{
-    for (LanguageEntry language : languageList) {
-        if (language.code == code) {
-            return language;
-        }
-    }
-
-    return LanguageEntry();
-}
-
-QList<LanguageEntry> LanguageManager::getLanguages()
-{
-    return languageList;
 }

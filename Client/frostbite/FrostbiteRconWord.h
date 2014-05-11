@@ -28,9 +28,9 @@ class FrostbiteRconWord : public QObject
     Q_OBJECT
 
 public:
-    FrostbiteRconWord(QObject *parent = 0);
-    FrostbiteRconWord(const char *str, QObject *parent = 0);
-    FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent = 0);
+    FrostbiteRconWord(QObject *parent = nullptr);
+    FrostbiteRconWord(const char *str, QObject *parent = nullptr);
+    FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent = nullptr);
     FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
     ~FrostbiteRconWord();
 
@@ -58,7 +58,7 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconWord &word)
     }
 
     unsigned int size;
-    char *data = 0;
+    char *data = nullptr;
     signed char terminator;
 
     in >> size;
@@ -94,7 +94,7 @@ inline QDataStream &operator << (QDataStream &out, const FrostbiteRconWord &word
 
     out << word.getSize();
 
-    const char * wordContent = word.getContent();
+    const char *wordContent = word.getContent();
 
     for (unsigned int i = 0; i < word.getSize(); i++) {
         out << (signed char) wordContent[i];

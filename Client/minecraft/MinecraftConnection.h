@@ -29,7 +29,7 @@ class MinecraftConnection : public Connection
     Q_OBJECT
 
 public:
-    MinecraftConnection(QObject *parent = 0);
+    MinecraftConnection(QObject *parent = nullptr);
     ~MinecraftConnection();
 
     void sendPacket(MinecraftRconPacket &packet);

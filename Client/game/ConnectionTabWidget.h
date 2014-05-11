@@ -26,7 +26,6 @@
 
 class ConnectionTabWidget : public QTabWidget
 {
-    Q_OBJECT
 
 public:
     virtual Connection* getConnection() = 0;

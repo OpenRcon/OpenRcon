@@ -62,6 +62,7 @@ BF4::BF4(ServerEntry *serverEntry) :
     versionMap.insert(117719, "R31");
     versionMap.insert(120511, "R32");
     versionMap.insert(125871, "R33");
+    versionMap.insert(126936, "R34");
 
     commandList.append("login.plainText");
     commandList.append("login.hashed");
@@ -174,9 +175,9 @@ BF4::BF4(ServerEntry *serverEntry) :
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(QByteArray)), this, SLOT(onLoginHashedCommand(QByteArray)));
     connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
+    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
 }
 
 BF4::~BF4()

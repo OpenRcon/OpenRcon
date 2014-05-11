@@ -34,6 +34,6 @@ Minecraft::~Minecraft()
 
 void Minecraft::onConnected()
 {
-    MinecraftRconPacket packet(1, MinecraftRconPacket::Login, serverEntry->password.toLatin1().constData());
+    MinecraftRconPacket packet(1, MinecraftRconPacketType::Login, serverEntry->password.toLatin1().data());
     con->sendPacket(packet);
 }
