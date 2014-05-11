@@ -24,8 +24,8 @@ MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEnt
     ui->setupUi(this);
 
     /* Events */
-    connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
-    connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
+    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataSentEvent(QString)));
 
     connect(con, SIGNAL(onAuthenticated(bool)), this, SLOT(onAuthenticated(bool)));
 

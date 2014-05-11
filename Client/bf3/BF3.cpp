@@ -70,9 +70,9 @@ BF3::BF3(ServerEntry *serverEntry) : FrostbiteGame(serverEntry)
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
-    connect(con, SIGNAL(onLoginHashedCommand(const QByteArray&)), this, SLOT(onLoginHashedCommand(const QByteArray&)));
+    connect(con, SIGNAL(onLoginHashedCommand(QByteArray)), this, SLOT(onLoginHashedCommand(QByteArray)));
     connect(con, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(con, SIGNAL(onVersionCommand(const QString&, int)), this, SLOT(onVersionCommand(const QString&, int)));
+    connect(con, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
 }
 
 BF3::~BF3()

@@ -24,8 +24,8 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
     ui->setupUi(this);
 
     /* Events */
-    connect(con, SIGNAL(onDataSentEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
-    connect(con, SIGNAL(onDataReceivedEvent(const QString&)), this, SLOT(onDataSentEvent(const QString&)));
+    connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
+    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataSentEvent(QString)));
 
     /* User Interface */
 
