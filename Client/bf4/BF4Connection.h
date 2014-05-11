@@ -29,7 +29,7 @@ class BF4Connection : public FrostbiteConnection
 
 public:
     BF4Connection(QObject *parent = nullptr);
-    BF4CommandHandler * commandHandler() const;
+    BF4CommandHandler *getCommandHandler() const;
     ~BF4Connection();
 
 };

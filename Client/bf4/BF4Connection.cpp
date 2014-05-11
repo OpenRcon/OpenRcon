@@ -25,9 +25,9 @@ BF4Connection::BF4Connection(QObject *parent) : FrostbiteConnection(parent)
     setCommandHandler(new BF4CommandHandler(this));
 }
 
-BF4CommandHandler *BF4Connection::commandHandler() const
+BF4CommandHandler *BF4Connection::getCommandHandler() const
 {
-    return static_cast<BF4CommandHandler *>(FrostbiteConnection::commandHandler());
+    return static_cast<BF4CommandHandler *>(FrostbiteConnection::getCommandHandler());
 }
 
 BF4Connection::~BF4Connection()

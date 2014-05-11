@@ -34,12 +34,12 @@ FrostbiteConnection::~FrostbiteConnection()
 
 }
 
-void FrostbiteConnection::setCommandHandler(FrostbiteCommandHandler * cmdHandler)
+void FrostbiteConnection::setCommandHandler(FrostbiteCommandHandler *commandHandler)
 {
-    m_commandHandler = cmdHandler;
+    m_commandHandler = commandHandler;
 }
 
-FrostbiteCommandHandler *FrostbiteConnection::commandHandler() const
+FrostbiteCommandHandler *FrostbiteConnection::getCommandHandler() const
 {
     return m_commandHandler;
 }

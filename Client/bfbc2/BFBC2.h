@@ -26,7 +26,6 @@
 #include "FrostbiteGame.h"
 
 #include "BFBC2Connection.h"
-#include "BFBC2CommandHandler.h"
 #include "BFBC2LevelDictionary.h"
 
 class BFBC2 : public FrostbiteGame
@@ -36,16 +35,6 @@ class BFBC2 : public FrostbiteGame
 public:
     BFBC2(ServerEntry *serverEntry);
     ~BFBC2();
-
-private:
-    bool authenticated;
-
-private slots: 
-    void onConnected();
-    void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand();
-
-    void slotCommandMapListListRounds(QStringList ml);
 
 protected:
     BFBC2Connection *con;
@@ -72,6 +61,17 @@ protected:
 
     QString getMapName(const QString &engineName, const QString &gamemode);
     QPixmap getMapImage(const QString &engineName, const QString &gamemode);
+
+private:
+    bool authenticated;
+
+private slots: 
+    void onConnected();
+    void onLoginHashedCommand(const QByteArray &salt);
+    void onLoginHashedCommand();
+
+    void slotCommandMapListListRounds(QStringList ml);
+
 };
 
 #endif // BFBC2_H

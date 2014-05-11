@@ -24,7 +24,6 @@
 
 #include "FrostbiteGame.h"
 #include "BF4Connection.h"
-#include "BF4CommandHandler.h"
 #include "BF4LevelDictionary.h"
 
 class BF4 : public FrostbiteGame {

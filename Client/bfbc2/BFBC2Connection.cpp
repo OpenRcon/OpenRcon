@@ -18,16 +18,15 @@
  */
 
 #include "BFBC2Connection.h"
-#include "BFBC2CommandHandler.h"
 
 BFBC2Connection::BFBC2Connection(QObject *parent) : FrostbiteConnection(parent)
 {
     setCommandHandler(new BFBC2CommandHandler(this));
 }
 
-BFBC2CommandHandler *BFBC2Connection::commandHandler() const
+BFBC2CommandHandler *BFBC2Connection::getCommandHandler() const
 {
-    return static_cast<BFBC2CommandHandler *>(FrostbiteConnection::commandHandler());
+    return static_cast<BFBC2CommandHandler *>(FrostbiteConnection::getCommandHandler());
 }
 
 BFBC2Connection::~BFBC2Connection()

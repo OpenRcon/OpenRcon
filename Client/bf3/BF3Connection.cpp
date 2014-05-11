@@ -18,16 +18,15 @@
  */
 
 #include "BF3Connection.h"
-#include "BF3CommandHandler.h"
 
 BF3Connection::BF3Connection(QObject *parent) : FrostbiteConnection(parent)
 {
     setCommandHandler(new BF3CommandHandler(this));
 }
 
-BF3CommandHandler *BF3Connection::commandHandler() const
+BF3CommandHandler *BF3Connection::getCommandHandler() const
 {
-    return static_cast<BF3CommandHandler *>(FrostbiteConnection::commandHandler());
+    return static_cast<BF3CommandHandler *>(FrostbiteConnection::getCommandHandler());
 }
 
 BF3Connection::~BF3Connection()

@@ -25,7 +25,6 @@
 #include "FrostbiteGame.h"
 
 #include "BF3Connection.h"
-#include "BF3CommandHandler.h"
 #include "BF3LevelDictionary.h"
 
 class BF3 : public FrostbiteGame

@@ -22,7 +22,7 @@
 BF4::BF4(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
     con(new BF4Connection(this)),
-    commandHandler(con->commandHandler()),
+    commandHandler(con->getCommandHandler()),
     authenticated(false)
 {
     con->hostConnect(serverEntry->host, serverEntry->port);
@@ -182,8 +182,9 @@ BF4::BF4(ServerEntry *serverEntry) :
 
 BF4::~BF4()
 {
-    //delete con;
-    //delete levelDictionary;
+    delete con;
+    delete commandHandler;
+    delete levelDictionary;
 }
 
 void BF4::onConnected()

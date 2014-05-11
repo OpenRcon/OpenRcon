@@ -18,8 +18,6 @@
  */
 
 #include "FrostbiteCommandHandler.h"
-#include "FrostbiteConnection.h"
-#include <functional>
 
 FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *parent) : CommandHandler(parent), con(parent)
 {
@@ -55,6 +53,43 @@ bool FrostbiteCommandHandler::parse(const QString & request, const FrostbiteRcon
     return false;
 }
 
+/* Send commands */
+void FrostbiteCommandHandler::sendLoginPlainTextCommand(const QString &password)
+{
+    con->sendCommand(QString("\"login.plainText\" \"%1\"").arg(password));
+}
+
+void FrostbiteCommandHandler::sendLoginHashedCommand(const QByteArray &salt, const QString &password)
+{
+    if (salt.isNull() && password == 0) {
+        con->sendCommand("login.hashed");
+    } else {
+        if (!password.isEmpty() && password.length() <= 16) {
+            QCryptographicHash hash(QCryptographicHash::Md5);
+            hash.addData(salt);
+            hash.addData(password.toLatin1().constData());
+
+            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
+        }
+    }
+}
+
+void FrostbiteCommandHandler::sendLogoutCommand()
+{
+    con->sendCommand("logout");
+}
+
+void FrostbiteCommandHandler::sendQuitCommand()
+{
+    con->sendCommand("quit");
+}
+
+void FrostbiteCommandHandler::sendVersionCommand()
+{
+    con->sendCommand("version");
+}
+
+/* Parse commands */
 void FrostbiteCommandHandler::parseLoginPlainTextCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);

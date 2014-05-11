@@ -21,11 +21,10 @@
 
 BFBC2::BFBC2(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    authenticated(false),
     con(new BFBC2Connection(this)),
-    commandHandler(con->commandHandler())
+    commandHandler(con->getCommandHandler()),
+    authenticated(false)
 {
-    con = new BFBC2Connection(this);
     con->hostConnect(serverEntry->host, serverEntry->port);
 
     levelDictionary = new BFBC2LevelDictionary(this);
@@ -52,8 +51,9 @@ BFBC2::BFBC2(ServerEntry *serverEntry) :
 
 BFBC2::~BFBC2()
 {
-    //delete con;
-    //delete levelDictionary;
+    delete con;
+    delete commandHandler;
+    delete levelDictionary;
 }
 
 void BFBC2::onConnected()

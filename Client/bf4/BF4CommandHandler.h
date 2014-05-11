@@ -29,30 +29,23 @@
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
-class BF4Connection;
-
 typedef QList<BanListEntry> BanList;
 typedef QList<MapListEntry> MapList;
 
+class BF4Connection;
 class BF4CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT
 
 public:
-    BF4CommandHandler(BF4Connection *parent = 0);
+    BF4CommandHandler(BF4Connection *parent = nullptr);
     ~BF4CommandHandler();
 
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) override;
 
-    /* Send */
-
+    /* Send commands */
     // Misc
-    void sendLoginPlainTextCommand(const QString &password);
-    void sendLoginHashedCommand(const QByteArray &salt = 0, const QString &password = 0);
     void sendServerInfoCommand();
-    void sendLogoutCommand();
-    void sendQuitCommand();
-    void sendVersionCommand();
     void sendCurrentLevelCommand();
     void sendListPlayersCommand(const PlayerSubset &playerSubset);
 
@@ -198,9 +191,7 @@ public:
     void sendVarsVehicleSpawnDelay(int percent = -1);
 
 private:
-    /* Parse */
-
-    // Events
+    /* Parse events */
     void parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerDisconnectEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerJoinEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -217,15 +208,14 @@ private:
     void parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Commands
-
-    // General commands.
+    /* Parse commands */
+    // Misc
     void parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseLogoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Admin commands.
+    // Admin
     void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     /*void parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -237,7 +227,7 @@ private:
     void parseAdminShutDownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
-    // Ban List commands.
+    // BanList
     /*void parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -245,12 +235,12 @@ private:
     void parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
-    // Fair Fight commands.
+    // FairFight
     /*void parseFairFightActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseFairFightDeactivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parseFairFightIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Map List commands.
+    // MapList
     /*void parseMapListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     /*void parseMapListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -265,17 +255,17 @@ private:
     void parseMapListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
-    // Player commands.
+    // Player
     void parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerPingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // PunkBuster commands.
+    // PunkBuster
     /*void parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     /*void parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
-    // Reserver Slots commands.
+    // Reserverd Slots
     /*void parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     /*void parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
@@ -284,20 +274,20 @@ private:
     void parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
-    // Spectator List commands.
+    // Spectator List
     /*void parseSpectatorListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseSpectatorListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parseSpectatorListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     /*void parseSpectatorListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseSpectatorListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
-    // Squad commands.
+    // Squad
     void parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     /*void parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseSquadPrivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Vars commands.
+    // Vars
     void parseVars3dSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVars3pCamCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -349,7 +339,7 @@ private:
     QString getPlayerSubsetString(const PlayerSubset &playerSubset);
 
 signals:
-    // Events
+    //* Event signals */
     void onPlayerAuthenticatedEvent(const QString &player);
     void onPlayerDisconnectEvent();
     void onPlayerJoinEvent(const QString &player, const QString &guid);
@@ -366,7 +356,7 @@ signals:
     void onServerRoundOverPlayersEvent(const QString &playerInfo);
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
-    // Commands
+    /* Command signals */
     void onServerInfoCommand(const ServerInfo &serverInfo);
     void onCurrentLevelCommand(const QString &level);
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
