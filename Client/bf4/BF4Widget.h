@@ -23,7 +23,7 @@
 #include <QMenu>
 #include <QClipboard>
 #include <QTimer>
-#include <QTime>
+#include <QDateTime>
 #include <QCompleter>
 
 #include "ui_BF4Widget.h"
@@ -51,7 +51,6 @@ private:
     int serverUpTime;
 
     // Players
-    QTimer *timerPlayerList;
     QClipboard *clipboard;
     QMenu *menu_pl_players;
     QAction *action_pl_players_kill;
