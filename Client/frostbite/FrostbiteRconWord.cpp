@@ -108,7 +108,7 @@ void FrostbiteRconWord::clear()
 {
     if (wordContent) {
         delete[] wordContent;
-        wordContent = 0;
+        wordContent = nullptr;
     }
 
     wordSize = 0;
