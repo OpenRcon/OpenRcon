@@ -18,11 +18,14 @@
  */
 
 #include "BF3.h"
+#include "FrostbiteConnection.h"
+#include "BF3CommandHandler.h"
+#include "BF3LevelDictionary.h"
 
 BF3::BF3(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    con(new BF3Connection(this)),
-    commandHandler(con->getCommandHandler()),
+    con(new FrostbiteConnection(this)),
+    commandHandler(new BF3CommandHandler(con)),
     authenticated(false)
 {
     con->hostConnect(serverEntry->host, serverEntry->port);

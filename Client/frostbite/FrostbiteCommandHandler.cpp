@@ -18,10 +18,13 @@
  */
 
 #include "FrostbiteCommandHandler.h"
+#include "FrostbiteConnection.h"
 
 FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *parent) : CommandHandler(parent), con(parent)
 {
-
+    if (parent) {
+        parent->setCommandHandler(this);
+    }
 }
 
 FrostbiteCommandHandler::~FrostbiteCommandHandler()

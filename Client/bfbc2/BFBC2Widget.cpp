@@ -18,6 +18,8 @@
  */
 
 #include "BFBC2Widget.h"
+#include "LevelEntry.h"
+#include "BFBC2LevelDictionary.h"
 
 BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new Ui::BFBC2Widget)
 {

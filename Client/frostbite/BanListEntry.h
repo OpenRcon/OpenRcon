@@ -21,6 +21,7 @@
 #define BANLISTENTRY_H
 
 #include <QString>
+#include <QList>
 
 struct BanListEntry {
     BanListEntry(const QString &idType,
@@ -47,5 +48,7 @@ struct BanListEntry {
     QString reason;
 
 };
+
+typedef QList<BanListEntry> BanList;
 
 #endif // BANLISTENTRY_H

@@ -21,11 +21,11 @@
 #define BF3_H
 
 #include <QCryptographicHash>
-
 #include "FrostbiteGame.h"
 
-#include "BF3Connection.h"
-#include "BF3LevelDictionary.h"
+class FrostbiteConnection;
+class BF3LevelDictionary;
+class BF3CommandHandler;
 
 class BF3 : public FrostbiteGame
 {
@@ -36,7 +36,7 @@ public:
     ~BF3();
 
 protected:
-    BF3Connection *con;
+    FrostbiteConnection *con;
     BF3CommandHandler *commandHandler;
     BF3LevelDictionary *levelDictionary;
 

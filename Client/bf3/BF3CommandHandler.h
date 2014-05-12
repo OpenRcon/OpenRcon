@@ -25,15 +25,14 @@
 #include "FrostbiteCommandHandler.h"
 #include "PlayerInfo.h"
 
-#include "BF3Connection.h"
+class FrostbiteConnection;
 
-class BF3Connection;
 class BF3CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT
 
 public:
-    BF3CommandHandler(BF3Connection *parent = nullptr);
+    BF3CommandHandler(FrostbiteConnection *parent = nullptr);
     ~BF3CommandHandler();
 
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) override;

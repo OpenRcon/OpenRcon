@@ -1,6 +1,7 @@
 #include "BFBC2CommandHandler.h"
+#include "FrostbiteConnection.h"
 
-BFBC2CommandHandler::BFBC2CommandHandler(BFBC2Connection *parent) : FrostbiteCommandHandler(parent)
+BFBC2CommandHandler::BFBC2CommandHandler(FrostbiteConnection *parent) : FrostbiteCommandHandler(parent)
 {
 
 }

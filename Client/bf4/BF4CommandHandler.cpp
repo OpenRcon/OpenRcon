@@ -18,8 +18,9 @@
  */
 
 #include "BF4CommandHandler.h"
+#include "FrostbiteConnection.h"
 
-BF4CommandHandler::BF4CommandHandler(BF4Connection *parent) : FrostbiteCommandHandler(parent)
+BF4CommandHandler::BF4CommandHandler(FrostbiteConnection * parent) : FrostbiteCommandHandler(parent)
 {
 
 }

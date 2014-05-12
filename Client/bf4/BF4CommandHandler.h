@@ -27,19 +27,16 @@
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
-#include "BF4Connection.h"
 #include "BF4ServerInfo.h"
 
-typedef QList<BanListEntry> BanList;
-typedef QList<MapListEntry> MapList;
+class FrostbiteConnection;
 
-class BF4Connection;
 class BF4CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT
 
 public:
-    BF4CommandHandler(BF4Connection *parent = nullptr);
+    BF4CommandHandler(FrostbiteConnection *parent = nullptr);
     ~BF4CommandHandler();
 
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) override;

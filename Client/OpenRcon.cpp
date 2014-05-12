@@ -38,9 +38,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     // Sets window title
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
 
-    // Create and read settings
-    readSettings();
-
     // Actions
     actionServerManager = new QAction(QIcon(":/icons/server-manager.png"), tr("Server Manager"), this);
     actionServerManager->setToolTip(tr("Opens the ServerManager."));
@@ -68,6 +65,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     ui->menuHelp->addSeparator();
     ui->menuHelp->addAction(actionAbout);
     ui->menuHelp->addAction(actionAboutQt);
+
+    // Create and read settings
+    readSettings();
 
     // QuickConnect toolbar.
     comboBox_quickConnect_server = new QComboBox(ui->toolBar_quickConnect);
