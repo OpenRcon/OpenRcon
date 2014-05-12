@@ -42,15 +42,15 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     readSettings();
 
     // Actions
-    actionServerManager = new QAction(QIcon(":/icons/servermanager.png"), tr("Server Manager"), this);
+    actionServerManager = new QAction(QIcon(":/icons/server-manager.png"), tr("Server Manager"), this);
     actionServerManager->setToolTip(tr("Opens the ServerManager."));
     actionExit = new QAction(tr("Exit"), this);
 
     actionQuickConnect = new QAction(tr("Quickconnect"), this);
     actionQuickConnect->setCheckable(true);
-    //actionQuickConnect->setChecked(true);
+    actionQuickConnect->setChecked(true);
 
-    actionOptions = new QAction(QIcon(":/icons/"), tr("Options"), this);
+    actionOptions = new QAction(QIcon(":/icons/options.png"), tr("Options"), this);
 
     actionDocumentation = new QAction(QIcon(""), tr("Documentation"), this);
     actionVisitWebsite = new QAction(QIcon(":/icons/internet.png"), tr("Visit website"), this);

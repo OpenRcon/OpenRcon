@@ -36,8 +36,8 @@ public:
     ServerManager(QObject *parent = nullptr);
     ~ServerManager();
 
-    ServerEntry* getServer(int index);
-    ServerEntry* getServer(ServerEntry *serverEntry);
+    ServerEntry *getServer(int index);
+    ServerEntry *getServer(ServerEntry *serverEntry);
     void setServers(const QList<ServerEntry *> &list);
 
     QList<ServerEntry *> getServers();
