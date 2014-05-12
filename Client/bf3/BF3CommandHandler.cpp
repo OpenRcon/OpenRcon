@@ -36,6 +36,20 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
     static QHash<QString, ResponseFunction> responses = {
         /* Events */
+        { "player.onAuthenticated",              nullptr /*&BF3CommandHandler::parsePlayerAuthenticatedEvent*/ },
+        { "player.onJoin",                       nullptr /*&BF3CommandHandler::parsePlayerJoinEvent*/ },
+        { "player.onLeave",                      nullptr /*&BF3CommandHandler::parsePlayerLeaveEvent*/ },
+        { "player.onSpawn",                      nullptr /*&BF3CommandHandler::parsePlayerSpawnEvent*/ },
+        { "player.onKill",                       nullptr /*&BF3CommandHandler::parsePlayerKillEvent*/ },
+        { "player.onChat",                       nullptr /*&BF3CommandHandler::parsePlayerChatEvent*/ },
+        { "player.onSquadChange",                nullptr /*&BF3CommandHandler::parsePlayerSquadChangeEvent*/ },
+        { "player.onTeamChange",                 nullptr /*&BF3CommandHandler::parsePlayerTeamChangeEvent*/ },
+        { "punkBuster.onMessage",                nullptr /*&BF3CommandHandler::parsePunkBusterMessageEvent*/ },
+        { "server.onMaxPlayerCountChange",       nullptr /*&BF3CommandHandler::parseMaxPlayerCountChangeEvent*/ },
+        { "server.onLevelLoaded",                nullptr /*&BF3CommandHandler::parseLevelLoadedEvent*/ },
+        { "server.onRoundOver",                  nullptr /*&BF3CommandHandler::parseServerRoundOverEvent*/ },
+        { "server.onRoundOverPlayers",           nullptr /*&BF3CommandHandler::parseServerRoundOverPlayersEvent*/ },
+        { "server.onRoundOverTeamScores",        nullptr /*&BF3CommandHandler::parseServerRoundOverTeamScoresEvent*/ },
 
         /* Commands */
         // Misc
@@ -175,6 +189,77 @@ void BF3CommandHandler::sendListPlayersCommand(const PlayerSubset &playerSubset)
     if (playerSubset == PlayerSubset::All) {
         con->sendCommand("\"listPlayers\" \"all\"");
     }
+}
+
+/* Parse events */
+void BF3CommandHandler::parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parsePlayerJoinEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parsePlayerLeaveEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parsePlayerSpawnEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parsePlayerKillEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parsePlayerChatEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parseMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parseLevelLoadedEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parseServerRoundOverEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
+}
+
+void BF3CommandHandler::parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet)
+{
+    Q_UNUSED(packet);
 }
 
 /* Parse commands */

@@ -45,6 +45,20 @@ public:
 
 private:
     /* Parse events */
+    void parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet);
+    void parsePlayerJoinEvent(const FrostbiteRconPacket &packet);
+    void parsePlayerLeaveEvent(const FrostbiteRconPacket &packet);
+    void parsePlayerSpawnEvent(const FrostbiteRconPacket &packet);
+    void parsePlayerKillEvent(const FrostbiteRconPacket &packet);
+    void parsePlayerChatEvent(const FrostbiteRconPacket &packet);
+    void parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet);
+    void parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet);
+    void parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet);
+    void parseMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet);
+    void parseLevelLoadedEvent(const FrostbiteRconPacket &packet);
+    void parseServerRoundOverEvent(const FrostbiteRconPacket &packet);
+    void parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet);
+    void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet);
 
     /* Parse commands */
     // Misc
@@ -155,6 +169,20 @@ private:
 
 signals:
     /* Event signals */
+    void onPlayerAuthenticatedEvent();
+    void onPlayerJoinEvent();
+    void onPlayerLeaveEvent();
+    void onPlayerSpawnEvent();
+    void onPlayerKillEvent();
+    void onPlayerChatEvent();
+    void onPlayerSquadChangeEvent();
+    void onPlayerTeamChangeEvent();
+    void onPunkBusterMessageEvent();
+    void onMaxPlayerCountChangeEvent();
+    void onLevelLoadedEvent();
+    void onServerRoundOverEvent();
+    void onServerRoundOverPlayersEvent();
+    void onServerRoundOverTeamScoresEvent();
 
     /* Command signals */
     // Misc
