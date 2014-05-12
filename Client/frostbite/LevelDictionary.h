@@ -25,9 +25,12 @@
 #include "LevelEntry.h"
 #include "GameModeEntry.h"
 
-class LevelDictionary {
-
+class LevelDictionary
+{
 public:
+    LevelDictionary();
+    ~LevelDictionary();
+
     static LevelEntry getLevel(int index);
     static LevelEntry getLevel(const QString &level);
     static LevelEntry getLevel(int index, int gameModeIndex);

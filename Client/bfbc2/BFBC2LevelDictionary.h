@@ -26,6 +26,8 @@
 
 class BFBC2LevelDictionary : public LevelDictionary
 {
+public:
+    BFBC2LevelDictionary();
 
 };
 

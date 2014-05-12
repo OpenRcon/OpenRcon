@@ -24,6 +24,8 @@
 
 class BF3LevelDictionary : public LevelDictionary
 {
+public:
+    BF3LevelDictionary();
 
 };
 
