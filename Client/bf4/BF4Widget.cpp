@@ -18,6 +18,8 @@
  */
 
 #include "BF4Widget.h"
+#include "BF4LevelDictionary.h"
+#include "BF4CommandHandler.h"
 
 BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4Widget)
 {

@@ -21,6 +21,7 @@
 #define MAPLISTENTRY_H
 
 #include <QString>
+#include <QList>
 
 struct MapListEntry {
     MapListEntry(const QString &level,
@@ -38,5 +39,7 @@ struct MapListEntry {
     int rounds;
 
 };
+
+typedef QList<MapListEntry> MapList;
 
 #endif // MAPLISTENTRY_H

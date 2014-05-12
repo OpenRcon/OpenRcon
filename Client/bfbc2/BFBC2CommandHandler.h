@@ -22,18 +22,17 @@
 
 #include "FrostbiteCommandHandler.h"
 
-#include "BFBC2Connection.h"
-
 typedef QMap<QString, QString> PlayerListItem;
 typedef QVector<PlayerListItem> PlayerList;
 
-class BFBC2Connection;
+class FrostbiteConnection;
+
 class BFBC2CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT
 
 public:
-    BFBC2CommandHandler(BFBC2Connection *parent = nullptr);
+    BFBC2CommandHandler(FrostbiteConnection *parent = nullptr);
     ~BFBC2CommandHandler();
 
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) override;

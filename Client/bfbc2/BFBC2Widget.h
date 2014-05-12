@@ -32,6 +32,7 @@
 #include "ui_BFBC2Widget.h"
 #include "BFBC2.h"
 #include "BFBC2CommandHandler.h"
+#include "FrostbiteConnection.h"
 
 class BFBC2Widget : public BFBC2
 {

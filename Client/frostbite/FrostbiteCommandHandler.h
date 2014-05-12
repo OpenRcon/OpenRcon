@@ -24,10 +24,11 @@
 
 #include "CommandHandler.h"
 
-#include "FrostbiteConnection.h"
 #include "PlayerSubset.h"
 
 class FrostbiteConnection;
+class FrostbiteRconPacket;
+
 class FrostbiteCommandHandler : public CommandHandler
 {
     Q_OBJECT

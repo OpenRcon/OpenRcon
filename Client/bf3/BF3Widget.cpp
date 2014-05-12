@@ -18,6 +18,8 @@
  */
 
 #include "BF3Widget.h"
+#include "BF3CommandHandler.h"
+#include "BF3LevelDictionary.h"
 
 BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3Widget)
 {

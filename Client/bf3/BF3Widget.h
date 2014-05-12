@@ -25,6 +25,9 @@
 
 #include "ui_BF3Widget.h"
 #include "BF3.h"
+#include "PlayerInfo.h"
+#include "PlayerSubset.h"
+#include "FrostbiteConnection.h"
 
 class BF3Widget : public BF3
 {

@@ -25,8 +25,9 @@
 
 #include "FrostbiteGame.h"
 
-#include "BFBC2Connection.h"
-#include "BFBC2LevelDictionary.h"
+class FrostbiteConnection;
+class BFBC2CommandHandler;
+class BFBC2LevelDictionary;
 
 class BFBC2 : public FrostbiteGame
 {
@@ -37,7 +38,7 @@ public:
     ~BFBC2();
 
 protected:
-    BFBC2Connection *con;
+    FrostbiteConnection *con;
     BFBC2CommandHandler *commandHandler;
     BFBC2LevelDictionary *levelDictionary;
 

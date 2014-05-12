@@ -28,6 +28,13 @@
 
 #include "ui_BF4Widget.h"
 #include "BF4.h"
+#include "FrostbiteConnection.h"
+#include "PlayerSubset.h"
+#include "PlayerInfo.h"
+#include "LevelEntry.h"
+#include "BF4ServerInfo.h"
+#include "BanListEntry.h"
+#include "MapListEntry.h"
 
 class BF4Widget : public BF4
 {

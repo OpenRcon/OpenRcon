@@ -18,13 +18,17 @@
  */
 
 #include "BF4.h"
+#include "FrostbiteConnection.h"
+#include "BF4CommandHandler.h"
+#include "BF4LevelDictionary.h"
 
 BF4::BF4(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    con(new BF4Connection(this)),
-    commandHandler(con->getCommandHandler()),
+    con(new FrostbiteConnection(this)),
+    commandHandler(new BF4CommandHandler(con)),
     authenticated(false)
 {
+
     con->hostConnect(serverEntry->host, serverEntry->port);
 
     levelDictionary = new BF4LevelDictionary(this);

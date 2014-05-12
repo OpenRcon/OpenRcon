@@ -18,11 +18,14 @@
  */
 
 #include "BFBC2.h"
+#include "FrostbiteConnection.h"
+#include "BFBC2CommandHandler.h"
+#include "BFBC2LevelDictionary.h"
 
 BFBC2::BFBC2(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    con(new BFBC2Connection(this)),
-    commandHandler(con->getCommandHandler()),
+    con(new FrostbiteConnection(this)),
+    commandHandler(new BFBC2CommandHandler(con)),
     authenticated(false)
 {
     con->hostConnect(serverEntry->host, serverEntry->port);
