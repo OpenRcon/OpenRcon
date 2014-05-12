@@ -72,21 +72,18 @@ private:
     OptionsDialog *optionsDialog;
     AboutDialog *aboutDialog;
 
-    QComboBox *comboBox_quickConnect_server;
-    QPushButton *pushButton_quickConnect_connect;
-
     QAction *actionServerManager;
-    QAction *actionExit;
-
+    QAction *actionQuit;
     QAction *actionQuickConnect;
-
     QAction *actionOptions;
-
     QAction *actionDocumentation;
     QAction *actionVisitWebsite;
     QAction *actionReportBug;
     QAction *actionAbout;
     QAction *actionAboutQt;
+
+    QComboBox *comboBox_quickConnect_server;
+    QPushButton *pushButton_quickConnect_connect;
 
     void readSettings();
     void writeSettings();

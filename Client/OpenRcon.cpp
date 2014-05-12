@@ -39,24 +39,25 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
 
     // Actions
-    actionServerManager = new QAction(QIcon(":/icons/server-manager.png"), tr("Server Manager"), this);
+    actionServerManager = new QAction(QIcon(":/icons/server-manager.png"), tr("&Server Manager"), this);
+    actionServerManager->setShortcut(tr("Ctrl+S"));
     actionServerManager->setToolTip(tr("Opens the ServerManager."));
-    actionExit = new QAction(tr("Exit"), this);
-
+    actionQuit = new QAction(tr("&Quit"), this);
+    actionQuit->setShortcut(tr("Ctrl+Q"));
     actionQuickConnect = new QAction(tr("Quickconnect"), this);
     actionQuickConnect->setCheckable(true);
-    actionQuickConnect->setChecked(true);
-
-    actionOptions = new QAction(QIcon(":/icons/options.png"), tr("Options"), this);
-
-    actionDocumentation = new QAction(QIcon(""), tr("Documentation"), this);
+    actionOptions = new QAction(QIcon(":/icons/options.png"), tr("&Options"), this);
+    actionOptions->setShortcut(tr("Ctrl+O"));
+    actionDocumentation = new QAction(tr("Documentation"), this);
     actionVisitWebsite = new QAction(QIcon(":/icons/internet.png"), tr("Visit website"), this);
     actionReportBug = new QAction(QIcon(":/icons/report-bug.png"), tr("Report bug"), this);
-    actionAbout = new QAction(QIcon(APP_ICON), tr("About &%1").arg(APP_NAME), this);
+    actionAbout = new QAction(QIcon(APP_ICON), tr("&About %1").arg(APP_NAME), this);
+    actionAbout->setShortcut(tr("Ctrl+A"));
     actionAboutQt = new QAction(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"), tr("About Qt"), this);
+    actionAboutQt->setMenuRole(QAction::AboutQtRole);
 
     ui->menuApplication->addAction(actionServerManager);
-    ui->menuApplication->addAction(actionExit);
+    ui->menuApplication->addAction(actionQuit);
     ui->menuToolbars->addAction(actionQuickConnect);
     ui->menuTools->addAction(actionOptions);
     ui->menuHelp->addAction(actionDocumentation);
@@ -79,6 +80,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     ui->toolBar_quickConnect->addWidget(comboBox_quickConnect_server);
     ui->toolBar_quickConnect->addWidget(pushButton_quickConnect_connect);
 
+    // Loads the server list from ServerManager.
     updateServerList();
 
     // Autoconnect which has the autoconnect option set to true.
@@ -92,7 +94,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     // Actions
     connect(actionServerManager, SIGNAL(triggered()), this, SLOT(actionServerManager_triggered()));
-    connect(actionExit, SIGNAL(triggered()), this, SLOT(close()));
+    connect(actionQuit, SIGNAL(triggered()), this, SLOT(close()));
     connect(actionQuickConnect, SIGNAL(triggered()), this, SLOT(actionQuickConnect_triggered()));
     connect(actionOptions, SIGNAL(triggered()), this, SLOT(actionOptions_triggered()));
     connect(actionDocumentation, SIGNAL(triggered()), this, SLOT(actionDocumentation_triggered()));
@@ -132,7 +134,7 @@ void OpenRcon::readSettings()
             showMaximized();
         }
 
-        if (settings->value("actionQuickConnect", true).toBool()) {
+        if (settings->value("toolbarQuickConnect", true).toBool()) {
             ui->toolBar_quickConnect->show();
             actionQuickConnect->setChecked(true);
         } else {
@@ -213,16 +215,14 @@ void OpenRcon::actionServerManager_triggered()
 // View menu
 void OpenRcon::actionQuickConnect_triggered()
 {
-    qDebug() << "Called!";
-
     settings->beginGroup(APP_NAME);
         if (actionQuickConnect->isChecked()) {
             ui->toolBar_quickConnect->show();
-            settings->setValue("actionQuickConnect", true);
+            settings->setValue("toolbarQuickConnect", true);
             actionQuickConnect->setChecked(true);
         } else {
             ui->toolBar_quickConnect->hide();
-            settings->setValue("actionQuickConnect", false);
+            settings->setValue("toolbarQuickConnect", false);
             actionQuickConnect->setChecked(false);
         }
     settings->endGroup();
