@@ -111,7 +111,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataReceivedEvent(QString)));
 
     connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString)), this, SLOT(onPlayerAuthenticatedEvent(QString)));
-    // Disconnect?
+    connect(commandHandler, SIGNAL(onPlayerDisconnectEvent(QString)), this, SLOT(onPlayerDisconnectEvent(QString)));
     connect(commandHandler, SIGNAL(onPlayerJoinEvent(QString, QString)), this, SLOT(onPlayerJoinEvent(QString, QString)));
     connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(onPlayerLeaveEvent(QString, QString)));
     connect(commandHandler, SIGNAL(onPlayerSpawnEvent(QString, int)), this, SLOT(onPlayerSpawnEvent(QString, int)));
@@ -401,6 +401,11 @@ void BF4Widget::onDataReceivedEvent(const QString &response)
 void BF4Widget::onPlayerAuthenticatedEvent(const QString &player)
 {
     logEvent("PlayerAuthenticated", tr("Player %1 authenticated.").arg(player));
+}
+
+void BF4Widget::onPlayerDisconnectEvent(const QString &player)
+{
+    logEvent("PlayerDisconnect", tr("Player %1 disconnected.").arg(player));
 }
 
 void BF4Widget::onPlayerJoinEvent(const QString &player, const QString &guid)

@@ -44,7 +44,7 @@ public:
     BF4Widget(ServerEntry *serverEntry);
     ~BF4Widget();
 
-    virtual Connection* getConnection() { return con; }
+    virtual Connection *getConnection() { return con; }
 
 private:
     Ui::BF4Widget *ui;
@@ -116,6 +116,7 @@ private slots:
     void onDataReceivedEvent(const QString &response);
 
     void onPlayerAuthenticatedEvent(const QString &player);
+    void onPlayerDisconnectEvent(const QString &player);
     void onPlayerJoinEvent(const QString &player, const QString &guid);
     void onPlayerLeaveEvent(const QString &player, const QString &info);
     void onPlayerSpawnEvent(const QString &player, int teamdId);

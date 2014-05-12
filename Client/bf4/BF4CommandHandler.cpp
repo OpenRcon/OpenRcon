@@ -43,10 +43,10 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "player.onSpawn",                      &BF4CommandHandler::parsePlayerSpawnEvent },
         { "player.onKill",                       &BF4CommandHandler::parsePlayerKillEvent },
         { "player.onChat",                       &BF4CommandHandler::parsePlayerChatEvent },
-        { "server.onMaxPlayerCountChange",       &BF4CommandHandler::parseServerMaxPlayerCountChangeEvent },
         { "player.onSquadChange",                &BF4CommandHandler::parsePlayerSquadChangeEvent },
         { "player.onTeamChange",                 &BF4CommandHandler::parsePlayerTeamChangeEvent },
         { "punkBuster.onMessage",                &BF4CommandHandler::parsePunkBusterMessageEvent },
+        { "server.onMaxPlayerCountChange",       &BF4CommandHandler::parseServerMaxPlayerCountChangeEvent },
         { "server.onLevelLoaded",                &BF4CommandHandler::parseServerLevelLoadedEvent },
         { "server.onRoundOver",                  &BF4CommandHandler::parseServerRoundOverEvent },
         { "server.onRoundOverPlayers",           &BF4CommandHandler::parseServerRoundOverPlayersEvent },
@@ -991,10 +991,11 @@ void BF4CommandHandler::parsePlayerAuthenticatedEvent(const FrostbiteRconPacket 
 
 void BF4CommandHandler::parsePlayerDisconnectEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    Q_UNUSED(packet);
     Q_UNUSED(lastSentPacket);
 
-    emit (onPlayerDisconnectEvent());
+    QString player = packet.getWord(1).getContent();
+
+    emit (onPlayerDisconnectEvent(player));
 }
 
 void BF4CommandHandler::parsePlayerJoinEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -1086,8 +1087,7 @@ void BF4CommandHandler::parseServerMaxPlayerCountChangeEvent(const FrostbiteRcon
     Q_UNUSED(packet);
     Q_UNUSED(lastSentPacket);
 
-    // TODO: Implement this.
-    qDebug() << "Please implement me!";
+    // TODO: Implement this, not implemented yet as i don't have any docs for this and i could trigger the event.
 }
 
 void BF4CommandHandler::parseServerLevelLoadedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

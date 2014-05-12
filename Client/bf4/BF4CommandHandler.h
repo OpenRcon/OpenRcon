@@ -339,7 +339,7 @@ private:
 signals:
     //* Event signals */
     void onPlayerAuthenticatedEvent(const QString &player);
-    void onPlayerDisconnectEvent();
+    void onPlayerDisconnectEvent(const QString &player);
     void onPlayerJoinEvent(const QString &player, const QString &guid);
     void onPlayerLeaveEvent(const QString &player, const QString &info);
     void onPlayerSpawnEvent(const QString &player, int teamId);
