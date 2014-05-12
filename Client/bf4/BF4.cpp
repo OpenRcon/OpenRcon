@@ -31,8 +31,6 @@ BF4::BF4(ServerEntry *serverEntry) :
 
     con->hostConnect(serverEntry->host, serverEntry->port);
 
-    levelDictionary = new BF4LevelDictionary(this);
-
     versionMap.insert(70517, "OB-R2");
     versionMap.insert(72879, "OB-R3");
     versionMap.insert(77582, "OB-R4");
@@ -188,7 +186,6 @@ BF4::~BF4()
 {
     delete con;
     delete commandHandler;
-    delete levelDictionary;
 }
 
 void BF4::onConnected()

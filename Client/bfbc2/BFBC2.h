@@ -40,7 +40,6 @@ public:
 protected:
     FrostbiteConnection *con;
     BFBC2CommandHandler *commandHandler;
-    BFBC2LevelDictionary *levelDictionary;
 
     QTimer *commandRefreshTimer;
 

@@ -19,21 +19,6 @@
 
 #include "LevelDictionary.h"
 
-LevelDictionary::LevelDictionary(QObject *parent) : QObject(parent)
-{
-
-}
-
-LevelDictionary::LevelDictionary(const QString &imagePath, QObject *parent) : LevelDictionary(parent)
-{
-    this->imagePath = imagePath;
-}
-
-LevelDictionary::~LevelDictionary()
-{
-
-}
-
 LevelEntry LevelDictionary::getLevel(int index)
 {
     return levelList.at(index);

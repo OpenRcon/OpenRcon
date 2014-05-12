@@ -473,8 +473,8 @@ void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
     */
 
     // Players
-    LevelEntry level = levelDictionary->getLevel(serverInfo.at(4));
-    GameModeEntry gameMode = levelDictionary->getGameMode(serverInfo.at(3));
+    LevelEntry level = BFBC2LevelDictionary::getLevel(serverInfo.at(4));
+    GameModeEntry gameMode = BFBC2LevelDictionary::getGameMode(serverInfo.at(3));
 
     ui->label_serverInfo_level->setText(QString("%1 - %2").arg(level.name).arg(gameMode.name));
     ui->label_serverInfo_mod->setText(QString("Mod: %1").arg(serverInfo.at(17)));
@@ -584,7 +584,7 @@ void BFBC2Widget::onVarsBannerUrlCommand(const QString &bannerUrl)
 void BFBC2Widget::onMapListListCommand(const QStringList &mapList)
 {
     for (QString engineName : mapList) {
-        LevelEntry level = levelDictionary->getLevel(engineName);
+        LevelEntry level = BFBC2LevelDictionary::getLevel(engineName);
 
         ui->listWidget_ml_currentmaps->addItem(level.name);
     }
@@ -876,7 +876,7 @@ void BFBC2Widget::comboBox_ml_gamemode_currentIndexChanged(int index)
     ui->listWidget_ml_avaliablemaps->blockSignals(false);
 
     // get a list of map names
-    QStringList mapNames = levelDictionary->getLevelNames(index);
+    QStringList mapNames = BFBC2LevelDictionary::getLevelNames(index);
 
     // add the maps with the correct modd to avaliable maps
     ui->listWidget_ml_avaliablemaps->addItems(mapNames);
@@ -906,7 +906,7 @@ void BFBC2Widget::listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem
 
     int index = ui->listWidget_ml_avaliablemaps->currentIndex().row();
     int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
-    LevelEntry level = levelDictionary->getLevel(index, gameModeIndex);
+    LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
 
     ui->label_ml_previewmap_image->setPixmap(level.image);
 }
@@ -948,7 +948,7 @@ void BFBC2Widget::on_pushButton_ml_add_clicked()
     // get selected map
     int avaliableMapIndex = ui->listWidget_ml_avaliablemaps->currentIndex().row();
     int rounds = ui->spinBox_ml_rounds->value();
-    LevelEntry level = levelDictionary->getLevel(avaliableMapIndex, gameModeIndex);
+    LevelEntry level = BFBC2LevelDictionary::getLevel(avaliableMapIndex, gameModeIndex);
 
     // create a new map item and insert it into current map list
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget_ml_currentmaps);
@@ -1004,7 +1004,7 @@ void BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem *
     int index = ui->listWidget_ml_currentmaps->currentRow();
     int gameModeIndex = gamemodes.indexOf(QRegExp(currentGamemode, Qt::CaseInsensitive));
 
-    LevelEntry level = levelDictionary->getLevel(index, gameModeIndex);
+    LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
 
     ui->label_ml_previewmap_image->setPixmap(level.image);
     con->sendCommand("\"mapList.list\" \"rounds\"");
@@ -1171,7 +1171,7 @@ void BFBC2Widget::playerListUpdate(int oldRow)
     int index = ui->listWidget_ml_currentmaps->currentRow();
     int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
 
-    LevelEntry level = levelDictionary->getLevel(index, gameModeIndex);
+    LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
 
     // get a list of map mods and map names and select all map names with a particular mod
 //    QStringList mapNames = levelDictionaryObject->levelDictionary().at(gameModeIndex)->mapNames();
@@ -1236,7 +1236,7 @@ void BFBC2Widget::slotAddMapToServer(const QString &mapName)
 
     int index = ui->listWidget_ml_avaliablemaps->currentRow();
 
-    LevelEntry level = levelDictionary->getLevel(index, gameModeIndex);
+    LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
 
     // get the amount of rounds from combo box
     int rounds = ui->spinBox_ml_rounds->value();
@@ -1299,7 +1299,7 @@ void BFBC2Widget::setMapList(const QString &gamemode)
     int gameModeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
 
     if (gameModeIndex != -1) {
-        QStringList mapNames = levelDictionary->getLevelNames(gameModeIndex);
+        QStringList mapNames = BFBC2LevelDictionary::getLevelNames(gameModeIndex);
 
         ui->listWidget_ml_avaliablemaps->clear();
         ui->listWidget_ml_avaliablemaps->addItems(mapNames);

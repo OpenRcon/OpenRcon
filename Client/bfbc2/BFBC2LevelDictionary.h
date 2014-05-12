@@ -21,15 +21,11 @@
 #define BFBC2LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
+
 #include "BFBC2LevelEntry.h"
 
 class BFBC2LevelDictionary : public LevelDictionary
 {
-    Q_OBJECT
-
-public:
-    BFBC2LevelDictionary(QObject *parent = nullptr);
-    ~BFBC2LevelDictionary();
 
 };
 

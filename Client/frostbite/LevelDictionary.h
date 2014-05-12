@@ -25,38 +25,32 @@
 #include "LevelEntry.h"
 #include "GameModeEntry.h"
 
-class LevelDictionary : public QObject
-{
-    Q_OBJECT
+class LevelDictionary {
 
 public:
-    LevelDictionary(QObject *parent = nullptr);
-    LevelDictionary(const QString &imagePath, QObject *parent = nullptr);
-    ~LevelDictionary();
+    static LevelEntry getLevel(int index);
+    static LevelEntry getLevel(const QString &level);
+    static LevelEntry getLevel(int index, int gameModeIndex);
+    static GameModeEntry getGameMode(int index);
+    static GameModeEntry getGameMode(const QString &level);
+    static QString getTeam(int index);
 
-    LevelEntry getLevel(int index);
-    LevelEntry getLevel(const QString &level);
-    LevelEntry getLevel(int index, int gameModeIndex);
-    GameModeEntry getGameMode(int index);
-    GameModeEntry getGameMode(const QString &level);
-    QString getTeam(int index);
+    static QList<LevelEntry> getLevels();
+    static QList<LevelEntry> getLevels(int gameModeIndex);
+    static QList<GameModeEntry> getGameModes();
+    static QStringList getTeams();
+    static QStringList getTeams(const LevelEntry &level);
 
-    QList<LevelEntry> getLevels();
-    QList<LevelEntry> getLevels(int gameModeIndex);
-    QList<GameModeEntry> getGameModes();
-    QStringList getTeams();
-    QStringList getTeams(const LevelEntry &level);
-
-    QStringList getLevelNames();
-    QStringList getLevelNames(int gameModeIndex);
-    QStringList getGameModeNames();
+    static QStringList getLevelNames();
+    static QStringList getLevelNames(int gameModeIndex);
+    static QStringList getGameModeNames();
 
 protected:
-    QList<LevelEntry> levelList;
-    QList<GameModeEntry> gameModeList;
-    QStringList teamList;
-    QHash<int, int> levelMap;
-    QString imagePath;
+    static QList<LevelEntry> levelList;
+    static QList<GameModeEntry> gameModeList;
+    static QStringList teamList;
+
+    static QHash<int, int> levelMap;
 
 };
 

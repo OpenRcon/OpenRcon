@@ -38,7 +38,6 @@ public:
 protected:
     FrostbiteConnection *con;
     BF4CommandHandler *commandHandler;
-    BF4LevelDictionary *levelDictionary;
 
     bool isAuthenticated();
 

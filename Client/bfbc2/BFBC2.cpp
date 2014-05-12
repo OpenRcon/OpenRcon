@@ -30,8 +30,6 @@ BFBC2::BFBC2(ServerEntry *serverEntry) :
 {
     con->hostConnect(serverEntry->host, serverEntry->port);
 
-    levelDictionary = new BFBC2LevelDictionary(this);
-
     versionMap.insert(571287, "R21");
     versionMap.insert(581637, "R22");
     versionMap.insert(584642, "R23");
@@ -56,7 +54,6 @@ BFBC2::~BFBC2()
 {
     delete con;
     delete commandHandler;
-    delete levelDictionary;
 }
 
 void BFBC2::onConnected()
@@ -145,7 +142,7 @@ QString BFBC2::getMapName(const QString &engineName, const QString &gamemode)
     int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
 
     if (gamemodeIndex != -1) {
-        LevelEntry level = levelDictionary->getLevel(engineName); // TODO: Mind the gamemode?
+        LevelEntry level = BFBC2LevelDictionary::getLevel(engineName); // TODO: Mind the gamemode?
 
         return level.name;
     }
@@ -158,7 +155,7 @@ QPixmap BFBC2::getMapImage(const QString &engineName, const QString &gamemode)
     int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
 
     if (gamemodeIndex != -1) {
-        LevelEntry level = levelDictionary->getLevel(engineName); // TODO: Mind the gamemode?
+        LevelEntry level = BFBC2LevelDictionary::getLevel(engineName); // TODO: Mind the gamemode?
 
         return level.image;
     }
