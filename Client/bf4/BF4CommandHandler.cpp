@@ -17,10 +17,10 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BF4CommandHandler.h"
 #include "FrostbiteConnection.h"
+#include "BF4CommandHandler.h"
 
-BF4CommandHandler::BF4CommandHandler(FrostbiteConnection * parent) : FrostbiteCommandHandler(parent)
+BF4CommandHandler::BF4CommandHandler(FrostbiteConnection *parent) : FrostbiteCommandHandler(parent)
 {
 
 }

@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BF4.h"
 #include "FrostbiteConnection.h"
+#include "BF4.h"
 #include "BF4CommandHandler.h"
 #include "BF4LevelDictionary.h"
 

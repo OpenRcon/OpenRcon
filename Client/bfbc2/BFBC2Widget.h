@@ -24,10 +24,9 @@
 #include <QMenu>
 #include <QCompleter>
 #include <QTime>
+#include <QTimer>
 #include <QInputDialog>
 #include <QDesktopServices>
-
-#include "Game.h"
 
 #include "ui_BFBC2Widget.h"
 #include "BFBC2.h"
@@ -63,6 +62,8 @@ private:
     QAction *action_rs_remove;
     QAction *action_ic_remove;
 
+    QTimer *commandRefreshTimer;
+
     QStringList commandList;
     QCompleter *completer;
 
@@ -77,10 +78,18 @@ private:
 
     QSettings *settings;
 
-    void logMessage(int type, const QString &message);
-    void startupCommands();
+    void setAuthenticated(bool authenticated);
+    void startupCommands(bool authenticated);
+//    void logEvent(const QString &event, const QString &message);
+//    void logChat(const QString &sender, const QString &message, const QString &target);
+    void logConsole(int type, const QString &message);
 
 private slots:
+    /* Connection */
+    void onConnected();
+    void onDisconnected();
+
+    /* Events */
     void onDataSentEvent(const QString &request);
     void onDataReceivedEvent(const QString &response);
 
@@ -95,15 +104,15 @@ private slots:
     void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
     void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
     void onPunkBusterMessageEvent(const QString &message);
-    void onPunkBusterVersionEvent(const QString &version);
     void onServerLoadingLevelEvent(const QString &levelName, int roundsPlayed, int roundsTotal);
     void onServerLevelStartedEvent();
     void onServerRoundOverEvent(int winningTeamId);
     void onServerRoundOverPlayersEvent(const QString &playerInfo);
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
-    // Commands
-    void onLoginHashedCommand();
+    /* Commands */
+    // Misc
+    void onLoginHashedCommand(bool auth);
     void onServerInfoCommand(const QStringList &serverInfo);
     void onAdminListPlayersCommand(const PlayerList &playerList);
     void onVarsServerNameCommand(const QString &serverName);

@@ -20,8 +20,6 @@
 #ifndef BF4_H
 #define BF4_H
 
-#include <QCryptographicHash>
-
 #include "FrostbiteGame.h"
 
 class FrostbiteConnection;

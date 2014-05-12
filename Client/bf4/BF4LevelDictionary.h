@@ -21,7 +21,6 @@
 #define BF4LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
-
 #include "BF4GameModeEntry.h"
 
 class BF4LevelDictionary : public LevelDictionary

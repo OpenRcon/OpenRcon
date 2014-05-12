@@ -503,7 +503,6 @@ void BF4Widget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
 }
 
 /* Commands */
-
 // Misc
 void BF4Widget::onLoginHashedCommand(bool auth)
 {

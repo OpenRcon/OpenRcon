@@ -20,8 +20,6 @@
 #ifndef BF4COMMANDHANDLER_H
 #define BF4COMMANDHANDLER_H
 
-#include <QCryptographicHash>
-
 #include "FrostbiteCommandHandler.h"
 #include "PlayerInfo.h"
 #include "BanListEntry.h"

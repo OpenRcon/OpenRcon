@@ -28,9 +28,6 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     ui->label_op_so_bannerImage->hide();
     ui->spinBox_ch_duration->hide();
 
-    ui->tableWidget_bl->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->listWidget_rs->setContextMenuPolicy(Qt::CustomContextMenu);
-
     action_pl_sendmessage = new QAction(tr("Send message"), this);
     action_pl_textchatmoderation_muted = new QAction(tr("Muted"), this);
     action_pl_textchatmoderation_normal = new QAction(tr("Normal"), this);
@@ -77,136 +74,17 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     menu_ic = new QMenu(tr("Ingame Commands"), this);
     menu_ic->addAction(action_ic_remove);
 
-    // Adds all the commands to the commandList.
-    commandList.append("login.plainText ");
-    commandList.append("login.hashed");
-    commandList.append("login.hashed ");
-    commandList.append("logout");
-    commandList.append("quit");
-    commandList.append("version");
-    commandList.append("listPlayers ");
-    commandList.append("eventsEnabled ");
-    commandList.append("help");
-    commandList.append("admin.runscript ");
-    commandList.append("punkBuster.pb_sv_command ");
-    commandList.append("serverInfo");
-    commandList.append("admin.yell ");
-    commandList.append("admin.say ");
-    commandList.append("admin.runNextRound");
-    commandList.append("admin.restartRound");
-    commandList.append("admin.endRound ");
-    commandList.append("admin.runNextLevel");
-    commandList.append("admin.restartMap");
-    commandList.append("admin.currentLevel");
-    commandList.append("mapList.nextLevelIndex");
-    commandList.append("mapList.nextLevelIndex ");
-    commandList.append("admin.supportedMaps ");
-    commandList.append("admin.setPlaylist ");
-    commandList.append("admin.getPlaylist");
-    commandList.append("admin.getPlaylists");
-    commandList.append("admin.kickPlayer ");
-    commandList.append("admin.listPlayers ");
-    commandList.append("admin.movePlayer ");
-    commandList.append("admin.killPlayer ");
-    commandList.append("vars.textChatModerationMode ");
-    commandList.append("vars.textChatSpamTriggerCount ");
-    commandList.append("vars.textChatSpamDetectionTime ");
-    commandList.append("vars.textChatSpamCoolDownTime ");
-    commandList.append("textChatModerationList.load");
-    commandList.append("textChatModerationList.save");
-    commandList.append("textChatModerationList.add ");
-    commandList.append("textChatModerationList.remove ");
-    commandList.append("textChatModerationList.clear");
-    commandList.append("textChatModerationList.list");
-    commandList.append("textChatModerationList.list ");
-    commandList.append("banList.load");
-    commandList.append("banList.save");
-    commandList.append("banList.add ");
-    commandList.append("banList.remove ");
-    commandList.append("banList.clear");
-    commandList.append("banList.list");
-    commandList.append("banList.list ");
-    commandList.append("reservedSlots.load");
-    commandList.append("reservedSlots.save");
-    commandList.append("reservedSlots.addPlayer ");
-    commandList.append("reservedSlots.removePlayer ");
-    commandList.append("reservedSlots.clear");
-    commandList.append("reservedSlots.list");
-    commandList.append("mapList.load");
-    commandList.append("mapList.save");
-    commandList.append("mapList.list");
-    commandList.append("mapList.list ");
-    commandList.append("mapList.clear");
-    commandList.append("mapList.remove ");
-    commandList.append("mapList.append ");
-    commandList.append("mapList.insert ");
-    commandList.append("vars.serverName");
-    commandList.append("vars.serverName ");
-    commandList.append("vars.adminPassword");
-    commandList.append("vars.adminPassword ");
-    commandList.append("vars.gamePassword");
-    commandList.append("vars.gamePassword ");
-    commandList.append("vars.punkBuster");
-    commandList.append("vars.punkBuster ");
-    commandList.append("vars.hardCore" );
-    commandList.append("vars.hardCore ");
-    commandList.append("vars.ranked");
-    commandList.append("vars.ranked ");
-    commandList.append("vars.rankLimit");
-    commandList.append("vars.rankLimit ");
-    commandList.append("vars.teamBalance");
-    commandList.append("vars.teamBalance ");
-    commandList.append("vars.friendlyFire");
-    commandList.append("vars.friendlyFire ");
-    commandList.append("vars.currentPlayerLimit");
-    commandList.append("vars.currentPlayerLimit ");
-    commandList.append("vars.maxPlayerLimit");
-    commandList.append("vars.maxPlayerLimit ");
-    commandList.append("vars.playerLimit");
-    commandList.append("vars.playerLimit ");
-    commandList.append("vars.bannerUrl");
-    commandList.append("vars.bannerUrl ");
-    commandList.append("vars.serverDescription");
-    commandList.append("vars.serverDescription ");
-    commandList.append("vars.killCam");
-    commandList.append("vars.killCam ");
-    commandList.append("vars.miniMap");
-    commandList.append("vars.miniMap ");
-    commandList.append("vars.crossHair");
-    commandList.append("vars.crossHair ");
-    commandList.append("vars.3dSpotting");
-    commandList.append("vars.3dSpotting ");
-    commandList.append("vars.miniMapSpotting");
-    commandList.append("vars.miniMapSpotting ");
-    commandList.append("vars.thirdPersonVehicleCameras");
-    commandList.append("vars.thirdPersonVehicleCameras ");
-    commandList.append("vars.teamKillCountForKick");
-    commandList.append("vars.teamKillCountForKick ");
-    commandList.append("vars.teamKillValueForKick");
-    commandList.append("vars.teamKillValueForKick ");
-    commandList.append("vars.teamKillValueIncrease");
-    commandList.append("vars.teamKillValueIncrease ");
-    commandList.append("vars.teamKillValueDecreasePerSecond");
-    commandList.append("vars.teamKillValueDecreasePerSecond ");
-    commandList.append("vars.idleTimeout");
-    commandList.append("vars.idleTimeout ");
-    commandList.append("vars.profanityFilter");
-    commandList.append("vars.profanityFilter ");
-    commandList.append("levelVars.set ");
-    commandList.append("levelVars.get ");
-    commandList.append("levelVars.evaluate ");
-    commandList.append("levelVars.clear ");
-    commandList.append("levelVars.list ");
-
     completer = new QCompleter(commandList, this);
     ui->lineEdit_co_co->setCompleter(completer);
 
-    /* Connecting signals to slots */
-    /* Messages and events */
+    /* Connection */
+    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
+    connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
+
+    /* Events */
     connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
     connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataReceivedEvent(QString)));
 
-    /* Events */
     connect(commandHandler, SIGNAL(onPlayerJoinEvent(QString)), this, SLOT(onPlayerJoinEvent(QString)));
     connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString, QString)), this, SLOT(onPlayerAuthenticatedEvent(QString, QString)));
     connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(onPlayerLeaveEvent(QString, QString)));
@@ -216,19 +94,20 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     connect(commandHandler, SIGNAL(onPlayerKickedEvent(QString, QString)), this, SLOT(onPlayerKickedEvent(QString, QString)));
     connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(QString, int, int)), this, SLOT(onPlayerSquadChangeEvent(QString, int, int)));
     connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(QString, int, int)), this, SLOT(onPlayerTeamChangeEvent(QString, int, int)));
-    connect(commandHandler, SIGNAL(onPunkBusterMessageEvent(QString)), this, SLOT(onPunkBusterMessageEvent(QString)));
-    connect(commandHandler, SIGNAL(onPunkBusterVersionEvent(QString)), this, SLOT(onPunkBusterVersionEvent(QString)));
     connect(commandHandler, SIGNAL(onServerLoadingLevelEvent(QString, int, int)), this, SLOT(onServerLoadingLevelEvent(QString, int, int)));
     connect(commandHandler, SIGNAL(onServerLevelStartedEvent()), this, SLOT(onServerLevelStartedEvent()));
     connect(commandHandler, SIGNAL(onServerRoundOverEvent(int)), this, SLOT(onServerRoundOverEvent(int)));
     connect(commandHandler, SIGNAL(onServerRoundOverPlayersEvent(QString)), this, SLOT(onServerRoundOverPlayersEvent(QString)));
     connect(commandHandler, SIGNAL(onServerRoundOverTeamScoresEvent(QString)), this, SLOT(onServerRoundOverTeamScoresEvent(QString)));
 
-    // Commands
-    connect(commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
+    /* Commands */
 
+    // Misc
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
+    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
     connect(commandHandler, SIGNAL(onServerInfoCommand(QStringList)), this, SLOT(onServerInfoCommand(QStringList)));
     connect(commandHandler, SIGNAL(onAdminListPlayersCommand(PlayerList)), this, SLOT(onAdminListPlayersCommand(PlayerList)));
+
     connect(commandHandler, SIGNAL(onVarsServerNameCommand(QString)), this, SLOT(onVarsServerNameCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(QString)), this, SLOT(onVarsServerDescriptionCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsBannerUrlCommand(QString)), this, SLOT(onVarsBannerUrlCommand(QString)));
@@ -308,70 +187,164 @@ BFBC2Widget::~BFBC2Widget()
     delete ui;
 }
 
-void BFBC2Widget::logMessage(int type, const QString &message)
+void BFBC2Widget::setAuthenticated(bool authenticated)
 {
-    QString currentTime = QString("[%1]").arg(QTime::currentTime().toString());
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_rs), authenticated);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), authenticated);
 
-    if (type == 0) { // Info
-        ui->textEdit_ev->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
-    } else if (type == 1) { // Error
-        ui->textEdit_ev->append(QString("%1 <span style=\"color:red\">%2</span>").arg(currentTime, message));
-    } else if (type == 2) { // Server send
-        ui->textEdit_co_co->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
-    } else if (type == 3) { // Server receive
-        ui->textEdit_co_co->append(QString("%1 <span style=\"color:#0000FF\">%2</span>").arg(currentTime, message));
-    } else if (type == 4) { // Chat
-        ui->textEdit_ch->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
-    } else if (type == 5) { // Punkbuster
-        ui->textEdit_co_pb->append(QString("%1 <span style=\"color:#008000\">%2</span>").arg(currentTime, message));
+    startupCommands(authenticated);
+}
+
+void BFBC2Widget::startupCommands(bool authenticated)
+{
+    // Misc
+    con->sendCommand("version");
+    con->sendCommand("serverInfo");
+
+    if (authenticated) {
+        con->sendCommand("\"eventsEnabled\" \"true\"");
+        con->sendCommand("\"admin.listPlayers\" \"all\"");
+
+        con->sendCommand("vars.serverName");
+        con->sendCommand("vars.serverDescription");
+        con->sendCommand("vars.bannerUrl");
+
+    //    con->sendCommand("vars.idleTimeout");
+
+    //    con->sendCommand("vars.textChatModerationMode");
+    //    con->sendCommand("vars.textChatSpamTriggerCount");
+    //    con->sendCommand("vars.textChatSpamDetectionTime");
+    //    con->sendCommand("vars.textChatSpamCoolDownTime");
+
+        con->sendCommand("mapList.list");
+
+        con->sendCommand("banList.list");
+        con->sendCommand("reservedSlots.list");
+
+        // Admins
+
+        // Banning
+
+        // Maplist
+
+        // Player
+
+        // Punkbuster
+
+        // Reserved Slots
+
+        // Spectator list
+
+        // Squad
+
+        // Variables
+
+    } else {
+        con->sendCommand("\"listPlayers\" \"all\"");
     }
 }
 
-/* Events */
-void BFBC2Widget::onDataSentEvent(const QString &command)
+//void BFBC2Widget::logEvent(const QString &event, const QString &message)
+//{
+//    int row = ui->tableWidget_ev_events->rowCount();
+
+//    ui->tableWidget_ev_events->insertRow(row);
+//    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss")));
+//    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
+//    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
+//    ui->tableWidget_ev_events->resizeColumnsToContents();
+//}
+
+//void BFBC2Widget::logChat(const QString &sender, const QString &message, const QString &target)
+//{
+//    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
+//}
+
+void BFBC2Widget::logConsole(int type, const QString &message)
 {
-    logMessage(2, command);
+    QString time = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
+
+    switch (type) {
+        case 0: // Server con->send
+            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
+            break;
+
+        case 1: // Server receive
+            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
+            break;
+
+        case 2: // Punkbuster con->send
+            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
+            break;
+
+        case 3: // PunkBuster receive
+            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
+            break;
+    }
+}
+
+/* Connection */
+void BFBC2Widget::onConnected()
+{
+    setAuthenticated(false);
+
+//    logEvent("Connected", tr("Connected to %1:%2.").arg(con->tcpSocket->peerAddress().toString()).arg(con->tcpSocket->peerPort()));
+}
+
+void BFBC2Widget::onDisconnected()
+{
+//    logEvent("Disconnected", tr("Disconnected."));
+}
+
+/* Events */
+void BFBC2Widget::onDataSentEvent(const QString &request)
+{
+    logConsole(0, request);
 }
 
 void BFBC2Widget::onDataReceivedEvent(const QString &response)
 {
-    logMessage(3, response);
+    logConsole(1, response);
 }
 
 void BFBC2Widget::onPlayerJoinEvent(const QString &player)
 {
-    logMessage(0, tr("Player <b>%1</b> joined the game.").arg(player));
+    logConsole(0, tr("Player <b>%1</b> joined the game.").arg(player));
 
     con->sendCommand("\"admin.listPlayers\" \"all\"");
 }
 
 void BFBC2Widget::onPlayerAuthenticatedEvent(const QString &player, const QString &guid)
 {
-    logMessage(0, tr("Player <b>%1</b> authenticated with GUID: <b>%2</b>.").arg(player).arg(guid));
+    logConsole(0, tr("Player <b>%1</b> authenticated with GUID: <b>%2</b>.").arg(player).arg(guid));
 }
 
 void BFBC2Widget::onPlayerLeaveEvent(const QString &player, const QString &info)
 {
-    logMessage(0, tr("Player <b>%1</b> left the game.").arg(player).arg(info)); // TODO: Impelment score stuffs here?
+    logConsole(0, tr("Player <b>%1</b> left the game.").arg(player).arg(info)); // TODO: Impelment score stuffs here?
 
     con->sendCommand("\"admin.listPlayers\" \"all\"");
 }
 
 void BFBC2Widget::onPlayerSpawnEvent(const QString &player, const QString &kit, const QStringList &weaponList)
 {
-    logMessage(0, tr("Player <b>%1</b> spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(player).arg(kit).arg(weaponList.at(0)).arg(weaponList.at(1)).arg(weaponList.at(2))); // TODO: Implement dynamic length on selected weapons.
+    logConsole(0, tr("Player <b>%1</b> spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(player).arg(kit).arg(weaponList.at(0)).arg(weaponList.at(1)).arg(weaponList.at(2))); // TODO: Implement dynamic length on selected weapons.
 }
 
 void BFBC2Widget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
 {
     if (killer != victim) {
         if (headshot) {
-            logMessage(0, tr("Player <b>%1</b> headshoted player <b>%2</b> using <b>%3</b>").arg(killer).arg(victim).arg(weapon));
+            logConsole(0, tr("Player <b>%1</b> headshoted player <b>%2</b> using <b>%3</b>").arg(killer).arg(victim).arg(weapon));
         } else {
-            logMessage(0, tr("Player <b>%1</b> killed player <b>%2</b> with <b>%3</b>").arg(killer).arg(victim).arg(weapon));
+            logConsole(0, tr("Player <b>%1</b> killed player <b>%2</b> with <b>%3</b>").arg(killer).arg(victim).arg(weapon));
         }
     } else {
-        logMessage(0, tr("Player <b>%1</b> commited sucide using <b>%3</b>").arg(killer).arg(weapon));
+        logConsole(0, tr("Player <b>%1</b> commited sucide using <b>%3</b>").arg(killer).arg(weapon));
     }
 }
 
@@ -379,12 +352,12 @@ void BFBC2Widget::onPlayerChatEvent(const QString &player, const QString &messag
 {
     Q_UNUSED(target)
 
-    logMessage(4, tr("<b>%2</b>: %3").arg(player).arg(message));
+    logConsole(4, tr("<b>%2</b>: %3").arg(player).arg(message));
 }
 
 void BFBC2Widget::onPlayerKickedEvent(const QString &player, const QString &reason)
 {
-    logMessage(0, tr("Player <b>%1</b> was kicked from the game, the reason was: <b>%2</b>.").arg(player).arg(reason));
+    logConsole(0, tr("Player <b>%1</b> was kicked from the game, the reason was: <b>%2</b>.").arg(player).arg(reason));
 }
 
 void BFBC2Widget::onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId)
@@ -392,7 +365,7 @@ void BFBC2Widget::onPlayerSquadChangeEvent(const QString &player, int teamId, in
     Q_UNUSED(teamId);
 
     if (squadId != 0) {
-        logMessage(0, tr("Player <b>%1</b> changed squad to <b>%3</b>.").arg(player).arg(getSquadName(squadId)));
+        logConsole(0, tr("Player <b>%1</b> changed squad to <b>%3</b>.").arg(player).arg(getSquadName(squadId)));
     }
 }
 
@@ -400,17 +373,12 @@ void BFBC2Widget::onPlayerTeamChangeEvent(const QString &player, int teamId, int
 {
     Q_UNUSED(squadId);
 
-    logMessage(0, tr("Player <b>%1</b> changed team to <b>%2</b>.").arg(player).arg(teamId));
+    logConsole(0, tr("Player <b>%1</b> changed team to <b>%2</b>.").arg(player).arg(teamId));
 }
 
 void BFBC2Widget::onPunkBusterMessageEvent(const QString &message)
 {
-    logMessage(5, message);
-}
-
-void BFBC2Widget::onPunkBusterVersionEvent(const QString &version)
-{
-    logMessage(5, version);
+    logConsole(5, message);
 }
 
 void BFBC2Widget::onServerLoadingLevelEvent(const QString &levelName, int roundsPlayed, int roundsTotal)
@@ -418,33 +386,43 @@ void BFBC2Widget::onServerLoadingLevelEvent(const QString &levelName, int rounds
     Q_UNUSED(roundsPlayed);
     Q_UNUSED(roundsTotal);
 
-    logMessage(0, tr("Loading level: <b>%1</b>").arg(levelName)); // TODO: Transelate internal level name to human readable.
+    logConsole(0, tr("Loading level: <b>%1</b>").arg(levelName)); // TODO: Transelate internal level name to human readable.
 }
 
 void BFBC2Widget::onServerLevelStartedEvent()
 {
-    logMessage(0, tr("Level started"));
+    logConsole(0, tr("Level started"));
 }
 
 void BFBC2Widget::onServerRoundOverEvent(int winningTeamId)
 {
-    logMessage(0, tr("The round has just ended, and <b>%1</b> won").arg(winningTeamId));
+    logConsole(0, tr("The round has just ended, and <b>%1</b> won").arg(winningTeamId));
 }
 
 void BFBC2Widget::onServerRoundOverPlayersEvent(const QString &playerInfo)
 {
-    logMessage(0, tr("The round has just ended, and <b>%1</b> is the final detailed player stats").arg(playerInfo)); // TODO: Check what this actually outputs.
+    logConsole(0, tr("The round has just ended, and <b>%1</b> is the final detailed player stats").arg(playerInfo)); // TODO: Check what this actually outputs.
 }
 
 void BFBC2Widget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
 {
-    logMessage(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team").arg(teamScores));
+    logConsole(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team").arg(teamScores));
 }
 
-void BFBC2Widget::onLoginHashedCommand()
+/* Commands */
+// Misc
+void BFBC2Widget::onLoginHashedCommand(bool auth)
 {
-    // Call commands on startup.
-    startupCommands();
+    if (auth) {
+        // Call commands on startup.
+        setAuthenticated(true);
+    } else {
+        int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
+
+        if (ret) {
+            con->hostDisconnect();
+        }
+    }
 }
 
 void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
@@ -644,31 +622,6 @@ void BFBC2Widget::onVarsTextChatSpamCoolDownTimeCommand(int count)
 void BFBC2Widget::onVarsIdleTimeoutCommand(int seconds)
 {
     ui->spinBox_op_gpo_idleTimeout->setValue(seconds);
-}
-
-void BFBC2Widget::startupCommands()
-{
-    con->sendCommand("\"eventsEnabled\" \"true\"");
-    con->sendCommand("version");
-
-    con->sendCommand("serverInfo");
-    con->sendCommand("\"admin.listPlayers\" \"all\"");
-
-    con->sendCommand("vars.serverName");
-    con->sendCommand("vars.serverDescription");
-    con->sendCommand("vars.bannerUrl");
-
-//    con->sendCommand("vars.idleTimeout");
-
-//    con->sendCommand("vars.textChatModerationMode");
-//    con->sendCommand("vars.textChatSpamTriggerCount");
-//    con->sendCommand("vars.textChatSpamDetectionTime");
-//    con->sendCommand("vars.textChatSpamCoolDownTime");
-
-    con->sendCommand("mapList.list");
-
-    con->sendCommand("banList.list");
-    con->sendCommand("reservedSlots.list");
 }
 
 // Player

@@ -20,15 +20,13 @@
 #ifndef BF3_H
 #define BF3_H
 
-#include <QCryptographicHash>
 #include "FrostbiteGame.h"
 
 class FrostbiteConnection;
-class BF3LevelDictionary;
 class BF3CommandHandler;
+class BF3LevelDictionary;
 
-class BF3 : public FrostbiteGame
-{
+class BF3 : public FrostbiteGame {
     Q_OBJECT
 
 public:

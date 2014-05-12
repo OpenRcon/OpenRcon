@@ -1,5 +1,24 @@
-#include "BFBC2CommandHandler.h"
+/*
+ * Copyright (C) 2014 The OpenRcon Project.
+ *
+ * This file is part of OpenRcon.
+ *
+ * OpenRcon is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * OpenRcon is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "FrostbiteConnection.h"
+#include "BFBC2CommandHandler.h"
 
 BFBC2CommandHandler::BFBC2CommandHandler(FrostbiteConnection *parent) : FrostbiteCommandHandler(parent)
 {
@@ -16,7 +35,7 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
     typedef void (BFBC2CommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
     static QHash<QString, ResponseFunction> responses = {
-        // Events.
+        /* Events */
         { "player.onJoin",                       &BFBC2CommandHandler::parsePlayerJoinEvent },
         { "player.onAuthenticated",              &BFBC2CommandHandler::parsePlayerAuthenticatedEvent },
         { "player.onLeave",                      &BFBC2CommandHandler::parsePlayerLeaveEvent },
@@ -34,6 +53,7 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         { "server.onRoundOverPlayers",           &BFBC2CommandHandler::parseServerRoundOverPlayersEvent },
         { "server.onRoundOverTeamScores",        &BFBC2CommandHandler::parseServerRoundOverTeamScoresEvent },
 
+        /* Commands */
         // Misc
         { "listPlayers",                         &BFBC2CommandHandler::parseListPlayersCommand },
         { "eventsEnabled",                       nullptr /*&BFBC2CommandHandler::parseEventsEnabledCommand*/ },
@@ -126,7 +146,7 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         { "vars.idleTimeout",                    &BFBC2CommandHandler::parseVarsIdleTimeoutCommand },
         { "vars.profanityFilter",                nullptr /*&BFBC2CommandHandler::parseVarsProfanityFilterCommand*/ },
 
-        // Level Vars commands.
+        // LevelVars
         { "LevelVars.set",                       nullptr /*&BFBC2CommandHandler::parseLevelVarsSetCommand*/ },
         { "LevelVars.get",                       nullptr /*&BFBC2CommandHandler::parseLevelVarsGetCommand*/ },
         { "LevelVars.evaluate",                  nullptr /*&BFBC2CommandHandler::parseLevelVarsEvaluateCommand*/ },

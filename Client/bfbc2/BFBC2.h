@@ -20,17 +20,13 @@
 #ifndef BFBC2_H
 #define BFBC2_H
 
-#include <QTimer>
-#include <QCryptographicHash>
-
 #include "FrostbiteGame.h"
 
 class FrostbiteConnection;
 class BFBC2CommandHandler;
 class BFBC2LevelDictionary;
 
-class BFBC2 : public FrostbiteGame
-{
+class BFBC2 : public FrostbiteGame {
     Q_OBJECT
 
 public:
@@ -42,15 +38,13 @@ protected:
     BFBC2CommandHandler *commandHandler;
     BFBC2LevelDictionary *levelDictionary;
 
-    QTimer *commandRefreshTimer;
+    bool isAuthenticated();
 
     QString currentMod;
     QString currentGamemode;
     QStringList gamemodes;
     int nextLevelIndex;
     QStringList mapListU;
-
-    bool isAuthenticated();
 
     void sendSayMessage(const QString &msg, const QString &group);
     void sendYellMessage(const QString &message, int duration, const QString &group);
@@ -66,10 +60,11 @@ protected:
 private:
     bool authenticated;
 
-private slots: 
+private slots:
     void onConnected();
     void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand();
+    void onLoginHashedCommand(bool auth);
+    void onVersionCommand(const QString &type, int build);
 
     void slotCommandMapListListRounds(QStringList ml);
 

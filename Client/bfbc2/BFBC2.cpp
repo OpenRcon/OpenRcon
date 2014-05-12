@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BFBC2.h"
 #include "FrostbiteConnection.h"
+#include "BFBC2.h"
 #include "BFBC2CommandHandler.h"
 #include "BFBC2LevelDictionary.h"
 
@@ -44,12 +44,102 @@ BFBC2::BFBC2(ServerEntry *serverEntry) :
     versionMap.insert(720174, "R32");
     versionMap.insert(851434, "R34");
 
+    commandList.append("login.plainText ");
+    commandList.append("login.hashed");
+    commandList.append("logout");
+    commandList.append("quit");
+    commandList.append("version");
+    commandList.append("listPlayers");
+    commandList.append("eventsEnabled");
+    commandList.append("help");
+    commandList.append("admin.runscript");
+    commandList.append("punkBuster.pb_sv_command");
+    commandList.append("serverInfo");
+    commandList.append("admin.yell");
+    commandList.append("admin.say");
+    commandList.append("admin.runNextRound");
+    commandList.append("admin.restartRound");
+    commandList.append("admin.endRound");
+    commandList.append("admin.runNextLevel");
+    commandList.append("admin.restartMap");
+    commandList.append("admin.currentLevel");
+    commandList.append("mapList.nextLevelIndex");
+    commandList.append("admin.supportedMaps");
+    commandList.append("admin.setPlaylist");
+    commandList.append("admin.getPlaylist");
+    commandList.append("admin.getPlaylists");
+    commandList.append("admin.kickPlayer");
+    commandList.append("admin.listPlayers");
+    commandList.append("admin.movePlayer");
+    commandList.append("admin.killPlayer");
+    commandList.append("vars.textChatModerationMode");
+    commandList.append("vars.textChatSpamTriggerCount");
+    commandList.append("vars.textChatSpamDetectionTime");
+    commandList.append("vars.textChatSpamCoolDownTime");
+    commandList.append("textChatModerationList.load");
+    commandList.append("textChatModerationList.save");
+    commandList.append("textChatModerationList.add ");
+    commandList.append("textChatModerationList.remove");
+    commandList.append("textChatModerationList.clear");
+    commandList.append("textChatModerationList.list");
+    commandList.append("banList.load");
+    commandList.append("banList.save");
+    commandList.append("banList.add");
+    commandList.append("banList.remove");
+    commandList.append("banList.clear");
+    commandList.append("banList.list");
+    commandList.append("reservedSlots.load");
+    commandList.append("reservedSlots.save");
+    commandList.append("reservedSlots.addPlayer");
+    commandList.append("reservedSlots.removePlayer");
+    commandList.append("reservedSlots.clear");
+    commandList.append("reservedSlots.list");
+    commandList.append("mapList.load");
+    commandList.append("mapList.save");
+    commandList.append("mapList.list");
+    commandList.append("mapList.clear");
+    commandList.append("mapList.remove");
+    commandList.append("mapList.append");
+    commandList.append("mapList.insert");
+    commandList.append("vars.serverName");
+    commandList.append("vars.adminPassword");
+    commandList.append("vars.gamePassword");
+    commandList.append("vars.punkBuster");
+    commandList.append("vars.hardCore");
+    commandList.append("vars.ranked");
+    commandList.append("vars.rankLimit");
+    commandList.append("vars.teamBalance");
+    commandList.append("vars.friendlyFire");
+    commandList.append("vars.currentPlayerLimit");
+    commandList.append("vars.maxPlayerLimit");
+    commandList.append("vars.playerLimit");
+    commandList.append("vars.bannerUrl");
+    commandList.append("vars.serverDescription");
+    commandList.append("vars.killCam");
+    commandList.append("vars.miniMap");
+    commandList.append("vars.crossHair");
+    commandList.append("vars.3dSpotting");
+    commandList.append("vars.miniMapSpotting");
+    commandList.append("vars.thirdPersonVehicleCameras");
+    commandList.append("vars.teamKillCountForKick");
+    commandList.append("vars.teamKillValueForKick");
+    commandList.append("vars.teamKillValueIncrease");
+    commandList.append("vars.teamKillValueDecreasePerSecond");
+    commandList.append("vars.idleTimeout");
+    commandList.append("vars.profanityFilter");
+    commandList.append("levelVars.set");
+    commandList.append("levelVars.get");
+    commandList.append("levelVars.evaluate");
+    commandList.append("levelVars.clear");
+    commandList.append("levelVars.list");
+
     // Connection
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
 
     // Commands
     connect(commandHandler, SIGNAL(onLoginHashedCommand(QByteArray)), this, SLOT(onLoginHashedCommand(QByteArray)));
-    connect(commandHandler, SIGNAL(onLoginHashedCommand()), this, SLOT(onLoginHashedCommand()));
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
+    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
 }
 
 BFBC2::~BFBC2()
@@ -62,25 +152,30 @@ BFBC2::~BFBC2()
 void BFBC2::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
-        con->sendCommand("login.hashed");
+        commandHandler->sendLoginHashedCommand();
     }
-}
-
-void BFBC2::onLoginHashedCommand()
-{
-    authenticated = true;
 }
 
 void BFBC2::onLoginHashedCommand(const QByteArray &salt)
 {
-    QString password = serverEntry->password;
+    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
+        commandHandler->sendLoginHashedCommand(salt, serverEntry->password);
+    }
+}
 
-    if (!isAuthenticated() && !password.isEmpty()) {
-        QCryptographicHash hash(QCryptographicHash::Md5);
-        hash.addData(salt);
-        hash.addData(password.toLatin1().constData());
+void BFBC2::onLoginHashedCommand(bool auth)
+{
+    authenticated = auth;
+}
 
-        con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
+void BFBC2::onVersionCommand(const QString &type, int build)
+{
+    Q_UNUSED(build);
+
+    if (type != "BFBC2") {
+        con->hostDisconnect();
+
+        qDebug() << tr("Wrong server type, disconnecting...");
     }
 }
 

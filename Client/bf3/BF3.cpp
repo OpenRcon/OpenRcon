@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BF3.h"
 #include "FrostbiteConnection.h"
+#include "BF3.h"
 #include "BF3CommandHandler.h"
 #include "BF3LevelDictionary.h"
 

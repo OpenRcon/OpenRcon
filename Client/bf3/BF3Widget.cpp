@@ -25,9 +25,13 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
 {
     ui->setupUi(this);
 
+    /* Connection */
+    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
+    connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
+
     /* Events */
     connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
-    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataSentEvent(QString)));
+    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataReceivedEvent(QString)));
 
     /* Commands */
     // Misc
@@ -70,7 +74,6 @@ void BF3Widget::startupCommands(bool authenticated)
 //        commandHandler->sendAdminEventsEnabledCommand(true);
 
         // Admins
-//        commandHandler->sendAdminListPlayersCommand(All);
 
         // Banning
 
@@ -79,8 +82,6 @@ void BF3Widget::startupCommands(bool authenticated)
         // Player
 
         // Punkbuster
-//        commandHandler->sendPunkBusterIsActive();
-//        commandHandler->sendPunkBusterPbSvCommand("pb_sv_plist");
 
         // Reserved Slots
 
@@ -89,20 +90,33 @@ void BF3Widget::startupCommands(bool authenticated)
         // Squad
 
         // Variables
-
     } else {
-        timerPlayerList->stop();
-        connect(timerPlayerList, SIGNAL(timeout()), this, SLOT(updatePlayerList()));
-        timerPlayerList->start(1000);
+        commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
 }
 
+//void BF3Widget::logEvent(const QString &event, const QString &message)
+//{
+//    int row = ui->tableWidget_ev_events->rowCount();
+
+//    ui->tableWidget_ev_events->insertRow(row);
+//    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss")));
+//    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
+//    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
+//    ui->tableWidget_ev_events->resizeColumnsToContents();
+//}
+
+//void BF3Widget::logChat(const QString &sender, const QString &message, const QString &target)
+//{
+//    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
+//}
+
 void BF3Widget::logConsole(int type, const QString &message)
 {
-    QString time = QTime::currentTime().toString();
+    QString time = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
 
     switch (type) {
-        case 0: // Server send
+        case 0: // Server con->send
             ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
             break;
 
@@ -110,7 +124,7 @@ void BF3Widget::logConsole(int type, const QString &message)
             ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
             break;
 
-        case 2: // Punkbuster send
+        case 2: // Punkbuster con->send
             ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
             break;
 
@@ -125,7 +139,7 @@ void BF3Widget::onConnected()
 {
     setAuthenticated(false);
 
-//    logEvent("Connected", tr("Connected to %1:%2.").arg(commandHandler->tcpSocket->peerAddress().toString()).arg(commandHandler->tcpSocket->peerPort()));
+//    logEvent("Connected", tr("Connected to %1:%2.").arg(con->tcpSocket->peerAddress().toString()).arg(con->tcpSocket->peerPort()));
 }
 
 void BF3Widget::onDisconnected()

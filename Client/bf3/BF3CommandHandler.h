@@ -20,8 +20,6 @@
 #ifndef BF3COMMANDHANDLER_H
 #define BF3COMMANDHANDLER_H
 
-#include <QCryptographicHash>
-
 #include "FrostbiteCommandHandler.h"
 #include "PlayerInfo.h"
 
@@ -45,53 +43,53 @@ public:
 
 private:
     /* Parse events */
-    void parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet);
-    void parsePlayerJoinEvent(const FrostbiteRconPacket &packet);
-    void parsePlayerLeaveEvent(const FrostbiteRconPacket &packet);
-    void parsePlayerSpawnEvent(const FrostbiteRconPacket &packet);
-    void parsePlayerKillEvent(const FrostbiteRconPacket &packet);
-    void parsePlayerChatEvent(const FrostbiteRconPacket &packet);
-    void parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet);
-    void parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet);
-    void parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet);
-    void parseMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet);
-    void parseLevelLoadedEvent(const FrostbiteRconPacket &packet);
-    void parseServerRoundOverEvent(const FrostbiteRconPacket &packet);
-    void parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet);
-    void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet);
+    void parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerJoinEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerLeaveEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerSpawnEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerKillEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerChatEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseLevelLoadedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     /* Parse commands */
     // Misc
-    /*void parseServerInfoCommand(const FrostbiteRconPacket &packet);
-    void parseAdminHelpCommand(const FrostbiteRconPacket &packet);
-    void parseListPlayersCommand(const FrostbiteRconPacket &packet);*/
+    /*void parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // Admin
-    /*void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet);
-    void parseAdminPasswordCommand(const FrostbiteRconPacket &packet);
-    void parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet);
-    void parseAdminSayCommand(const FrostbiteRconPacket &packet);
-    void parseAdminYellCommand(const FrostbiteRconPacket &packet);
-    void parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet);
+    /*void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet);
-    void parseAdminKillPlayerCommand(const FrostbiteRconPacket &packet);*/
+    void parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminKillPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // Player
-    /*void parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet);
-    void parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet);
-    void parsePlayerPingCommand(const FrostbiteRconPacket &packet);*/
+    /*void parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerPingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // Squad
-    /*void parseSquadListActiveCommand(const FrostbiteRconPacket &packet);
-    void parseSquadListPlayersCommand(const FrostbiteRconPacket &packet);
-    void parseSquadPrivateCommand(const FrostbiteRconPacket &packet);
-    void parseSquadLeaderCommand(const FrostbiteRconPacket &packet);*/
+    /*void parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseSquadPrivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // PunkBuster
-    /*void parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet);
-    void parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet);
-    void parsePunkBusterPbSvCommandCommand(const FrostbiteRconPacket &packet);*/
+    /*void parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePunkBusterPbSvCommandCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // BanList
     /*void parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -126,46 +124,46 @@ private:
     void parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // Vars
-    /*void parseVarsRankedCommand(const FrostbiteRconPacket &packet);
-    void parseVarsServerNameCommand(const FrostbiteRconPacket &packet);
-    void parseVarsGamePasswordCommand(const FrostbiteRconPacket &packet);
-    void parseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet);
-    void parseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet);
-    void parseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet);
-    void parseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet);
-    void parseVarsServerMessageCommand(const FrostbiteRconPacket &packet);
-    void parseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet);
-    void parseVarsMaxPlayersCommand(const FrostbiteRconPacket &packet);
-    void parseVarsServerDescriptionCommand(const FrostbiteRconPacket &packet);
-    void parseVarsKillCamCommand(const FrostbiteRconPacket &packet);
-    void parseVarsMiniMapCommand(const FrostbiteRconPacket &packet);
-    void parseVarsHudCommand(const FrostbiteRconPacket &packet);
-    void parseVarsCrossHairCommand(const FrostbiteRconPacket &packet);
-    void parsevars3dSpottingCommand(const FrostbiteRconPacket &packet);
-    void parseVarsMiniMapSpottingCommand(const FrostbiteRconPacket &packet);
-    void parseVarsNameTagCommand(const FrostbiteRconPacket &packet);
-    void parseVars3pCamCommand(const FrostbiteRconPacket &packet);
-    void parseVarsRegenerateHealthCommand(const FrostbiteRconPacket &packet);
-    void parseVarsTeamKillCountForKickCommand(const FrostbiteRconPacket &packet);
-    void parseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet);
-    void parseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet);
-    void parseVarsTeamKillValueDecreasePerSecondCommand(const FrostbiteRconPacket &packet);
-    void parseVarsTeamKillKickForBanCommand(const FrostbiteRconPacket &packet);
-    void parseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packet);
-    void parseVarsIdleBanRoundsCommand(const FrostbiteRconPacket &packet);
-    void parseVarsVehicleSpawnAllowedCommand(const FrostbiteRconPacket &packet);
-    void parseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet);
-    void parseVarsSoldierHealthCommand(const FrostbiteRconPacket &packet);
-    void parseVarsPlayerRespawnTimeCommand(const FrostbiteRconPacket &packet);
-    void parseVarsPlayerManDownTimeCommand(const FrostbiteRconPacket &packet);
-    void parseVarsBulletDamageCommand(const FrostbiteRconPacket &packet);
-    void parseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet);
-    void parseVarsOnlySquadLeaderSpawnCommand(const FrostbiteRconPacket &packet);
-    void parseVarsUnlockModeCommand(const FrostbiteRconPacket &packet);
-    void parseVarsPremiumStatusCommand(const FrostbiteRconPacket &packet);
-    void parseVarsBannerUrlCommand(const FrostbiteRconPacket &packet);
-    void parseVarsRoundsPerMapCommand(const FrostbiteRconPacket &packet);
-    void parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet);*/
+    /*void parseVarsRankedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsServerNameCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsGamePasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsServerMessageCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsServerDescriptionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsKillCamCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsMiniMapCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsHudCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsCrossHairCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsevars3dSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsMiniMapSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsNameTagCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVars3pCamCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRegenerateHealthCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsTeamKillCountForKickCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsTeamKillValueDecreasePerSecondCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsTeamKillKickForBanCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsIdleBanRoundsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsVehicleSpawnAllowedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsSoldierHealthCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsPlayerRespawnTimeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsPlayerManDownTimeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsBulletDamageCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsOnlySquadLeaderSpawnCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsUnlockModeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsPremiumStatusCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsBannerUrlCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundsPerMapCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
 signals:
     /* Event signals */

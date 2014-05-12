@@ -25,9 +25,9 @@
 
 #include "ui_BF3Widget.h"
 #include "BF3.h"
+#include "FrostbiteConnection.h"
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
-#include "FrostbiteConnection.h"
 
 class BF3Widget : public BF3
 {
@@ -60,7 +60,10 @@ private:
 
     void setAuthenticated(bool authenticated);
     void startupCommands(bool authenticated);
+//    void logEvent(const QString &event, const QString &message);
+//    void logChat(const QString &sender, const QString &message, const QString &target);
     void logConsole(int type, const QString &message);
+
     QIcon getRankIcon(int rank);
 
 private slots:

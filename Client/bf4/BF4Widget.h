@@ -132,7 +132,6 @@ private slots:
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Commands */
-
     // Misc
     void onLoginHashedCommand(bool auth);
     void onVersionCommand(const QString &type, int build);
