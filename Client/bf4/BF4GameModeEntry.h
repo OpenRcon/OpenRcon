@@ -22,7 +22,13 @@
 
 #include "GameModeEntry.h"
 
-struct BF4GameModeEntry : public GameModeEntry {
+struct BF4GameModeEntry : public GameModeEntry
+{
+    BF4GameModeEntry()
+    {
+
+    }
+
     BF4GameModeEntry(const QString &engineName,
                      const QString &name,
                      int players,

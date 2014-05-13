@@ -22,15 +22,13 @@
 
 #include "LevelDictionary.h"
 #include "BFBC2LevelEntry.h"
+#include "GameModeEntry.h"
 
-class BFBC2LevelDictionary : public LevelDictionary
-{
-    Q_OBJECT
+typedef LevelDictionary<1, BFBC2LevelEntry, GameModeEntry> BFBC2LevelDictionary;
 
-public:
-    BFBC2LevelDictionary(QObject *parent = nullptr);
-    ~BFBC2LevelDictionary();
-
-};
+template<> QList<BFBC2LevelEntry> BFBC2LevelDictionary::levelList;
+template<> QList<GameModeEntry> BFBC2LevelDictionary::gameModeList;
+template<> QStringList BFBC2LevelDictionary::teamList;
+template<> QHash<int, int> BFBC2LevelDictionary::levelMap;
 
 #endif // BFBC2LEVELDICTIONARY_H

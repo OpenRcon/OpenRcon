@@ -21,15 +21,14 @@
 #define BF3LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
+#include "LevelEntry.h"
+#include "GameModeEntry.h"
 
-class BF3LevelDictionary : public LevelDictionary
-{
-    Q_OBJECT
+typedef LevelDictionary<2, LevelEntry, GameModeEntry> BF3LevelDictionary;
 
-public:
-    BF3LevelDictionary(QObject *parent = nullptr);
-    ~BF3LevelDictionary();
-
-};
+template<> QList<LevelEntry> BF3LevelDictionary::levelList;
+template<> QList<GameModeEntry> BF3LevelDictionary::gameModeList;
+template<> QStringList BF3LevelDictionary::teamList;
+template<> QHash<int, int> BF3LevelDictionary::levelMap;
 
 #endif // BF3LEVELDICTIONARY_H

@@ -30,8 +30,6 @@ BF3::BF3(ServerEntry *serverEntry) :
 {
     con->hostConnect(serverEntry->host, serverEntry->port);
 
-    levelDictionary = new BF3LevelDictionary(this);
-
     versionMap.insert(872601, "OB-E");
     versionMap.insert(873274, "OB-F");
     versionMap.insert(879322, "R3");
@@ -85,7 +83,6 @@ BF3::~BF3()
 {
     delete con;
     delete commandHandler;
-    delete levelDictionary;
 }
 
 void BF3::onConnected()

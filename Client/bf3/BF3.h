@@ -24,9 +24,9 @@
 
 class FrostbiteConnection;
 class BF3CommandHandler;
-class BF3LevelDictionary;
 
-class BF3 : public FrostbiteGame {
+class BF3 : public FrostbiteGame
+{
     Q_OBJECT
 
 public:
@@ -36,7 +36,6 @@ public:
 protected:
     FrostbiteConnection *con;
     BF3CommandHandler *commandHandler;
-    BF3LevelDictionary *levelDictionary;
 
     bool isAuthenticated();
 

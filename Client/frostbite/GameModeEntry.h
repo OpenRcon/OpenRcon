@@ -22,8 +22,10 @@
 
 #include <QString>
 
-struct GameModeEntry {
-    GameModeEntry() {
+struct GameModeEntry
+{
+    GameModeEntry()
+    {
 
     }
 

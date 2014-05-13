@@ -23,6 +23,11 @@
 #include "LevelEntry.h"
 
 struct BFBC2LevelEntry : public LevelEntry {
+    BFBC2LevelEntry()
+    {
+
+    }
+
     BFBC2LevelEntry(const QString &engineName,
                     const QString &name,
                     int team1,

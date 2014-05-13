@@ -69,7 +69,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     ui->comboBox_ch_target->addItem(tr("Squad"));
 
     // Maplist
-    ui->comboBox_ml_gameMode->addItems(levelDictionary->getGameModeNames());
+    ui->comboBox_ml_gameMode->addItems(BF4LevelDictionary::getGameModeNames());
     setavailableMaplist(0);
     ui->spinBox_ml_rounds->setValue(2);
 
@@ -481,8 +481,8 @@ void BF4Widget::onServerLevelLoadedEvent(const QString &levelName, const QString
     Q_UNUSED(roundsPlayed);
     Q_UNUSED(roundsTotal);
 
-    LevelEntry level = levelDictionary->getLevel(levelName);
-    GameModeEntry gameMode = levelDictionary->getGameMode(gameModeName);
+    LevelEntry level = BF4LevelDictionary::getLevel(levelName);
+    GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeName);
 
     logEvent("ServerLevelLoaded", tr("Loading level %1 with gamemode %2.").arg(level.name).arg(gameMode.name));
 }
@@ -528,8 +528,8 @@ void BF4Widget::onVersionCommand(const QString &type, int build)
 
 void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
-    currentLevel = levelDictionary->getLevel(serverInfo.currentMap);
-    GameModeEntry currentGameMode = levelDictionary->getGameMode(serverInfo.gameMode);
+    currentLevel = BF4LevelDictionary::getLevel(serverInfo.currentMap);
+    GameModeEntry currentGameMode = BF4LevelDictionary::getGameMode(serverInfo.gameMode);
     roundTime = serverInfo.roundTime;
     serverUpTime = serverInfo.serverUpTime;
 
@@ -596,9 +596,9 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
 
     // Set maplist.
-    int gameModeIndex = levelDictionary->getGameModeNames().indexOf(currentGameMode.name);
+    int gameModeIndex = BF4LevelDictionary::getGameModeNames().indexOf(currentGameMode.name);
 
-    ui->label_ml_currentMapImage->setPixmap(currentLevel.image);
+    ui->label_ml_currentMapImage->setPixmap(currentLevel.image());
     ui->label_ml_currentMapValue->setText(currentLevel.name);
 
     ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
@@ -841,7 +841,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
         for (int teamId = 0; teamId < teamIds.size(); teamId++) {
             if (teamId > 0) { // Don't list team with id 0, as this is the neutrual team.
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
-                teamItem->setText(0, levelDictionary->getTeam(teamId - 1));
+                teamItem->setText(0, BF4LevelDictionary::getTeam(teamId - 1));
 
                 for (QTreeWidgetItem *playerItem : playerItems) {
                     if (teamId == playerItem->data(0, Qt::UserRole)) {
@@ -850,7 +850,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
                 }
 
                 // Add the team to the menu_pl_players_move menu.
-                action_pl_players_move_team = new QAction(levelDictionary->getTeam(teamId - 1), menu_pl_players_move);
+                action_pl_players_move_team = new QAction(BF4LevelDictionary::getTeam(teamId - 1), menu_pl_players_move);
                 menu_pl_players_move->addAction(action_pl_players_move_team);
             }
         }
@@ -990,9 +990,9 @@ void BF4Widget::treeWidget_ml_available_currentItemChanged(QTreeWidgetItem *curr
     Q_UNUSED(current);
     Q_UNUSED(previous);
 
-    LevelEntry level = levelDictionary->getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
+    LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
 
-    ui->label_ml_availableSelectedMapImage->setPixmap(level.image);
+    ui->label_ml_availableSelectedMapImage->setPixmap(level.image());
 }
 
 void BF4Widget::treeWidget_ml_available_customContextMenuRequested(const QPoint &pos)
@@ -1009,10 +1009,10 @@ void BF4Widget::pushButton_ml_add_clicked()
         int rounds = ui->spinBox_ml_rounds->value();
 
         if (rounds > 0) {
-            LevelEntry level = levelDictionary->getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
-            GameModeEntry gameMode = levelDictionary->getGameMode(ui->treeWidget_ml_available->currentItem()->text(1));
+            LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
+            GameModeEntry gameMode = BF4LevelDictionary::getGameMode(ui->treeWidget_ml_available->currentItem()->text(1));
 
-            ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
+            ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
 
             addCurrentMapListRow(level.name, gameMode.name, rounds);
             commandHandler->sendMapListAdd(level.engineName, gameMode.engineName, rounds);
@@ -1048,10 +1048,10 @@ void BF4Widget::setavailableMaplist(int gameModeIndex)
 {
     ui->treeWidget_ml_available->clear();
 
-    QList<LevelEntry> levelList = levelDictionary->getLevels(gameModeIndex);
-    GameModeEntry gameMode = levelDictionary->getGameMode(gameModeIndex);
+    QList<LevelEntry> levelList = BF4LevelDictionary::getLevels(gameModeIndex);
+    GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeIndex);
 
-    ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().image);
+    ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().image());
 
     for (int i = 0; i < levelList.length(); i++) {
         LevelEntry level = levelList.at(i);
@@ -1070,8 +1070,8 @@ void BF4Widget::treeWidget_ml_current_currentItemChanged(QTreeWidgetItem *curren
     Q_UNUSED(current);
     Q_UNUSED(previous);
 
-    LevelEntry level = levelDictionary->getLevel(ui->treeWidget_ml_current->currentItem()->text(0));
-    ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
+    LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_current->currentItem()->text(0));
+    ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
 }
 
 void BF4Widget::treeWidget_ml_current_customContextMenuRequested(const QPoint &pos)
@@ -1097,11 +1097,11 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
 
     for (int i = 0; i < mapList.length(); i++) {
         MapListEntry entry = mapList.at(i);
-        LevelEntry level = levelDictionary->getLevel(entry.level);
-        GameModeEntry gameMode = levelDictionary->getGameMode(entry.gameMode);
+        LevelEntry level = BF4LevelDictionary::getLevel(entry.level);
+        GameModeEntry gameMode = BF4LevelDictionary::getGameMode(entry.gameMode);
 
         if (i == 0) {
-            ui->label_ml_currentSelectedMapImage->setPixmap(level.image);
+            ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
         }
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
