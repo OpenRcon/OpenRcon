@@ -20,16 +20,15 @@
 #ifndef BF4COMMANDHANDLER_H
 #define BF4COMMANDHANDLER_H
 
-#include "FrostbiteCommandHandler.h"
+#include "Frostbite2CommandHandler.h"
+#include "PlayerSubset.h"
 #include "PlayerInfo.h"
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
 #include "BF4ServerInfo.h"
 
-class FrostbiteConnection;
-
-class BF4CommandHandler : public FrostbiteCommandHandler
+class BF4CommandHandler : public Frostbite2CommandHandler
 {
     Q_OBJECT
 
@@ -188,21 +187,9 @@ public:
 
 private:
     /* Parse events */
-    void parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerDisconnectEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerJoinEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerLeaveEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerSpawnEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerKillEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerChatEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseServerLevelLoadedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     /* Parse commands */
     // Misc
@@ -335,22 +322,10 @@ private:
     QString getPlayerSubsetString(const PlayerSubset &playerSubset);
 
 signals:
-    //* Event signals */
-    void onPlayerAuthenticatedEvent(const QString &player);
+    /* Event signals */
     void onPlayerDisconnectEvent(const QString &player);
-    void onPlayerJoinEvent(const QString &player, const QString &guid);
-    void onPlayerLeaveEvent(const QString &player, const QString &info);
-    void onPlayerSpawnEvent(const QString &player, int teamId);
-    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
-    void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
-    void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
-    void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
-    void onPunkBusterMessageEvent(const QString &message);
     void onServerMaxPlayerCountChangeEvent();
     void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
-    void onServerRoundOverEvent(int winningTeamId);
-    void onServerRoundOverPlayersEvent(const QString &playerInfo);
-    void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Command signals */
     // Misc

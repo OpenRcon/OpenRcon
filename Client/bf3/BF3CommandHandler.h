@@ -20,12 +20,11 @@
 #ifndef BF3COMMANDHANDLER_H
 #define BF3COMMANDHANDLER_H
 
-#include "FrostbiteCommandHandler.h"
+#include "Frostbite2CommandHandler.h"
+#include "PlayerSubset.h"
 #include "PlayerInfo.h"
 
-class FrostbiteConnection;
-
-class BF3CommandHandler : public FrostbiteCommandHandler
+class BF3CommandHandler : public Frostbite2CommandHandler
 {
     Q_OBJECT
 
@@ -166,21 +165,21 @@ private:
     void parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
 signals:
-    /* Event signals */
-    void onPlayerAuthenticatedEvent();
-    void onPlayerJoinEvent();
-    void onPlayerLeaveEvent();
-    void onPlayerSpawnEvent();
-    void onPlayerKillEvent();
-    void onPlayerChatEvent();
-    void onPlayerSquadChangeEvent();
-    void onPlayerTeamChangeEvent();
-    void onPunkBusterMessageEvent();
+    //* Event signals */
+    void onPlayerAuthenticatedEvent(const QString &player);
+    void onPlayerJoinEvent(const QString &player, const QString &guid);
+    void onPlayerLeaveEvent(const QString &player, const QString &info);
+    void onPlayerSpawnEvent(const QString &player, int teamId);
+    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
+    void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
+    void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
+    void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
+    void onPunkBusterMessageEvent(const QString &message);
     void onMaxPlayerCountChangeEvent();
-    void onLevelLoadedEvent();
-    void onServerRoundOverEvent();
-    void onServerRoundOverPlayersEvent();
-    void onServerRoundOverTeamScoresEvent();
+    void onLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
+    void onServerRoundOverEvent(int winningTeamId);
+    void onServerRoundOverPlayersEvent(const QString &playerInfo);
+    void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Command signals */
     // Misc

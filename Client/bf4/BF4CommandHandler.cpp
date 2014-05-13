@@ -20,7 +20,7 @@
 #include "FrostbiteConnection.h"
 #include "BF4CommandHandler.h"
 
-BF4CommandHandler::BF4CommandHandler(FrostbiteConnection *parent) : FrostbiteCommandHandler(parent)
+BF4CommandHandler::BF4CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)
 {
 
 }
@@ -36,21 +36,9 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
     static QHash<QString, ResponseFunction> responses = {
         /* Events */
-        { "player.onAuthenticated",              &BF4CommandHandler::parsePlayerAuthenticatedEvent },
         { "player.onDisconnect",                 &BF4CommandHandler::parsePlayerDisconnectEvent },
-        { "player.onJoin",                       &BF4CommandHandler::parsePlayerJoinEvent },
-        { "player.onLeave",                      &BF4CommandHandler::parsePlayerLeaveEvent },
-        { "player.onSpawn",                      &BF4CommandHandler::parsePlayerSpawnEvent },
-        { "player.onKill",                       &BF4CommandHandler::parsePlayerKillEvent },
-        { "player.onChat",                       &BF4CommandHandler::parsePlayerChatEvent },
-        { "player.onSquadChange",                &BF4CommandHandler::parsePlayerSquadChangeEvent },
-        { "player.onTeamChange",                 &BF4CommandHandler::parsePlayerTeamChangeEvent },
-        { "punkBuster.onMessage",                &BF4CommandHandler::parsePunkBusterMessageEvent },
         { "server.onMaxPlayerCountChange",       &BF4CommandHandler::parseServerMaxPlayerCountChangeEvent },
         { "server.onLevelLoaded",                &BF4CommandHandler::parseServerLevelLoadedEvent },
-        { "server.onRoundOver",                  &BF4CommandHandler::parseServerRoundOverEvent },
-        { "server.onRoundOverPlayers",           &BF4CommandHandler::parseServerRoundOverPlayersEvent },
-        { "server.onRoundOverTeamScores",        &BF4CommandHandler::parseServerRoundOverTeamScoresEvent },
 
         /* Commands */
         // Misc
@@ -187,7 +175,7 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
         return true;
     } else {
-        return FrostbiteCommandHandler::parse(request, packet, lastSentPacket);
+        return Frostbite2CommandHandler::parse(request, packet, lastSentPacket);
     }
 }
 
@@ -980,15 +968,6 @@ void BF4CommandHandler::sendVarsVehicleSpawnDelay(int percent)
 }
 
 /* Parse events */
-void BF4CommandHandler::parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString player = packet.getWord(1).getContent();
-
-    emit (onPlayerAuthenticatedEvent(player));
-}
-
 void BF4CommandHandler::parsePlayerDisconnectEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
@@ -996,90 +975,6 @@ void BF4CommandHandler::parsePlayerDisconnectEvent(const FrostbiteRconPacket &pa
     QString player = packet.getWord(1).getContent();
 
     emit (onPlayerDisconnectEvent(player));
-}
-
-void BF4CommandHandler::parsePlayerJoinEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString player = packet.getWord(1).getContent();
-    QString guid = packet.getWord(2).getContent();
-
-    emit (onPlayerJoinEvent(player, guid));
-}
-
-void BF4CommandHandler::parsePlayerLeaveEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString player = packet.getWord(1).getContent();
-    QString info = packet.getWord(2).getContent();
-
-    emit (onPlayerLeaveEvent(player, info));
-}
-
-void BF4CommandHandler::parsePlayerSpawnEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString player = packet.getWord(1).getContent();
-    int teamId = QString(packet.getWord(2).getContent()).toInt();
-
-    emit (onPlayerSpawnEvent(player, teamId));
-}
-
-void BF4CommandHandler::parsePlayerKillEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString killer = packet.getWord(1).getContent();
-    QString victim = packet.getWord(2).getContent();
-    QString weapon = packet.getWord(3).getContent();
-    bool headshot = packet.getWord(4).getContent();
-
-    emit (onPlayerKillEvent(killer, victim, weapon, headshot));
-}
-
-void BF4CommandHandler::parsePlayerChatEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString player = packet.getWord(1).getContent();
-    QString message = packet.getWord(2).getContent();
-    QString target = packet.getWord(3).getContent();
-
-    emit (onPlayerChatEvent(player, message, target));
-}
-
-void BF4CommandHandler::parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString player = packet.getWord(1).getContent();
-    int teamId = QString(packet.getWord(2).getContent()).toInt();
-    int squadId = QString(packet.getWord(3).getContent()).toInt();
-
-    emit (onPlayerSquadChangeEvent(player, teamId, squadId));
-}
-
-void BF4CommandHandler::parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString player = packet.getWord(1).getContent();
-    int teamId = toInt(packet.getWord(2).getContent());
-    int squadId = toInt(packet.getWord(3).getContent());
-
-    emit (onPlayerTeamChangeEvent(player, teamId, squadId));
-}
-
-void BF4CommandHandler::parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString message = packet.getWord(1).getContent();
-
-    emit (onPunkBusterMessageEvent(message));
 }
 
 void BF4CommandHandler::parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -1100,33 +995,6 @@ void BF4CommandHandler::parseServerLevelLoadedEvent(const FrostbiteRconPacket &p
     int roundsTotal = QString(packet.getWord(4).getContent()).toInt();
 
     emit (onServerLevelLoadedEvent(levelName, gameModeName, roundsPlayed, roundsTotal));
-}
-
-void BF4CommandHandler::parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    int winningTeamId = QString(packet.getWord(1).getContent()).toInt();
-
-    emit (onServerRoundOverEvent(winningTeamId));
-}
-
-void BF4CommandHandler::parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString playerInfo = packet.getWord(1).getContent();
-
-    emit (onServerRoundOverPlayersEvent(playerInfo));
-}
-
-void BF4CommandHandler::parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString teamScores = packet.getWord(1).getContent();
-
-    emit (onServerRoundOverTeamScoresEvent(teamScores));
 }
 
 /* Parse commands */
