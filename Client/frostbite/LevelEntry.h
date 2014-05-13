@@ -52,8 +52,6 @@ struct LevelEntry {
     int team1;
     int team2;
     QString imagePath;
-    QString mod;
-
 };
 
 #endif // LEVELENTRY_H
