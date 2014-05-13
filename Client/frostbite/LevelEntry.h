@@ -38,16 +38,21 @@ struct LevelEntry {
         name(name),
         team1(team1),
         team2(team2),
-        image(QPixmap(image).scaled(QSize(320, 200), Qt::KeepAspectRatio))
+        imagePath(image)
     {
 
+    }
+
+    QPixmap image() {
+        return QPixmap(imagePath).scaled(QSize(320, 200), Qt::KeepAspectRatio);
     }
 
     QString engineName;
     QString name;
     int team1;
     int team2;
-    QPixmap image;
+    QString imagePath;
+    QString mod;
 
 };
 

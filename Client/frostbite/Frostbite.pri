@@ -23,5 +23,4 @@ SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteRconWord.cpp \
     frostbite/FrostbiteCommandHandler.cpp \
     frostbite/FrostbiteGame.cpp \
-    frostbite/FrostbiteUtils.cpp \
-    frostbite/LevelDictionary.cpp
+    frostbite/FrostbiteUtils.cpp

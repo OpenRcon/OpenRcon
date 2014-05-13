@@ -27,7 +27,6 @@
 
 class FrostbiteConnection;
 class BFBC2CommandHandler;
-class BFBC2LevelDictionary;
 
 class BFBC2 : public FrostbiteGame
 {

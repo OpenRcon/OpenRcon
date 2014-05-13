@@ -157,7 +157,7 @@ QPixmap BFBC2::getMapImage(const QString &engineName, const QString &gamemode)
     if (gamemodeIndex != -1) {
         LevelEntry level = BFBC2LevelDictionary::getLevel(engineName); // TODO: Mind the gamemode?
 
-        return level.image;
+        return level.image();
     }
 
     return QPixmap();

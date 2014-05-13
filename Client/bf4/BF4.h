@@ -26,7 +26,6 @@
 
 class FrostbiteConnection;
 class BF4CommandHandler;
-class BF4LevelDictionary;
 
 class BF4 : public FrostbiteGame {
     Q_OBJECT

@@ -494,7 +494,8 @@ void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
     // Maplist
     ui->label_ml_mod->setText(currentMod);
     ui->label_ml_currentmap_name->setText(level.name);
-    ui->label_ml_currentmap_image->setPixmap(level.image);
+    //ui->label_ml_currentmap_image->setPixmap(level.image);
+    ui->label_ml_currentmap_image->setPixmap(level.image());
 }
 
 void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
@@ -908,7 +909,7 @@ void BFBC2Widget::listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem
     int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
     LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
 
-    ui->label_ml_previewmap_image->setPixmap(level.image);
+    ui->label_ml_previewmap_image->setPixmap(level.image());
 }
 
 void BFBC2Widget::on_pushButton_ml_add_clicked()
@@ -1006,7 +1007,7 @@ void BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem *
 
     LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
 
-    ui->label_ml_previewmap_image->setPixmap(level.image);
+    ui->label_ml_previewmap_image->setPixmap(level.image());
     con->sendCommand("\"mapList.list\" \"rounds\"");
 }
 

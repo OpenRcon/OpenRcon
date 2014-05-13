@@ -26,7 +26,6 @@
 
 class FrostbiteConnection;
 class BF3CommandHandler;
-class BF3LevelDictionary;
 
 class BF3 : public FrostbiteGame
 {
