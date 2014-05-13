@@ -40,6 +40,7 @@ bool FrostbiteCommandHandler::parse(const QString & request, const FrostbiteRcon
         { "login.plainText", &FrostbiteCommandHandler::parseLoginPlainTextCommand },
         { "login.hashed",    &FrostbiteCommandHandler::parseLoginHashedCommand },
         { "logout",          &FrostbiteCommandHandler::parseLogoutCommand },
+        { "quit",            &FrostbiteCommandHandler::parseQuitCommand },
         { "version",         &FrostbiteCommandHandler::parseVersionCommand }
     };
 
@@ -160,4 +161,3 @@ void FrostbiteCommandHandler::parseVersionCommand(const FrostbiteRconPacket &pac
         emit (onVersionCommand(type, build));
     }
 }
-
