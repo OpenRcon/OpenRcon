@@ -34,6 +34,8 @@ public:
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) override;
 
     /* Send commands */
+    // Misc
+
     // Admin
     void sendAdminEventsEnabledCommand(bool enabled);
     void sendAdminHelpCommand();
@@ -46,6 +48,12 @@ public:
     void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
     void sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset, int parameter = -1);
 
+    // BanList
+
+    // FairFight
+
+    // MapList
+
     // Player
     void sendPlayerIdleDuration(const QString &player);
     void sendPlayerIsAlive(const QString &player);
@@ -55,6 +63,24 @@ public:
     void sendPunkBusterActivate();
     void sendPunkBusterIsActive();
     void sendPunkBusterPbSvCommand(const QString &command);
+
+    // Reserved Slots
+    void sendReservedSlotsListAdd(const QString &player);
+    void sendReservedSlotsListAggressiveJoin();
+    void sendReservedSlotsListAggressiveJoin(bool enabled);
+    void sendReservedSlotsListClear();
+    void sendReservedSlotsListList();
+    void sendReservedSlotsListLoad();
+    void sendReservedSlotsListRemove(const QString &player);
+    void sendReservedSlotsListSave();
+
+    // Squad
+    void sendSquadLeader(int teamId, int squadId, const QString &player);
+    void sendSquadListActive(int teamId);
+    void sendSquadListPlayers(int teamId, int squadId);
+    void sendSquadPrivate(int teamId, int squadId, bool isPrivate);
+
+    // Vars
 
 protected:
     PlayerSubset getPlayerSubset(const QString &playerSubsetString);
@@ -76,6 +102,8 @@ private:
     void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     /* Parse commands */
+    // Misc
+
     // Admin
     void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -86,6 +114,12 @@ private:
 //    void parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 //    void parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
+    // BanList
+
+    // FairFight
+
+    // MapList
+
     // Player
     void parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -95,6 +129,23 @@ private:
 //    void parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 //    void parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
+    // Reserverd Slots
+//    void parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
+    // Squad
+    void parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseSquadPrivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
+    // Vars
 
 signals:
     /* Event signals */
@@ -142,10 +193,19 @@ signals:
 //    void onPunkBusterPbSvCommand();
 
     // Reserved Slots
-
-    // Spectator List
+//    void onReservedSlotsListAddCommand();
+    void onReservedSlotsListAggressiveJoinCommand(bool enabled);
+//    void onReservedSlotsListClearCommand();
+    void onReservedSlotsListListCommand(const QStringList &reservedSlotList);
+//    void onReservedSlotsListLoadCommand();
+//    void onReservedSlotsListRemoveCommand();
+//    void onReservedSlotsListSaveCommand();
 
     // Squad
+    void onSquadLeaderCommand(const QString &player);
+    void onSquadListActiveCommand();
+    void onSquadListPlayersCommand(const QStringList &playerList);
+    void onSquadPrivateCommand(bool isPrivate);
 
     // Vars
 

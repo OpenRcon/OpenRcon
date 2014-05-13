@@ -36,31 +36,31 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
 
     static QHash<QString, ResponseFunction> responses = {
         /* Events */
-        { "player.onAuthenticated",         &Frostbite2CommandHandler::parsePlayerAuthenticatedEvent },
-        { "player.onJoin",                  &Frostbite2CommandHandler::parsePlayerJoinEvent },
-        { "player.onLeave",                 &Frostbite2CommandHandler::parsePlayerLeaveEvent },
-        { "player.onSpawn",                 &Frostbite2CommandHandler::parsePlayerSpawnEvent },
-        { "player.onKill",                  &Frostbite2CommandHandler::parsePlayerKillEvent },
-        { "player.onChat",                  &Frostbite2CommandHandler::parsePlayerChatEvent },
-        { "player.onSquadChange",           &Frostbite2CommandHandler::parsePlayerSquadChangeEvent },
-        { "player.onTeamChange",            &Frostbite2CommandHandler::parsePlayerTeamChangeEvent },
-        { "punkBuster.onMessage",           &Frostbite2CommandHandler::parsePunkBusterMessageEvent },
-        { "server.onRoundOver",             &Frostbite2CommandHandler::parseServerRoundOverEvent },
-        { "server.onRoundOverPlayers",      &Frostbite2CommandHandler::parseServerRoundOverPlayersEvent },
-        { "server.onRoundOverTeamScores",   &Frostbite2CommandHandler::parseServerRoundOverTeamScoresEvent },
+        { "player.onAuthenticated",             &Frostbite2CommandHandler::parsePlayerAuthenticatedEvent },
+        { "player.onJoin",                      &Frostbite2CommandHandler::parsePlayerJoinEvent },
+        { "player.onLeave",                     &Frostbite2CommandHandler::parsePlayerLeaveEvent },
+        { "player.onSpawn",                     &Frostbite2CommandHandler::parsePlayerSpawnEvent },
+        { "player.onKill",                      &Frostbite2CommandHandler::parsePlayerKillEvent },
+        { "player.onChat",                      &Frostbite2CommandHandler::parsePlayerChatEvent },
+        { "player.onSquadChange",               &Frostbite2CommandHandler::parsePlayerSquadChangeEvent },
+        { "player.onTeamChange",                &Frostbite2CommandHandler::parsePlayerTeamChangeEvent },
+        { "punkBuster.onMessage",               &Frostbite2CommandHandler::parsePunkBusterMessageEvent },
+        { "server.onRoundOver",                 &Frostbite2CommandHandler::parseServerRoundOverEvent },
+        { "server.onRoundOverPlayers",          &Frostbite2CommandHandler::parseServerRoundOverPlayersEvent },
+        { "server.onRoundOverTeamScores",       &Frostbite2CommandHandler::parseServerRoundOverTeamScoresEvent },
 
         /* Commands */
         // Misc
 
         // Admin
-        { "admin.eventsEnabled",            &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
-        { "admin.help",                     &Frostbite2CommandHandler::parseAdminHelpCommand },
-        { "admin.kickPlayer",               nullptr /*&Frostbite2CommandHandler::parseAdminKickPlayerCommand*/ },
-        { "admin.killPlayer",               nullptr /*&Frostbite2CommandHandler::parseAdminKillPlayerCommand*/ },
-        { "admin.movePlayer",               nullptr /*&Frostbite2CommandHandler::parseAdminMovePlayerCommand*/ },
-        { "admin.password",                 &Frostbite2CommandHandler::parseAdminPasswordCommand },
-        { "admin.say",                      nullptr /*&Frostbite2CommandHandler::parseAdminSayCommand*/ },
-        { "admin.yell",                     nullptr /*&Frostbite2CommandHandler::parseAdminYellCommand*/ },
+        { "admin.eventsEnabled",                &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
+        { "admin.help",                         &Frostbite2CommandHandler::parseAdminHelpCommand },
+        { "admin.kickPlayer",                   nullptr /*&Frostbite2CommandHandler::parseAdminKickPlayerCommand*/ },
+        { "admin.killPlayer",                   nullptr /*&Frostbite2CommandHandler::parseAdminKillPlayerCommand*/ },
+        { "admin.movePlayer",                   nullptr /*&Frostbite2CommandHandler::parseAdminMovePlayerCommand*/ },
+        { "admin.password",                     &Frostbite2CommandHandler::parseAdminPasswordCommand },
+        { "admin.say",                          nullptr /*&Frostbite2CommandHandler::parseAdminSayCommand*/ },
+        { "admin.yell",                         nullptr /*&Frostbite2CommandHandler::parseAdminYellCommand*/ },
 
         // BanList
 
@@ -69,20 +69,29 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         // MapList
 
         // Player
-        { "player.idleDuration",            &Frostbite2CommandHandler::parsePlayerIdleDurationCommand },
-        { "player.isAlive",                 &Frostbite2CommandHandler::parsePlayerIsAliveCommand },
-        { "player.ping",                    &Frostbite2CommandHandler::parsePlayerPingCommand },
+        { "player.idleDuration",                &Frostbite2CommandHandler::parsePlayerIdleDurationCommand },
+        { "player.isAlive",                     &Frostbite2CommandHandler::parsePlayerIsAliveCommand },
+        { "player.ping",                        &Frostbite2CommandHandler::parsePlayerPingCommand },
 
         // PunkBuster
-        { "punkBuster.activate",            nullptr /*&BF4CommandHandler::parsePunkBusterActivateCommand*/ },
-        { "punkBuster.isActive",            &Frostbite2CommandHandler::parsePunkBusterIsActiveCommand },
-        { "punkBuster.pb_sv_command",       nullptr /*&BF4CommandHandler::parsePunkBusterPbSvCommand*/ }
+        { "punkBuster.activate",                nullptr /*&BF4CommandHandler::parsePunkBusterActivateCommand*/ },
+        { "punkBuster.isActive",                &Frostbite2CommandHandler::parsePunkBusterIsActiveCommand },
+        { "punkBuster.pb_sv_command",           nullptr /*&BF4CommandHandler::parsePunkBusterPbSvCommand*/ },
 
         // Reserved Slots
-
-        // Spectator List
+        { "reservedSlotsList.add",              nullptr /*&BF4CommandHandler::parseReservedSlotsListAddCommand*/ },
+        { "reservedSlotsList.aggressiveJoin",   &Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand },
+        { "reservedSlotsList.clear",            nullptr /*&BF4CommandHandler::parseReservedSlotsListClearCommand*/ },
+        { "reservedSlotsList.list",             &Frostbite2CommandHandler::parseReservedSlotsListListCommand },
+        { "reservedSlotsList.load",             nullptr /*&BF4CommandHandler::parseReservedSlotsListLoadCommand*/ },
+        { "reservedSlotsList.remove",           nullptr /*&BF4CommandHandler::parseReservedSlotsListRemoveCommand*/ },
+        { "reservedSlotsList.save",             nullptr /*&BF4CommandHandler::parseReservedSlotsListSaveCommand*/ },
 
         // Squad
+        { "squad.leader",                       &Frostbite2CommandHandler::parseSquadLeaderCommand },
+        { "squad.listActive",                   nullptr /*&BF4CommandHandler::parseSquadListActiveCommand*/ },
+        { "squad.listPlayers",                  &Frostbite2CommandHandler::parseSquadListPlayersCommand },
+        { "squad.private",                      &Frostbite2CommandHandler::parseSquadPrivateCommand }
 
         // Vars
     };
@@ -193,6 +202,74 @@ void Frostbite2CommandHandler::sendPunkBusterPbSvCommand(const QString &command)
 {
     con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
 }
+
+// Reserved Slots
+void Frostbite2CommandHandler::sendReservedSlotsListAdd(const QString &player)
+{
+    con->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
+    sendReservedSlotsListList();
+}
+
+void Frostbite2CommandHandler::sendReservedSlotsListAggressiveJoin()
+{
+    con->sendCommand("reservedSlotsList.aggressiveJoin");
+}
+
+void Frostbite2CommandHandler::sendReservedSlotsListAggressiveJoin(bool enabled)
+{
+    con->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendReservedSlotsListClear()
+{
+    con->sendCommand("reservedSlotsList.clear");
+    sendReservedSlotsListList();
+}
+
+void Frostbite2CommandHandler::sendReservedSlotsListList()
+{
+    con->sendCommand("reservedSlotsList.list");
+}
+
+void Frostbite2CommandHandler::sendReservedSlotsListLoad()
+{
+    con->sendCommand("reservedSlotsList.load");
+    sendReservedSlotsListList();
+}
+
+void Frostbite2CommandHandler::sendReservedSlotsListRemove(const QString &player)
+{
+    con->sendCommand(QString("\"reservedSlotsList.remove\" \"%1\"").arg(player));
+    sendReservedSlotsListList();
+}
+
+void Frostbite2CommandHandler::sendReservedSlotsListSave()
+{
+    con->sendCommand("reservedSlotsList.save");
+    sendReservedSlotsListList();
+}
+
+// Squad
+void Frostbite2CommandHandler::sendSquadLeader(int teamId, int squadId, const QString &player)
+{
+    con->sendCommand(QString("\"squad.leader\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(player));
+}
+
+void Frostbite2CommandHandler::sendSquadListActive(int teamId)
+{
+    con->sendCommand(QString("\"squad.listActive\" \"%1\"").arg(teamId));
+}
+
+void Frostbite2CommandHandler::sendSquadListPlayers(int teamId, int squadId)
+{
+    con->sendCommand(QString("\"squad.listPlayers\" \"%1\" \"%2\"").arg(teamId).arg(squadId));
+}
+
+void Frostbite2CommandHandler::sendSquadPrivate(int teamId, int squadId, bool isPrivate)
+{
+    con->sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(isPrivate)));
+}
+
 
 /* Parse events */
 void Frostbite2CommandHandler::parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -451,6 +528,112 @@ void Frostbite2CommandHandler::parsePunkBusterIsActiveCommand(const FrostbiteRco
 //{
 //    Q_UNUSED(packet);
 //}
+
+// Reserved Slots
+//void Frostbite2CommandHandler::parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+void Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() == 2) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onReservedSlotsListAggressiveJoinCommand(enabled));
+    }
+}
+
+//void Frostbite2CommandHandler::parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+void Frostbite2CommandHandler::parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK") {
+        QStringList reservedSlotList;
+
+        for (unsigned int i = 1; i < packet.getWordCount(); i++) {
+            reservedSlotList.append(packet.getWord(i).getContent());
+        }
+
+        emit (onReservedSlotsListListCommand(reservedSlotList));
+    }
+}
+
+//void Frostbite2CommandHandler::parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+//void Frostbite2CommandHandler::parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+//void Frostbite2CommandHandler::parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+// Squad
+void Frostbite2CommandHandler::parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString player = packet.getWord(1).getContent();
+
+        emit (onSquadLeaderCommand(player));
+    }
+}
+
+//void Frostbite2CommandHandler::parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+void Frostbite2CommandHandler::parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int playerCount = toInt(packet.getWord(1).getContent());
+        QStringList playerList;
+
+        for (int i = 2; i < playerCount; i++) {
+            playerList.append(packet.getWord(i).getContent());
+        }
+
+        emit (onSquadListPlayersCommand(playerList));
+    }
+}
+
+void Frostbite2CommandHandler::parseSquadPrivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool isPrivate = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onSquadPrivateCommand(isPrivate));
+    }
+}
 
 PlayerSubset Frostbite2CommandHandler::getPlayerSubset(const QString &playerSubsetString)
 {

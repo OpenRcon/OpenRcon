@@ -79,28 +79,12 @@ public:
     void sendMapListSave();
     void sendMapListSetNextMapIndex(int index);
 
-    // Reserved Slots
-    void sendReservedSlotsListAdd(const QString &player);
-    void sendReservedSlotsListAggressiveJoin();
-    void sendReservedSlotsListAggressiveJoin(bool enabled);
-    void sendReservedSlotsListClear();
-    void sendReservedSlotsListList();
-    void sendReservedSlotsListLoad();
-    void sendReservedSlotsListRemove(const QString &player);
-    void sendReservedSlotsListSave();
-
     // Spectator list
     void sendSpectatorListAdd(const QString &player);
     void sendSpectatorListClear();
     void sendSpectatorListList(int index = 0);
     void sendSpectatorListRemove(const QString &player);
     void sendSpectatorListSave();
-
-    // Squad
-    void sendSquadLeader(int teamId, int squadId, const QString &player);
-    void sendSquadListActive(int teamId);
-    void sendSquadListPlayers(int teamId, int squadId);
-    void sendSquadPrivate(int teamId, int squadId, bool isPrivate);
 
     // Variables
     void sendVars3dSpotting();
@@ -210,27 +194,12 @@ private:
     void parseMapListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
-    // Reserverd Slots
-    /*void parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-    void parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-    void parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-
     // Spectator List
     /*void parseSpectatorListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseSpectatorListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parseSpectatorListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     /*void parseSpectatorListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseSpectatorListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-
-    // Squad
-    void parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-    void parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseSquadPrivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Vars
     void parseVars3dSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -325,27 +294,12 @@ signals:
 //    void onMapListSaveCommand();
 //    void onMapListSetNextMapIndexCommand();
 
-    // Reserved Slots
-//    void onReservedSlotsListAddCommand();
-    void onReservedSlotsListAggressiveJoinCommand(bool enabled);
-//    void onReservedSlotsListClearCommand();
-    void onReservedSlotsListListCommand(const QStringList &reservedSlotList);
-//    void onReservedSlotsListLoadCommand();
-//    void onReservedSlotsListRemoveCommand();
-//    void onReservedSlotsListSaveCommand();
-
     // Spectator List
 //    void onSpectatorListAddCommand();
 //    void onSpectatorListClearCommand();
     void onSpectatorListListCommand(const QStringList &spectatorList);
 //    void onSpectatorListRemoveCommand();
 //    void onSpectatorListSaveCommand();
-
-    // Squad
-    void onSquadLeaderCommand(const QString &player);
-    void onSquadListActiveCommand();
-    void onSquadListPlayersCommand(const QStringList &playerList);
-    void onSquadPrivateCommand(bool isPrivate);
 
     // Vars
     void onVars3dSpottingCommand(bool enabled);

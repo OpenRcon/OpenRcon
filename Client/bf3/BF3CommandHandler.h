@@ -67,12 +67,6 @@ private:
 //    void parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 //    void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Squad
-    /*void parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseSquadPrivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-
     // BanList
     /*void parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -80,15 +74,6 @@ private:
     void parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-
-    // Reserved Slots
-    /*void parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet), const FrostbiteRconPacket &lastSentPacket;
-    void parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // MapList
     /*void parseMapListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -174,12 +159,6 @@ signals:
     void onAdminEffectiveMaxPlayersCommand();
     void onAdminListPlayersCommand();
 
-    // Squad
-    void onSquadListActiveCommand();
-    void onSquadListPlayersCommand();
-    void onSquadPrivateCommand();
-    void onSquadLeaderCommand();
-
     // BanList
     void onBanListLoadCommand();
     void onBanListSaveCommand();
@@ -187,15 +166,6 @@ signals:
     void onBanListRemoveCommand();
     void onBanListClearCommand();
     void onBanListListCommand();
-
-    // Reserved Slots
-    void onReservedSlotsListLoadCommand();
-    void onReservedSlotsListSaveCommand();
-    void onReservedSlotsListAddCommand();
-    void onReservedSlotsListRemoveCommand();
-    void onReservedSlotsListClearCommand();
-    void onReservedSlotsListListCommand();
-    void onReservedSlotsListAggressiveJoinCommand();
 
     // MapList
     void onMapListLoadCommand();

@@ -49,12 +49,6 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "admin.effectiveMaxPlayers",           nullptr /*&BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand*/ },
         { "admin.listPlayers",                   nullptr /*&BF3CommandHandler::parseAdminListPlayersCommand*/ },
 
-        // Squad
-        { "squad.listActive",                    nullptr /*&BF3CommandHandler::parseSquadListActiveCommand*/ },
-        { "squad.listPlayers",                   nullptr /*&BF3CommandHandler::parseSquadListPlayersCommand*/ },
-        { "squad.private",                       nullptr /*&BF3CommandHandler::parseSquadPrivateCommand*/ },
-        { "squad.leader",                        nullptr /*&BF3CommandHandler::parseSquadLeaderCommand*/ },
-
         // MapList
         { "banList.load",                        nullptr /*&BF3CommandHandler::parseBanListLoadCommand*/ },
         { "banList.save",                        nullptr /*&BF3CommandHandler::parseBanListSaveCommand*/ },
@@ -62,15 +56,6 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "banList.remove",                      nullptr /*&BF3CommandHandler::parseBanListRemoveCommand*/ },
         { "banList.clear",                       nullptr /*&BF3CommandHandler::parseBanListClearCommand*/ },
         { "banList.list",                        nullptr /*&BF3CommandHandler::parseBanListListCommand*/ },
-
-        // Reserved Slots
-        { "reservedSlotsList.load",              nullptr /*&BF3CommandHandler::parseReservedSlotsListLoadCommand*/ },
-        { "reservedSlotsList.save",              nullptr /*&BF3CommandHandler::parseReservedSlotsListSaveCommand*/ },
-        { "reservedSlotsList.add",               nullptr /*&BF3CommandHandler::parseReservedSlotsListAddCommand*/ },
-        { "reservedSlotsList.remove",            nullptr /*&BF3CommandHandler::parseReservedSlotsListRemoveCommand*/ },
-        { "reservedSlotsList.clear",             nullptr /*&BF3CommandHandler::parseReservedSlotsListClearCommand*/ },
-        { "reservedSlotsList.list",              nullptr /*&BF3CommandHandler::parseReservedSlotsListListCommand*/ },
-        { "reservedSlotsList.aggressiveJoin",    nullptr /*&BF3CommandHandler::parseReservedSlotsListAggressiveJoinCommand*/ },
 
         // MapList
         { "mapList.load",                        nullptr /*&BF3CommandHandler::parseMapListLoadCommand*/ },

@@ -78,27 +78,12 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "mapList.save",                        nullptr /*&BF4CommandHandler::parseMapListSaveCommand*/ },
         { "mapList.setNextMapIndex",             nullptr /*&BF4CommandHandler::parseMapListSetNextMapIndexCommand*/ },
 
-        // Reserved Slots
-        { "reservedSlotsList.add",               nullptr /*&BF4CommandHandler::parseReservedSlotsListAddCommand*/ },
-        { "reservedSlotsList.aggressiveJoin",    &BF4CommandHandler::parseReservedSlotsListAggressiveJoinCommand },
-        { "reservedSlotsList.clear",             nullptr /*&BF4CommandHandler::parseReservedSlotsListClearCommand*/ },
-        { "reservedSlotsList.list",              &BF4CommandHandler::parseReservedSlotsListListCommand },
-        { "reservedSlotsList.load",              nullptr /*&BF4CommandHandler::parseReservedSlotsListLoadCommand*/ },
-        { "reservedSlotsList.remove",            nullptr /*&BF4CommandHandler::parseReservedSlotsListRemoveCommand*/ },
-        { "reservedSlotsList.save",              nullptr /*&BF4CommandHandler::parseReservedSlotsListSaveCommand*/ },
-
         // Spectator List
         { "spectatorList.add",                   nullptr /*&BF4CommandHandler::parseSpectatorListAddCommand*/ },
         { "spectatorList.clear",                 nullptr /*&BF4CommandHandler::parseSpectatorListClearCommand*/ },
         { "spectatorList.list",                  &BF4CommandHandler::parseSpectatorListListCommand },
         { "spectatorList.remove",                nullptr /*&BF4CommandHandler::parseSpectatorListRemoveCommand*/ },
         { "spectatorList.save",                  nullptr /*&BF4CommandHandler::parseSpectatorListSaveCommand*/ },
-
-        // Squad
-        { "squad.leader",                        &BF4CommandHandler::parseSquadLeaderCommand },
-        { "squad.listActive",                    nullptr /*&BF4CommandHandler::parseSquadListActiveCommand*/ },
-        { "squad.listPlayers",                   &BF4CommandHandler::parseSquadListPlayersCommand },
-        { "squad.private",                       &BF4CommandHandler::parseSquadPrivateCommand },
 
         // Vars
         { "vars.3dSpotting",                     &BF4CommandHandler::parseVars3dSpottingCommand },
@@ -335,52 +320,6 @@ void BF4CommandHandler::sendMapListSetNextMapIndex(int index)
     con->sendCommand(QString("\"mapList.setNextMapIndex\" \"%1\"").arg(index));
 }
 
-// Reserved Slots
-void BF4CommandHandler::sendReservedSlotsListAdd(const QString &player)
-{
-    con->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
-    sendReservedSlotsListList();
-}
-
-void BF4CommandHandler::sendReservedSlotsListAggressiveJoin()
-{
-    con->sendCommand("reservedSlotsList.aggressiveJoin");
-}
-
-void BF4CommandHandler::sendReservedSlotsListAggressiveJoin(bool enabled)
-{
-    con->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
-}
-
-void BF4CommandHandler::sendReservedSlotsListClear()
-{
-    con->sendCommand("reservedSlotsList.clear");
-    sendReservedSlotsListList();
-}
-
-void BF4CommandHandler::sendReservedSlotsListList()
-{
-    con->sendCommand("reservedSlotsList.list");
-}
-
-void BF4CommandHandler::sendReservedSlotsListLoad()
-{
-    con->sendCommand("reservedSlotsList.load");
-    sendReservedSlotsListList();
-}
-
-void BF4CommandHandler::sendReservedSlotsListRemove(const QString &player)
-{
-    con->sendCommand(QString("\"reservedSlotsList.remove\" \"%1\"").arg(player));
-    sendReservedSlotsListList();
-}
-
-void BF4CommandHandler::sendReservedSlotsListSave()
-{
-    con->sendCommand("reservedSlotsList.save");
-    sendReservedSlotsListList();
-}
-
 // Spectator list
 void BF4CommandHandler::sendSpectatorListAdd(const QString &player)
 {
@@ -413,27 +352,6 @@ void BF4CommandHandler::sendSpectatorListSave()
 {
     con->sendCommand("spectatorList.save");
     sendSpectatorListList();
-}
-
-// Squad
-void BF4CommandHandler::sendSquadLeader(int teamId, int squadId, const QString &player)
-{
-    con->sendCommand(QString("\"squad.leader\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(player));
-}
-
-void BF4CommandHandler::sendSquadListActive(int teamId)
-{
-    con->sendCommand(QString("\"squad.listActive\" \"%1\"").arg(teamId));
-}
-
-void BF4CommandHandler::sendSquadListPlayers(int teamId, int squadId)
-{
-    con->sendCommand(QString("\"squad.listPlayers\" \"%1\" \"%2\"").arg(teamId).arg(squadId));
-}
-
-void BF4CommandHandler::sendSquadPrivate(int teamId, int squadId, bool isPrivate)
-{
-    con->sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(isPrivate)));
 }
 
 // Variables
@@ -1216,62 +1134,6 @@ void BF4CommandHandler::parseMapListSetNextMapIndexCommand(const FrostbiteRconPa
     Q_UNUSED(packet);
 }*/
 
-// Reserved Slots
-/*void BF4CommandHandler::parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-void BF4CommandHandler::parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() == 2) {
-        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
-
-        emit (onReservedSlotsListAggressiveJoinCommand(enabled));
-    }
-}
-
-/*void BF4CommandHandler::parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-void BF4CommandHandler::parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK") {
-        QStringList reservedSlotList;
-
-        for (unsigned int i = 1; i < packet.getWordCount(); i++) {
-            reservedSlotList.append(packet.getWord(i).getContent());
-        }
-
-        emit (onReservedSlotsListListCommand(reservedSlotList));
-    }
-}
-
-/*void BF4CommandHandler::parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
 // SpectatorList
 /*void BF4CommandHandler::parseSpectatorListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
@@ -1309,56 +1171,6 @@ void BF4CommandHandler::parseSpectatorListSaveCommand(const FrostbiteRconPacket 
 {
     Q_UNUSED(packet);
 }*/
-
-// Squad
-void BF4CommandHandler::parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QString player = packet.getWord(1).getContent();
-
-        emit (onSquadLeaderCommand(player));
-    }
-}
-
-/*void BF4CommandHandler::parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-void BF4CommandHandler::parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        int playerCount = toInt(packet.getWord(1).getContent());
-        QStringList playerList;
-
-        for (int i = 2; i < playerCount; i++) {
-            playerList.append(packet.getWord(i).getContent());
-        }
-
-        emit (onSquadListPlayersCommand(playerList));
-    }
-}
-
-void BF4CommandHandler::parseSquadPrivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        bool isPrivate = FrostbiteUtils::toBool(packet.getWord(1).getContent());
-
-        emit (onSquadPrivateCommand(isPrivate));
-    }
-}
 
 // Vars
 void BF4CommandHandler::parseVars3dSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
