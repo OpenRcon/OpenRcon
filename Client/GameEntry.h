@@ -24,7 +24,16 @@
 #include <QIcon>
 
 struct GameEntry {
-    GameEntry(int id, const QString &prefix, const QString &name, const QString &icon) : id(id), prefix(prefix), name(name), icon(QIcon(icon))
+    GameEntry(int id, const
+              QString &prefix,
+              const QString &name,
+              const QString &icon,
+              int defaultPort) :
+        id(id),
+        prefix(prefix),
+        name(name),
+        icon(QIcon(icon)),
+        defaultPort(defaultPort)
     {
 
     }
@@ -33,6 +42,7 @@ struct GameEntry {
     QString prefix;
     QString name;
     QIcon icon;
+    int defaultPort;
 
 };
 

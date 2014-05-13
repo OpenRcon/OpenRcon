@@ -32,7 +32,7 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     }
 
     ui->spinBox_sed_port->setRange(1, 65535);
-    ui->spinBox_sed_port->setValue(48888);
+    ui->spinBox_sed_port->setValue(gameManager->getGame(ui->comboBox_sed_game->currentIndex()).defaultPort);
     ui->lineEdit_sed_password->setEchoMode(QLineEdit::Password);
 
     connect(ui->lineEdit_sed_name, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
@@ -87,6 +87,8 @@ void ServerEditDialog::detect(const QString &value)
 
 void ServerEditDialog::validate()
 {   
+    ui->spinBox_sed_port->setValue(gameManager->getGame(ui->comboBox_sed_game->currentIndex()).defaultPort);
+
     ui->pushButton_sed_ok->setEnabled(
     ui->comboBox_sed_game->currentIndex() >= 0 &&
     !ui->lineEdit_sed_name->text().isEmpty() &&
