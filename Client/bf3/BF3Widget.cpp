@@ -17,6 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ui_BF3Widget.h"
 #include "BF3Widget.h"
 #include "BF3CommandHandler.h"
 #include "BF3LevelDictionary.h"

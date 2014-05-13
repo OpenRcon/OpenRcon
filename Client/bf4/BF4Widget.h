@@ -25,8 +25,8 @@
 #include <QTimer>
 #include <QDateTime>
 #include <QCompleter>
+#include <QTreeWidgetItem>
 
-#include "ui_BF4Widget.h"
 #include "BF4.h"
 #include "FrostbiteConnection.h"
 #include "PlayerSubset.h"
@@ -35,6 +35,10 @@
 #include "BF4ServerInfo.h"
 #include "BanListEntry.h"
 #include "MapListEntry.h"
+
+namespace Ui {
+    class BF4Widget;
+}
 
 class BF4Widget : public BF4
 {

@@ -22,10 +22,13 @@
 
 #include "GameEntry.h"
 #include "GameManager.h"
+#include "ServerEntry.h"
 #include "ServerManager.h"
 #include "ServerListDialog.h"
 #include "OptionsDialog.h"
 #include "AboutDialog.h"
+
+#include "Game.h"
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {

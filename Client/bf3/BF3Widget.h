@@ -22,12 +22,16 @@
 
 #include <QTime>
 #include <QTimer>
+#include <QCompleter>
 
-#include "ui_BF3Widget.h"
 #include "BF3.h"
 #include "FrostbiteConnection.h"
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
+
+namespace Ui {
+    class BF3Widget;
+}
 
 class BF3Widget : public BF3
 {

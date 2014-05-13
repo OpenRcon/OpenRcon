@@ -23,8 +23,8 @@
 #include <QSettings>
 
 #include "Constants.h"
+
 #include "ServerEntry.h"
-#include "Game.h"
 
 using namespace Constants;
 

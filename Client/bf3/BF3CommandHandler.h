@@ -21,8 +21,6 @@
 #define BF3COMMANDHANDLER_H
 
 #include "Frostbite2CommandHandler.h"
-#include "PlayerSubset.h"
-#include "PlayerInfo.h"
 
 class BF3CommandHandler : public Frostbite2CommandHandler
 {

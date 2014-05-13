@@ -40,13 +40,14 @@ class ServerListDialog;
 class OptionsDialog;
 class AboutDialog;
 
+class Game;
+
 using namespace Constants;
 
 namespace Ui {
     class OpenRcon;
 }
 
-class ServerListDialog;
 class OpenRcon : public QMainWindow
 {
     Q_OBJECT

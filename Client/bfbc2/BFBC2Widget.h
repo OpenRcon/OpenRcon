@@ -27,11 +27,16 @@
 #include <QTimer>
 #include <QInputDialog>
 #include <QDesktopServices>
+#include <QTreeWidgetItem>
+#include <QListWidgetItem>
 
-#include "ui_BFBC2Widget.h"
 #include "BFBC2.h"
-#include "BFBC2CommandHandler.h"
 #include "FrostbiteConnection.h"
+#include "BFBC2CommandHandler.h"
+
+namespace Ui {
+    class BFBC2Widget;
+}
 
 class BFBC2Widget : public BFBC2
 {

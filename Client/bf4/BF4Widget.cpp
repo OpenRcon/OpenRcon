@@ -17,6 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ui_BF4Widget.h"
 #include "BF4Widget.h"
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"

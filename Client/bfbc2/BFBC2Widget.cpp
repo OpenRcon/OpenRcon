@@ -17,6 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ui_BFBC2Widget.h"
 #include "BFBC2Widget.h"
 #include "LevelEntry.h"
 #include "BFBC2LevelDictionary.h"
