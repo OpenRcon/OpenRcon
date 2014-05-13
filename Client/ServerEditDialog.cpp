@@ -41,6 +41,7 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     connect(ui->comboBox_sed_game, SIGNAL(currentIndexChanged(int)), this, SLOT(validate()));
     connect(ui->lineEdit_sed_name, SIGNAL(textChanged(QString)), this, SLOT(validate()));
     connect(ui->lineEdit_sed_host, SIGNAL(textChanged(QString)), this, SLOT(validate()));
+    connect(ui->lineEdit_sed_host, SIGNAL(editingFinished()), this, SLOT(lineEdit_sed_host_editingFinished()));
     connect(ui->spinBox_sed_port, SIGNAL(valueChanged(int)), this, SLOT(validate()));
     connect(ui->lineEdit_sed_password, SIGNAL(textChanged(QString)), this, SLOT(validate()));
 
@@ -82,6 +83,13 @@ void ServerEditDialog::detect(const QString &value)
             value.contains(entry.name, Qt::CaseInsensitive)) {
             ui->comboBox_sed_game->setCurrentIndex(entry.id);
         }
+    }
+}
+
+void ServerEditDialog::lineEdit_sed_host_editingFinished()
+{
+    if (ui->lineEdit_sed_name->text().isEmpty()) {
+        ui->lineEdit_sed_name->setText(ui->lineEdit_sed_host->text());
     }
 }
 

@@ -48,6 +48,8 @@ private:
     GameManager *gameManager;
 
 private slots:
+    void lineEdit_sed_host_editingFinished();
+
     void detect(const QString &value);
     void validate();
     void accept();
