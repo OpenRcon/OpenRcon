@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "FrostbiteCommandHandler.h"
 #include "FrostbiteConnection.h"
+#include "FrostbiteCommandHandler.h"
 
 FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *parent) : CommandHandler(parent), con(parent)
 {
@@ -32,7 +32,7 @@ FrostbiteCommandHandler::~FrostbiteCommandHandler()
 
 }
 
-bool FrostbiteCommandHandler::parse(const QString & request, const FrostbiteRconPacket & packet, const FrostbiteRconPacket & lastSentPacket)
+bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     typedef void (FrostbiteCommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 

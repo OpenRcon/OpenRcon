@@ -23,7 +23,6 @@
 #include <QCryptographicHash>
 
 #include "CommandHandler.h"
-#include "PlayerSubset.h"
 
 class FrostbiteConnection;
 class FrostbiteRconPacket;
