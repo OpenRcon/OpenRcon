@@ -247,7 +247,7 @@
      </widget>
      <widget class="QWidget" name="tab_op">
       <attribute name="icon">
-       <iconset resource="../OpenRcon.qrc">
+       <iconset>
         <normaloff>:/icons/images/icons/options.png</normaloff>:/icons/images/icons/options.png</iconset>
       </attribute>
       <attribute name="title">

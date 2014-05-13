@@ -45,20 +45,10 @@ public:
     void sendListPlayersCommand(const PlayerSubset &playerSubset);
 
     // Admin
-    void sendAdminEventsEnabledCommand(bool enabled);
-    void sendAdminHelpCommand();
-    void sendAdminKickPlayerCommand(const QString &player, const QString &reason);
-    void sendAdminKillPlayerCommand(const QString &player);
     void sendAdminListPlayersCommand(const PlayerSubset &playerSubset);
-    void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
-    void sendAdminPasswordCommand();
-    void sendAdminPasswordCommand(const QString &password);
-    void sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
     void sendAdminShutdownCommand();
     void sendAdminShutdownCommand(bool graceful);
     void sendAdminShutdownCommand(bool graceful, int seconds);
-    void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
-    void sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset, int parameter = -1);
 
     // Banning
     void sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason);
@@ -88,16 +78,6 @@ public:
     void sendMapListRunNextRound();
     void sendMapListSave();
     void sendMapListSetNextMapIndex(int index);
-
-    // Player
-    void sendPlayerIdleDuration(const QString &player);
-    void sendPlayerIsAlive(const QString &player);
-    void sendPlayerPing(const QString &player);
-
-    // PunkBuster
-    void sendPunkBusterActivate();
-    void sendPunkBusterIsActive();
-    void sendPunkBusterPbSvCommand(const QString &command);
 
     // Reserved Slots
     void sendReservedSlotsListAdd(const QString &player);
@@ -199,16 +179,8 @@ private:
     void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Admin
-    void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminKillPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-    void parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminShutDownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // BanList
     /*void parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -237,16 +209,6 @@ private:
     void parseMapListRunNextRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseMapListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-
-    // Player
-    void parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerPingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-
-    // PunkBuster
-    /*void parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-    void parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // Reserverd Slots
     /*void parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
@@ -318,8 +280,6 @@ private:
     void parseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     QList<PlayerInfo> parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    PlayerSubset getPlayerSubset(const QString &playerSubsetString);
-    QString getPlayerSubsetString(const PlayerSubset &playerSubset);
 
 signals:
     /* Event signals */
@@ -334,16 +294,8 @@ signals:
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
     // Admin
-    void onAdminEventsEnabledCommand(bool enabled);
-    void onAdminHelpCommand(const QStringList &commandList);
-//    void onAdminKickPlayerCommand();
-//    void onAdminKillPlayerCommand();
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
-//    void onAdminMovePlayerCommand();
-    void onAdminPasswordCommand(const QString &password);
-//    void onAdminSayCommand();
 //    void onAdminShutDownCommand();
-//    void onAdminYellCommand();
 
     // BanList
 //    void onBanListAddCommand();
@@ -372,16 +324,6 @@ signals:
 //    void onMapListRunNextRoundCommand();
 //    void onMapListSaveCommand();
 //    void onMapListSetNextMapIndexCommand();
-
-    // Player
-    void onPlayerIdleDurationCommand(float idleDuration);
-    void onPlayerIsAliveCommand(bool alive);
-    void onPlayerPingCommand(const QString &player, int ping);
-
-    // Punkbuster
-//    void onPunkBusterActivateCommand();
-    void onPunkBusterIsActiveCommand(bool isActive);
-//    void onPunkBusterPbSvCommand();
 
     // Reserved Slots
 //    void onReservedSlotsListAddCommand();

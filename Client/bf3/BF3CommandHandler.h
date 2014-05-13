@@ -64,31 +64,14 @@ private:
     void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // Admin
-    /*void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseAdminKillPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-
-    // Player
-    /*void parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerPingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
+//    void parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Squad
     /*void parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseSquadPrivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-
-    // PunkBuster
-    /*void parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePunkBusterPbSvCommandCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // BanList
     /*void parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -188,31 +171,14 @@ signals:
     void onListPlayersCommand();
 
     // Admin
-    void onAdminEventsEnabledCommand();
-    void onAdminPasswordCommand();
     void onAdminEffectiveMaxPlayersCommand();
-    void onAdminSayCommand();
-    void onAdminYellCommand();
-    void onAdminKickPlayerCommand();
     void onAdminListPlayersCommand();
-    void onAdminMovePlayerCommand();
-    void onAdminKillPlayerCommand();
-
-    // Player
-    void onPlayerIdleDurationCommand();
-    void onPlayerIsAliveCommand();
-    void onPlayerPingCommand();
 
     // Squad
     void onSquadListActiveCommand();
     void onSquadListPlayersCommand();
     void onSquadPrivateCommand();
     void onSquadLeaderCommand();
-
-    // Punkbuster
-    void onPunkBusterIsActiveCommand();
-    void onPunkBusterActivateCommand();
-    void onPunkBusterPbSvCommandCommand();
 
     // BanList
     void onBanListLoadCommand();

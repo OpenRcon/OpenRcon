@@ -21,6 +21,7 @@
 #define FROSTBITE2COMMANDHANDLER_H
 
 #include "FrostbiteCommandHandler.h"
+#include "PlayerSubset.h"
 
 class Frostbite2CommandHandler : public FrostbiteCommandHandler
 {
@@ -33,6 +34,31 @@ public:
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) override;
 
     /* Send commands */
+    // Admin
+    void sendAdminEventsEnabledCommand(bool enabled);
+    void sendAdminHelpCommand();
+    void sendAdminKickPlayerCommand(const QString &player, const QString &reason);
+    void sendAdminKillPlayerCommand(const QString &player);
+    void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
+    void sendAdminPasswordCommand();
+    void sendAdminPasswordCommand(const QString &password);
+    void sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
+    void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
+    void sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset, int parameter = -1);
+
+    // Player
+    void sendPlayerIdleDuration(const QString &player);
+    void sendPlayerIsAlive(const QString &player);
+    void sendPlayerPing(const QString &player);
+
+    // PunkBuster
+    void sendPunkBusterActivate();
+    void sendPunkBusterIsActive();
+    void sendPunkBusterPbSvCommand(const QString &command);
+
+protected:
+    PlayerSubset getPlayerSubset(const QString &playerSubsetString);
+    QString getPlayerSubsetString(const PlayerSubset &playerSubset);
 
 private:
     /* Parse events */
@@ -50,6 +76,25 @@ private:
     void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     /* Parse commands */
+    // Admin
+    void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseAdminKillPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
+    // Player
+    void parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerPingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
+    // PunkBuster
+//    void parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 signals:
     /* Event signals */
@@ -67,6 +112,42 @@ signals:
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Command signals */
+    // Misc
+
+    // Admin
+    void onAdminEventsEnabledCommand(bool enabled);
+    void onAdminHelpCommand(const QStringList &commandList);
+//    void onAdminKickPlayerCommand();
+//    void onAdminKillPlayerCommand();
+//    void onAdminMovePlayerCommand();
+    void onAdminPasswordCommand(const QString &password);
+//    void onAdminSayCommand();
+//    void onAdminShutDownCommand();
+//    void onAdminYellCommand();
+
+    // BanList
+
+    // FairFight
+
+    // MapList
+
+    // Player
+    void onPlayerIdleDurationCommand(float idleDuration);
+    void onPlayerIsAliveCommand(bool alive);
+    void onPlayerPingCommand(const QString &player, int ping);
+
+    // Punkbuster
+//    void onPunkBusterActivateCommand();
+    void onPunkBusterIsActiveCommand(bool isActive);
+//    void onPunkBusterPbSvCommand();
+
+    // Reserved Slots
+
+    // Spectator List
+
+    // Squad
+
+    // Vars
 
 };
 

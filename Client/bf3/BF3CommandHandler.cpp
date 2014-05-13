@@ -46,31 +46,14 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "listPlayers",                         nullptr /*&BF3CommandHandler::parseListPlayersCommand*/ },
 
         // Admin
-        { "admin.eventsEnabled",                 nullptr /*&BF3CommandHandler::parseAdminEventsEnabledCommand*/ },
-        { "admin.password",                      nullptr /*&BF3CommandHandler::parseAdminPasswordCommand*/ },
         { "admin.effectiveMaxPlayers",           nullptr /*&BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand*/ },
-        { "admin.say",                           nullptr /*&BF3CommandHandler::parseAdminSayCommand*/ },
-        { "admin.yell",                          nullptr /*&BF3CommandHandler::parseAdminYellCommand*/ },
-        { "admin.kickPlayer",                    nullptr /*&BF3CommandHandler::parseAdminKickPlayerCommand*/ },
         { "admin.listPlayers",                   nullptr /*&BF3CommandHandler::parseAdminListPlayersCommand*/ },
-        { "admin.movePlayer",                    nullptr /*&BF3CommandHandler::parseAdminMovePlayerCommand*/ },
-        { "admin.killPlayer",                    nullptr /*&BF3CommandHandler::parseAdminKillPlayerCommand*/ },
-
-        // Player
-        { "player.idleDuration",                 nullptr /*&BF3CommandHandler::parsePlayerIdleDurationCommand*/ },
-        { "player.isAlive",                      nullptr /*&BF3CommandHandler::parsePlayerIsAliveCommand*/ },
-        { "player.ping",                         nullptr /*&BF3CommandHandler::parsePlayerPingCommand*/ },
 
         // Squad
         { "squad.listActive",                    nullptr /*&BF3CommandHandler::parseSquadListActiveCommand*/ },
         { "squad.listPlayers",                   nullptr /*&BF3CommandHandler::parseSquadListPlayersCommand*/ },
         { "squad.private",                       nullptr /*&BF3CommandHandler::parseSquadPrivateCommand*/ },
         { "squad.leader",                        nullptr /*&BF3CommandHandler::parseSquadLeaderCommand*/ },
-
-        // PunkBuster
-        { "punkBuster.isActive",                 nullptr /*&BF3CommandHandler::parsePunkBusterIsActiveCommand*/ },
-        { "punkBuster.activate",                 nullptr /*&BF3CommandHandler::parsePunkBusterActivateCommand*/ },
-        { "punkBuster.pb_sv_command",            nullptr /*&BF3CommandHandler::parsePunkBusterPbSvCommandCommand*/ },
 
         // MapList
         { "banList.load",                        nullptr /*&BF3CommandHandler::parseBanListLoadCommand*/ },
@@ -337,67 +320,17 @@ void BF3CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packe
     Q_UNUSED(packet);
 }*/
 
-/*void BF3CommandHandler::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
+// Admin
+//void BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
-void BF3CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-    Q_UNUSED(lastSentPacket)
-}
-
-void BF3CommandHandler::parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseAdminKillPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-// Player
-/*void BF3CommandHandler::parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parsePlayerPingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
+//void BF3CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket)
+//}
 
 // Squad
 /*void BF3CommandHandler::parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -416,22 +349,6 @@ void BF3CommandHandler::parseSquadPrivateCommand(const FrostbiteRconPacket &pack
 }
 
 void BF3CommandHandler::parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-// PunkBuster
-/*void BF3CommandHandler::parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parsePunkBusterPbSvCommandCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(packet);
 }*/

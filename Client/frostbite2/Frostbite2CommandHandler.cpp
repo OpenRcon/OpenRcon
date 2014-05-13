@@ -47,7 +47,44 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         { "punkBuster.onMessage",           &Frostbite2CommandHandler::parsePunkBusterMessageEvent },
         { "server.onRoundOver",             &Frostbite2CommandHandler::parseServerRoundOverEvent },
         { "server.onRoundOverPlayers",      &Frostbite2CommandHandler::parseServerRoundOverPlayersEvent },
-        { "server.onRoundOverTeamScores",   &Frostbite2CommandHandler::parseServerRoundOverTeamScoresEvent }
+        { "server.onRoundOverTeamScores",   &Frostbite2CommandHandler::parseServerRoundOverTeamScoresEvent },
+
+        /* Commands */
+        // Misc
+
+        // Admin
+        { "admin.eventsEnabled",            &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
+        { "admin.help",                     &Frostbite2CommandHandler::parseAdminHelpCommand },
+        { "admin.kickPlayer",               nullptr /*&Frostbite2CommandHandler::parseAdminKickPlayerCommand*/ },
+        { "admin.killPlayer",               nullptr /*&Frostbite2CommandHandler::parseAdminKillPlayerCommand*/ },
+        { "admin.movePlayer",               nullptr /*&Frostbite2CommandHandler::parseAdminMovePlayerCommand*/ },
+        { "admin.password",                 &Frostbite2CommandHandler::parseAdminPasswordCommand },
+        { "admin.say",                      nullptr /*&Frostbite2CommandHandler::parseAdminSayCommand*/ },
+        { "admin.yell",                     nullptr /*&Frostbite2CommandHandler::parseAdminYellCommand*/ },
+
+        // BanList
+
+        // FairFight
+
+        // MapList
+
+        // Player
+        { "player.idleDuration",            &Frostbite2CommandHandler::parsePlayerIdleDurationCommand },
+        { "player.isAlive",                 &Frostbite2CommandHandler::parsePlayerIsAliveCommand },
+        { "player.ping",                    &Frostbite2CommandHandler::parsePlayerPingCommand },
+
+        // PunkBuster
+        { "punkBuster.activate",            nullptr /*&BF4CommandHandler::parsePunkBusterActivateCommand*/ },
+        { "punkBuster.isActive",            &Frostbite2CommandHandler::parsePunkBusterIsActiveCommand },
+        { "punkBuster.pb_sv_command",       nullptr /*&BF4CommandHandler::parsePunkBusterPbSvCommand*/ }
+
+        // Reserved Slots
+
+        // Spectator List
+
+        // Squad
+
+        // Vars
     };
 
     if (responses.contains(request)) {
@@ -64,6 +101,98 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
 }
 
 /* Send commands */
+// Admin
+void Frostbite2CommandHandler::sendAdminEventsEnabledCommand(bool enabled)
+{
+    con->sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendAdminHelpCommand()
+{
+    con->sendCommand("admin.help");
+}
+
+void Frostbite2CommandHandler::sendAdminKickPlayerCommand(const QString &player, const QString &reason)
+{
+    con->sendCommand(QString("\"admin.kickPlayer\" \"%1\" \"%2\"").arg(player, reason));
+}
+
+void Frostbite2CommandHandler::sendAdminKillPlayerCommand(const QString &player)
+{
+    con->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
+}
+
+void Frostbite2CommandHandler::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
+{
+    con->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(FrostbiteUtils::toString(forceKill)));
+}
+
+void Frostbite2CommandHandler::sendAdminPasswordCommand()
+{
+    con->sendCommand("admin.password");
+}
+
+void Frostbite2CommandHandler::sendAdminPasswordCommand(const QString &password)
+{
+    con->sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
+}
+
+void Frostbite2CommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
+{
+    if (playerSubset == PlayerSubset::All) {
+        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, getPlayerSubsetString(playerSubset)));
+    } else {
+        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, getPlayerSubsetString(playerSubset)).arg(parameter));
+    }
+}
+
+void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
+{
+    sendAdminYellCommand(message, 10, playerSubset, parameter);
+}
+
+void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset, int parameter)
+{
+    if (message.length() <= 256) {
+        if (playerSubset == PlayerSubset::All) {
+            con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)));
+        } else {
+            con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)).arg(parameter));
+        }
+    }
+}
+
+// Player
+void Frostbite2CommandHandler::sendPlayerIdleDuration(const QString &player)
+{
+    con->sendCommand(QString("\"player.idleDuration\" \"%1\"").arg(player));
+}
+
+void Frostbite2CommandHandler::sendPlayerIsAlive(const QString &player)
+{
+    con->sendCommand(QString("\"player.isAlive\" \"%1\"").arg(player));
+}
+
+void Frostbite2CommandHandler::sendPlayerPing(const QString &player)
+{
+    con->sendCommand(QString("\"player.ping\" \"%1\"").arg(player));
+}
+
+// PunkBuster
+void Frostbite2CommandHandler::sendPunkBusterActivate()
+{
+    con->sendCommand("punkBuster.activate");
+}
+
+void Frostbite2CommandHandler::sendPunkBusterIsActive()
+{
+    con->sendCommand("punkBuster.isActive");
+}
+
+void Frostbite2CommandHandler::sendPunkBusterPbSvCommand(const QString &command)
+{
+    con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
+}
 
 /* Parse events */
 void Frostbite2CommandHandler::parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -187,3 +316,180 @@ void Frostbite2CommandHandler::parseServerRoundOverTeamScoresEvent(const Frostbi
 }
 
 /* Parse commands */
+// Admin
+void Frostbite2CommandHandler::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onAdminEventsEnabledCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK") {
+        QStringList commandList;
+
+        for (unsigned int i = 0; i < packet.getWordCount(); i++) {
+            commandList.append(packet.getWord(i).getContent());
+        }
+
+        emit (onAdminHelpCommand(commandList));
+    }
+}
+
+//void Frostbite2CommandHandler::parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
+//}
+
+//void Frostbite2CommandHandler::parseAdminKillPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
+//}
+
+//void Frostbite2CommandHandler::parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString password = packet.getWord(1).getContent();
+
+        emit (onAdminPasswordCommand(password));
+    }
+}
+
+//void Frostbite2CommandHandler::parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+//void Frostbite2CommandHandler::parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+// Player
+void Frostbite2CommandHandler::parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() == 2) {
+        float idleDuration = toFloat(packet.getWord(1).getContent());
+
+        emit (onPlayerIdleDurationCommand(idleDuration));
+    }
+}
+
+void Frostbite2CommandHandler::parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() == 2) {
+        bool alive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onPlayerIsAliveCommand(alive));
+    }
+}
+
+void Frostbite2CommandHandler::parsePlayerPingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() == 3) {
+        QString player = packet.getWord(1).getContent();
+        int ping = toInt(packet.getWord(2).getContent());
+
+        emit (onPlayerPingCommand(player, ping));
+    }
+}
+
+// PunkBuster
+//void Frostbite2CommandHandler::parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+void Frostbite2CommandHandler::parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() == 2) {
+        bool isActive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onPunkBusterIsActiveCommand(isActive));
+    }
+}
+
+//void Frostbite2CommandHandler::parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+PlayerSubset Frostbite2CommandHandler::getPlayerSubset(const QString &playerSubsetString)
+{
+    PlayerSubset playerSubset;
+
+    if (playerSubsetString == "all") {
+        playerSubset = PlayerSubset::All;
+    } else if (playerSubsetString == "team") {
+        playerSubset = PlayerSubset::Team;
+    } else if (playerSubsetString == "squad") {
+        playerSubset = PlayerSubset::Squad;
+    } else if (playerSubsetString == "player") {
+        playerSubset = PlayerSubset::Player;
+    }
+
+    return playerSubset;
+}
+
+QString Frostbite2CommandHandler::getPlayerSubsetString(const PlayerSubset &playerSubset)
+{
+    QString playerSubsetString;
+
+    switch (playerSubset) {
+    case PlayerSubset::All:
+        playerSubsetString = "all";
+        break;
+
+    case PlayerSubset::Team:
+        playerSubsetString = "team";
+        break;
+
+    case PlayerSubset::Squad:
+        playerSubsetString = "squad";
+        break;
+
+    case PlayerSubset::Player:
+        playerSubsetString = "player";
+        break;
+    }
+
+    return playerSubsetString;
+}

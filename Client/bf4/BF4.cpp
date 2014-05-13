@@ -28,7 +28,6 @@ BF4::BF4(ServerEntry *serverEntry) :
     commandHandler(new BF4CommandHandler(con)),
     authenticated(false)
 {
-
     con->hostConnect(serverEntry->host, serverEntry->port);
 
     versionMap.insert(70517, "OB-R2");

@@ -21,6 +21,8 @@
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
 
+#include "ui_Console.h"
+
 BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4Widget)
 {
     ui->setupUi(this);

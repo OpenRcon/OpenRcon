@@ -47,16 +47,8 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "listPlayers",                         &BF4CommandHandler::parseListPlayersCommand },
 
         // Admin
-        { "admin.eventsEnabled",                 &BF4CommandHandler::parseAdminEventsEnabledCommand },
-        { "admin.help",                          &BF4CommandHandler::parseAdminHelpCommand },
-        { "admin.kickPlayer",                    nullptr /*&BF4CommandHandler::parseAdminKickPlayerCommand*/ },
-        { "admin.killPlayer",                    nullptr /*&BF4CommandHandler::parseAdminKillPlayerCommand*/ },
         { "admin.listPlayers",                   &BF4CommandHandler::parseAdminListPlayersCommand },
-        { "admin.movePlayer",                    nullptr /*&BF4CommandHandler::parseAdminMovePlayerCommand*/ },
-        { "admin.password",                      &BF4CommandHandler::parseAdminPasswordCommand },
-        { "admin.say",                           nullptr /*&BF4CommandHandler::parseAdminSayCommand*/ },
         { "admin.shutDown",                      nullptr /*&BF4CommandHandler::parseAdminShutDownCommand*/ },
-        { "admin.yell",                          nullptr /*&BF4CommandHandler::parseAdminYellCommand*/ },
 
         // BanList
         { "banList.add",                         nullptr /*&BF4CommandHandler::parseBanListAddCommand*/ },
@@ -85,16 +77,6 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "mapList.runNextRound",                nullptr /*&BF4CommandHandler::parseMapListRunNextRoundCommand*/ },
         { "mapList.save",                        nullptr /*&BF4CommandHandler::parseMapListSaveCommand*/ },
         { "mapList.setNextMapIndex",             nullptr /*&BF4CommandHandler::parseMapListSetNextMapIndexCommand*/ },
-
-        // Player
-        { "player.idleDuration",                 &BF4CommandHandler::parsePlayerIdleDurationCommand },
-        { "player.isAlive",                      &BF4CommandHandler::parsePlayerIsAliveCommand },
-        { "player.ping",                         &BF4CommandHandler::parsePlayerPingCommand },
-
-        // PunkBuster
-        { "punkBuster.activate",                 nullptr /*&BF4CommandHandler::parsePunkBusterActivateCommand*/ },
-        { "punkBuster.isActive",                 &BF4CommandHandler::parsePunkBusterIsActiveCommand },
-        { "punkBuster.pb_sv_command",            nullptr /*&BF4CommandHandler::parsePunkBusterPbSvCommand*/ },
 
         // Reserved Slots
         { "reservedSlotsList.add",               nullptr /*&BF4CommandHandler::parseReservedSlotsListAddCommand*/ },
@@ -199,54 +181,10 @@ void BF4CommandHandler::sendListPlayersCommand(const PlayerSubset &playerSubset)
 }
 
 // Admin
-void BF4CommandHandler::sendAdminEventsEnabledCommand(bool enabled)
-{
-    con->sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
-}
-
-void BF4CommandHandler::sendAdminHelpCommand()
-{
-    con->sendCommand("admin.help");
-}
-
-void BF4CommandHandler::sendAdminKickPlayerCommand(const QString &player, const QString &reason)
-{
-    con->sendCommand(QString("\"admin.kickPlayer\" \"%1\" \"%2\"").arg(player, reason));
-}
-
-void BF4CommandHandler::sendAdminKillPlayerCommand(const QString &player)
-{
-    con->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
-}
-
 void BF4CommandHandler::sendAdminListPlayersCommand(const PlayerSubset &playerSubset)
 {
     if (playerSubset == PlayerSubset::All) {
         con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
-    }
-}
-
-void BF4CommandHandler::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
-{
-    con->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(FrostbiteUtils::toString(forceKill)));
-}
-
-void BF4CommandHandler::sendAdminPasswordCommand()
-{
-    con->sendCommand("admin.password");
-}
-
-void BF4CommandHandler::sendAdminPasswordCommand(const QString &password)
-{
-    con->sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
-}
-
-void BF4CommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
-{
-    if (playerSubset == PlayerSubset::All) {
-        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, getPlayerSubsetString(playerSubset)));
-    } else {
-        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, getPlayerSubsetString(playerSubset)).arg(parameter));
     }
 }
 
@@ -263,22 +201,6 @@ void BF4CommandHandler::sendAdminShutdownCommand(bool graceful)
 void BF4CommandHandler::sendAdminShutdownCommand(bool graceful, int seconds)
 {
     con->sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(FrostbiteUtils::toString(graceful)).arg(seconds));
-}
-
-void BF4CommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
-{
-    sendAdminYellCommand(message, 10, playerSubset, parameter);
-}
-
-void BF4CommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset, int parameter)
-{
-    if (message.length() <= 256) {
-        if (playerSubset == PlayerSubset::All) {
-            con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)));
-        } else {
-            con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)).arg(parameter));
-        }
-    }
 }
 
 // Banning
@@ -411,37 +333,6 @@ void BF4CommandHandler::sendMapListSave()
 void BF4CommandHandler::sendMapListSetNextMapIndex(int index)
 {
     con->sendCommand(QString("\"mapList.setNextMapIndex\" \"%1\"").arg(index));
-}
-
-void BF4CommandHandler::sendPlayerIdleDuration(const QString &player)
-{
-    con->sendCommand(QString("\"player.idleDuration\" \"%1\"").arg(player));
-}
-
-void BF4CommandHandler::sendPlayerIsAlive(const QString &player)
-{
-    con->sendCommand(QString("\"player.isAlive\" \"%1\"").arg(player));
-}
-
-void BF4CommandHandler::sendPlayerPing(const QString &player)
-{
-    con->sendCommand(QString("\"player.ping\" \"%1\"").arg(player));
-}
-
-// PunkBuster
-void BF4CommandHandler::sendPunkBusterActivate()
-{
-    con->sendCommand("punkBuster.activate");
-}
-
-void BF4CommandHandler::sendPunkBusterIsActive()
-{
-    con->sendCommand("punkBuster.isActive");
-}
-
-void BF4CommandHandler::sendPunkBusterPbSvCommand(const QString &command)
-{
-    con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
 }
 
 // Reserved Slots
@@ -1107,47 +998,6 @@ void BF4CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packe
     emit (onListPlayersCommand(playerList, playerSubset));
 }
 
-// Admin commands.
-void BF4CommandHandler::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
-
-        emit (onAdminEventsEnabledCommand(enabled));
-    }
-}
-
-void BF4CommandHandler::parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK") {
-        QStringList commandList;
-
-        for (unsigned int i = 0; i < packet.getWordCount(); i++) {
-            commandList.append(packet.getWord(i).getContent());
-        }
-
-        emit (onAdminHelpCommand(commandList));
-    }
-}
-
-/*void BF4CommandHandler::parseAdminKickPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseAdminKillPlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
 void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
@@ -1156,40 +1006,12 @@ void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &
     emit (onAdminListPlayersCommand(playerList, playerSubset));
 }
 
-/*void BF4CommandHandler::parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
+//void BF4CommandHandler::parseAdminShutDownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
-void BF4CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QString password = packet.getWord(1).getContent();
-
-        emit (onAdminPasswordCommand(password));
-    }
-}
-
-/*void BF4CommandHandler::parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseAdminShutDownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-// Ban List commands.
+// BanList
 /*void BF4CommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(packet);
@@ -1239,7 +1061,7 @@ void BF4CommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packe
     Q_UNUSED(packet);
 }*/
 
-// Fair Fight commands.
+// FairFight
 /*void BF4CommandHandler::parseFairFightActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(packet);
@@ -1263,7 +1085,7 @@ void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket 
     }
 }
 
-// Map List commands.
+// MapList
 /*void BF4CommandHandler::parseMapListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(packet);
@@ -1394,71 +1216,7 @@ void BF4CommandHandler::parseMapListSetNextMapIndexCommand(const FrostbiteRconPa
     Q_UNUSED(packet);
 }*/
 
-void BF4CommandHandler::parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() == 2) {
-        float idleDuration = toFloat(packet.getWord(1).getContent());
-
-        emit (onPlayerIdleDurationCommand(idleDuration));
-    }
-}
-
-void BF4CommandHandler::parsePlayerIsAliveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() == 2) {
-        bool alive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
-
-        emit (onPlayerIsAliveCommand(alive));
-    }
-}
-
-void BF4CommandHandler::parsePlayerPingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() == 3) {
-        QString player = packet.getWord(1).getContent();
-        int ping = toInt(packet.getWord(2).getContent());
-
-        emit (onPlayerPingCommand(player, ping));
-    }
-}
-
-// PunkBuster commands.
-/*void BF4CommandHandler::parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-void BF4CommandHandler::parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() == 2) {
-        bool isActive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
-
-        emit (onPunkBusterIsActiveCommand(isActive));
-    }
-}
-
-/*void BF4CommandHandler::parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-// Reserved Slots commands.
+// Reserved Slots
 /*void BF4CommandHandler::parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(packet);
@@ -1514,7 +1272,7 @@ void BF4CommandHandler::parseReservedSlotsListSaveCommand(const FrostbiteRconPac
     Q_UNUSED(packet);
 }*/
 
-// Spectator List commands.
+// SpectatorList
 /*void BF4CommandHandler::parseSpectatorListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(packet);
@@ -1552,7 +1310,7 @@ void BF4CommandHandler::parseSpectatorListSaveCommand(const FrostbiteRconPacket 
     Q_UNUSED(packet);
 }*/
 
-// Squad commands.
+// Squad
 void BF4CommandHandler::parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
@@ -1602,7 +1360,7 @@ void BF4CommandHandler::parseSquadPrivateCommand(const FrostbiteRconPacket &pack
     }
 }
 
-// Vars commands.
+// Vars
 void BF4CommandHandler::parseVars3dSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
@@ -2218,46 +1976,3 @@ QList<PlayerInfo> BF4CommandHandler::parsePlayerList(const FrostbiteRconPacket &
 
     return playerList;
 }
-
-PlayerSubset BF4CommandHandler::getPlayerSubset(const QString &playerSubsetString)
-{
-    PlayerSubset playerSubset;
-
-    if (playerSubsetString == "all") {
-        playerSubset = PlayerSubset::All;
-    } else if (playerSubsetString == "team") {
-        playerSubset = PlayerSubset::Team;
-    } else if (playerSubsetString == "squad") {
-        playerSubset = PlayerSubset::Squad;
-    } else if (playerSubsetString == "player") {
-        playerSubset = PlayerSubset::Player;
-    }
-
-    return playerSubset;
-}
-
-QString BF4CommandHandler::getPlayerSubsetString(const PlayerSubset &playerSubset)
-{
-    QString playerSubsetString;
-
-    switch (playerSubset) {
-    case PlayerSubset::All:
-        playerSubsetString = "all";
-        break;
-
-    case PlayerSubset::Team:
-        playerSubsetString = "team";
-        break;
-
-    case PlayerSubset::Squad:
-        playerSubsetString = "squad";
-        break;
-
-    case PlayerSubset::Player:
-        playerSubsetString = "player";
-        break;
-    }
-
-    return playerSubsetString;
-}
-
