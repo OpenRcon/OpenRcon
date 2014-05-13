@@ -17,6 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "LanguageEntry.h"
 #include "LanguageManager.h"
 
 LanguageManager::LanguageManager(QObject *parent) : QObject(parent)

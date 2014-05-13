@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -23,17 +23,22 @@
 #include <QDialog>
 #include <QMenu>
 #include <QMessageBox>
+#include <QTreeWidgetItem>
 
-#include "OpenRcon.h"
-#include "GameManager.h"
-#include "ServerManager.h"
-#include "ServerEditDialog.h"
-
-#include "ui_ServerListDialog.h"
+#include "Constants.h"
 
 using namespace Constants;
 
+struct ServerEntry;
+
 class OpenRcon;
+class GameManager;
+class ServerManager;
+
+namespace Ui {
+    class ServerListDialog;
+}
+
 class ServerListDialog : public QDialog
 {
     Q_OBJECT

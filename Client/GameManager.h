@@ -20,13 +20,12 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
-#include "GameEntry.h"
-#include "ServerEntry.h"
+#include <QObject>
 
-#include "BFBC2Widget.h"
-#include "BF3Widget.h"
-#include "BF4Widget.h"
-#include "MinecraftWidget.h"
+struct GameEntry;
+struct ServerEntry;
+
+class Game;
 
 class GameManager : public QObject
 {

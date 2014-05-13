@@ -17,7 +17,15 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "GameEntry.h"
+#include "ServerEntry.h"
 #include "GameManager.h"
+
+#include "Game.h"
+#include "BFBC2Widget.h"
+#include "BF3Widget.h"
+#include "BF4Widget.h"
+#include "MinecraftWidget.h"
 
 GameManager::GameManager(QObject *parent) : QObject(parent)
 {

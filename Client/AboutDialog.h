@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,15 +20,18 @@
 #ifndef ABOUTDIALOG_H
 #define ABOUTDIALOG_H
 
+#include <QDialog>
 #include <QDateTime>
 #include <QFile>
 #include <QTextStream>
 
 #include "Constants.h"
 
-#include "ui_AboutDialog.h"
-
 using namespace Constants;
+
+namespace Ui {
+    class AboutDialog;
+}
 
 class AboutDialog : public QDialog
 {

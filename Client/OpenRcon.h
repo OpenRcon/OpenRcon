@@ -20,32 +20,30 @@
 #ifndef OPENRCON_H
 #define OPENRCON_H
 
-#include <QObject>
 #include <QDebug>
 #include <QMainWindow>
 #include <QDesktopServices>
 #include <QIcon>
-#include <QEvent>
-#include <QCloseEvent>
 #include <QSettings>
 #include <QComboBox>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QUrl>
 
-#include "ui_OpenRcon.h"
 #include "Constants.h"
-#include "GameManager.h"
-#include "ServerManager.h"
-#include "ServerListDialog.h"
-#include "OptionsDialog.h"
-#include "AboutDialog.h"
 
-#include "ConnectionTabWidget.h"
+struct ServerEntry;
+
+class GameManager;
+class ServerManager;
+class ServerListDialog;
+class OptionsDialog;
+class AboutDialog;
 
 using namespace Constants;
 
 namespace Ui {
-    class MainWindow;
+    class OpenRcon;
 }
 
 class ServerListDialog;

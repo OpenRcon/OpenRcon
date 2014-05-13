@@ -20,16 +20,20 @@
 #ifndef OPTIONSDIALOG_H
 #define OPTIONSDIALOG_H
 
-#include <QObject>
+#include <QDialog>
 #include <QSettings>
 #include <QPushButton>
+#include <QListWidgetItem>
 
 #include "Constants.h"
-#include "LanguageManager.h"
 
-#include "ui_OptionsDialog.h"
+class LanguageManager;
 
 using namespace Constants;
+
+namespace Ui {
+    class OptionsDialog;
+}
 
 class OptionsDialog : public QDialog
 {

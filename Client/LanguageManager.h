@@ -23,7 +23,7 @@
 #include <QObject>
 #include <QList>
 
-#include "LanguageEntry.h"
+struct LanguageEntry;
 
 class LanguageManager : public QObject
 {

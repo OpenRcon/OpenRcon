@@ -17,7 +17,15 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ui_OpenRcon.h"
 #include "OpenRcon.h"
+
+#include "GameEntry.h"
+#include "GameManager.h"
+#include "ServerManager.h"
+#include "ServerListDialog.h"
+#include "OptionsDialog.h"
+#include "AboutDialog.h"
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {

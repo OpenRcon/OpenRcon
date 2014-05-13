@@ -21,6 +21,9 @@
 #define CONNECTIONMANAGER_H
 
 #include <QObject>
+#include <QSet>
+
+class Connection;
 
 class ConnectionManager : public QObject
 {
@@ -29,6 +32,9 @@ class ConnectionManager : public QObject
 public:
     ConnectionManager(QObject *parent = nullptr);
     ~ConnectionManager();
+
+private:
+    QSet<Connection> sockets;
 
 };
 

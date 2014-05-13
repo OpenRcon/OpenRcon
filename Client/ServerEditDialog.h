@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,9 +21,13 @@
 #define SERVEREDITDIALOG_H
 
 #include <QDialog>
+#include <QMessageBox>
 
-#include "ui_ServerEditDialog.h"
-#include "GameManager.h"
+class GameManager;
+
+namespace Ui {
+    class ServerEditDialog;
+}
 
 class ServerEditDialog : public QDialog
 {
