@@ -17,11 +17,13 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QTcpSocket>
+
 #include "MinecraftConnection.h"
 
-MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(parent)
+MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(new QTcpSocket(parent), parent)
 {
-    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
 
 MinecraftConnection::~MinecraftConnection()
@@ -31,7 +33,7 @@ MinecraftConnection::~MinecraftConnection()
 
 void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
 {
-    QDataStream out(tcpSocket);
+    QDataStream out(socket);
     out.setByteOrder(QDataStream::LittleEndian);
 
     if (packet.getLength() < 1460 - 10) {    
@@ -61,10 +63,10 @@ void MinecraftConnection::sendPacket(MinecraftRconPacket &packet)
 
 void MinecraftConnection::readyRead()
 {
-    QDataStream in(tcpSocket);
+    QDataStream in(socket);
     in.setByteOrder(QDataStream::LittleEndian);
 
-    if (tcpSocket->bytesAvailable()) {
+    if (socket->bytesAvailable()) {
         int length, id, type;
         in >> length;
         in >> id;

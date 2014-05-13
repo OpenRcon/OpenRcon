@@ -22,7 +22,7 @@
 
 #include <QObject>
 #include <QDebug>
-#include <QTcpSocket>
+#include <QAbstractSocket>
 #include <QHostAddress>
 #include <QMessageBox>
 
@@ -31,10 +31,10 @@ class Connection : public QObject
     Q_OBJECT
 
 public:
-    Connection(QObject *parent = nullptr);
+    Connection(QAbstractSocket *socket, QObject *parent = nullptr);
     virtual ~Connection();
 
-    QTcpSocket *tcpSocket;
+    QAbstractSocket *socket;
 
 public slots:
     virtual void hostConnect(const QString &host, int port);
@@ -53,7 +53,7 @@ private slots:
 signals:
     void onConnected();
     void onDisconnected();
-    void onDataSentEvent(const QString &command);
+    void onDataSentEvent(const QString &request);
     void onDataReceivedEvent(const QString &response);
 
 };

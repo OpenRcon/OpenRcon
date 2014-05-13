@@ -381,7 +381,7 @@ void BF4Widget::onConnected()
 {
     setAuthenticated(false);
 
-    logEvent("Connected", tr("Connected to %1:%2.").arg(con->tcpSocket->peerAddress().toString()).arg(con->tcpSocket->peerPort()));
+    logEvent("Connected", tr("Connected to %1:%2.").arg(con->socket->peerAddress().toString()).arg(con->socket->peerPort()));
 }
 
 void BF4Widget::onDisconnected()

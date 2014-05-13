@@ -17,15 +17,17 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QTcpSocket>
+
 #include "FrostbiteConnection.h"
 
 FrostbiteConnection::FrostbiteConnection(QObject *parent) :
-    Connection(parent),
+    Connection(new QTcpSocket(parent), parent),
     m_commandHandler(nullptr),
     packetReadState(PacketReadingHeader),
     nextPacketSequence(0)
 {
-    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
 
 FrostbiteConnection::~FrostbiteConnection()
@@ -45,17 +47,17 @@ FrostbiteCommandHandler *FrostbiteConnection::getCommandHandler() const
 
 void FrostbiteConnection::hostConnect(const QString &host, int port)
 {
-    if (!tcpSocket->isOpen()) {
+    if (!socket->isOpen()) {
         clear();
-        tcpSocket->connectToHost(host, port);
+        socket->connectToHost(host, port);
     } else {
-        qDebug() << tr("Already connected to %1:%2.").arg(tcpSocket->peerAddress().toString()).arg(tcpSocket->peerPort());
+        qDebug() << tr("Already connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
     }
 }
 
 void FrostbiteConnection::sendPacket(const FrostbiteRconPacket &packet, bool response)
 {
-    QDataStream out(tcpSocket);
+    QDataStream out(socket);
     out << packet;
 
     if (!response) {
@@ -70,8 +72,8 @@ void FrostbiteConnection::readyRead()
     while (!exit) {
         switch (packetReadState) {
         case PacketReadingHeader:
-            if (tcpSocket->bytesAvailable() >= MIN_PACKET_SIZE) {
-                if (tcpSocket->read(lastHeader, MIN_PACKET_SIZE) != MIN_PACKET_SIZE) {
+            if (socket->bytesAvailable() >= MIN_PACKET_SIZE) {
+                if (socket->read(lastHeader, MIN_PACKET_SIZE) != MIN_PACKET_SIZE) {
                     exit = true;
 
                     qDebug() << tr("Error while reading header.");
@@ -92,12 +94,12 @@ void FrostbiteConnection::readyRead()
             hdrstream >> length;
             hdrstream >> words;
 
-            if (tcpSocket->bytesAvailable() >= length - MIN_PACKET_SIZE) {
+            if (socket->bytesAvailable() >= length - MIN_PACKET_SIZE) {
                 if (length >= MIN_PACKET_SIZE) {
                     char* data = new char[length];
                     memcpy(data, lastHeader, MIN_PACKET_SIZE);
 
-                    if (tcpSocket->read(data + MIN_PACKET_SIZE, length - MIN_PACKET_SIZE) == length - MIN_PACKET_SIZE) {
+                    if (socket->read(data + MIN_PACKET_SIZE, length - MIN_PACKET_SIZE) == length - MIN_PACKET_SIZE) {
                         QDataStream pstream(QByteArray(data, length));
                         FrostbiteRconPacket packet;
                         pstream >> packet;
