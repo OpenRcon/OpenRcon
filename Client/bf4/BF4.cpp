@@ -184,8 +184,7 @@ BF4::BF4(ServerEntry *serverEntry) :
 
 BF4::~BF4()
 {
-    delete con;
-    delete commandHandler;
+
 }
 
 void BF4::onConnected()

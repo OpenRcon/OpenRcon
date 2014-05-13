@@ -81,8 +81,7 @@ BF3::BF3(ServerEntry *serverEntry) :
 
 BF3::~BF3()
 {
-    delete con;
-    delete commandHandler;
+
 }
 
 void BF3::onConnected()
