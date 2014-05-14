@@ -110,7 +110,7 @@ void ServerListDialog::action_gameEntry_add_triggered()
         QTreeWidgetItem *item = ui->treeWidget->currentItem();
 
         if (!item->parent()) {
-            addItem(item->data(0, Qt::UserRole).value<GameType>());
+            addItem(static_cast<GameType>(item->data(0, Qt::UserRole).value<int>()));
         }
     }
 }
