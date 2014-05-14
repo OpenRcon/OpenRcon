@@ -117,7 +117,7 @@ void ServerListDialog::action_gameEntry_add_triggered()
         QTreeWidgetItem *item = ui->treeWidget->currentItem();
 
         if (!item->parent()) {
-            addItem(item->data(0, Qt::UserRole).value<int>());
+            addItem(GameManager::toGameType(item->data(0, Qt::UserRole).value<int>()));
         }
     }
 }
@@ -130,14 +130,14 @@ void ServerListDialog::createTreeData()
         QList<ServerEntry *> list;
 
         for (ServerEntry *entry : serverEntries) {
-            if (entry->game == gameEntry.id) {
+            if (entry->gameType == gameEntry.gameType) {
                 list.append(entry);
             }
         }
 
         if (!list.isEmpty()) {
             QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidget);
-            parentItem->setData(0, Qt::UserRole, gameEntry.id);
+            parentItem->setData(0, Qt::UserRole, GameManager::toInt(gameEntry.gameType));
             parentItem->setIcon(0, QIcon(gameEntry.icon));
             parentItem->setText(0, gameEntry.name);
 
@@ -160,13 +160,13 @@ void ServerListDialog::createTreeData()
     }
 }
 
-void ServerListDialog::addItem(int game)
+void ServerListDialog::addItem(GameType gameType)
 {
-    ServerEditDialog *sed = game >= 0 ? new ServerEditDialog(game, this) : new ServerEditDialog(this);
+    ServerEditDialog *sed = gameType != GameType::Unknown ? new ServerEditDialog(this) : new ServerEditDialog(gameType, this);
 
     if (sed->exec() == QDialog::Accepted) {
         ServerEntry *entry = new ServerEntry(
-            sed->getGame(),
+            sed->getGameType(),
             sed->getName(),
             sed->getHost(),
             sed->getPort(),
@@ -191,11 +191,11 @@ void ServerListDialog::editItem()
         QVariant variant = item->data(0, Qt::UserRole);
         ServerEntry *entry = variant.value<ServerEntry *>();
 
-        ServerEditDialog *sed = new ServerEditDialog(entry->game, entry->name, entry->host, entry->port, entry->password, entry->autoConnect, this);
+        ServerEditDialog *sed = new ServerEditDialog(entry->gameType, entry->name, entry->host, entry->port, entry->password, entry->autoConnect, this);
 
         if (sed->exec() == QDialog::Accepted) {
             ServerEntry editEntry = ServerEntry(
-                sed->getGame(),
+                sed->getGameType(),
                 sed->getName(),
                 sed->getHost(),
                 sed->getPort(),

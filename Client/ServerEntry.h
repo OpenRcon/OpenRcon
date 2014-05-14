@@ -22,19 +22,21 @@
 
 #include <QString>
 
+#include "GameType.h"
+
 struct ServerEntry {
     ServerEntry()
     {
 
     }
 
-    ServerEntry(int game,
+    ServerEntry(GameType gameType,
                 const QString &name,
                 const QString &host,
                 int port,
                 const QString &password,
                 bool autoConnect) :
-                game(game),
+                gameType(gameType),
                 name(name),
                 host(host),
                 port(port),
@@ -44,7 +46,7 @@ struct ServerEntry {
 
     }
 
-    int game;
+    GameType gameType;
     QString name;
     QString host;
     int port;
@@ -52,7 +54,7 @@ struct ServerEntry {
     bool autoConnect;
 
     bool operator == (const ServerEntry &e) const {
-        return (game == e.game && name == e.name && host == e.host && port == e.port && password == e.password && autoConnect == e.autoConnect);
+        return (gameType == e.gameType && name == e.name && host == e.host && port == e.port && password == e.password && autoConnect == e.autoConnect);
     }
 };
 

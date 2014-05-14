@@ -27,15 +27,15 @@
 
 QList<GameEntry> GameManager::gameList = {
     // Adds all games to the list.
-    GameEntry(BFBC2, "BFBC2", "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png", 48888),
-    GameEntry(BF3, "BF3", "Battlefield 3", ":/bf3/icons/bf3.png", 47300),
-    GameEntry(BF4, "BF4", "Battlefield 4", ":/bf4/icons/bf4.png", 47200),
-    GameEntry(Minecraft, "Minecraft", "Minecraft", ":/minecraft/icons/minecraft.png", 25575)
+    GameEntry(GameType::BFBC2, "BFBC2", "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png", 48888),
+    GameEntry(GameType::BF3, "BF3", "Battlefield 3", ":/bf3/icons/bf3.png", 47300),
+    GameEntry(GameType::BF4, "BF4", "Battlefield 4", ":/bf4/icons/bf4.png", 47200),
+    GameEntry(GameType::Minecraft, "Minecraft", "Minecraft", ":/minecraft/icons/minecraft.png", 25575)
 };
 
-GameEntry GameManager::getGame(int index)
+GameEntry GameManager::getGame(GameType gameType)
 {
-    return gameList.at(index);
+    return gameList.at(toInt(gameType));
 }
 
 QList<GameEntry> GameManager::getGames()
@@ -45,30 +45,40 @@ QList<GameEntry> GameManager::getGames()
 
 Game* GameManager::getGameObject(ServerEntry *serverEntry)
 {
-    int game = serverEntry->game;
+    GameType gameType = serverEntry->gameType;
     Game *gameObject;
 
-    switch (game) {
-        case BFBC2:
+    switch (gameType) {
+        case GameType::BFBC2:
             gameObject = new BFBC2Widget(serverEntry);
             break;
 
-        case BF3:
+        case GameType::BF3:
             gameObject = new BF3Widget(serverEntry);
             break;
 
-        case BF4:
+        case GameType::BF4:
             gameObject = new BF4Widget(serverEntry);
             break;
 
-        case Minecraft:
+        case GameType::Minecraft:
             gameObject = new MinecraftWidget(serverEntry);
             break;
 
         default:
-            qDebug() << tr("Unknown game specified, the id was: %1.").arg(game);
+            qDebug() << tr("Unknown game specified, the id was: %1.").arg(toInt(gameType));
             break;
     }
 
     return gameObject;
+}
+
+int GameManager::toInt(GameType gameType)
+{
+    return static_cast<int>(gameType);
+}
+
+GameType GameManager::toGameType(int gameType)
+{
+    return static_cast<GameType>(gameType);
 }

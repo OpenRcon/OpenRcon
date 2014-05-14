@@ -164,7 +164,7 @@ void OpenRcon::writeSettings()
 
 void OpenRcon::addTab(ServerEntry *serverEntry)
 {
-    GameEntry gameEntry = GameManager::getGame(serverEntry->game);
+    GameEntry gameEntry = GameManager::getGame(serverEntry->gameType);
     Game *gameObject = GameManager::getGameObject(serverEntry);
     int index = ui->tabWidget->addTab(gameObject, QIcon(gameEntry.icon), serverEntry->name);
 
@@ -198,7 +198,7 @@ void OpenRcon::updateServerList()
         pushButton_quickConnect_connect->setEnabled(true);
 
         for (ServerEntry *server : serverList) {
-            GameEntry game = GameManager::getGame(server->game);
+            GameEntry game = GameManager::getGame(server->gameType);
 
             comboBox_quickConnect_server->addItem(QIcon(game.icon), server->name);
         }

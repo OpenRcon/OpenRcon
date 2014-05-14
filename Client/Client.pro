@@ -21,7 +21,8 @@ HEADERS += OpenRcon.h \
     ServerListDialog.h \
     ServerEditDialog.h \
     OptionsDialog.h \
-    AboutDialog.h
+    AboutDialog.h \
+    GameType.h
 
 SOURCES += Main.cpp \
     OpenRcon.cpp \

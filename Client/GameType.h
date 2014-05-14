@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,34 +17,16 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAMEENTRY_H
-#define GAMEENTRY_H
+#ifndef GAMETYPE_H
+#define GAMETYPE_H
 
-#include <QString>
-
-#include "GameType.h"
-
-struct GameEntry {
-    GameEntry(GameType gameType,
-              const QString &prefix,
-              const QString &name,
-              const QString &icon,
-              int defaultPort) :
-        gameType(gameType),
-        prefix(prefix),
-        name(name),
-        icon(icon),
-        defaultPort(defaultPort)
-    {
-
-    }
-
-    GameType gameType;
-    QString prefix;
-    QString name;
-    QString icon;
-    int defaultPort;
+enum class GameType {
+    Unknown,
+    BFBC2,
+    BF3,
+    BF4,
+    Minecraft
 
 };
 
-#endif // GAMEENTRY_H
+#endif // GAMETYPE_H

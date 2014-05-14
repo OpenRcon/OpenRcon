@@ -32,18 +32,14 @@ class GameManager : public QObject
     Q_OBJECT
 
 public:
-    static GameEntry getGame(int index);
+    static GameEntry getGame(GameType gameType);
     static QList<GameEntry> getGames();
     static Game *getGameObject(ServerEntry *serverEntry);
 
-private:
-    enum GameType {
-        BFBC2,
-        BF3,
-        BF4,
-        Minecraft
-    };
+    static int toInt(GameType gameType);
+    static GameType toGameType(int gameType);
 
+private: 
     static QList<GameEntry> gameList;
 
 };

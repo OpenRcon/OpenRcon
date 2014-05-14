@@ -26,6 +26,7 @@
 #include <QTreeWidgetItem>
 
 #include "Constants.h"
+#include "GameType.h"
 
 using namespace Constants;
 
@@ -69,7 +70,7 @@ private slots:
     void treeWidget_itemClicked(QTreeWidgetItem *item, int column);
     void action_gameEntry_add_triggered();
 
-    void addItem(int game = -1);
+    void addItem(GameType gameType = GameType::Unknown);
     void editItem();
     void removeItem();
     void connectToItem();

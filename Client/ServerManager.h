@@ -41,7 +41,7 @@ public:
     void setServers(const QList<ServerEntry *> &list);
 
     QList<ServerEntry *> getServers();
-    QList<ServerEntry *> getServers(int gameIndex);
+    QList<ServerEntry *> getServers(GameType gameType);
 
     void addServer(ServerEntry *serverEntry);
     void removeServer(int index);
