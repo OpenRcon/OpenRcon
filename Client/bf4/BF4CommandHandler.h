@@ -22,7 +22,6 @@
 
 #include "Frostbite2CommandHandler.h"
 #include "PlayerInfo.h"
-#include "BanListEntry.h"
 
 #include "BF4ServerInfo.h"
 
@@ -47,15 +46,6 @@ public:
     void sendAdminShutdownCommand();
     void sendAdminShutdownCommand(bool graceful);
     void sendAdminShutdownCommand(bool graceful, int seconds);
-
-    // Banning
-    void sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason);
-    void sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason);
-    void sendBanListClearCommand();
-    void sendBanListListCommand(int index = 0);
-    void sendBanListLoadCommand();
-    void sendBanListRemoveCommand(const QString &idType, const QString &id);
-    void sendBanListSaveCommand();
 
     // FairFight
     void sendFairFightActivateCommand();
@@ -149,14 +139,6 @@ private:
     void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminShutDownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // BanList
-    /*void parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-    void parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-
     // FairFight
     /*void parseFairFightActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseFairFightDeactivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
@@ -233,14 +215,6 @@ signals:
     // Admin
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 //    void onAdminShutDownCommand();
-
-    // BanList
-//    void onBanListAddCommand();
-//    void onBanListClearCommand();
-    void onBanListListCommand(const BanList &banList);
-//    void onBanListLoadCommand();
-//    void onBanListRemoveCommand();
-//    void onBanListSaveCommand();
 
     // FairFight
 //    void onFairFightActivateCommand();

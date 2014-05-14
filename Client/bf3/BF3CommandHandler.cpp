@@ -51,14 +51,6 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "admin.effectiveMaxPlayers",           nullptr /*&BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand*/ },
         { "admin.listPlayers",                   nullptr /*&BF3CommandHandler::parseAdminListPlayersCommand*/ },
 
-        // BanList
-        { "banList.load",                        nullptr /*&BF3CommandHandler::parseBanListLoadCommand*/ },
-        { "banList.save",                        nullptr /*&BF3CommandHandler::parseBanListSaveCommand*/ },
-        { "banList.add",                         nullptr /*&BF3CommandHandler::parseBanListAddCommand*/ },
-        { "banList.remove",                      nullptr /*&BF3CommandHandler::parseBanListRemoveCommand*/ },
-        { "banList.clear",                       nullptr /*&BF3CommandHandler::parseBanListClearCommand*/ },
-        { "banList.list",                        nullptr /*&BF3CommandHandler::parseBanListListCommand*/ },
-
         // Vars
         { "vars.ranked",                         nullptr /*&BF3CommandHandler::parseVarsRankedCommand*/ },
         { "vars.serverName",                     nullptr /*&BF3CommandHandler::parseVarsServerNameCommand*/ },
@@ -321,37 +313,6 @@ void BF3CommandHandler::parseSquadPrivateCommand(const FrostbiteRconPacket &pack
 }
 
 void BF3CommandHandler::parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-// BanList
-/*void BF3CommandHandler::parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF3CommandHandler::parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(packet);
 }*/

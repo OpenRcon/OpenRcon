@@ -52,14 +52,6 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "admin.listPlayers",                   &BF4CommandHandler::parseAdminListPlayersCommand },
         { "admin.shutDown",                      nullptr /*&BF4CommandHandler::parseAdminShutDownCommand*/ },
 
-        // BanList
-        { "banList.add",                         nullptr /*&BF4CommandHandler::parseBanListAddCommand*/ },
-        { "banList.clear",                       nullptr /*&BF4CommandHandler::parseBanListClearCommand*/ },
-        { "banList.list",                        &BF4CommandHandler::parseBanListListCommand },
-        { "banList.load",                        nullptr /*&BF4CommandHandler::parseBanListLoadCommand*/ },
-        { "banList.remove",                      nullptr /*&BF4CommandHandler::parseBanListRemoveCommand*/ },
-        { "banList.save",                        nullptr /*&BF4CommandHandler::parseBanListSaveCommand*/ },
-
         // FairFight
         { "fairFight.activate",                  nullptr /*&BF4CommandHandler::parseFairFightActivateCommand*/ },
         { "fairFight.deactivate",                nullptr /*&BF4CommandHandler::parseFairFightDeactivateCommand*/ },
@@ -173,51 +165,6 @@ void BF4CommandHandler::sendAdminShutdownCommand(bool graceful)
 void BF4CommandHandler::sendAdminShutdownCommand(bool graceful, int seconds)
 {
     con->sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(FrostbiteUtils::toString(graceful)).arg(seconds));
-}
-
-// Banning
-void BF4CommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason)
-{
-    con->sendCommand(QString("banList.add %1 %2 perm %4").arg(idType, id, reason));
-    sendBanListListCommand();
-}
-
-void BF4CommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason)
-{
-    QString timeoutType = useRounds ? "rounds" : "seconds";
-
-    con->sendCommand(QString("banList.add %1 %2 %3 %4 %5").arg(idType, id, timeoutType).arg(FrostbiteUtils::toString(timeout), reason));
-    sendBanListListCommand();
-}
-
-void BF4CommandHandler::sendBanListClearCommand()
-{
-    con->sendCommand("banList.clear");
-}
-
-void BF4CommandHandler::sendBanListListCommand(int index)
-{
-    if (index == 0) {
-        con->sendCommand("banList.list");
-    } else {
-        con->sendCommand(QString("\"banList.list\" \"%1\"").arg(index));
-    }
-}
-
-void BF4CommandHandler::sendBanListLoadCommand()
-{
-    con->sendCommand("banList.load");
-}
-
-void BF4CommandHandler::sendBanListRemoveCommand(const QString &idType, const QString &id)
-{
-    con->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, id));
-    sendBanListListCommand();
-}
-
-void BF4CommandHandler::sendBanListSaveCommand()
-{
-    con->sendCommand("banList.save");
 }
 
 // FairFight
@@ -841,56 +788,6 @@ void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &
 }
 
 //void BF4CommandHandler::parseAdminShutDownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-// BanList
-//void BF4CommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-//void BF4CommandHandler::parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-void BF4CommandHandler::parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        BanList banList;
-
-        for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
-            QString idType = packet.getWord(i).getContent();
-            QString id = packet.getWord(i + 1).getContent();
-            QString banType = packet.getWord(i + 2).getContent();
-            int seconds = toInt(packet.getWord(i + 3).getContent());
-            int rounds = toInt(packet.getWord(i + 4).getContent());
-            QString reason = packet.getWord(i + 5).getContent();
-
-            banList.append(BanListEntry(idType, id, banType, seconds, rounds, reason));
-        }
-
-        emit (onBanListListCommand(banList));
-    }
-}
-
-//void BF4CommandHandler::parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-//void BF4CommandHandler::parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-//void BF4CommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
 //}
