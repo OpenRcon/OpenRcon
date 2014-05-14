@@ -158,8 +158,6 @@ public:
     }
 
 private:
-    QString imagePath;
-
     static QList<LevelEntryType> levelList;
     static QList<GameModeEntryType> gameModeList;
     static QStringList teamList;

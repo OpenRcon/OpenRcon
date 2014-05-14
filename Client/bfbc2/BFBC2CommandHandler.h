@@ -25,8 +25,6 @@
 typedef QMap<QString, QString> PlayerListItem;
 typedef QVector<PlayerListItem> PlayerList;
 
-class FrostbiteConnection;
-
 class BFBC2CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT

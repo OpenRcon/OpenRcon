@@ -23,14 +23,14 @@
 #include <QObject>
 #include <QString>
 
-#include "Connection.h"
+class Connection;
 
 class CommandHandler : public QObject
 {
     Q_OBJECT
 
 public:
-    CommandHandler(Connection * parent = 0);
+    CommandHandler(Connection *parent = 0);
     ~CommandHandler();
 
 protected:

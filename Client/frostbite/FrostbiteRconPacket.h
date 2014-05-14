@@ -22,7 +22,7 @@
 
 #include "FrostbiteRconWord.h"
 
-#define MaxPacketSize 16384
+#define MAX_PACKET_SIZE 16384
 //#define MAX_WORDS 100 // TODO: Think this right.
 
 class FrostbiteRconPacket : public QObject
@@ -101,7 +101,7 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconPacket &packet)
 
 inline QDataStream &operator << (QDataStream &out, const FrostbiteRconPacket &packet)
 {
-    if (packet.getFullSize() <= MaxPacketSize) {
+    if (packet.getFullSize() <= MAX_PACKET_SIZE) {
         QDataStream::ByteOrder oldbo;
         oldbo = out.byteOrder();
 

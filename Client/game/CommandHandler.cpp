@@ -17,6 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Connection.h"
 #include "CommandHandler.h"
 
 CommandHandler::CommandHandler(Connection *parent) : QObject(parent)

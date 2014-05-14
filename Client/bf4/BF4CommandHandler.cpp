@@ -18,6 +18,8 @@
  */
 
 #include "FrostbiteConnection.h"
+#include "FrostbiteRconPacket.h"
+#include "FrostbiteUtils.h"
 #include "BF4CommandHandler.h"
 
 BF4CommandHandler::BF4CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)

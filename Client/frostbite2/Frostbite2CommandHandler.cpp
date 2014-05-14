@@ -18,7 +18,9 @@
  */
 
 #include "FrostbiteConnection.h"
+#include "FrostbiteRconPacket.h"
 #include "Frostbite2CommandHandler.h"
+#include "FrostbiteUtils.h"
 
 Frostbite2CommandHandler::Frostbite2CommandHandler(FrostbiteConnection *parent) : FrostbiteCommandHandler(parent)
 {

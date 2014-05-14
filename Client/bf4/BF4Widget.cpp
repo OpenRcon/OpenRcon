@@ -17,12 +17,12 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "FrostbiteUtils.h"
+
 #include "ui_BF4Widget.h"
 #include "BF4Widget.h"
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
-
-#include "ui_Console.h"
 
 BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4Widget)
 {

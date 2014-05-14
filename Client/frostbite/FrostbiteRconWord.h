@@ -20,6 +20,7 @@
 #ifndef FROSTBITERCONWORD_H
 #define FROSTBITERCONWORD_H
 
+#include <QObject>
 #include <QDebug>
 #include <QDataStream>
 

@@ -20,6 +20,9 @@
 #include <QTcpSocket>
 
 #include "FrostbiteConnection.h"
+#include "FrostbiteRconPacket.h"
+#include "FrostbiteCommandHandler.h"
+#include "FrostbiteUtils.h"
 
 FrostbiteConnection::FrostbiteConnection(QObject *parent) :
     Connection(new QTcpSocket(parent), parent),
