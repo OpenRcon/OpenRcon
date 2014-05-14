@@ -130,7 +130,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onServerRoundOverTeamScoresEvent(QString)), this, SLOT(onServerRoundOverTeamScoresEvent(QString)));
 
     /* Commands */
-
     // Misc
     connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
     connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
@@ -141,7 +140,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onAdminListPlayersCommand(QList<PlayerInfo>, PlayerSubset)), this, SLOT(onAdminListPlayersCommand(QList<PlayerInfo>, PlayerSubset)));
     connect(commandHandler, SIGNAL(onAdminPasswordCommand(QString)), this, SLOT(onAdminPasswordCommand(QString)));
 
-    // Banning
+    // BanList
     connect(commandHandler, SIGNAL(onBanListListCommand(BanList)), this, SLOT(onBanListListCommand(BanList)));
 
     // FairFight
@@ -169,6 +168,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onVarsCommanderCommand(bool)), this, SLOT(onVarsCommanderCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsFriendlyFireCommand(bool)), this, SLOT(onVarsFriendlyFireCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsGamePasswordCommand(QString)), this, SLOT(onVarsGamePasswordCommand(QString)));
+    connect(commandHandler, SIGNAL(onVarsIdleBanRoundsCommand(int)), this, SLOT(onVarsIdleBanRoundsCommand(int)));
     connect(commandHandler, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
     connect(commandHandler, SIGNAL(onVarsKillCamCommand(bool)), this, SLOT(onVarsKillCamCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsMaxPlayersCommand(int)), this, SLOT(onVarsMaxPlayersCommand(int)));
@@ -179,7 +179,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onVarsServerTypeCommand(QString)), this, SLOT(onVarsServerTypeCommand(QString)));
 
     /* User Interface */
-
     // Server Information
     connect(ui->pushButton_si_restartRound, SIGNAL(clicked()), this, SLOT(pushButton_si_restartRound_clicked()));
     connect(ui->pushButton_si_runNextRound, SIGNAL(clicked()), this, SLOT(pushButton_si_runNextRound_clicked()));
@@ -217,6 +216,8 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(ui->checkBox_so_co_fairFight, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_fairFight_toggled(bool)));
     connect(ui->checkBox_so_co_idleTimeout, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_idleTimeout_toggled(bool)));
     connect(ui->spinBox_so_co_idleTimeout, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_idleTimeout_valueChanged(int)));
+    connect(ui->checkBox_so_co_idleBanRounds, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_idleBanRounds_toggled(bool)));
+    connect(ui->spinBox_so_co_idleBanRounds, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_idleBanRounds_valueChanged(int)));
     connect(ui->checkBox_so_co_aggressiveJoin, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_aggressiveJoin_toggled(bool)));
     connect(ui->spinBox_so_co_maxPlayers, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxPlayers_valueChanged(int)));
     connect(ui->spinBox_so_co_maxSpectators, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxSpectators_valueChanged(int)));
@@ -325,6 +326,7 @@ void BF4Widget::startupCommands(bool authenticated)
         commandHandler->sendVarsCommanderCommand();
         commandHandler->sendVarsFriendlyFireCommand();
         commandHandler->sendVarsGamePasswordCommand();
+        commandHandler->sendVarsIdleBanRoundsCommand();
         commandHandler->sendVarsIdleTimeoutCommand();
         commandHandler->sendVarsKillCamCommand();
         commandHandler->sendVarsMaxPlayersCommand();
@@ -645,9 +647,10 @@ void BF4Widget::onMapListListCommand(const MapList &mapList)
 // Player
 
 // Punkbuster
-void BF4Widget::onPunkBusterIsActiveCommand(bool isActive)
+void BF4Widget::onPunkBusterIsActiveCommand(bool active)
 {
-    ui->checkBox_so_co_punkBuster->setChecked(isActive);
+    ui->checkBox_so_co_punkBuster->setEnabled(!active);
+    ui->checkBox_so_co_punkBuster->setChecked(active);
 }
 
 // Reserved Slots
@@ -693,15 +696,28 @@ void BF4Widget::onVarsGamePasswordCommand(const QString &password)
     ui->lineEdit_so_co_gamePassword->setText(password);
 }
 
+void BF4Widget::onVarsIdleBanRoundsCommand(int rounds)
+{
+    if (rounds <= 0) {
+        ui->checkBox_so_co_idleBanRounds->setChecked(true);
+        ui->spinBox_so_co_idleBanRounds->setEnabled(false);
+    } else {
+        ui->checkBox_so_co_idleBanRounds->setChecked(false);
+    }
+
+    ui->spinBox_so_co_idleBanRounds->setValue(rounds);
+}
+
 void BF4Widget::onVarsIdleTimeoutCommand(int timeout)
 {
-    if (timeout >= 1) { // TODO: This cannot be disabled on ranked servers.
-        ui->checkBox_so_co_idleTimeout->setChecked(false);
-        ui->spinBox_so_co_idleTimeout->setValue(timeout);
-    } else {
+    if (timeout >= 84600) {
         ui->checkBox_so_co_idleTimeout->setChecked(true);
         ui->spinBox_so_co_idleTimeout->setEnabled(false);
+    } else {
+        ui->checkBox_so_co_idleTimeout->setChecked(false);
     }
+
+    ui->spinBox_so_co_idleTimeout->setValue(timeout);
 }
 
 void BF4Widget::onVarsKillCamCommand(bool enabled)
@@ -1278,9 +1294,9 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
 // Options -> Configuration
 void BF4Widget::checkBox_so_co_punkBuster_toggled(bool checked)
 {
-    Q_UNUSED(checked); // TODO: Do this right.
-
-    commandHandler->sendPunkBusterActivateCommand();
+    if (checked) {
+        commandHandler->sendPunkBusterActivateCommand();
+    }
 }
 
 void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
@@ -1290,26 +1306,43 @@ void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
     } else {
         commandHandler->sendFairFightDeactivateCommand();
     }
+
+    commandHandler->sendFairFightIsActiveCommand();
 }
 
 void BF4Widget::checkBox_so_co_idleTimeout_toggled(bool checked)
 {
-    int timeout;
+    int timeout = checked ? 84600 : 225;
 
-    if (checked) {
-        ui->spinBox_so_co_idleTimeout->setEnabled(false);
-        timeout = 84600;
-    } else {
-        ui->spinBox_so_co_idleTimeout->setEnabled(true);
-        timeout = ui->spinBox_so_co_idleTimeout->value();
-    }
+    ui->spinBox_so_co_idleTimeout->setEnabled(!checked);
+    ui->spinBox_so_co_idleTimeout->setValue(timeout);
+    ui->checkBox_so_co_idleBanRounds->setEnabled(!checked);
+    ui->checkBox_so_co_idleBanRounds->setChecked(checked);
+    checkBox_so_co_idleBanRounds_toggled(checked);
 
     commandHandler->sendVarsIdleTimeoutCommand(timeout);
 }
 
 void BF4Widget::spinBox_so_co_idleTimeout_valueChanged(int value)
 {
-    if (value >= 0) {
+    if (value >= 225) {
+        commandHandler->sendVarsIdleTimeoutCommand(value);
+    }
+}
+
+void BF4Widget::checkBox_so_co_idleBanRounds_toggled(bool checked)
+{
+    int rounds = checked ? 0 : 2;
+
+    ui->spinBox_so_co_idleBanRounds->setEnabled(!checked);
+    ui->spinBox_so_co_idleBanRounds->setValue(rounds);
+
+    commandHandler->sendVarsIdleBanRoundsCommand(rounds);
+}
+
+void BF4Widget::spinBox_so_co_idleBanRounds_valueChanged(int value)
+{
+    if (value > 0) {
         commandHandler->sendVarsIdleTimeoutCommand(value);
     }
 }

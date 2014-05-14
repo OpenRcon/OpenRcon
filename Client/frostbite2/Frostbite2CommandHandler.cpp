@@ -839,9 +839,9 @@ void Frostbite2CommandHandler::parsePunkBusterIsActiveCommand(const FrostbiteRco
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() == 2) {
-        bool isActive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+        bool active = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onPunkBusterIsActiveCommand(isActive));
+        emit (onPunkBusterIsActiveCommand(active));
     }
 }
 

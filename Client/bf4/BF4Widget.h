@@ -158,7 +158,7 @@ private slots:
     // Player
 
     // Punkbuster
-    void onPunkBusterIsActiveCommand(bool isActive);
+    void onPunkBusterIsActiveCommand(bool active);
 
     // Reserved Slots
     void onReservedSlotsListAggressiveJoinCommand(bool enabled);
@@ -174,6 +174,7 @@ private slots:
     void onVarsCommanderCommand(bool enabled);
     void onVarsFriendlyFireCommand(bool enabled);
     void onVarsGamePasswordCommand(const QString &password);
+    void onVarsIdleBanRoundsCommand(int rounds);
     void onVarsIdleTimeoutCommand(int timeout);
     void onVarsKillCamCommand(bool enabled);
     void onVarsMaxPlayersCommand(int playerCount);
@@ -251,6 +252,8 @@ private slots:
     void checkBox_so_co_fairFight_toggled(bool checked);
     void checkBox_so_co_idleTimeout_toggled(bool checked);
     void spinBox_so_co_idleTimeout_valueChanged(int value);
+    void checkBox_so_co_idleBanRounds_toggled(bool checked);
+    void spinBox_so_co_idleBanRounds_valueChanged(int value);
     void checkBox_so_co_aggressiveJoin_toggled(bool checked);
     void spinBox_so_co_maxPlayers_valueChanged(int value);
     void spinBox_so_co_maxSpectators_valueChanged(int value);

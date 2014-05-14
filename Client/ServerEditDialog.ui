@@ -71,10 +71,13 @@
      <item>
       <widget class="QSpinBox" name="spinBox_port">
        <property name="minimum">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="maximum">
         <number>65535</number>
+       </property>
+       <property name="value">
+        <number>0</number>
        </property>
       </widget>
      </item>
@@ -183,8 +186,9 @@
   <tabstop>lineEdit_host</tabstop>
   <tabstop>spinBox_port</tabstop>
   <tabstop>lineEdit_password</tabstop>
-  <tabstop>pushButton_ok</tabstop>
+  <tabstop>checkBox_autoConnect</tabstop>
   <tabstop>pushButton_cancel</tabstop>
+  <tabstop>pushButton_ok</tabstop>
  </tabstops>
  <resources>
   <include location="OpenRcon.qrc"/>

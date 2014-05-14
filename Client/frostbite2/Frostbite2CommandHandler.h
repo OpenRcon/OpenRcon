@@ -249,7 +249,7 @@ signals:
 
     // Punkbuster
 //    void onPunkBusterActivateCommand();
-    void onPunkBusterIsActiveCommand(bool isActive);
+    void onPunkBusterIsActiveCommand(bool active);
 //    void onPunkBusterPbSvCommand();
 
     // Reserved Slots

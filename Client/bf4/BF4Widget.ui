@@ -103,7 +103,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -257,7 +257,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget_op">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_so_de">
           <attribute name="title">
@@ -331,46 +331,6 @@
            <string>Configuration</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_13">
-           <item row="1" column="0" colspan="2">
-            <layout class="QHBoxLayout" name="horizontalLayout_9">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_7">
-               <item>
-                <widget class="QLabel" name="label_so_co_gamePassword">
-                 <property name="text">
-                  <string>Game password</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_so_co_gamePassword">
-                 <property name="echoMode">
-                  <enum>QLineEdit::Password</enum>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_8">
-               <item>
-                <widget class="QLabel" name="label_so_co_adminPassword">
-                 <property name="text">
-                  <string>Admin password</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_so_co_adminPassword">
-                 <property name="echoMode">
-                  <enum>QLineEdit::Password</enum>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
            <item row="0" column="0">
             <layout class="QFormLayout" name="formLayout_4">
              <item row="0" column="0">
@@ -401,20 +361,6 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QLabel" name="label_so_co_maxPlayers">
-                 <property name="text">
-                  <string>Player limit</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QSpinBox" name="spinBox_so_co_maxPlayers"/>
-               </item>
-              </layout>
-             </item>
              <item row="3" column="0">
               <layout class="QHBoxLayout" name="horizontalLayout_4">
                <item>
@@ -436,17 +382,17 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item row="2" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QLabel" name="label_so_co_effectivePlayerLimit">
+                <widget class="QLabel" name="label_so_co_maxPlayers">
                  <property name="text">
-                  <string>Effective player limit</string>
+                  <string>Player limit</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QSpinBox" name="spinBox_so_co_effectivePlayerLimit"/>
+                <widget class="QSpinBox" name="spinBox_so_co_maxPlayers"/>
                </item>
               </layout>
              </item>
@@ -471,23 +417,95 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="0" colspan="2">
+             <item row="2" column="0" colspan="2">
               <widget class="QCheckBox" name="checkBox_so_co_aggressiveJoin">
                <property name="text">
                 <string>Aggresive join</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="0" colspan="2">
+             <item row="3" column="0" colspan="2">
               <widget class="QCheckBox" name="checkBox_so_co_commander">
                <property name="text">
                 <string>Commander</string>
                </property>
               </widget>
              </item>
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="checkBox_so_co_idleBanRounds">
+               <property name="text">
+                <string>Disable idle ban</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QSpinBox" name="spinBox_so_co_idleBanRounds"/>
+             </item>
             </layout>
            </item>
-           <item row="2" column="0" colspan="2">
+           <item row="0" column="2">
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>438</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QLabel" name="label_so_co_gamePassword">
+               <property name="text">
+                <string>Game password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_so_co_gamePassword">
+               <property name="echoMode">
+                <enum>QLineEdit::Password</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="1" rowspan="2">
+            <spacer name="verticalSpacer_12">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>98</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="label_so_co_adminPassword">
+               <property name="text">
+                <string>Admin password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_so_co_adminPassword">
+               <property name="echoMode">
+                <enum>QLineEdit::Password</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="0">
             <spacer name="verticalSpacer_6">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -495,20 +513,7 @@
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="2" rowspan="2">
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
+               <height>198</height>
               </size>
              </property>
             </spacer>
