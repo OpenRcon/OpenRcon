@@ -1298,7 +1298,7 @@ void BF4Widget::checkBox_so_co_idleTimeout_toggled(bool checked)
 
     if (checked) {
         ui->spinBox_so_co_idleTimeout->setEnabled(false);
-        timeout = 0;
+        timeout = 84600;
     } else {
         ui->spinBox_so_co_idleTimeout->setEnabled(true);
         timeout = ui->spinBox_so_co_idleTimeout->value();
@@ -1309,7 +1309,7 @@ void BF4Widget::checkBox_so_co_idleTimeout_toggled(bool checked)
 
 void BF4Widget::spinBox_so_co_idleTimeout_valueChanged(int value)
 {
-    if (value >= 1) {
+    if (value >= 0) {
         commandHandler->sendVarsIdleTimeoutCommand(value);
     }
 }

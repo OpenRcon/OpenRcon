@@ -234,7 +234,7 @@ signals:
 //    void onMapListEndRoundCommand();
     void onMapListGetMapIndicesCommand(int currentMapIndex, int nextMapIndex);
     void onMapListGetRoundsCommand(int currentRound, int totalRounds);
-    void onMapListListCommand(const QList<MapListEntry> &mapList);
+    void onMapListListCommand(const MapList &mapList);
 //    void onMapListLoadCommand();
 //    void onMapListRemoveCommand();
 //    void onMapListRestartRoundCommand();
