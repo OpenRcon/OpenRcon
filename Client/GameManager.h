@@ -33,11 +33,13 @@ class GameManager : public QObject
 
 public:
     static GameEntry getGame(GameType gameType);
+    static GameEntry getGame(const QString &gamePrefix);
     static QList<GameEntry> getGames();
     static Game *getGameObject(ServerEntry *serverEntry);
 
     static int toInt(GameType gameType);
     static GameType toGameType(int gameType);
+    static GameType toGameType(const QString &gameType);
 
 private: 
     static QList<GameEntry> gameList;

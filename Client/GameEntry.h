@@ -25,6 +25,11 @@
 #include "GameType.h"
 
 struct GameEntry {
+    GameEntry()
+    {
+
+    }
+
     GameEntry(GameType gameType,
               const QString &prefix,
               const QString &name,

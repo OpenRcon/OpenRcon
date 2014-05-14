@@ -38,6 +38,17 @@ GameEntry GameManager::getGame(GameType gameType)
     return gameList.at(toInt(gameType) - 1);
 }
 
+GameEntry GameManager::getGame(const QString &gamePrefix)
+{
+    for (GameEntry entry : gameList) {
+        if (entry.prefix == gamePrefix) {
+            return entry;
+        }
+    }
+
+    return GameEntry();
+}
+
 QList<GameEntry> GameManager::getGames()
 {
     return gameList;
@@ -49,25 +60,25 @@ Game* GameManager::getGameObject(ServerEntry *serverEntry)
     Game *gameObject;
 
     switch (gameType) {
-        case GameType::BFBC2:
-            gameObject = new BFBC2Widget(serverEntry);
-            break;
+    case GameType::BFBC2:
+        gameObject = new BFBC2Widget(serverEntry);
+        break;
 
-        case GameType::BF3:
-            gameObject = new BF3Widget(serverEntry);
-            break;
+    case GameType::BF3:
+        gameObject = new BF3Widget(serverEntry);
+        break;
 
-        case GameType::BF4:
-            gameObject = new BF4Widget(serverEntry);
-            break;
+    case GameType::BF4:
+        gameObject = new BF4Widget(serverEntry);
+        break;
 
-        case GameType::Minecraft:
-            gameObject = new MinecraftWidget(serverEntry);
-            break;
+    case GameType::Minecraft:
+        gameObject = new MinecraftWidget(serverEntry);
+        break;
 
-        default:
-            qDebug() << tr("Unknown game specified, the id was: %1.").arg(toInt(gameType));
-            break;
+    default:
+        qDebug() << tr("Unknown game specified, the id was: %1.").arg(toInt(gameType));
+        break;
     }
 
     return gameObject;
@@ -81,4 +92,9 @@ int GameManager::toInt(GameType gameType)
 GameType GameManager::toGameType(int gameType)
 {
     return static_cast<GameType>(gameType);
+}
+
+GameType GameManager::toGameType(const QString &gameType)
+{
+    return getGame(gameType).gameType;
 }
