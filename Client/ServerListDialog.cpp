@@ -31,7 +31,6 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     ui->setupUi(this);
 
     openRcon = dynamic_cast<OpenRcon *>(parent);
-    gameManager = openRcon->getGameManager();
     serverManager = openRcon->getServerManager();
 
     // Fetch ServerEntries from ServerManager.
@@ -127,7 +126,7 @@ void ServerListDialog::createTreeData()
 {
     ui->treeWidget->clear();
 
-    for (GameEntry gameEntry : gameManager->getGames()) {
+    for (GameEntry gameEntry : GameManager::getGames()) {
         QList<ServerEntry *> list;
 
         for (ServerEntry *entry : serverEntries) {
@@ -139,7 +138,7 @@ void ServerListDialog::createTreeData()
         if (!list.isEmpty()) {
             QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidget);
             parentItem->setData(0, Qt::UserRole, gameEntry.id);
-            parentItem->setIcon(0, gameEntry.icon);
+            parentItem->setIcon(0, QIcon(gameEntry.icon));
             parentItem->setText(0, gameEntry.name);
 
             for (ServerEntry *serverEntry : list) {

@@ -22,8 +22,8 @@
 
 #include <QObject>
 
-struct GameEntry;
-struct ServerEntry;
+#include "GameEntry.h"
+#include "ServerEntry.h"
 
 class Game;
 
@@ -32,12 +32,9 @@ class GameManager : public QObject
     Q_OBJECT
 
 public:
-    GameManager(QObject *parent = nullptr);
-    ~GameManager();
-
-    GameEntry getGame(int index);
-    QList<GameEntry> getGames();
-    Game* getGameObject(ServerEntry *serverEntry);
+    static GameEntry getGame(int index);
+    static QList<GameEntry> getGames();
+    static Game *getGameObject(ServerEntry *serverEntry);
 
 private:
     enum GameType {
@@ -47,7 +44,7 @@ private:
         Minecraft
     };
 
-    QList<GameEntry> gameList;
+    static QList<GameEntry> gameList;
 
 };
 

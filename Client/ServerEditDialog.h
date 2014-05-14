@@ -23,8 +23,6 @@
 #include <QDialog>
 #include <QMessageBox>
 
-class GameManager;
-
 namespace Ui {
     class ServerEditDialog;
 }
@@ -48,8 +46,6 @@ public:
 
 private:
     Ui::ServerEditDialog *ui;
-
-    GameManager *gameManager;
 
 private slots:
     void lineEdit_sed_host_editingFinished();

@@ -21,7 +21,6 @@
 #define GAMEENTRY_H
 
 #include <QString>
-#include <QIcon>
 
 struct GameEntry {
     GameEntry(int id, const
@@ -32,7 +31,7 @@ struct GameEntry {
         id(id),
         prefix(prefix),
         name(name),
-        icon(QIcon(icon)),
+        icon(icon),
         defaultPort(defaultPort)
     {
 
@@ -41,7 +40,7 @@ struct GameEntry {
     int id;
     QString prefix;
     QString name;
-    QIcon icon;
+    QString icon;
     int defaultPort;
 
 };

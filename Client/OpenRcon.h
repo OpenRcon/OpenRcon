@@ -34,7 +34,6 @@
 
 struct ServerEntry;
 
-class GameManager;
 class ServerManager;
 class ServerListDialog;
 class OptionsDialog;
@@ -57,7 +56,6 @@ public:
     ~OpenRcon();
 
     void addTab(ServerEntry *serverEntry);
-    GameManager *getGameManager();
     ServerManager *getServerManager();
 
 private:
@@ -65,7 +63,6 @@ private:
 
     QSettings *settings;
 
-    GameManager *gameManager;
     ServerManager *serverManager;
     ServerListDialog *serverListDialog;
     OptionsDialog *optionsDialog;

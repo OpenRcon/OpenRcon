@@ -32,7 +32,6 @@ using namespace Constants;
 struct ServerEntry;
 
 class OpenRcon;
-class GameManager;
 class ServerManager;
 
 namespace Ui {
@@ -51,7 +50,6 @@ private:
     Ui::ServerListDialog *ui;
 
     OpenRcon *openRcon;
-    GameManager *gameManager;
     ServerManager *serverManager;
 
     QMenu *menu_gameEntry;

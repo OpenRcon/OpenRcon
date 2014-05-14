@@ -37,8 +37,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     // Initialize the QSettings object.
     settings = new QSettings(APP_NAME, APP_NAME, this);
 
-    // Create GameManager and ServerManager instances.
-    gameManager = new GameManager(this);
+    // Create ServerManager instances.
     serverManager = new ServerManager(this);
 
     // Create dialogs.
@@ -128,7 +127,6 @@ OpenRcon::~OpenRcon()
 
     delete ui;
     delete settings;
-    delete gameManager;
     delete serverManager;
     delete serverListDialog;
     delete optionsDialog;
@@ -166,17 +164,12 @@ void OpenRcon::writeSettings()
 
 void OpenRcon::addTab(ServerEntry *serverEntry)
 {
-    GameEntry gameEntry = gameManager->getGame(serverEntry->game);
-    Game *gameObject = gameManager->getGameObject(serverEntry);
-    int index = ui->tabWidget->addTab(gameObject, gameEntry.icon, serverEntry->name);
+    GameEntry gameEntry = GameManager::getGame(serverEntry->game);
+    Game *gameObject = GameManager::getGameObject(serverEntry);
+    int index = ui->tabWidget->addTab(gameObject, QIcon(gameEntry.icon), serverEntry->name);
 
     ui->tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->host).arg(serverEntry->port));
     ui->tabWidget->setCurrentIndex(index);
-}
-
-GameManager *OpenRcon::getGameManager()
-{
-    return gameManager;
 }
 
 ServerManager *OpenRcon::getServerManager()
@@ -205,9 +198,9 @@ void OpenRcon::updateServerList()
         pushButton_quickConnect_connect->setEnabled(true);
 
         for (ServerEntry *server : serverList) {
-            GameEntry game = gameManager->getGame(server->game);
+            GameEntry game = GameManager::getGame(server->game);
 
-            comboBox_quickConnect_server->addItem(game.icon, server->name);
+            comboBox_quickConnect_server->addItem(QIcon(game.icon), server->name);
         }
     } else {
         comboBox_quickConnect_server->setEnabled(false);
