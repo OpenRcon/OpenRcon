@@ -29,4 +29,7 @@ enum class GameType {
 
 };
 
+// For use with QVariant
+Q_DECLARE_METATYPE(GameType);
+
 #endif // GAMETYPE_H

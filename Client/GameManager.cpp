@@ -28,14 +28,14 @@
 QList<GameEntry> GameManager::gameList = {
     // Adds all games to the list.
     GameEntry(GameType::BFBC2, "BFBC2", "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png", 48888),
-    GameEntry(GameType::BF3, "BF3", "Battlefield 3", ":/bf3/icons/bf3.png", 47300),
+    GameEntry(GameType::BF3, "BF3", "Battlefield 3", ":/bf3/icons/bf3.png", 47200),
     GameEntry(GameType::BF4, "BF4", "Battlefield 4", ":/bf4/icons/bf4.png", 47200),
     GameEntry(GameType::Minecraft, "Minecraft", "Minecraft", ":/minecraft/icons/minecraft.png", 25575)
 };
 
 GameEntry GameManager::getGame(GameType gameType)
 {
-    return gameList.at(toInt(gameType));
+    return gameList.at(toInt(gameType) - 1);
 }
 
 QList<GameEntry> GameManager::getGames()

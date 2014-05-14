@@ -20,6 +20,8 @@
 #include "ui_ServerEditDialog.h"
 #include "ServerEditDialog.h"
 
+#include <QDebug>
+
 #include "GameEntry.h"
 #include "GameManager.h"
 
@@ -28,7 +30,7 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     ui->setupUi(this);
 
     for (GameEntry entry : GameManager::getGames()) {
-        ui->comboBox_sed_game->addItem(QIcon(entry.icon), entry.name, GameManager::toInt(entry.gameType));
+        ui->comboBox_sed_game->addItem(QIcon(entry.icon), entry.name);
     }
 
     connect(ui->lineEdit_sed_name, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
@@ -53,7 +55,7 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 
 ServerEditDialog::ServerEditDialog(GameType gameType, QWidget *parent) : ServerEditDialog(parent)
 {
-    ui->comboBox_sed_game->setCurrentIndex(GameManager::toInt(gameType));
+    ui->comboBox_sed_game->setCurrentIndex(GameManager::toInt(gameType) - 1);
 }
 
 ServerEditDialog::ServerEditDialog(GameType gameType, const QString &name, const QString &host, int port, const QString &password, bool autoConnect, QWidget *parent) : ServerEditDialog(gameType, parent)
@@ -73,9 +75,8 @@ ServerEditDialog::~ServerEditDialog()
 void ServerEditDialog::detect(const QString &value)
 {
     for (GameEntry entry : GameManager::getGames()) {
-        if (value.contains(entry.prefix, Qt::CaseInsensitive) ||
-            value.contains(entry.name, Qt::CaseInsensitive)) {
-            ui->comboBox_sed_game->setCurrentIndex(GameManager::toInt(entry.gameType));
+        if (value.contains(entry.prefix, Qt::CaseInsensitive) || value.contains(entry.name, Qt::CaseInsensitive)) {
+            ui->comboBox_sed_game->setCurrentIndex(GameManager::toInt(entry.gameType) - 1);
         }
     }
 }
@@ -89,8 +90,8 @@ void ServerEditDialog::lineEdit_sed_host_editingFinished()
 
 void ServerEditDialog::validate()
 {   
-    ui->spinBox_sed_port->setValue(GameManager::getGame(GameManager::toGameType(ui->comboBox_sed_game->currentIndex())).defaultPort);
-    ui->pushButton_sed_ok->setEnabled( ui->comboBox_sed_game->currentIndex() >= 0 && !ui->lineEdit_sed_name->text().isEmpty() && !ui->lineEdit_sed_host->text().isEmpty() && ui->spinBox_sed_port->value() > 0);
+    ui->spinBox_sed_port->setValue(GameManager::getGame(GameManager::toGameType(ui->comboBox_sed_game->currentIndex() + 1)).defaultPort);
+    ui->pushButton_sed_ok->setEnabled(!ui->lineEdit_sed_name->text().isEmpty() && !ui->lineEdit_sed_host->text().isEmpty() && ui->spinBox_sed_port->value() > 0);
 }
 
 void ServerEditDialog::accept()
@@ -110,7 +111,7 @@ void ServerEditDialog::accept()
 
 GameType ServerEditDialog::getGameType()
 {
-    return GameManager::toGameType(ui->comboBox_sed_game->currentIndex());
+    return GameManager::toGameType(ui->comboBox_sed_game->currentIndex() + 1);
 }
 
 QString ServerEditDialog::getName()

@@ -117,7 +117,7 @@ void ServerListDialog::action_gameEntry_add_triggered()
         QTreeWidgetItem *item = ui->treeWidget->currentItem();
 
         if (!item->parent()) {
-            addItem(GameManager::toGameType(item->data(0, Qt::UserRole).value<int>()));
+            addItem(item->data(0, Qt::UserRole).value<GameType>());
         }
     }
 }
@@ -137,7 +137,7 @@ void ServerListDialog::createTreeData()
 
         if (!list.isEmpty()) {
             QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidget);
-            parentItem->setData(0, Qt::UserRole, GameManager::toInt(gameEntry.gameType));
+            parentItem->setData(0, Qt::UserRole, qVariantFromValue(gameEntry.gameType));
             parentItem->setIcon(0, QIcon(gameEntry.icon));
             parentItem->setText(0, gameEntry.name);
 
@@ -161,24 +161,24 @@ void ServerListDialog::createTreeData()
 }
 
 void ServerListDialog::addItem(GameType gameType)
-{
-    ServerEditDialog *sed = gameType != GameType::Unknown ? new ServerEditDialog(this) : new ServerEditDialog(gameType, this);
+{    
+    ServerEditDialog *dialog = gameType == GameType::Unknown ?  new ServerEditDialog(this) :  new ServerEditDialog(gameType, this);
 
-    if (sed->exec() == QDialog::Accepted) {
+    if (dialog->exec() == QDialog::Accepted) {
         ServerEntry *entry = new ServerEntry(
-            sed->getGameType(),
-            sed->getName(),
-            sed->getHost(),
-            sed->getPort(),
-            sed->getPassword().replace(" ", ""),
-            sed->getAutoConnect()
+            dialog->getGameType(),
+            dialog->getName(),
+            dialog->getHost(),
+            dialog->getPort(),
+            dialog->getPassword().replace(" ", ""),
+            dialog->getAutoConnect()
         );
 
         serverEntries.append(entry);
         createTreeData();
     }
 
-    delete sed;
+    delete dialog;
 }
 
 void ServerListDialog::editItem()
