@@ -24,15 +24,15 @@
 
 namespace Constants {
     // Application
-    const QString APP_NAME = "OpenRcon";
-    const QString APP_VERSION = "0.2";
-    const QString APP_ICON = ":/icons/openrcon.png";
-    const QString APP_URL = "http://openrcon.org/";
-    const QString APP_DIR = ".openrcon";
-    const QString APP_AUTHOR = "The OpenRcon Project";
-    const int APP_YEAR = 2014;
-    const QString APP_BUG = "https://github.com/OpenRcon/OpenRcon/issues";
-    const QString APP_DOC = "https://github.com/OpenRcon/OpenRcon/wiki";
+    static const QString APP_NAME = "OpenRcon";
+    static const QString APP_VERSION = "0.2";
+    static const QString APP_ICON = ":/icons/openrcon.png";
+    static const QString APP_URL = "http://openrcon.org/";
+    static const QString APP_DIR = ".openrcon";
+    static const QString APP_AUTHOR = "The OpenRcon Project";
+    static const int APP_YEAR = 2014;
+    static const QString APP_BUG = "https://github.com/OpenRcon/OpenRcon/issues";
+    static const QString APP_DOC = "https://github.com/OpenRcon/OpenRcon/wiki";
 
 }
 

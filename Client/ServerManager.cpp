@@ -17,6 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "GameManager.h"
 #include "ServerManager.h"
 
 ServerManager::ServerManager(QObject *parent) : QObject(parent)
@@ -43,7 +44,7 @@ void ServerManager::loadServers()
             settings->setArrayIndex(i);
 
             ServerEntry *entry = new ServerEntry(
-                static_cast<GameType>(settings->value("Game").toInt()),
+                GameManager::toGameType(settings->value("Game").toInt()),
                 settings->value("Name").toString(),
                 settings->value("Host").toString(),
                 settings->value("Port").toInt(),
@@ -69,7 +70,7 @@ void ServerManager::saveServers()
                 settings->setArrayIndex(i);
 
                 ServerEntry *entry = serverList.at(i);
-                settings->setValue("Game", static_cast<int>(entry->gameType));
+                settings->setValue("Game", GameManager::toInt(entry->gameType));
                 settings->setValue("Name", entry->name);
                 settings->setValue("Host", entry->host);
                 settings->setValue("Port", entry->port);
