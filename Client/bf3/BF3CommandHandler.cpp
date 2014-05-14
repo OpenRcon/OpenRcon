@@ -51,28 +51,13 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "admin.effectiveMaxPlayers",           nullptr /*&BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand*/ },
         { "admin.listPlayers",                   nullptr /*&BF3CommandHandler::parseAdminListPlayersCommand*/ },
 
-        // MapList
+        // BanList
         { "banList.load",                        nullptr /*&BF3CommandHandler::parseBanListLoadCommand*/ },
         { "banList.save",                        nullptr /*&BF3CommandHandler::parseBanListSaveCommand*/ },
         { "banList.add",                         nullptr /*&BF3CommandHandler::parseBanListAddCommand*/ },
         { "banList.remove",                      nullptr /*&BF3CommandHandler::parseBanListRemoveCommand*/ },
         { "banList.clear",                       nullptr /*&BF3CommandHandler::parseBanListClearCommand*/ },
         { "banList.list",                        nullptr /*&BF3CommandHandler::parseBanListListCommand*/ },
-
-        // MapList
-        { "mapList.load",                        nullptr /*&BF3CommandHandler::parseMapListLoadCommand*/ },
-        { "mapList.save",                        nullptr /*&BF3CommandHandler::parseMapListSaveCommand*/ },
-        { "mapList.add",                         nullptr /*&BF3CommandHandler::parseMapListAddCommand*/ },
-        { "mapList.remove",                      nullptr /*&BF3CommandHandler::parseMapListRemoveCommand*/ },
-        { "mapList.clear",                       nullptr /*&BF3CommandHandler::parseMapListClearCommand*/ },
-        { "mapList.list",                        nullptr /*&BF3CommandHandler::parseMapListListCommand*/ },
-        { "mapList.setNextMapIndex",             nullptr /*&BF3CommandHandler::parseMapListSetNextMapIndexCommand*/ },
-        { "mapList.getMapIndices",               nullptr /*&BF3CommandHandler::parseMapListGetMapIndicesCommand*/ },
-        { "mapList.getRounds",                   nullptr /*&BF3CommandHandler::parseMapListGetRoundsCommand*/ },
-        { "mapList.endRound",                    nullptr /*&BF3CommandHandler::parseMapListEndRoundCommand*/ },
-        { "mapList.runNextRound",                nullptr /*&BF3CommandHandler::parseMapListRunNextRoundCommand*/ },
-        { "mapList.restartRound",                nullptr /*&BF3CommandHandler::parseMapListRestartRoundCommand*/ },
-        { "mapList.availableMaps",               nullptr /*&BF3CommandHandler::parseMapListAvailableMapsCommand*/ },
 
         // Vars
         { "vars.ranked",                         nullptr /*&BF3CommandHandler::parseVarsRankedCommand*/ },

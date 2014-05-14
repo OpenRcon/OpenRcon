@@ -22,6 +22,7 @@
 
 #include "FrostbiteCommandHandler.h"
 #include "PlayerSubset.h"
+#include "MapListEntry.h"
 
 class Frostbite2CommandHandler : public FrostbiteCommandHandler
 {
@@ -52,33 +53,46 @@ public:
 
     // FairFight
 
-    // MapList
+    // Maplist
+    void sendMapListAddCommand(const QString &level, const QString &gameMode, int rounds, int offSet = 0);
+    void sendMapListAvailableMapsCommand(const QString &filter);
+    void sendMapListClearCommand();
+    void sendMapListEndRoundCommand(int teamId);
+    void sendMapListGetMapIndicesCommand();
+    void sendMapListGetRoundsCommand();
+    void sendMapListListCommand(int index = 0);
+    void sendMapListLoadCommand();
+    void sendMapListRemoveCommand(int index);
+    void sendMapListRestartRoundCommand();
+    void sendMapListRunNextRoundCommand();
+    void sendMapListSaveCommand();
+    void sendMapListSetNextMapIndexCommand(int index);
 
     // Player
-    void sendPlayerIdleDuration(const QString &player);
-    void sendPlayerIsAlive(const QString &player);
-    void sendPlayerPing(const QString &player);
+    void sendPlayerIdleDurationCommand(const QString &player);
+    void sendPlayerIsAliveCommand(const QString &player);
+    void sendPlayerPingCommand(const QString &player);
 
     // PunkBuster
-    void sendPunkBusterActivate();
-    void sendPunkBusterIsActive();
+    void sendPunkBusterActivateCommand();
+    void sendPunkBusterIsActiveCommand();
     void sendPunkBusterPbSvCommand(const QString &command);
 
     // Reserved Slots
-    void sendReservedSlotsListAdd(const QString &player);
-    void sendReservedSlotsListAggressiveJoin();
-    void sendReservedSlotsListAggressiveJoin(bool enabled);
-    void sendReservedSlotsListClear();
-    void sendReservedSlotsListList();
-    void sendReservedSlotsListLoad();
-    void sendReservedSlotsListRemove(const QString &player);
-    void sendReservedSlotsListSave();
+    void sendReservedSlotsListAddCommand(const QString &player);
+    void sendReservedSlotsListAggressiveJoinCommand();
+    void sendReservedSlotsListAggressiveJoinCommand(bool enabled);
+    void sendReservedSlotsListClearCommand();
+    void sendReservedSlotsListListCommand();
+    void sendReservedSlotsListLoadCommand();
+    void sendReservedSlotsListRemoveCommand(const QString &player);
+    void sendReservedSlotsListSaveCommand();
 
     // Squad
-    void sendSquadLeader(int teamId, int squadId, const QString &player);
-    void sendSquadListActive(int teamId);
-    void sendSquadListPlayers(int teamId, int squadId);
-    void sendSquadPrivate(int teamId, int squadId, bool isPrivate);
+    void sendSquadLeaderCommand(int teamId, int squadId, const QString &player);
+    void sendSquadListActiveCommand(int teamId);
+    void sendSquadListPlayersCommand(int teamId, int squadId);
+    void sendSquadPrivateCommand(int teamId, int squadId, bool isPrivate);
 
     // Vars
 
@@ -119,6 +133,19 @@ private:
     // FairFight
 
     // MapList
+//    void parseMapListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseMapListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseMapListEndRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseMapListGetMapIndicesCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseMapListGetRoundsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseMapListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseMapListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseMapListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseMapListRestartRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseMapListRunNextRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseMapListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Player
     void parsePlayerIdleDurationCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -181,6 +208,19 @@ signals:
     // FairFight
 
     // MapList
+//    void onMapListAddCommand();
+    void onMapListAvailableMapsCommand(const QString &value, const QStringList &list);
+//    void onMapListClearCommand();
+//    void onMapListEndRoundCommand();
+    void onMapListGetMapIndicesCommand(int currentMapIndex, int nextMapIndex);
+    void onMapListGetRoundsCommand(int currentRound, int totalRounds);
+    void onMapListListCommand(const QList<MapListEntry> &mapList);
+//    void onMapListLoadCommand();
+//    void onMapListRemoveCommand();
+//    void onMapListRestartRoundCommand();
+//    void onMapListRunNextRoundCommand();
+//    void onMapListSaveCommand();
+//    void onMapListSetNextMapIndexCommand();
 
     // Player
     void onPlayerIdleDurationCommand(float idleDuration);

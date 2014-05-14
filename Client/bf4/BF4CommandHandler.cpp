@@ -65,21 +65,6 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "fairFight.deactivate",                nullptr /*&BF4CommandHandler::parseFairFightDeactivateCommand*/ },
         { "fairFight.isActive",                  &BF4CommandHandler::parseFairFightIsActiveCommand },
 
-        // MapList
-        { "mapList.add",                         nullptr /*&BF4CommandHandler::parseMapListAddCommand*/ },
-        { "mapList.availableMaps",               &BF4CommandHandler::parseMapListAvailableMapsCommand },
-        { "mapList.clear",                       nullptr /*&BF4CommandHandler::parseMapListClearCommand*/ },
-        { "mapList.endRound",                    nullptr /*&BF4CommandHandler::parseMapListEndRoundCommand*/ },
-        { "mapList.getMapIndices",               &BF4CommandHandler::parseMapListGetMapIndicesCommand },
-        { "mapList.getRounds",                   &BF4CommandHandler::parseMapListGetRoundsCommand },
-        { "mapList.list",                        &BF4CommandHandler::parseMapListListCommand },
-        { "mapList.load",                        nullptr /*&BF4CommandHandler::parseMapListLoadCommand*/ },
-        { "mapList.remove",                      nullptr /*&BF4CommandHandler::parseMapListRemoveCommand*/ },
-        { "mapList.restartRound",                nullptr /*&BF4CommandHandler::parseMapListRestartRoundCommand*/ },
-        { "mapList.runNextRound",                nullptr /*&BF4CommandHandler::parseMapListRunNextRoundCommand*/ },
-        { "mapList.save",                        nullptr /*&BF4CommandHandler::parseMapListSaveCommand*/ },
-        { "mapList.setNextMapIndex",             nullptr /*&BF4CommandHandler::parseMapListSetNextMapIndexCommand*/ },
-
         // Spectator List
         { "spectatorList.add",                   nullptr /*&BF4CommandHandler::parseSpectatorListAddCommand*/ },
         { "spectatorList.clear",                 nullptr /*&BF4CommandHandler::parseSpectatorListClearCommand*/ },
@@ -251,91 +236,20 @@ void BF4CommandHandler::sendFairFightIsActiveCommand()
     con->sendCommand("fairFight.isActive");
 }
 
-// Maplist
-void BF4CommandHandler::sendMapListAdd(const QString &level, const QString &gameMode, int rounds, int offSet)
-{
-    con->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(level).arg(gameMode).arg(rounds).arg(offSet));
-    sendMapListList();
-}
-
-void BF4CommandHandler::sendMapListAvailableMaps(const QString &filter)
-{
-    con->sendCommand(QString("\"mapList.availableMaps\" \"%1\"").arg(filter));
-}
-
-void BF4CommandHandler::sendMapListClear()
-{
-    con->sendCommand("mapList.clear");
-}
-
-void BF4CommandHandler::sendMapListEndRound(int teamId)
-{
-    con->sendCommand(QString("\"mapList.endRound\" \"%1\"").arg(teamId));
-}
-
-void BF4CommandHandler::sendMapListGetMapIndices()
-{
-    con->sendCommand("mapList.getMapIndices");
-}
-
-void BF4CommandHandler::sendMapListGetRounds()
-{
-    con->sendCommand("mapList.getRounds");
-}
-
-void BF4CommandHandler::sendMapListList(int index)
-{
-    if (index == 0) {
-        con->sendCommand("mapList.list");
-    } else {
-        con->sendCommand(QString("\"mapList.list\" \"%1\"").arg(index));
-    }
-}
-
-void BF4CommandHandler::sendMapListLoad()
-{
-    con->sendCommand("mapList.load");
-}
-
-void BF4CommandHandler::sendMapListRemove(int index)
-{
-    con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
-}
-
-void BF4CommandHandler::sendMapListRestartRound()
-{
-    con->sendCommand("mapList.restartRound");
-}
-
-void BF4CommandHandler::sendMapListRunNextRound()
-{
-    con->sendCommand("mapList.runNextRound");
-}
-
-void BF4CommandHandler::sendMapListSave()
-{
-    con->sendCommand("mapList.save");
-}
-
-void BF4CommandHandler::sendMapListSetNextMapIndex(int index)
-{
-    con->sendCommand(QString("\"mapList.setNextMapIndex\" \"%1\"").arg(index));
-}
-
 // Spectator list
-void BF4CommandHandler::sendSpectatorListAdd(const QString &player)
+void BF4CommandHandler::sendSpectatorListAddCommand(const QString &player)
 {
     con->sendCommand(QString("\"spectatorList.add\" \"%1\"").arg(player));
-    sendSpectatorListList();
+    sendSpectatorListListCommand();
 }
 
-void BF4CommandHandler::sendSpectatorListClear()
+void BF4CommandHandler::sendSpectatorListClearCommand()
 {
     con->sendCommand("spectatorList.clear");
-    sendSpectatorListList();
+    sendSpectatorListListCommand();
 }
 
-void BF4CommandHandler::sendSpectatorListList(int index)
+void BF4CommandHandler::sendSpectatorListListCommand(int index)
 {
     if (index == 0) {
         con->sendCommand("spectatorList.list");
@@ -344,60 +258,60 @@ void BF4CommandHandler::sendSpectatorListList(int index)
     }
 }
 
-void BF4CommandHandler::sendSpectatorListRemove(const QString &player)
+void BF4CommandHandler::sendSpectatorListRemoveCommand(const QString &player)
 {
     con->sendCommand(QString("\"spectatorList.remove\" \"%1\"").arg(player));
-    sendSpectatorListList();
+    sendSpectatorListListCommand();
 }
 
-void BF4CommandHandler::sendSpectatorListSave()
+void BF4CommandHandler::sendSpectatorListSaveCommand()
 {
     con->sendCommand("spectatorList.save");
-    sendSpectatorListList();
+    sendSpectatorListListCommand();
 }
 
 // Variables
-void BF4CommandHandler::sendVars3dSpotting()
+void BF4CommandHandler::sendVars3dSpottingCommand()
 {
     con->sendCommand("vars.3dSpotting");
 }
 
-void BF4CommandHandler::sendVars3dSpotting(bool enabled)
+void BF4CommandHandler::sendVars3dSpottingCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVars3pCam()
+void BF4CommandHandler::sendVars3pCamCommand()
 {
     con->sendCommand("vars.3pCam");
 }
 
-void BF4CommandHandler::sendVars3pCam(bool enabled)
+void BF4CommandHandler::sendVars3pCamCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.3pCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsAlwaysAllowSpectators()
+void BF4CommandHandler::sendVarsAlwaysAllowSpectatorsCommand()
 {
     con->sendCommand("vars.alwaysAllowSpectators");
 }
 
-void BF4CommandHandler::sendVarsAlwaysAllowSpectators(bool enabled)
+void BF4CommandHandler::sendVarsAlwaysAllowSpectatorsCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.alwaysAllowSpectators\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsAutoBalance()
+void BF4CommandHandler::sendVarsAutoBalanceCommand()
 {
     con->sendCommand("vars.autoBalance");
 }
 
-void BF4CommandHandler::sendVarsAutoBalance(bool enabled)
+void BF4CommandHandler::sendVarsAutoBalanceCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.autoBalance\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsBulletDamage(int damage)
+void BF4CommandHandler::sendVarsBulletDamageCommand(int damage)
 {
     if (damage == -1) {
         con->sendCommand("vars.bulletDamage");
@@ -406,37 +320,37 @@ void BF4CommandHandler::sendVarsBulletDamage(int damage)
     }
 }
 
-void BF4CommandHandler::sendVarsCommander()
+void BF4CommandHandler::sendVarsCommanderCommand()
 {
     con->sendCommand("vars.commander");
 }
 
-void BF4CommandHandler::sendVarsCommander(bool enabled)
+void BF4CommandHandler::sendVarsCommanderCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.commander\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsForceReloadWholeMags()
+void BF4CommandHandler::sendVarsForceReloadWholeMagsCommand()
 {
     con->sendCommand("vars.forceReloadWholeMags");
 }
 
-void BF4CommandHandler::sendVarsForceReloadWholeMags(bool enabled)
+void BF4CommandHandler::sendVarsForceReloadWholeMagsCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.forceReloadWholeMags\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsFriendlyFire()
+void BF4CommandHandler::sendVarsFriendlyFireCommand()
 {
     con->sendCommand("vars.friendlyFire");
 }
 
-void BF4CommandHandler::sendVarsFriendlyFire(bool enabled)
+void BF4CommandHandler::sendVarsFriendlyFireCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsGameModeCounter(int scale)
+void BF4CommandHandler::sendVarsGameModeCounterCommand(int scale)
 {
     if (scale == -1) {
         con->sendCommand("vars.gameModeCounter");
@@ -445,7 +359,7 @@ void BF4CommandHandler::sendVarsGameModeCounter(int scale)
     }
 }
 
-void BF4CommandHandler::sendVarsGamePassword(const QString &password)
+void BF4CommandHandler::sendVarsGamePasswordCommand(const QString &password)
 {
     if (password == 0) {
         con->sendCommand("vars.gamePassword");
@@ -454,27 +368,27 @@ void BF4CommandHandler::sendVarsGamePassword(const QString &password)
     }
 }
 
-void BF4CommandHandler::sendVarsHitIndicatorsEnabled()
+void BF4CommandHandler::sendVarsHitIndicatorsEnabledCommand()
 {
     con->sendCommand("vars.hitIndicatorsEnabled");
 }
 
-void BF4CommandHandler::sendVarsHitIndicatorsEnabled(bool enabled)
+void BF4CommandHandler::sendVarsHitIndicatorsEnabledCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.hitIndicatorsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsHud()
+void BF4CommandHandler::sendVarsHudCommand()
 {
     con->sendCommand("vars.hud");
 }
 
-void BF4CommandHandler::sendVarsHud(bool enabled)
+void BF4CommandHandler::sendVarsHudCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.hud\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsIdleBanRounds(int rounds)
+void BF4CommandHandler::sendVarsIdleBanRoundsCommand(int rounds)
 {
     if (rounds == -1) {
         con->sendCommand("vars.idleBanRounds");
@@ -483,7 +397,7 @@ void BF4CommandHandler::sendVarsIdleBanRounds(int rounds)
     }
 }
 
-void BF4CommandHandler::sendVarsIdleTimeout(int seconds)
+void BF4CommandHandler::sendVarsIdleTimeoutCommand(int seconds)
 {
     if (seconds == -1) {
         con->sendCommand("vars.idleTimeout");
@@ -492,17 +406,17 @@ void BF4CommandHandler::sendVarsIdleTimeout(int seconds)
     }
 }
 
-void BF4CommandHandler::sendVarsKillCam()
+void BF4CommandHandler::sendVarsKillCamCommand()
 {
     con->sendCommand("vars.killCam");
 }
 
-void BF4CommandHandler::sendVarsKillCam(bool enabled)
+void BF4CommandHandler::sendVarsKillCamCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.killCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsMaxPlayers(int players)
+void BF4CommandHandler::sendVarsMaxPlayersCommand(int players)
 {
     if (players == -1) {
         con->sendCommand("vars.maxPlayers");
@@ -511,7 +425,7 @@ void BF4CommandHandler::sendVarsMaxPlayers(int players)
     }
 }
 
-void BF4CommandHandler::sendVarsMaxSpectators(int spectators)
+void BF4CommandHandler::sendVarsMaxSpectatorsCommand(int spectators)
 {
     if (spectators == -1) {
         con->sendCommand("vars.maxSpectators");
@@ -520,27 +434,27 @@ void BF4CommandHandler::sendVarsMaxSpectators(int spectators)
     }
 }
 
-void BF4CommandHandler::sendVarsMiniMap()
+void BF4CommandHandler::sendVarsMiniMapCommand()
 {
     con->sendCommand("vars.");
 }
 
-void BF4CommandHandler::sendVarsMiniMap(bool enabled)
+void BF4CommandHandler::sendVarsMiniMapCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsMiniMapSpotting()
+void BF4CommandHandler::sendVarsMiniMapSpottingCommand()
 {
     con->sendCommand("vars.miniMap");
 }
 
-void BF4CommandHandler::sendVarsMiniMapSpotting(bool enabled)
+void BF4CommandHandler::sendVarsMiniMapSpottingCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsMpExperience(const QString &experience)
+void BF4CommandHandler::sendVarsMpExperienceCommand(const QString &experience)
 {
     if (experience == 0) {
         con->sendCommand("vars.mpExperience");
@@ -549,27 +463,27 @@ void BF4CommandHandler::sendVarsMpExperience(const QString &experience)
     }
 }
 
-void BF4CommandHandler::sendVarsNameTag()
+void BF4CommandHandler::sendVarsNameTagCommand()
 {
     con->sendCommand("vars.nameTag");
 }
 
-void BF4CommandHandler::sendVarsNameTag(bool enabled)
+void BF4CommandHandler::sendVarsNameTagCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.nameTag\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsOnlySquadLeaderSpawn()
+void BF4CommandHandler::sendVarsOnlySquadLeaderSpawnCommand()
 {
     con->sendCommand("vars.onlySquadLeaderSpawn");
 }
 
-void BF4CommandHandler::sendVarsOnlySquadLeaderSpawn(bool enabled)
+void BF4CommandHandler::sendVarsOnlySquadLeaderSpawnCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.onlySquadLeaderSpawn\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsPlayerRespawnTime(int respawnTime)
+void BF4CommandHandler::sendVarsPlayerRespawnTimeCommand(int respawnTime)
 {
     if (respawnTime == -1) {
         con->sendCommand("vars.playerRespawnTime");
@@ -578,7 +492,7 @@ void BF4CommandHandler::sendVarsPlayerRespawnTime(int respawnTime)
     }
 }
 
-void BF4CommandHandler::sendVarsPreset(const QString &serverPreset, bool lockPresetSetting)
+void BF4CommandHandler::sendVarsPresetCommand(const QString &serverPreset, bool lockPresetSetting)
 {
     if (serverPreset == 0 && lockPresetSetting == 0) {
         con->sendCommand("vars.preset");
@@ -587,17 +501,17 @@ void BF4CommandHandler::sendVarsPreset(const QString &serverPreset, bool lockPre
     }
 }
 
-void BF4CommandHandler::sendVarsRegenerateHealth()
+void BF4CommandHandler::sendVarsRegenerateHealthCommand()
 {
     con->sendCommand("vars.regenerateHealth");
 }
 
-void BF4CommandHandler::sendVarsRegenerateHealth(bool enabled)
+void BF4CommandHandler::sendVarsRegenerateHealthCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.regenerateHealth\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsRoundLockdownCountdown(int seconds)
+void BF4CommandHandler::sendVarsRoundLockdownCountdownCommand(int seconds)
 {
     if (seconds == -1) {
         con->sendCommand("vars.roundLockdownCountdown");
@@ -606,7 +520,7 @@ void BF4CommandHandler::sendVarsRoundLockdownCountdown(int seconds)
     }
 }
 
-void BF4CommandHandler::sendVarsRoundRestartPlayerCount(int players)
+void BF4CommandHandler::sendVarsRoundRestartPlayerCountCommand(int players)
 {
     if (players == -1) {
         con->sendCommand("vars.roundRestartPlayerCount");
@@ -615,7 +529,7 @@ void BF4CommandHandler::sendVarsRoundRestartPlayerCount(int players)
     }
 }
 
-void BF4CommandHandler::sendVarsRoundStartPlayerCount(int players)
+void BF4CommandHandler::sendVarsRoundStartPlayerCountCommand(int players)
 {
     if (players == -1) {
         con->sendCommand("vars.roundStartPlayerCount");
@@ -624,7 +538,7 @@ void BF4CommandHandler::sendVarsRoundStartPlayerCount(int players)
     }
 }
 
-void BF4CommandHandler::sendVarsRoundTimeLimit(int percent)
+void BF4CommandHandler::sendVarsRoundTimeLimitCommand(int percent)
 {
     if (percent == -1) {
         con->sendCommand("vars.roundTimeLimit");
@@ -633,7 +547,7 @@ void BF4CommandHandler::sendVarsRoundTimeLimit(int percent)
     }
 }
 
-void BF4CommandHandler::sendVarsRoundWarmupTimeout(int timeout)
+void BF4CommandHandler::sendVarsRoundWarmupTimeoutCommand(int timeout)
 {
     if (timeout == -1) {
         con->sendCommand("vars.roundWarmupTimeout");
@@ -642,7 +556,7 @@ void BF4CommandHandler::sendVarsRoundWarmupTimeout(int timeout)
     }
 }
 
-void BF4CommandHandler::sendVarsServerDescription(const QString &description)
+void BF4CommandHandler::sendVarsServerDescriptionCommand(const QString &description)
 {
     if (description == 0) {
         con->sendCommand("vars.serverDescription");
@@ -651,7 +565,7 @@ void BF4CommandHandler::sendVarsServerDescription(const QString &description)
     }
 }
 
-void BF4CommandHandler::sendVarsServerMessage(const QString &message)
+void BF4CommandHandler::sendVarsServerMessageCommand(const QString &message)
 {
     if (message == 0) {
         con->sendCommand("vars.serverMessage");
@@ -660,7 +574,7 @@ void BF4CommandHandler::sendVarsServerMessage(const QString &message)
     }
 }
 
-void BF4CommandHandler::sendVarsServerName(const QString &name)
+void BF4CommandHandler::sendVarsServerNameCommand(const QString &name)
 {
     if (name == 0) {
         con->sendCommand("vars.serverName");
@@ -669,7 +583,7 @@ void BF4CommandHandler::sendVarsServerName(const QString &name)
     }
 }
 
-void BF4CommandHandler::sendVarsServerType(const QString &type)
+void BF4CommandHandler::sendVarsServerTypeCommand(const QString &type)
 {
     if (type == 0) {
         con->sendCommand("vars.serverType");
@@ -678,7 +592,7 @@ void BF4CommandHandler::sendVarsServerType(const QString &type)
     }
 }
 
-void BF4CommandHandler::sendVarsSoldierHealth(int percent)
+void BF4CommandHandler::sendVarsSoldierHealthCommand(int percent)
 {
     if (percent == -1) {
         con->sendCommand("vars.soldierHealth");
@@ -687,7 +601,7 @@ void BF4CommandHandler::sendVarsSoldierHealth(int percent)
     }
 }
 
-void BF4CommandHandler::sendVarsTeamFactionOverride(int teamId, int factionId)
+void BF4CommandHandler::sendVarsTeamFactionOverrideCommand(int teamId, int factionId)
 {
     if (teamId == -1 && factionId == -1) {
         con->sendCommand("vars.teamFactionOverride");
@@ -696,7 +610,7 @@ void BF4CommandHandler::sendVarsTeamFactionOverride(int teamId, int factionId)
     }
 }
 
-void BF4CommandHandler::sendVarsTeamKillCountForKick(int count)
+void BF4CommandHandler::sendVarsTeamKillCountForKickCommand(int count)
 {
     if (count == -1) {
         con->sendCommand("vars.teamKillCountForKick");
@@ -705,7 +619,7 @@ void BF4CommandHandler::sendVarsTeamKillCountForKick(int count)
     }
 }
 
-void BF4CommandHandler::sendVarsTeamKillKickForBan(int count)
+void BF4CommandHandler::sendVarsTeamKillKickForBanCommand(int count)
 {
     if (count == -1) {
         con->sendCommand("vars.teamKillKickForBan");
@@ -714,7 +628,7 @@ void BF4CommandHandler::sendVarsTeamKillKickForBan(int count)
     }
 }
 
-void BF4CommandHandler::sendVarsTeamKillValueDecreasePerSecond(int count)
+void BF4CommandHandler::sendVarsTeamKillValueDecreasePerSecondCommand(int count)
 {
     if (count == -1) {
         con->sendCommand("vars.teamKillValueDecreasePerSecond");
@@ -723,7 +637,7 @@ void BF4CommandHandler::sendVarsTeamKillValueDecreasePerSecond(int count)
     }
 }
 
-void BF4CommandHandler::sendVarsTeamKillValueForKick(int count)
+void BF4CommandHandler::sendVarsTeamKillValueForKickCommand(int count)
 {
     if (count == -1) {
         con->sendCommand("vars.teamKillValueForKick");
@@ -732,7 +646,7 @@ void BF4CommandHandler::sendVarsTeamKillValueForKick(int count)
     }
 }
 
-void BF4CommandHandler::sendVarsTeamKillValueIncrease(int count)
+void BF4CommandHandler::sendVarsTeamKillValueIncreaseCommand(int count)
 {
     if (count == -1) {
         con->sendCommand("vars.teamKillValueIncrease");
@@ -741,7 +655,7 @@ void BF4CommandHandler::sendVarsTeamKillValueIncrease(int count)
     }
 }
 
-void BF4CommandHandler::sendVarsTicketBleedRate(int percent)
+void BF4CommandHandler::sendVarsTicketBleedRateCommand(int percent)
 {
     if (percent == -1) {
         con->sendCommand("vars.ticketBleedRate");
@@ -750,7 +664,7 @@ void BF4CommandHandler::sendVarsTicketBleedRate(int percent)
     }
 }
 
-void BF4CommandHandler::sendVarsUnlockMode(const QString &type)
+void BF4CommandHandler::sendVarsUnlockModeCommand(const QString &type)
 {
     if (type == 0) {
         con->sendCommand("vars.unlockMode");
@@ -759,17 +673,17 @@ void BF4CommandHandler::sendVarsUnlockMode(const QString &type)
     }
 }
 
-void BF4CommandHandler::sendVarsVehicleSpawnAllowed()
+void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand()
 {
     con->sendCommand("vars.vehicleSpawnAllowed");
 }
 
-void BF4CommandHandler::sendVarsVehicleSpawnAllowed(bool enabled)
+void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand(bool enabled)
 {
     con->sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void BF4CommandHandler::sendVarsVehicleSpawnDelay(int percent)
+void BF4CommandHandler::sendVarsVehicleSpawnDelayCommand(int percent)
 {
     if (percent == -1) {
         con->sendCommand("vars.vehicleSpawnDelay");
@@ -932,15 +846,15 @@ void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &
 //}
 
 // BanList
-/*void BF4CommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
+//void BF4CommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
-void BF4CommandHandler::parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
+//void BF4CommandHandler::parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
 void BF4CommandHandler::parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
@@ -966,31 +880,31 @@ void BF4CommandHandler::parseBanListListCommand(const FrostbiteRconPacket &packe
     }
 }
 
-/*void BF4CommandHandler::parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
+//void BF4CommandHandler::parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
-void BF4CommandHandler::parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
+//void BF4CommandHandler::parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
-void BF4CommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
+//void BF4CommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
 // FairFight
-/*void BF4CommandHandler::parseFairFightActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
+//void BF4CommandHandler::parseFairFightActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
-void BF4CommandHandler::parseFairFightDeactivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
+//void BF4CommandHandler::parseFairFightDeactivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
 void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
@@ -1004,137 +918,6 @@ void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket 
         emit (onFairFightIsActiveCommand(isActive));
     }
 }
-
-// MapList
-/*void BF4CommandHandler::parseMapListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-void BF4CommandHandler::parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QString value = packet.getWord(1).getContent();
-        QStringList list;
-
-        for (unsigned int i = 2; i < packet.getWordCount(); i++) {
-            list.append(packet.getWord(i).getContent());
-        }
-
-        emit (onMapListAvailableMapsCommand(value, list));
-    }
-}
-
-/*void BF4CommandHandler::parseMapListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseMapListEndRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
-
-void BF4CommandHandler::parseMapListGetMapIndicesCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        int currentMapIndex = toInt(packet.getWord(1).getContent());
-        int nextMapIndex = toInt(packet.getWord(2).getContent());
-
-        emit (onMapListGetMapIndicesCommand(currentMapIndex, nextMapIndex));
-    }
-}
-
-void BF4CommandHandler::parseMapListGetRoundsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        int currentRound = toInt(packet.getWord(1).getContent());
-        int totalRounds = toInt(packet.getWord(2).getContent());
-
-        emit (onMapListGetRoundsCommand(currentRound, totalRounds));
-    }
-}
-
-void BF4CommandHandler::parseMapListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK") {
-        MapList mapList;
-        int maps = QString(packet.getWord(1).getContent()).toInt();
-        int parameters = QString(packet.getWord(2).getContent()).toInt();
-
-        for (int i = 0; i < maps; i++) {
-            QString level;
-            QString gameMode;
-            int rounds;
-
-            for (int j = 0; j < parameters; j++) {
-                QString data = packet.getWord(3 + (i * parameters) + j).getContent();
-
-                switch (j) {
-                    case 0:
-                        level = data;
-                        break;
-                    case 1:
-                        gameMode = data;
-                        break;
-                    case 2:
-                        rounds = data.toInt();
-                        break;
-                }
-            }
-
-            mapList.append(MapListEntry(level, gameMode, rounds));
-        }
-
-        emit (onMapListListCommand(mapList));
-    }
-}
-
-/*void BF4CommandHandler::parseMapListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseMapListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseMapListRestartRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseMapListRunNextRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseMapListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
-
-void BF4CommandHandler::parseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
 
 // SpectatorList
 /*void BF4CommandHandler::parseSpectatorListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -1164,15 +947,15 @@ void BF4CommandHandler::parseSpectatorListListCommand(const FrostbiteRconPacket 
     }
 }
 
-/*void BF4CommandHandler::parseSpectatorListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
+//void BF4CommandHandler::parseSpectatorListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
-void BF4CommandHandler::parseSpectatorListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
+//void BF4CommandHandler::parseSpectatorListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
 // Vars
 void BF4CommandHandler::parseVars3dSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

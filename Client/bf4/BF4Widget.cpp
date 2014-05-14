@@ -303,36 +303,36 @@ void BF4Widget::startupCommands(bool authenticated)
         commandHandler->sendFairFightIsActiveCommand();
 
         // Maplist
-        commandHandler->sendMapListList();
+        commandHandler->sendMapListListCommand();
 
         // Player
 
         // Punkbuster
-        commandHandler->sendPunkBusterIsActive();
+        commandHandler->sendPunkBusterIsActiveCommand();
         commandHandler->sendPunkBusterPbSvCommand("pb_sv_plist");
 
         // Reserved Slots
-        commandHandler->sendReservedSlotsListAggressiveJoin();
-        commandHandler->sendReservedSlotsListList();
+        commandHandler->sendReservedSlotsListAggressiveJoinCommand();
+        commandHandler->sendReservedSlotsListListCommand();
 
         // Spectator list
-        commandHandler->sendSpectatorListList();
+        commandHandler->sendSpectatorListListCommand();
 
         // Squad
 
         // Variables
-        commandHandler->sendVarsAlwaysAllowSpectators();
-        commandHandler->sendVarsCommander();
-        commandHandler->sendVarsFriendlyFire();
-        commandHandler->sendVarsGamePassword();
-        commandHandler->sendVarsIdleTimeout();
-        commandHandler->sendVarsKillCam();
-        commandHandler->sendVarsMaxPlayers();
-        commandHandler->sendVarsMaxSpectators();
-        commandHandler->sendVarsServerName();
-        commandHandler->sendVarsServerDescription();
-        commandHandler->sendVarsServerMessage();
-        commandHandler->sendVarsServerType();
+        commandHandler->sendVarsAlwaysAllowSpectatorsCommand();
+        commandHandler->sendVarsCommanderCommand();
+        commandHandler->sendVarsFriendlyFireCommand();
+        commandHandler->sendVarsGamePasswordCommand();
+        commandHandler->sendVarsIdleTimeoutCommand();
+        commandHandler->sendVarsKillCamCommand();
+        commandHandler->sendVarsMaxPlayersCommand();
+        commandHandler->sendVarsMaxSpectatorsCommand();
+        commandHandler->sendVarsServerNameCommand();
+        commandHandler->sendVarsServerDescriptionCommand();
+        commandHandler->sendVarsServerMessageCommand();
+        commandHandler->sendVarsServerTypeCommand();
     } else {
         commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
@@ -749,12 +749,12 @@ QIcon BF4Widget::getRankIcon(int rank)
 // ServerInfo
 void BF4Widget::pushButton_si_restartRound_clicked()
 {
-    commandHandler->sendMapListRestartRound();
+    commandHandler->sendMapListRestartRoundCommand();
 }
 
 void BF4Widget::pushButton_si_runNextRound_clicked()
 {
-    commandHandler->sendMapListRunNextRound();
+    commandHandler->sendMapListRunNextRoundCommand();
 }
 
 void BF4Widget::updateRoundTime()
@@ -910,7 +910,7 @@ void BF4Widget::action_pl_players_reserveSlot_triggered()
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
 
-    commandHandler->sendReservedSlotsListAdd(player);
+    commandHandler->sendReservedSlotsListAddCommand(player);
 }
 
 void BF4Widget::action_pl_players_copyTo_name_triggered()
@@ -1018,7 +1018,7 @@ void BF4Widget::pushButton_ml_add_clicked()
             ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
 
             addCurrentMapListRow(level.name, gameMode.name, rounds);
-            commandHandler->sendMapListAdd(level.engineName, gameMode.engineName, rounds);
+            commandHandler->sendMapListAddCommand(level.engineName, gameMode.engineName, rounds);
         }
     }
 }
@@ -1034,7 +1034,7 @@ void BF4Widget::pushButton_ml_remove_clicked()
         int index = ui->treeWidget_ml_current->currentIndex().row();
 
         ui->treeWidget_ml_current->takeTopLevelItem(index);
-        commandHandler->sendMapListRemove(index);
+        commandHandler->sendMapListRemoveCommand(index);
     }
 }
 
@@ -1175,7 +1175,7 @@ void BF4Widget::action_rs_reservedSlotsList_remove_triggered()
     if (!player.isEmpty()) {
         delete ui->listWidget_rs_reservedSlotsList->currentItem();
 
-        commandHandler->sendReservedSlotsListRemove(player);
+        commandHandler->sendReservedSlotsListRemoveCommand(player);
     }
 }
 
@@ -1187,23 +1187,23 @@ void BF4Widget::pushButton_rs_add_clicked()
         ui->lineEdit_rs_player->clear();
         ui->listWidget_rs_reservedSlotsList->addItem(player);
 
-        commandHandler->sendReservedSlotsListAdd(player);
+        commandHandler->sendReservedSlotsListAddCommand(player);
     }
 }
 
 void BF4Widget::pushButton_rs_load_clicked()
 {
-    commandHandler->sendReservedSlotsListLoad();
+    commandHandler->sendReservedSlotsListLoadCommand();
 }
 
 void BF4Widget::pushButton_rs_save_clicked()
 {
-    commandHandler->sendReservedSlotsListSave();
+    commandHandler->sendReservedSlotsListSaveCommand();
 }
 
 void BF4Widget::pushButton_rs_clear_clicked()
 {
-    commandHandler->sendReservedSlotsListClear();
+    commandHandler->sendReservedSlotsListClearCommand();
 }
 
 // Spectator List
@@ -1221,7 +1221,7 @@ void BF4Widget::action_ss_spectatorList_remove_triggered()
     if (!player.isEmpty()) {
         delete ui->listWidget_ss_spectatorList->currentItem();
 
-        commandHandler->sendSpectatorListRemove(player);
+        commandHandler->sendSpectatorListRemoveCommand(player);
     }
 }
 
@@ -1233,18 +1233,18 @@ void BF4Widget::pushButton_ss_add_clicked()
         ui->lineEdit_ss_player->clear();
         ui->listWidget_ss_spectatorList->addItem(player);
 
-        commandHandler->sendSpectatorListAdd(player);
+        commandHandler->sendSpectatorListAddCommand(player);
     }
 }
 
 void BF4Widget::pushButton_ss_save_clicked()
 {
-    commandHandler->sendSpectatorListSave();
+    commandHandler->sendSpectatorListSaveCommand();
 }
 
 void BF4Widget::pushButton_ss_clear_clicked()
 {
-    commandHandler->sendSpectatorListClear();
+    commandHandler->sendSpectatorListClearCommand();
 }
 
 // Options -> Details
@@ -1253,7 +1253,7 @@ void BF4Widget::lineEdit_op_so_serverName_editingFinished()
     QString serverName = ui->lineEdit_op_so_serverName->text();
 
     if (!serverName.isEmpty()) {
-        commandHandler->sendVarsServerName(serverName);
+        commandHandler->sendVarsServerNameCommand(serverName);
     }
 }
 
@@ -1262,7 +1262,7 @@ void BF4Widget::textEdit_op_so_serverDescription_textChanged()
     QString serverDescription = ui->textEdit_op_so_serverDescription->toPlainText();
 
     if (!serverDescription.isEmpty()) {
-        commandHandler->sendVarsServerDescription(serverDescription);
+        commandHandler->sendVarsServerDescriptionCommand(serverDescription);
     }
 }
 
@@ -1271,7 +1271,7 @@ void BF4Widget::lineEdit_op_so_serverMessage_editingFinished()
     QString serverMessage = ui->lineEdit_op_so_serverMessage->text();
 
     if (!serverMessage.isEmpty()) {
-        commandHandler->sendVarsServerMessage(serverMessage);
+        commandHandler->sendVarsServerMessageCommand(serverMessage);
     }
 }
 
@@ -1280,7 +1280,7 @@ void BF4Widget::checkBox_so_co_punkBuster_toggled(bool checked)
 {
     Q_UNUSED(checked); // TODO: Do this right.
 
-    commandHandler->sendPunkBusterActivate();
+    commandHandler->sendPunkBusterActivateCommand();
 }
 
 void BF4Widget::checkBox_so_co_fairFight_toggled(bool checked)
@@ -1304,50 +1304,50 @@ void BF4Widget::checkBox_so_co_idleTimeout_toggled(bool checked)
         timeout = ui->spinBox_so_co_idleTimeout->value();
     }
 
-    commandHandler->sendVarsIdleTimeout(timeout);
+    commandHandler->sendVarsIdleTimeoutCommand(timeout);
 }
 
 void BF4Widget::spinBox_so_co_idleTimeout_valueChanged(int value)
 {
     if (value >= 1) {
-        commandHandler->sendVarsIdleTimeout(value);
+        commandHandler->sendVarsIdleTimeoutCommand(value);
     }
 }
 
 void BF4Widget::checkBox_so_co_aggressiveJoin_toggled(bool checked)
 {
-    commandHandler->sendReservedSlotsListAggressiveJoin(checked);
+    commandHandler->sendReservedSlotsListAggressiveJoinCommand(checked);
 }
 
 void BF4Widget::spinBox_so_co_maxPlayers_valueChanged(int value)
 {
-    commandHandler->sendVarsMaxPlayers(value);
+    commandHandler->sendVarsMaxPlayersCommand(value);
 }
 
 void BF4Widget::spinBox_so_co_maxSpectators_valueChanged(int value)
 {
-    commandHandler->sendVarsMaxSpectators(value);
+    commandHandler->sendVarsMaxSpectatorsCommand(value);
 }
 
 void BF4Widget::checkBox_so_co_alwaysAllowSpectators_toggled(bool checked)
 {
-    commandHandler->sendVarsAlwaysAllowSpectators(checked);
+    commandHandler->sendVarsAlwaysAllowSpectatorsCommand(checked);
 }
 
 void BF4Widget::checkBox_so_co_commander_toggled(bool checked)
 {
-    commandHandler->sendVarsCommander(checked);
+    commandHandler->sendVarsCommanderCommand(checked);
 }
 
 // Options -> Gameplay
 void BF4Widget::checkBox_so_go_friendlyFire_toggled(bool checked)
 {
-    commandHandler->sendVarsFriendlyFire(checked);
+    commandHandler->sendVarsFriendlyFireCommand(checked);
 }
 
 void BF4Widget::checkBox_so_go_killCam_toggled(bool checked)
 {
-    commandHandler->sendVarsKillCam(checked);
+    commandHandler->sendVarsKillCamCommand(checked);
 }
 
 // Console

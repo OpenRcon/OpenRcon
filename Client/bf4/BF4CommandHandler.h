@@ -21,10 +21,8 @@
 #define BF4COMMANDHANDLER_H
 
 #include "Frostbite2CommandHandler.h"
-#include "PlayerSubset.h"
 #include "PlayerInfo.h"
 #include "BanListEntry.h"
-#include "MapListEntry.h"
 
 #include "BF4ServerInfo.h"
 
@@ -64,90 +62,75 @@ public:
     void sendFairFightDeactivateCommand();
     void sendFairFightIsActiveCommand();
 
-    // Maplist
-    void sendMapListAdd(const QString &level, const QString &gameMode, int rounds, int offSet = 0);
-    void sendMapListAvailableMaps(const QString &filter);
-    void sendMapListClear();
-    void sendMapListEndRound(int teamId);
-    void sendMapListGetMapIndices();
-    void sendMapListGetRounds();
-    void sendMapListList(int index = 0);
-    void sendMapListLoad();
-    void sendMapListRemove(int index);
-    void sendMapListRestartRound();
-    void sendMapListRunNextRound();
-    void sendMapListSave();
-    void sendMapListSetNextMapIndex(int index);
-
     // Spectator list
-    void sendSpectatorListAdd(const QString &player);
-    void sendSpectatorListClear();
-    void sendSpectatorListList(int index = 0);
-    void sendSpectatorListRemove(const QString &player);
-    void sendSpectatorListSave();
+    void sendSpectatorListAddCommand(const QString &player);
+    void sendSpectatorListClearCommand();
+    void sendSpectatorListListCommand(int index = 0);
+    void sendSpectatorListRemoveCommand(const QString &player);
+    void sendSpectatorListSaveCommand();
 
     // Variables
-    void sendVars3dSpotting();
-    void sendVars3dSpotting(bool enabled);
-    void sendVars3pCam();
-    void sendVars3pCam(bool enabled);
-    void sendVarsAlwaysAllowSpectators();
-    void sendVarsAlwaysAllowSpectators(bool enabled);
-    void sendVarsAutoBalance();
-    void sendVarsAutoBalance(bool enabled);
-    void sendVarsBulletDamage(int damage = -1);
-    void sendVarsCommander();
-    void sendVarsCommander(bool enabled);
-    void sendVarsForceReloadWholeMags();
-    void sendVarsForceReloadWholeMags(bool enabled);
-    void sendVarsFriendlyFire();
-    void sendVarsFriendlyFire(bool enabled);
-    void sendVarsGameModeCounter(int scale = -1);
-    void sendVarsGamePassword(const QString &password = 0);
-    void sendVarsHitIndicatorsEnabled();
-    void sendVarsHitIndicatorsEnabled(bool enabled);
-    void sendVarsHud();
-    void sendVarsHud(bool enabled);
-    void sendVarsIdleBanRounds(int rounds = -1);
-    void sendVarsIdleTimeout(int seconds = -1);
-    void sendVarsKillCam();
-    void sendVarsKillCam(bool enabled);
-    void sendVarsMaxPlayers(int players = -1);
-    void sendVarsMaxSpectators(int spectators = -1);
-    void sendVarsMiniMap();
-    void sendVarsMiniMap(bool enabled);
-    void sendVarsMiniMapSpotting();
-    void sendVarsMiniMapSpotting(bool enabled);
-    void sendVarsMpExperience(const QString &experience = 0);
-    void sendVarsNameTag();
-    void sendVarsNameTag(bool enabled);
-    void sendVarsOnlySquadLeaderSpawn();
-    void sendVarsOnlySquadLeaderSpawn(bool enabled);
-    void sendVarsPlayerRespawnTime(int respawnTime = -1);
-    void sendVarsPreset(const QString &serverPreset = 0, bool lockPresetSetting = 0);
-    void sendVarsRegenerateHealth();
-    void sendVarsRegenerateHealth(bool enabled);
-    void sendVarsRoundLockdownCountdown(int seconds = -1);
-    void sendVarsRoundRestartPlayerCount(int players = -1);
-    void sendVarsRoundStartPlayerCount(int players = -1);
-    void sendVarsRoundTimeLimit(int percent = -1);
-    void sendVarsRoundWarmupTimeout(int timeout = -1);
-    void sendVarsServerDescription(const QString &description = 0);
-    void sendVarsServerMessage(const QString &message = 0);
-    void sendVarsServerName(const QString &name = 0);
-    void sendVarsServerType(const QString &type = 0);
-    void sendVarsSoldierHealth(int percent = -1);
-    void sendVarsTeamFactionOverride(int teamId = -1, int factionId = -1);
-    void sendVarsTeamKillCountForKick(int count = -1);
-    void sendVarsTeamKillKickForBan(int count = -1);
-    void sendVarsTeamKillValueDecreasePerSecond(int count = -1);
-    void sendVarsTeamKillValueForKick(int count = -1);
-    void sendVarsTeamKillValueIncrease(int count = -1);
-    void sendVarsTicketBleedRate(int percent = -1);
-    void sendVarsUnlockMode(const QString &type = 0);
-    void sendVarsVehicleSpawnAllowed();
-    void sendVarsVehicleSpawnAllowed(bool enabled);
-    void sendVarsVehicleSpawnDelay(int percent = -1);
+    void sendVars3dSpottingCommand();
+    void sendVars3dSpottingCommand(bool enabled);
+    void sendVars3pCamCommand();
+    void sendVars3pCamCommand(bool enabled);
+    void sendVarsAlwaysAllowSpectatorsCommand();
+    void sendVarsAlwaysAllowSpectatorsCommand(bool enabled);
+    void sendVarsAutoBalanceCommand();
+    void sendVarsAutoBalanceCommand(bool enabled);
+    void sendVarsBulletDamageCommand(int damage = -1);
+    void sendVarsCommanderCommand();
+    void sendVarsCommanderCommand(bool enabled);
+    void sendVarsForceReloadWholeMagsCommand();
+    void sendVarsForceReloadWholeMagsCommand(bool enabled);
+    void sendVarsFriendlyFireCommand();
+    void sendVarsFriendlyFireCommand(bool enabled);
+    void sendVarsGameModeCounterCommand(int scale = -1);
+    void sendVarsGamePasswordCommand(const QString &password = 0);
+    void sendVarsHitIndicatorsEnabledCommand();
+    void sendVarsHitIndicatorsEnabledCommand(bool enabled);
+    void sendVarsHudCommand();
+    void sendVarsHudCommand(bool enabled);
+    void sendVarsIdleBanRoundsCommand(int rounds = -1);
+    void sendVarsIdleTimeoutCommand(int seconds = -1);
+    void sendVarsKillCamCommand();
+    void sendVarsKillCamCommand(bool enabled);
+    void sendVarsMaxPlayersCommand(int players = -1);
+    void sendVarsMaxSpectatorsCommand(int spectators = -1);
+    void sendVarsMiniMapCommand();
+    void sendVarsMiniMapCommand(bool enabled);
+    void sendVarsMiniMapSpottingCommand();
+    void sendVarsMiniMapSpottingCommand(bool enabled);
+    void sendVarsMpExperienceCommand(const QString &experience = 0);
+    void sendVarsNameTagCommand();
+    void sendVarsNameTagCommand(bool enabled);
+    void sendVarsOnlySquadLeaderSpawnCommand();
+    void sendVarsOnlySquadLeaderSpawnCommand(bool enabled);
+    void sendVarsPlayerRespawnTimeCommand(int respawnTime = -1);
+    void sendVarsPresetCommand(const QString &serverPreset = 0, bool lockPresetSetting = 0);
+    void sendVarsRegenerateHealthCommand();
+    void sendVarsRegenerateHealthCommand(bool enabled);
+    void sendVarsRoundLockdownCountdownCommand(int seconds = -1);
+    void sendVarsRoundRestartPlayerCountCommand(int players = -1);
+    void sendVarsRoundStartPlayerCountCommand(int players = -1);
+    void sendVarsRoundTimeLimitCommand(int percent = -1);
+    void sendVarsRoundWarmupTimeoutCommand(int timeout = -1);
+    void sendVarsServerDescriptionCommand(const QString &description = 0);
+    void sendVarsServerMessageCommand(const QString &message = 0);
+    void sendVarsServerNameCommand(const QString &name = 0);
+    void sendVarsServerTypeCommand(const QString &type = 0);
+    void sendVarsSoldierHealthCommand(int percent = -1);
+    void sendVarsTeamFactionOverrideCommand(int teamId = -1, int factionId = -1);
+    void sendVarsTeamKillCountForKickCommand(int count = -1);
+    void sendVarsTeamKillKickForBanCommand(int count = -1);
+    void sendVarsTeamKillValueDecreasePerSecondCommand(int count = -1);
+    void sendVarsTeamKillValueForKickCommand(int count = -1);
+    void sendVarsTeamKillValueIncreaseCommand(int count = -1);
+    void sendVarsTicketBleedRateCommand(int percent = -1);
+    void sendVarsUnlockModeCommand(const QString &type = 0);
+    void sendVarsVehicleSpawnAllowedCommand();
+    void sendVarsVehicleSpawnAllowedCommand(bool enabled);
+    void sendVarsVehicleSpawnDelayCommand(int percent = -1);
 
 private:
     /* Parse events */
@@ -178,21 +161,6 @@ private:
     /*void parseFairFightActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseFairFightDeactivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
     void parseFairFightIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-
-    // MapList
-    /*void parseMapListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-    void parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parseMapListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseMapListEndRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
-    void parseMapListGetMapIndicesCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseMapListGetRoundsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseMapListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    /*void parseMapListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseMapListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseMapListRestartRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseMapListRunNextRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseMapListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);*/
 
     // Spectator List
     /*void parseSpectatorListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -278,21 +246,6 @@ signals:
 //    void onFairFightActivateCommand();
 //    void onFairFightDeactivateCommand();
     void onFairFightIsActiveCommand(bool isActive);
-
-    // MapList
-    void onMapListAddCommand();
-    void onMapListAvailableMapsCommand(const QString &value, const QStringList &list);
-//    void onMapListClearCommand();
-//    void onMapListEndRoundCommand();
-    void onMapListGetMapIndicesCommand(int currentMapIndex, int nextMapIndex);
-    void onMapListGetRoundsCommand(int currentRound, int totalRounds);
-    void onMapListListCommand(const MapList &mapList);
-//    void onMapListLoadCommand();
-//    void onMapListRemoveCommand();
-//    void onMapListRestartRoundCommand();
-//    void onMapListRunNextRoundCommand();
-//    void onMapListSaveCommand();
-//    void onMapListSetNextMapIndexCommand();
 
     // Spectator List
 //    void onSpectatorListAddCommand();

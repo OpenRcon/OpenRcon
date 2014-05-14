@@ -34,7 +34,7 @@ public:
     ~ConnectionManager();
 
 private:
-    QSet<Connection> sockets;
+    QSet<Connection> connections;
 
 };
 
