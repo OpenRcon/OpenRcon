@@ -17,12 +17,12 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAMEMOD_H
-#define GAMEMOD_H
+#ifndef BFBC2MOD_H
+#define BFBC2MOD_H
 
-enum class GameMod {
+enum class BFBC2Mod {
     BC2,
     VIETNAM
 };
 
-#endif // GAMEMOD_H
+#endif // BFBC2MOD_H

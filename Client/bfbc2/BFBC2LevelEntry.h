@@ -21,6 +21,7 @@
 #define BFBC2LEVELENTRY_H
 
 #include "LevelEntry.h"
+#include "BFBC2Mod.h"
 
 struct BFBC2LevelEntry : public LevelEntry {
     BFBC2LevelEntry()
@@ -33,7 +34,7 @@ struct BFBC2LevelEntry : public LevelEntry {
                     int team1,
                     int team2,
                     const QString &image,
-                    const QString &mod) :
+                    BFBC2Mod mod) :
         LevelEntry(engineName,
                    name,
                    team1,
@@ -44,7 +45,7 @@ struct BFBC2LevelEntry : public LevelEntry {
 
     }
 
-    QString mod;
+    BFBC2Mod mod;
 
 };
 

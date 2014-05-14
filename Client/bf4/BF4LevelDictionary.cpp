@@ -85,7 +85,6 @@ QStringList BF4LevelDictionary::teamList = {
 template<>
 QHash<int, int> BF4LevelDictionary::levelMap = {
     /* Levels and gamemodes combined */
-
     /* ConquestLarge0 */
     { 0, 0 },
     { 0, 0 },

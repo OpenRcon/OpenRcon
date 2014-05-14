@@ -84,8 +84,12 @@ QList<GameModeEntry> BF3LevelDictionary::gameModeList = {
     GameModeEntry("AirSuperiority0", "Air Superiority", 24)               // 15
 };
 
+// TODO: More teams here?
 template<>
-QStringList BF3LevelDictionary::teamList = {};
+QStringList BF3LevelDictionary::teamList = {
+    "US",
+    "RU"
+};
 
 template<>
 QHash<int, int> BF3LevelDictionary::levelMap = {
