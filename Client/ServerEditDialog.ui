@@ -43,7 +43,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QLabel" name="label_sed_game">
+    <widget class="QLabel" name="label_game">
      <property name="text">
       <string>Game:</string>
      </property>
@@ -52,7 +52,7 @@
    <item row="2" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLineEdit" name="lineEdit_sed_host">
+      <widget class="QLineEdit" name="lineEdit_host">
        <property name="text">
         <string/>
        </property>
@@ -62,14 +62,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_sed_port">
+      <widget class="QLabel" name="label__port">
        <property name="text">
         <string>Port:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinBox_sed_port">
+      <widget class="QSpinBox" name="spinBox_port">
        <property name="minimum">
         <number>1</number>
        </property>
@@ -94,7 +94,7 @@
     </spacer>
    </item>
    <item row="3" column="1">
-    <widget class="QLineEdit" name="lineEdit_sed_password">
+    <widget class="QLineEdit" name="lineEdit_password">
      <property name="text">
       <string/>
      </property>
@@ -104,14 +104,14 @@
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QLabel" name="label_sed_password">
+    <widget class="QLabel" name="label_password">
      <property name="text">
       <string>Password:</string>
      </property>
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="lineEdit_sed_name">
+    <widget class="QLineEdit" name="lineEdit_name">
      <property name="text">
       <string/>
      </property>
@@ -133,14 +133,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_sed_cancel">
+      <widget class="QPushButton" name="pushButton_cancel">
        <property name="text">
         <string>Cancel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_sed_ok">
+      <widget class="QPushButton" name="pushButton_ok">
        <property name="text">
         <string>OK</string>
        </property>
@@ -149,14 +149,14 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QLabel" name="label_sed_name">
+    <widget class="QLabel" name="label_name">
      <property name="text">
       <string>Name:</string>
      </property>
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QLabel" name="label_sed_host">
+    <widget class="QLabel" name="label_host">
      <property name="text">
       <string>Address:</string>
      </property>
@@ -166,10 +166,10 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QComboBox" name="comboBox_sed_game"/>
+    <widget class="QComboBox" name="comboBox_game"/>
    </item>
    <item row="4" column="1">
-    <widget class="QCheckBox" name="checkBox_sed_autoConnect">
+    <widget class="QCheckBox" name="checkBox_autoConnect">
      <property name="text">
       <string>Connect to server automatically</string>
      </property>
@@ -178,13 +178,13 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>comboBox_sed_game</tabstop>
-  <tabstop>lineEdit_sed_name</tabstop>
-  <tabstop>lineEdit_sed_host</tabstop>
-  <tabstop>spinBox_sed_port</tabstop>
-  <tabstop>lineEdit_sed_password</tabstop>
-  <tabstop>pushButton_sed_ok</tabstop>
-  <tabstop>pushButton_sed_cancel</tabstop>
+  <tabstop>comboBox_game</tabstop>
+  <tabstop>lineEdit_name</tabstop>
+  <tabstop>lineEdit_host</tabstop>
+  <tabstop>spinBox_port</tabstop>
+  <tabstop>lineEdit_password</tabstop>
+  <tabstop>pushButton_ok</tabstop>
+  <tabstop>pushButton_cancel</tabstop>
  </tabstops>
  <resources>
   <include location="OpenRcon.qrc"/>

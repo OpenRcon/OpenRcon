@@ -50,7 +50,8 @@ private:
     Ui::ServerEditDialog *ui;
 
 private slots:
-    void lineEdit_sed_host_editingFinished();
+    void lineEdit_host_editingFinished();
+    void comboBox_game_currentIndexChanged(int index);
 
     void detect(const QString &value);
     void validate();

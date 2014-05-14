@@ -30,41 +30,42 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     ui->setupUi(this);
 
     for (GameEntry entry : GameManager::getGames()) {
-        ui->comboBox_sed_game->addItem(QIcon(entry.icon), entry.name);
+        ui->comboBox_game->addItem(QIcon(entry.icon), entry.name);
     }
 
-    connect(ui->lineEdit_sed_name, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
-    connect(ui->lineEdit_sed_host, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
+    connect(ui->lineEdit_name, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
+    connect(ui->lineEdit_host, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
 
-    connect(ui->comboBox_sed_game, SIGNAL(currentIndexChanged(int)), this, SLOT(validate()));
-    connect(ui->lineEdit_sed_name, SIGNAL(textChanged(QString)), this, SLOT(validate()));
-    connect(ui->lineEdit_sed_host, SIGNAL(textChanged(QString)), this, SLOT(validate()));
-    connect(ui->lineEdit_sed_host, SIGNAL(editingFinished()), this, SLOT(lineEdit_sed_host_editingFinished()));
-    connect(ui->spinBox_sed_port, SIGNAL(valueChanged(int)), this, SLOT(validate()));
-    connect(ui->lineEdit_sed_password, SIGNAL(textChanged(QString)), this, SLOT(validate()));
+    connect(ui->comboBox_game, SIGNAL(currentIndexChanged(int)), this, SLOT(validate()));
+    connect(ui->comboBox_game, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_game_currentIndexChanged(int)));
+    connect(ui->lineEdit_name, SIGNAL(textChanged(QString)), this, SLOT(validate()));
+    connect(ui->lineEdit_host, SIGNAL(textChanged(QString)), this, SLOT(validate()));
+    connect(ui->lineEdit_host, SIGNAL(editingFinished()), this, SLOT(lineEdit_host_editingFinished()));
+    connect(ui->spinBox_port, SIGNAL(valueChanged(int)), this, SLOT(validate()));
+    connect(ui->lineEdit_password, SIGNAL(textChanged(QString)), this, SLOT(validate()));
 
-    connect(ui->lineEdit_sed_name, SIGNAL(returnPressed()), this, SLOT(accept()));
-    connect(ui->lineEdit_sed_host, SIGNAL(returnPressed()), this, SLOT(accept()));
-    connect(ui->lineEdit_sed_password, SIGNAL(returnPressed()), this, SLOT(accept()));
+    connect(ui->lineEdit_name, SIGNAL(returnPressed()), this, SLOT(accept()));
+    connect(ui->lineEdit_host, SIGNAL(returnPressed()), this, SLOT(accept()));
+    connect(ui->lineEdit_password, SIGNAL(returnPressed()), this, SLOT(accept()));
 
-    connect(ui->pushButton_sed_ok, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(ui->pushButton_sed_cancel, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(ui->pushButton_ok, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(ui->pushButton_cancel, SIGNAL(clicked()), this, SLOT(reject()));
 
     validate();
 }
 
 ServerEditDialog::ServerEditDialog(GameType gameType, QWidget *parent) : ServerEditDialog(parent)
 {
-    ui->comboBox_sed_game->setCurrentIndex(GameManager::toInt(gameType) - 1);
+    ui->comboBox_game->setCurrentIndex(GameManager::toInt(gameType) - 1);
 }
 
 ServerEditDialog::ServerEditDialog(GameType gameType, const QString &name, const QString &host, int port, const QString &password, bool autoConnect, QWidget *parent) : ServerEditDialog(gameType, parent)
 {
-    ui->lineEdit_sed_name->setText(name);
-    ui->lineEdit_sed_host->setText(host);
-    ui->spinBox_sed_port->setValue(port);
-    ui->lineEdit_sed_password->setText(password);
-    ui->checkBox_sed_autoConnect->setChecked(autoConnect);
+    ui->lineEdit_name->setText(name);
+    ui->lineEdit_host->setText(host);
+    ui->spinBox_port->setValue(port);
+    ui->lineEdit_password->setText(password);
+    ui->checkBox_autoConnect->setChecked(autoConnect);
 }
 
 ServerEditDialog::~ServerEditDialog()
@@ -72,31 +73,35 @@ ServerEditDialog::~ServerEditDialog()
     delete ui;
 }
 
+void ServerEditDialog::comboBox_game_currentIndexChanged(int index)
+{
+    ui->spinBox_port->setValue(GameManager::getGame(GameManager::toGameType(index + 1)).defaultPort);
+}
+
+void ServerEditDialog::lineEdit_host_editingFinished()
+{
+    if (ui->lineEdit_name->text().isEmpty()) {
+        ui->lineEdit_name->setText(ui->lineEdit_host->text());
+    }
+}
+
 void ServerEditDialog::detect(const QString &value)
 {
     for (GameEntry entry : GameManager::getGames()) {
         if (value.contains(entry.prefix, Qt::CaseInsensitive) || value.contains(entry.name, Qt::CaseInsensitive)) {
-            ui->comboBox_sed_game->setCurrentIndex(GameManager::toInt(entry.gameType) - 1);
+            ui->comboBox_game->setCurrentIndex(GameManager::toInt(entry.gameType) - 1);
         }
-    }
-}
-
-void ServerEditDialog::lineEdit_sed_host_editingFinished()
-{
-    if (ui->lineEdit_sed_name->text().isEmpty()) {
-        ui->lineEdit_sed_name->setText(ui->lineEdit_sed_host->text());
     }
 }
 
 void ServerEditDialog::validate()
 {   
-    ui->spinBox_sed_port->setValue(GameManager::getGame(GameManager::toGameType(ui->comboBox_sed_game->currentIndex() + 1)).defaultPort);
-    ui->pushButton_sed_ok->setEnabled(!ui->lineEdit_sed_name->text().isEmpty() && !ui->lineEdit_sed_host->text().isEmpty() && ui->spinBox_sed_port->value() > 0);
+    ui->pushButton_ok->setEnabled(!ui->lineEdit_name->text().isEmpty() && !ui->lineEdit_host->text().isEmpty() && ui->spinBox_port->value() > 0);
 }
 
 void ServerEditDialog::accept()
 {
-    QString password = ui->lineEdit_sed_password->text();
+    QString password = ui->lineEdit_password->text();
 
     if (password.isEmpty()) {
         int answer = QMessageBox::question(this, tr("Password not set"), tr("Are you sure you want to continue without a password? This may limit functionality."));
@@ -111,30 +116,30 @@ void ServerEditDialog::accept()
 
 GameType ServerEditDialog::getGameType()
 {
-    return GameManager::toGameType(ui->comboBox_sed_game->currentIndex() + 1);
+    return GameManager::toGameType(ui->comboBox_game->currentIndex() + 1);
 }
 
 QString ServerEditDialog::getName()
 {
-    return ui->lineEdit_sed_name->text();
+    return ui->lineEdit_name->text();
 }
 
 QString ServerEditDialog::getHost()
 {
-    return ui->lineEdit_sed_host->text();
+    return ui->lineEdit_host->text();
 }
 
 int ServerEditDialog::getPort()
 {
-    return ui->spinBox_sed_port->value();
+    return ui->spinBox_port->value();
 }
 
 QString ServerEditDialog::getPassword()
 {
-    return ui->lineEdit_sed_password->text();
+    return ui->lineEdit_password->text();
 }
 
 bool ServerEditDialog::getAutoConnect()
 {
-    return ui->checkBox_sed_autoConnect->isChecked();
+    return ui->checkBox_autoConnect->isChecked();
 }
