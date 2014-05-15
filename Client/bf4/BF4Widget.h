@@ -216,8 +216,8 @@ private slots:
     void treeWidget_ml_current_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void treeWidget_ml_current_customContextMenuRequested(const QPoint &pos);
 
-    void addavailableMapListRow(const QString &name, const QString &gameMode);
-    void setavailableMaplist(int gameModeIndex);
+    void addAvailableMapListRow(const QString &name, const QString &gameMode);
+    void setAvailableMaplist(int gameModeIndex);
     void addCurrentMapListRow(const QString &name, const QString &gameMode, int rounds);
     void setCurrentMaplist(const MapList &mapList);
 

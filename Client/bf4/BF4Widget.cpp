@@ -73,7 +73,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // Maplist
     ui->comboBox_ml_gameMode->addItems(BF4LevelDictionary::getGameModeNames());
-    setavailableMaplist(0);
+    setAvailableMaplist(0);
     ui->spinBox_ml_rounds->setValue(2);
 
     menu_ml_available = new QMenu(ui->treeWidget_ml_available);
@@ -611,7 +611,7 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     ui->label_ml_currentMapValue->setText(currentLevel.name);
 
     ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
-    setavailableMaplist(gameModeIndex);
+    setAvailableMaplist(gameModeIndex);
 }
 
 void BF4Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
@@ -681,8 +681,10 @@ void BF4Widget::onSpectatorListListCommand(const QStringList &spectatorList)
 // Variables
 void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(bool enabled)
 {
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), !enabled);
+    ui->checkBox_so_co_alwaysAllowSpectators->setEnabled(false);
     ui->checkBox_so_co_alwaysAllowSpectators->setChecked(enabled);
+
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), !enabled);
 }
 
 void BF4Widget::onVarsCommanderCommand(bool enabled)
@@ -1008,7 +1010,7 @@ void BF4Widget::pushButton_ch_send_clicked()
 void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
 {
     if (index >= 0) {
-        setavailableMaplist(index);
+        setAvailableMaplist(index);
     }
 }
 
@@ -1062,7 +1064,7 @@ void BF4Widget::pushButton_ml_remove_clicked()
     }
 }
 
-void BF4Widget::addavailableMapListRow(const QString &name, const QString &gameMode)
+void BF4Widget::addAvailableMapListRow(const QString &name, const QString &gameMode)
 {
     QTreeWidgetItem *item = new QTreeWidgetItem();
     item->setText(0, name);
@@ -1071,7 +1073,7 @@ void BF4Widget::addavailableMapListRow(const QString &name, const QString &gameM
     ui->treeWidget_ml_available->addTopLevelItem(item);
 }
 
-void BF4Widget::setavailableMaplist(int gameModeIndex)
+void BF4Widget::setAvailableMaplist(int gameModeIndex)
 {
     ui->treeWidget_ml_available->clear();
 
@@ -1080,10 +1082,9 @@ void BF4Widget::setavailableMaplist(int gameModeIndex)
 
     ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().image());
 
-    for (int i = 0; i < levelList.length(); i++) {
-        LevelEntry level = levelList.at(i);
-
-        addavailableMapListRow(level.name, gameMode.name);
+    for (LevelEntry level : levelList) {
+        addAvailableMapListRow(level.name, gameMode.name);
+        addCurrentMapListRow(level.name, gameMode.name, 0);
     }
 
     // Resize columns so that they fits the content.

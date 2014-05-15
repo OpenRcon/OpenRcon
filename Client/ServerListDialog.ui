@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Server Manager</string>
+   <string>Servermanager</string>
   </property>
   <property name="windowIcon">
    <iconset resource="OpenRcon.qrc">
