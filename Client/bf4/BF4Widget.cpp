@@ -867,7 +867,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
             teamIds.insert(player.teamId);
         }
 
-        for (int teamId = 0; teamId < teamIds.size(); teamId++) {
+        for (int teamId : teamIds) {
             if (teamId > 0) { // Don't list team with id 0, as this is the neutrual team.
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
                 teamItem->setText(0, BF4LevelDictionary::getTeam(teamId - 1));
