@@ -36,10 +36,9 @@ protected:
     FrostbiteConnection *con;
     BF4CommandHandler *commandHandler;
 
-    bool isAuthenticated();
-
-private:
     bool authenticated;
+
+    bool isAuthenticated();
 
 private slots:
     void onConnected();

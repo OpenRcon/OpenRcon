@@ -273,25 +273,27 @@ BF4Widget::~BF4Widget()
     delete ui;
 }
 
-void BF4Widget::setAuthenticated(bool authenticated)
+void BF4Widget::setAuthenticated(bool auth)
 {
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), authenticated);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), authenticated);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), authenticated);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), authenticated);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_rs), authenticated);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), authenticated);
+    authenticated = auth;
 
-    startupCommands(authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_rs), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), auth);
+
+    startupCommands(auth);
 }
 
-void BF4Widget::startupCommands(bool authenticated)
+void BF4Widget::startupCommands(bool auth)
 {
     // Misc
     commandHandler->sendVersionCommand();
     commandHandler->sendServerInfoCommand();
 
-    if (authenticated) {
+    if (auth) {
         commandHandler->sendAdminEventsEnabledCommand(true);
 
         // Admins
@@ -389,6 +391,8 @@ void BF4Widget::onConnected()
 
 void BF4Widget::onDisconnected()
 {
+    setAuthenticated(false);
+
     logEvent("Disconnected", tr("Disconnected."));
 }
 
@@ -753,6 +757,10 @@ void BF4Widget::onVarsServerMessageCommand(const QString &serverMessage)
 void BF4Widget::onVarsServerTypeCommand(const QString &type)
 {
     ui->label_so_co_serverType->setText(type);
+
+    if (type == "RANKED") {
+        ui->lineEdit_so_co_gamePassword->setEnabled(false);
+    }
 }
 
 QIcon BF4Widget::getRankIcon(int rank)

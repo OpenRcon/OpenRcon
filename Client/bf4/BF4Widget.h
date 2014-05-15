@@ -99,8 +99,8 @@ private:
 
     LevelEntry currentLevel;
 
-    void setAuthenticated(bool authenticated);
-    void startupCommands(bool authenticated);
+    void setAuthenticated(bool auth);
+    void startupCommands(bool auth);
     void logEvent(const QString &event, const QString &message);
     void logChat(const QString &sender, const QString &message, const QString &target);
     void logConsole(int type, const QString &message);
