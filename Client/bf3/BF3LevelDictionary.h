@@ -29,6 +29,6 @@ typedef LevelDictionary<2, LevelEntry, GameModeEntry> BF3LevelDictionary;
 template<> QList<LevelEntry> BF3LevelDictionary::levelList;
 template<> QList<GameModeEntry> BF3LevelDictionary::gameModeList;
 template<> QStringList BF3LevelDictionary::teamList;
-template<> QHash<int, int> BF3LevelDictionary::levelMap;
+template<> QMultiHash<int, int> BF3LevelDictionary::levelMap;
 
 #endif // BF3LEVELDICTIONARY_H

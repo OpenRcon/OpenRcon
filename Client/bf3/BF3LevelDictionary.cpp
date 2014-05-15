@@ -92,7 +92,7 @@ QStringList BF3LevelDictionary::teamList = {
 };
 
 template<>
-QHash<int, int> BF3LevelDictionary::levelMap = {
+QMultiHash<int, int> BF3LevelDictionary::levelMap = {
     /* Levels and gamemodes combined */
 
     /* ConquestLarge0 */
