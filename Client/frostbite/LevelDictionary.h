@@ -26,6 +26,11 @@
 #include "LevelEntry.h"
 #include "GameModeEntry.h"
 
+#include <QDebug>
+
+typedef QList<LevelEntry> LevelList;
+typedef QList<GameModeEntry> GameModeList;
+
 template<int hack, typename LevelEntryType, typename GameModeEntryType>
 class LevelDictionary
 {
@@ -39,16 +44,16 @@ public:
     LevelDictionary(const QString &imagePath);
     ~LevelDictionary() {}
 
-    static const LevelEntryType & getLevel(int index)
+    static const LevelEntryType &getLevel(int index)
     {
         return levelList.at(index);
     }
 
-    static const LevelEntryType & getLevel(const QString &level)
+    static const LevelEntryType &getLevel(const QString &level)
     {
         static LevelEntryType empty;
 
-        for (const LevelEntryType & entry : getLevels()) {
+        for (const LevelEntryType &entry : getLevels()) {
             if (entry.engineName == level || entry.name == level) {
                 return entry;
             }
@@ -57,35 +62,12 @@ public:
         return empty;
     }
 
-    static const LevelEntryType & getLevel(int index, int gameModeIndex)
+    static const LevelEntryType &getLevel(int index, int gameModeIndex)
     {
         return getLevels(gameModeIndex).at(index);
     }
 
-    static const GameModeEntryType & getGameMode(int index)
-    {
-        return getGameModes().at(index);
-    }
-
-    static const GameModeEntryType & getGameMode(const QString &level)
-    {
-        static GameModeEntryType empty;
-
-        for (const GameModeEntryType & entry : gameModeList) {
-            if (entry.engineName == level || entry.name == level) {
-                return entry;
-            }
-        }
-
-        return empty;
-    }
-
-    static const QString & getTeam(int index)
-    {
-        return teamList.at(index);
-    }
-
-    static const QList<LevelEntryType> & getLevels()
+    static const QList<LevelEntryType> &getLevels()
     {
         return levelList;
     }
@@ -101,12 +83,68 @@ public:
         return list;
     }
 
-    static const QList<GameModeEntryType> & getGameModes()
+    static QStringList getLevelNames()
+    {
+        QStringList list;
+
+        for (const LevelEntryType &entry : levelList) {
+            list.append(entry.name);
+        }
+
+        return list;
+    }
+
+    static QStringList getLevelNames(int gameModeIndex)
+    {
+        QStringList list;
+
+        for (const LevelEntryType &entry : getLevels(gameModeIndex)) {
+            list.append(entry.name);
+        }
+
+        return list;
+    }
+
+    static const GameModeEntryType &getGameMode(int index)
+    {
+        return getGameModes().at(index);
+    }
+
+    static const GameModeEntryType &getGameMode(const QString &level)
+    {
+        static GameModeEntryType empty;
+
+        for (const GameModeEntryType & entry : gameModeList) {
+            if (entry.engineName == level || entry.name == level) {
+                return entry;
+            }
+        }
+
+        return empty;
+    }
+
+    static const QList<GameModeEntryType> &getGameModes()
     {
         return gameModeList;
     }
 
-    static const QStringList & getTeams()
+    static QStringList getGameModeNames()
+    {
+        QStringList list;
+
+        for (const GameModeEntryType &entry : gameModeList) {
+            list.append(entry.name);
+        }
+
+        return list;
+    }
+
+    static const QString &getTeam(int index)
+    {
+        return teamList.at(index);
+    }
+
+    static const QStringList &getTeams()
     {
         return teamList;
     }
@@ -124,44 +162,14 @@ public:
         return list;
     }
 
-    static QStringList getLevelNames()
-    {
-        QStringList list;
-
-        for (const LevelEntryType & entry : levelList) {
-            list.append(entry.name);
-        }
-
-        return list;
-    }
-
-    static QStringList getLevelNames(int gameModeIndex)
-    {
-        QStringList list;
-
-        for (const LevelEntryType & entry : getLevels(gameModeIndex)) {
-            list.append(entry.name);
-        }
-
-        return list;
-    }
-
-    static QStringList getGameModeNames()
-    {
-        QStringList list;
-
-        for (const GameModeEntryType & entry : gameModeList) {
-            list.append(entry.name);
-        }
-
-        return list;
-    }
-
 private:
+    QString imagePath;
+
     static QList<LevelEntryType> levelList;
     static QList<GameModeEntryType> gameModeList;
-    static QStringList teamList;
     static QHash<int, int> levelMap;
+    static QStringList teamList;
+
 };
 
 #endif // LEVELDICTIONARY_H
