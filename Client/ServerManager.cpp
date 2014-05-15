@@ -95,6 +95,7 @@ void ServerManager::setServers(const QList<ServerEntry *> &list)
 {
     serverList.clear();
     serverList = list;
+    saveServers();
 
     emit (onServerUpdate());
 }
