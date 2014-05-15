@@ -35,7 +35,7 @@ QList<GameEntry> GameManager::gameList = {
 
 GameEntry GameManager::getGame(GameType gameType)
 {
-    return gameList.at(toInt(gameType) - 1);
+    return gameList.at(toInt(gameType));
 }
 
 GameEntry GameManager::getGame(const QString &gamePrefix)
@@ -54,10 +54,10 @@ QList<GameEntry> GameManager::getGames()
     return gameList;
 }
 
-Game* GameManager::getGameObject(ServerEntry *serverEntry)
+Game *GameManager::getGameObject(ServerEntry *serverEntry)
 {
     GameType gameType = serverEntry->gameType;
-    Game *gameObject;
+    Game *gameObject = nullptr;
 
     switch (gameType) {
     case GameType::BFBC2:
@@ -77,7 +77,7 @@ Game* GameManager::getGameObject(ServerEntry *serverEntry)
         break;
 
     default:
-        qDebug() << tr("Unknown game specified, the id was: %1.").arg(toInt(gameType));
+        qDebug() << tr("Unknown game requested, the id was: %1.").arg(toInt(gameType));
         break;
     }
 

@@ -54,12 +54,12 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     validate();
 }
 
-ServerEditDialog::ServerEditDialog(GameType gameType, QWidget *parent) : ServerEditDialog(parent)
+ServerEditDialog::ServerEditDialog(int index, QWidget *parent) : ServerEditDialog(parent)
 {
-    ui->comboBox_game->setCurrentIndex(GameManager::toInt(gameType) - 1);
+    ui->comboBox_game->setCurrentIndex(index);
 }
 
-ServerEditDialog::ServerEditDialog(GameType gameType, const QString &name, const QString &host, int port, const QString &password, bool autoConnect, QWidget *parent) : ServerEditDialog(gameType, parent)
+ServerEditDialog::ServerEditDialog(int index, const QString &name, const QString &host, int port, const QString &password, bool autoConnect, QWidget *parent) : ServerEditDialog(index, parent)
 {
     ui->lineEdit_name->setText(name);
     ui->lineEdit_host->setText(host);
@@ -75,7 +75,7 @@ ServerEditDialog::~ServerEditDialog()
 
 void ServerEditDialog::comboBox_game_currentIndexChanged(int index)
 {
-    ui->spinBox_port->setValue(GameManager::getGame(GameManager::toGameType(index + 1)).defaultPort);
+    ui->spinBox_port->setValue(GameManager::getGame(GameManager::toGameType(index)).defaultPort);
 }
 
 void ServerEditDialog::lineEdit_host_editingFinished()
@@ -89,7 +89,7 @@ void ServerEditDialog::detect(const QString &value)
 {
     for (GameEntry entry : GameManager::getGames()) {
         if (value.contains(entry.prefix, Qt::CaseInsensitive) || value.contains(entry.name, Qt::CaseInsensitive)) {
-            ui->comboBox_game->setCurrentIndex(GameManager::toInt(entry.gameType) - 1);
+            ui->comboBox_game->setCurrentIndex(GameManager::toInt(entry.gameType));
         }
     }
 }
@@ -116,7 +116,7 @@ void ServerEditDialog::accept()
 
 GameType ServerEditDialog::getGameType()
 {
-    return GameManager::toGameType(ui->comboBox_game->currentIndex() + 1);
+    return GameManager::toGameType(ui->comboBox_game->currentIndex());
 }
 
 QString ServerEditDialog::getName()

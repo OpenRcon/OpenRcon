@@ -21,7 +21,6 @@
 #define GAMETYPE_H
 
 enum class GameType {
-    Unknown,
     BFBC2,
     BF3,
     BF4,

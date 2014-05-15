@@ -117,7 +117,7 @@ void ServerListDialog::action_gameEntry_add_triggered()
         QTreeWidgetItem *item = ui->treeWidget->currentItem();
 
         if (!item->parent()) {
-            addItem(item->data(0, Qt::UserRole).value<GameType>());
+            addItem(GameManager::toInt(item->data(0, Qt::UserRole).value<GameType>()));
         }
     }
 }
@@ -160,9 +160,9 @@ void ServerListDialog::createTreeData()
     }
 }
 
-void ServerListDialog::addItem(GameType gameType)
+void ServerListDialog::addItem(int index)
 {    
-    ServerEditDialog *dialog = gameType == GameType::Unknown ?  new ServerEditDialog(this) :  new ServerEditDialog(gameType, this);
+    ServerEditDialog *dialog = index < 0 ?  new ServerEditDialog(this) :  new ServerEditDialog(index, this);
 
     if (dialog->exec() == QDialog::Accepted) {
         ServerEntry *entry = new ServerEntry(
@@ -191,7 +191,7 @@ void ServerListDialog::editItem()
         QVariant variant = item->data(0, Qt::UserRole);
         ServerEntry *entry = variant.value<ServerEntry *>();
 
-        ServerEditDialog *sed = new ServerEditDialog(entry->gameType, entry->name, entry->host, entry->port, entry->password, entry->autoConnect, this);
+        ServerEditDialog *sed = new ServerEditDialog(GameManager::toInt(entry->gameType), entry->name, entry->host, entry->port, entry->password, entry->autoConnect, this);
 
         if (sed->exec() == QDialog::Accepted) {
             ServerEntry editEntry = ServerEntry(

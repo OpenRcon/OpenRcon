@@ -35,8 +35,8 @@ class ServerEditDialog : public QDialog
 
 public:
     ServerEditDialog(QWidget *parent = nullptr);
-    ServerEditDialog(GameType gameType, QWidget *parent = nullptr);
-    ServerEditDialog(GameType gameType, const QString &name = 0, const QString &host = 0, int port = 0, const QString &password = 0, bool autoConnect = false, QWidget *parent = nullptr);
+    ServerEditDialog(int index, QWidget *parent = nullptr);
+    ServerEditDialog(int index, const QString &name = 0, const QString &host = 0, int port = 0, const QString &password = 0, bool autoConnect = false, QWidget *parent = nullptr);
     ~ServerEditDialog();
 
     GameType getGameType();

@@ -70,7 +70,7 @@ private slots:
     void treeWidget_itemClicked(QTreeWidgetItem *item, int column);
     void action_gameEntry_add_triggered();
 
-    void addItem(GameType gameType = GameType::Unknown);
+    void addItem(int index = -1);
     void editItem();
     void removeItem();
     void connectToItem();
