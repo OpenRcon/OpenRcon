@@ -163,20 +163,32 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // Squad
 
-    // Variables
+    // Variables  
+    connect(commandHandler, SIGNAL(onVars3dSpottingCommand(bool)), this, SLOT(onVars3dSpottingCommand(bool)));
+    connect(commandHandler, SIGNAL(onVars3pCamCommand(bool)), this, SLOT(onVars3pCamCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsAlwaysAllowSpectatorsCommand(bool)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsAutoBalanceCommand(bool)), this, SLOT(onVarsAutoBalanceCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsCommanderCommand(bool)), this, SLOT(onVarsCommanderCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsForceReloadWholeMagsCommand(bool)), this, SLOT(onVarsForceReloadWholeMagsCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsFriendlyFireCommand(bool)), this, SLOT(onVarsFriendlyFireCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsGamePasswordCommand(QString)), this, SLOT(onVarsGamePasswordCommand(QString)));
+    connect(commandHandler, SIGNAL(onVarsHitIndicatorsEnabledCommand(bool)), this, SLOT(onVarsHitIndicatorsEnabledCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsHudCommand(bool)), this, SLOT(onVarsHudCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsIdleBanRoundsCommand(int)), this, SLOT(onVarsIdleBanRoundsCommand(int)));
     connect(commandHandler, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
     connect(commandHandler, SIGNAL(onVarsKillCamCommand(bool)), this, SLOT(onVarsKillCamCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsMaxPlayersCommand(int)), this, SLOT(onVarsMaxPlayersCommand(int)));
     connect(commandHandler, SIGNAL(onVarsMaxSpectatorsCommand(int)), this, SLOT(onVarsMaxSpectatorsCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsMiniMapCommand(bool)), this, SLOT(onVarsMiniMapCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsMiniMapSpottingCommand(bool)), this, SLOT(onVarsMiniMapSpottingCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsNameTagCommand(bool)), this, SLOT(onVarsNameTagCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsOnlySquadLeaderSpawnCommand(bool)), this, SLOT(onVarsOnlySquadLeaderSpawnCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsRegenerateHealthCommand(bool)), this, SLOT(onVarsRegenerateHealthCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsServerNameCommand(QString)), this, SLOT(onVarsServerNameCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(QString)), this, SLOT(onVarsServerDescriptionCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsServerMessageCommand(QString)), this, SLOT(onVarsServerMessageCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsServerTypeCommand(QString)), this, SLOT(onVarsServerTypeCommand(QString)));
+    connect(commandHandler, SIGNAL(onVarsVehicleSpawnAllowedCommand(bool)), this, SLOT(onVarsVehicleSpawnAllowedCommand(bool)));
 
     /* User Interface */
     // Server Information
@@ -225,8 +237,20 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(ui->checkBox_so_co_commander, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_commander_toggled(bool)));
 
     // Options -> Gameplay
-    connect(ui->checkBox_so_go_friendlyFire, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_go_friendlyFire_toggled(bool)));
-    connect(ui->checkBox_so_go_killCam, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_go_killCam_toggled(bool)));
+    connect(ui->checkBox_so_gp_friendlyFire, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_friendlyFire_toggled(bool)));
+    connect(ui->checkBox_so_gp_autoBalance, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_autoBalance_toggled(bool)));
+    connect(ui->checkBox_so_gp_killCam, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_killCam_toggled(bool)));
+    connect(ui->checkBox_so_gp_miniMap, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_miniMap_toggled(bool)));
+    connect(ui->checkBox_so_gp_miniMapSpotting, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_miniMapSpotting_toggled(bool)));
+    connect(ui->checkBox_so_gp_3dSpotting, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_3dSpotting_toggled(bool)));
+    connect(ui->checkBox_so_gp_nameTag, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_nameTag_toggled(bool)));
+    connect(ui->checkBox_so_gp_regenerateHealth, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_regenerateHealth_toggled(bool)));
+    connect(ui->checkBox_so_gp_hud, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_hud_toggled(bool)));
+    connect(ui->checkBox_so_gp_onlySquadLeaderSpawn, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_onlySquadLeaderSpawn_toggled(bool)));
+    connect(ui->checkBox_so_gp_vehicleSpawnAllowed, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_vehicleSpawnAllowed_toggled(bool)));
+    connect(ui->checkBox_so_gp_hitIndicatorsEnabled, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_hitIndicatorsEnabled_toggled(bool)));
+    connect(ui->checkBox_so_gp_thirdPersonVehicleCameras, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_thirdPersonVehicleCameras_toggled(bool)));
+    connect(ui->checkBox_so_gp_forceReloadWholeMags, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_forceReloadWholeMags_toggled(bool)));
 
     // Maplist
     connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
@@ -324,19 +348,31 @@ void BF4Widget::startupCommands(bool auth)
         // Squad
 
         // Variables
+        commandHandler->sendVars3dSpottingCommand();
+        commandHandler->sendVars3pCamCommand();
         commandHandler->sendVarsAlwaysAllowSpectatorsCommand();
+        commandHandler->sendVarsAutoBalanceCommand();
         commandHandler->sendVarsCommanderCommand();
+        commandHandler->sendVarsForceReloadWholeMagsCommand();
         commandHandler->sendVarsFriendlyFireCommand();
         commandHandler->sendVarsGamePasswordCommand();
+        commandHandler->sendVarsHitIndicatorsEnabledCommand();
+        commandHandler->sendVarsHudCommand();
         commandHandler->sendVarsIdleBanRoundsCommand();
         commandHandler->sendVarsIdleTimeoutCommand();
         commandHandler->sendVarsKillCamCommand();
         commandHandler->sendVarsMaxPlayersCommand();
         commandHandler->sendVarsMaxSpectatorsCommand();
+        commandHandler->sendVarsMiniMapCommand();
+        commandHandler->sendVarsMiniMapSpottingCommand();
+        commandHandler->sendVarsNameTagCommand();
+        commandHandler->sendVarsOnlySquadLeaderSpawnCommand();
+        commandHandler->sendVarsRegenerateHealthCommand();
         commandHandler->sendVarsServerNameCommand();
         commandHandler->sendVarsServerDescriptionCommand();
         commandHandler->sendVarsServerMessageCommand();
         commandHandler->sendVarsServerTypeCommand();
+        commandHandler->sendVarsVehicleSpawnAllowedCommand();
     } else {
         commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
@@ -679,6 +715,16 @@ void BF4Widget::onSpectatorListListCommand(const QStringList &spectatorList)
 // Squad
 
 // Variables
+void BF4Widget::onVars3dSpottingCommand(bool enabled)
+{
+    ui->checkBox_so_gp_3dSpotting->setChecked(enabled);
+}
+
+void BF4Widget::onVars3pCamCommand(bool enabled)
+{
+    ui->checkBox_so_gp_thirdPersonVehicleCameras->setChecked(enabled);
+}
+
 void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(bool enabled)
 {
     ui->checkBox_so_co_alwaysAllowSpectators->setEnabled(false);
@@ -687,19 +733,39 @@ void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(bool enabled)
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), !enabled);
 }
 
+void BF4Widget::onVarsAutoBalanceCommand(bool enabled)
+{
+    ui->checkBox_so_gp_autoBalance->setChecked(enabled);
+}
+
 void BF4Widget::onVarsCommanderCommand(bool enabled)
 {
     ui->checkBox_so_co_commander->setChecked(enabled);
 }
 
+void BF4Widget::onVarsForceReloadWholeMagsCommand(bool enabled)
+{
+    ui->checkBox_so_gp_forceReloadWholeMags->setChecked(enabled);
+}
+
 void BF4Widget::onVarsFriendlyFireCommand(bool enabled)
 {
-    ui->checkBox_so_go_friendlyFire->setChecked(enabled);
+    ui->checkBox_so_gp_friendlyFire->setChecked(enabled);
 }
 
 void BF4Widget::onVarsGamePasswordCommand(const QString &password)
 {
     ui->lineEdit_so_co_gamePassword->setText(password);
+}
+
+void BF4Widget::onVarsHitIndicatorsEnabledCommand(bool enabled)
+{
+    ui->checkBox_so_gp_hitIndicatorsEnabled->setChecked(enabled);
+}
+
+void BF4Widget::onVarsHudCommand(bool enabled)
+{
+    ui->checkBox_so_gp_hud->setChecked(enabled);
 }
 
 void BF4Widget::onVarsIdleBanRoundsCommand(int rounds)
@@ -728,7 +794,7 @@ void BF4Widget::onVarsIdleTimeoutCommand(int timeout)
 
 void BF4Widget::onVarsKillCamCommand(bool enabled)
 {
-    ui->checkBox_so_go_killCam->setChecked(enabled);
+    ui->checkBox_so_gp_killCam->setChecked(enabled);
 }
 
 void BF4Widget::onVarsMaxPlayersCommand(int playerCount)
@@ -739,6 +805,32 @@ void BF4Widget::onVarsMaxPlayersCommand(int playerCount)
 void BF4Widget::onVarsMaxSpectatorsCommand(int spectatorCount)
 {
     ui->spinBox_so_co_maxSpectators->setValue(spectatorCount);
+}
+
+void BF4Widget::onVarsMiniMapCommand(bool enabled)
+{
+    ui->checkBox_so_gp_miniMap->setChecked(enabled);
+}
+
+void BF4Widget::onVarsMiniMapSpottingCommand(bool enabled)
+{
+    ui->checkBox_so_gp_miniMapSpotting->setEnabled(false);
+    ui->checkBox_so_gp_miniMapSpotting->setChecked(enabled);
+}
+
+void BF4Widget::onVarsNameTagCommand(bool enabled)
+{
+    ui->checkBox_so_gp_nameTag->setChecked(enabled);
+}
+
+void BF4Widget::onVarsOnlySquadLeaderSpawnCommand(bool enabled)
+{
+    ui->checkBox_so_gp_onlySquadLeaderSpawn->setChecked(enabled);
+}
+
+void BF4Widget::onVarsRegenerateHealthCommand(bool enabled)
+{
+    ui->checkBox_so_gp_regenerateHealth->setChecked(enabled);
 }
 
 void BF4Widget::onVarsServerNameCommand(const QString &serverName)
@@ -763,6 +855,11 @@ void BF4Widget::onVarsServerTypeCommand(const QString &type)
     if (type == "RANKED") {
         ui->lineEdit_so_co_gamePassword->setEnabled(false);
     }
+}
+
+void BF4Widget::onVarsVehicleSpawnAllowedCommand(bool enabled)
+{
+    ui->checkBox_so_gp_vehicleSpawnAllowed->setChecked(enabled);
 }
 
 QIcon BF4Widget::getRankIcon(int rank)
@@ -1382,14 +1479,74 @@ void BF4Widget::checkBox_so_co_commander_toggled(bool checked)
 }
 
 // Options -> Gameplay
-void BF4Widget::checkBox_so_go_friendlyFire_toggled(bool checked)
+void BF4Widget::checkBox_so_gp_friendlyFire_toggled(bool checked)
 {
     commandHandler->sendVarsFriendlyFireCommand(checked);
 }
 
-void BF4Widget::checkBox_so_go_killCam_toggled(bool checked)
+void BF4Widget::checkBox_so_gp_autoBalance_toggled(bool checked)
+{
+    commandHandler->sendVarsAutoBalanceCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_killCam_toggled(bool checked)
 {
     commandHandler->sendVarsKillCamCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_miniMap_toggled(bool checked)
+{
+    commandHandler->sendVarsMiniMapCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_miniMapSpotting_toggled(bool checked)
+{
+    commandHandler->sendVarsMiniMapSpottingCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_3dSpotting_toggled(bool checked)
+{
+    commandHandler->sendVars3dSpottingCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_nameTag_toggled(bool checked)
+{
+    commandHandler->sendVarsNameTagCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_regenerateHealth_toggled(bool checked)
+{
+    commandHandler->sendVarsRegenerateHealthCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_hud_toggled(bool checked)
+{
+    commandHandler->sendVarsHudCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_onlySquadLeaderSpawn_toggled(bool checked)
+{
+    commandHandler->sendVarsOnlySquadLeaderSpawnCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_vehicleSpawnAllowed_toggled(bool checked)
+{
+    commandHandler->sendVarsVehicleSpawnAllowedCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_hitIndicatorsEnabled_toggled(bool checked)
+{
+    commandHandler->sendVarsHitIndicatorsEnabledCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_thirdPersonVehicleCameras_toggled(bool checked)
+{
+    commandHandler->sendVars3pCamCommand(checked);
+}
+
+void BF4Widget::checkBox_so_gp_forceReloadWholeMags_toggled(bool checked)
+{
+    commandHandler->sendVarsForceReloadWholeMagsCommand(checked);
 }
 
 // Console

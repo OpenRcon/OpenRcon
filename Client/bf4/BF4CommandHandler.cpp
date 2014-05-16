@@ -383,22 +383,22 @@ void BF4CommandHandler::sendVarsMaxSpectatorsCommand(int spectators)
 
 void BF4CommandHandler::sendVarsMiniMapCommand()
 {
-    con->sendCommand("vars.");
+    con->sendCommand("vars.miniMap");
 }
 
 void BF4CommandHandler::sendVarsMiniMapCommand(bool enabled)
 {
-    con->sendCommand(QString("\"vars.\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    con->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void BF4CommandHandler::sendVarsMiniMapSpottingCommand()
 {
-    con->sendCommand("vars.miniMap");
+    con->sendCommand("vars.miniMapSpotting");
 }
 
 void BF4CommandHandler::sendVarsMiniMapSpottingCommand(bool enabled)
 {
-    con->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    con->sendCommand(QString("\"vars.miniMapSpotting\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void BF4CommandHandler::sendVarsMpExperienceCommand(const QString &experience)

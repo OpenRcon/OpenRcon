@@ -36,6 +36,7 @@ protected:
     QStringList commandList;
 
     enum Squad {
+        Unknown,
         Alpha,
         Bravo,
         Charlie,

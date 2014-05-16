@@ -170,22 +170,33 @@ private slots:
     // Squad
 
     // Variables
+    void onVars3dSpottingCommand(bool enabled);
+    void onVars3pCamCommand(bool enabled);
     void onVarsAlwaysAllowSpectatorsCommand(bool enabled);
+    void onVarsAutoBalanceCommand(bool enabled);
     void onVarsCommanderCommand(bool enabled);
+    void onVarsForceReloadWholeMagsCommand(bool enabled);
     void onVarsFriendlyFireCommand(bool enabled);
     void onVarsGamePasswordCommand(const QString &password);
+    void onVarsHitIndicatorsEnabledCommand(bool enabled);
+    void onVarsHudCommand(bool enabled);
     void onVarsIdleBanRoundsCommand(int rounds);
     void onVarsIdleTimeoutCommand(int timeout);
     void onVarsKillCamCommand(bool enabled);
     void onVarsMaxPlayersCommand(int playerCount);
     void onVarsMaxSpectatorsCommand(int spectatorCount);
+    void onVarsMiniMapCommand(bool enabled);
+    void onVarsMiniMapSpottingCommand(bool enabled);
+    void onVarsNameTagCommand(bool enabled);
+    void onVarsOnlySquadLeaderSpawnCommand(bool enabled);
+    void onVarsRegenerateHealthCommand(bool enabled);
     void onVarsServerNameCommand(const QString &serverName);
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsServerMessageCommand(const QString &serverMessage);
     void onVarsServerTypeCommand(const QString &type);
+    void onVarsVehicleSpawnAllowedCommand(bool enabled);
 
     /* User Interface */
-
     // Server Information
     void pushButton_si_restartRound_clicked();
     void pushButton_si_runNextRound_clicked();
@@ -261,8 +272,20 @@ private slots:
     void checkBox_so_co_commander_toggled(bool checked);
 
     // Options -> Gameplay
-    void checkBox_so_go_friendlyFire_toggled(bool checked);
-    void checkBox_so_go_killCam_toggled(bool checked);
+    void checkBox_so_gp_friendlyFire_toggled(bool checked);
+    void checkBox_so_gp_autoBalance_toggled(bool checked);
+    void checkBox_so_gp_killCam_toggled(bool checked);
+    void checkBox_so_gp_miniMap_toggled(bool checked);
+    void checkBox_so_gp_miniMapSpotting_toggled(bool checked);
+    void checkBox_so_gp_3dSpotting_toggled(bool checked);
+    void checkBox_so_gp_nameTag_toggled(bool checked);
+    void checkBox_so_gp_regenerateHealth_toggled(bool checked);
+    void checkBox_so_gp_hud_toggled(bool checked);
+    void checkBox_so_gp_onlySquadLeaderSpawn_toggled(bool checked);
+    void checkBox_so_gp_vehicleSpawnAllowed_toggled(bool checked);
+    void checkBox_so_gp_hitIndicatorsEnabled_toggled(bool checked);
+    void checkBox_so_gp_thirdPersonVehicleCameras_toggled(bool checked);
+    void checkBox_so_gp_forceReloadWholeMags_toggled(bool checked);
 
     // Console
     void pushButton_co_co_clicked();
