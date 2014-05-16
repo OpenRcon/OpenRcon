@@ -187,7 +187,11 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onVarsOnlySquadLeaderSpawnCommand(bool)), this, SLOT(onVarsOnlySquadLeaderSpawnCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsPlayerRespawnTimeCommand(int)), this, SLOT(onVarsPlayerRespawnTimeCommand(int)));
     connect(commandHandler, SIGNAL(onVarsRegenerateHealthCommand(bool)), this, SLOT(onVarsRegenerateHealthCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsRoundLockdownCountdownCommand(int)), this, SLOT(onVarsRoundLockdownCountdownCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsRoundRestartPlayerCountCommand(int)), this, SLOT(onVarsRoundRestartPlayerCountCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsRoundStartPlayerCountCommand(int)), this, SLOT(onVarsRoundStartPlayerCountCommand(int)));
     connect(commandHandler, SIGNAL(onVarsRoundTimeLimitCommand(int)), this, SLOT(onVarsRoundTimeLimitCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsRoundWarmupTimeoutCommand(int)), this, SLOT(onVarsRoundWarmupTimeoutCommand(int)));
     connect(commandHandler, SIGNAL(onVarsServerNameCommand(QString)), this, SLOT(onVarsServerNameCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(QString)), this, SLOT(onVarsServerDescriptionCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsServerMessageCommand(QString)), this, SLOT(onVarsServerMessageCommand(QString)));
@@ -262,6 +266,13 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(ui->spinBox_so_gp_soldierHealth, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_soldierHealth_valueChanged(int)));
     connect(ui->spinBox_so_gp_vehicleSpawnDelay, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_vehicleSpawnDelay_valueChanged(int)));
     connect(ui->spinBox_so_gp_playerRespawnTime, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_playerRespawnTime_valueChanged(int)));
+    connect(ui->spinBox_so_gp_ticketBleedRate, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_ticketBleedRate_valueChanged(int)));
+    connect(ui->spinBox_so_gp_gameModeCounter, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_gameModeCounter_valueChanged(int)));
+    connect(ui->spinBox_so_gp_roundTimeLimit, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundTimeLimit_valueChanged(int)));
+    connect(ui->spinBox_so_gp_roundLockdownCountdown, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundLockdownCountdown_valueChanged(int)));
+    connect(ui->spinBox_so_gp_roundWarmupTimeout, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundWarmupTimeout_valueChanged(int)));
+    connect(ui->spinBox_so_gp_roundRestartPlayerCount, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundRestartPlayerCount_valueChanged(int)));
+    connect(ui->spinBox_so_gp_roundStartPlayerCount, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundStartPlayerCount_valueChanged(int)));
 
     // Maplist
     connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
@@ -382,7 +393,11 @@ void BF4Widget::startupCommands(bool auth)
         commandHandler->sendVarsOnlySquadLeaderSpawnCommand();
         commandHandler->sendVarsPlayerRespawnTimeCommand();
         commandHandler->sendVarsRegenerateHealthCommand();
+        commandHandler->sendVarsRoundLockdownCountdownCommand();
+        commandHandler->sendVarsRoundRestartPlayerCountCommand();
+        commandHandler->sendVarsRoundStartPlayerCountCommand();
         commandHandler->sendVarsRoundTimeLimitCommand();
+        commandHandler->sendVarsRoundWarmupTimeoutCommand();
         commandHandler->sendVarsServerNameCommand();
         commandHandler->sendVarsServerDescriptionCommand();
         commandHandler->sendVarsServerMessageCommand();
@@ -760,6 +775,7 @@ void BF4Widget::onVarsAutoBalanceCommand(bool enabled)
 
 void BF4Widget::onVarsBulletDamageCommand(int percent)
 {
+    ui->spinBox_so_gp_bulletDamage->setEnabled(false);
     ui->spinBox_so_gp_bulletDamage->setValue(percent);
 }
 
@@ -868,9 +884,29 @@ void BF4Widget::onVarsRegenerateHealthCommand(bool enabled)
     ui->checkBox_so_gp_regenerateHealth->setChecked(enabled);
 }
 
+void BF4Widget::onVarsRoundLockdownCountdownCommand(int seconds)
+{
+    ui->spinBox_so_gp_roundLockdownCountdown->setValue(seconds);
+}
+
+void BF4Widget::onVarsRoundRestartPlayerCountCommand(int players)
+{
+    ui->spinBox_so_gp_roundRestartPlayerCount->setValue(players);
+}
+
+void BF4Widget::onVarsRoundStartPlayerCountCommand(int players)
+{
+    ui->spinBox_so_gp_roundStartPlayerCount->setValue(players);
+}
+
 void BF4Widget::onVarsRoundTimeLimitCommand(int percentage)
 {
     ui->spinBox_so_gp_roundTimeLimit->setValue(percentage);
+}
+
+void BF4Widget::onVarsRoundWarmupTimeoutCommand(int timeout)
+{
+    ui->spinBox_so_gp_roundWarmupTimeout->setValue(timeout);
 }
 
 void BF4Widget::onVarsServerNameCommand(const QString &serverName)
@@ -1038,7 +1074,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
 
         menu_pl_players_move->addSeparator();
 
-        for (int squadId = 0; squadId < 8; squadId++) {
+        for (int squadId = 1; squadId < 9; squadId++) {
             action_pl_players_move_squad = new QAction(getSquadName(squadId), menu_pl_players_move);
             menu_pl_players_move->addAction(action_pl_players_move_squad);
         }
@@ -1637,6 +1673,26 @@ void BF4Widget::spinBox_so_gp_gameModeCounter_valueChanged(int value)
 void BF4Widget::spinBox_so_gp_roundTimeLimit_valueChanged(int value)
 {
     commandHandler->sendVarsRoundTimeLimitCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_roundLockdownCountdown_valueChanged(int value)
+{
+    commandHandler->sendVarsRoundLockdownCountdownCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_roundWarmupTimeout_valueChanged(int value)
+{
+    commandHandler->sendVarsRoundWarmupTimeoutCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_roundRestartPlayerCount_valueChanged(int value)
+{
+    commandHandler->sendVarsRoundRestartPlayerCountCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_roundStartPlayerCount_valueChanged(int value)
+{
+    commandHandler->sendVarsRoundStartPlayerCountCommand(value);
 }
 
 // Console

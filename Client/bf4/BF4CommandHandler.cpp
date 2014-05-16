@@ -1181,33 +1181,39 @@ void BF4CommandHandler::parseVarsRegenerateHealthCommand(const FrostbiteRconPack
     }
 }
 
-void BF4CommandHandler::parseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastPacketSent)
+void BF4CommandHandler::parseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
+    Q_UNUSED(lastSentPacket);
+
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1 && lastPacketSent.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() > 1) {
         int seconds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundLockdownCountdownCommand(seconds));
     }
 }
 
-void BF4CommandHandler::parseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastPacketSent)
+void BF4CommandHandler::parseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
+    Q_UNUSED(lastSentPacket);
+
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1 && lastPacketSent.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() > 1) {
         int players = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundRestartPlayerCountCommand(players));
     }
 }
 
-void BF4CommandHandler::parseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastPacketSent)
+void BF4CommandHandler::parseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
+    Q_UNUSED(lastSentPacket);
+
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1 && lastPacketSent.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() > 1) {
         int players = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundStartPlayerCountCommand(players));
@@ -1234,9 +1240,9 @@ void BF4CommandHandler::parseVarsRoundWarmupTimeoutCommand(const FrostbiteRconPa
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int time = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+        int timeout = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsRoundWarmupTimeoutCommand(time));
+        emit (onVarsRoundWarmupTimeoutCommand(timeout));
     }
 }
 

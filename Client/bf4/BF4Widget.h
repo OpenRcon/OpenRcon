@@ -26,6 +26,7 @@
 #include <QDateTime>
 #include <QCompleter>
 #include <QTreeWidgetItem>
+#include <QToolTip>
 
 #include "BF4.h"
 #include "FrostbiteConnection.h"
@@ -193,7 +194,11 @@ private slots:
     void onVarsOnlySquadLeaderSpawnCommand(bool enabled);
     void onVarsPlayerRespawnTimeCommand(int respawnTime);
     void onVarsRegenerateHealthCommand(bool enabled);
+    void onVarsRoundLockdownCountdownCommand(int seconds);
+    void onVarsRoundRestartPlayerCountCommand(int players);
+    void onVarsRoundStartPlayerCountCommand(int players);
     void onVarsRoundTimeLimitCommand(int percentage);
+    void onVarsRoundWarmupTimeoutCommand(int timeout);
     void onVarsServerNameCommand(const QString &serverName);
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsServerMessageCommand(const QString &serverMessage);
@@ -300,6 +305,10 @@ private slots:
     void spinBox_so_gp_ticketBleedRate_valueChanged(int value);
     void spinBox_so_gp_gameModeCounter_valueChanged(int value);
     void spinBox_so_gp_roundTimeLimit_valueChanged(int value);
+    void spinBox_so_gp_roundLockdownCountdown_valueChanged(int value);
+    void spinBox_so_gp_roundWarmupTimeout_valueChanged(int value);
+    void spinBox_so_gp_roundRestartPlayerCount_valueChanged(int value);
+    void spinBox_so_gp_roundStartPlayerCount_valueChanged(int value);
 
     // Console
     void pushButton_co_co_clicked();
