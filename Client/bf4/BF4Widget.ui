@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>922</width>
-    <height>565</height>
+    <height>627</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -703,25 +703,53 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QSpinBox" name="spinBox_so_gp_bulletDamage"/>
+              <widget class="QSpinBox" name="spinBox_so_gp_bulletDamage">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QSpinBox" name="spinBox_so_gp_soldierHealth"/>
+              <widget class="QSpinBox" name="spinBox_so_gp_soldierHealth">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QSpinBox" name="spinBox_so_gp_vehicleSpawnDelay"/>
+              <widget class="QSpinBox" name="spinBox_so_gp_vehicleSpawnDelay">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
              </item>
              <item row="3" column="1">
-              <widget class="QSpinBox" name="spinBox_so_gp_playerRespawnTime"/>
+              <widget class="QSpinBox" name="spinBox_so_gp_playerRespawnTime">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
              </item>
              <item row="4" column="1">
-              <widget class="QSpinBox" name="spinBox_so_gp_ticketBleedRate"/>
+              <widget class="QSpinBox" name="spinBox_so_gp_ticketBleedRate">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
              </item>
              <item row="5" column="1">
-              <widget class="QSpinBox" name="spinBox_so_gp_gameModeCounter"/>
+              <widget class="QSpinBox" name="spinBox_so_gp_gameModeCounter">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
              </item>
              <item row="6" column="1">
-              <widget class="QSpinBox" name="spinBox_so_gp_roundTimeLimit"/>
+              <widget class="QSpinBox" name="spinBox_so_gp_roundTimeLimit">
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
              </item>
              <item row="7" column="1">
               <widget class="QSpinBox" name="spinBox_so_gp_roundLockdownCountdown"/>
@@ -835,8 +863,8 @@
             <rect>
              <x>10</x>
              <y>10</y>
-             <width>191</width>
-             <height>81</height>
+             <width>255</width>
+             <height>95</height>
             </rect>
            </property>
            <layout class="QFormLayout" name="formLayout_8">
@@ -880,8 +908,8 @@
             <rect>
              <x>10</x>
              <y>100</y>
-             <width>231</width>
-             <height>48</height>
+             <width>310</width>
+             <height>62</height>
             </rect>
            </property>
            <layout class="QFormLayout" name="formLayout_9">

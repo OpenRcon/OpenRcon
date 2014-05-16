@@ -233,11 +233,11 @@ signals:
     void onVars3pCamCommand(bool enabled);
     void onVarsAlwaysAllowSpectatorsCommand(bool enabled);
     void onVarsAutoBalanceCommand(bool enabled);
-    void onVarsBulletDamageCommand(bool enabled);
+    void onVarsBulletDamageCommand(int percent);
     void onVarsCommanderCommand(bool enabled);
     void onVarsForceReloadWholeMagsCommand(bool enabled);
     void onVarsFriendlyFireCommand(bool enabled);
-    void onVarsGameModeCounterCommand(int scale);
+    void onVarsGameModeCounterCommand(int percent);
     void onVarsGamePasswordCommand(const QString &password);
     void onVarsHitIndicatorsEnabledCommand(bool enabled);
     void onVarsHudCommand(bool enabled);

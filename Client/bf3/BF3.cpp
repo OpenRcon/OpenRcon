@@ -81,7 +81,7 @@ BF3::BF3(ServerEntry *serverEntry) :
 
 BF3::~BF3()
 {
-
+    delete con;
 }
 
 void BF3::onConnected()

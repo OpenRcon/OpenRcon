@@ -686,7 +686,7 @@ void BF4CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &packet
         int roundsTotal = FrostbiteUtils::toInt(packet.getWord(7).getContent());
 
         // Parsing team scores.
-        int entries = toInt(packet.getWord(8).getContent());
+        int entries = FrostbiteUtils::toInt(packet.getWord(8).getContent());
         QList<int> scoreList;
         int targetScore;
 
@@ -694,7 +694,7 @@ void BF4CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &packet
             scoreList.append(toInt(packet.getWord(i).getContent()));
 
             if (i == entries) {
-                targetScore = toInt(packet.getWord(i + 1).getContent());
+                targetScore = FrostbiteUtils::toInt(packet.getWord(i + 1).getContent());
             }
         }
 
@@ -914,9 +914,9 @@ void BF4CommandHandler::parseVarsBulletDamageCommand(const FrostbiteRconPacket &
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+        int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsBulletDamageCommand(enabled));
+        emit (onVarsBulletDamageCommand(percent));
     }
 }
 
@@ -966,9 +966,9 @@ void BF4CommandHandler::parseVarsGameModeCounterCommand(const FrostbiteRconPacke
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int scale = toInt(packet.getWord(1).getContent());
+        int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsGameModeCounterCommand(scale));
+        emit (onVarsGameModeCounterCommand(percent));
     }
 }
 
@@ -1018,7 +1018,7 @@ void BF4CommandHandler::parseVarsIdleBanRoundsCommand(const FrostbiteRconPacket 
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int rounds = toInt(packet.getWord(1).getContent());
+        int rounds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsIdleBanRoundsCommand(rounds));
     }
@@ -1031,7 +1031,7 @@ void BF4CommandHandler::parseVarsIdleTimeoutCommand(const FrostbiteRconPacket &p
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int seconds = toInt(packet.getWord(1).getContent());
+        int seconds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsIdleTimeoutCommand(seconds));
     }
@@ -1057,7 +1057,7 @@ void BF4CommandHandler::parseVarsMaxPlayersCommand(const FrostbiteRconPacket &pa
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int playerCount = toInt(packet.getWord(1).getContent());
+        int playerCount = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsMaxPlayersCommand(playerCount));
     }
@@ -1070,7 +1070,7 @@ void BF4CommandHandler::parseVarsMaxSpectatorsCommand(const FrostbiteRconPacket 
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int spectatorCount = toInt(packet.getWord(1).getContent());
+        int spectatorCount = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsMaxSpectatorsCommand(spectatorCount));
     }
@@ -1148,7 +1148,7 @@ void BF4CommandHandler::parseVarsPlayerRespawnTimeCommand(const FrostbiteRconPac
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int respawnTime = toInt(packet.getWord(1).getContent());
+        int respawnTime = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsPlayerRespawnTimeCommand(respawnTime));
     }
@@ -1186,7 +1186,7 @@ void BF4CommandHandler::parseVarsRoundLockdownCountdownCommand(const FrostbiteRc
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1 && lastPacketSent.getWordCount() > 1) {
-        int seconds = toInt(packet.getWord(1).getContent());
+        int seconds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundLockdownCountdownCommand(seconds));
     }
@@ -1197,7 +1197,7 @@ void BF4CommandHandler::parseVarsRoundRestartPlayerCountCommand(const FrostbiteR
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1 && lastPacketSent.getWordCount() > 1) {
-        int players = toInt(packet.getWord(1).getContent());
+        int players = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundRestartPlayerCountCommand(players));
     }
@@ -1208,7 +1208,7 @@ void BF4CommandHandler::parseVarsRoundStartPlayerCountCommand(const FrostbiteRco
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1 && lastPacketSent.getWordCount() > 1) {
-        int players = toInt(packet.getWord(1).getContent());
+        int players = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundStartPlayerCountCommand(players));
     }
@@ -1221,7 +1221,7 @@ void BF4CommandHandler::parseVarsRoundTimeLimitCommand(const FrostbiteRconPacket
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int percentage = toInt(packet.getWord(1).getContent());
+        int percentage = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundTimeLimitCommand(percentage));
     }
@@ -1234,7 +1234,7 @@ void BF4CommandHandler::parseVarsRoundWarmupTimeoutCommand(const FrostbiteRconPa
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int time = toInt(packet.getWord(1).getContent());
+        int time = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundWarmupTimeoutCommand(time));
     }
@@ -1299,7 +1299,7 @@ void BF4CommandHandler::parseVarsSoldierHealthCommand(const FrostbiteRconPacket 
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int health = toInt(packet.getWord(1).getContent());
+        int health = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsSoldierHealthCommand(health));
     }
@@ -1312,10 +1312,10 @@ void BF4CommandHandler::parseVarsTeamFactionOverrideCommand(const FrostbiteRconP
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int team1 = toInt(packet.getWord(1).getContent());
-        int team2 = toInt(packet.getWord(2).getContent());
-        int team3 = toInt(packet.getWord(3).getContent());
-        int team4 = toInt(packet.getWord(4).getContent());
+        int team1 = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+        int team2 = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+        int team3 = FrostbiteUtils::toInt(packet.getWord(3).getContent());
+        int team4 = FrostbiteUtils::toInt(packet.getWord(4).getContent());
 
         emit (onVarsTeamFactionOverrideCommand(team1, team2, team3, team4));
     }
@@ -1328,7 +1328,7 @@ void BF4CommandHandler::parseVarsTeamKillCountForKickCommand(const FrostbiteRcon
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int count = toInt(packet.getWord(1).getContent());
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillCountForKickCommand(count));
     }
@@ -1341,7 +1341,7 @@ void BF4CommandHandler::parseVarsTeamKillKickForBanCommand(const FrostbiteRconPa
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int count = toInt(packet.getWord(1).getContent());
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillKickForBanCommand(count));
     }
@@ -1354,7 +1354,7 @@ void BF4CommandHandler::parseVarsTeamKillValueDecreasePerSecondCommand(const Fro
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int count = toInt(packet.getWord(1).getContent());
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillValueDecreasePerSecondCommand(count));
     }
@@ -1367,7 +1367,7 @@ void BF4CommandHandler::parseVarsTeamKillValueForKickCommand(const FrostbiteRcon
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int count = toInt(packet.getWord(1).getContent());
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillValueForKickCommand(count));
     }
@@ -1380,7 +1380,7 @@ void BF4CommandHandler::parseVarsTeamKillValueIncreaseCommand(const FrostbiteRco
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int count = toInt(packet.getWord(1).getContent());
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillValueIncreaseCommand(count));
     }
@@ -1393,7 +1393,7 @@ void BF4CommandHandler::parseVarsTicketBleedRateCommand(const FrostbiteRconPacke
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int percent = toInt(packet.getWord(1).getContent());
+        int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTicketBleedRateCommand(percent));
     }
@@ -1432,7 +1432,7 @@ void BF4CommandHandler::parseVarsVehicleSpawnDelayCommand(const FrostbiteRconPac
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int delay = toInt(packet.getWord(1).getContent());
+        int delay = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsVehicleSpawnDelayCommand(delay));
     }
@@ -1456,13 +1456,13 @@ QList<PlayerInfo> BF4CommandHandler::parsePlayerList(const FrostbiteRconPacket &
 
             QString name = list.at(0);
             QString guid = list.at(1);
-            int teamId = toInt(list.at(2));
-            int squadId = toInt(list.at(3));
-            int kills = toInt(list.at(4));
-            int deaths = toInt(list.at(5));
-            int score = toInt(list.at(6));
-            int rank = toInt(list.at(7));
-            int ping = toInt(list.at(8));
+            int teamId = FrostbiteUtils::toInt(list.at(2));
+            int squadId = FrostbiteUtils::toInt(list.at(3));
+            int kills = FrostbiteUtils::toInt(list.at(4));
+            int deaths = FrostbiteUtils::toInt(list.at(5));
+            int score = FrostbiteUtils::toInt(list.at(6));
+            int rank = FrostbiteUtils::toInt(list.at(7));
+            int ping = FrostbiteUtils::toInt(list.at(8));
 
             playerList.append(PlayerInfo(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
         }

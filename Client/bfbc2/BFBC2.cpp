@@ -142,7 +142,7 @@ BFBC2::BFBC2(ServerEntry *serverEntry) :
 
 BFBC2::~BFBC2()
 {
-
+    delete con;
 }
 
 void BFBC2::onConnected()

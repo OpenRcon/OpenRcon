@@ -174,9 +174,11 @@ private slots:
     void onVars3pCamCommand(bool enabled);
     void onVarsAlwaysAllowSpectatorsCommand(bool enabled);
     void onVarsAutoBalanceCommand(bool enabled);
+    void onVarsBulletDamageCommand(int percent);
     void onVarsCommanderCommand(bool enabled);
     void onVarsForceReloadWholeMagsCommand(bool enabled);
     void onVarsFriendlyFireCommand(bool enabled);
+    void onVarsGameModeCounterCommand(int percent);
     void onVarsGamePasswordCommand(const QString &password);
     void onVarsHitIndicatorsEnabledCommand(bool enabled);
     void onVarsHudCommand(bool enabled);
@@ -189,12 +191,17 @@ private slots:
     void onVarsMiniMapSpottingCommand(bool enabled);
     void onVarsNameTagCommand(bool enabled);
     void onVarsOnlySquadLeaderSpawnCommand(bool enabled);
+    void onVarsPlayerRespawnTimeCommand(int respawnTime);
     void onVarsRegenerateHealthCommand(bool enabled);
+    void onVarsRoundTimeLimitCommand(int percentage);
     void onVarsServerNameCommand(const QString &serverName);
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsServerMessageCommand(const QString &serverMessage);
     void onVarsServerTypeCommand(const QString &type);
+    void onVarsSoldierHealthCommand(int health);
+    void onVarsTicketBleedRateCommand(int percent);
     void onVarsVehicleSpawnAllowedCommand(bool enabled);
+    void onVarsVehicleSpawnDelayCommand(int delay);
 
     /* User Interface */
     // Server Information
@@ -220,11 +227,11 @@ private slots:
 
     // Maplist
     void comboBox_ml_gameMode_currentIndexChanged(int);
-    void treeWidget_ml_available_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void treeWidget_ml_available_itemSelectionChanged();
     void treeWidget_ml_available_customContextMenuRequested(const QPoint &pos);
     void pushButton_ml_add_clicked();
     void pushButton_ml_remove_clicked();
-    void treeWidget_ml_current_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void treeWidget_ml_current_itemSelectionChanged();
     void treeWidget_ml_current_customContextMenuRequested(const QPoint &pos);
 
     void addAvailableMapListRow(const QString &name, const QString &gameMode);
@@ -286,6 +293,13 @@ private slots:
     void checkBox_so_gp_hitIndicatorsEnabled_toggled(bool checked);
     void checkBox_so_gp_thirdPersonVehicleCameras_toggled(bool checked);
     void checkBox_so_gp_forceReloadWholeMags_toggled(bool checked);
+    void spinBox_so_gp_bulletDamage_valueChanged(int value);
+    void spinBox_so_gp_soldierHealth_valueChanged(int value);
+    void spinBox_so_gp_vehicleSpawnDelay_valueChanged(int value);
+    void spinBox_so_gp_playerRespawnTime_valueChanged(int value);
+    void spinBox_so_gp_ticketBleedRate_valueChanged(int value);
+    void spinBox_so_gp_gameModeCounter_valueChanged(int value);
+    void spinBox_so_gp_roundTimeLimit_valueChanged(int value);
 
     // Console
     void pushButton_co_co_clicked();

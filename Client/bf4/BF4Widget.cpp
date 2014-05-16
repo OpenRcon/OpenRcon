@@ -168,9 +168,11 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onVars3pCamCommand(bool)), this, SLOT(onVars3pCamCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsAlwaysAllowSpectatorsCommand(bool)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsAutoBalanceCommand(bool)), this, SLOT(onVarsAutoBalanceCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsBulletDamageCommand(int)), this, SLOT(onVarsBulletDamageCommand(int)));
     connect(commandHandler, SIGNAL(onVarsCommanderCommand(bool)), this, SLOT(onVarsCommanderCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsForceReloadWholeMagsCommand(bool)), this, SLOT(onVarsForceReloadWholeMagsCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsFriendlyFireCommand(bool)), this, SLOT(onVarsFriendlyFireCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsGameModeCounterCommand(int)), this, SLOT(onVarsGameModeCounterCommand(int)));
     connect(commandHandler, SIGNAL(onVarsGamePasswordCommand(QString)), this, SLOT(onVarsGamePasswordCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsHitIndicatorsEnabledCommand(bool)), this, SLOT(onVarsHitIndicatorsEnabledCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsHudCommand(bool)), this, SLOT(onVarsHudCommand(bool)));
@@ -183,12 +185,17 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onVarsMiniMapSpottingCommand(bool)), this, SLOT(onVarsMiniMapSpottingCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsNameTagCommand(bool)), this, SLOT(onVarsNameTagCommand(bool)));
     connect(commandHandler, SIGNAL(onVarsOnlySquadLeaderSpawnCommand(bool)), this, SLOT(onVarsOnlySquadLeaderSpawnCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsPlayerRespawnTimeCommand(int)), this, SLOT(onVarsPlayerRespawnTimeCommand(int)));
     connect(commandHandler, SIGNAL(onVarsRegenerateHealthCommand(bool)), this, SLOT(onVarsRegenerateHealthCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsRoundTimeLimitCommand(int)), this, SLOT(onVarsRoundTimeLimitCommand(int)));
     connect(commandHandler, SIGNAL(onVarsServerNameCommand(QString)), this, SLOT(onVarsServerNameCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(QString)), this, SLOT(onVarsServerDescriptionCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsServerMessageCommand(QString)), this, SLOT(onVarsServerMessageCommand(QString)));
     connect(commandHandler, SIGNAL(onVarsServerTypeCommand(QString)), this, SLOT(onVarsServerTypeCommand(QString)));
+    connect(commandHandler, SIGNAL(onVarsSoldierHealthCommand(int)), this, SLOT(onVarsSoldierHealthCommand(int)));
+    connect(commandHandler, SIGNAL(onVarsTicketBleedRateCommand(int)), this, SLOT(onVarsTicketBleedRateCommand(int)));
     connect(commandHandler, SIGNAL(onVarsVehicleSpawnAllowedCommand(bool)), this, SLOT(onVarsVehicleSpawnAllowedCommand(bool)));
+    connect(commandHandler, SIGNAL(onVarsVehicleSpawnDelayCommand(int)), this, SLOT(onVarsVehicleSpawnDelayCommand(int)));
 
     /* User Interface */
     // Server Information
@@ -251,15 +258,19 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(ui->checkBox_so_gp_hitIndicatorsEnabled, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_hitIndicatorsEnabled_toggled(bool)));
     connect(ui->checkBox_so_gp_thirdPersonVehicleCameras, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_thirdPersonVehicleCameras_toggled(bool)));
     connect(ui->checkBox_so_gp_forceReloadWholeMags, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_forceReloadWholeMags_toggled(bool)));
+    connect(ui->spinBox_so_gp_bulletDamage, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_bulletDamage_valueChanged(int)));
+    connect(ui->spinBox_so_gp_soldierHealth, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_soldierHealth_valueChanged(int)));
+    connect(ui->spinBox_so_gp_vehicleSpawnDelay, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_vehicleSpawnDelay_valueChanged(int)));
+    connect(ui->spinBox_so_gp_playerRespawnTime, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_playerRespawnTime_valueChanged(int)));
 
     // Maplist
     connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
-    connect(ui->treeWidget_ml_available, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_ml_available_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
+    connect(ui->treeWidget_ml_available, SIGNAL(itemSelectionChanged()), this, SLOT(treeWidget_ml_available_itemSelectionChanged()));
     connect(ui->treeWidget_ml_available, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_available_customContextMenuRequested(QPoint)));
     connect(action_ml_available_add, SIGNAL(triggered()), this, SLOT(pushButton_ml_add_clicked()));
     connect(ui->pushButton_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_ml_add_clicked()));
     connect(ui->pushButton_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_ml_remove_clicked()));
-    connect(ui->treeWidget_ml_current, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_ml_current_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
+    connect(ui->treeWidget_ml_current, SIGNAL(itemSelectionChanged()), this, SLOT(treeWidget_ml_current_itemSelectionChanged()));
     connect(ui->treeWidget_ml_current, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_current_customContextMenuRequested(QPoint)));
     connect(action_ml_current_remove, SIGNAL(triggered()), this, SLOT(pushButton_ml_remove_clicked()));
 
@@ -352,9 +363,11 @@ void BF4Widget::startupCommands(bool auth)
         commandHandler->sendVars3pCamCommand();
         commandHandler->sendVarsAlwaysAllowSpectatorsCommand();
         commandHandler->sendVarsAutoBalanceCommand();
+        commandHandler->sendVarsBulletDamageCommand();
         commandHandler->sendVarsCommanderCommand();
         commandHandler->sendVarsForceReloadWholeMagsCommand();
         commandHandler->sendVarsFriendlyFireCommand();
+        commandHandler->sendVarsGameModeCounterCommand();
         commandHandler->sendVarsGamePasswordCommand();
         commandHandler->sendVarsHitIndicatorsEnabledCommand();
         commandHandler->sendVarsHudCommand();
@@ -367,12 +380,17 @@ void BF4Widget::startupCommands(bool auth)
         commandHandler->sendVarsMiniMapSpottingCommand();
         commandHandler->sendVarsNameTagCommand();
         commandHandler->sendVarsOnlySquadLeaderSpawnCommand();
+        commandHandler->sendVarsPlayerRespawnTimeCommand();
         commandHandler->sendVarsRegenerateHealthCommand();
+        commandHandler->sendVarsRoundTimeLimitCommand();
         commandHandler->sendVarsServerNameCommand();
         commandHandler->sendVarsServerDescriptionCommand();
         commandHandler->sendVarsServerMessageCommand();
         commandHandler->sendVarsServerTypeCommand();
+        commandHandler->sendVarsSoldierHealthCommand();
+        commandHandler->sendVarsTicketBleedRateCommand();
         commandHandler->sendVarsVehicleSpawnAllowedCommand();
+        commandHandler->sendVarsVehicleSpawnDelayCommand();
     } else {
         commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
@@ -529,6 +547,8 @@ void BF4Widget::onServerLevelLoadedEvent(const QString &levelName, const QString
     LevelEntry level = BF4LevelDictionary::getLevel(levelName);
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeName);
 
+    commandHandler->sendServerInfoCommand();
+
     logEvent("ServerLevelLoaded", tr("Loading level %1 with gamemode %2.").arg(level.name).arg(gameMode.name));
 }
 
@@ -638,13 +658,13 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
                                                       serverInfo.punkBusterVersion));
 
     ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed).arg(serverInfo.roundsTotal));
+    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed + 1).arg(serverInfo.roundsTotal));
 
     // Set maplist.
     int gameModeIndex = BF4LevelDictionary::getGameModeNames().indexOf(currentGameMode.name);
 
-    ui->label_ml_currentMapImage->setPixmap(currentLevel.image());
     ui->label_ml_currentMapValue->setText(currentLevel.name);
+    ui->label_ml_currentMapImage->setPixmap(currentLevel.image());
 
     ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
     setAvailableMaplist(gameModeIndex);
@@ -738,6 +758,11 @@ void BF4Widget::onVarsAutoBalanceCommand(bool enabled)
     ui->checkBox_so_gp_autoBalance->setChecked(enabled);
 }
 
+void BF4Widget::onVarsBulletDamageCommand(int percent)
+{
+    ui->spinBox_so_gp_bulletDamage->setValue(percent);
+}
+
 void BF4Widget::onVarsCommanderCommand(bool enabled)
 {
     ui->checkBox_so_co_commander->setChecked(enabled);
@@ -751,6 +776,11 @@ void BF4Widget::onVarsForceReloadWholeMagsCommand(bool enabled)
 void BF4Widget::onVarsFriendlyFireCommand(bool enabled)
 {
     ui->checkBox_so_gp_friendlyFire->setChecked(enabled);
+}
+
+void BF4Widget::onVarsGameModeCounterCommand(int percent)
+{
+    ui->spinBox_so_gp_gameModeCounter->setValue(percent);
 }
 
 void BF4Widget::onVarsGamePasswordCommand(const QString &password)
@@ -828,9 +858,19 @@ void BF4Widget::onVarsOnlySquadLeaderSpawnCommand(bool enabled)
     ui->checkBox_so_gp_onlySquadLeaderSpawn->setChecked(enabled);
 }
 
+void BF4Widget::onVarsPlayerRespawnTimeCommand(int respawnTime)
+{
+    ui->spinBox_so_gp_playerRespawnTime->setValue(respawnTime);
+}
+
 void BF4Widget::onVarsRegenerateHealthCommand(bool enabled)
 {
     ui->checkBox_so_gp_regenerateHealth->setChecked(enabled);
+}
+
+void BF4Widget::onVarsRoundTimeLimitCommand(int percentage)
+{
+    ui->spinBox_so_gp_roundTimeLimit->setValue(percentage);
 }
 
 void BF4Widget::onVarsServerNameCommand(const QString &serverName)
@@ -857,9 +897,24 @@ void BF4Widget::onVarsServerTypeCommand(const QString &type)
     }
 }
 
+void BF4Widget::onVarsSoldierHealthCommand(int health)
+{
+    ui->spinBox_so_gp_soldierHealth->setValue(health);
+}
+
+void BF4Widget::onVarsTicketBleedRateCommand(int percent)
+{
+    ui->spinBox_so_gp_ticketBleedRate->setValue(percent);
+}
+
 void BF4Widget::onVarsVehicleSpawnAllowedCommand(bool enabled)
 {
     ui->checkBox_so_gp_vehicleSpawnAllowed->setChecked(enabled);
+}
+
+void BF4Widget::onVarsVehicleSpawnDelayCommand(int delay)
+{   
+    ui->spinBox_so_gp_vehicleSpawnDelay->setValue(delay);
 }
 
 QIcon BF4Widget::getRankIcon(int rank)
@@ -1106,20 +1161,16 @@ void BF4Widget::pushButton_ch_send_clicked()
 // Maplist
 void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
 {
-    if (index >= 0) {
-        setAvailableMaplist(index);
-    }
+    setAvailableMaplist(index);
 }
 
-void BF4Widget::treeWidget_ml_available_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+void BF4Widget::treeWidget_ml_available_itemSelectionChanged()
 {
-    Q_UNUSED(previous);
-
-    if (ui->treeWidget_ml_available->selectedItems().length() >= 1) {
-        LevelEntry level = BF4LevelDictionary::getLevel(current->text(0));
+//    if (ui->treeWidget_ml_available->topLevelItemCount() >= 1) {
+        LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
 
         ui->label_ml_availableSelectedMapImage->setPixmap(level.image());
-    }
+//    }
 }
 
 void BF4Widget::treeWidget_ml_available_customContextMenuRequested(const QPoint &pos)
@@ -1132,7 +1183,7 @@ void BF4Widget::treeWidget_ml_available_customContextMenuRequested(const QPoint 
 void BF4Widget::pushButton_ml_add_clicked()
 {
     // Make sure that treeWidget_ml_available selected item count is greater than zero.
-    if (ui->treeWidget_ml_available->selectedItems().length() > 0) {
+    if (ui->treeWidget_ml_available->selectedItems().size() > 0) {
         int rounds = ui->spinBox_ml_rounds->value();
 
         if (rounds > 0) {
@@ -1150,8 +1201,8 @@ void BF4Widget::pushButton_ml_add_clicked()
 void BF4Widget::pushButton_ml_remove_clicked()
 {
     // Make sure that treeWidget_ml_current selected item count is greater than zero.
-    if (ui->treeWidget_ml_current->selectedItems().length() > 0) {
-        if (ui->treeWidget_ml_current->topLevelItemCount() <= 1) {
+    if (ui->treeWidget_ml_current->selectedItems().size() > 0) {
+        if (ui->treeWidget_ml_current->topLevelItemCount() < 1) {
             ui->label_ml_currentSelectedMapImage->clear();
         }
 
@@ -1184,18 +1235,18 @@ void BF4Widget::setAvailableMaplist(int gameModeIndex)
         addAvailableMapListRow(level.name, gameMode.name);
     }
 
+    ui->treeWidget_ml_available->sortItems(0, Qt::AscendingOrder);
+
     // Resize columns so that they fits the content.
     for (int i = 0; i < ui->treeWidget_ml_available->columnCount(); i++) {
         ui->treeWidget_ml_available->resizeColumnToContents(i);
     }
 }
 
-void BF4Widget::treeWidget_ml_current_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+void BF4Widget::treeWidget_ml_current_itemSelectionChanged()
 {
-    Q_UNUSED(previous);
-
-    if (ui->treeWidget_ml_current->selectedItems().length() > 1) {
-        LevelEntry level = BF4LevelDictionary::getLevel(current->text(0));
+    if (ui->treeWidget_ml_current->topLevelItemCount() > 1) {
+        LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_current->currentItem()->text(0));
 
         ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
     }
@@ -1233,6 +1284,8 @@ void BF4Widget::setCurrentMaplist(const MapList &mapList)
 
         addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
     }
+
+    ui->treeWidget_ml_current->sortItems(0, Qt::AscendingOrder);
 
     // Resize columns so that they fits the content.
     for (int i = 0; i < ui->treeWidget_ml_available->columnCount(); i++) {
@@ -1549,6 +1602,41 @@ void BF4Widget::checkBox_so_gp_thirdPersonVehicleCameras_toggled(bool checked)
 void BF4Widget::checkBox_so_gp_forceReloadWholeMags_toggled(bool checked)
 {
     commandHandler->sendVarsForceReloadWholeMagsCommand(checked);
+}
+
+void BF4Widget::spinBox_so_gp_bulletDamage_valueChanged(int value)
+{
+    commandHandler->sendVarsBulletDamageCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_soldierHealth_valueChanged(int value)
+{
+    commandHandler->sendVarsSoldierHealthCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_vehicleSpawnDelay_valueChanged(int value)
+{
+    commandHandler->sendVarsVehicleSpawnDelayCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_playerRespawnTime_valueChanged(int value)
+{
+    commandHandler->sendVarsPlayerRespawnTimeCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_ticketBleedRate_valueChanged(int value)
+{
+    commandHandler->sendVarsTicketBleedRateCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_gameModeCounter_valueChanged(int value)
+{
+    commandHandler->sendVarsGameModeCounterCommand(value);
+}
+
+void BF4Widget::spinBox_so_gp_roundTimeLimit_valueChanged(int value)
+{
+    commandHandler->sendVarsRoundTimeLimitCommand(value);
 }
 
 // Console

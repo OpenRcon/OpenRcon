@@ -183,7 +183,7 @@ BF4::BF4(ServerEntry *serverEntry) :
 
 BF4::~BF4()
 {
-
+    delete con;
 }
 
 void BF4::onConnected()
