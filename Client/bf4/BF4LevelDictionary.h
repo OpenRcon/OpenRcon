@@ -29,6 +29,6 @@ typedef LevelDictionary<3, LevelEntry, BF4GameModeEntry> BF4LevelDictionary;
 template<> QList<LevelEntry> BF4LevelDictionary::levelList;
 template<> QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList;
 template<> QStringList BF4LevelDictionary::teamList;
-template<> QHash<int, int> BF4LevelDictionary::levelMap;
+template<> QMultiHash<int, int> BF4LevelDictionary::levelMap;
 
 #endif // BF4LEVELDICTIONARY_H

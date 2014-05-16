@@ -111,7 +111,7 @@ QStringList BFBC2LevelDictionary::teamList = {
 };
 
 template<>
-QHash<int, int> BFBC2LevelDictionary::levelMap = {
+QMultiHash<int, int> BFBC2LevelDictionary::levelMap = {
     /* Levels and gamemodes combined */
     /* CONQUEST */
     { 0, 0 },
