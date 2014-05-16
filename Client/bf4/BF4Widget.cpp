@@ -1113,12 +1113,13 @@ void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
 
 void BF4Widget::treeWidget_ml_available_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-    Q_UNUSED(current);
     Q_UNUSED(previous);
 
-    LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
+    if (ui->treeWidget_ml_available->selectedItems().length() > 0) {
+        LevelEntry level = BF4LevelDictionary::getLevel(current->text(0));
 
-    ui->label_ml_availableSelectedMapImage->setPixmap(level.image());
+        ui->label_ml_availableSelectedMapImage->setPixmap(level.image());
+    }
 }
 
 void BF4Widget::treeWidget_ml_available_customContextMenuRequested(const QPoint &pos)
@@ -1181,7 +1182,6 @@ void BF4Widget::setAvailableMaplist(int gameModeIndex)
 
     for (LevelEntry level : levelList) {
         addAvailableMapListRow(level.name, gameMode.name);
-        addCurrentMapListRow(level.name, gameMode.name, 0);
     }
 
     // Resize columns so that they fits the content.
@@ -1192,11 +1192,13 @@ void BF4Widget::setAvailableMaplist(int gameModeIndex)
 
 void BF4Widget::treeWidget_ml_current_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-    Q_UNUSED(current);
     Q_UNUSED(previous);
 
-    LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_current->currentItem()->text(0));
-    ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
+    if (ui->treeWidget_ml_current->selectedItems().length() > 0) {
+        LevelEntry level = BF4LevelDictionary::getLevel(current->text(0));
+
+        ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
+    }
 }
 
 void BF4Widget::treeWidget_ml_current_customContextMenuRequested(const QPoint &pos)
