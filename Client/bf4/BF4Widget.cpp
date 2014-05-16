@@ -1115,7 +1115,7 @@ void BF4Widget::treeWidget_ml_available_currentItemChanged(QTreeWidgetItem *curr
 {
     Q_UNUSED(previous);
 
-    if (ui->treeWidget_ml_available->selectedItems().length() > 0) {
+    if (ui->treeWidget_ml_available->selectedItems().length() >= 1) {
         LevelEntry level = BF4LevelDictionary::getLevel(current->text(0));
 
         ui->label_ml_availableSelectedMapImage->setPixmap(level.image());
@@ -1151,7 +1151,7 @@ void BF4Widget::pushButton_ml_remove_clicked()
 {
     // Make sure that treeWidget_ml_current selected item count is greater than zero.
     if (ui->treeWidget_ml_current->selectedItems().length() > 0) {
-        if (ui->treeWidget_ml_current->topLevelItemCount() >= 1) {
+        if (ui->treeWidget_ml_current->topLevelItemCount() <= 1) {
             ui->label_ml_currentSelectedMapImage->clear();
         }
 
@@ -1194,7 +1194,7 @@ void BF4Widget::treeWidget_ml_current_currentItemChanged(QTreeWidgetItem *curren
 {
     Q_UNUSED(previous);
 
-    if (ui->treeWidget_ml_current->selectedItems().length() > 0) {
+    if (ui->treeWidget_ml_current->selectedItems().length() > 1) {
         LevelEntry level = BF4LevelDictionary::getLevel(current->text(0));
 
         ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
