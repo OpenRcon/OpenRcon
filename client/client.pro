@@ -51,12 +51,12 @@ macx {
     QMAKE_INFO_PLIST = Info.plist
 }
 
-include(locale/Locale.pri)
-include(game/Game.pri)
+include(locale/locale.pri)
+include(game/game.pri)
 
-include(frostbite/Frostbite.pri)
-include(bfbc2/BFBC2.pri)
-include(frostbite2/Frostbite2.pri)
-include(bf3/BF3.pri)
-include(bf4/BF4.pri)
-include(minecraft/Minecraft.pri)
+include(frostbite/frostbite.pri)
+include(bfbc2/bfbc2.pri)
+include(frostbite2/frostbite2.pri)
+include(bf3/bf3.pri)
+include(bf4/bf4.pri)
+include(minecraft/minecraft.pri)

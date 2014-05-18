@@ -35,7 +35,12 @@ QList<GameEntry> GameManager::gameList = {
 
 GameEntry GameManager::getGame(GameType gameType)
 {
-    return gameList.at(toInt(gameType));
+    return getGame(toInt(gameType));
+}
+
+GameEntry GameManager::getGame(int index)
+{
+    return gameList.at(index);
 }
 
 GameEntry GameManager::getGame(const QString &gamePrefix)

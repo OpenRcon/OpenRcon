@@ -33,6 +33,8 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
         ui->comboBox_game->addItem(QIcon(entry.icon), entry.name);
     }
 
+    ui->spinBox_port->setValue(GameManager::getGame(0).defaultPort);
+
     connect(ui->lineEdit_name, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
     connect(ui->lineEdit_host, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
 
