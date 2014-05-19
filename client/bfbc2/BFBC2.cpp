@@ -22,6 +22,8 @@
 #include "BFBC2CommandHandler.h"
 #include "BFBC2LevelDictionary.h"
 
+#include "ServerEntry.h"
+
 BFBC2::BFBC2(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
     con(new FrostbiteConnection(this)),

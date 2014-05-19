@@ -22,6 +22,8 @@
 #include "BF4CommandHandler.h"
 #include "BF4LevelDictionary.h"
 
+#include "ServerEntry.h"
+
 BF4::BF4(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
     con(new FrostbiteConnection(this)),

@@ -31,10 +31,12 @@ public:
     Minecraft(ServerEntry *serverEntry);
     ~Minecraft();
 
-    virtual Connection *getConnection() { return con; }
+    virtual Connection *getConnection() {
+        return connection;
+    }
 
 protected:
-    MinecraftConnection *con;
+    MinecraftConnection *connection;
 
 private slots:
     void onConnected();

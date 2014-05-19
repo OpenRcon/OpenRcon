@@ -17,6 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDesktopServices>
+#include <QUrl>
+
 #include "ui_OpenRcon.h"
 #include "OpenRcon.h"
 
@@ -24,14 +27,14 @@
 #include "GameManager.h"
 #include "ServerEntry.h"
 #include "ServerManager.h"
-#include "ConnectionManager.h"
+#include "SessionManager.h"
 #include "ServerListDialog.h"
 #include "OptionsDialog.h"
 #include "AboutDialog.h"
 
 #include "Game.h"
 
-OpenRcon *OpenRcon::m_Instance = nullptr;
+OpenRcon *OpenRcon::m_instance = nullptr;
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {
@@ -101,7 +104,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     for (ServerEntry *entry : serverList) {
         if (entry->autoConnect) {
-            ConnectionManager::open(entry);
+            SessionManager::open(entry);
         }
     }
 
@@ -136,17 +139,22 @@ OpenRcon::~OpenRcon()
     delete aboutDialog;
 }
 
-OpenRcon *OpenRcon::getInstance() {
-    if (!m_Instance) {
-        m_Instance = new OpenRcon();
+OpenRcon *OpenRcon::getInstance(QWidget *parent) {
+    if (!m_instance) {
+        m_instance = new OpenRcon(parent);
     }
 
-    return m_Instance;
+    return m_instance;
 }
 
 QTabWidget *OpenRcon::getTabWidget()
 {
     return ui->tabWidget;
+}
+
+ServerManager *OpenRcon::getServerManager()
+{
+    return serverManager;
 }
 
 void OpenRcon::readSettings()
@@ -178,11 +186,6 @@ void OpenRcon::writeSettings()
     settings->endGroup();
 }
 
-ServerManager *OpenRcon::getServerManager()
-{
-    return serverManager;
-}
-
 void OpenRcon::updateServerList()
 {
     comboBox_quickConnect_server->clear();
@@ -209,7 +212,7 @@ void OpenRcon::updateServerList()
 
 void OpenRcon::closeTab(int index)
 {
-    ConnectionManager::close(index);
+    SessionManager::close(index);
 }
 
 // Application menu
@@ -270,5 +273,5 @@ void OpenRcon::actionAboutQt_triggered()
 void OpenRcon::pushButton_quickConnect_connect_clicked()
 {
     ServerEntry *serverEntry = serverManager->getServer(comboBox_quickConnect_server->currentIndex());
-    ConnectionManager::open(serverEntry);
+    SessionManager::open(serverEntry);
 }

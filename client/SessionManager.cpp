@@ -18,47 +18,45 @@
  */
 
 #include <QTabWidget>
-#include <QDebug>
 
-#include "ConnectionManager.h"
+#include "SessionManager.h"
 #include "OpenRcon.h"
-#include "GameEntry.h"
 #include "Game.h"
+#include "GameEntry.h"
 #include "GameManager.h"
-#include "ServerEntry.h"
 
-QSet<ServerEntry *> ConnectionManager::connections;
+QSet<ServerEntry *> SessionManager::sessions;
 
-void ConnectionManager::open(ServerEntry *serverEntry)
+void SessionManager::open(ServerEntry *serverEntry)
 {
-    if (!connections.contains(serverEntry)) {
-        connections.insert(serverEntry);
+    // Add ServerEntry to the list.
+    if (!sessions.contains(serverEntry)) {
+        sessions.insert(serverEntry);
 
+        QTabWidget *tabWidget = OpenRcon::getInstance()->getTabWidget();
         GameEntry gameEntry = GameManager::getGame(serverEntry->gameType);
         Game *gameObject = GameManager::getGameObject(serverEntry);
-        QTabWidget *tabWidget = OpenRcon::getInstance()->getTabWidget();
 
         int index = tabWidget->addTab(gameObject, QIcon(gameEntry.icon), serverEntry->name);
+
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->host).arg(serverEntry->port));
         tabWidget->setCurrentIndex(index);
     } else {
-        qDebug() << "Another connection to this server already exists.";
+        qDebug() << "Already connected to this server.";
     }
-
-    qDebug() << "Session count:" << connections.size();
 }
 
-void ConnectionManager::close(int index)
+void SessionManager::close(int index)
 {
-    QTabWidget *tabWidget = OpenRcon::getInstance()->getTabWidget();
+    QTabWidget *tabWidget = OpenRcon::getInstance()->getTabWidget();    
     Game *game = dynamic_cast<Game *>(tabWidget->widget(index));
     ServerEntry *serverEntry = game->getServerEntry();
 
-    if (connections.contains(serverEntry)) {
-        connections.remove(serverEntry);
-        tabWidget->removeTab(index);
-        game->getConnection()->hostDisconnect();
-    } else {
-        qDebug() << "Specified connection is not open.";
+    tabWidget->removeTab(index);
+    game->getConnection()->hostDisconnect();
+
+    // Remove the ServerEntry from the list.
+    if (sessions.contains(serverEntry)) {
+        sessions.remove(serverEntry);
     }
 }

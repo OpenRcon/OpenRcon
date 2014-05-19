@@ -21,7 +21,8 @@
 #define GAME_H
 
 #include "ConnectionTabWidget.h"
-#include "ServerEntry.h"
+
+struct ServerEntry;
 
 class Game : public ConnectionTabWidget
 {

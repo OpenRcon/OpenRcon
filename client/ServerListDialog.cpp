@@ -24,7 +24,7 @@
 #include "GameEntry.h"
 #include "GameManager.h"
 #include "ServerManager.h"
-#include "ConnectionManager.h"
+#include "SessionManager.h"
 #include "ServerEditDialog.h"
 
 ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui::ServerListDialog)
@@ -243,7 +243,7 @@ void ServerListDialog::connectToItem()
         ServerEntry *entry = variant.value<ServerEntry *>();
 
         // Connect to the ServerEntry and add the tab to OpenRcon's QTabWidget.
-        ConnectionManager::open(entry);
+        SessionManager::open(entry);
         accept();
     }
 }

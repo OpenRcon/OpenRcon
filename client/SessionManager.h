@@ -17,26 +17,22 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONNECTIONMANAGER_H
-#define CONNECTIONMANAGER_H
+#ifndef SESSIONMANAGER_H
+#define SESSIONMANAGER_H
 
-#include <QObject>
-#include <QTabWidget>
 #include <QSet>
 
 struct ServerEntry;
 
-class ConnectionManager : public QObject
+class SessionManager
 {
-    Q_OBJECT
-
 public:
     static void open(ServerEntry *serverEntry);
     static void close(int index);
 
 private:
-    static QSet<ServerEntry *> connections;
+    static QSet<ServerEntry *> sessions;
 
 };
 
-#endif // CONNECTIONMANAGER_H
+#endif // SESSIONMANAGER_H

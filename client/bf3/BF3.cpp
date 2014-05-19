@@ -22,6 +22,8 @@
 #include "BF3CommandHandler.h"
 #include "BF3LevelDictionary.h"
 
+#include "ServerEntry.h"
+
 BF3::BF3(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
     con(new FrostbiteConnection(this)),

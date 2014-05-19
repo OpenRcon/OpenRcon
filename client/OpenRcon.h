@@ -20,15 +20,11 @@
 #ifndef OPENRCON_H
 #define OPENRCON_H
 
-#include <QDebug>
 #include <QMainWindow>
-#include <QDesktopServices>
-#include <QIcon>
+#include <QTabWidget>
 #include <QSettings>
 #include <QComboBox>
-#include <QMessageBox>
 #include <QPushButton>
-#include <QUrl>
 
 #include "Constants.h"
 
@@ -53,13 +49,13 @@ public:
     OpenRcon(QWidget *parent = nullptr);
     ~OpenRcon();
 
-    static OpenRcon *getInstance();
+    static OpenRcon *getInstance(QWidget *parent = nullptr);
 
     QTabWidget *getTabWidget();
     ServerManager *getServerManager();
 
 private:
-    static OpenRcon *m_Instance;
+    static OpenRcon *m_instance;
 
     Ui::OpenRcon *ui;
     ServerManager *serverManager;

@@ -25,10 +25,10 @@ MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEnt
     ui->setupUi(this);
 
     /* Events */
-    connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
-    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataSentEvent(QString)));
+    connect(connection, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
+    connect(connection, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataSentEvent(QString)));
 
-    connect(con, SIGNAL(onAuthenticated(bool)), this, SLOT(onAuthenticated(bool)));
+    connect(connection, SIGNAL(onAuthenticated(bool)), this, SLOT(onAuthenticated(bool)));
 
     connect(ui->lineEdit_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_send_clicked()));
 }
@@ -81,7 +81,7 @@ void MinecraftWidget::on_pushButton_co_send_clicked()
 {
     QString command = ui->lineEdit_co_input->text();
 
-    con->sendCommand(command);
+    connection->sendCommand(command);
 
     ui->lineEdit_co_input->clear();
 }

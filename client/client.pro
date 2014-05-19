@@ -15,25 +15,25 @@ HEADERS += OpenRcon.h \
     GameManager.h \
     ServerEntry.h \
     ServerManager.h \
-    ConnectionManager.h \
     LanguageEntry.h \
     LanguageManager.h \
     ServerListDialog.h \
     ServerEditDialog.h \
     OptionsDialog.h \
     AboutDialog.h \
-    GameType.h
+    GameType.h \
+    SessionManager.h
 
 SOURCES += Main.cpp \
     OpenRcon.cpp \
     GameManager.cpp \
     ServerManager.cpp \
-    ConnectionManager.cpp \
     LanguageManager.cpp \
     ServerListDialog.cpp \
     ServerEditDialog.cpp \
     OptionsDialog.cpp \
-    AboutDialog.cpp
+    AboutDialog.cpp \
+    SessionManager.cpp
 
 FORMS += OpenRcon.ui \
     ServerListDialog.ui \
