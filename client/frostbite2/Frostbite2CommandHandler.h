@@ -44,8 +44,7 @@ public:
     void sendAdminKickPlayerCommand(const QString &player, const QString &reason);
     void sendAdminKillPlayerCommand(const QString &player);
     void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
-    void sendAdminPasswordCommand();
-    void sendAdminPasswordCommand(const QString &password);
+    void sendAdminPasswordCommand(const QString &password = QString());
     void sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
     void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
     void sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset, int parameter = -1);

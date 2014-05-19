@@ -29,8 +29,6 @@
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
 
-
-
 BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4Widget)
 {
     ui->setupUi(this);
@@ -50,9 +48,9 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     clipboard = QApplication::clipboard();
     menu_pl_players = new QMenu(ui->treeWidget_pl_players);
     menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
-    action_pl_players_kill = new QAction(tr("Kick"), menu_pl_players);
-    action_pl_players_kick = new QAction(tr("Ban"), menu_pl_players);
-    action_pl_players_ban = new QAction(tr("Kill"), menu_pl_players);
+    action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
+    action_pl_players_kick = new QAction(tr("Kick"), menu_pl_players);
+    action_pl_players_ban = new QAction(tr("Ban"), menu_pl_players);
     action_pl_players_reserveSlot = new QAction(tr("Reserve slot"), menu_pl_players);
     menu_pl_players_copyTo = new QMenu(tr("Copy"), menu_pl_players);
     action_pl_players_copyTo_name = new QAction(tr("Name"), this);
@@ -326,6 +324,48 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 BF4Widget::~BF4Widget()
 {
     delete ui;
+
+    /* User Interface */
+    // ServerInfo
+    delete timerServerInfoRoundTime;
+    delete timerServerInfoUpTime;
+
+    // Players
+    delete menu_pl_players;
+    delete action_pl_players_kill;
+    delete action_pl_players_kick;
+    delete action_pl_players_ban;
+    delete action_pl_players_reserveSlot;
+
+    delete menu_pl_players_move;
+    delete action_pl_players_move_team;
+    delete action_pl_players_move_squad;
+
+    delete menu_pl_players_copyTo;
+    delete action_pl_players_copyTo_name;
+    delete action_pl_players_copyTo_guid;
+
+    // Maplist
+    delete menu_ml_available;
+    delete action_ml_available_add;
+
+    delete menu_ml_current;
+    delete action_ml_current_remove;
+
+    // Banlist
+    delete menu_bl_banList;
+    delete action_bl_banList_remove;
+
+    // Reserved Slots
+    delete menu_rs_reservedSlotsList;
+    delete action_rs_reservedSlotsList_remove;
+
+    // Spectator List
+    delete menu_ss_spectatorList;
+    delete action_ss_spectatorList_remove;
+
+    // Console
+    delete completer;
 }
 
 void BF4Widget::setAuthenticated(bool auth)
@@ -509,7 +549,7 @@ void BF4Widget::onPlayerLeaveEvent(const QString &player, const QString &info)
 
 void BF4Widget::onPlayerSpawnEvent(const QString &player, int teamId)
 {
-    logEvent("PlayerSpawn", tr("Player %1 spawned, and is on team %2.").arg(player).arg(teamId));
+    logEvent("PlayerSpawn", tr("Player %1 spawned, and is on team %2.").arg(player).arg(BF4LevelDictionary::getTeam(teamId - 1)));
 }
 
 void BF4Widget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
@@ -972,7 +1012,11 @@ QIcon BF4Widget::getRankIcon(int rank)
 // ServerInfo
 void BF4Widget::pushButton_si_restartRound_clicked()
 {
-    commandHandler->sendMapListRestartRoundCommand();
+    int ret = QMessageBox::question(this, tr("Restart round"), tr("Are you sure you want to restart the round?"));
+
+    if (ret == QMessageBox::Yes) {
+        commandHandler->sendMapListRestartRoundCommand();
+    }
 }
 
 void BF4Widget::pushButton_si_runNextRound_clicked()
@@ -1038,15 +1082,16 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
                 }
 
                 // Add the team to the menu_pl_players_move menu.
-                action_pl_players_move_team = new QAction(BF4LevelDictionary::getTeam(teamId - 1), menu_pl_players_move);
+                action_pl_players_move_team = new QAction(tr("Team %1").arg(BF4LevelDictionary::getTeam(teamId - 1)), menu_pl_players_move);
+
                 menu_pl_players_move->addAction(action_pl_players_move_team);
             }
         }
 
         menu_pl_players_move->addSeparator();
 
-        for (int squadId = 1; squadId < 9; squadId++) {
-            action_pl_players_move_squad = new QAction(getSquadName(squadId), menu_pl_players_move);
+        for (int squadId = 0; squadId <= 8; squadId++) {
+            action_pl_players_move_squad = new QAction(tr("Squad %1").arg(getSquadName(squadId)), menu_pl_players_move);
             action_pl_players_move_squad->setData(squadId);
 
             menu_pl_players_move->addAction(action_pl_players_move_squad);

@@ -52,7 +52,6 @@ private:
     Ui::BF4Widget *ui;
 
     /* User Interface */
-
     // ServerInfo
     QTimer *timerServerInfoRoundTime;
     QTimer *timerServerInfoUpTime;

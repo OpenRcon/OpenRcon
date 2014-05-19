@@ -39,37 +39,41 @@ QString FrostbiteGame::getSquadName(int squadId)
     QString squadName;
 
     switch (squadId) {
-        case Alpha:
-            squadName = "Alpha";
-            break;
+    case None:
+        squadName = "None";
+        break;
 
-        case Bravo:
-            squadName = "Bravo";
-            break;
+    case Alpha:
+        squadName = "Alpha";
+        break;
 
-        case Charlie:
-            squadName = "Charlie";
-            break;
+    case Bravo:
+        squadName = "Bravo";
+        break;
 
-        case Delta:
-            squadName = "Delta";
-            break;
+    case Charlie:
+        squadName = "Charlie";
+        break;
 
-        case Echo:
-            squadName = "Echo";
-            break;
+    case Delta:
+        squadName = "Delta";
+        break;
 
-        case Foxtrot:
-            squadName = "Foxtrot";
-            break;
+    case Echo:
+        squadName = "Echo";
+        break;
 
-        case Golf:
-            squadName = "Golf";
-            break;
+    case Foxtrot:
+        squadName = "Foxtrot";
+        break;
 
-        case Hotel:
-            squadName = "Hotel";
-            break;
+    case Golf:
+        squadName = "Golf";
+        break;
+
+    case Hotel:
+        squadName = "Hotel";
+        break;
 
     }
 

@@ -155,17 +155,16 @@ void Frostbite2CommandHandler::sendAdminKillPlayerCommand(const QString &player)
 
 void Frostbite2CommandHandler::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
 {
-    con->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(FrostbiteUtils::toString(forceKill)));
-}
-
-void Frostbite2CommandHandler::sendAdminPasswordCommand()
-{
-    con->sendCommand("admin.password");
+    con->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(forceKill)));
 }
 
 void Frostbite2CommandHandler::sendAdminPasswordCommand(const QString &password)
 {
-    con->sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
+    if (password.isEmpty()) {
+        con->sendCommand("admin.password");
+    } else {
+        con->sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
+    }
 }
 
 void Frostbite2CommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
