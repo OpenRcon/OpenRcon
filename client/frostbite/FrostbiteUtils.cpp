@@ -17,7 +17,10 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QObject>
+
 #include "FrostbiteUtils.h"
+#include "Time.h"
 
 int FrostbiteUtils::toInt(const QString &value)
 {
@@ -32,4 +35,37 @@ bool FrostbiteUtils::toBool(const QString &value)
 QString FrostbiteUtils::toString(bool value)
 {
     return value ? "true" : "false";
+}
+
+Time FrostbiteUtils::getTimeFromSeconds(int elapsedSeconds)
+{
+    int days = elapsedSeconds / 60 / 60 / 24;
+    int hours = (elapsedSeconds / 60 / 60) % 24;
+    int minutes = (elapsedSeconds / 60) % 60;
+    int seconds = elapsedSeconds % 60;
+
+    return Time(days, hours, minutes, seconds);
+}
+
+QString FrostbiteUtils::toString(Time time)
+{
+    QString timeString;
+
+    if (time.days != 0) {
+        timeString += " " + QObject::tr("%1d").arg(time.days);
+    }
+
+    if (time.hours != 0) {
+        timeString += " " + QObject::tr("%1h").arg(time.hours);
+    }
+
+    if (time.minutes != 0) {
+        timeString += " " + QObject::tr("%1m").arg(time.minutes);
+    }
+
+    if (time.seconds != 0) {
+        timeString += " " + QObject::tr("%1s").arg(time.seconds);
+    }
+
+    return timeString;
 }

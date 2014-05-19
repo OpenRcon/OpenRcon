@@ -17,12 +17,12 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TIMEENTRY_H
-#define TIMEENTRY_H
+#ifndef TIME_H
+#define TIME_H
 
-struct TimeEntry
+struct Time
 {
-    TimeEntry(int days,
+    Time(int days,
               int hours,
               int minutes,
               int seconds) :
@@ -41,4 +41,4 @@ struct TimeEntry
 
 };
 
-#endif // TIMEENTRY_H
+#endif // TIME_H

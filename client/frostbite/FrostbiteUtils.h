@@ -22,12 +22,17 @@
 
 #include <QString>
 
+struct Time;
+
 class FrostbiteUtils
 {
 public:
     static int toInt(const QString &value);
     static bool toBool(const QString &value);
     static QString toString(bool value);
+
+    static Time getTimeFromSeconds(int elapsedSeconds);
+    static QString toString(Time time);
 
 };
 

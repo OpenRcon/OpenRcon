@@ -17,12 +17,19 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDateTime>
+#include <QTreeWidgetItem>
+#include <QToolTip>
+
 #include "FrostbiteUtils.h"
+#include "Time.h"
 
 #include "ui_BF4Widget.h"
 #include "BF4Widget.h"
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
+
+
 
 BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4Widget)
 {
@@ -975,50 +982,12 @@ void BF4Widget::pushButton_si_runNextRound_clicked()
 
 void BF4Widget::updateRoundTime()
 { 
-    TimeEntry time = getTimeFromSeconds(roundTime++);
-    QString text;
-
-    if (time.days != 0) {
-        text += " " + tr("%1d").arg(time.days);
-    }
-
-    if (time.hours != 0) {
-        text += " " + tr("%1h").arg(time.hours);
-    }
-
-    if (time.minutes != 0) {
-        text += " " + tr("%1m").arg(time.minutes);
-    }
-
-    if (time.seconds != 0) {
-        text += " " + tr("%1s").arg(time.seconds);
-    }
-
-    ui->label_si_round->setToolTip(text);
+    ui->label_si_round->setToolTip(FrostbiteUtils::toString(FrostbiteUtils::getTimeFromSeconds(roundTime++)));
 }
 
 void BF4Widget::updateUpTime()
 {
-    TimeEntry time = getTimeFromSeconds(serverUpTime++);
-    QString text;
-
-    if (time.days != 0) {
-        text += " " + tr("%1d").arg(time.days);
-    }
-
-    if (time.hours != 0) {
-        text += " " + tr("%1h").arg(time.hours);
-    }
-
-    if (time.minutes != 0) {
-        text += " " + tr("%1m").arg(time.minutes);
-    }
-
-    if (time.seconds != 0) {
-        text += " " + tr("%1s").arg(time.seconds);
-    }
-
-    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(text));
+    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(FrostbiteUtils::toString(FrostbiteUtils::getTimeFromSeconds(serverUpTime++))));
 }
 
 // Players

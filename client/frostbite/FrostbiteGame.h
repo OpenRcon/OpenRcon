@@ -22,8 +22,6 @@
 
 #include "Game.h"
 
-#include "TimeEntry.h"
-
 class FrostbiteGame : public Game
 {
     Q_OBJECT
@@ -49,7 +47,6 @@ protected:
     };
 
     QString getVersionFromBuild(int build);
-    TimeEntry getTimeFromSeconds(int elapsedSeconds);
     QString getSquadName(int squadId);
 
 };

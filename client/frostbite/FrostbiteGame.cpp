@@ -34,16 +34,6 @@ QString FrostbiteGame::getVersionFromBuild(int build)
     return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);
 }
 
-TimeEntry FrostbiteGame::getTimeFromSeconds(int elapsedSeconds)
-{
-    int days = elapsedSeconds / 60 / 60 / 24;
-    int hours = (elapsedSeconds / 60 / 60) % 24;
-    int minutes = (elapsedSeconds / 60) % 60;
-    int seconds = elapsedSeconds % 60;
-
-    return TimeEntry(days, hours, minutes, seconds);
-}
-
 QString FrostbiteGame::getSquadName(int squadId)
 {
     QString squadName;

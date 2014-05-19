@@ -14,9 +14,9 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/MapListEntry.h \
     frostbite/BanListEntry.h \
     frostbite/ServerInfo.h \
-    frostbite/TimeEntry.h \
     frostbite/OnlineState.h \
-    frostbite/TeamScores.h
+    frostbite/TeamScores.h \
+    frostbite/Time.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteRconPacket.cpp \

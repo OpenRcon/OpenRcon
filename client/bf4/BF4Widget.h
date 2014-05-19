@@ -23,10 +23,7 @@
 #include <QMenu>
 #include <QClipboard>
 #include <QTimer>
-#include <QDateTime>
 #include <QCompleter>
-#include <QTreeWidgetItem>
-#include <QToolTip>
 
 #include "BF4.h"
 #include "FrostbiteConnection.h"
