@@ -215,6 +215,8 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(action_pl_players_copyTo_name, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_name_triggered()));
     connect(action_pl_players_copyTo_guid, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_guid_triggered()));
 
+    connect(menu_pl_players_move, SIGNAL(triggered(QAction*)), this, SLOT(menu_pl_players_move_triggered(QAction*)));
+
     // Update playerlist on following events.
     connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString)), this, SLOT(updatePlayerList()));
     connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(updatePlayerList()));
@@ -1040,6 +1042,7 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
 
         for (PlayerInfo player : playerList) {
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
+            playerItem->setData(0, Qt::UserRole, player.teamId);
             playerItem->setIcon(0, getRankIcon(player.rank));
             playerItem->setText(0, player.name);
             playerItem->setText(1, getSquadName(player.squadId));
@@ -1048,7 +1051,6 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
             playerItem->setText(4, QString::number(player.score));
             playerItem->setText(5, QString::number(player.ping));
             playerItem->setText(6, player.guid);
-            playerItem->setData(0, Qt::UserRole, player.teamId);
 
             // Add player item and team id to lists.
             playerItems.append(playerItem);
@@ -1076,6 +1078,8 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
 
         for (int squadId = 1; squadId < 9; squadId++) {
             action_pl_players_move_squad = new QAction(getSquadName(squadId), menu_pl_players_move);
+            action_pl_players_move_squad->setData(squadId);
+
             menu_pl_players_move->addAction(action_pl_players_move_squad);
         }
 
@@ -1137,12 +1141,23 @@ void BF4Widget::action_pl_players_copyTo_guid_triggered()
     clipboard->setText(ui->treeWidget_pl_players->currentItem()->text(6));
 }
 
+void BF4Widget::menu_pl_players_move_triggered(QAction *action)
+{
+    QString player = ui->treeWidget_pl_players->currentItem()->text(0);
+    int teamId = ui->treeWidget_pl_players->currentItem()->data(0, Qt::UserRole).toInt();
+    int squadId = action->data().toInt();
+
+    commandHandler->sendAdminMovePlayerCommand(player, teamId, squadId, true);
+
+    qDebug() << "Player is:" << player << ", teamId is:" << teamId << " and squadId is:" << squadId;
+}
+
 // Event
 
 // Chat
 void BF4Widget::comboBox_ch_mode_currentIndexChanged(int index)
 {
-    ui->spinBox_ch_duration->setEnabled(index != 0);
+    ui->spinBox_ch_duration->setEnabled(index > 0);
 }
 
 void BF4Widget::pushButton_ch_send_clicked()
