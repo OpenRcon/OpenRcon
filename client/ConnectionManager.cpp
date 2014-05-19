@@ -17,15 +17,48 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Connection.h"
+#include <QTabWidget>
+#include <QDebug>
+
 #include "ConnectionManager.h"
+#include "OpenRcon.h"
+#include "GameEntry.h"
+#include "Game.h"
+#include "GameManager.h"
+#include "ServerEntry.h"
 
-ConnectionManager::ConnectionManager(QObject *parent) : QObject(parent)
+QSet<ServerEntry *> ConnectionManager::connections;
+
+void ConnectionManager::open(ServerEntry *serverEntry)
 {
+    if (!connections.contains(serverEntry)) {
+        connections.insert(serverEntry);
 
+        GameEntry gameEntry = GameManager::getGame(serverEntry->gameType);
+        Game *gameObject = GameManager::getGameObject(serverEntry);
+        QTabWidget *tabWidget = OpenRcon::getInstance()->getTabWidget();
+
+        int index = tabWidget->addTab(gameObject, QIcon(gameEntry.icon), serverEntry->name);
+        tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->host).arg(serverEntry->port));
+        tabWidget->setCurrentIndex(index);
+    } else {
+        qDebug() << "Another connection to this server already exists.";
+    }
+
+    qDebug() << "Session count:" << connections.size();
 }
 
-ConnectionManager::~ConnectionManager()
+void ConnectionManager::close(int index)
 {
+    QTabWidget *tabWidget = OpenRcon::getInstance()->getTabWidget();
+    Game *game = dynamic_cast<Game *>(tabWidget->widget(index));
+    ServerEntry *serverEntry = game->getServerEntry();
 
+    if (connections.contains(serverEntry)) {
+        connections.remove(serverEntry);
+        tabWidget->removeTab(index);
+        game->getConnection()->hostDisconnect();
+    } else {
+        qDebug() << "Specified connection is not open.";
+    }
 }

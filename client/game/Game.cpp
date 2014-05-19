@@ -28,3 +28,8 @@ Game::~Game()
 {
     delete serverEntry;
 }
+
+ServerEntry *Game::getServerEntry()
+{
+    return serverEntry;
+}

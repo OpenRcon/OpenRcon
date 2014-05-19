@@ -33,12 +33,10 @@
 #include "Constants.h"
 
 struct ServerEntry;
-
 class ServerManager;
 class ServerListDialog;
 class OptionsDialog;
 class AboutDialog;
-
 class Game;
 
 using namespace Constants;
@@ -55,18 +53,21 @@ public:
     OpenRcon(QWidget *parent = nullptr);
     ~OpenRcon();
 
-    void addTab(ServerEntry *serverEntry);
+    static OpenRcon *getInstance();
+
+    QTabWidget *getTabWidget();
     ServerManager *getServerManager();
 
 private:
+    static OpenRcon *m_Instance;
+
     Ui::OpenRcon *ui;
-
-    QSettings *settings;
-
     ServerManager *serverManager;
     ServerListDialog *serverListDialog;
     OptionsDialog *optionsDialog;
     AboutDialog *aboutDialog;
+
+    QSettings *settings;
 
     QAction *actionServerManager;
     QAction *actionQuit;
@@ -85,8 +86,8 @@ private:
     void writeSettings();
 
 private slots:
-    void closeTab(int index);
     void updateServerList();
+    void closeTab(int index);
 
     // Application menu
     void actionServerManager_triggered();

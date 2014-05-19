@@ -24,11 +24,14 @@
 #include "GameManager.h"
 #include "ServerEntry.h"
 #include "ServerManager.h"
+#include "ConnectionManager.h"
 #include "ServerListDialog.h"
 #include "OptionsDialog.h"
 #include "AboutDialog.h"
 
 #include "Game.h"
+
+OpenRcon *OpenRcon::m_Instance = nullptr;
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {
@@ -98,7 +101,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     for (ServerEntry *entry : serverList) {
         if (entry->autoConnect) {
-            addTab(entry);
+            ConnectionManager::open(entry);
         }
     }
 
@@ -133,6 +136,19 @@ OpenRcon::~OpenRcon()
     delete aboutDialog;
 }
 
+OpenRcon *OpenRcon::getInstance() {
+    if (!m_Instance) {
+        m_Instance = new OpenRcon();
+    }
+
+    return m_Instance;
+}
+
+QTabWidget *OpenRcon::getTabWidget()
+{
+    return ui->tabWidget;
+}
+
 void OpenRcon::readSettings()
 {
     settings->beginGroup(APP_NAME);
@@ -162,28 +178,9 @@ void OpenRcon::writeSettings()
     settings->endGroup();
 }
 
-void OpenRcon::addTab(ServerEntry *serverEntry)
-{
-    GameEntry gameEntry = GameManager::getGame(serverEntry->gameType);
-    Game *gameObject = GameManager::getGameObject(serverEntry);
-    int index = ui->tabWidget->addTab(gameObject, QIcon(gameEntry.icon), serverEntry->name);
-
-    ui->tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->host).arg(serverEntry->port));
-    ui->tabWidget->setCurrentIndex(index);
-}
-
 ServerManager *OpenRcon::getServerManager()
 {
     return serverManager;
-}
-
-void OpenRcon::closeTab(int index)
-{
-    QWidget *widget = ui->tabWidget->widget(index);
-    ConnectionTabWidget *tabWidget = dynamic_cast<ConnectionTabWidget *>(widget);
-    tabWidget->getConnection()->hostDisconnect();
-
-    ui->tabWidget->removeTab(index);
 }
 
 void OpenRcon::updateServerList()
@@ -208,6 +205,11 @@ void OpenRcon::updateServerList()
 
         comboBox_quickConnect_server->addItem(tr("No servers added yet."));
     }
+}
+
+void OpenRcon::closeTab(int index)
+{
+    ConnectionManager::close(index);
 }
 
 // Application menu
@@ -268,6 +270,5 @@ void OpenRcon::actionAboutQt_triggered()
 void OpenRcon::pushButton_quickConnect_connect_clicked()
 {
     ServerEntry *serverEntry = serverManager->getServer(comboBox_quickConnect_server->currentIndex());
-
-    addTab(serverEntry);
+    ConnectionManager::open(serverEntry);
 }

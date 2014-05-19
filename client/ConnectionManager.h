@@ -21,20 +21,21 @@
 #define CONNECTIONMANAGER_H
 
 #include <QObject>
+#include <QTabWidget>
 #include <QSet>
 
-class Connection;
+struct ServerEntry;
 
 class ConnectionManager : public QObject
 {
     Q_OBJECT
 
 public:
-    ConnectionManager(QObject *parent = nullptr);
-    ~ConnectionManager();
+    static void open(ServerEntry *serverEntry);
+    static void close(int index);
 
 private:
-    QSet<Connection> connections;
+    static QSet<ServerEntry *> connections;
 
 };
 

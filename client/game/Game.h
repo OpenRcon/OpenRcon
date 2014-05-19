@@ -31,6 +31,8 @@ public:
     Game(ServerEntry *serverEntry);
     ~Game();
 
+    ServerEntry *getServerEntry();
+
 protected:
     ServerEntry *serverEntry;
 
