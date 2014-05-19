@@ -25,17 +25,17 @@ ServerManager::ServerManager(QObject *parent) : QObject(parent)
     settings = new QSettings(APP_NAME, APP_NAME, this);
 
     // Load the stored servers.
-    loadServers();
+    readSettings();
 }
 
 ServerManager::~ServerManager()
 {
-    saveServers();
+    writeSettings();
 
     delete settings;
 }
 
-void ServerManager::loadServers()
+void ServerManager::readSettings()
 {
     settings->beginGroup("ServerManager");
         int size = settings->beginReadArray("ServerEntries");
@@ -44,12 +44,12 @@ void ServerManager::loadServers()
             settings->setArrayIndex(i);
 
             ServerEntry *entry = new ServerEntry(
-                GameManager::toGameType(settings->value("Game").toInt()),
-                settings->value("Name").toString(),
-                settings->value("Host").toString(),
-                settings->value("Port").toInt(),
-                settings->value("Password").toString(),
-                settings->value("AutoConnect").toBool()
+                GameManager::toGameType(settings->value("game").toInt()),
+                settings->value("name").toString(),
+                settings->value("host").toString(),
+                settings->value("port").toInt(),
+                settings->value("password").toString(),
+                settings->value("autoconnect").toBool()
             );
 
             serverList.append(entry);
@@ -59,7 +59,7 @@ void ServerManager::loadServers()
     settings->endGroup();
 }
 
-void ServerManager::saveServers()
+void ServerManager::writeSettings()
 {
     settings->beginGroup("ServerManager");
         settings->remove("ServerEntries");
@@ -70,12 +70,12 @@ void ServerManager::saveServers()
                 settings->setArrayIndex(i);
 
                 ServerEntry *entry = serverList.at(i);
-                settings->setValue("Game", GameManager::toInt(entry->gameType));
-                settings->setValue("Name", entry->name);
-                settings->setValue("Host", entry->host);
-                settings->setValue("Port", entry->port);
-                settings->setValue("Password", entry->password);
-                settings->setValue("AutoConnect", entry->autoConnect);
+                settings->setValue("game", GameManager::toInt(entry->gameType));
+                settings->setValue("name", entry->name);
+                settings->setValue("host", entry->host);
+                settings->setValue("port", entry->port);
+                settings->setValue("password", entry->password);
+                settings->setValue("autoconnect", entry->autoConnect);
             }
         settings->endArray();
     settings->endGroup();
@@ -95,7 +95,7 @@ void ServerManager::setServers(const QList<ServerEntry *> &list)
 {
     serverList.clear();
     serverList = list;
-    saveServers();
+    writeSettings();
 
     emit (onServerUpdate());
 }

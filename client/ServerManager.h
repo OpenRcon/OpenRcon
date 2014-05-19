@@ -51,8 +51,8 @@ private:
     QSettings *settings;
     QList<ServerEntry *> serverList;
 
-    void loadServers();
-    void saveServers();
+    void readSettings();
+    void writeSettings();
 
 signals:
     void onServerUpdate();

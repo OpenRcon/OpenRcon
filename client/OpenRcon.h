@@ -30,6 +30,7 @@
 
 struct ServerEntry;
 class ServerManager;
+class SessionManager;
 class ServerListDialog;
 class OptionsDialog;
 class AboutDialog;
@@ -49,16 +50,15 @@ public:
     OpenRcon(QWidget *parent = nullptr);
     ~OpenRcon();
 
-    static OpenRcon *getInstance(QWidget *parent = nullptr);
-
     QTabWidget *getTabWidget();
     ServerManager *getServerManager();
+    SessionManager *getSessionManager();
 
 private:
-    static OpenRcon *m_instance;
-
     Ui::OpenRcon *ui;
+
     ServerManager *serverManager;
+    SessionManager *sessionManager;
     ServerListDialog *serverListDialog;
     OptionsDialog *optionsDialog;
     AboutDialog *aboutDialog;

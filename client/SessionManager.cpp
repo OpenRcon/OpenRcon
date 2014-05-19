@@ -25,7 +25,15 @@
 #include "GameEntry.h"
 #include "GameManager.h"
 
-QSet<ServerEntry *> SessionManager::sessions;
+SessionManager::SessionManager(QObject *parent) : QObject(parent)
+{
+    openRcon = dynamic_cast<OpenRcon *>(parent);
+}
+
+SessionManager::~SessionManager()
+{
+
+}
 
 void SessionManager::open(ServerEntry *serverEntry)
 {
@@ -33,7 +41,7 @@ void SessionManager::open(ServerEntry *serverEntry)
     if (!sessions.contains(serverEntry)) {
         sessions.insert(serverEntry);
 
-        QTabWidget *tabWidget = OpenRcon::getInstance()->getTabWidget();
+        QTabWidget *tabWidget = openRcon->getTabWidget();
         GameEntry gameEntry = GameManager::getGame(serverEntry->gameType);
         Game *gameObject = GameManager::getGameObject(serverEntry);
 
@@ -48,7 +56,7 @@ void SessionManager::open(ServerEntry *serverEntry)
 
 void SessionManager::close(int index)
 {
-    QTabWidget *tabWidget = OpenRcon::getInstance()->getTabWidget();    
+    QTabWidget *tabWidget = openRcon->getTabWidget();
     Game *game = dynamic_cast<Game *>(tabWidget->widget(index));
     ServerEntry *serverEntry = game->getServerEntry();
 

@@ -243,7 +243,7 @@ void ServerListDialog::connectToItem()
         ServerEntry *entry = variant.value<ServerEntry *>();
 
         // Connect to the ServerEntry and add the tab to OpenRcon's QTabWidget.
-        SessionManager::open(entry);
+        sessionManager->open(entry);
         accept();
     }
 }

@@ -34,8 +34,6 @@
 
 #include "Game.h"
 
-OpenRcon *OpenRcon::m_instance = nullptr;
-
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {
     ui->setupUi(this);
@@ -45,6 +43,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     // Create ServerManager instances.
     serverManager = new ServerManager(this);
+    sessionManager = new SessionManager(this);
 
     // Create dialogs.
     serverListDialog = new ServerListDialog(this);
@@ -104,7 +103,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     for (ServerEntry *entry : serverList) {
         if (entry->autoConnect) {
-            SessionManager::open(entry);
+            sessionManager->open(entry);
         }
     }
 
@@ -134,17 +133,10 @@ OpenRcon::~OpenRcon()
     delete ui;
     delete settings;
     delete serverManager;
+    delete sessionManager;
     delete serverListDialog;
     delete optionsDialog;
     delete aboutDialog;
-}
-
-OpenRcon *OpenRcon::getInstance(QWidget *parent) {
-    if (!m_instance) {
-        m_instance = new OpenRcon(parent);
-    }
-
-    return m_instance;
 }
 
 QTabWidget *OpenRcon::getTabWidget()
@@ -155,6 +147,11 @@ QTabWidget *OpenRcon::getTabWidget()
 ServerManager *OpenRcon::getServerManager()
 {
     return serverManager;
+}
+
+SessionManager *OpenRcon::getSessionManager()
+{
+    return sessionManager;
 }
 
 void OpenRcon::readSettings()
@@ -212,7 +209,7 @@ void OpenRcon::updateServerList()
 
 void OpenRcon::closeTab(int index)
 {
-    SessionManager::close(index);
+    sessionManager->close(index);
 }
 
 // Application menu
@@ -273,5 +270,5 @@ void OpenRcon::actionAboutQt_triggered()
 void OpenRcon::pushButton_quickConnect_connect_clicked()
 {
     ServerEntry *serverEntry = serverManager->getServer(comboBox_quickConnect_server->currentIndex());
-    SessionManager::open(serverEntry);
+    sessionManager->open(serverEntry);
 }

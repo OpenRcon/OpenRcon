@@ -20,18 +20,27 @@
 #ifndef SESSIONMANAGER_H
 #define SESSIONMANAGER_H
 
+#include <QObject>
 #include <QSet>
 
+class OpenRcon;
 struct ServerEntry;
 
-class SessionManager
+class SessionManager : public QObject
 {
+    Q_OBJECT
+
 public:
-    static void open(ServerEntry *serverEntry);
-    static void close(int index);
+    SessionManager(QObject *parent = nullptr);
+    ~SessionManager();
+
+    void open(ServerEntry *serverEntry);
+    void close(int index);
 
 private:
-    static QSet<ServerEntry *> sessions;
+    OpenRcon *openRcon;
+
+    QSet<ServerEntry *> sessions;
 
 };
 

@@ -19,6 +19,8 @@
 
 #include "Game.h"
 
+#include "ServerEntry.h"
+
 Game::Game(ServerEntry *serverEntry) : serverEntry(serverEntry)
 {
 
