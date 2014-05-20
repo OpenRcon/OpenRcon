@@ -658,7 +658,7 @@ void BF4Widget::onVersionCommand(const QString &type, int build)
 void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     currentLevel = BF4LevelDictionary::getLevel(serverInfo.currentMap);
-    GameModeEntry currentGameMode = BF4LevelDictionary::getGameMode(serverInfo.gameMode);
+    currentGameMode = BF4LevelDictionary::getGameMode(serverInfo.gameMode);
     roundTime = serverInfo.roundTime;
     serverUpTime = serverInfo.serverUpTime;
 
@@ -1050,8 +1050,8 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
         ui->treeWidget_pl_players->clear();
         menu_pl_players_move->clear();
 
+        // Create a list of all players as QTreeWidgetItem's.
         QList<QTreeWidgetItem *> playerItems;
-        QSet<int> teamIds;
 
         for (PlayerInfo player : playerList) {
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
@@ -1067,32 +1067,30 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
 
             // Add player item and team id to lists.
             playerItems.append(playerItem);
-            teamIds.insert(player.teamId);
         }
 
-        for (int teamId : teamIds) {
-            if (teamId > 0) { // Don't list team with id 0, as this is the neutrual team.
-                QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
-                teamItem->setText(0, BF4LevelDictionary::getTeam(teamId - 1));
+        for (int teamId : currentLevel.teams) {
+            QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
+            teamItem->setText(0, BF4LevelDictionary::getTeam(teamId));
 
-                for (QTreeWidgetItem *playerItem : playerItems) {
-                    if (teamId == playerItem->data(0, Qt::UserRole)) {
-                        teamItem->addChild(playerItem);
-                    }
+            for (QTreeWidgetItem *playerItem : playerItems) {
+                if (teamId == playerItem->data(0, Qt::UserRole)) {
+                    teamItem->addChild(playerItem);
                 }
-
-                // Add the team to the menu_pl_players_move menu.
-                action_pl_players_move_team = new QAction(tr("Team %1").arg(BF4LevelDictionary::getTeam(teamId - 1)), menu_pl_players_move);
-
-                menu_pl_players_move->addAction(action_pl_players_move_team);
             }
+
+            // Add the team to the menu_pl_players_move menu.
+            action_pl_players_move_team = new QAction(tr("Team %1").arg(BF4LevelDictionary::getTeam(teamId)), menu_pl_players_move);
+            action_pl_players_move_team->setData(teamId);
+
+            menu_pl_players_move->addAction(action_pl_players_move_team);
         }
 
         menu_pl_players_move->addSeparator();
 
         for (int squadId = 0; squadId <= 8; squadId++) {
             action_pl_players_move_squad = new QAction(tr("Squad %1").arg(getSquadName(squadId)), menu_pl_players_move);
-            action_pl_players_move_squad->setData(squadId);
+            action_pl_players_move_squad->setData(squadId + 5);
 
             menu_pl_players_move->addAction(action_pl_players_move_squad);
         }
@@ -1157,13 +1155,23 @@ void BF4Widget::action_pl_players_copyTo_guid_triggered()
 
 void BF4Widget::menu_pl_players_move_triggered(QAction *action)
 {
+    int value = action->data().toInt();
     QString player = ui->treeWidget_pl_players->currentItem()->text(0);
-    int teamId = ui->treeWidget_pl_players->currentItem()->data(0, Qt::UserRole).toInt();
-    int squadId = action->data().toInt();
+    int teamId, squadId;
+
+    if (value <= 4) {
+        teamId = value + 1;
+        squadId = 0;
+
+        qDebug() << "Team:" << teamId;
+    } else {
+        teamId = ui->treeWidget_pl_players->currentItem()->data(0, Qt::UserRole).toInt();
+        squadId = value - 5;
+
+        qDebug() << "Squad:" << squadId;
+    }
 
     commandHandler->sendAdminMovePlayerCommand(player, teamId, squadId, true);
-
-    qDebug() << "Player is:" << player << ", teamId is:" << teamId << " and squadId is:" << squadId;
 }
 
 // Event

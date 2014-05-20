@@ -30,6 +30,7 @@
 #include "PlayerSubset.h"
 #include "PlayerInfo.h"
 #include "LevelEntry.h"
+#include "BF4GameModeEntry.h"
 #include "BF4ServerInfo.h"
 #include "BanListEntry.h"
 #include "MapListEntry.h"
@@ -95,6 +96,7 @@ private:
     QCompleter *completer;
 
     LevelEntry currentLevel;
+    BF4GameModeEntry currentGameMode;
 
     void setAuthenticated(bool auth);
     void startupCommands(bool auth);

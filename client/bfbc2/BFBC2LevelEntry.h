@@ -32,14 +32,12 @@ struct BFBC2LevelEntry : public LevelEntry
 
     BFBC2LevelEntry(const QString &engineName,
                     const QString &name,
-                    int team1,
-                    int team2,
+                    const QList<int> &teams,
                     const QString &image,
                     BFBC2Mod mod) :
         LevelEntry(engineName,
                    name,
-                   team1,
-                   team2,
+                   teams,
                    image),
         mod(mod)
     {

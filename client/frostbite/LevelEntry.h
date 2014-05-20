@@ -32,13 +32,11 @@ struct LevelEntry
 
     LevelEntry(const QString &engineName,
                const QString &name,
-               int team1,
-               int team2,
+               const QList<int> &teams,
                const QString &image) :
         engineName(engineName),
         name(name),
-        team1(team1),
-        team2(team2),
+        teams(teams),
         imagePath(image)
     {
 
@@ -50,8 +48,7 @@ struct LevelEntry
 
     QString engineName;
     QString name;
-    int team1;
-    int team2;
+    QList<int> teams;
     QString imagePath;
 };
 

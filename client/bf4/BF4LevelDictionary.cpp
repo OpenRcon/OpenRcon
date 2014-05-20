@@ -22,34 +22,34 @@
 template<>
 QList<LevelEntry> BF4LevelDictionary::levelList = {
     /* List of all levels */
-    LevelEntry("MP_Abandoned", "Zavod 311", 0, 1, ":/bf4/levels/zavod_311.png"),                     // 0
-    LevelEntry("MP_Damage", "Lancang Dam", 0, 2, ":/bf4/levels/lancang_dam.png"),                    // 1
-    LevelEntry("MP_Flooded", "Flood Zone", 1, 2, ":/bf4/levels/flood_zone.png"),                     // 2
-    LevelEntry("MP_Journey", "Golmud Railway", 0, 2, ":/bf4/levels/golmud_railway.png"),             // 3
-    LevelEntry("MP_Naval", "Paracel Storm", 1, 2, ":/bf4/levels/paracel_storm.png"),                 // 4
-    LevelEntry("MP_Prison", "Operation Locker", 1, 0, ":/bf4/levels/operation_locker.png"),          // 5
-    LevelEntry("MP_Resort", "Hainan Resort", 1, 2, ":/bf4/levels/hainan_resort.png"),                // 6
-    LevelEntry("MP_Siege", "Siege of Shanghai", 1, 2, ":/bf4/levels/seige_of_shanghai.png"),         // 7
-    LevelEntry("MP_TheDish", "Rogue Transmission", 0, 2, ":/bf4/levels/rogue_transmission.png"),     // 8
-    LevelEntry("MP_Tremors", "Dawnbreaker", 1, 2, ":/bf4/levels/dawnbreaker.png"),                   // 9
+    LevelEntry("MP_Abandoned", "Zavod 311", QList<int>({ 0, 1 }), ":/bf4/levels/zavod_311.png"),                     // 0
+    LevelEntry("MP_Damage", "Lancang Dam", QList<int>({ 0, 2 }), ":/bf4/levels/lancang_dam.png"),                    // 1
+    LevelEntry("MP_Flooded", "Flood Zone", QList<int>({ 1, 2 }), ":/bf4/levels/flood_zone.png"),                     // 2
+    LevelEntry("MP_Journey", "Golmud Railway", QList<int>({ 0, 2 }), ":/bf4/levels/golmud_railway.png"),             // 3
+    LevelEntry("MP_Naval", "Paracel Storm", QList<int>({ 1, 2 }), ":/bf4/levels/paracel_storm.png"),                 // 4
+    LevelEntry("MP_Prison", "Operation Locker", QList<int>({ 1, 0 }), ":/bf4/levels/operation_locker.png"),          // 5
+    LevelEntry("MP_Resort", "Hainan Resort", QList<int>({ 1, 2 }), ":/bf4/levels/hainan_resort.png"),                // 6
+    LevelEntry("MP_Siege", "Siege of Shanghai", QList<int>({ 1, 2 }), ":/bf4/levels/seige_of_shanghai.png"),         // 7
+    LevelEntry("MP_TheDish", "Rogue Transmission", QList<int>({ 0, 2 }), ":/bf4/levels/rogue_transmission.png"),     // 8
+    LevelEntry("MP_Tremors", "Dawnbreaker", QList<int>({ 1, 2 }), ":/bf4/levels/dawnbreaker.png"),                   // 9
 
     // XP1 (China Rising)
-    LevelEntry("XP1_001", "Silk Road", 1, 2, ":/bf4/levels/silk_road.png"),                          // 10
-    LevelEntry("XP1_002", "Altai Range", 1, 2, ":/bf4/levels/altai_range.png"),                      // 11
-    LevelEntry("XP1_003", "Guilin Peaks", 1, 2, ":/bf4/levels/guilin_peaks.png"),                    // 12
-    LevelEntry("XP1_004", "Dragon Pass", 1, 2, ":/bf4/levels/dragon_pass.png"),                      // 13
+    LevelEntry("XP1_001", "Silk Road", QList<int>({ 1, 2 }), ":/bf4/levels/silk_road.png"),                          // 10
+    LevelEntry("XP1_002", "Altai Range", QList<int>({ 1, 2 }), ":/bf4/levels/altai_range.png"),                      // 11
+    LevelEntry("XP1_003", "Guilin Peaks", QList<int>({ 1, 2 }), ":/bf4/levels/guilin_peaks.png"),                    // 12
+    LevelEntry("XP1_004", "Dragon Pass", QList<int>({ 1, 2 }), ":/bf4/levels/dragon_pass.png"),                      // 13
 
     // XP2 (Second Assault)
-    LevelEntry("XP0_Caspian", "Caspian Border 2014", 1, 0, ":/bf4/levels/caspian_border_2014.png"),  // 14
-    LevelEntry("XP0_Firestorm", "Firestorm 2014", 1, 0, ":/bf4/levels/firestorm_2014.png"),          // 15
-    LevelEntry("XP0_Metro", "Operation Metro 2014", 1, 0, ":/bf4/levels/operation_metro_2014.png"),  // 16
-    LevelEntry("XP0_Oman", "Gulf of Oman 2014", 1, 0, ":/bf4/levels/gulf_of_oman_2014.png"),         // 17
+    LevelEntry("XP0_Caspian", "Caspian Border 2014", QList<int>({ 1, 0 }), ":/bf4/levels/caspian_border_2014.png"),  // 14
+    LevelEntry("XP0_Firestorm", "Firestorm 2014", QList<int>({ 1, 0 }), ":/bf4/levels/firestorm_2014.png"),          // 15
+    LevelEntry("XP0_Metro", "Operation Metro 2014", QList<int>({ 1, 0 }), ":/bf4/levels/operation_metro_2014.png"),  // 16
+    LevelEntry("XP0_Oman", "Gulf of Oman 2014", QList<int>({ 1, 0 }), ":/bf4/levels/gulf_of_oman_2014.png"),         // 17
 
     // XP3 (Naval Strike)
-    LevelEntry("XP2_001", "Lost Islands", 1, 3, ":/bf4/levels/lost_islands.png"),                    // 18
-    LevelEntry("XP2_002", "Nansha Strike", 1, 3, ":/bf4/levels/nansha_strike.png"),                  // 19
-    LevelEntry("XP2_003", "Wave Breaker", 1, 3, ":/bf4/levels/wave_breaker.png"),                    // 20
-    LevelEntry("XP2_004", "Operation Mortar", 1, 3, ":/bf4/levels/operation_mortar.png")             // 21
+    LevelEntry("XP2_001", "Lost Islands", QList<int>({ 1, 3 }), ":/bf4/levels/lost_islands.png"),                    // 18
+    LevelEntry("XP2_002", "Nansha Strike", QList<int>({ 1, 3 }), ":/bf4/levels/nansha_strike.png"),                  // 19
+    LevelEntry("XP2_003", "Wave Breaker", QList<int>({ 1, 3 }), ":/bf4/levels/wave_breaker.png"),                    // 20
+    LevelEntry("XP2_004", "Operation Mortar", QList<int>({ 1, 3 }), ":/bf4/levels/operation_mortar.png")             // 21
 
     // XP4 (Dragon's Teeth)
 
