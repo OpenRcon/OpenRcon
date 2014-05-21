@@ -81,7 +81,7 @@ void OptionsDialog::listWidget_currentItemChanged(QListWidgetItem *current, QLis
 void OptionsDialog::pushButton_ok_clicked()
 {
     int index = ui->comboBox_be_language->currentIndex();
-    QString language = index >= 1 ? languageManager->getLanguage(index - 1).code : language = QLocale::system().name();
+    QString language = index >= 1 ? languageManager->getLanguage(index - 1).code : QLocale::system().name();
 
     settings->setValue("Settings/General/Language", language);
 

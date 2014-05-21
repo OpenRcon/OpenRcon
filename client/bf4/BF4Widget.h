@@ -23,7 +23,6 @@
 #include <QMenu>
 #include <QClipboard>
 #include <QTimer>
-#include <QCompleter>
 
 #include "BF4.h"
 #include "FrostbiteConnection.h"
@@ -35,6 +34,10 @@
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
+class ReservedSlotsWidget;
+class SpectatorSlotsWidget;
+class ConsoleWidget;
+
 namespace Ui {
     class BF4Widget;
 }
@@ -43,7 +46,7 @@ class BF4Widget : public BF4
 {
     Q_OBJECT
 
-public:
+public:    
     BF4Widget(ServerEntry *serverEntry);
     ~BF4Widget();
 
@@ -51,6 +54,10 @@ public:
 
 private:
     Ui::BF4Widget *ui;
+
+    ReservedSlotsWidget *reservedSlots;
+    SpectatorSlotsWidget *spectatorSlots;
+    ConsoleWidget *console;
 
     /* User Interface */
     // ServerInfo
@@ -84,17 +91,6 @@ private:
     QMenu *menu_bl_banList;
     QAction *action_bl_banList_remove;
 
-    // Reserved Slots
-    QMenu *menu_rs_reservedSlotsList;
-    QAction *action_rs_reservedSlotsList_remove;
-
-    // Spectator List
-    QMenu *menu_ss_spectatorList;
-    QAction *action_ss_spectatorList_remove;
-
-    // Console
-    QCompleter *completer;
-
     LevelEntry currentLevel;
     BF4GameModeEntry currentGameMode;
 
@@ -115,9 +111,6 @@ private slots:
     void onDisconnected();
 
     /* Events */
-    void onDataSentEvent(const QString &request);
-    void onDataReceivedEvent(const QString &response);
-
     void onPlayerAuthenticatedEvent(const QString &player);
     void onPlayerDisconnectEvent(const QString &player);
     void onPlayerJoinEvent(const QString &player, const QString &guid);
@@ -127,7 +120,6 @@ private slots:
     void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
     void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
     void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
-    void onPunkBusterMessageEvent(const QString &message);
     void onServerMaxPlayerCountChangeEvent();
     void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
     void onServerRoundOverEvent(int winningTeamId);
@@ -161,10 +153,6 @@ private slots:
 
     // Reserved Slots
     void onReservedSlotsListAggressiveJoinCommand(bool enabled);
-    void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
-
-    // Spectator list
-    void onSpectatorListListCommand(const QStringList &spectatorList);
 
     // Squad
 
@@ -250,21 +238,6 @@ private slots:
     void addBanListRow(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason);
     void setBanlist(const BanList &banList);
 
-    // Reserved Slots
-    void listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos);
-    void action_rs_reservedSlotsList_remove_triggered();
-    void pushButton_rs_add_clicked();
-    void pushButton_rs_load_clicked();
-    void pushButton_rs_save_clicked();
-    void pushButton_rs_clear_clicked();
-
-    // Spectator List
-    void listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos);
-    void action_ss_spectatorList_remove_triggered();
-    void pushButton_ss_add_clicked();
-    void pushButton_ss_save_clicked();
-    void pushButton_ss_clear_clicked();
-
     // Options -> Details
     void lineEdit_op_so_serverName_editingFinished();
     void textEdit_op_so_serverDescription_textChanged();
@@ -309,10 +282,6 @@ private slots:
     void spinBox_so_gp_roundWarmupTimeout_valueChanged(int value);
     void spinBox_so_gp_roundRestartPlayerCount_valueChanged(int value);
     void spinBox_so_gp_roundStartPlayerCount_valueChanged(int value);
-
-    // Console
-    void pushButton_co_co_clicked();
-    void pushButton_co_pb_clicked();
 
 };
 

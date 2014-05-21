@@ -7,7 +7,7 @@
     </qresource>
     <qresource prefix="/icons">
         <file alias="openrcon.png">images/icons/openrcon.png</file>
-        <file>images/icons/console.png</file>
+        <file alias="console.png">images/icons/console.png</file>
         <file alias="internet.png">images/icons/internet.png</file>
         <file alias="server-manager.png">images/icons/server-manager.png</file>
         <file alias="options.png">images/icons/options.png</file>

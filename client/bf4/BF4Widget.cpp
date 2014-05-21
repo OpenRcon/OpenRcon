@@ -24,10 +24,13 @@
 #include "FrostbiteUtils.h"
 #include "Time.h"
 
-#include "ui_BF4Widget.h"
 #include "BF4Widget.h"
+#include "ui_BF4Widget.h"
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
+#include "ReservedSlotsWidget.h"
+#include "SpectatorSlotsWidget.h"
+#include "ConsoleWidget.h"
 
 BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4Widget)
 {
@@ -95,29 +98,19 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     menu_bl_banList->addAction(action_bl_banList_remove);
 
-    // Reserved Slots
-    menu_rs_reservedSlotsList = new QMenu(ui->listWidget_rs_reservedSlotsList);
-    action_rs_reservedSlotsList_remove = new QAction(tr("Remove"), menu_rs_reservedSlotsList);
+    reservedSlots = new ReservedSlotsWidget(con, this);
+    spectatorSlots = new SpectatorSlotsWidget(con, this);
+    console = new ConsoleWidget(con, this);
 
-    menu_rs_reservedSlotsList->addAction(action_rs_reservedSlotsList_remove);
-
-    // Spectator List
-    menu_ss_spectatorList = new QMenu(ui->listWidget_ss_spectatorList);
-    action_ss_spectatorList_remove = new QAction(tr("Remove"), menu_ss_spectatorList);
-
-    menu_ss_spectatorList->addAction(action_ss_spectatorList_remove);
-
-    completer = new QCompleter(commandList, this);
-    ui->lineEdit_co_co->setCompleter(completer);
+    ui->tabWidget->addTab(reservedSlots, tr("Reserved Slots"));
+    ui->tabWidget->addTab(spectatorSlots, tr("Spectator Slots"));
+    ui->tabWidget->addTab(console, QIcon(":/icons/console.png"), tr("Console"));
 
     /* Connection */
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
     connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
 
     /* Events */ 
-    connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
-    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataReceivedEvent(QString)));
-
     connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString)), this, SLOT(onPlayerAuthenticatedEvent(QString)));
     connect(commandHandler, SIGNAL(onPlayerDisconnectEvent(QString)), this, SLOT(onPlayerDisconnectEvent(QString)));
     connect(commandHandler, SIGNAL(onPlayerJoinEvent(QString, QString)), this, SLOT(onPlayerJoinEvent(QString, QString)));
@@ -127,7 +120,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onPlayerChatEvent(QString, QString, QString)), this, SLOT(onPlayerChatEvent(QString, QString, QString)));
     connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(QString, int, int)), this, SLOT(onPlayerSquadChangeEvent(QString, int, int)));
     connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(QString, int, int)), this, SLOT(onPlayerTeamChangeEvent(QString, int, int)));
-    connect(commandHandler, SIGNAL(onPunkBusterMessageEvent(QString)), this, SLOT(onPunkBusterMessageEvent(QString)));
     connect(commandHandler, SIGNAL(onServerMaxPlayerCountChangeEvent()), this, SLOT(onServerMaxPlayerCountChangeEvent()));
     connect(commandHandler, SIGNAL(onServerLevelLoadedEvent(QString, QString, int, int)), this, SLOT(onServerLevelLoadedEvent(QString, QString, int, int)));
     connect(commandHandler, SIGNAL(onServerRoundOverEvent(int)), this, SLOT(onServerRoundOverEvent(int)));
@@ -161,10 +153,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // Reserved Slots
     connect(commandHandler, SIGNAL(onReservedSlotsListAggressiveJoinCommand(bool)), this, SLOT(onReservedSlotsListAggressiveJoinCommand(bool)));
-    connect(commandHandler, SIGNAL(onReservedSlotsListListCommand(QStringList)), this, SLOT(onReservedSlotsListListCommand(QStringList)));
-
-    // Spectator list
-    connect(commandHandler, SIGNAL(onSpectatorListListCommand(QStringList)), this, SLOT(onSpectatorListListCommand(QStringList)));
 
     // Squad
 
@@ -296,29 +284,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(ui->tableWidget_bl_banList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(tableWidget_bl_banList_customContextMenuRequested(QPoint)));
     connect(action_bl_banList_remove, SIGNAL(triggered()), this, SLOT(action_bl_banList_remove_triggered()));
 
-    // Reserved Slots
-    connect(ui->listWidget_rs_reservedSlotsList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_rs_reservedSlotsList_customContextMenuRequested(QPoint)));
-    connect(action_rs_reservedSlotsList_remove, SIGNAL(triggered()), this, SLOT(action_rs_reservedSlotsList_remove_triggered()));
-    connect(ui->lineEdit_rs_player, SIGNAL(returnPressed()), this, SLOT(pushButton_rs_add_clicked()));
-    connect(ui->pushButton_rs_add, SIGNAL(clicked()), this, SLOT(pushButton_rs_add_clicked()));
-    connect(ui->pushButton_rs_load, SIGNAL(clicked()), this, SLOT(pushButton_rs_load_clicked()));
-    connect(ui->pushButton_rs_save, SIGNAL(clicked()), this, SLOT(pushButton_rs_save_clicked()));
-    connect(ui->pushButton_rs_clear, SIGNAL(clicked()), this, SLOT(pushButton_rs_clear_clicked()));
-
-    // Spectator List
-    connect(ui->listWidget_ss_spectatorList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_ss_spectatorList_customContextMenuRequested(QPoint)));
-    connect(action_ss_spectatorList_remove, SIGNAL(triggered()), this, SLOT(action_ss_spectatorList_remove_triggered()));
-    connect(ui->lineEdit_ss_player, SIGNAL(returnPressed()), this, SLOT(pushButton_ss_add_clicked()));
-    connect(ui->pushButton_ss_add, SIGNAL(clicked()), this, SLOT(pushButton_ss_add_clicked()));
-    connect(ui->pushButton_ss_save, SIGNAL(clicked()), this, SLOT(pushButton_ss_save_clicked()));
-    connect(ui->pushButton_ss_clear, SIGNAL(clicked()), this, SLOT(pushButton_ss_clear_clicked()));
-
-    // Console
-    connect(ui->pushButton_co_co, SIGNAL(clicked()), this, SLOT(pushButton_co_co_clicked()));
-    connect(ui->lineEdit_co_co, SIGNAL(editingFinished()), this, SLOT(pushButton_co_co_clicked()));
-
-    connect(ui->pushButton_co_pb, SIGNAL(clicked()), this, SLOT(pushButton_co_pb_clicked()));
-    connect(ui->lineEdit_co_pb, SIGNAL(editingFinished()), this, SLOT(pushButton_co_pb_clicked()));
 }
 
 BF4Widget::~BF4Widget()
@@ -356,16 +321,6 @@ BF4Widget::~BF4Widget()
     delete menu_bl_banList;
     delete action_bl_banList_remove;
 
-    // Reserved Slots
-    delete menu_rs_reservedSlotsList;
-    delete action_rs_reservedSlotsList_remove;
-
-    // Spectator List
-    delete menu_ss_spectatorList;
-    delete action_ss_spectatorList_remove;
-
-    // Console
-    delete completer;
 }
 
 void BF4Widget::setAuthenticated(bool auth)
@@ -376,8 +331,8 @@ void BF4Widget::setAuthenticated(bool auth)
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_rs), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlots), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlots), auth);
 
     startupCommands(auth);
 }
@@ -476,29 +431,6 @@ void BF4Widget::logChat(const QString &sender, const QString &message, const QSt
     ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
 }
 
-void BF4Widget::logConsole(int type, const QString &message)
-{
-    QString time = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
-
-    switch (type) {
-        case 0: // Server con->send
-            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
-            break;
-
-        case 1: // Server receive
-            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
-            break;
-
-        case 2: // Punkbuster con->send
-            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
-            break;
-
-        case 3: // PunkBuster receive
-            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
-            break;
-    }
-}
-
 /* Connection */
 void BF4Widget::onConnected()
 {
@@ -515,16 +447,6 @@ void BF4Widget::onDisconnected()
 }
 
 /* Events */
-void BF4Widget::onDataSentEvent(const QString &request)
-{
-    logConsole(0, request);
-}
-
-void BF4Widget::onDataReceivedEvent(const QString &response)
-{
-    logConsole(1, response);
-}
-
 void BF4Widget::onPlayerAuthenticatedEvent(const QString &player)
 {
     logEvent("PlayerAuthenticated", tr("Player %1 authenticated.").arg(player));
@@ -591,11 +513,6 @@ void BF4Widget::onPlayerTeamChangeEvent(const QString &player, int teamId, int s
     Q_UNUSED(squadId);
 
     logEvent("PlayerTeamChange", tr("Player %1 changed team to %2.").arg(player).arg(teamId));
-}
-
-void BF4Widget::onPunkBusterMessageEvent(const QString &message)
-{
-    logConsole(2, message);
 }
 
 void BF4Widget::onServerMaxPlayerCountChangeEvent()
@@ -783,19 +700,6 @@ void BF4Widget::onReservedSlotsListAggressiveJoinCommand(bool enabled)
     ui->checkBox_so_co_aggressiveJoin->setChecked(enabled);
 }
 
-void BF4Widget::onReservedSlotsListListCommand(const QStringList &reservedSlotsList)
-{
-    ui->listWidget_rs_reservedSlotsList->clear();
-    ui->listWidget_rs_reservedSlotsList->addItems(reservedSlotsList);
-}
-
-// Spectator list
-void BF4Widget::onSpectatorListListCommand(const QStringList &spectatorList)
-{
-    ui->listWidget_ss_spectatorList->clear();
-    ui->listWidget_ss_spectatorList->addItems(spectatorList);
-}
-
 // Squad
 
 // Variables
@@ -814,7 +718,7 @@ void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(bool enabled)
     ui->checkBox_so_co_alwaysAllowSpectators->setEnabled(false);
     ui->checkBox_so_co_alwaysAllowSpectators->setChecked(enabled);
 
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), !enabled);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlots), !enabled);
 }
 
 void BF4Widget::onVarsAutoBalanceCommand(bool enabled)
@@ -1410,93 +1314,6 @@ void BF4Widget::setBanlist(const BanList &banList)
     }
 }
 
-// Reserved Slots
-void BF4Widget::listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos)
-{
-    if (ui->listWidget_rs_reservedSlotsList->itemAt(pos)) {
-        menu_rs_reservedSlotsList->exec(QCursor::pos());
-    }
-}
-
-void BF4Widget::action_rs_reservedSlotsList_remove_triggered()
-{
-    QString player = ui->listWidget_rs_reservedSlotsList->currentItem()->text();
-
-    if (!player.isEmpty()) {
-        delete ui->listWidget_rs_reservedSlotsList->currentItem();
-
-        commandHandler->sendReservedSlotsListRemoveCommand(player);
-    }
-}
-
-void BF4Widget::pushButton_rs_add_clicked()
-{
-    QString player = ui->lineEdit_rs_player->text();
-
-    if (!player.isEmpty()) {
-        ui->lineEdit_rs_player->clear();
-        ui->listWidget_rs_reservedSlotsList->addItem(player);
-
-        commandHandler->sendReservedSlotsListAddCommand(player);
-    }
-}
-
-void BF4Widget::pushButton_rs_load_clicked()
-{
-    commandHandler->sendReservedSlotsListLoadCommand();
-}
-
-void BF4Widget::pushButton_rs_save_clicked()
-{
-    commandHandler->sendReservedSlotsListSaveCommand();
-}
-
-void BF4Widget::pushButton_rs_clear_clicked()
-{
-    commandHandler->sendReservedSlotsListClearCommand();
-}
-
-// Spectator List
-void BF4Widget::listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos)
-{
-    if (ui->listWidget_ss_spectatorList->itemAt(pos)) {
-        menu_ss_spectatorList->exec(QCursor::pos());
-    }
-}
-
-void BF4Widget::action_ss_spectatorList_remove_triggered()
-{
-    QString player = ui->listWidget_ss_spectatorList->currentItem()->text();
-
-    if (!player.isEmpty()) {
-        delete ui->listWidget_ss_spectatorList->currentItem();
-
-        commandHandler->sendSpectatorListRemoveCommand(player);
-    }
-}
-
-void BF4Widget::pushButton_ss_add_clicked()
-{
-    QString player = ui->lineEdit_ss_player->text();
-
-    if (!player.isEmpty()) {
-        ui->lineEdit_ss_player->clear();
-        ui->listWidget_ss_spectatorList->addItem(player);
-
-        commandHandler->sendSpectatorListAddCommand(player);
-    }
-}
-
-void BF4Widget::pushButton_ss_save_clicked()
-{
-    commandHandler->sendSpectatorListSaveCommand();
-}
-
-void BF4Widget::pushButton_ss_clear_clicked()
-{
-    commandHandler->sendSpectatorListClearCommand();
-}
-
 // Options -> Details
 void BF4Widget::lineEdit_op_so_serverName_editingFinished()
 {
@@ -1730,21 +1547,4 @@ void BF4Widget::spinBox_so_gp_roundRestartPlayerCount_valueChanged(int value)
 void BF4Widget::spinBox_so_gp_roundStartPlayerCount_valueChanged(int value)
 {
     commandHandler->sendVarsRoundStartPlayerCountCommand(value);
-}
-
-// Console
-void BF4Widget::pushButton_co_co_clicked()
-{
-    QString command = ui->lineEdit_co_co->text();
-    ui->lineEdit_co_co->clear();
-
-    con->sendCommand(command);
-}
-
-void BF4Widget::pushButton_co_pb_clicked()
-{
-    QString command = ui->lineEdit_co_pb->text();
-    ui->lineEdit_co_pb->clear();
-
-    commandHandler->sendPunkBusterPbSvCommand(command);
 }

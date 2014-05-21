@@ -83,7 +83,6 @@ public:
     // PunkBuster
     void sendPunkBusterActivateCommand();
     void sendPunkBusterIsActiveCommand();
-    void sendPunkBusterPbSvCommand(const QString &command);
 
     // Reserved Slots
     void sendReservedSlotsListAddCommand(const QString &player);
@@ -117,7 +116,6 @@ private:
     void parsePlayerChatEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -168,7 +166,6 @@ private:
     // PunkBuster
 //    void parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Reserverd Slots
 //    void parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -197,7 +194,6 @@ signals:
     void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
     void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
     void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
-    void onPunkBusterMessageEvent(const QString &message);
     void onServerRoundOverEvent(int winningTeamId);
     void onServerRoundOverPlayersEvent(const QString &playerInfo);
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
@@ -249,7 +245,6 @@ signals:
     // Punkbuster
 //    void onPunkBusterActivateCommand();
     void onPunkBusterIsActiveCommand(bool active);
-//    void onPunkBusterPbSvCommand();
 
     // Reserved Slots
 //    void onReservedSlotsListAddCommand();

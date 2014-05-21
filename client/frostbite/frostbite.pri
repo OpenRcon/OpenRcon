@@ -16,11 +16,15 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/ServerInfo.h \
     frostbite/OnlineState.h \
     frostbite/TeamScores.h \
-    frostbite/Time.h
+    frostbite/Time.h \
+    frostbite/ConsoleWidget.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteRconPacket.cpp \
     frostbite/FrostbiteRconWord.cpp \
     frostbite/FrostbiteCommandHandler.cpp \
     frostbite/FrostbiteGame.cpp \
-    frostbite/FrostbiteUtils.cpp
+    frostbite/FrostbiteUtils.cpp \
+    frostbite/ConsoleWidget.cpp
+
+FORMS += frostbite/ConsoleWidget.ui

@@ -46,7 +46,6 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         { "player.onChat",                      &Frostbite2CommandHandler::parsePlayerChatEvent },
         { "player.onSquadChange",               &Frostbite2CommandHandler::parsePlayerSquadChangeEvent },
         { "player.onTeamChange",                &Frostbite2CommandHandler::parsePlayerTeamChangeEvent },
-        { "punkBuster.onMessage",               &Frostbite2CommandHandler::parsePunkBusterMessageEvent },
         { "server.onRoundOver",                 &Frostbite2CommandHandler::parseServerRoundOverEvent },
         { "server.onRoundOverPlayers",          &Frostbite2CommandHandler::parseServerRoundOverPlayersEvent },
         { "server.onRoundOverTeamScores",       &Frostbite2CommandHandler::parseServerRoundOverTeamScoresEvent },
@@ -98,7 +97,6 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         // PunkBuster
         { "punkBuster.activate",                nullptr /*&Frostbite2CommandHandler::parsePunkBusterActivateCommand*/ },
         { "punkBuster.isActive",                &Frostbite2CommandHandler::parsePunkBusterIsActiveCommand },
-        { "punkBuster.pb_sv_command",           nullptr /*&Frostbite2CommandHandler::parsePunkBusterPbSvCommand*/ },
 
         // Reserved Slots
         { "reservedSlotsList.add",              nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListAddCommand*/ },
@@ -335,11 +333,6 @@ void Frostbite2CommandHandler::sendPunkBusterIsActiveCommand()
     con->sendCommand("punkBuster.isActive");
 }
 
-void Frostbite2CommandHandler::sendPunkBusterPbSvCommand(const QString &command)
-{
-    con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
-}
-
 // Reserved Slots
 void Frostbite2CommandHandler::sendReservedSlotsListAddCommand(const QString &player)
 {
@@ -491,15 +484,6 @@ void Frostbite2CommandHandler::parsePlayerTeamChangeEvent(const FrostbiteRconPac
     int squadId = toInt(packet.getWord(3).getContent());
 
     emit (onPlayerTeamChangeEvent(player, teamId, squadId));
-}
-
-void Frostbite2CommandHandler::parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString message = packet.getWord(1).getContent();
-
-    emit (onPunkBusterMessageEvent(message));
 }
 
 void Frostbite2CommandHandler::parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -843,11 +827,6 @@ void Frostbite2CommandHandler::parsePunkBusterIsActiveCommand(const FrostbiteRco
         emit (onPunkBusterIsActiveCommand(active));
     }
 }
-
-//void Frostbite2CommandHandler::parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
 
 // Reserved Slots
 //void Frostbite2CommandHandler::parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

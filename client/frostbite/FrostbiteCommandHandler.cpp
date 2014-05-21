@@ -38,11 +38,19 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
     typedef void (FrostbiteCommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
     static QHash<QString, ResponseFunction> responses = {
-        { "login.plainText", &FrostbiteCommandHandler::parseLoginPlainTextCommand },
-        { "login.hashed",    &FrostbiteCommandHandler::parseLoginHashedCommand },
-        { "logout",          &FrostbiteCommandHandler::parseLogoutCommand },
-        { "quit",            &FrostbiteCommandHandler::parseQuitCommand },
-        { "version",         &FrostbiteCommandHandler::parseVersionCommand }
+        /* Events */
+        { "punkBuster.onMessage",       &FrostbiteCommandHandler::parsePunkBusterMessageEvent },
+
+        /* Commands */
+        // Misc
+        { "login.plainText",            &FrostbiteCommandHandler::parseLoginPlainTextCommand },
+        { "login.hashed",               &FrostbiteCommandHandler::parseLoginHashedCommand },
+        { "logout",                     &FrostbiteCommandHandler::parseLogoutCommand },
+        { "quit",                       &FrostbiteCommandHandler::parseQuitCommand },
+        { "version",                    &FrostbiteCommandHandler::parseVersionCommand },
+
+        // PunkBuster
+        { "punkBuster.pb_sv_command",   nullptr /*&Frostbite2CommandHandler::parsePunkBusterPbSvCommand*/ }
     };
 
     if (responses.contains(request)) {
@@ -59,6 +67,7 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
 }
 
 /* Send commands */
+// Misc
 void FrostbiteCommandHandler::sendLoginPlainTextCommand(const QString &password)
 {
     con->sendCommand(QString("\"login.plainText\" \"%1\"").arg(password));
@@ -92,6 +101,22 @@ void FrostbiteCommandHandler::sendQuitCommand()
 void FrostbiteCommandHandler::sendVersionCommand()
 {
     con->sendCommand("version");
+}
+
+// PunkBuster
+void FrostbiteCommandHandler::sendPunkBusterPbSvCommand(const QString &command)
+{
+    con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
+}
+
+/* Parse events */
+void FrostbiteCommandHandler::parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString message = packet.getWord(1).getContent();
+
+    emit (onPunkBusterMessageEvent(message));
 }
 
 /* Parse commands */
@@ -162,3 +187,9 @@ void FrostbiteCommandHandler::parseVersionCommand(const FrostbiteRconPacket &pac
         emit (onVersionCommand(type, build));
     }
 }
+
+// PunkBuster
+//void FrostbiteCommandHandler::parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}

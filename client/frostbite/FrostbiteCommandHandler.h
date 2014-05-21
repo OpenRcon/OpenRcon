@@ -45,11 +45,15 @@ public:
     void sendQuitCommand();
     void sendVersionCommand();
 
+    // PunkBuster
+    void sendPunkBusterPbSvCommand(const QString &command);
+
 protected:
     FrostbiteConnection *con;
 
 private:
     /* Parse events */
+    void parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     /* Parse commands */
     // Misc
@@ -59,8 +63,12 @@ private:
     void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
+    // PunkBuster
+//    void parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
 signals:
     /* Event signals */
+    void onPunkBusterMessageEvent(const QString &message);
 
     /* Command signals */
     // Misc
@@ -70,6 +78,9 @@ signals:
     void onLogoutCommand();
     void onQuitCommand();
     void onVersionCommand(const QString &type, int build);
+
+    // Punkbuster
+    void onPunkBusterPbSvCommand();
 
 };
 
