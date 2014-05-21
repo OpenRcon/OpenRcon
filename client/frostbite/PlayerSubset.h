@@ -21,6 +21,7 @@
 #define PLAYERSUBSET_H
 
 enum class PlayerSubset {
+    Unknown,
     All,
     Team,
     Squad,

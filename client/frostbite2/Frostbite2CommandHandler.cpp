@@ -957,42 +957,39 @@ void Frostbite2CommandHandler::parseSquadPrivateCommand(const FrostbiteRconPacke
 
 PlayerSubset Frostbite2CommandHandler::getPlayerSubset(const QString &playerSubsetString)
 {
-    PlayerSubset playerSubset;
-
     if (playerSubsetString == "all") {
-        playerSubset = PlayerSubset::All;
+        return PlayerSubset::All;
     } else if (playerSubsetString == "team") {
-        playerSubset = PlayerSubset::Team;
+        return PlayerSubset::Team;
     } else if (playerSubsetString == "squad") {
-        playerSubset = PlayerSubset::Squad;
+        return PlayerSubset::Squad;
     } else if (playerSubsetString == "player") {
-        playerSubset = PlayerSubset::Player;
+        return PlayerSubset::Player;
+    } else {
+        return PlayerSubset::Unknown;
     }
-
-    return playerSubset;
 }
 
 QString Frostbite2CommandHandler::getPlayerSubsetString(const PlayerSubset &playerSubset)
 {
-    QString playerSubsetString;
-
     switch (playerSubset) {
     case PlayerSubset::All:
-        playerSubsetString = "all";
+        return "all";
         break;
 
     case PlayerSubset::Team:
-        playerSubsetString = "team";
+        return "team";
         break;
 
     case PlayerSubset::Squad:
-        playerSubsetString = "squad";
+        return "squad";
         break;
 
     case PlayerSubset::Player:
-        playerSubsetString = "player";
+        return "player";
         break;
-    }
 
-    return playerSubsetString;
+    default:
+        return QString();
+    }
 }
