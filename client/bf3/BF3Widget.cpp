@@ -22,17 +22,21 @@
 #include "BF3CommandHandler.h"
 #include "BF3LevelDictionary.h"
 
+#include "ConsoleWidget.h"
+
 BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);
+
+    console = new ConsoleWidget(con, this);
+
+    ui->tabWidget->addTab(console, QIcon(":/icons/console.png"), tr("Console"));
 
     /* Connection */
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
     connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
 
     /* Events */
-    connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
-    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataReceivedEvent(QString)));
 
     /* Commands */
     // Misc
@@ -40,12 +44,6 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
 
     /* User Interface */
-    // Console
-    connect(ui->pushButton_co_co, SIGNAL(clicked()), this, SLOT(pushButton_co_co_clicked()));
-    connect(ui->lineEdit_co_co, SIGNAL(editingFinished()), this, SLOT(pushButton_co_co_clicked()));
-
-    connect(ui->pushButton_co_pb, SIGNAL(clicked()), this, SLOT(pushButton_co_pb_clicked()));
-    connect(ui->lineEdit_co_pb, SIGNAL(editingFinished()), this, SLOT(pushButton_co_pb_clicked()));
 }
 
 BF3Widget::~BF3Widget()
@@ -112,29 +110,6 @@ void BF3Widget::startupCommands(bool authenticated)
 //    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
 //}
 
-void BF3Widget::logConsole(int type, const QString &message)
-{
-    QString time = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
-
-    switch (type) {
-        case 0: // Server con->send
-            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
-            break;
-
-        case 1: // Server receive
-            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
-            break;
-
-        case 2: // Punkbuster con->send
-            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
-            break;
-
-        case 3: // PunkBuster receive
-            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
-            break;
-    }
-}
-
 /* Connection */
 void BF3Widget::onConnected()
 {
@@ -149,15 +124,6 @@ void BF3Widget::onDisconnected()
 }
 
 /* Events */
-void BF3Widget::onDataSentEvent(const QString &request)
-{
-    logConsole(0, request);
-}
-
-void BF3Widget::onDataReceivedEvent(const QString &response)
-{
-    logConsole(1, response);
-}
 
 /* Commands */
 
@@ -271,21 +237,4 @@ void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
             ui->treeWidget_pl_players->resizeColumnToContents(i);
         }
     }
-}
-
-// Console
-void BF3Widget::pushButton_co_co_clicked()
-{
-    QString command = ui->lineEdit_co_co->text();
-    ui->lineEdit_co_co->clear();
-
-    con->sendCommand(command);
-}
-
-void BF3Widget::pushButton_co_pb_clicked()
-{
-    QString command = ui->lineEdit_co_pb->text();
-    ui->lineEdit_co_pb->clear();
-
-    con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
 }

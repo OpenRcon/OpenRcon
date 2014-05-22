@@ -29,6 +29,8 @@
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
 
+class ConsoleWidget;
+
 namespace Ui {
     class BF3Widget;
 }
@@ -45,6 +47,7 @@ public:
 
 private:
     Ui::BF3Widget *ui;
+    ConsoleWidget *console;
 
     /* User Interface */
 
@@ -60,13 +63,11 @@ private:
     // Spectator List
 
     // Console
-    QCompleter *completer;
 
     void setAuthenticated(bool authenticated);
     void startupCommands(bool authenticated);
 //    void logEvent(const QString &event, const QString &message);
 //    void logChat(const QString &sender, const QString &message, const QString &target);
-    void logConsole(int type, const QString &message);
 
     QIcon getRankIcon(int rank);
 
@@ -76,8 +77,6 @@ private slots:
     void onDisconnected();
 
     /* Events */
-    void onDataSentEvent(const QString &request);
-    void onDataReceivedEvent(const QString &response);
 
     /* Commands */
 
@@ -127,8 +126,6 @@ private slots:
     // Options
 
     // Console
-    void pushButton_co_co_clicked();
-    void pushButton_co_pb_clicked();
 
 };
 
