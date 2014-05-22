@@ -49,6 +49,7 @@ private:
 
 private slots:
     /* Commands */
+    void onLoginHashedCommand(bool auth);
     void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
 
     /* User Interface */

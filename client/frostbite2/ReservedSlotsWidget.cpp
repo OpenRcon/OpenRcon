@@ -40,6 +40,7 @@ ReservedSlotsWidget::ReservedSlotsWidget(FrostbiteConnection *connection, QWidge
     menu_rs_reservedSlotsList->addAction(action_rs_reservedSlotsList_remove);
 
     /* Commands */
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
     connect(commandHandler, SIGNAL(onReservedSlotsListListCommand(QStringList)), this, SLOT(onReservedSlotsListListCommand(QStringList)));
 
     /* User Interface */
@@ -58,6 +59,13 @@ ReservedSlotsWidget::~ReservedSlotsWidget()
 
     delete menu_rs_reservedSlotsList;
     delete action_rs_reservedSlotsList_remove;
+}
+
+void ReservedSlotsWidget::onLoginHashedCommand(bool auth)
+{
+    if (auth) {
+        commandHandler->sendReservedSlotsListListCommand();
+    }
 }
 
 void ReservedSlotsWidget::onReservedSlotsListListCommand(const QStringList &reservedSlotsList)

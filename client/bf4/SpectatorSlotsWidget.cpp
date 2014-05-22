@@ -40,6 +40,7 @@ SpectatorSlotsWidget::SpectatorSlotsWidget(FrostbiteConnection *connection, QWid
     menu_ss_spectatorList->addAction(action_ss_spectatorList_remove);
 
     /* Commands */
+    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
     connect(commandHandler, SIGNAL(onSpectatorListListCommand(QStringList)), this, SLOT(onSpectatorListListCommand(QStringList)));
 
     /* User Interface */
@@ -57,6 +58,13 @@ SpectatorSlotsWidget::~SpectatorSlotsWidget()
 
     delete menu_ss_spectatorList;
     delete action_ss_spectatorList_remove;
+}
+
+void SpectatorSlotsWidget::onLoginHashedCommand(bool auth)
+{
+    if (auth) {
+        commandHandler->sendSpectatorListListCommand();
+    }
 }
 
 void SpectatorSlotsWidget::onSpectatorListListCommand(const QStringList &spectatorList)

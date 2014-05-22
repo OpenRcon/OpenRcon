@@ -366,10 +366,6 @@ void BF4Widget::startupCommands(bool auth)
 
         // Reserved Slots
         commandHandler->sendReservedSlotsListAggressiveJoinCommand();
-        commandHandler->sendReservedSlotsListListCommand();
-
-        // Spectator list
-        commandHandler->sendSpectatorListListCommand();
 
         // Squad
 

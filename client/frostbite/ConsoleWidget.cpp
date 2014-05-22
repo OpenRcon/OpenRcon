@@ -149,6 +149,7 @@ ConsoleWidget::ConsoleWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(connection, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
     connect(connection, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataReceivedEvent(QString)));
 
+    /* Commands */
     connect(commandHandler, SIGNAL(onPunkBusterMessageEvent(QString)), this, SLOT(onPunkBusterMessageEvent(QString)));
 
     /* User Interface */
