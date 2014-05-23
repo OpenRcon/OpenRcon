@@ -22,21 +22,22 @@
 #include "BF3CommandHandler.h"
 #include "BF3LevelDictionary.h"
 
+#include "ReservedSlotsWidget.h"
 #include "ConsoleWidget.h"
 
 BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);
 
-    console = new ConsoleWidget(con, this);
+    reservedSlotsWidget = new ReservedSlotsWidget(con, this);
+    consoleWidget = new ConsoleWidget(con, this);
 
-    ui->tabWidget->addTab(console, QIcon(":/icons/console.png"), tr("Console"));
+    ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
+    ui->tabWidget->addTab(consoleWidget, QIcon(":/icons/console.png"), tr("Console"));
 
     /* Connection */
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
     connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
-
-    /* Events */
 
     /* Commands */
     // Misc
@@ -49,6 +50,9 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
 BF3Widget::~BF3Widget()
 {
     delete ui;
+
+    delete reservedSlotsWidget;
+    delete consoleWidget;
 }
 
 void BF3Widget::setAuthenticated(bool authenticated)
@@ -57,8 +61,7 @@ void BF3Widget::setAuthenticated(bool authenticated)
 //    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), authenticated);
 //    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), authenticated);
 //    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), authenticated);
-//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_rs), authenticated);
-//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ss), authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), authenticated);
 
     startupCommands(authenticated);
 }

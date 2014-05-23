@@ -29,6 +29,7 @@
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
 
+class ReservedSlotsWidget;
 class ConsoleWidget;
 
 namespace Ui {
@@ -47,7 +48,8 @@ public:
 
 private:
     Ui::BF3Widget *ui;
-    ConsoleWidget *console;
+    ReservedSlotsWidget *reservedSlotsWidget;
+    ConsoleWidget *consoleWidget;
 
     /* User Interface */
 
