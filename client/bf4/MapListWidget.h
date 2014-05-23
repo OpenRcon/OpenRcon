@@ -27,7 +27,6 @@
 class QMenu;
 class QAction;
 class FrostbiteConnection;
-struct ServerInfo;
 
 namespace Ui {
     class MapListWidget;
@@ -56,7 +55,7 @@ private:
 private slots:
     /* Commands */
     void onLoginHashedCommand(bool auth);
-    void onServerInfoCommand(const ServerInfo &serverInfo);
+    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
     void onMapListListCommand(const MapList &mapList);
 
     /* User Interface */

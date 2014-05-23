@@ -54,7 +54,7 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
 
     /* Commands */
     connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onServerInfoCommand(ServerInfo)), this, SLOT(onServerInfoCommand(ServerInfo)));
+    connect(commandHandler, SIGNAL(onServerInfoCommand(BF4ServerInfo)), this, SLOT(onServerInfoCommand(BF4ServerInfo)));
     connect(commandHandler, SIGNAL(onMapListListCommand(MapList)), this, SLOT(onMapListListCommand(MapList)));
 
     /* User Interface */
@@ -87,7 +87,7 @@ void MapListWidget::onLoginHashedCommand(bool auth)
     }
 }
 
-void MapListWidget::onServerInfoCommand(const ServerInfo &serverInfo)
+void MapListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.currentMap);
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.gameMode);
@@ -99,6 +99,8 @@ void MapListWidget::onServerInfoCommand(const ServerInfo &serverInfo)
 
     ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
     setAvailableMaplist(gameModeIndex);
+
+    qDebug() << "lodsmfdjbvdf vdjvn dfsnbvdfnb gfnb ";
 }
 
 void MapListWidget::onMapListListCommand(const MapList &mapList)
