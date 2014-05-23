@@ -28,6 +28,8 @@
 #include "ui_BF4Widget.h"
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
+
+#include "MapListWidget.h"
 #include "ReservedSlotsWidget.h"
 #include "SpectatorSlotsWidget.h"
 #include "ConsoleWidget.h"
@@ -79,32 +81,21 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     ui->comboBox_ch_target->addItem(tr("Team"));
     ui->comboBox_ch_target->addItem(tr("Squad"));
 
-    // Maplist
-    ui->comboBox_ml_gameMode->addItems(BF4LevelDictionary::getGameModeNames());
-    setAvailableMaplist(0);
-    ui->spinBox_ml_rounds->setValue(2);
-
-    menu_ml_available = new QMenu(ui->treeWidget_ml_available);
-    action_ml_available_add = new QAction(tr("Add"), menu_ml_available);
-    menu_ml_current = new QMenu(ui->treeWidget_ml_current);
-    action_ml_current_remove = new QAction(tr("Remove"), menu_ml_current);
-
-    menu_ml_available->addAction(action_ml_available_add);
-    menu_ml_current->addAction(action_ml_current_remove);
-
     // Banlist
     menu_bl_banList = new QMenu(ui->tableWidget_bl_banList);
     action_bl_banList_remove = new QAction(tr("Remove"), menu_bl_banList);
 
     menu_bl_banList->addAction(action_bl_banList_remove);
 
-    reservedSlots = new ReservedSlotsWidget(con, this);
-    spectatorSlots = new SpectatorSlotsWidget(con, this);
-    console = new ConsoleWidget(con, this);
+    mapListWidget = new MapListWidget(con, this);
+    reservedSlotsWidget = new ReservedSlotsWidget(con, this);
+    spectatorSlotsWidget = new SpectatorSlotsWidget(con, this);
+    consoleWidget = new ConsoleWidget(con, this);
 
-    ui->tabWidget->addTab(reservedSlots, tr("Reserved Slots"));
-    ui->tabWidget->addTab(spectatorSlots, tr("Spectator Slots"));
-    ui->tabWidget->addTab(console, QIcon(":/icons/console.png"), tr("Console"));
+    ui->tabWidget->addTab(mapListWidget, tr("Maplist"));
+    ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
+    ui->tabWidget->addTab(spectatorSlotsWidget, tr("Spectator Slots"));
+    ui->tabWidget->addTab(consoleWidget, QIcon(":/icons/console.png"), tr("Console"));
 
     /* Connection */
     connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
@@ -143,16 +134,10 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     // FairFight
     connect(commandHandler, SIGNAL(onFairFightIsActiveCommand(bool)), this, SLOT(onFairFightIsActiveCommand(bool)));
 
-    // Maplist
-    connect(commandHandler, SIGNAL(onMapListListCommand(MapList)), this, SLOT(onMapListListCommand(MapList)));
-
     // Player
 
     // Punkbuster
     connect(commandHandler, SIGNAL(onPunkBusterIsActiveCommand(bool)), this, SLOT(onPunkBusterIsActiveCommand(bool)));
-
-    // Reserved Slots
-    connect(commandHandler, SIGNAL(onReservedSlotsListAggressiveJoinCommand(bool)), this, SLOT(onReservedSlotsListAggressiveJoinCommand(bool)));
 
     // Squad
 
@@ -269,17 +254,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(ui->spinBox_so_gp_roundRestartPlayerCount, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundRestartPlayerCount_valueChanged(int)));
     connect(ui->spinBox_so_gp_roundStartPlayerCount, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundStartPlayerCount_valueChanged(int)));
 
-    // Maplist
-    connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
-    connect(ui->treeWidget_ml_available, SIGNAL(itemSelectionChanged()), this, SLOT(treeWidget_ml_available_itemSelectionChanged()));
-    connect(ui->treeWidget_ml_available, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_available_customContextMenuRequested(QPoint)));
-    connect(action_ml_available_add, SIGNAL(triggered()), this, SLOT(pushButton_ml_add_clicked()));
-    connect(ui->pushButton_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_ml_add_clicked()));
-    connect(ui->pushButton_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_ml_remove_clicked()));
-    connect(ui->treeWidget_ml_current, SIGNAL(itemSelectionChanged()), this, SLOT(treeWidget_ml_current_itemSelectionChanged()));
-    connect(ui->treeWidget_ml_current, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_current_customContextMenuRequested(QPoint)));
-    connect(action_ml_current_remove, SIGNAL(triggered()), this, SLOT(pushButton_ml_remove_clicked()));
-
     // Banlist
     connect(ui->tableWidget_bl_banList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(tableWidget_bl_banList_customContextMenuRequested(QPoint)));
     connect(action_bl_banList_remove, SIGNAL(triggered()), this, SLOT(action_bl_banList_remove_triggered()));
@@ -310,13 +284,6 @@ BF4Widget::~BF4Widget()
     delete action_pl_players_copyTo_name;
     delete action_pl_players_copyTo_guid;
 
-    // Maplist
-    delete menu_ml_available;
-    delete action_ml_available_add;
-
-    delete menu_ml_current;
-    delete action_ml_current_remove;
-
     // Banlist
     delete menu_bl_banList;
     delete action_bl_banList_remove;
@@ -329,10 +296,10 @@ void BF4Widget::setAuthenticated(bool auth)
 
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlots), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlots), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), auth);
 
     startupCommands(auth);
 }
@@ -636,15 +603,6 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 
     ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
     ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed + 1).arg(serverInfo.roundsTotal));
-
-    // Set maplist.
-    int gameModeIndex = BF4LevelDictionary::getGameModeNames().indexOf(currentGameMode.name);
-
-    ui->label_ml_currentMapValue->setText(currentLevel.name);
-    ui->label_ml_currentMapImage->setPixmap(currentLevel.image());
-
-    ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
-    setAvailableMaplist(gameModeIndex);
 }
 
 void BF4Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
@@ -673,12 +631,6 @@ void BF4Widget::onBanListListCommand(const BanList &banList)
 void BF4Widget::onFairFightIsActiveCommand(bool isActive)
 {
     ui->checkBox_so_co_fairFight->setChecked(isActive);
-}
-
-// Maplist
-void BF4Widget::onMapListListCommand(const MapList &mapList)
-{
-    setCurrentMaplist(mapList);
 }
 
 // Player
@@ -714,7 +666,7 @@ void BF4Widget::onVarsAlwaysAllowSpectatorsCommand(bool enabled)
     ui->checkBox_so_co_alwaysAllowSpectators->setEnabled(false);
     ui->checkBox_so_co_alwaysAllowSpectators->setChecked(enabled);
 
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlots), !enabled);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), !enabled);
 }
 
 void BF4Widget::onVarsAutoBalanceCommand(bool enabled)
@@ -1128,141 +1080,6 @@ void BF4Widget::pushButton_ch_send_clicked()
         }
 
         ui->lineEdit_ch->clear();
-    }
-}
-
-// Maplist
-void BF4Widget::comboBox_ml_gameMode_currentIndexChanged(int index)
-{
-    setAvailableMaplist(index);
-}
-
-void BF4Widget::treeWidget_ml_available_itemSelectionChanged()
-{
-//    if (ui->treeWidget_ml_available->topLevelItemCount() >= 1) {
-        LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
-
-        ui->label_ml_availableSelectedMapImage->setPixmap(level.image());
-//    }
-}
-
-void BF4Widget::treeWidget_ml_available_customContextMenuRequested(const QPoint &pos)
-{
-    if (ui->treeWidget_ml_available->itemAt(pos)) {
-        menu_ml_available->exec(QCursor::pos());
-    }
-}
-
-void BF4Widget::pushButton_ml_add_clicked()
-{
-    // Make sure that treeWidget_ml_available selected item count is greater than zero.
-    if (ui->treeWidget_ml_available->selectedItems().size() > 0) {
-        int rounds = ui->spinBox_ml_rounds->value();
-
-        if (rounds > 0) {
-            LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
-            GameModeEntry gameMode = BF4LevelDictionary::getGameMode(ui->treeWidget_ml_available->currentItem()->text(1));
-
-            ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
-
-            addCurrentMapListRow(level.name, gameMode.name, rounds);
-            commandHandler->sendMapListAddCommand(level.engineName, gameMode.engineName, rounds);
-        }
-    }
-}
-
-void BF4Widget::pushButton_ml_remove_clicked()
-{
-    // Make sure that treeWidget_ml_current selected item count is greater than zero.
-    if (ui->treeWidget_ml_current->selectedItems().size() > 0) {
-        if (ui->treeWidget_ml_current->topLevelItemCount() < 1) {
-            ui->label_ml_currentSelectedMapImage->clear();
-        }
-
-        int index = ui->treeWidget_ml_current->currentIndex().row();
-
-        ui->treeWidget_ml_current->takeTopLevelItem(index);
-        commandHandler->sendMapListRemoveCommand(index);
-    }
-}
-
-void BF4Widget::addAvailableMapListRow(const QString &name, const QString &gameMode)
-{
-    QTreeWidgetItem *item = new QTreeWidgetItem();
-    item->setText(0, name);
-    item->setText(1, gameMode);
-
-    ui->treeWidget_ml_available->addTopLevelItem(item);
-}
-
-void BF4Widget::setAvailableMaplist(int gameModeIndex)
-{
-    ui->treeWidget_ml_available->clear();
-
-    QList<LevelEntry> levelList = BF4LevelDictionary::getLevels(gameModeIndex);
-    GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeIndex);
-
-    ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().image());
-
-    for (LevelEntry level : levelList) {
-        addAvailableMapListRow(level.name, gameMode.name);
-    }
-
-    ui->treeWidget_ml_available->sortItems(0, Qt::AscendingOrder);
-
-    // Resize columns so that they fits the content.
-    for (int i = 0; i < ui->treeWidget_ml_available->columnCount(); i++) {
-        ui->treeWidget_ml_available->resizeColumnToContents(i);
-    }
-}
-
-void BF4Widget::treeWidget_ml_current_itemSelectionChanged()
-{
-    if (ui->treeWidget_ml_current->topLevelItemCount() > 1) {
-        LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_current->currentItem()->text(0));
-
-        ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
-    }
-}
-
-void BF4Widget::treeWidget_ml_current_customContextMenuRequested(const QPoint &pos)
-{
-    if (ui->treeWidget_ml_current->itemAt(pos)) {
-        menu_ml_current->exec(QCursor::pos());
-    }
-}
-
-void BF4Widget::addCurrentMapListRow(const QString &name, const QString &gameMode, int rounds)
-{
-    QTreeWidgetItem *item = new QTreeWidgetItem();
-    item->setText(0, name);
-    item->setText(1, gameMode);
-    item->setText(2, QString::number(rounds));
-
-    ui->treeWidget_ml_current->addTopLevelItem(item);
-}
-
-void BF4Widget::setCurrentMaplist(const MapList &mapList)
-{
-    ui->treeWidget_ml_current->clear();
-
-    for (int i = 0; i < mapList.length(); i++) {
-        MapListEntry entry = mapList.at(i);
-        LevelEntry level = BF4LevelDictionary::getLevel(entry.level);
-        GameModeEntry gameMode = BF4LevelDictionary::getGameMode(entry.gameMode);
-
-        if (i == 0) {
-            ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
-        }
-
-        addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
-    }
-
-    ui->treeWidget_ml_current->sortItems(0, Qt::AscendingOrder);
-
-    // Resize columns so that they fits the content.
-    for (int i = 0; i < ui->treeWidget_ml_available->columnCount(); i++) {
-        ui->treeWidget_ml_current->resizeColumnToContents(i);
     }
 }
 

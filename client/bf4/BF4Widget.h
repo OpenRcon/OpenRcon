@@ -34,6 +34,7 @@
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
+class MapListWidget;
 class ReservedSlotsWidget;
 class SpectatorSlotsWidget;
 class ConsoleWidget;
@@ -55,9 +56,10 @@ public:
 private:
     Ui::BF4Widget *ui;
 
-    ReservedSlotsWidget *reservedSlots;
-    SpectatorSlotsWidget *spectatorSlots;
-    ConsoleWidget *console;
+    MapListWidget *mapListWidget;
+    ReservedSlotsWidget *reservedSlotsWidget;
+    SpectatorSlotsWidget *spectatorSlotsWidget;
+    ConsoleWidget *consoleWidget;
 
     /* User Interface */
     // ServerInfo
@@ -79,13 +81,6 @@ private:
     QMenu *menu_pl_players_copyTo;
     QAction *action_pl_players_copyTo_name;
     QAction *action_pl_players_copyTo_guid;
-
-    // Maplist
-    QMenu *menu_ml_available;
-    QAction *action_ml_available_add;
-
-    QMenu *menu_ml_current;
-    QAction *action_ml_current_remove;
 
     // Banlist
     QMenu *menu_bl_banList;
@@ -142,9 +137,6 @@ private slots:
 
     // FairFight
     void onFairFightIsActiveCommand(bool isActive);
-
-    // Maplist
-    void onMapListListCommand(const MapList &mapList);
 
     // Player
 
@@ -217,20 +209,6 @@ private slots:
     // Chat
     void comboBox_ch_mode_currentIndexChanged(int index);
     void pushButton_ch_send_clicked();
-
-    // Maplist
-    void comboBox_ml_gameMode_currentIndexChanged(int);
-    void treeWidget_ml_available_itemSelectionChanged();
-    void treeWidget_ml_available_customContextMenuRequested(const QPoint &pos);
-    void pushButton_ml_add_clicked();
-    void pushButton_ml_remove_clicked();
-    void treeWidget_ml_current_itemSelectionChanged();
-    void treeWidget_ml_current_customContextMenuRequested(const QPoint &pos);
-
-    void addAvailableMapListRow(const QString &name, const QString &gameMode);
-    void setAvailableMaplist(int gameModeIndex);
-    void addCurrentMapListRow(const QString &name, const QString &gameMode, int rounds);
-    void setCurrentMaplist(const MapList &mapList);
 
     // BanList
     void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);
