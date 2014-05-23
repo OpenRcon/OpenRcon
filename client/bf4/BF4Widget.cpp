@@ -962,7 +962,9 @@ void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
 
 void BF4Widget::treeWidget_pl_players_customContextMenuRequested(const QPoint &pos)
 {
-    if (ui->treeWidget_pl_players->itemAt(pos)) {
+    QTreeWidgetItem *item = ui->treeWidget_pl_players->itemAt(pos);
+
+    if (item && item->parent()) {
         menu_pl_players->exec(QCursor::pos());
     }
 }
