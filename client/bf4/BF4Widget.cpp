@@ -264,6 +264,11 @@ BF4Widget::~BF4Widget()
 {
     delete ui;
 
+    delete mapListWidget;
+    delete reservedSlotsWidget;
+    delete spectatorSlotsWidget;
+    delete consoleWidget;
+
     /* User Interface */
     // ServerInfo
     delete timerServerInfoRoundTime;
@@ -873,7 +878,11 @@ void BF4Widget::pushButton_si_restartRound_clicked()
 
 void BF4Widget::pushButton_si_runNextRound_clicked()
 {
-    commandHandler->sendMapListRunNextRoundCommand();
+    int ret = QMessageBox::question(this, tr("Run next round"), tr("Are you sure you want to run the next round?"));
+
+    if (ret == QMessageBox::Yes) {
+        commandHandler->sendMapListRunNextRoundCommand();
+    }
 }
 
 void BF4Widget::updateRoundTime()
