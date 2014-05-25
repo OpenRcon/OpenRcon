@@ -29,6 +29,7 @@
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
 
+#include "ChatWidget.h"
 #include "MapListWidget.h"
 #include "ReservedSlotsWidget.h"
 #include "SpectatorSlotsWidget.h"
@@ -70,28 +71,19 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     menu_pl_players_copyTo->addAction(action_pl_players_copyTo_name);
     menu_pl_players_copyTo->addAction(action_pl_players_copyTo_guid);
 
-    // Chat
-    ui->comboBox_ch_mode->addItem(tr("Say"));
-    ui->comboBox_ch_mode->addItem(tr("Yell"));
-
-    ui->spinBox_ch_duration->setEnabled(false);
-    ui->spinBox_ch_duration->setValue(10);
-
-    ui->comboBox_ch_target->addItem(tr("All"));
-    ui->comboBox_ch_target->addItem(tr("Team"));
-    ui->comboBox_ch_target->addItem(tr("Squad"));
-
     // Banlist
     menu_bl_banList = new QMenu(ui->tableWidget_bl_banList);
     action_bl_banList_remove = new QAction(tr("Remove"), menu_bl_banList);
 
     menu_bl_banList->addAction(action_bl_banList_remove);
 
+    chatWidget = new ChatWidget(con, this);
     mapListWidget = new MapListWidget(con, this);
     reservedSlotsWidget = new ReservedSlotsWidget(con, this);
     spectatorSlotsWidget = new SpectatorSlotsWidget(con, this);
     consoleWidget = new ConsoleWidget(con, this);
 
+    ui->tabWidget->addTab(chatWidget, tr("Chat"));
     ui->tabWidget->addTab(mapListWidget, tr("Maplist"));
     ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
     ui->tabWidget->addTab(spectatorSlotsWidget, tr("Spectator Slots"));
@@ -202,12 +194,8 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onPlayerKillEvent(QString, QString, QString, bool)), this, SLOT(updatePlayerList()));
     connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(QString, int, int)), this, SLOT(updatePlayerList()));
     connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(QString, int, int)), this, SLOT(updatePlayerList()));
-    // Events
 
-    // Chat
-    connect(ui->comboBox_ch_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ch_mode_currentIndexChanged(int)));
-    connect(ui->pushButton_ch_send, SIGNAL(clicked()), this, SLOT(pushButton_ch_send_clicked()));
-    connect(ui->lineEdit_ch, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_send_clicked()));
+    // Events
 
     // Options -> Details
     connect(ui->lineEdit_op_so_serverName, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverName_editingFinished()));
@@ -257,13 +245,13 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     // Banlist
     connect(ui->tableWidget_bl_banList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(tableWidget_bl_banList_customContextMenuRequested(QPoint)));
     connect(action_bl_banList_remove, SIGNAL(triggered()), this, SLOT(action_bl_banList_remove_triggered()));
-
 }
 
 BF4Widget::~BF4Widget()
 {
     delete ui;
 
+    delete chatWidget;
     delete mapListWidget;
     delete reservedSlotsWidget;
     delete spectatorSlotsWidget;
@@ -299,7 +287,7 @@ void BF4Widget::setAuthenticated(bool auth)
 {
     authenticated = auth;
 
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), auth);
@@ -325,19 +313,14 @@ void BF4Widget::startupCommands(bool auth)
         // Banning
         commandHandler->sendBanListListCommand();
 
+        // FairFight
         commandHandler->sendFairFightIsActiveCommand();
-
-        // Maplist
-        commandHandler->sendMapListListCommand();
 
         // Player
 
         // Punkbuster
         commandHandler->sendPunkBusterIsActiveCommand();
         commandHandler->sendPunkBusterPbSvCommand("pb_sv_plist");
-
-        // Reserved Slots
-        commandHandler->sendReservedSlotsListAggressiveJoinCommand();
 
         // Squad
 
@@ -392,11 +375,6 @@ void BF4Widget::logEvent(const QString &event, const QString &message)
     ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
     ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
     ui->tableWidget_ev_events->resizeColumnsToContents();
-}
-
-void BF4Widget::logChat(const QString &sender, const QString &message, const QString &target)
-{
-    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
 }
 
 /* Connection */
@@ -464,7 +442,6 @@ void BF4Widget::onPlayerChatEvent(const QString &sender, const QString &message,
     Q_UNUSED(target);
 
     logEvent("PlayerChat", QString("%1: %2").arg(sender).arg(message));
-    logChat(sender, message, target);
 }
 
 void BF4Widget::onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId)
@@ -1038,61 +1015,6 @@ void BF4Widget::menu_pl_players_move_triggered(QAction *action)
 }
 
 // Event
-
-// Chat
-void BF4Widget::comboBox_ch_mode_currentIndexChanged(int index)
-{
-    ui->spinBox_ch_duration->setEnabled(index > 0);
-}
-
-void BF4Widget::pushButton_ch_send_clicked()
-{
-    QString message = ui->lineEdit_ch->text();
-    int target = ui->comboBox_ch_target->currentIndex();
-    int type = ui->comboBox_ch_mode->currentIndex();
-    int duration = ui->spinBox_ch_duration->value();
-
-    if (!message.isEmpty()) {
-        PlayerSubset playerSubset;
-        int parameter;
-
-        switch (target) {
-        case 0:
-            playerSubset = PlayerSubset::All;
-            break;
-
-        case 1:
-            playerSubset = PlayerSubset::Team;
-            parameter = 0;
-            break;
-
-        case 2:
-            playerSubset = PlayerSubset::Team;
-            parameter = 1;
-            break;
-        }
-
-        switch (type) {
-        case 0:
-            if (parameter) {
-                commandHandler->sendAdminSayCommand(message, playerSubset, parameter);
-            } else {
-                commandHandler->sendAdminSayCommand(message, playerSubset);
-            }
-            break;
-
-        case 1:
-            if (parameter) {
-                commandHandler->sendAdminYellCommand(message, duration, playerSubset, parameter);
-            } else {
-                commandHandler->sendAdminYellCommand(message, duration, playerSubset);
-            }
-            break;
-        }
-
-        ui->lineEdit_ch->clear();
-    }
-}
 
 // BanList
 void BF4Widget::tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos)

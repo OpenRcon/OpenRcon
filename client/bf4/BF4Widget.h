@@ -34,6 +34,7 @@
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
+class ChatWidget;
 class MapListWidget;
 class ReservedSlotsWidget;
 class SpectatorSlotsWidget;
@@ -56,6 +57,7 @@ public:
 private:
     Ui::BF4Widget *ui;
 
+    ChatWidget *chatWidget;
     MapListWidget *mapListWidget;
     ReservedSlotsWidget *reservedSlotsWidget;
     SpectatorSlotsWidget *spectatorSlotsWidget;
@@ -92,8 +94,6 @@ private:
     void setAuthenticated(bool auth);
     void startupCommands(bool auth);
     void logEvent(const QString &event, const QString &message);
-    void logChat(const QString &sender, const QString &message, const QString &target);
-    void logConsole(int type, const QString &message);
 
     QIcon getRankIcon(int rank);
 
@@ -205,10 +205,6 @@ private slots:
     void action_pl_players_copyTo_guid_triggered();
 
     void menu_pl_players_move_triggered(QAction *action);
-
-    // Chat
-    void comboBox_ch_mode_currentIndexChanged(int index);
-    void pushButton_ch_send_clicked();
 
     // BanList
     void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);

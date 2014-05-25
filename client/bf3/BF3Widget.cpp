@@ -17,21 +17,24 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ChatWidget.h"
+#include "ReservedSlotsWidget.h"
+#include "ConsoleWidget.h"
+
 #include "BF3Widget.h"
 #include "ui_BF3Widget.h"
 #include "BF3CommandHandler.h"
 #include "BF3LevelDictionary.h"
 
-#include "ReservedSlotsWidget.h"
-#include "ConsoleWidget.h"
-
 BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);
 
+    chatWidget = new ChatWidget(con, this);
     reservedSlotsWidget = new ReservedSlotsWidget(con, this);
     consoleWidget = new ConsoleWidget(con, this);
 
+    ui->tabWidget->addTab(chatWidget, tr("Chat"));
     ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
     ui->tabWidget->addTab(consoleWidget, QIcon(":/icons/console.png"), tr("Console"));
 
@@ -51,13 +54,14 @@ BF3Widget::~BF3Widget()
 {
     delete ui;
 
+    delete chatWidget;
     delete reservedSlotsWidget;
     delete consoleWidget;
 }
 
 void BF3Widget::setAuthenticated(bool authenticated)
 {
-//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ch), authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), authenticated);
 //    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), authenticated);
 //    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), authenticated);
 //    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), authenticated);
@@ -73,7 +77,7 @@ void BF3Widget::startupCommands(bool authenticated)
     commandHandler->sendServerInfoCommand();
 
     if (authenticated) {
-//        commandHandler->sendAdminEventsEnabledCommand(true);
+        commandHandler->sendAdminEventsEnabledCommand(true);
 
         // Admins
 
@@ -84,10 +88,6 @@ void BF3Widget::startupCommands(bool authenticated)
         // Player
 
         // Punkbuster
-
-        // Reserved Slots
-
-        // Spectator list
 
         // Squad
 

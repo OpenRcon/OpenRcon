@@ -29,6 +29,7 @@
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
 
+class ChatWidget;
 class ReservedSlotsWidget;
 class ConsoleWidget;
 
@@ -48,11 +49,11 @@ public:
 
 private:
     Ui::BF3Widget *ui;
+    ChatWidget *chatWidget;
     ReservedSlotsWidget *reservedSlotsWidget;
     ConsoleWidget *consoleWidget;
 
     /* User Interface */
-
     // ServerInfo
 
     // Players
@@ -60,16 +61,9 @@ private:
 
     // Banlist
 
-    // Reserved Slots
-
-    // Spectator List
-
-    // Console
-
     void setAuthenticated(bool authenticated);
     void startupCommands(bool authenticated);
 //    void logEvent(const QString &event, const QString &message);
-//    void logChat(const QString &sender, const QString &message, const QString &target);
 
     QIcon getRankIcon(int rank);
 
@@ -99,10 +93,6 @@ private slots:
 
     // Punkbuster
 
-    // Reserved Slots
-
-    // Spectator list
-
     // Squad
 
     // Variables
@@ -115,19 +105,11 @@ private slots:
     void updatePlayerList();
     void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
-    // Chat
-
     // Maplist
 
     // BanList
 
-    // Reserved Slots
-
-    // Spectator List
-
     // Options
-
-    // Console
 
 };
 

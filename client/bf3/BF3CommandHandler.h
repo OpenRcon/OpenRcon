@@ -39,21 +39,9 @@ public:
     void sendListPlayersCommand(const PlayerSubset &playerSubset);
 
 private:
-    /* Parse events */
-    void parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerJoinEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerLeaveEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerSpawnEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerKillEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerChatEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    /* Parse events */ 
     void parseMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseLevelLoadedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     /* Parse commands */
     // Misc
@@ -109,20 +97,8 @@ private:
 
 signals:
     //* Event signals */
-    void onPlayerAuthenticatedEvent(const QString &player);
-    void onPlayerJoinEvent(const QString &player, const QString &guid);
-    void onPlayerLeaveEvent(const QString &player, const QString &info);
-    void onPlayerSpawnEvent(const QString &player, int teamId);
-    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
-    void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
-    void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
-    void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
-    void onPunkBusterMessageEvent(const QString &message);
     void onMaxPlayerCountChangeEvent();
     void onLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
-    void onServerRoundOverEvent(int winningTeamId);
-    void onServerRoundOverPlayersEvent(const QString &playerInfo);
-    void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Command signals */
     // Misc

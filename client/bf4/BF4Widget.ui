@@ -103,7 +103,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -208,43 +208,6 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_ch">
-      <attribute name="icon">
-       <iconset>
-        <normaloff>:/icons/images/icons/user-invisible.png</normaloff>:/icons/images/icons/user-invisible.png</iconset>
-      </attribute>
-      <attribute name="title">
-       <string>Chat</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="1" column="3">
-        <widget class="QSpinBox" name="spinBox_ch_duration"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLineEdit" name="lineEdit_ch"/>
-       </item>
-       <item row="0" column="0" colspan="6">
-        <widget class="QTextEdit" name="textEdit_ch">
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="5">
-        <widget class="QPushButton" name="pushButton_ch_send">
-         <property name="text">
-          <string>Send</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QComboBox" name="comboBox_ch_mode"/>
-       </item>
-       <item row="1" column="1">
-        <widget class="QComboBox" name="comboBox_ch_target"/>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="tab_op">
       <attribute name="icon">
        <iconset>
@@ -257,7 +220,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget_op">
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_so_de">
           <attribute name="title">
