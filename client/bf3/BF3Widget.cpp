@@ -17,6 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "FrostbiteUtils.h"
+
 #include "ChatWidget.h"
 #include "ReservedSlotsWidget.h"
 #include "ConsoleWidget.h"
@@ -203,7 +205,7 @@ void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
             playerItem->setIcon(0, getRankIcon(player.rank));
             playerItem->setText(0, player.name);
-            playerItem->setText(1, getSquadName(player.squadId));
+            playerItem->setText(1, FrostbiteUtils::getSquadName(player.squadId));
             playerItem->setText(2, QString::number(player.kills));
             playerItem->setText(3, QString::number(player.deaths));
             playerItem->setText(4, QString::number(player.score));

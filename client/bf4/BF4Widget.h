@@ -34,6 +34,7 @@
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
+class PlayerListWidget;
 class ChatWidget;
 class MapListWidget;
 class ReservedSlotsWidget;
@@ -57,6 +58,7 @@ public:
 private:
     Ui::BF4Widget *ui;
 
+    PlayerListWidget *playerListWidget;
     ChatWidget *chatWidget;
     MapListWidget *mapListWidget;
     ReservedSlotsWidget *reservedSlotsWidget;
@@ -70,20 +72,6 @@ private:
     int roundTime;
     int serverUpTime;
 
-    // Players
-    QClipboard *clipboard;
-    QMenu *menu_pl_players;
-    QAction *action_pl_players_kill;
-    QAction *action_pl_players_kick;
-    QAction *action_pl_players_ban;
-    QAction *action_pl_players_reserveSlot;
-    QMenu *menu_pl_players_move;
-    QAction *action_pl_players_move_team;
-    QAction *action_pl_players_move_squad;
-    QMenu *menu_pl_players_copyTo;
-    QAction *action_pl_players_copyTo_name;
-    QAction *action_pl_players_copyTo_guid;
-
     // Banlist
     QMenu *menu_bl_banList;
     QAction *action_bl_banList_remove;
@@ -94,8 +82,6 @@ private:
     void setAuthenticated(bool auth);
     void startupCommands(bool auth);
     void logEvent(const QString &event, const QString &message);
-
-    QIcon getRankIcon(int rank);
 
     // Events
     void addEvent(const QString &event, const QString &message);
@@ -126,10 +112,8 @@ private slots:
     void onLoginHashedCommand(bool auth);
     void onVersionCommand(const QString &type, int build);
     void onServerInfoCommand(const BF4ServerInfo &serverInfo);
-    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
     // Admin
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
     void onAdminPasswordCommand(const QString &password);
 
     // Banning
@@ -192,19 +176,6 @@ private slots:
     void pushButton_si_runNextRound_clicked();
     void updateRoundTime();
     void updateUpTime();
-
-    // Players
-    void updatePlayerList();
-    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
-    void treeWidget_pl_players_customContextMenuRequested(const QPoint &pos);
-    void action_pl_players_kill_triggered();
-    void action_pl_players_kick_triggered();
-    void action_pl_players_ban_triggered();
-    void action_pl_players_reserveSlot_triggered();
-    void action_pl_players_copyTo_name_triggered();
-    void action_pl_players_copyTo_guid_triggered();
-
-    void menu_pl_players_move_triggered(QAction *action);
 
     // BanList
     void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);

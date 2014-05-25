@@ -17,25 +17,19 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FROSTBITEGAME_H
-#define FROSTBITEGAME_H
+#ifndef SQUAD_H
+#define SQUAD_H
 
-#include "Game.h"
-
-class FrostbiteGame : public Game
-{
-    Q_OBJECT
-
-public:
-    FrostbiteGame(ServerEntry *serverEntry);
-    ~FrostbiteGame();
-
-protected:
-    QMap<int, QString> versionMap;
-    QStringList commandList;
-
-    QString getVersionFromBuild(int build);
-
+enum class Squad {
+    None,
+    Alpha,
+    Bravo,
+    Charlie,
+    Delta,
+    Echo,
+    Foxtrot,
+    Golf,
+    Hotel
 };
 
-#endif // FROSTBITEGAME_H
+#endif // SQUAD_H

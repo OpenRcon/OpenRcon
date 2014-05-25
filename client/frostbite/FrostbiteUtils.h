@@ -22,6 +22,8 @@
 
 #include <QString>
 
+#include "Squad.h"
+
 struct Time;
 
 class FrostbiteUtils
@@ -33,6 +35,8 @@ public:
 
     static Time getTimeFromSeconds(int elapsedSeconds);
     static QString toString(Time time);
+    static QString getSquadName(Squad squad);
+    static QString getSquadName(int squadId);
 
 };
 

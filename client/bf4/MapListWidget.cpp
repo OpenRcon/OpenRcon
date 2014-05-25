@@ -99,8 +99,6 @@ void MapListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 
     ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
     setAvailableMaplist(gameModeIndex);
-
-    qDebug() << "lodsmfdjbvdf vdjvn dfsnbvdfnb gfnb ";
 }
 
 void MapListWidget::onMapListListCommand(const MapList &mapList)

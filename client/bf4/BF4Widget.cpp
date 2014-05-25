@@ -29,6 +29,7 @@
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
 
+#include "PlayerListWidget.h"
 #include "ChatWidget.h"
 #include "MapListWidget.h"
 #include "ReservedSlotsWidget.h"
@@ -50,39 +51,20 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(timerServerInfoUpTime, SIGNAL(timeout()), this, SLOT(updateUpTime()));
     timerServerInfoUpTime->start(1000);
 
-    // Players
-    clipboard = QApplication::clipboard();
-    menu_pl_players = new QMenu(ui->treeWidget_pl_players);
-    menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
-    action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
-    action_pl_players_kick = new QAction(tr("Kick"), menu_pl_players);
-    action_pl_players_ban = new QAction(tr("Ban"), menu_pl_players);
-    action_pl_players_reserveSlot = new QAction(tr("Reserve slot"), menu_pl_players);
-    menu_pl_players_copyTo = new QMenu(tr("Copy"), menu_pl_players);
-    action_pl_players_copyTo_name = new QAction(tr("Name"), this);
-    action_pl_players_copyTo_guid = new QAction(tr("GUID"), this);
-
-    menu_pl_players->addMenu(menu_pl_players_move);
-    menu_pl_players->addAction(action_pl_players_kill);
-    menu_pl_players->addAction(action_pl_players_kick);
-    menu_pl_players->addAction(action_pl_players_ban);
-    menu_pl_players->addAction(action_pl_players_reserveSlot);
-    menu_pl_players->addMenu(menu_pl_players_copyTo);
-    menu_pl_players_copyTo->addAction(action_pl_players_copyTo_name);
-    menu_pl_players_copyTo->addAction(action_pl_players_copyTo_guid);
-
     // Banlist
     menu_bl_banList = new QMenu(ui->tableWidget_bl_banList);
     action_bl_banList_remove = new QAction(tr("Remove"), menu_bl_banList);
 
     menu_bl_banList->addAction(action_bl_banList_remove);
 
+    playerListWidget = new PlayerListWidget(con, this);
     chatWidget = new ChatWidget(con, this);
     mapListWidget = new MapListWidget(con, this);
     reservedSlotsWidget = new ReservedSlotsWidget(con, this);
     spectatorSlotsWidget = new SpectatorSlotsWidget(con, this);
     consoleWidget = new ConsoleWidget(con, this);
 
+    ui->tabWidget->addTab(playerListWidget, tr("Players"));
     ui->tabWidget->addTab(chatWidget, tr("Chat"));
     ui->tabWidget->addTab(mapListWidget, tr("Maplist"));
     ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
@@ -114,10 +96,8 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
     connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
     connect(commandHandler, SIGNAL(onServerInfoCommand(BF4ServerInfo)), this, SLOT(onServerInfoCommand(BF4ServerInfo)));
-    connect(commandHandler, SIGNAL(onListPlayersCommand(QList<PlayerInfo>, PlayerSubset)), this, SLOT(onListPlayersCommand(QList<PlayerInfo>, PlayerSubset)));
 
     // Admin
-    connect(commandHandler, SIGNAL(onAdminListPlayersCommand(QList<PlayerInfo>, PlayerSubset)), this, SLOT(onAdminListPlayersCommand(QList<PlayerInfo>, PlayerSubset)));
     connect(commandHandler, SIGNAL(onAdminPasswordCommand(QString)), this, SLOT(onAdminPasswordCommand(QString)));
 
     // BanList
@@ -176,25 +156,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(ui->pushButton_si_restartRound, SIGNAL(clicked()), this, SLOT(pushButton_si_restartRound_clicked()));
     connect(ui->pushButton_si_runNextRound, SIGNAL(clicked()), this, SLOT(pushButton_si_runNextRound_clicked()));
 
-    // Players
-    connect(ui->treeWidget_pl_players, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_pl_players_customContextMenuRequested(QPoint)));
-    connect(action_pl_players_kill, SIGNAL(triggered()), this, SLOT(action_pl_players_kill_triggered()));
-    connect(action_pl_players_kick, SIGNAL(triggered()), this, SLOT(action_pl_players_kick_triggered()));
-    connect(action_pl_players_ban, SIGNAL(triggered()), this, SLOT(action_pl_players_ban_triggered()));
-    connect(action_pl_players_reserveSlot, SIGNAL(triggered()), this, SLOT(action_pl_players_reserveSlot_triggered()));
-    connect(action_pl_players_copyTo_name, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_name_triggered()));
-    connect(action_pl_players_copyTo_guid, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_guid_triggered()));
-
-    connect(menu_pl_players_move, SIGNAL(triggered(QAction*)), this, SLOT(menu_pl_players_move_triggered(QAction*)));
-
-    // Update playerlist on following events.
-    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(QString, int)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerKillEvent(QString, QString, QString, bool)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(QString, int, int)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(QString, int, int)), this, SLOT(updatePlayerList()));
-
     // Events
 
     // Options -> Details
@@ -251,6 +212,7 @@ BF4Widget::~BF4Widget()
 {
     delete ui;
 
+    delete playerListWidget;
     delete chatWidget;
     delete mapListWidget;
     delete reservedSlotsWidget;
@@ -261,21 +223,6 @@ BF4Widget::~BF4Widget()
     // ServerInfo
     delete timerServerInfoRoundTime;
     delete timerServerInfoUpTime;
-
-    // Players
-    delete menu_pl_players;
-    delete action_pl_players_kill;
-    delete action_pl_players_kick;
-    delete action_pl_players_ban;
-    delete action_pl_players_reserveSlot;
-
-    delete menu_pl_players_move;
-    delete action_pl_players_move_team;
-    delete action_pl_players_move_squad;
-
-    delete menu_pl_players_copyTo;
-    delete action_pl_players_copyTo_name;
-    delete action_pl_players_copyTo_guid;
 
     // Banlist
     delete menu_bl_banList;
@@ -307,7 +254,6 @@ void BF4Widget::startupCommands(bool auth)
         commandHandler->sendAdminEventsEnabledCommand(true);
 
         // Admins
-        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
         commandHandler->sendAdminPasswordCommand();
 
         // Banning
@@ -361,8 +307,6 @@ void BF4Widget::startupCommands(bool auth)
         commandHandler->sendVarsTicketBleedRateCommand();
         commandHandler->sendVarsVehicleSpawnAllowedCommand();
         commandHandler->sendVarsVehicleSpawnDelayCommand();
-    } else {
-        commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
 }
 
@@ -449,7 +393,7 @@ void BF4Widget::onPlayerSquadChangeEvent(const QString &player, int teamId, int 
     Q_UNUSED(teamId);
 
     if (squadId != 0) {
-        logEvent("PlayerSquadChange", tr("Player %1 changed squad to %2.").arg(player).arg(getSquadName(squadId)));
+        logEvent("PlayerSquadChange", tr("Player %1 changed squad to %2.").arg(player).arg(FrostbiteUtils::getSquadName(squadId)));
     }
 }
 
@@ -587,17 +531,7 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed + 1).arg(serverInfo.roundsTotal));
 }
 
-void BF4Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
-{
-    listPlayers(playerList, playerSubset);
-}
-
 // Admin
-void BF4Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
-{
-    listPlayers(playerList, playerSubset);
-}
-
 void BF4Widget::onAdminPasswordCommand(const QString &password)
 {
     ui->lineEdit_so_co_adminPassword->setText(password);
@@ -836,13 +770,7 @@ void BF4Widget::onVarsVehicleSpawnDelayCommand(int delay)
     ui->spinBox_so_gp_vehicleSpawnDelay->setValue(delay);
 }
 
-QIcon BF4Widget::getRankIcon(int rank)
-{
-    return QIcon(QString(":/bf4/ranks/rank_%1.png").arg(rank));
-}
-
 /* User Interface */
-
 // ServerInfo
 void BF4Widget::pushButton_si_restartRound_clicked()
 {
@@ -870,148 +798,6 @@ void BF4Widget::updateRoundTime()
 void BF4Widget::updateUpTime()
 {
     ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(FrostbiteUtils::toString(FrostbiteUtils::getTimeFromSeconds(serverUpTime++))));
-}
-
-// Players
-void BF4Widget::updatePlayerList()
-{
-    if (isAuthenticated()) {
-        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
-    } else {
-        commandHandler->sendListPlayersCommand(PlayerSubset::All);
-    }
-}
-
-void BF4Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
-{
-    if (playerSubset == PlayerSubset::All) {
-        ui->treeWidget_pl_players->clear();
-        menu_pl_players_move->clear();
-
-        // Create a list of all players as QTreeWidgetItem's.
-        QList<QTreeWidgetItem *> playerItems;
-
-        for (PlayerInfo player : playerList) {
-            QTreeWidgetItem *playerItem = new QTreeWidgetItem();
-            playerItem->setData(0, Qt::UserRole, player.teamId);
-            playerItem->setIcon(0, getRankIcon(player.rank));
-            playerItem->setText(0, player.name);
-            playerItem->setText(1, getSquadName(player.squadId));
-            playerItem->setText(2, QString::number(player.kills));
-            playerItem->setText(3, QString::number(player.deaths));
-            playerItem->setText(4, QString::number(player.score));
-            playerItem->setText(5, QString::number(player.ping));
-            playerItem->setText(6, player.guid);
-
-            // Add player item and team id to lists.
-            playerItems.append(playerItem);
-        }
-
-        for (int teamId : currentLevel.teams) {
-            QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
-            teamItem->setText(0, BF4LevelDictionary::getTeam(teamId));
-
-            for (QTreeWidgetItem *playerItem : playerItems) {
-                if (teamId == playerItem->data(0, Qt::UserRole)) {
-                    teamItem->addChild(playerItem);
-                }
-            }
-
-            // Add the team to the menu_pl_players_move menu.
-            action_pl_players_move_team = new QAction(tr("Team %1").arg(BF4LevelDictionary::getTeam(teamId)), menu_pl_players_move);
-            action_pl_players_move_team->setData(teamId);
-
-            menu_pl_players_move->addAction(action_pl_players_move_team);
-        }
-
-        menu_pl_players_move->addSeparator();
-
-        for (int squadId = 0; squadId <= 8; squadId++) {
-            action_pl_players_move_squad = new QAction(tr("Squad %1").arg(getSquadName(squadId)), menu_pl_players_move);
-            action_pl_players_move_squad->setData(squadId + 5);
-
-            menu_pl_players_move->addAction(action_pl_players_move_squad);
-        }
-
-        // Expand all player rows
-        ui->treeWidget_pl_players->expandAll();
-
-        // Sort players based on their score.
-        ui->treeWidget_pl_players->sortItems(4, Qt::AscendingOrder);
-
-        // Resize columns so that they fits the content.
-        for (int i = 0; i < ui->treeWidget_pl_players->columnCount(); i++) {
-            ui->treeWidget_pl_players->resizeColumnToContents(i);
-        }
-    }
-}
-
-void BF4Widget::treeWidget_pl_players_customContextMenuRequested(const QPoint &pos)
-{
-    QTreeWidgetItem *item = ui->treeWidget_pl_players->itemAt(pos);
-
-    if (item && item->parent()) {
-        menu_pl_players->exec(QCursor::pos());
-    }
-}
-
-void BF4Widget::action_pl_players_kill_triggered()
-{
-    QString player = ui->treeWidget_pl_players->currentItem()->text(0);
-
-    commandHandler->sendAdminKillPlayerCommand(player);
-}
-
-void BF4Widget::action_pl_players_kick_triggered()
-{
-    QString player = ui->treeWidget_pl_players->currentItem()->text(0);
-
-    commandHandler->sendAdminKickPlayerCommand(player, "Kicked by admin.");
-}
-
-void BF4Widget::action_pl_players_ban_triggered()
-{
-    QString player = ui->treeWidget_pl_players->currentItem()->text(0);
-
-    commandHandler->sendBanListAddCommand("perm", player, "Banned by admin.");
-}
-
-void BF4Widget::action_pl_players_reserveSlot_triggered()
-{
-    QString player = ui->treeWidget_pl_players->currentItem()->text(0);
-
-    commandHandler->sendReservedSlotsListAddCommand(player);
-}
-
-void BF4Widget::action_pl_players_copyTo_name_triggered()
-{
-    clipboard->setText(ui->treeWidget_pl_players->currentItem()->text(0));
-}
-
-void BF4Widget::action_pl_players_copyTo_guid_triggered()
-{
-    clipboard->setText(ui->treeWidget_pl_players->currentItem()->text(6));
-}
-
-void BF4Widget::menu_pl_players_move_triggered(QAction *action)
-{
-    int value = action->data().toInt();
-    QString player = ui->treeWidget_pl_players->currentItem()->text(0);
-    int teamId, squadId;
-
-    if (value <= 4) {
-        teamId = value + 1;
-        squadId = 0;
-
-        qDebug() << "Team:" << teamId;
-    } else {
-        teamId = ui->treeWidget_pl_players->currentItem()->data(0, Qt::UserRole).toInt();
-        squadId = value - 5;
-
-        qDebug() << "Squad:" << squadId;
-    }
-
-    commandHandler->sendAdminMovePlayerCommand(player, teamId, squadId, true);
 }
 
 // Event

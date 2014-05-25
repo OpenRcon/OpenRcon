@@ -56,6 +56,8 @@ ReservedSlotsWidget::ReservedSlotsWidget(FrostbiteConnection *connection, QWidge
 ReservedSlotsWidget::~ReservedSlotsWidget()
 {
     delete ui;
+    delete connection;
+    delete commandHandler;
 
     delete menu_rs_reservedSlotsList;
     delete action_rs_reservedSlotsList_remove;

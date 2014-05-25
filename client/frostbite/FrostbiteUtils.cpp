@@ -69,3 +69,52 @@ QString FrostbiteUtils::toString(Time time)
 
     return timeString;
 }
+
+QString FrostbiteUtils::getSquadName(Squad squad)
+{
+    switch (squad) {
+    case Squad::None:
+        return "None";
+        break;
+
+    case Squad::Alpha:
+        return "Alpha";
+        break;
+
+    case Squad::Bravo:
+        return "Bravo";
+        break;
+
+    case Squad::Charlie:
+        return "Charlie";
+        break;
+
+    case Squad::Delta:
+        return "Delta";
+        break;
+
+    case Squad::Echo:
+        return "Echo";
+        break;
+
+    case Squad::Foxtrot:
+        return "Foxtrot";
+        break;
+
+    case Squad::Golf:
+        return "Golf";
+        break;
+
+    case Squad::Hotel:
+        return "Hotel";
+        break;
+
+    default:
+        return "None";
+    }
+}
+
+QString FrostbiteUtils::getSquadName(int squadId)
+{
+    return getSquadName(static_cast<Squad>(squadId));
+}

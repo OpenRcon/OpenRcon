@@ -108,59 +108,6 @@
      <property name="documentMode">
       <bool>false</bool>
      </property>
-     <widget class="QWidget" name="tab_pl">
-      <attribute name="icon">
-       <iconset>
-        <normaloff>:/icons/images/icons/system-users.png</normaloff>:/icons/images/icons/system-users.png</iconset>
-      </attribute>
-      <attribute name="title">
-       <string>Players</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="0">
-        <widget class="QTreeWidget" name="treeWidget_pl_players">
-         <property name="contextMenuPolicy">
-          <enum>Qt::CustomContextMenu</enum>
-         </property>
-         <column>
-          <property name="text">
-           <string>Name</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Squad</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Kills</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Deaths</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Score</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Ping</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>GUID</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="tab_ev">
       <attribute name="title">
        <string>Events</string>

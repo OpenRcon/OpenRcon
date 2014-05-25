@@ -17,9 +17,11 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "FrostbiteUtils.h"
+#include "LevelEntry.h"
+
 #include "BFBC2Widget.h"
 #include "ui_BFBC2Widget.h"
-#include "LevelEntry.h"
 #include "BFBC2LevelDictionary.h"
 
 BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new Ui::BFBC2Widget)
@@ -366,7 +368,7 @@ void BFBC2Widget::onPlayerSquadChangeEvent(const QString &player, int teamId, in
     Q_UNUSED(teamId);
 
     if (squadId != 0) {
-        logConsole(0, tr("Player <b>%1</b> changed squad to <b>%3</b>.").arg(player).arg(getSquadName(squadId)));
+        logConsole(0, tr("Player <b>%1</b> changed squad to <b>%3</b>.").arg(player).arg(FrostbiteUtils::getSquadName(squadId)));
     }
 }
 
