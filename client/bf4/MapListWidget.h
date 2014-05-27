@@ -48,7 +48,6 @@ private:
     // Maplist
     QMenu *menu_ml_available;
     QAction *action_ml_available_add;
-
     QMenu *menu_ml_current;
     QAction *action_ml_current_remove;
 

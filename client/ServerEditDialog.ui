@@ -59,6 +59,9 @@
        <property name="frame">
         <bool>true</bool>
        </property>
+       <property name="placeholderText">
+        <string>Enter the server address</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -104,6 +107,9 @@
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
      </property>
+     <property name="placeholderText">
+      <string>Enter password, or leave empty</string>
+     </property>
     </widget>
    </item>
    <item row="3" column="0">
@@ -117,6 +123,9 @@
     <widget class="QLineEdit" name="lineEdit_name">
      <property name="text">
       <string/>
+     </property>
+     <property name="placeholderText">
+      <string>What would you like to call this server?</string>
      </property>
     </widget>
    </item>
