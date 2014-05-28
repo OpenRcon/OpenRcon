@@ -43,7 +43,7 @@ FORMS += OpenRcon.ui \
 
 RESOURCES += OpenRcon.qrc
 
-win32:RC_FILE = openrcon.rc
+RC_ICONS = OpenRcon.ico
 
 macx {
     TARGET = OpenRcon
