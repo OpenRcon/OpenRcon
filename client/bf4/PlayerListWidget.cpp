@@ -36,18 +36,18 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     connection(connection),
     commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
 {
-    this->setFrameShape(Shape::NoFrame);
-    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    setFrameShape(Shape::NoFrame);
+    setContextMenuPolicy(Qt::CustomContextMenu);
 
     // Set the columns in headerItem.
-    QTreeWidgetItem *headerItem = this->headerItem();
-    headerItem->setText(0, tr("Name"));
-    headerItem->setText(1, tr("Squad"));
-    headerItem->setText(2, tr("Kills"));
-    headerItem->setText(3, tr("Deaths"));
-    headerItem->setText(4, tr("Score"));
-    headerItem->setText(5, tr("Ping"));
-    headerItem->setText(6, tr("GUID"));
+    QTreeWidgetItem *item = headerItem();
+    item->setText(0, tr("Name"));
+    item->setText(1, tr("Squad"));
+    item->setText(2, tr("Kills"));
+    item->setText(3, tr("Deaths"));
+    item->setText(4, tr("Score"));
+    item->setText(5, tr("Ping"));
+    item->setText(6, tr("GUID"));
 
     // Players
     clipboard = QApplication::clipboard();
@@ -72,6 +72,8 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
 
     /* Events */
     connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerDisconnectEvent(QString)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, SIGNAL(onPlayerJoinEvent(QString, QString)), this, SLOT(updatePlayerList()));
     connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(updatePlayerList()));
     connect(commandHandler, SIGNAL(onPlayerSpawnEvent(QString, int)), this, SLOT(updatePlayerList()));
     connect(commandHandler, SIGNAL(onPlayerKillEvent(QString, QString, QString, bool)), this, SLOT(updatePlayerList()));
@@ -93,8 +95,6 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     connect(action_pl_players_copyTo_guid, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_guid_triggered()));
 
     connect(menu_pl_players_move, SIGNAL(triggered(QAction*)), this, SLOT(menu_pl_players_move_triggered(QAction*)));
-
-
 }
 
 PlayerListWidget::~PlayerListWidget()

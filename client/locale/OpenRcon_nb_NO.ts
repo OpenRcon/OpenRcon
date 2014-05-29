@@ -1791,79 +1791,79 @@
 <context>
     <name>PlayerListWidget</name>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="43"/>
-        <location filename="../bf4/PlayerListWidget.cpp" line="60"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="44"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="61"/>
         <source>Name</source>
         <translation>Navn</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="44"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="45"/>
         <source>Squad</source>
         <translation>Skvadron</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="45"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="46"/>
         <source>Kills</source>
         <translation>Drap</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="46"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="47"/>
         <source>Deaths</source>
         <translation>Dødsfall</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="47"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="48"/>
         <source>Score</source>
         <translation>Poeng</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="48"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="49"/>
         <source>Ping</source>
         <translation>Ping</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="49"/>
-        <location filename="../bf4/PlayerListWidget.cpp" line="61"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="50"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="62"/>
         <source>GUID</source>
         <translation>GUID</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="54"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="55"/>
         <source>Move</source>
         <translation>Flytt</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="55"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="56"/>
         <source>Kill</source>
         <translation>Drep</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="56"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="57"/>
         <source>Kick</source>
         <translation>Spark ut</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="57"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="58"/>
         <source>Ban</source>
         <translation>Utesteng</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="58"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="59"/>
         <source>Reserve slot</source>
         <translation>Reserver plass</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="59"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="60"/>
         <source>Copy</source>
         <translation>Kopier</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="156"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="169"/>
         <source>Team %1</source>
-        <translation>Lag: %1</translation>
+        <translation>Lag %1</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="165"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="179"/>
         <source>Squad %1</source>
         <translation>Skvadron %1</translation>
     </message>
@@ -1922,12 +1922,12 @@
 <context>
     <name>ServerEditDialog</name>
     <message>
-        <location filename="../ServerEditDialog.ui" line="67"/>
+        <location filename="../ServerEditDialog.ui" line="70"/>
         <source>Port:</source>
         <translation>Port:</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="112"/>
+        <location filename="../ServerEditDialog.ui" line="118"/>
         <source>Password:</source>
         <translation>Passord:</translation>
     </message>
@@ -1937,27 +1937,42 @@
         <translation>Spill:</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="141"/>
+        <location filename="../ServerEditDialog.ui" line="63"/>
+        <source>Enter the server address</source>
+        <translation>Skriv inn tjener adressen</translation>
+    </message>
+    <message>
+        <location filename="../ServerEditDialog.ui" line="111"/>
+        <source>Enter password, or leave empty</source>
+        <translation>Skriv inn et passord, eller hopp over</translation>
+    </message>
+    <message>
+        <location filename="../ServerEditDialog.ui" line="128"/>
+        <source>What would you like to call this server?</source>
+        <translation>Hva vil du kalle denne tjeneren?</translation>
+    </message>
+    <message>
+        <location filename="../ServerEditDialog.ui" line="150"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="148"/>
+        <location filename="../ServerEditDialog.ui" line="157"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="157"/>
+        <location filename="../ServerEditDialog.ui" line="166"/>
         <source>Name:</source>
         <translation>Navn:</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="164"/>
+        <location filename="../ServerEditDialog.ui" line="173"/>
         <source>Address:</source>
         <translation>Addresse:</translation>
     </message>
     <message>
-        <location filename="../ServerEditDialog.ui" line="177"/>
+        <location filename="../ServerEditDialog.ui" line="186"/>
         <source>Connect to server automatically</source>
         <translation>Koble til tjener automatisk</translation>
     </message>
