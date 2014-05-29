@@ -120,7 +120,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     // Toolbars
     connect(pushButton_quickConnect_connect, SIGNAL(clicked()), this, SLOT(pushButton_quickConnect_connect_clicked()));
-    connect(serverManager, SIGNAL(onServerUpdate()), this, SLOT(updateServerList()));
+    connect(serverManager, SIGNAL(onServerUpdated()), this, SLOT(updateServerList()));
+    connect(sessionManager, SIGNAL(onServerConnected()), this, SLOT(updateServerList()));
 
     // TabWidget
     connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
@@ -195,9 +196,11 @@ void OpenRcon::updateServerList()
         pushButton_quickConnect_connect->setEnabled(true);
 
         for (ServerEntry *server : serverList) {
-            GameEntry game = GameManager::getGame(server->gameType);
+            if (!sessionManager->isConnected(server)) {
+                GameEntry game = GameManager::getGame(server->gameType);
 
-            comboBox_quickConnect_server->addItem(QIcon(game.icon), server->name);
+                comboBox_quickConnect_server->addItem(game.getIcon(), server->name);
+            }
         }
     } else {
         comboBox_quickConnect_server->setEnabled(false);

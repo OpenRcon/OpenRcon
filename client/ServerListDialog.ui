@@ -65,6 +65,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_sld_connect">
+       <property name="toolTip">
+        <string>Disabled if selection not a server or if already connected.</string>
+       </property>
        <property name="text">
         <string>Connect</string>
        </property>

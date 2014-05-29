@@ -21,6 +21,7 @@
 #define GAMEENTRY_H
 
 #include <QString>
+#include <QIcon>
 
 #include "GameType.h"
 
@@ -43,6 +44,10 @@ struct GameEntry
         defaultPort(defaultPort)
     {
 
+    }
+
+    QIcon getIcon() {
+        return QIcon(icon);
     }
 
     GameType gameType;

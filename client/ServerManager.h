@@ -55,7 +55,7 @@ private:
     void writeSettings();
 
 signals:
-    void onServerUpdate();
+    void onServerUpdated();
 
 };
 

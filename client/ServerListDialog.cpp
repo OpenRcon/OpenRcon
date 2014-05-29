@@ -33,6 +33,7 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 
     openRcon = dynamic_cast<OpenRcon *>(parent);
     serverManager = openRcon->getServerManager();
+    sessionManager = openRcon->getSessionManager();
 
     // Fetch ServerEntries from ServerManager.
     serverEntries = serverManager->getServers();
@@ -60,7 +61,7 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     connect(ui->treeWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_customContextMenuRequested(QPoint)));
     connect(ui->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
     connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(treeWidget_itemClicked(QTreeWidgetItem*, int)));
-    connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(accept()));
+    connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(connectToItem()));
 
     connect(action_gameEntry_add, SIGNAL(triggered()), this, SLOT(action_gameEntry_add_triggered()));
     connect(action_serverEntry_edit, SIGNAL(triggered()), this, SLOT(editItem()));
@@ -70,6 +71,8 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     connect(ui->pushButton_sld_connect, SIGNAL(clicked()), this, SLOT(connectToItem()));
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+
+    connect(sessionManager, SIGNAL(onServerConnected()), this, SLOT(onServerConnected()));
 }
 
 ServerListDialog::~ServerListDialog()
@@ -97,7 +100,10 @@ void ServerListDialog::treeWidget_currentItemChanged(QTreeWidgetItem *current, Q
 {
     Q_UNUSED(previous);
 
-    ui->pushButton_sld_connect->setEnabled(current && current->parent());
+    QVariant variant = current->data(0, Qt::UserRole);
+    ServerEntry *entry = variant.value<ServerEntry *>();
+
+    ui->pushButton_sld_connect->setEnabled(current->parent() && !sessionManager->isConnected(entry));
 }
 
 void ServerListDialog::treeWidget_itemClicked(QTreeWidgetItem *item, int column)
@@ -110,6 +116,11 @@ void ServerListDialog::treeWidget_itemClicked(QTreeWidgetItem *item, int column)
         // Sets the checked state of autoconnect.
         entry->autoConnect = item->checkState(column) == Qt::Checked ? true : false;
     }
+}
+
+void ServerListDialog::onServerConnected()
+{
+    ui->pushButton_sld_connect->setEnabled(false);
 }
 
 void ServerListDialog::action_gameEntry_add_triggered()
@@ -242,9 +253,12 @@ void ServerListDialog::connectToItem()
         QVariant variant = item->data(0, Qt::UserRole);
         ServerEntry *entry = variant.value<ServerEntry *>();
 
-        // Connect to the ServerEntry and add the tab to OpenRcon's QTabWidget.
-        sessionManager->open(entry);
-        accept();
+        if (!sessionManager->isConnected(entry)) {
+            // Connect to the ServerEntry and add the tab to OpenRcon's QTabWidget.
+            ui->pushButton_sld_connect->setEnabled(false);
+            sessionManager->open(entry);
+            accept();
+        }
     }
 }
 

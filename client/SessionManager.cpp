@@ -44,17 +44,17 @@ void SessionManager::open(ServerEntry *serverEntry)
         QTabWidget *tabWidget = openRcon->getTabWidget();
         GameEntry gameEntry = GameManager::getGame(serverEntry->gameType);
         Game *gameObject = GameManager::getGameObject(serverEntry);
-
         int index = tabWidget->addTab(gameObject, QIcon(gameEntry.icon), serverEntry->name);
 
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->host).arg(serverEntry->port));
         tabWidget->setCurrentIndex(index);
+
+        emit (onServerConnected());
     } else {
         qDebug() << "Already connected to this server.";
     }
 }
-
-void SessionManager::close(int index)
+ void SessionManager::close(int index)
 {
     QTabWidget *tabWidget = openRcon->getTabWidget();
     Game *game = dynamic_cast<Game *>(tabWidget->widget(index));
@@ -64,7 +64,12 @@ void SessionManager::close(int index)
     game->getConnection()->hostDisconnect();
 
     // Remove the ServerEntry from the list.
-    if (sessions.contains(serverEntry)) {
-        sessions.remove(serverEntry);
+    if (sessions.remove(serverEntry)) {
+        emit (onServerConnected());
     }
+}
+
+bool SessionManager::isConnected(ServerEntry *serverEntry)
+{
+    return sessions.contains(serverEntry);
 }

@@ -36,11 +36,15 @@ public:
 
     void open(ServerEntry *serverEntry);
     void close(int index);
+    bool isConnected(ServerEntry *serverEntry);
 
 private:
     OpenRcon *openRcon;
 
     QSet<ServerEntry *> sessions;
+
+signals:
+    void onServerConnected();
 
 };
 
