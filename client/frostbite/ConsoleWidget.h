@@ -36,14 +36,13 @@ class ConsoleWidget : public QWidget
 
 public:
     explicit ConsoleWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    explicit ConsoleWidget(FrostbiteConnection *connection, const QStringList &commandList, QWidget *parent = nullptr);
     ~ConsoleWidget();
 
 private:
     Ui::ConsoleWidget *ui;
     FrostbiteConnection *connection;
     FrostbiteCommandHandler *commandHandler;
-
-    QCompleter *completer;
 
     void logConsole(int type, const QString &message);
 

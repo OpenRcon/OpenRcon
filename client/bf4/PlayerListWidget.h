@@ -21,7 +21,6 @@
 #define PLAYERLISTWIDGET_H
 
 #include <QTreeWidget>
-#include <QClipboard>
 
 #include "LevelEntry.h"
 

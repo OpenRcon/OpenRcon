@@ -72,11 +72,6 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
 MapListWidget::~MapListWidget()
 {
     delete ui;
-
-    delete menu_ml_available;
-    delete action_ml_available_add;
-    delete menu_ml_current;
-    delete action_ml_current_remove;
 }
 
 void MapListWidget::onLoginHashedCommand(bool auth)

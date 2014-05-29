@@ -34,6 +34,7 @@ ReservedSlotsWidget::ReservedSlotsWidget(FrostbiteConnection *connection, QWidge
 {
     ui->setupUi(this);
 
+    // Create menu and actions.
     menu_rs_reservedSlotsList = new QMenu(ui->listWidget_rs_reservedSlotsList);
     action_rs_reservedSlotsList_remove = new QAction(tr("Remove"), menu_rs_reservedSlotsList);
 
@@ -56,11 +57,6 @@ ReservedSlotsWidget::ReservedSlotsWidget(FrostbiteConnection *connection, QWidge
 ReservedSlotsWidget::~ReservedSlotsWidget()
 {
     delete ui;
-    delete connection;
-    delete commandHandler;
-
-    delete menu_rs_reservedSlotsList;
-    delete action_rs_reservedSlotsList_remove;
 }
 
 void ReservedSlotsWidget::onLoginHashedCommand(bool auth)

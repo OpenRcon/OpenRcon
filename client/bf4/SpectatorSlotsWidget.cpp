@@ -55,9 +55,6 @@ SpectatorSlotsWidget::SpectatorSlotsWidget(FrostbiteConnection *connection, QWid
 SpectatorSlotsWidget::~SpectatorSlotsWidget()
 {
     delete ui;
-
-    delete menu_ss_spectatorList;
-    delete action_ss_spectatorList_remove;
 }
 
 void SpectatorSlotsWidget::onLoginHashedCommand(bool auth)

@@ -17,6 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QClipboard>
 #include <QApplication>
 #include <QMenu>
 #include <QAction>
