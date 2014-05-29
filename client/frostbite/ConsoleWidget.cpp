@@ -35,17 +35,17 @@ ConsoleWidget::ConsoleWidget(FrostbiteConnection *connection, QWidget *parent) :
     ui->setupUi(this);
 
     /* Events */
-    connect(connection, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
-    connect(connection, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataReceivedEvent(QString)));
+    connect(connection, &Connection::onDataSentEvent,     this, &ConsoleWidget::onDataSentEvent);
+    connect(connection, &Connection::onDataReceivedEvent, this, &ConsoleWidget::onDataReceivedEvent);
 
     /* Commands */
-    connect(commandHandler, SIGNAL(onPunkBusterMessageEvent(QString)), this, SLOT(onPunkBusterMessageEvent(QString)));
+    connect(commandHandler, &FrostbiteCommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
 
     /* User Interface */
-    connect(ui->pushButton_co_co, SIGNAL(clicked()), this, SLOT(pushButton_co_co_clicked()));
-    connect(ui->lineEdit_co_co, SIGNAL(editingFinished()), this, SLOT(pushButton_co_co_clicked()));
-    connect(ui->pushButton_co_pb, SIGNAL(clicked()), this, SLOT(pushButton_co_pb_clicked()));
-    connect(ui->lineEdit_co_pb, SIGNAL(editingFinished()), this, SLOT(pushButton_co_pb_clicked()));
+    connect(ui->pushButton_co_co, &QPushButton::clicked,       this, &ConsoleWidget::pushButton_co_co_clicked);
+    connect(ui->lineEdit_co_co,   &QLineEdit::editingFinished, this, &ConsoleWidget::pushButton_co_co_clicked);
+    connect(ui->pushButton_co_pb, &QPushButton::clicked,       this, &ConsoleWidget::pushButton_co_pb_clicked);
+    connect(ui->lineEdit_co_pb,   &QLineEdit::editingFinished, this, &ConsoleWidget::pushButton_co_pb_clicked);
 }
 
 ConsoleWidget::ConsoleWidget(FrostbiteConnection *connection, const QStringList &commandList, QWidget *parent) :

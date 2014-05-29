@@ -23,7 +23,7 @@
 
 MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(new QTcpSocket(parent), parent)
 {
-    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    connect(socket, &QAbstractSocket::readyRead, this, &MinecraftConnection::readyRead);
 }
 
 MinecraftConnection::~MinecraftConnection()

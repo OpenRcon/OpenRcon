@@ -58,21 +58,21 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     // Load GameEnrties and ServerEntries from ServerManager and add them to the QTreeWidget.
     createTreeData();
 
-    connect(ui->treeWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_customContextMenuRequested(QPoint)));
-    connect(ui->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), this, SLOT(treeWidget_currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)));
-    connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(treeWidget_itemClicked(QTreeWidgetItem*, int)));
-    connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(connectToItem()));
+    connect(ui->treeWidget, &QTreeWidget::customContextMenuRequested, this, &ServerListDialog::treeWidget_customContextMenuRequested);
+    connect(ui->treeWidget, &QTreeWidget::currentItemChanged,         this, &ServerListDialog::treeWidget_currentItemChanged);
+    connect(ui->treeWidget, &QTreeWidget::itemClicked,                this, &ServerListDialog::treeWidget_itemClicked);
+    connect(ui->treeWidget, &QTreeWidget::itemDoubleClicked,          this, &ServerListDialog::connectToItem);
 
-    connect(action_gameEntry_add, SIGNAL(triggered()), this, SLOT(action_gameEntry_add_triggered()));
-    connect(action_serverEntry_edit, SIGNAL(triggered()), this, SLOT(editItem()));
-    connect(action_serverEntry_remove, SIGNAL(triggered()), this, SLOT(removeItem()));
+    connect(action_gameEntry_add,      &QAction::triggered, this, &ServerListDialog::action_gameEntry_add_triggered);
+    connect(action_serverEntry_edit,   &QAction::triggered, this, &ServerListDialog::editItem);
+    connect(action_serverEntry_remove, &QAction::triggered, this, &ServerListDialog::removeItem);
 
-    connect(ui->pushButton_sld_add, SIGNAL(clicked()), this, SLOT(addItem()));
-    connect(ui->pushButton_sld_connect, SIGNAL(clicked()), this, SLOT(connectToItem()));
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(ui->pushButton_sld_add,     &QPushButton::clicked,       this, &ServerListDialog::addItem);
+    connect(ui->pushButton_sld_connect, &QPushButton::clicked,       this, &ServerListDialog::connectToItem);
+    connect(ui->buttonBox,              &QDialogButtonBox::accepted, this, &ServerListDialog::accept);
+    connect(ui->buttonBox,              &QDialogButtonBox::rejected, this, &ServerListDialog::reject);
 
-    connect(sessionManager, SIGNAL(onServerConnected()), this, SLOT(onServerConnected()));
+    connect(sessionManager, &SessionManager::onServerConnected, this, &ServerListDialog::onServerConnected);
 }
 
 ServerListDialog::~ServerListDialog()

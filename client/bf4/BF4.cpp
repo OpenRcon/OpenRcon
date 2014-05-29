@@ -68,12 +68,14 @@ BF4::BF4(ServerEntry *serverEntry) :
     versionMap.insert(126936, "R34");
 
     // Connection
-    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
+    connect(con, &Connection::onConnected, this, &BF4::onConnected);
 
     // Commands
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(QByteArray)), this, SLOT(onLoginHashedCommand(QByteArray)));
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this,           static_cast<void (BF4::*)(const QByteArray&)>(&BF4::onLoginHashedCommand));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this,           static_cast<void (BF4::*)(bool)>(&BF4::onLoginHashedCommand));
+    connect(commandHandler, &BF4CommandHandler::onVersionCommand, this, &BF4::onVersionCommand);
 }
 
 BF4::~BF4()

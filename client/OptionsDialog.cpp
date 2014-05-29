@@ -43,9 +43,9 @@ OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Opti
     pushButton_cancel = ui->buttonBox->button(QDialogButtonBox::Cancel);
     pushButton_apply = ui->buttonBox->button(QDialogButtonBox::Apply);
 
-    connect(ui->listWidget, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
-    connect(pushButton_ok, SIGNAL(clicked()), this, SLOT(pushButton_ok_clicked()));
-    connect(pushButton_cancel , SIGNAL(clicked()), this, SLOT(reject()));
+    connect(ui->listWidget,    &QListWidget::currentItemChanged, this, &OptionsDialog::listWidget_currentItemChanged);
+    connect(pushButton_ok,     &QPushButton::clicked,            this, &OptionsDialog::pushButton_ok_clicked);
+    connect(pushButton_cancel, &QPushButton::clicked,            this, &QDialog::reject);
 }
 
 OptionsDialog::~OptionsDialog()

@@ -41,13 +41,12 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
     ui->tabWidget->addTab(consoleWidget, QIcon(":/icons/console.png"), tr("Console"));
 
     /* Connection */
-    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
-    connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
+    connect(con, &Connection::onConnected,    this, &BF3Widget::onConnected);
+    connect(con, &Connection::onDisconnected, this, &BF3Widget::onDisconnected);
 
     /* Commands */
     // Misc
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
 
     /* User Interface */
 }

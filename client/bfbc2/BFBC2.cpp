@@ -134,12 +134,14 @@ BFBC2::BFBC2(ServerEntry *serverEntry) :
     commandList.append("levelVars.list");
 
     // Connection
-    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
+    connect(con, &Connection::onConnected, this, &BFBC2::onConnected);
 
     // Commands
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(QByteArray)), this, SLOT(onLoginHashedCommand(QByteArray)));
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this,           static_cast<void (BFBC2::*)(const QByteArray&)>(&BFBC2::onLoginHashedCommand));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this,           static_cast<void (BFBC2::*)(bool)>(&BFBC2::onLoginHashedCommand));
+    connect(commandHandler, &FrostbiteCommandHandler::onVersionCommand, this, &BFBC2::onVersionCommand);
 }
 
 BFBC2::~BFBC2()

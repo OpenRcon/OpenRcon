@@ -53,20 +53,20 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
     menu_ml_current->addAction(action_ml_current_remove);
 
     /* Commands */
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onServerInfoCommand(BF4ServerInfo)), this, SLOT(onServerInfoCommand(BF4ServerInfo)));
-    connect(commandHandler, SIGNAL(onMapListListCommand(MapList)), this, SLOT(onMapListListCommand(MapList)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &MapListWidget::onLoginHashedCommand);
+    connect(commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &MapListWidget::onServerInfoCommand);
+    connect(commandHandler, &BF4CommandHandler::onMapListListCommand,                                                             this, &MapListWidget::onMapListListCommand);
 
     /* User Interface */
-    connect(ui->comboBox_ml_gameMode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gameMode_currentIndexChanged(int)));
-    connect(ui->treeWidget_ml_available, SIGNAL(itemSelectionChanged()), this, SLOT(treeWidget_ml_available_itemSelectionChanged()));
-    connect(ui->treeWidget_ml_available, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_available_customContextMenuRequested(QPoint)));
-    connect(action_ml_available_add, SIGNAL(triggered()), this, SLOT(pushButton_ml_add_clicked()));
-    connect(ui->pushButton_ml_add, SIGNAL(clicked()), this, SLOT(pushButton_ml_add_clicked()));
-    connect(ui->pushButton_ml_remove, SIGNAL(clicked()), this, SLOT(pushButton_ml_remove_clicked()));
-    connect(ui->treeWidget_ml_current, SIGNAL(itemSelectionChanged()), this, SLOT(treeWidget_ml_current_itemSelectionChanged()));
-    connect(ui->treeWidget_ml_current, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_ml_current_customContextMenuRequested(QPoint)));
-    connect(action_ml_current_remove, SIGNAL(triggered()), this, SLOT(pushButton_ml_remove_clicked()));
+    connect(ui->comboBox_ml_gameMode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &MapListWidget::comboBox_ml_gameMode_currentIndexChanged);
+    connect(ui->treeWidget_ml_available, &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_ml_available_itemSelectionChanged);
+    connect(ui->treeWidget_ml_available, &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_ml_available_customContextMenuRequested);
+    connect(action_ml_available_add,     &QAction::triggered,                                                    this, &MapListWidget::pushButton_ml_add_clicked);
+    connect(ui->pushButton_ml_add,       &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_add_clicked);
+    connect(ui->pushButton_ml_remove,    &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_remove_clicked);
+    connect(ui->treeWidget_ml_current,   &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_ml_current_itemSelectionChanged);
+    connect(ui->treeWidget_ml_current,   &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_ml_current_customContextMenuRequested);
+    connect(action_ml_current_remove,    &QAction::triggered,                                                    this, &MapListWidget::pushButton_ml_remove_clicked);
 }
 
 MapListWidget::~MapListWidget()

@@ -81,107 +81,106 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     ui->lineEdit_co_co->setCompleter(completer);
 
     /* Connection */
-    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
-    connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
+    connect(con, &Connection::onConnected,    this, &BFBC2Widget::onConnected);
+    connect(con, &Connection::onDisconnected, this, &BFBC2Widget::onDisconnected);
 
     /* Events */
-    connect(con, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
-    connect(con, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataReceivedEvent(QString)));
+    connect(con, &Connection::onDataSentEvent,     this, &BFBC2Widget::onDataSentEvent);
+    connect(con, &Connection::onDataReceivedEvent, this, &BFBC2Widget::onDataReceivedEvent);
 
-    connect(commandHandler, SIGNAL(onPlayerJoinEvent(QString)), this, SLOT(onPlayerJoinEvent(QString)));
-    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString, QString)), this, SLOT(onPlayerAuthenticatedEvent(QString, QString)));
-    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(onPlayerLeaveEvent(QString, QString)));
-    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(QString, QString, QStringList)), this, SLOT(onPlayerSpawnEvent(QString, QString, QStringList)));
-    connect(commandHandler, SIGNAL(onPlayerKillEvent(QString, QString, QString, bool)), this, SLOT(onPlayerKillEvent(QString, QString, QString, bool)));
-    connect(commandHandler, SIGNAL(onPlayerChatEvent(QString, QString, QString)), this, SLOT(onPlayerChatEvent(QString, QString, QString)));
-    connect(commandHandler, SIGNAL(onPlayerKickedEvent(QString, QString)), this, SLOT(onPlayerKickedEvent(QString, QString)));
-    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(QString, int, int)), this, SLOT(onPlayerSquadChangeEvent(QString, int, int)));
-    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(QString, int, int)), this, SLOT(onPlayerTeamChangeEvent(QString, int, int)));
-    connect(commandHandler, SIGNAL(onServerLoadingLevelEvent(QString, int, int)), this, SLOT(onServerLoadingLevelEvent(QString, int, int)));
-    connect(commandHandler, SIGNAL(onServerLevelStartedEvent()), this, SLOT(onServerLevelStartedEvent()));
-    connect(commandHandler, SIGNAL(onServerRoundOverEvent(int)), this, SLOT(onServerRoundOverEvent(int)));
-    connect(commandHandler, SIGNAL(onServerRoundOverPlayersEvent(QString)), this, SLOT(onServerRoundOverPlayersEvent(QString)));
-    connect(commandHandler, SIGNAL(onServerRoundOverTeamScoresEvent(QString)), this, SLOT(onServerRoundOverTeamScoresEvent(QString)));
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerJoinEvent, this, &BFBC2Widget::onPlayerJoinEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerAuthenticatedEvent, this, &BFBC2Widget::onPlayerAuthenticatedEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerLeaveEvent, this, &BFBC2Widget::onPlayerLeaveEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerSpawnEvent, this, &BFBC2Widget::onPlayerSpawnEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerKillEvent, this, &BFBC2Widget::onPlayerKillEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerChatEvent, this, &BFBC2Widget::onPlayerChatEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerKickedEvent, this, &BFBC2Widget::onPlayerKickedEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerSquadChangeEvent, this, &BFBC2Widget::onPlayerSquadChangeEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerTeamChangeEvent, this, &BFBC2Widget::onPlayerTeamChangeEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onServerLoadingLevelEvent, this, &BFBC2Widget::onServerLoadingLevelEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onServerLevelStartedEvent, this, &BFBC2Widget::onServerLevelStartedEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onServerRoundOverEvent, this, &BFBC2Widget::onServerRoundOverEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onServerRoundOverPlayersEvent, this, &BFBC2Widget::onServerRoundOverPlayersEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onServerRoundOverTeamScoresEvent, this, &BFBC2Widget::onServerRoundOverTeamScoresEvent);
 
     /* Commands */
 
     // Misc
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
-    connect(commandHandler, SIGNAL(onServerInfoCommand(QStringList)), this, SLOT(onServerInfoCommand(QStringList)));
-    connect(commandHandler, SIGNAL(onAdminListPlayersCommand(PlayerList)), this, SLOT(onAdminListPlayersCommand(PlayerList)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BFBC2Widget::onLoginHashedCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onServerInfoCommand,                                                            this, &BFBC2Widget::onServerInfoCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onAdminListPlayersCommand,                                                      this, &BFBC2Widget::onAdminListPlayersCommand);
 
-    connect(commandHandler, SIGNAL(onVarsServerNameCommand(QString)), this, SLOT(onVarsServerNameCommand(QString)));
-    connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(QString)), this, SLOT(onVarsServerDescriptionCommand(QString)));
-    connect(commandHandler, SIGNAL(onVarsBannerUrlCommand(QString)), this, SLOT(onVarsBannerUrlCommand(QString)));
-    connect(commandHandler, SIGNAL(onVarsTextChatModerationModeCommand(QString)), this, SLOT(onVarsTextChatModerationModeCommand(QString)));
-    connect(commandHandler, SIGNAL(onVarsTextChatSpamTriggerCountCommand(int)), this, SLOT(onVarsTextChatSpamTriggerCountCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsTextChatSpamDetectionTimeCommand(int)), this, SLOT(onVarsTextChatSpamDetectionTimeCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsTextChatSpamCoolDownTimeCommand(int)), this, SLOT(onVarsTextChatSpamCoolDownTimeCommand(int)));
-    connect(commandHandler, SIGNAL(onMapListListCommand(QStringList)), this, SLOT(onMapListListCommand(QStringList)));
-    connect(commandHandler, SIGNAL(onMapListNextLevelIndexCommand(int)), this, SLOT(onMapListNextLevelIndexCommand(int)));
-    connect(commandHandler, SIGNAL(onBanListListCommand(QStringList)), this, SLOT(onBanListListCommand(QStringList)));
-    connect(commandHandler, SIGNAL(onReservedSlotsListCommand(QStringList)), this, SLOT(onReservedSlotsListCommand(QStringList)));
-    connect(commandHandler, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
+    connect(commandHandler, &BFBC2CommandHandler::onVarsServerNameCommand, this, &BFBC2Widget::onVarsServerNameCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsServerDescriptionCommand, this, &BFBC2Widget::onVarsServerDescriptionCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsBannerUrlCommand, this, &BFBC2Widget::onVarsBannerUrlCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsTextChatModerationModeCommand, this, &BFBC2Widget::onVarsTextChatModerationModeCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamTriggerCountCommand, this, &BFBC2Widget::onVarsTextChatSpamTriggerCountCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamDetectionTimeCommand, this, &BFBC2Widget::onVarsTextChatSpamDetectionTimeCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamCoolDownTimeCommand, this, &BFBC2Widget::onVarsTextChatSpamCoolDownTimeCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onMapListListCommand, this, &BFBC2Widget::onMapListListCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onMapListNextLevelIndexCommand, this, &BFBC2Widget::onMapListNextLevelIndexCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onBanListListCommand, this, &BFBC2Widget::onBanListListCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onReservedSlotsListCommand, this, &BFBC2Widget::onReservedSlotsListCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsIdleTimeoutCommand, this, &BFBC2Widget::onVarsIdleTimeoutCommand);
 
     /* User Interface */
 
     /* Options Tab */
 
     /* Server Options */
-    connect(ui->lineEdit_op_so_serverName, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverName_editingFinished()));
-    connect(ui->lineEdit_op_so_serverDescription, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverDescription_editingFinished()));
-    connect(ui->lineEdit_op_so_bannerUrl, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_bannerUrl_editingFinished()));
+    connect(ui->lineEdit_op_so_serverName,        &QLineEdit::editingFinished, this, &BFBC2Widget::lineEdit_op_so_serverName_editingFinished);
+    connect(ui->lineEdit_op_so_serverDescription, &QLineEdit::editingFinished, this, &BFBC2Widget::lineEdit_op_so_serverDescription_editingFinished);
+    connect(ui->lineEdit_op_so_bannerUrl,         &QLineEdit::editingFinished, this, &BFBC2Widget::lineEdit_op_so_bannerUrl_editingFinished);
 
     /* Game Options */
-    connect(ui->checkBox_op_go_3dSpotting, SIGNAL(clicked()), this, SLOT(checkbox_op_go_3dSpotting_clicked()));
-    connect(ui->checkBox_op_go_crossHair, SIGNAL(clicked()), this, SLOT(checkbox_op_go_crossHair_clicked()));
-    connect(ui->checkBox_op_go_friendlyFire, SIGNAL(clicked()), this, SLOT(checkbox_op_go_friendlyFire_clicked()));
-    connect(ui->checkBox_op_go_hardcore, SIGNAL(clicked()), this, SLOT(checkbox_op_go_hardcore_clicked()));
-    connect(ui->checkBox_op_go_killCam, SIGNAL(clicked()), this, SLOT(checkbox_op_go_killCam_clicked()));
-    connect(ui->checkBox_op_go_miniMap, SIGNAL(clicked()), this, SLOT(checkbox_op_go_miniMap_clicked()));
-    connect(ui->checkBox_op_go_miniMapSpotting, SIGNAL(clicked()), this, SLOT(checkbox_op_go_miniMapSpotting_clicked()));
-    connect(ui->checkBox_op_go_teamBalance, SIGNAL(clicked()), this, SLOT(checkbox_op_go_teamBalance_clicked()));
-    connect(ui->checkBox_op_go_thirdPersonVehicleCameras, SIGNAL(clicked()), this, SLOT(checkbox_op_go_thirdPersonVehicleCameras_clicked()));
+    connect(ui->checkBox_op_go_3dSpotting,                &QCheckBox::clicked, this, &BFBC2Widget::checkbox_op_go_3dSpotting_clicked);
+    connect(ui->checkBox_op_go_crossHair,                 &QCheckBox::clicked, this, &BFBC2Widget::checkbox_op_go_crossHair_clicked);
+    connect(ui->checkBox_op_go_friendlyFire,              &QCheckBox::clicked, this, &BFBC2Widget::checkbox_op_go_friendlyFire_clicked);
+    connect(ui->checkBox_op_go_hardcore,                  &QCheckBox::clicked, this, &BFBC2Widget::checkbox_op_go_hardcore_clicked);
+    connect(ui->checkBox_op_go_killCam,                   &QCheckBox::clicked, this, &BFBC2Widget::checkbox_op_go_killCam_clicked);
+    connect(ui->checkBox_op_go_miniMap,                   &QCheckBox::clicked, this, &BFBC2Widget::checkbox_op_go_miniMap_clicked);
+    connect(ui->checkBox_op_go_miniMapSpotting,           &QCheckBox::clicked, this, &BFBC2Widget::checkbox_op_go_miniMapSpotting_clicked);
+    connect(ui->checkBox_op_go_teamBalance,               &QCheckBox::clicked, this, &BFBC2Widget::checkbox_op_go_teamBalance_clicked);
+    connect(ui->checkBox_op_go_thirdPersonVehicleCameras, &QCheckBox::clicked, this, &BFBC2Widget::checkbox_op_go_thirdPersonVehicleCameras_clicked);
 
     // Old.
-    connect(ui->treeWidget_pl_players, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(treeWidget_pl_players_customContextMenuRequested(QPoint)));
-    connect(ui->treeWidget_pl_players, SIGNAL(dragEvent()), this, SLOT(blockPlayerList()));
-    connect(ui->treeWidget_pl_players, SIGNAL(dropEvent(QString, QString)), this, SLOT(slotChangePlayerTeam(QString, QString)));
-    connect(ui->treeWidget_pl_players, SIGNAL(refresh()), this, SLOT(refreshPlayerList()));
+    connect(ui->treeWidget_pl_players, &QTreeWidget::customContextMenuRequested, this, &BFBC2Widget::treeWidget_pl_players_customContextMenuRequested);
+//    connect(ui->treeWidget_pl_players, &QTreeWidget::dragEvent, this, &BFBC2Widget::blockPlayerList);
+//    connect(ui->treeWidget_pl_players, &QTreeWidget::dropEvent, this, &BFBC2Widget::slotChangePlayerTeam);
+//    connect(ui->treeWidget_pl_players, &QTreeWidget::refresh, this, &BFBC2Widget::refreshPlayerList);
 
-    connect(action_pl_sendmessage, SIGNAL(triggered()), this, SLOT(action_pl_sendmessage_triggered()));
-    connect(action_pl_textchatmoderation_muted, SIGNAL(triggered()), this, SLOT(action_pl_textchatmoderation_muted_triggered()));
-    connect(action_pl_textchatmoderation_normal, SIGNAL(triggered()), this, SLOT(action_pl_textchatmoderation_normal_triggered()));
-    connect(action_pl_textchatmoderation_voice, SIGNAL(triggered()), this, SLOT(action_pl_textchatmoderation_voice_triggered()));
-    connect(action_pl_textchatmoderation_admin, SIGNAL(triggered()), this, SLOT(action_pl_textchatmoderation_admin_triggered()));
-    connect(action_pl_kill, SIGNAL(triggered()), this, SLOT(action_pl_kill_triggered()));
-    connect(action_pl_kick_custom, SIGNAL(triggered()), this, SLOT(action_pl_kick_custom_triggered()));
-    connect(action_pl_ban_byname, SIGNAL(triggered()), this, SLOT(action_pl_ban_byname_triggered()));
-    connect(action_pl_reservedslots, SIGNAL(triggered()), this, SLOT(action_pl_reservedslots_triggered()));
-    connect(action_pl_move, SIGNAL(triggered()), this, SLOT(slotMovePlayerTeam()));
+    connect(action_pl_sendmessage,               &QAction::triggered, this, &BFBC2Widget::action_pl_sendmessage_triggered);
+    connect(action_pl_textchatmoderation_muted,  &QAction::triggered, this, &BFBC2Widget::action_pl_textchatmoderation_muted_triggered);
+    connect(action_pl_textchatmoderation_normal, &QAction::triggered, this, &BFBC2Widget::action_pl_textchatmoderation_normal_triggered);
+    connect(action_pl_textchatmoderation_voice,  &QAction::triggered, this, &BFBC2Widget::action_pl_textchatmoderation_voice_triggered);
+    connect(action_pl_textchatmoderation_admin,  &QAction::triggered, this, &BFBC2Widget::action_pl_textchatmoderation_admin_triggered);
+    connect(action_pl_kill,                      &QAction::triggered, this, &BFBC2Widget::action_pl_kill_triggered);
+    connect(action_pl_kick_custom,               &QAction::triggered, this, &BFBC2Widget::action_pl_kick_custom_triggered);
+    connect(action_pl_ban_byname,                &QAction::triggered, this, &BFBC2Widget::action_pl_ban_byname_triggered);
+    connect(action_pl_reservedslots,             &QAction::triggered, this, &BFBC2Widget::action_pl_reservedslots_triggered);
+    connect(action_pl_move,                      &QAction::triggered, this, &BFBC2Widget::slotMovePlayerTeam);
 
 
-    connect(ui->listWidget_ml_avaliablemaps, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
-    connect(ui->listWidget_ml_currentmaps, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem*)));
-    connect(ui->listWidget_ml_currentmaps, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem*)));
-    connect(ui->comboBox_ml_gamemode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ml_gamemode_currentIndexChanged(int)));
-    connect(ui->listWidget_ml_currentmaps, SIGNAL(dropEvent(QString)), this, SLOT(slotAddMapToServer(QString)));
-    connect(ui->listWidget_ml_avaliablemaps, SIGNAL(dropEvent(QString)), this, SLOT(slotRemoveMapFromServer(QString)));
-    connect(ui->listWidget_ml_currentmaps, SIGNAL(sameDropEvent(int)), this, SLOT(playerListUpdate(int)));
+    connect(ui->listWidget_ml_avaliablemaps, &QListWidget::currentItemChanged,                                       this, &BFBC2Widget::listWidget_ml_avaliablemaps_currentItemChanged);
+    connect(ui->listWidget_ml_currentmaps,   &QListWidget::currentItemChanged,                                       this, &BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged);
+    connect(ui->listWidget_ml_currentmaps,   &QListWidget::itemClicked,                                              this, &BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged);
+    connect(ui->comboBox_ml_gamemode,        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BFBC2Widget::comboBox_ml_gamemode_currentIndexChanged);
+//    connect(ui->listWidget_ml_currentmaps,   &QListWidget::dropEvent,                                                this, &BFBC2Widget::slotAddMapToServer);
+//    connect(ui->listWidget_ml_avaliablemaps, &QListWidget::dropEvent,                                                this, &BFBC2Widget::slotRemoveMapFromServer);
+//    connect(ui->listWidget_ml_currentmaps,   &QListWidget::sameDropEvent,                                            this, &BFBC2Widget::playerListUpdate);
 
-    connect(ui->tableWidget_bl, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_bl_customContextMenuRequested(QPoint)));
-    connect(action_bl_remove, SIGNAL(triggered()), this, SLOT(action_bl_remove_triggered()));
+    connect(ui->tableWidget_bl, &QTableWidget::customContextMenuRequested, this, &BFBC2Widget::listWidget_bl_customContextMenuRequested);
+    connect(action_bl_remove,   &QAction::triggered,                       this, &BFBC2Widget::action_bl_remove_triggered);
 
-    connect(ui->lineEdit_ch, SIGNAL(returnPressed()), this, SLOT(pushButton_ch_send_clicked()));
-    connect(ui->comboBox_ch_type, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ch_type_currentIndexChanged(int)));
+    connect(ui->lineEdit_ch,      &QLineEdit::returnPressed,                                              this, &BFBC2Widget::pushButton_ch_send_clicked);
+    connect(ui->comboBox_ch_type, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BFBC2Widget::comboBox_ch_type_currentIndexChanged);
 
-    connect(action_rs_remove, SIGNAL(triggered()), this, SLOT(action_rs_remove_triggered()));
-    connect(ui->listWidget_rs, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_rs_customContextMenuRequested(QPoint)));
-    connect(ui->lineEdit_rs_player, SIGNAL(returnPressed()), this, SLOT(on_pushButton_rs_reserve_clicked()));
+    connect(action_rs_remove,       &QAction::triggered,                      this, &BFBC2Widget::action_rs_remove_triggered);
+    connect(ui->listWidget_rs,      &QListWidget::customContextMenuRequested, this, &BFBC2Widget::listWidget_rs_customContextMenuRequested);
+    connect(ui->lineEdit_rs_player, &QLineEdit::returnPressed,                this, &BFBC2Widget::on_pushButton_rs_reserve_clicked);
 
-    connect(ui->lineEdit_co_co, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_co_send_clicked()));
-    connect(ui->lineEdit_co_pb, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_pb_send_clicked()));
+    connect(ui->lineEdit_co_co, &QLineEdit::returnPressed, this, &BFBC2Widget::on_pushButton_co_co_send_clicked);
+    connect(ui->lineEdit_co_pb, &QLineEdit::returnPressed, this, &BFBC2Widget::on_pushButton_co_pb_send_clicked);
 
 }
 
@@ -1116,7 +1115,7 @@ void BFBC2Widget::slotChangePlayerTeam(const QString &player, const QString &alt
 void BFBC2Widget::refreshPlayerList()
 {
     con->sendCommand(QString("\"admin.listPlayers\" \"all\""));
-    connect(commandHandler, SIGNAL(onplayerListChange()), this, SLOT(slotPlayerListChange())); // TODO: Change to adminListPlayersAll
+//    connect(commandHandler, SIGNAL(onplayerListChange()), this, &BFBC2Widget::slotPlayerListChange())); // TODO: Change to adminListPlayersAll
 }
 
 void BFBC2Widget::playerListUpdate(int oldRow)

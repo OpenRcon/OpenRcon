@@ -25,12 +25,12 @@ MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEnt
     ui->setupUi(this);
 
     /* Events */
-    connect(connection, SIGNAL(onDataSentEvent(QString)), this, SLOT(onDataSentEvent(QString)));
-    connect(connection, SIGNAL(onDataReceivedEvent(QString)), this, SLOT(onDataSentEvent(QString)));
+    connect(connection, &Connection::onDataSentEvent,          this, &MinecraftWidget::onDataSentEvent);
+    connect(connection, &Connection::onDataReceivedEvent,      this, &MinecraftWidget::onDataSentEvent);
+    connect(connection, &MinecraftConnection::onAuthenticated, this, &MinecraftWidget::onAuthenticated);
 
-    connect(connection, SIGNAL(onAuthenticated(bool)), this, SLOT(onAuthenticated(bool)));
-
-    connect(ui->lineEdit_co_input, SIGNAL(returnPressed()), this, SLOT(on_pushButton_co_send_clicked()));
+    /* User Interface */
+    connect(ui->lineEdit_co_input, &QLineEdit::returnPressed, this, &MinecraftWidget::on_pushButton_co_send_clicked);
 }
 
 MinecraftWidget::~MinecraftWidget()

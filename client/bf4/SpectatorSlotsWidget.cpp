@@ -40,16 +40,16 @@ SpectatorSlotsWidget::SpectatorSlotsWidget(FrostbiteConnection *connection, QWid
     menu_ss_spectatorList->addAction(action_ss_spectatorList_remove);
 
     /* Commands */
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onSpectatorListListCommand(QStringList)), this, SLOT(onSpectatorListListCommand(QStringList)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &SpectatorSlotsWidget::onLoginHashedCommand);
+    connect(commandHandler, &BF4CommandHandler::onSpectatorListListCommand,                                           this, &SpectatorSlotsWidget::onSpectatorListListCommand);
 
     /* User Interface */
-    connect(ui->listWidget_ss_spectatorList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_ss_spectatorList_customContextMenuRequested(QPoint)));
-    connect(action_ss_spectatorList_remove, SIGNAL(triggered()), this, SLOT(action_ss_spectatorList_remove_triggered()));
-    connect(ui->lineEdit_ss_player, SIGNAL(returnPressed()), this, SLOT(pushButton_ss_add_clicked()));
-    connect(ui->pushButton_ss_add, SIGNAL(clicked()), this, SLOT(pushButton_ss_add_clicked()));
-    connect(ui->pushButton_ss_save, SIGNAL(clicked()), this, SLOT(pushButton_ss_save_clicked()));
-    connect(ui->pushButton_ss_clear, SIGNAL(clicked()), this, SLOT(pushButton_ss_clear_clicked()));
+    connect(ui->listWidget_ss_spectatorList, &QListWidget::customContextMenuRequested, this, &SpectatorSlotsWidget::listWidget_ss_spectatorList_customContextMenuRequested);
+    connect(action_ss_spectatorList_remove,  &QAction::triggered,                      this, &SpectatorSlotsWidget::action_ss_spectatorList_remove_triggered);
+    connect(ui->lineEdit_ss_player,          &QLineEdit::returnPressed,                this, &SpectatorSlotsWidget::pushButton_ss_add_clicked);
+    connect(ui->pushButton_ss_add,           &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_ss_add_clicked);
+    connect(ui->pushButton_ss_save,          &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_ss_save_clicked);
+    connect(ui->pushButton_ss_clear,         &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_ss_clear_clicked);
 }
 
 SpectatorSlotsWidget::~SpectatorSlotsWidget()

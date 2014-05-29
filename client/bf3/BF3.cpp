@@ -73,12 +73,14 @@ BF3::BF3(ServerEntry *serverEntry) :
     versionMap.insert(1149977, "R38");
 
     // Connection
-    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
+    connect(con, &Connection::onConnected, this, &BF3::onConnected);
 
     // Commands
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(QByteArray)), this, SLOT(onLoginHashedCommand(QByteArray)));
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this,           static_cast<void (BF3::*)(const QByteArray&)>(&BF3::onLoginHashedCommand));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this,           static_cast<void (BF3::*)(bool)>(&BF3::onLoginHashedCommand));
+    connect(commandHandler, &FrostbiteCommandHandler::onVersionCommand, this, &BF3::onVersionCommand);
 }
 
 BF3::~BF3()

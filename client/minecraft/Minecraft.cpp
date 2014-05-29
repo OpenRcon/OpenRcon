@@ -26,7 +26,7 @@ Minecraft::Minecraft(ServerEntry *serverEntry) : Game(serverEntry)
     connection = new MinecraftConnection(this);
     connection->hostConnect(serverEntry->host, serverEntry->port);
 
-    connect(connection, SIGNAL(onConnected()), this, SLOT(onConnected()));
+    connect(connection, &Connection::onConnected, this, &Minecraft::onConnected);
 }
 
 Minecraft::~Minecraft()

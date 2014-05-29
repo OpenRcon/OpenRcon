@@ -21,6 +21,8 @@
 #include <QTreeWidgetItem>
 #include <QToolTip>
 
+#include <QSpinBox>
+
 #include "FrostbiteUtils.h"
 #include "Time.h"
 
@@ -44,11 +46,11 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // ServerInfo
     timerServerInfoRoundTime = new QTimer(this);
-    connect(timerServerInfoRoundTime, SIGNAL(timeout()), this, SLOT(updateRoundTime()));
+    connect(timerServerInfoRoundTime, &QTimer::timeout, this, &BF4Widget::updateRoundTime);
     timerServerInfoRoundTime->start(1000);
 
     timerServerInfoUpTime = new QTimer(this);
-    connect(timerServerInfoUpTime, SIGNAL(timeout()), this, SLOT(updateUpTime()));
+    connect(timerServerInfoUpTime, &QTimer::timeout, this, &BF4Widget::updateUpTime);
     timerServerInfoUpTime->start(1000);
 
     // Banlist
@@ -185,136 +187,136 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
 
     /* Events */ 
-    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString)), this, SLOT(onPlayerAuthenticatedEvent(QString)));
-    connect(commandHandler, SIGNAL(onPlayerDisconnectEvent(QString)), this, SLOT(onPlayerDisconnectEvent(QString)));
-    connect(commandHandler, SIGNAL(onPlayerJoinEvent(QString, QString)), this, SLOT(onPlayerJoinEvent(QString, QString)));
-    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(onPlayerLeaveEvent(QString, QString)));
-    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(QString, int)), this, SLOT(onPlayerSpawnEvent(QString, int)));
-    connect(commandHandler, SIGNAL(onPlayerKillEvent(QString, QString, QString, bool)), this, SLOT(onPlayerKillEvent(QString, QString, QString, bool)));
-    connect(commandHandler, SIGNAL(onPlayerChatEvent(QString, QString, QString)), this, SLOT(onPlayerChatEvent(QString, QString, QString)));
-    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(QString, int, int)), this, SLOT(onPlayerSquadChangeEvent(QString, int, int)));
-    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(QString, int, int)), this, SLOT(onPlayerTeamChangeEvent(QString, int, int)));
-    connect(commandHandler, SIGNAL(onServerMaxPlayerCountChangeEvent()), this, SLOT(onServerMaxPlayerCountChangeEvent()));
-    connect(commandHandler, SIGNAL(onServerLevelLoadedEvent(QString, QString, int, int)), this, SLOT(onServerLevelLoadedEvent(QString, QString, int, int)));
-    connect(commandHandler, SIGNAL(onServerRoundOverEvent(int)), this, SLOT(onServerRoundOverEvent(int)));
-    connect(commandHandler, SIGNAL(onServerRoundOverPlayersEvent(QString)), this, SLOT(onServerRoundOverPlayersEvent(QString)));
-    connect(commandHandler, SIGNAL(onServerRoundOverTeamScoresEvent(QString)), this, SLOT(onServerRoundOverTeamScoresEvent(QString)));
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,       this, &BF4Widget::onPlayerAuthenticatedEvent);
+    connect(commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent,                 this, &BF4Widget::onPlayerDisconnectEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerJoinEvent,                this, &BF4Widget::onPlayerJoinEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerLeaveEvent,               this, &BF4Widget::onPlayerLeaveEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerSpawnEvent,               this, &BF4Widget::onPlayerSpawnEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerKillEvent,                this, &BF4Widget::onPlayerKillEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerChatEvent,                this, &BF4Widget::onPlayerChatEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerSquadChangeEvent,         this, &BF4Widget::onPlayerSquadChangeEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerTeamChangeEvent,          this, &BF4Widget::onPlayerTeamChangeEvent);
+    connect(commandHandler, &BF4CommandHandler::onServerMaxPlayerCountChangeEvent,       this, &BF4Widget::onServerMaxPlayerCountChangeEvent);
+    connect(commandHandler, &BF4CommandHandler::onServerLevelLoadedEvent,                this, &BF4Widget::onServerLevelLoadedEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onServerRoundOverEvent,           this, &BF4Widget::onServerRoundOverEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onServerRoundOverPlayersEvent,    this, &BF4Widget::onServerRoundOverPlayersEvent);
+    connect(commandHandler, &Frostbite2CommandHandler::onServerRoundOverTeamScoresEvent, this, &BF4Widget::onServerRoundOverTeamScoresEvent);
 
     /* Commands */
     // Misc
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onVersionCommand(QString, int)), this, SLOT(onVersionCommand(QString, int)));
-    connect(commandHandler, SIGNAL(onServerInfoCommand(BF4ServerInfo)), this, SLOT(onServerInfoCommand(BF4ServerInfo)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF4Widget::onLoginHashedCommand);
+    connect(commandHandler, &FrostbiteCommandHandler::onVersionCommand,                                                           this, &BF4Widget::onVersionCommand);
+    connect(commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &BF4Widget::onServerInfoCommand);
 
     // Admin
-    connect(commandHandler, SIGNAL(onAdminPasswordCommand(QString)), this, SLOT(onAdminPasswordCommand(QString)));
+    connect(commandHandler, &BF4CommandHandler::onAdminPasswordCommand,               this, &BF4Widget::onAdminPasswordCommand);
 
     // BanList
-    connect(commandHandler, SIGNAL(onBanListListCommand(BanList)), this, SLOT(onBanListListCommand(BanList)));
+    connect(commandHandler, &BF4CommandHandler::onBanListListCommand,                 this, &BF4Widget::onBanListListCommand);
 
     // FairFight
-    connect(commandHandler, SIGNAL(onFairFightIsActiveCommand(bool)), this, SLOT(onFairFightIsActiveCommand(bool)));
+    connect(commandHandler, &BF4CommandHandler::onFairFightIsActiveCommand,           this, &BF4Widget::onFairFightIsActiveCommand);
 
     // Player
 
     // Punkbuster
-    connect(commandHandler, SIGNAL(onPunkBusterIsActiveCommand(bool)), this, SLOT(onPunkBusterIsActiveCommand(bool)));
+    connect(commandHandler, &BF4CommandHandler::onPunkBusterIsActiveCommand,          this, &BF4Widget::onPunkBusterIsActiveCommand);
 
     // Squad
 
     // Variables  
-    connect(commandHandler, SIGNAL(onVars3dSpottingCommand(bool)), this, SLOT(onVars3dSpottingCommand(bool)));
-    connect(commandHandler, SIGNAL(onVars3pCamCommand(bool)), this, SLOT(onVars3pCamCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsAlwaysAllowSpectatorsCommand(bool)), this, SLOT(onVarsAlwaysAllowSpectatorsCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsAutoBalanceCommand(bool)), this, SLOT(onVarsAutoBalanceCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsBulletDamageCommand(int)), this, SLOT(onVarsBulletDamageCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsCommanderCommand(bool)), this, SLOT(onVarsCommanderCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsForceReloadWholeMagsCommand(bool)), this, SLOT(onVarsForceReloadWholeMagsCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsFriendlyFireCommand(bool)), this, SLOT(onVarsFriendlyFireCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsGameModeCounterCommand(int)), this, SLOT(onVarsGameModeCounterCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsGamePasswordCommand(QString)), this, SLOT(onVarsGamePasswordCommand(QString)));
-    connect(commandHandler, SIGNAL(onVarsHitIndicatorsEnabledCommand(bool)), this, SLOT(onVarsHitIndicatorsEnabledCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsHudCommand(bool)), this, SLOT(onVarsHudCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsIdleBanRoundsCommand(int)), this, SLOT(onVarsIdleBanRoundsCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsIdleTimeoutCommand(int)), this, SLOT(onVarsIdleTimeoutCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsKillCamCommand(bool)), this, SLOT(onVarsKillCamCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsMaxPlayersCommand(int)), this, SLOT(onVarsMaxPlayersCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsMaxSpectatorsCommand(int)), this, SLOT(onVarsMaxSpectatorsCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsMiniMapCommand(bool)), this, SLOT(onVarsMiniMapCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsMiniMapSpottingCommand(bool)), this, SLOT(onVarsMiniMapSpottingCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsNameTagCommand(bool)), this, SLOT(onVarsNameTagCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsOnlySquadLeaderSpawnCommand(bool)), this, SLOT(onVarsOnlySquadLeaderSpawnCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsPlayerRespawnTimeCommand(int)), this, SLOT(onVarsPlayerRespawnTimeCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsRegenerateHealthCommand(bool)), this, SLOT(onVarsRegenerateHealthCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsRoundLockdownCountdownCommand(int)), this, SLOT(onVarsRoundLockdownCountdownCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsRoundRestartPlayerCountCommand(int)), this, SLOT(onVarsRoundRestartPlayerCountCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsRoundStartPlayerCountCommand(int)), this, SLOT(onVarsRoundStartPlayerCountCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsRoundTimeLimitCommand(int)), this, SLOT(onVarsRoundTimeLimitCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsRoundWarmupTimeoutCommand(int)), this, SLOT(onVarsRoundWarmupTimeoutCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsServerNameCommand(QString)), this, SLOT(onVarsServerNameCommand(QString)));
-    connect(commandHandler, SIGNAL(onVarsServerDescriptionCommand(QString)), this, SLOT(onVarsServerDescriptionCommand(QString)));
-    connect(commandHandler, SIGNAL(onVarsServerMessageCommand(QString)), this, SLOT(onVarsServerMessageCommand(QString)));
-    connect(commandHandler, SIGNAL(onVarsServerTypeCommand(QString)), this, SLOT(onVarsServerTypeCommand(QString)));
-    connect(commandHandler, SIGNAL(onVarsSoldierHealthCommand(int)), this, SLOT(onVarsSoldierHealthCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsTicketBleedRateCommand(int)), this, SLOT(onVarsTicketBleedRateCommand(int)));
-    connect(commandHandler, SIGNAL(onVarsVehicleSpawnAllowedCommand(bool)), this, SLOT(onVarsVehicleSpawnAllowedCommand(bool)));
-    connect(commandHandler, SIGNAL(onVarsVehicleSpawnDelayCommand(int)), this, SLOT(onVarsVehicleSpawnDelayCommand(int)));
+    connect(commandHandler, &BF4CommandHandler::onVars3dSpottingCommand,              this, &BF4Widget::onVars3dSpottingCommand);
+    connect(commandHandler, &BF4CommandHandler::onVars3pCamCommand,                   this, &BF4Widget::onVars3pCamCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &BF4Widget::onVarsAlwaysAllowSpectatorsCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsAutoBalanceCommand,             this, &BF4Widget::onVarsAutoBalanceCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsBulletDamageCommand,            this, &BF4Widget::onVarsBulletDamageCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsCommanderCommand,               this, &BF4Widget::onVarsCommanderCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsForceReloadWholeMagsCommand,    this, &BF4Widget::onVarsForceReloadWholeMagsCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsFriendlyFireCommand,            this, &BF4Widget::onVarsFriendlyFireCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsGameModeCounterCommand,         this, &BF4Widget::onVarsGameModeCounterCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsGamePasswordCommand,            this, &BF4Widget::onVarsGamePasswordCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsHitIndicatorsEnabledCommand,    this, &BF4Widget::onVarsHitIndicatorsEnabledCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsHudCommand,                     this, &BF4Widget::onVarsHudCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsIdleBanRoundsCommand,           this, &BF4Widget::onVarsIdleBanRoundsCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsIdleTimeoutCommand,             this, &BF4Widget::onVarsIdleTimeoutCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsKillCamCommand,                 this, &BF4Widget::onVarsKillCamCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsMaxPlayersCommand,              this, &BF4Widget::onVarsMaxPlayersCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsMaxSpectatorsCommand,           this, &BF4Widget::onVarsMaxSpectatorsCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsMiniMapCommand,                 this, &BF4Widget::onVarsMiniMapCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsMiniMapSpottingCommand,         this, &BF4Widget::onVarsMiniMapSpottingCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsNameTagCommand,                 this, &BF4Widget::onVarsNameTagCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsOnlySquadLeaderSpawnCommand,    this, &BF4Widget::onVarsOnlySquadLeaderSpawnCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsPlayerRespawnTimeCommand,       this, &BF4Widget::onVarsPlayerRespawnTimeCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsRegenerateHealthCommand,        this, &BF4Widget::onVarsRegenerateHealthCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsRoundLockdownCountdownCommand,  this, &BF4Widget::onVarsRoundLockdownCountdownCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsRoundRestartPlayerCountCommand, this, &BF4Widget::onVarsRoundRestartPlayerCountCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsRoundStartPlayerCountCommand,   this, &BF4Widget::onVarsRoundStartPlayerCountCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsRoundTimeLimitCommand,          this, &BF4Widget::onVarsRoundTimeLimitCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsRoundWarmupTimeoutCommand,      this, &BF4Widget::onVarsRoundWarmupTimeoutCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsServerNameCommand,              this, &BF4Widget::onVarsServerNameCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsServerDescriptionCommand,       this, &BF4Widget::onVarsServerDescriptionCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsServerMessageCommand,           this, &BF4Widget::onVarsServerMessageCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsServerTypeCommand,              this, &BF4Widget::onVarsServerTypeCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsSoldierHealthCommand,           this, &BF4Widget::onVarsSoldierHealthCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsTicketBleedRateCommand,         this, &BF4Widget::onVarsTicketBleedRateCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsVehicleSpawnAllowedCommand,     this, &BF4Widget::onVarsVehicleSpawnAllowedCommand);
+    connect(commandHandler, &BF4CommandHandler::onVarsVehicleSpawnDelayCommand,       this, &BF4Widget::onVarsVehicleSpawnDelayCommand);
 
     /* User Interface */
     // Server Information
-    connect(ui->pushButton_si_restartRound, SIGNAL(clicked()), this, SLOT(pushButton_si_restartRound_clicked()));
-    connect(ui->pushButton_si_runNextRound, SIGNAL(clicked()), this, SLOT(pushButton_si_runNextRound_clicked()));
+    connect(ui->pushButton_si_restartRound, &QPushButton::clicked, this, &BF4Widget::pushButton_si_restartRound_clicked);
+    connect(ui->pushButton_si_runNextRound, &QPushButton::clicked, this, &BF4Widget::pushButton_si_runNextRound_clicked);
 
     // Events
 
     // Options -> Details
-    connect(ui->lineEdit_op_so_serverName, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverName_editingFinished()));
-    connect(ui->textEdit_op_so_serverDescription, SIGNAL(textChanged()), this, SLOT(textEdit_op_so_serverDescription_textChanged()));
-    connect(ui->lineEdit_op_so_serverMessage, SIGNAL(editingFinished()), this, SLOT(lineEdit_op_so_serverMessage_editingFinished()));
+    connect(ui->lineEdit_op_so_serverName,        &QLineEdit::editingFinished, this, &BF4Widget::lineEdit_op_so_serverName_editingFinished);
+    connect(ui->textEdit_op_so_serverDescription, &QTextEdit::textChanged,     this, &BF4Widget::textEdit_op_so_serverDescription_textChanged);
+    connect(ui->lineEdit_op_so_serverMessage,     &QLineEdit::editingFinished, this, &BF4Widget::lineEdit_op_so_serverMessage_editingFinished);
 
     // Options -> Configuration
-    connect(ui->checkBox_so_co_punkBuster, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_punkBuster_toggled(bool)));
-    connect(ui->checkBox_so_co_fairFight, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_fairFight_toggled(bool)));
-    connect(ui->checkBox_so_co_idleTimeout, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_idleTimeout_toggled(bool)));
-    connect(ui->spinBox_so_co_idleTimeout, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_idleTimeout_valueChanged(int)));
-    connect(ui->checkBox_so_co_idleBanRounds, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_idleBanRounds_toggled(bool)));
-    connect(ui->spinBox_so_co_idleBanRounds, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_idleBanRounds_valueChanged(int)));
-    connect(ui->checkBox_so_co_aggressiveJoin, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_aggressiveJoin_toggled(bool)));
-    connect(ui->spinBox_so_co_maxPlayers, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxPlayers_valueChanged(int)));
-    connect(ui->spinBox_so_co_maxSpectators, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_co_maxSpectators_valueChanged(int)));
-    connect(ui->checkBox_so_co_alwaysAllowSpectators, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_alwaysAllowSpectators_toggled(bool)));
-    connect(ui->checkBox_so_co_commander, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_co_commander_toggled(bool)));
+    connect(ui->checkBox_so_co_punkBuster,            &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_co_punkBuster_toggled);
+    connect(ui->checkBox_so_co_fairFight,             &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_co_fairFight_toggled);
+    connect(ui->checkBox_so_co_idleTimeout,           &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_co_idleTimeout_toggled);
+    connect(ui->spinBox_so_co_idleTimeout,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_co_idleTimeout_valueChanged);
+    connect(ui->checkBox_so_co_idleBanRounds,         &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_co_idleBanRounds_toggled);
+    connect(ui->spinBox_so_co_idleBanRounds,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_co_idleBanRounds_valueChanged);
+    connect(ui->checkBox_so_co_aggressiveJoin,        &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_co_aggressiveJoin_toggled);
+    connect(ui->spinBox_so_co_maxPlayers,             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_co_maxPlayers_valueChanged);
+    connect(ui->spinBox_so_co_maxSpectators,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_co_maxSpectators_valueChanged);
+    connect(ui->checkBox_so_co_alwaysAllowSpectators, &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_co_alwaysAllowSpectators_toggled);
+    connect(ui->checkBox_so_co_commander,             &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_co_commander_toggled);
 
     // Options -> Gameplay
-    connect(ui->checkBox_so_gp_friendlyFire, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_friendlyFire_toggled(bool)));
-    connect(ui->checkBox_so_gp_autoBalance, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_autoBalance_toggled(bool)));
-    connect(ui->checkBox_so_gp_killCam, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_killCam_toggled(bool)));
-    connect(ui->checkBox_so_gp_miniMap, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_miniMap_toggled(bool)));
-    connect(ui->checkBox_so_gp_miniMapSpotting, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_miniMapSpotting_toggled(bool)));
-    connect(ui->checkBox_so_gp_3dSpotting, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_3dSpotting_toggled(bool)));
-    connect(ui->checkBox_so_gp_nameTag, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_nameTag_toggled(bool)));
-    connect(ui->checkBox_so_gp_regenerateHealth, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_regenerateHealth_toggled(bool)));
-    connect(ui->checkBox_so_gp_hud, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_hud_toggled(bool)));
-    connect(ui->checkBox_so_gp_onlySquadLeaderSpawn, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_onlySquadLeaderSpawn_toggled(bool)));
-    connect(ui->checkBox_so_gp_vehicleSpawnAllowed, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_vehicleSpawnAllowed_toggled(bool)));
-    connect(ui->checkBox_so_gp_hitIndicatorsEnabled, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_hitIndicatorsEnabled_toggled(bool)));
-    connect(ui->checkBox_so_gp_thirdPersonVehicleCameras, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_thirdPersonVehicleCameras_toggled(bool)));
-    connect(ui->checkBox_so_gp_forceReloadWholeMags, SIGNAL(toggled(bool)), this, SLOT(checkBox_so_gp_forceReloadWholeMags_toggled(bool)));
-    connect(ui->spinBox_so_gp_bulletDamage, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_bulletDamage_valueChanged(int)));
-    connect(ui->spinBox_so_gp_soldierHealth, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_soldierHealth_valueChanged(int)));
-    connect(ui->spinBox_so_gp_vehicleSpawnDelay, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_vehicleSpawnDelay_valueChanged(int)));
-    connect(ui->spinBox_so_gp_playerRespawnTime, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_playerRespawnTime_valueChanged(int)));
-    connect(ui->spinBox_so_gp_ticketBleedRate, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_ticketBleedRate_valueChanged(int)));
-    connect(ui->spinBox_so_gp_gameModeCounter, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_gameModeCounter_valueChanged(int)));
-    connect(ui->spinBox_so_gp_roundTimeLimit, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundTimeLimit_valueChanged(int)));
-    connect(ui->spinBox_so_gp_roundLockdownCountdown, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundLockdownCountdown_valueChanged(int)));
-    connect(ui->spinBox_so_gp_roundWarmupTimeout, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundWarmupTimeout_valueChanged(int)));
-    connect(ui->spinBox_so_gp_roundRestartPlayerCount, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundRestartPlayerCount_valueChanged(int)));
-    connect(ui->spinBox_so_gp_roundStartPlayerCount, SIGNAL(valueChanged(int)), this, SLOT(spinBox_so_gp_roundStartPlayerCount_valueChanged(int)));
+    connect(ui->checkBox_so_gp_friendlyFire,              &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_friendlyFire_toggled);
+    connect(ui->checkBox_so_gp_autoBalance,               &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_autoBalance_toggled);
+    connect(ui->checkBox_so_gp_killCam,                   &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_killCam_toggled);
+    connect(ui->checkBox_so_gp_miniMap,                   &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_miniMap_toggled);
+    connect(ui->checkBox_so_gp_miniMapSpotting,           &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_miniMapSpotting_toggled);
+    connect(ui->checkBox_so_gp_3dSpotting,                &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_3dSpotting_toggled);
+    connect(ui->checkBox_so_gp_nameTag,                   &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_nameTag_toggled);
+    connect(ui->checkBox_so_gp_regenerateHealth,          &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_regenerateHealth_toggled);
+    connect(ui->checkBox_so_gp_hud,                       &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_hud_toggled);
+    connect(ui->checkBox_so_gp_onlySquadLeaderSpawn,      &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_onlySquadLeaderSpawn_toggled);
+    connect(ui->checkBox_so_gp_vehicleSpawnAllowed,       &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_vehicleSpawnAllowed_toggled);
+    connect(ui->checkBox_so_gp_hitIndicatorsEnabled,      &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_hitIndicatorsEnabled_toggled);
+    connect(ui->checkBox_so_gp_thirdPersonVehicleCameras, &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_thirdPersonVehicleCameras_toggled);
+    connect(ui->checkBox_so_gp_forceReloadWholeMags,      &QCheckBox::toggled,                                           this, &BF4Widget::checkBox_so_gp_forceReloadWholeMags_toggled);
+    connect(ui->spinBox_so_gp_bulletDamage,               static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_bulletDamage_valueChanged);
+    connect(ui->spinBox_so_gp_soldierHealth,              static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_soldierHealth_valueChanged);
+    connect(ui->spinBox_so_gp_vehicleSpawnDelay,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_vehicleSpawnDelay_valueChanged);
+    connect(ui->spinBox_so_gp_playerRespawnTime,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_playerRespawnTime_valueChanged);
+    connect(ui->spinBox_so_gp_ticketBleedRate,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_ticketBleedRate_valueChanged);
+    connect(ui->spinBox_so_gp_gameModeCounter,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_gameModeCounter_valueChanged);
+    connect(ui->spinBox_so_gp_roundTimeLimit,             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_roundTimeLimit_valueChanged);
+    connect(ui->spinBox_so_gp_roundLockdownCountdown,     static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_roundLockdownCountdown_valueChanged);
+    connect(ui->spinBox_so_gp_roundWarmupTimeout,         static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_roundWarmupTimeout_valueChanged);
+    connect(ui->spinBox_so_gp_roundRestartPlayerCount,    static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_roundRestartPlayerCount_valueChanged);
+    connect(ui->spinBox_so_gp_roundStartPlayerCount,      static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_roundStartPlayerCount_valueChanged);
 
     // Banlist
-    connect(ui->tableWidget_bl_banList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(tableWidget_bl_banList_customContextMenuRequested(QPoint)));
-    connect(action_bl_banList_remove, SIGNAL(triggered()), this, SLOT(action_bl_banList_remove_triggered()));
+    connect(ui->tableWidget_bl_banList, &QTreeWidget::customContextMenuRequested, this, &BF4Widget::tableWidget_bl_banList_customContextMenuRequested);
+    connect(action_bl_banList_remove,   &QAction::triggered,                      this, &BF4Widget::action_bl_banList_remove_triggered);
 }
 
 BF4Widget::~BF4Widget()

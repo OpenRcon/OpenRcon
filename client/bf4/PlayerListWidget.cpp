@@ -72,30 +72,29 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     menu_pl_players_copyTo->addAction(action_pl_players_copyTo_guid);
 
     /* Events */
-    connect(commandHandler, SIGNAL(onPlayerAuthenticatedEvent(QString)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerDisconnectEvent(QString)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerJoinEvent(QString, QString)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerLeaveEvent(QString, QString)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerSpawnEvent(QString, int)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerKillEvent(QString, QString, QString, bool)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerSquadChangeEvent(QString, int, int)), this, SLOT(updatePlayerList()));
-    connect(commandHandler, SIGNAL(onPlayerTeamChangeEvent(QString, int, int)), this, SLOT(updatePlayerList()));
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerAuthenticatedEvent, this, &PlayerListWidget::updatePlayerList);
+    connect(commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent,    this, &PlayerListWidget::updatePlayerList);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerJoinEvent,          this, &PlayerListWidget::updatePlayerList);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerLeaveEvent,         this, &PlayerListWidget::updatePlayerList);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerSpawnEvent,         this, &PlayerListWidget::updatePlayerList);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerKillEvent,          this, &PlayerListWidget::updatePlayerList);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerSquadChangeEvent,   this, &PlayerListWidget::updatePlayerList);
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerTeamChangeEvent,    this, &PlayerListWidget::updatePlayerList);
 
     /* Commands */
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onServerInfoCommand(BF4ServerInfo)), this, SLOT(onServerInfoCommand(BF4ServerInfo)));
-    connect(commandHandler, SIGNAL(onAdminListPlayersCommand(QList<PlayerInfo>, PlayerSubset)), this, SLOT(onAdminListPlayersCommand(QList<PlayerInfo>, PlayerSubset)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &PlayerListWidget::onLoginHashedCommand);
+    connect(commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &PlayerListWidget::onServerInfoCommand);
+    connect(commandHandler, &BF4CommandHandler::onAdminListPlayersCommand,                                                        this, &PlayerListWidget::onAdminListPlayersCommand);
 
     /* User Interface */
-    connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(customContextMenuRequested(QPoint)));
-    connect(action_pl_players_kill, SIGNAL(triggered()), this, SLOT(action_pl_players_kill_triggered()));
-    connect(action_pl_players_kick, SIGNAL(triggered()), this, SLOT(action_pl_players_kick_triggered()));
-    connect(action_pl_players_ban, SIGNAL(triggered()), this, SLOT(action_pl_players_ban_triggered()));
-    connect(action_pl_players_reserveSlot, SIGNAL(triggered()), this, SLOT(action_pl_players_reserveSlot_triggered()));
-    connect(action_pl_players_copyTo_name, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_name_triggered()));
-    connect(action_pl_players_copyTo_guid, SIGNAL(triggered()), this, SLOT(action_pl_players_copyTo_guid_triggered()));
-
-    connect(menu_pl_players_move, SIGNAL(triggered(QAction*)), this, SLOT(menu_pl_players_move_triggered(QAction*)));
+    connect(this,                          &QTreeWidget::customContextMenuRequested, this, &PlayerListWidget::customContextMenuRequested);
+    connect(action_pl_players_kill,        &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_kill_triggered);
+    connect(action_pl_players_kick,        &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_kick_triggered);
+    connect(action_pl_players_ban,         &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_ban_triggered);
+    connect(action_pl_players_reserveSlot, &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_reserveSlot_triggered);
+    connect(action_pl_players_copyTo_name, &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_copyTo_name_triggered);
+    connect(action_pl_players_copyTo_guid, &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_copyTo_guid_triggered);
+    connect(menu_pl_players_move,          &QMenu::triggered,                        this, &PlayerListWidget::menu_pl_players_move_triggered);
 }
 
 PlayerListWidget::~PlayerListWidget()

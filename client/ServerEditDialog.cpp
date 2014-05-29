@@ -35,23 +35,24 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 
     ui->spinBox_port->setValue(GameManager::getGame(0).defaultPort);
 
-    connect(ui->lineEdit_name, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
-    connect(ui->lineEdit_host, SIGNAL(textChanged(QString)), this, SLOT(detect(QString)));
+    connect(ui->comboBox_game, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ServerEditDialog::comboBox_game_currentIndexChanged);
+    connect(ui->lineEdit_host, &QLineEdit::editingFinished,                                            this, &ServerEditDialog::lineEdit_host_editingFinished);
 
-    connect(ui->comboBox_game, SIGNAL(currentIndexChanged(int)), this, SLOT(validate()));
-    connect(ui->comboBox_game, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_game_currentIndexChanged(int)));
-    connect(ui->lineEdit_name, SIGNAL(textChanged(QString)), this, SLOT(validate()));
-    connect(ui->lineEdit_host, SIGNAL(textChanged(QString)), this, SLOT(validate()));
-    connect(ui->lineEdit_host, SIGNAL(editingFinished()), this, SLOT(lineEdit_host_editingFinished()));
-    connect(ui->spinBox_port, SIGNAL(valueChanged(int)), this, SLOT(validate()));
-    connect(ui->lineEdit_password, SIGNAL(textChanged(QString)), this, SLOT(validate()));
+    connect(ui->lineEdit_name, &QLineEdit::textChanged, this, &ServerEditDialog::detect);
+    connect(ui->lineEdit_host, &QLineEdit::textChanged, this, &ServerEditDialog::detect);
 
-    connect(ui->lineEdit_name, SIGNAL(returnPressed()), this, SLOT(accept()));
-    connect(ui->lineEdit_host, SIGNAL(returnPressed()), this, SLOT(accept()));
-    connect(ui->lineEdit_password, SIGNAL(returnPressed()), this, SLOT(accept()));
+    connect(ui->comboBox_game,     static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ServerEditDialog::validate);
+    connect(ui->lineEdit_name,     &QLineEdit::textChanged,                                                this, &ServerEditDialog::validate);
+    connect(ui->lineEdit_host,     &QLineEdit::textChanged,                                                this, &ServerEditDialog::validate);
+    connect(ui->spinBox_port,      static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),          this, &ServerEditDialog::validate);
+    connect(ui->lineEdit_password, &QLineEdit::textChanged,                                                this, &ServerEditDialog::validate);
 
-    connect(ui->pushButton_ok, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(ui->pushButton_cancel, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(ui->lineEdit_name,     &QLineEdit::returnPressed, this, &ServerEditDialog::accept);
+    connect(ui->lineEdit_host,     &QLineEdit::returnPressed, this, &ServerEditDialog::accept);
+    connect(ui->lineEdit_password, &QLineEdit::returnPressed, this, &ServerEditDialog::accept);
+
+    connect(ui->pushButton_ok,     &QPushButton::clicked, this, &ServerEditDialog::accept);
+    connect(ui->pushButton_cancel, &QPushButton::clicked, this, &ServerEditDialog::reject);
 
     validate();
 }

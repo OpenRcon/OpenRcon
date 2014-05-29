@@ -37,15 +37,15 @@ ChatWidget::ChatWidget(FrostbiteConnection *connection, QWidget *parent) :
     ui->comboBox_ch_target->addItem(tr("All"));
 
     /* Events */
-    connect(commandHandler, SIGNAL(onPlayerChatEvent(QString, QString, QString)), this, SLOT(onPlayerChatEvent(QString, QString, QString)));
+    connect(commandHandler, &Frostbite2CommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
 
     /* Commands */
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
 
     /* User Interface */
-    connect(ui->comboBox_ch_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBox_ch_mode_currentIndexChanged(int)));
-    connect(ui->pushButton_ch_send, SIGNAL(clicked()), this, SLOT(pushButton_ch_send_clicked()));
-    connect(ui->lineEdit_ch, SIGNAL(editingFinished()), this, SLOT(pushButton_ch_send_clicked()));
+    connect(ui->comboBox_ch_mode,   static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ChatWidget::comboBox_ch_mode_currentIndexChanged);
+    connect(ui->pushButton_ch_send, &QPushButton::clicked,                                                  this, &ChatWidget::pushButton_ch_send_clicked);
+    connect(ui->lineEdit_ch,        &QLineEdit::editingFinished,                                            this, &ChatWidget::pushButton_ch_send_clicked);
 }
 
 ChatWidget::~ChatWidget()

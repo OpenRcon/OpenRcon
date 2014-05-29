@@ -21,9 +21,9 @@
 
 Connection::Connection(QAbstractSocket *socket, QObject *parent) : QObject(parent), socket(socket)
 {
-    connect(socket, SIGNAL(connected()), this, SLOT(connected()));
-    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
-    connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));
+    connect(socket, &QAbstractSocket::connected,                                                                   this, &Connection::connected);
+    connect(socket, &QAbstractSocket::disconnected,                                                                this, &Connection::disconnected);
+    connect(socket, static_cast<void (QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error), this, &Connection::displayError);
 }
 
 Connection::~Connection()

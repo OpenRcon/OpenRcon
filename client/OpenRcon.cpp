@@ -108,23 +108,23 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     }
 
     // Actions
-    connect(actionServerManager, SIGNAL(triggered()), this, SLOT(actionServerManager_triggered()));
-    connect(actionQuit, SIGNAL(triggered()), this, SLOT(close()));
-    connect(actionQuickConnect, SIGNAL(triggered()), this, SLOT(actionQuickConnect_triggered()));
-    connect(actionOptions, SIGNAL(triggered()), this, SLOT(actionOptions_triggered()));
-    connect(actionDocumentation, SIGNAL(triggered()), this, SLOT(actionDocumentation_triggered()));
-    connect(actionVisitWebsite, SIGNAL(triggered()), this, SLOT(actionVisitWebsite_triggered()));
-    connect(actionReportBug, SIGNAL(triggered()), this, SLOT(actionReportBug_triggered()));
-    connect(actionAbout, SIGNAL(triggered()), this, SLOT(actionAbout_triggered()));
-    connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(actionAboutQt_triggered()));
+    connect(actionServerManager, &QAction::triggered, this, &OpenRcon::actionServerManager_triggered);
+    connect(actionQuit,          &QAction::triggered, this, &OpenRcon::close);
+    connect(actionQuickConnect,  &QAction::triggered, this, &OpenRcon::actionQuickConnect_triggered);
+    connect(actionOptions,       &QAction::triggered, this, &OpenRcon::actionOptions_triggered);
+    connect(actionDocumentation, &QAction::triggered, this, &OpenRcon::actionDocumentation_triggered);
+    connect(actionVisitWebsite,  &QAction::triggered, this, &OpenRcon::actionVisitWebsite_triggered);
+    connect(actionReportBug,     &QAction::triggered, this, &OpenRcon::actionReportBug_triggered);
+    connect(actionAbout,         &QAction::triggered, this, &OpenRcon::actionAbout_triggered);
+    connect(actionAboutQt,       &QAction::triggered, this, &OpenRcon::actionAboutQt_triggered);
 
     // Toolbars
-    connect(pushButton_quickConnect_connect, SIGNAL(clicked()), this, SLOT(pushButton_quickConnect_connect_clicked()));
-    connect(serverManager, SIGNAL(onServerUpdated()), this, SLOT(updateServerList()));
-    connect(sessionManager, SIGNAL(onServerConnected()), this, SLOT(updateServerList()));
+    connect(pushButton_quickConnect_connect, &QPushButton::clicked,              this, &OpenRcon::pushButton_quickConnect_connect_clicked);
+    connect(serverManager,                   &ServerManager::onServerUpdated,    this, &OpenRcon::updateServerList);
+    connect(sessionManager,                  &SessionManager::onServerConnected, this, &OpenRcon::updateServerList);
 
     // TabWidget
-    connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
+    connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &OpenRcon::closeTab);
 }
 
 OpenRcon::~OpenRcon()

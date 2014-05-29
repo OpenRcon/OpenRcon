@@ -17,7 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QObject>
+#include <QApplication>
 
 #include "FrostbiteUtils.h"
 #include "Time.h"
@@ -52,19 +52,19 @@ QString FrostbiteUtils::toString(Time time)
     QString timeString;
 
     if (time.days != 0) {
-        timeString += " " + QObject::tr("%1d").arg(time.days);
+        timeString += " " + QApplication::tr("%1d").arg(time.days);
     }
 
     if (time.hours != 0) {
-        timeString += " " + QObject::tr("%1h").arg(time.hours);
+        timeString += " " + QApplication::tr("%1h").arg(time.hours);
     }
 
     if (time.minutes != 0) {
-        timeString += " " + QObject::tr("%1m").arg(time.minutes);
+        timeString += " " + QApplication::tr("%1m").arg(time.minutes);
     }
 
     if (time.seconds != 0) {
-        timeString += " " + QObject::tr("%1s").arg(time.seconds);
+        timeString += " " + QApplication::tr("%1s").arg(time.seconds);
     }
 
     return timeString;

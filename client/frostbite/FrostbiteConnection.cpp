@@ -30,7 +30,7 @@ FrostbiteConnection::FrostbiteConnection(QObject *parent) :
     packetReadState(PacketReadingHeader),
     nextPacketSequence(0)
 {
-    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    connect(socket, &QAbstractSocket::readyRead, this, &FrostbiteConnection::readyRead);
 }
 
 FrostbiteConnection::~FrostbiteConnection()

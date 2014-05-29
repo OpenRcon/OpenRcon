@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2014 The OpenRcon Project.
  *
@@ -41,17 +42,17 @@ ReservedSlotsWidget::ReservedSlotsWidget(FrostbiteConnection *connection, QWidge
     menu_rs_reservedSlotsList->addAction(action_rs_reservedSlotsList_remove);
 
     /* Commands */
-    connect(commandHandler, SIGNAL(onLoginHashedCommand(bool)), this, SLOT(onLoginHashedCommand(bool)));
-    connect(commandHandler, SIGNAL(onReservedSlotsListListCommand(QStringList)), this, SLOT(onReservedSlotsListListCommand(QStringList)));
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ReservedSlotsWidget::onLoginHashedCommand);
+    connect(commandHandler, &Frostbite2CommandHandler::onReservedSlotsListListCommand,                                            this, &ReservedSlotsWidget::onReservedSlotsListListCommand);
 
     /* User Interface */
-    connect(ui->listWidget_rs_reservedSlotsList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(listWidget_rs_reservedSlotsList_customContextMenuRequested(QPoint)));
-    connect(action_rs_reservedSlotsList_remove, SIGNAL(triggered()), this, SLOT(action_rs_reservedSlotsList_remove_triggered()));
-    connect(ui->lineEdit_rs_player, SIGNAL(returnPressed()), this, SLOT(pushButton_rs_add_clicked()));
-    connect(ui->pushButton_rs_add, SIGNAL(clicked()), this, SLOT(pushButton_rs_add_clicked()));
-    connect(ui->pushButton_rs_load, SIGNAL(clicked()), this, SLOT(pushButton_rs_load_clicked()));
-    connect(ui->pushButton_rs_save, SIGNAL(clicked()), this, SLOT(pushButton_rs_save_clicked()));
-    connect(ui->pushButton_rs_clear, SIGNAL(clicked()), this, SLOT(pushButton_rs_clear_clicked()));
+    connect(ui->listWidget_rs_reservedSlotsList, &QListWidget::customContextMenuRequested, this, &ReservedSlotsWidget::listWidget_rs_reservedSlotsList_customContextMenuRequested);
+    connect(action_rs_reservedSlotsList_remove,  &QAction::triggered,                      this, &ReservedSlotsWidget::action_rs_reservedSlotsList_remove_triggered);
+    connect(ui->lineEdit_rs_player,              &QLineEdit::returnPressed,                this, &ReservedSlotsWidget::pushButton_rs_add_clicked);
+    connect(ui->pushButton_rs_add,               &QPushButton::clicked,                    this, &ReservedSlotsWidget::pushButton_rs_add_clicked);
+    connect(ui->pushButton_rs_load,              &QPushButton::clicked,                    this, &ReservedSlotsWidget::pushButton_rs_load_clicked);
+    connect(ui->pushButton_rs_save,              &QPushButton::clicked,                    this, &ReservedSlotsWidget::pushButton_rs_save_clicked);
+    connect(ui->pushButton_rs_clear,             &QPushButton::clicked,                    this, &ReservedSlotsWidget::pushButton_rs_clear_clicked);
 }
 
 ReservedSlotsWidget::~ReservedSlotsWidget()
