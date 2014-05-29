@@ -19,6 +19,13 @@
 
 #include "BF3LevelDictionary.h"
 
+// TODO: More teams here?
+template<>
+QList<TeamEntry> BF3LevelDictionary::teamList = {
+    TeamEntry("US", ""),
+    TeamEntry("RU", "")
+};
+
 template<>
 QList<LevelEntry> BF3LevelDictionary::levelList = {
     /* List of all levels */
@@ -82,13 +89,6 @@ QList<GameModeEntry> BF3LevelDictionary::gameModeList = {
     GameModeEntry("Scavenger0", "Scavenger", 32),                         // 13
     GameModeEntry("CaptureTheFlag0", "Capture The Flag", 32),             // 14
     GameModeEntry("AirSuperiority0", "Air Superiority", 24)               // 15
-};
-
-// TODO: More teams here?
-template<>
-QStringList BF3LevelDictionary::teamList = {
-    "US",
-    "RU"
 };
 
 template<>

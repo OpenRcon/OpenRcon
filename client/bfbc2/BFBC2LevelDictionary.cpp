@@ -17,10 +17,15 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BFBC2Mod.h"
 #include "BFBC2LevelDictionary.h"
+#include "BFBC2Mod.h"
 
-#include <QList>
+// TODO: More teams here?
+template<>
+QList<TeamEntry> BFBC2LevelDictionary::teamList = {
+    TeamEntry("US", ""),
+    TeamEntry("RU", ""),
+};
 
 template<>
 QList<BFBC2LevelEntry> BFBC2LevelDictionary::levelList = {
@@ -102,13 +107,6 @@ QList<GameModeEntry> BFBC2LevelDictionary::gameModeList = {
     GameModeEntry("RUSH", "Rush", 32),
     GameModeEntry("SQRUSH", "Squadrush", 32),
     GameModeEntry("SQDM", "Squad Deathmatch", 32)
-};
-
-// TODO: More teams here?
-template<>
-QStringList BFBC2LevelDictionary::teamList = {
-    "US",
-    "RU"
 };
 
 template<>

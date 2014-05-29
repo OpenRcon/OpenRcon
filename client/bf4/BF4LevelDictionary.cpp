@@ -20,6 +20,16 @@
 #include "BF4LevelDictionary.h"
 
 template<>
+QList<TeamEntry> BF4LevelDictionary::teamList = {
+    /* List of all teams */
+    TeamEntry("Neutral", ""),
+    TeamEntry("RU", ":/bf4/teams/RU.png"),
+    TeamEntry("US", ":/bf4/teams/US.png"),
+    TeamEntry("CN", ":/bf4/teams/CN.png"),
+//    TeamEntry("CH", "") // TODO: This is from documentation, but seems to be a typo of CN.
+};
+
+template<>
 QList<LevelEntry> BF4LevelDictionary::levelList = {
     /* List of all levels */
     LevelEntry("MP_Abandoned", "Zavod 311", QList<int>({ 0, 1 }), ":/bf4/levels/zavod_311.png"),                     // 0
@@ -71,15 +81,6 @@ QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList = {
     BF4GameModeEntry("CaptureTheFlag0", "Capture the flag", 32, 0, 4),            // 9
     BF4GameModeEntry("CarrierAssaultLarge0", "Carrier Assault Large", 64, 0, 4),  // 10
     BF4GameModeEntry("CarrierAssaultSmall0", "Carrier Assault Small", 64, 0, 4)   // 11 Check this when docs are available.
-};
-
-template<>
-QStringList BF4LevelDictionary::teamList = {
-    /* List of all teams */
-    "RU",
-    "US",
-    "CN",
-    "CH"
 };
 
 template<>

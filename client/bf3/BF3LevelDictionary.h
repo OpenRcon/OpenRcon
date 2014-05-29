@@ -21,14 +21,12 @@
 #define BF3LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
-#include "LevelEntry.h"
-#include "GameModeEntry.h"
 
-typedef LevelDictionary<2, LevelEntry, GameModeEntry> BF3LevelDictionary;
+typedef LevelDictionary<2, TeamEntry, LevelEntry, GameModeEntry> BF3LevelDictionary;
 
+template<> QList<TeamEntry> BF3LevelDictionary::teamList;
 template<> QList<LevelEntry> BF3LevelDictionary::levelList;
 template<> QList<GameModeEntry> BF3LevelDictionary::gameModeList;
-template<> QStringList BF3LevelDictionary::teamList;
 template<> QMultiHash<int, int> BF3LevelDictionary::levelMap;
 
 #endif // BF3LEVELDICTIONARY_H

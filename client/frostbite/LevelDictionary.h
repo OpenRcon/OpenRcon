@@ -25,16 +25,19 @@
 
 #include "LevelEntry.h"
 #include "GameModeEntry.h"
+#include "TeamEntry.h"
 
+typedef QList<TeamEntry> TeamList;
 typedef QList<LevelEntry> LevelList;
 typedef QList<GameModeEntry> GameModeList;
 
-template<int hack, typename LevelEntryType, typename GameModeEntryType>
+template<int hack, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType>
 class LevelDictionary
 {
 public:
     LevelDictionary()
     {
+        static_assert(std::is_base_of<TeamEntry, TeamEntryType>::value, "TeamEntryType must be a subclass of TeamEntry.");
         static_assert(std::is_base_of<LevelEntry, LevelEntryType>::value, "LevelEntryType must be a subclass of LevelEntry.");
         static_assert(std::is_base_of<GameModeEntry, GameModeEntryType>::value, "GameModeEntryType must be a subclass of GameModeEntry.");
     }
@@ -137,19 +140,19 @@ public:
         return list;
     }
 
-    static const QString &getTeam(int index)
+    static const TeamEntryType &getTeam(int index)
     {
         return teamList.at(index);
     }
 
-    static const QStringList &getTeams()
+    static const QList<TeamEntryType> &getTeams()
     {
         return teamList;
     }
 
-    static QStringList getTeams(const LevelEntryType &level)
+    static QList<TeamEntryType> getTeams(const LevelEntryType &level)
     {
-        QStringList list;
+        QList<TeamEntryType> list;
 
         for (int i = 0; i > getTeams().length(); i++) {
             if (i == level.team1 || i == level.team2) {
@@ -163,10 +166,10 @@ public:
 private:
     QString imagePath;
 
+    static QList<TeamEntryType> teamList;
     static QList<LevelEntryType> levelList;
     static QList<GameModeEntryType> gameModeList;
     static QMultiHash<int, int> levelMap;
-    static QStringList teamList;
 
 };
 

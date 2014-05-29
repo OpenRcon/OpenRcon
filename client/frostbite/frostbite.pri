@@ -18,7 +18,8 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/TeamScores.h \
     frostbite/Time.h \
     frostbite/ConsoleWidget.h \
-    frostbite/Squad.h
+    frostbite/Squad.h \
+    frostbite/TeamEntry.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteRconPacket.cpp \

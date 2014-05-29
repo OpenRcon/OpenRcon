@@ -141,4 +141,9 @@
         <file alias="wave_breaker.png">images/levels/wave_breaker.png</file>
         <file alias="zavod_311.png">images/levels/zavod_311.png</file>
     </qresource>
+    <qresource prefix="/bf4/teams">
+        <file alias="CN.png">images/teams/CN.png</file>
+        <file alias="US.png">images/teams/US.png</file>
+        <file alias="RU.png">images/teams/RU.png</file>
+    </qresource>
 </RCC>

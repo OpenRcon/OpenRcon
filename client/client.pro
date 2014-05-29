@@ -45,12 +45,6 @@ RESOURCES += OpenRcon.qrc
 
 RC_ICONS = OpenRcon.ico
 
-macx {
-    TARGET = OpenRcon
-    ICON = openrcon.icns
-    QMAKE_INFO_PLIST = Info.plist
-}
-
 include(locale/locale.pri)
 include(game/game.pri)
 

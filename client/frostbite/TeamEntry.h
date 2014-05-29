@@ -17,17 +17,33 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4LEVELDICTIONARY_H
-#define BF4LEVELDICTIONARY_H
+#ifndef TEAMENTRY_H
+#define TEAMENTRY_H
 
-#include "LevelDictionary.h"
-#include "BF4GameModeEntry.h"
+#include <QString>
+#include <QPixmap>
 
-typedef LevelDictionary<3, TeamEntry, LevelEntry, BF4GameModeEntry> BF4LevelDictionary;
+struct TeamEntry
+{
+    TeamEntry()
+    {
 
-template<> QList<TeamEntry> BF4LevelDictionary::teamList;
-template<> QList<LevelEntry> BF4LevelDictionary::levelList;
-template<> QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList;
-template<> QMultiHash<int, int> BF4LevelDictionary::levelMap;
+    }
 
-#endif // BF4LEVELDICTIONARY_H
+    TeamEntry(const QString &name,
+              const QString &image) :
+        name(name),
+        imagePath(image)
+    {
+
+    }
+
+    QPixmap image() {
+        return QPixmap(imagePath);
+    }
+
+    QString name;
+    QString imagePath;
+};
+
+#endif // TEAMENTRY_H

@@ -39,6 +39,7 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     this->setFrameShape(Shape::NoFrame);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
 
+    // Set the columns in headerItem.
     QTreeWidgetItem *headerItem = this->headerItem();
     headerItem->setText(0, tr("Name"));
     headerItem->setText(1, tr("Squad"));
@@ -119,18 +120,21 @@ void PlayerListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
 {
     if (playerSubset == PlayerSubset::All) {
-        this->clear();
-
+        // Clear the QTreeWidget and item.
+        clear();
         menu_pl_players_move->clear();
 
         // Create a list of all players as QTreeWidgetItem's.
-        QList<QTreeWidgetItem *> playerItems;
+        QSet<QTreeWidgetItem *> playerItems;
+        QSet<int> teamIds;
 
+        // Create player items and adding them to the list.
         for (PlayerInfo player : playerList) {
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
             playerItem->setData(0, Qt::UserRole, player.teamId);
             playerItem->setIcon(0, getRankIcon(player.rank));
             playerItem->setText(0, player.name);
+            playerItem->setData(1, Qt::UserRole, player.squadId);
             playerItem->setText(1, FrostbiteUtils::getSquadName(player.squadId));
             playerItem->setText(2, QString::number(player.kills));
             playerItem->setText(3, QString::number(player.deaths));
@@ -139,24 +143,34 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
             playerItem->setText(6, player.guid);
 
             // Add player item and team id to lists.
-            playerItems.append(playerItem);
+            playerItems.insert(playerItem);
+            teamIds.insert(player.teamId);
         }
 
-        for (int teamId : currentLevel.teams) {
-            QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
-            teamItem->setText(0, BF4LevelDictionary::getTeam(teamId));
+        for (int teamId = 0; teamId <= 2; teamId++) {
+            TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.teams.at(teamId - 1));
 
-            for (QTreeWidgetItem *playerItem : playerItems) {
-                if (teamId == playerItem->data(0, Qt::UserRole)) {
-                    teamItem->addChild(playerItem);
+            // Add teams that contains players.
+            if (teamIds.contains(teamId)) {
+                QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
+                teamItem->setIcon(0, team.image());
+                teamItem->setText(0, team.name);
+
+                for (QTreeWidgetItem *playerItem : playerItems) {
+                    if (teamId == playerItem->data(0, Qt::UserRole).toInt()) {
+                        teamItem->addChild(playerItem);
+                    }
                 }
             }
 
-            // Add the team to the menu_pl_players_move menu.
-            action_pl_players_move_team = new QAction(tr("Team %1").arg(BF4LevelDictionary::getTeam(teamId)), menu_pl_players_move);
-            action_pl_players_move_team->setData(teamId);
+            // Player cannot be moved to nutrual team.
+            if (teamId > 0) {
+                // Add the team to the menu_pl_players_move menu.
+                action_pl_players_move_team = new QAction(team.image(), tr("Team %1").arg(team.name), menu_pl_players_move);
+                action_pl_players_move_team->setData(teamId);
 
-            menu_pl_players_move->addAction(action_pl_players_move_team);
+                menu_pl_players_move->addAction(action_pl_players_move_team);
+            }
         }
 
         menu_pl_players_move->addSeparator();
@@ -169,14 +183,14 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
         }
 
         // Expand all player rows
-        this->expandAll();
+        expandAll();
 
         // Sort players based on their score.
-        this->sortItems(4, Qt::AscendingOrder);
+        sortItems(4, Qt::AscendingOrder);
 
         // Resize columns so that they fits the content.
         for (int i = 0; i < this->columnCount(); i++) {
-            this->resizeColumnToContents(i);
+            resizeColumnToContents(i);
         }
     }
 }
@@ -241,15 +255,16 @@ void PlayerListWidget::action_pl_players_copyTo_guid_triggered()
 
 void PlayerListWidget::menu_pl_players_move_triggered(QAction *action)
 {
+    QTreeWidgetItem *item = currentItem();
+    QString player = item->text(0);
     int value = action->data().toInt();
-    QString player = currentItem()->text(0);
     int teamId, squadId;
 
-    if (value <= 4) {
-        teamId = value + 1;
-        squadId = 0;
+    if (value <= 3) {
+        teamId = value;
+        squadId = item->data(1, Qt::UserRole).toInt();
     } else {
-        teamId = currentItem()->data(0, Qt::UserRole).toInt();
+        teamId = item->data(0, Qt::UserRole).toInt();
         squadId = value - 5;
     }
 

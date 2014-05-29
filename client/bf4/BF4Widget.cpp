@@ -362,7 +362,7 @@ void BF4Widget::onPlayerLeaveEvent(const QString &player, const QString &info)
 
 void BF4Widget::onPlayerSpawnEvent(const QString &player, int teamId)
 {
-    logEvent("PlayerSpawn", tr("Player %1 spawned, and is on team %2.").arg(player).arg(BF4LevelDictionary::getTeam(teamId - 1)));
+    logEvent("PlayerSpawn", tr("Player %1 spawned, and is on team %2.").arg(player).arg(BF4LevelDictionary::getTeam(teamId - 1).name));
 }
 
 void BF4Widget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
