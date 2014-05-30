@@ -20,8 +20,8 @@
 #ifndef LEVELDICTIONARY_H
 #define LEVELDICTIONARY_H
 
-#include <QHash>
-#include <QStringList>
+#include <QList>
+#include <QMultiHash>
 
 #include "LevelEntry.h"
 #include "GameModeEntry.h"
@@ -164,8 +164,6 @@ public:
     }
 
 private:
-    QString imagePath;
-
     static QList<TeamEntryType> teamList;
     static QList<LevelEntryType> levelList;
     static QList<GameModeEntryType> gameModeList;

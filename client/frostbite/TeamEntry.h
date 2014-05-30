@@ -25,13 +25,8 @@
 
 struct TeamEntry
 {
-    TeamEntry()
-    {
-
-    }
-
     TeamEntry(const QString &name,
-              const QString &image) :
+              const QString &image = QString()) :
         name(name),
         imagePath(image)
     {

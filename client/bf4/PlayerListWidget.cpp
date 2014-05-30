@@ -21,6 +21,9 @@
 #include <QApplication>
 #include <QMenu>
 #include <QAction>
+#include <QDragEnterEvent>
+#include <QDragLeaveEvent>
+#include <QDropEvent>
 
 #include "FrostbiteConnection.h"
 #include "FrostbiteUtils.h"
@@ -39,6 +42,7 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
 {
     setFrameShape(Shape::NoFrame);
     setContextMenuPolicy(Qt::CustomContextMenu);
+    setDragDropMode(DragDropMode::InternalMove);
 
     // Set the columns in headerItem.
     QTreeWidgetItem *item = headerItem();
@@ -95,6 +99,9 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     connect(action_pl_players_copyTo_name, &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_copyTo_name_triggered);
     connect(action_pl_players_copyTo_guid, &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_copyTo_guid_triggered);
     connect(menu_pl_players_move,          &QMenu::triggered,                        this, &PlayerListWidget::menu_pl_players_move_triggered);
+
+    // Drag and Drop
+    //connect(this, &QTreeWidget::dropEvent, this, &PlayerListWidget::onDropEvent);
 }
 
 PlayerListWidget::~PlayerListWidget()
@@ -151,8 +158,9 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
             TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.teams.at(teamId - 1));
 
             // Add teams that contains players.
-            if (teamIds.contains(teamId)) {
+            if (teamId > 0 || (teamId == 0 && teamIds.contains(teamId))) {
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
+                teamItem->setData(0, Qt::UserRole, teamId);
                 teamItem->setIcon(0, team.image());
                 teamItem->setText(0, team.name);
 
@@ -163,7 +171,7 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
                 }
             }
 
-            // Player cannot be moved to nutrual team.
+            // Player cannot be moved to neutral team.
             if (teamId > 0) {
                 // Add the team to the menu_pl_players_move menu.
                 action_pl_players_move_team = new QAction(team.image(), tr("Team %1").arg(team.name), menu_pl_players_move);
@@ -189,7 +197,7 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
         sortItems(4, Qt::AscendingOrder);
 
         // Resize columns so that they fits the content.
-        for (int i = 0; i < this->columnCount(); i++) {
+        for (int i = 0; i < columnCount(); i++) {
             resizeColumnToContents(i);
         }
     }
@@ -269,4 +277,31 @@ void PlayerListWidget::menu_pl_players_move_triggered(QAction *action)
     }
 
     commandHandler->sendAdminMovePlayerCommand(player, teamId, squadId, true);
+}
+
+void PlayerListWidget::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (currentItem()->parent()) {
+        event->accept();
+    }
+}
+
+void PlayerListWidget::dropEvent(QDropEvent *event)
+{
+    QTreeWidgetItem *currentItem = this->currentItem();
+
+    if (currentItem && currentItem->parent()) {
+        QTreeWidgetItem *pointItem = itemAt(event->pos());
+
+        if (pointItem && !pointItem->parent()) {
+            QString player = currentItem->text(0);
+            int teamId = pointItem->data(0, Qt::UserRole).toInt();
+            int squadId = currentItem->data(1, Qt::UserRole).toInt();
+
+            commandHandler->sendAdminMovePlayerCommand(player, teamId, squadId, true);
+            QTreeWidget::dropEvent(event);
+        }
+    }
+
+    event->ignore();
 }

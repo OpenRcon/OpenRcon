@@ -80,6 +80,8 @@ private slots:
     void action_pl_players_copyTo_name_triggered();
     void action_pl_players_copyTo_guid_triggered();
     void menu_pl_players_move_triggered(QAction *action);
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
 
 };
 
