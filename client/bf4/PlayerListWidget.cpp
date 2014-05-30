@@ -45,24 +45,24 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     setDragDropMode(DragDropMode::InternalMove);
 
     // Set the columns in headerItem.
-    QTreeWidgetItem *item = headerItem();
-    item->setText(0, tr("Name"));
-    item->setText(1, tr("Squad"));
-    item->setText(2, tr("Kills"));
-    item->setText(3, tr("Deaths"));
-    item->setText(4, tr("Score"));
-    item->setText(5, tr("Ping"));
-    item->setText(6, tr("GUID"));
+    QTreeWidgetItem *headerItem = this->headerItem();
+    headerItem->setText(0, tr("Name"));
+    headerItem->setText(1, tr("Squad"));
+    headerItem->setText(2, tr("Kills"));
+    headerItem->setText(3, tr("Deaths"));
+    headerItem->setText(4, tr("Score"));
+    headerItem->setText(5, tr("Ping"));
+    headerItem->setText(6, tr("GUID"));
 
     // Players
     clipboard = QApplication::clipboard();
     menu_pl_players = new QMenu(this);
-    menu_pl_players_move = new QMenu(tr("Move"), menu_pl_players);
+    menu_pl_players_move = new QMenu(tr("Move to..."), menu_pl_players);
     action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
     action_pl_players_kick = new QAction(tr("Kick"), menu_pl_players);
     action_pl_players_ban = new QAction(tr("Ban"), menu_pl_players);
     action_pl_players_reserveSlot = new QAction(tr("Reserve slot"), menu_pl_players);
-    menu_pl_players_copyTo = new QMenu(tr("Copy"), menu_pl_players);
+    menu_pl_players_copyTo = new QMenu(tr("Copy..."), menu_pl_players);
     action_pl_players_copyTo_name = new QAction(tr("Name"), menu_pl_players_copyTo);
     action_pl_players_copyTo_guid = new QAction(tr("GUID"), menu_pl_players_copyTo);
 
@@ -157,7 +157,7 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
         for (int teamId = 0; teamId <= 2; teamId++) {
             TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.teams.at(teamId - 1));
 
-            // Add teams that contains players.
+            // Add teams items.
             if (teamId > 0 || (teamId == 0 && teamIds.contains(teamId))) {
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
                 teamItem->setData(0, Qt::UserRole, teamId);
@@ -171,10 +171,11 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
                 }
             }
 
-            // Player cannot be moved to neutral team.
+            // Add team actions to the move menu, except for Neutral.
             if (teamId > 0) {
                 // Add the team to the menu_pl_players_move menu.
                 action_pl_players_move_team = new QAction(team.image(), tr("Team %1").arg(team.name), menu_pl_players_move);
+                action_pl_players_move_team->setCheckable(true);
                 action_pl_players_move_team->setData(teamId);
 
                 menu_pl_players_move->addAction(action_pl_players_move_team);
@@ -185,16 +186,14 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
 
         for (int squadId = 0; squadId <= 8; squadId++) {
             action_pl_players_move_squad = new QAction(tr("Squad %1").arg(FrostbiteUtils::getSquadName(squadId)), menu_pl_players_move);
+            action_pl_players_move_squad->setCheckable(true);
             action_pl_players_move_squad->setData(squadId + 5);
 
             menu_pl_players_move->addAction(action_pl_players_move_squad);
         }
 
-        // Expand all player rows
+        // Expand all items.
         expandAll();
-
-        // Sort players based on their score.
-        sortItems(4, Qt::AscendingOrder);
 
         // Resize columns so that they fits the content.
         for (int i = 0; i < columnCount(); i++) {
@@ -219,6 +218,19 @@ void PlayerListWidget::customContextMenuRequested(const QPoint &pos)
     QTreeWidgetItem *item = itemAt(pos);
 
     if (item && item->parent()) {
+        int teamIndex = item->data(0, Qt::UserRole).toInt() - 1;
+        int squadIndex = item->data(1, Qt::UserRole).toInt() + (topLevelItemCount() + 1);
+
+        for (int index = 0; index < menu_pl_players_move->actions().size(); index++) {
+            QAction *action = menu_pl_players_move->actions().at(index);
+
+            if (index == teamIndex ||
+                index == squadIndex) {
+                action->setEnabled(false);
+                action->setChecked(true);
+            }
+        }
+
         menu_pl_players->exec(QCursor::pos());
     }
 }
