@@ -26,6 +26,7 @@
 
 class QMenu;
 class QAction;
+class QTreeWidgetItem;
 class FrostbiteConnection;
 
 namespace Ui {
@@ -66,10 +67,15 @@ private slots:
     void treeWidget_ml_current_itemSelectionChanged();
     void treeWidget_ml_current_customContextMenuRequested(const QPoint &pos);
 
-    void addAvailableMapListRow(const QString &name, const QString &gameMode);
+    void addAvailableMapListItem(const QString &name, const QString &gameMode);
     void setAvailableMaplist(int gameModeIndex);
-    void addCurrentMapListRow(const QString &name, const QString &gameMode, int rounds);
+    void addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds);
     void setCurrentMaplist(const MapList &mapList);
+    void addLevel(const QString &name, const QString &gameMode, int rounds);
+    void removeLevel(int index);
+
+    void treeWidget_ml_available_itemDrop(int index);
+    void treeWidget_ml_current_itemDrop(QTreeWidgetItem *item);
 
 };
 

@@ -110,7 +110,7 @@
     </layout>
    </item>
    <item row="2" column="2">
-    <widget class="QTreeWidget" name="treeWidget_ml_current">
+    <widget class="DragDropTreeWidget" name="treeWidget_ml_current">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
      </property>
@@ -132,7 +132,7 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QTreeWidget" name="treeWidget_ml_available">
+    <widget class="DragDropTreeWidget" name="treeWidget_ml_available">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
      </property>
@@ -211,6 +211,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DragDropTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>DragDropTreeWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
