@@ -202,10 +202,17 @@ void OpenRcon::updateServerList()
                 comboBox_quickConnect_server->addItem(game.getIcon(), server->name);
             }
         }
+
+        // Show an message in the disabled combobox that all the servers is connected.
+        if (comboBox_quickConnect_server->count() <= 0) {
+            comboBox_quickConnect_server->setEnabled(false);
+            pushButton_quickConnect_connect->setEnabled(false);
+            comboBox_quickConnect_server->addItem(tr("All servers connected."));
+        }
     } else {
+        // Show an message in the disabled comboBox that there is no servers added yet.
         comboBox_quickConnect_server->setEnabled(false);
         pushButton_quickConnect_connect->setEnabled(false);
-
         comboBox_quickConnect_server->addItem(tr("No servers added yet."));
     }
 }
