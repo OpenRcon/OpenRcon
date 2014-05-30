@@ -132,24 +132,6 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
         QSet<QTreeWidgetItem *> playerItems;
         QSet<int> teamIds;
 
-        // Debug fake players.
-        for (int i = 0; i < 4; i++) {
-            QTreeWidgetItem *playerItem = new QTreeWidgetItem();
-            playerItem->setData(0, Qt::UserRole, 1);
-            playerItem->setIcon(0, getRankIcon(100));
-            playerItem->setText(0, QString("Player %1").arg(i));
-            playerItem->setData(1, Qt::UserRole, 8);
-            playerItem->setText(1, FrostbiteUtils::getSquadName(8));
-            playerItem->setText(2, QString::number(6));
-            playerItem->setText(3, QString::number(5));
-            playerItem->setText(4, QString::number(9900));
-            playerItem->setText(5, QString::number(16));
-            playerItem->setText(6, "player.guid");
-
-            // Add player item and team id to lists.
-            playerItems.insert(playerItem);
-        }
-
         // Create player items and adding them to the list.
         for (PlayerInfo player : playerList) {
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
@@ -234,7 +216,7 @@ void PlayerListWidget::customContextMenuRequested(const QPoint &pos)
 
     if (item && item->parent()) {
         int teamIndex = item->data(0, Qt::UserRole).toInt() - 1;
-        int squadIndex = item->data(1, Qt::UserRole).toInt() + (topLevelItemCount() + 1);
+        int squadIndex = item->data(1, Qt::UserRole).toInt() + topLevelItemCount() + 1;
 
         for (int index = 0; index < menu_pl_players_move->actions().size(); index++) {
             QAction *action = menu_pl_players_move->actions().at(index);
