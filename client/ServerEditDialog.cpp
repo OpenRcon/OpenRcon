@@ -21,6 +21,7 @@
 #include "ServerEditDialog.h"
 
 #include <QDebug>
+#include <QPushButton>
 
 #include "GameEntry.h"
 #include "GameManager.h"
@@ -34,6 +35,8 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     }
 
     ui->spinBox_port->setValue(GameManager::getGame(0).defaultPort);
+
+    validate();
 
     connect(ui->comboBox_game, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ServerEditDialog::comboBox_game_currentIndexChanged);
     connect(ui->lineEdit_host, &QLineEdit::editingFinished,                                            this, &ServerEditDialog::lineEdit_host_editingFinished);
@@ -51,10 +54,8 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     connect(ui->lineEdit_host,     &QLineEdit::returnPressed, this, &ServerEditDialog::accept);
     connect(ui->lineEdit_password, &QLineEdit::returnPressed, this, &ServerEditDialog::accept);
 
-    connect(ui->pushButton_ok,     &QPushButton::clicked, this, &ServerEditDialog::accept);
-    connect(ui->pushButton_cancel, &QPushButton::clicked, this, &ServerEditDialog::reject);
-
-    validate();
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &ServerEditDialog::accept);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &ServerEditDialog::reject);
 }
 
 ServerEditDialog::ServerEditDialog(int index, QWidget *parent) : ServerEditDialog(parent)
@@ -99,7 +100,11 @@ void ServerEditDialog::detect(const QString &value)
 
 void ServerEditDialog::validate()
 {   
-    ui->pushButton_ok->setEnabled(!ui->lineEdit_name->text().isEmpty() && !ui->lineEdit_host->text().isEmpty() && ui->spinBox_port->value() > 0);
+    QPushButton *buttonBox_cancel = ui->buttonBox->button(QDialogButtonBox::Ok);
+
+    buttonBox_cancel->setEnabled(!ui->lineEdit_name->text().isEmpty() &&
+                                 !ui->lineEdit_host->text().isEmpty() &&
+                                 ui->spinBox_port->value() > 0);
 }
 
 void ServerEditDialog::accept()
