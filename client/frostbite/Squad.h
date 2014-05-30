@@ -29,7 +29,31 @@ enum class Squad {
     Echo,
     Foxtrot,
     Golf,
-    Hotel
+    Hotel,
+    India,
+    Juliet,
+    Kilo,
+    Lima,
+    Mike,
+    November,
+    Oscar,
+    Papa,
+    Quebec,
+    Romeo,
+    Sierra,
+    Tango,
+    Uniform,
+    Victor,
+    Whiskey,
+    Xray,
+    Yankee,
+    Zulu,
+    Haggard,
+    Sweetwater,
+    Preston,
+    Redford,
+    Faith,
+    Celeste
 };
 
 #endif // SQUAD_H
