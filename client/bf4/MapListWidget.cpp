@@ -67,6 +67,9 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(ui->treeWidget_ml_current,   &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_ml_current_itemSelectionChanged);
     connect(ui->treeWidget_ml_current,   &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_ml_current_customContextMenuRequested);
     connect(action_ml_current_remove,    &QAction::triggered,                                                    this, &MapListWidget::pushButton_ml_remove_clicked);
+
+    connect(ui->treeWidget_ml_available, static_cast<void (DragDropTreeWidget::*)(int)>(&DragDropTreeWidget::itemDrop),              this, &MapListWidget::treeWidget_ml_available_itemDrop);
+    connect(ui->treeWidget_ml_current,   static_cast<void (DragDropTreeWidget::*)(const QTreeWidgetItem*)>(&DragDropTreeWidget::itemDrop), this, &MapListWidget::treeWidget_ml_current_itemDrop);
 }
 
 MapListWidget::~MapListWidget()
@@ -124,17 +127,11 @@ void MapListWidget::pushButton_ml_add_clicked()
 {
     // Make sure that treeWidget_ml_available selected item count is greater than zero.
     if (ui->treeWidget_ml_available->selectedItems().size() > 0) {
+        QString name = ui->treeWidget_ml_available->currentItem()->text(0);
+        QString gameMode = ui->treeWidget_ml_available->currentItem()->text(1);
         int rounds = ui->spinBox_ml_rounds->value();
 
-        if (rounds > 0) {
-            LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
-            GameModeEntry gameMode = BF4LevelDictionary::getGameMode(ui->treeWidget_ml_available->currentItem()->text(1));
-
-            ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
-
-            addCurrentMapListRow(level.name, gameMode.name, rounds);
-            commandHandler->sendMapListAddCommand(level.engineName, gameMode.engineName, rounds);
-        }
+        addLevel(name, gameMode, rounds);
     }
 }
 
@@ -142,24 +139,17 @@ void MapListWidget::pushButton_ml_remove_clicked()
 {
     // Make sure that treeWidget_ml_current selected item count is greater than zero.
     if (ui->treeWidget_ml_current->selectedItems().size() > 0) {
-        if (ui->treeWidget_ml_current->topLevelItemCount() < 1) {
-            ui->label_ml_currentSelectedMapImage->clear();
-        }
-
         int index = ui->treeWidget_ml_current->currentIndex().row();
 
-        ui->treeWidget_ml_current->takeTopLevelItem(index);
-        commandHandler->sendMapListRemoveCommand(index);
+        removeLevel(index);
     }
 }
 
-void MapListWidget::addAvailableMapListRow(const QString &name, const QString &gameMode)
+void MapListWidget::addAvailableMapListItem(const QString &name, const QString &gameMode)
 {
-    QTreeWidgetItem *item = new QTreeWidgetItem();
+    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_ml_available);
     item->setText(0, name);
     item->setText(1, gameMode);
-
-    ui->treeWidget_ml_available->addTopLevelItem(item);
 }
 
 void MapListWidget::setAvailableMaplist(int gameModeIndex)
@@ -172,9 +162,10 @@ void MapListWidget::setAvailableMaplist(int gameModeIndex)
     ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().image());
 
     for (LevelEntry level : levelList) {
-        addAvailableMapListRow(level.name, gameMode.name);
+        addAvailableMapListItem(level.name, gameMode.name);
     }
 
+    // Sort items.
     ui->treeWidget_ml_available->sortItems(0, Qt::AscendingOrder);
 
     // Resize columns so that they fits the content.
@@ -199,14 +190,13 @@ void MapListWidget::treeWidget_ml_current_customContextMenuRequested(const QPoin
     }
 }
 
-void MapListWidget::addCurrentMapListRow(const QString &name, const QString &gameMode, int rounds)
+void MapListWidget::addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds)
 {
-    QTreeWidgetItem *item = new QTreeWidgetItem();
+    // Add the item to the QTreeWidget.
+    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_ml_current);
     item->setText(0, name);
     item->setText(1, gameMode);
     item->setText(2, QString::number(rounds));
-
-    ui->treeWidget_ml_current->addTopLevelItem(item);
 }
 
 void MapListWidget::setCurrentMaplist(const MapList &mapList)
@@ -216,19 +206,49 @@ void MapListWidget::setCurrentMaplist(const MapList &mapList)
     for (int i = 0; i < mapList.length(); i++) {
         MapListEntry entry = mapList.at(i);
         LevelEntry level = BF4LevelDictionary::getLevel(entry.level);
-        GameModeEntry gameMode = BF4LevelDictionary::getGameMode(entry.gameMode);
+        BF4GameModeEntry gameMode = BF4LevelDictionary::getGameMode(entry.gameMode);
 
         if (i == 0) {
             ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
         }
 
-        addCurrentMapListRow(level.name, gameMode.name, entry.rounds);
+        addCurrentMapListItem(level.name, gameMode.name, entry.rounds);
     }
-
-    ui->treeWidget_ml_current->sortItems(0, Qt::AscendingOrder);
 
     // Resize columns so that they fits the content.
     for (int i = 0; i < ui->treeWidget_ml_available->columnCount(); i++) {
         ui->treeWidget_ml_current->resizeColumnToContents(i);
     }
+}
+
+void MapListWidget::addLevel(const QString &name, const QString &gameMode, int rounds)
+{
+    if (rounds > 0) {
+        LevelEntry levelEntry = BF4LevelDictionary::getLevel(name);
+        BF4GameModeEntry gameModeEntry = BF4LevelDictionary::getGameMode(gameMode);
+
+        ui->label_ml_currentSelectedMapImage->setPixmap(levelEntry.image());
+        addCurrentMapListItem(name, gameMode, rounds);
+        commandHandler->sendMapListAddCommand(levelEntry.engineName, gameModeEntry.engineName, rounds);
+    }
+}
+
+void MapListWidget::removeLevel(int index)
+{
+    if (ui->treeWidget_ml_current->topLevelItemCount() <= 1) {
+        ui->label_ml_currentSelectedMapImage->clear();
+    }
+
+    ui->treeWidget_ml_current->takeTopLevelItem(index);
+    commandHandler->sendMapListRemoveCommand(index);
+}
+
+void MapListWidget::treeWidget_ml_available_itemDrop(int index)
+{
+    removeLevel(index);
+}
+
+void MapListWidget::treeWidget_ml_current_itemDrop(const QTreeWidgetItem *item)
+{
+    addLevel(item->text(0), item->text(1), ui->spinBox_ml_rounds->value());
 }
