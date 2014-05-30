@@ -58,6 +58,8 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     // Load GameEnrties and ServerEntries from ServerManager and add them to the QTreeWidget.
     createTreeData();
 
+    connect(sessionManager, &SessionManager::onServerConnected, this, &ServerListDialog::onServerConnected);
+
     connect(ui->treeWidget, &QTreeWidget::customContextMenuRequested, this, &ServerListDialog::treeWidget_customContextMenuRequested);
     connect(ui->treeWidget, &QTreeWidget::currentItemChanged,         this, &ServerListDialog::treeWidget_currentItemChanged);
     connect(ui->treeWidget, &QTreeWidget::itemClicked,                this, &ServerListDialog::treeWidget_itemClicked);
@@ -71,8 +73,6 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     connect(ui->pushButton_sld_connect, &QPushButton::clicked,       this, &ServerListDialog::connectToItem);
     connect(ui->buttonBox,              &QDialogButtonBox::accepted, this, &ServerListDialog::accept);
     connect(ui->buttonBox,              &QDialogButtonBox::rejected, this, &ServerListDialog::reject);
-
-    connect(sessionManager, &SessionManager::onServerConnected, this, &ServerListDialog::onServerConnected);
 }
 
 ServerListDialog::~ServerListDialog()
@@ -100,10 +100,12 @@ void ServerListDialog::treeWidget_currentItemChanged(QTreeWidgetItem *current, Q
 {
     Q_UNUSED(previous);
 
-    QVariant variant = current->data(0, Qt::UserRole);
-    ServerEntry *entry = variant.value<ServerEntry *>();
+    if (current) {
+        QVariant variant = current->data(0, Qt::UserRole);
+        ServerEntry *entry = variant.value<ServerEntry *>();
 
-    ui->pushButton_sld_connect->setEnabled(current->parent() && !sessionManager->isConnected(entry));
+        ui->pushButton_sld_connect->setEnabled(current->parent() && !sessionManager->isConnected(entry));
+    }
 }
 
 void ServerListDialog::treeWidget_itemClicked(QTreeWidgetItem *item, int column)
