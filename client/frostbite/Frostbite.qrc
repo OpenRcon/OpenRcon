@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/frostbite/icons">
+        <file alias="chat.png">images/chat.png</file>
+        <file alias="console.png">images/console.png</file>
+        <file alias="events.png">images/events.png</file>
+        <file alias="players.png">images/players.png</file>
+        <file alias="punkbuster.png">images/punkbuster.png</file>
+    </qresource>
+</RCC>

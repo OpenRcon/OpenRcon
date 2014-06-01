@@ -14,15 +14,15 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget_co">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
      </property>
      <widget class="QWidget" name="tab_co_co">
       <attribute name="icon">
-       <iconset resource="../OpenRcon.qrc">
-        <normaloff>:/icons/console.png</normaloff>:/icons/console.png</iconset>
+       <iconset resource="Frostbite.qrc">
+        <normaloff>:/frostbite/icons/console.png</normaloff>:/frostbite/icons/console.png</iconset>
       </attribute>
       <attribute name="title">
        <string>Console</string>
@@ -31,7 +31,7 @@
        <item row="1" column="0">
         <widget class="QLineEdit" name="lineEdit_co_co">
          <property name="placeholderText">
-          <string>Enter command to execute here.</string>
+          <string>Enter command to execute here...</string>
          </property>
          <property name="clearButtonEnabled">
           <bool>true</bool>
@@ -62,8 +62,8 @@
      </widget>
      <widget class="QWidget" name="tab_co_pb">
       <attribute name="icon">
-       <iconset resource="../OpenRcon.qrc">
-        <normaloff>:/icons/images/icons/punkbuster.png</normaloff>:/icons/images/icons/punkbuster.png</iconset>
+       <iconset resource="Frostbite.qrc">
+        <normaloff>:/frostbite/icons/punkbuster.png</normaloff>:/frostbite/icons/punkbuster.png</iconset>
       </attribute>
       <attribute name="title">
        <string>PunkBuster</string>
@@ -100,7 +100,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../OpenRcon.qrc"/>
+  <include location="Frostbite.qrc"/>
  </resources>
  <connections/>
 </ui>

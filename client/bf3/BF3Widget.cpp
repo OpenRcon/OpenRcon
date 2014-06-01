@@ -17,28 +17,123 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "BF3Widget.h"
+#include "ui_BF3Widget.h"
 #include "FrostbiteUtils.h"
+#include "BF3CommandHandler.h"
+#include "BF3LevelDictionary.h"
 
 #include "ChatWidget.h"
 #include "ReservedSlotsWidget.h"
 #include "ConsoleWidget.h"
 
-#include "BF3Widget.h"
-#include "ui_BF3Widget.h"
-#include "BF3CommandHandler.h"
-#include "BF3LevelDictionary.h"
-
 BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);
 
+    QStringList commandList = {
+        "login.plainText",
+        "login.hashed",
+        "serverinfo",
+        "admin.help",
+        "logout",
+        "quit",
+        "version",
+        "listPlayers",
+        "admin.eventsEnabled",
+        "admin.password",
+        "admin.effectiveMaxPlayers",
+        "admin.say",
+        "admin.yell",
+        "admin.kickPlayer",
+        "admin.listPlayers",
+        "admin.movePlayer",
+        "admin.killPlayer",
+        "player.idleDuration",
+        "player.isAlive",
+        "player.ping",
+        "squad.listActive",
+        "squad.listPlayers",
+        "squad.private",
+        "squad.leader",
+        "punkBuster.isActive",
+        "punkBuster.activate",
+        "punkBuster.pb_sv_command",
+        "banList.load",
+        "banList.save",
+        "banList.add",
+        "banList.remove",
+        "banList.clear",
+        "banList.list",
+        "reservedSlotsList.load",
+        "reservedSlotsList.save",
+        "reservedSlotsList.add",
+        "reservedSlotsList.remove",
+        "reservedSlotsList.clear",
+        "reservedSlotsList.list",
+        "reservedSlotsList.aggressiveJoin",
+        "mapList.load",
+        "mapList.save",
+        "mapList.add",
+        "mapList.remove",
+        "mapList.clear",
+        "mapList.list",
+        "mapList.setNextMapIndex",
+        "mapList.getMapIndices",
+        "mapList.getRounds",
+        "mapList.endRound",
+        "mapList.runNextRound",
+        "mapList.restartRound",
+        "mapList.availableMaps",
+        "vars.ranked",
+        "vars.serverName",
+        "vars.gamePassword",
+        "vars.autoBalance",
+        "vars.roundStartPlayerCount",
+        "vars.roundRestartPlayerCount",
+        "vars.roundLockdownCountdown",
+        "vars.serverMessage",
+        "vars.friendlyFire",
+        "vars.maxPlayers",
+        "vars.serverDescription",
+        "vars.killCam",
+        "vars.miniMap",
+        "vars.hud",
+        "vars.crossHair",
+        "vars.3dSpotting",
+        "vars.miniMapSpotting",
+        "vars.nameTag",
+        "vars.3pCam",
+        "vars.regenerateHealth",
+        "vars.teamKillCountForKick",
+        "vars.teamKillValueForKick",
+        "vars.teamKillValueIncrease",
+        "vars.teamKillValueDecreasePerSecond",
+        "vars.teamKillKickForBan",
+        "vars.idleTimeout",
+        "vars.idleBanRounds",
+        "vars.vehicleSpawnAllowed",
+        "vars.vehicleSpawnDelay",
+        "vars.soldierHealth",
+        "vars.playerRespawnTime",
+        "vars.playerManDownTime",
+        "vars.bulletDamage",
+        "vars.gameModeCounter",
+        "vars.onlySquadLeaderSpawn",
+        "vars.unlockMode",
+        "vars.premiumStatus",
+        "vars.bannerUrl",
+        "vars.roundsPerMap",
+        "vars.gunMasterWeaponsPreset"
+    };
+
     chatWidget = new ChatWidget(con, this);
     reservedSlotsWidget = new ReservedSlotsWidget(con, this);
-    consoleWidget = new ConsoleWidget(con, this);
+    consoleWidget = new ConsoleWidget(con, commandList, this);
 
-    ui->tabWidget->addTab(chatWidget, tr("Chat"));
+    ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
     ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
-    ui->tabWidget->addTab(consoleWidget, QIcon(":/icons/console.png"), tr("Console"));
+    ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
     connect(con, &Connection::onConnected,    this, &BF3Widget::onConnected);
@@ -60,15 +155,19 @@ BF3Widget::~BF3Widget()
     delete consoleWidget;
 }
 
-void BF3Widget::setAuthenticated(bool authenticated)
+void BF3Widget::setAuthenticated(bool auth)
 {
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), authenticated);
-//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), authenticated);
-//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), authenticated);
-//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), authenticated);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), authenticated);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), auth);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), auth);
+//    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), auth);
 
-    startupCommands(authenticated);
+    if (auth) {
+        ui->tabWidget->setCurrentIndex(0);
+    }
+
+    startupCommands(auth);
 }
 
 void BF3Widget::startupCommands(bool authenticated)
@@ -97,22 +196,6 @@ void BF3Widget::startupCommands(bool authenticated)
         commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
 }
-
-//void BF3Widget::logEvent(const QString &event, const QString &message)
-//{
-//    int row = ui->tableWidget_ev_events->rowCount();
-
-//    ui->tableWidget_ev_events->insertRow(row);
-//    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss")));
-//    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
-//    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
-//    ui->tableWidget_ev_events->resizeColumnsToContents();
-//}
-
-//void BF3Widget::logChat(const QString &sender, const QString &message, const QString &target)
-//{
-//    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
-//}
 
 /* Connection */
 void BF3Widget::onConnected()
@@ -186,7 +269,7 @@ QIcon BF3Widget::getRankIcon(int rank)
 void BF3Widget::updatePlayerList()
 {
     if (isAuthenticated()) {
-//        commandHandler->sendAdminListPlayersCommand(All);
+//        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
     } else {
         commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
@@ -232,9 +315,6 @@ void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
 
         // Expand all player rows
         ui->treeWidget_pl_players->expandAll();
-
-        // Sort players based on their score.
-        ui->treeWidget_pl_players->sortItems(4, Qt::AscendingOrder);
 
         // Resize columns so that they fits the content.
         for (int i = 0; i < ui->treeWidget_pl_players->columnCount(); i++) {

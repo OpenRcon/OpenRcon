@@ -50,113 +50,114 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(timerServerInfoUpTime, &QTimer::timeout, this, &BF4Widget::updateUpTime);
     timerServerInfoUpTime->start(1000);
 
-    QStringList commandList;
-    commandList.append("login.plainText");
-    commandList.append("login.hashed");
-    commandList.append("serverInfo");
-    commandList.append("logout");
-    commandList.append("quit");
-    commandList.append("version");
-    commandList.append("currentLevel");
-    commandList.append("listPlayers");
-    commandList.append("admin.eventsEnabled");
-    commandList.append("admin.help");
-    commandList.append("admin.kickPlayer");
-    commandList.append("admin.killPlayer");
-    commandList.append("admin.listPlayers");
-    commandList.append("admin.movePlayer");
-    commandList.append("admin.password");
-    commandList.append("admin.say");
-    commandList.append("admin.shutDown");
-    commandList.append("admin.yell");
-    commandList.append("banList.add");
-    commandList.append("banList.clear");
-    commandList.append("banList.list");
-    commandList.append("banList.load");
-    commandList.append("banList.remove");
-    commandList.append("banList.save");
-    commandList.append("fairFight.activate");
-    commandList.append("fairfight.deactivate");
-    commandList.append("fairFight.isActive");
-    commandList.append("mapList.add");
-    commandList.append("mapList.availableMaps");
-    commandList.append("mapList.clear");
-    commandList.append("mapList.endRound");
-    commandList.append("mapList.getMapIndices");
-    commandList.append("mapList.getRounds");
-    commandList.append("mapList.list");
-    commandList.append("mapList.load");
-    commandList.append("mapList.remove");
-    commandList.append("mapList.restartRound");
-    commandList.append("mapList.runNextRound");
-    commandList.append("mapList.save");
-    commandList.append("mapList.setNextMapIndex");
-    commandList.append("player.idleDuration");
-    commandList.append("player.isAlive");
-    commandList.append("player.ping");
-    commandList.append("punkBuster.activate");
-    commandList.append("punkBuster.isActive");
-    commandList.append("punkBuster.pb_sv_command");
-    commandList.append("reservedSlotsList.add");
-    commandList.append("reservedSlotsList.aggressiveJoin");
-    commandList.append("reservedSlotsList.clear");
-    commandList.append("reservedSlotsList.list");
-    commandList.append("reservedSlotsList.load");
-    commandList.append("reservedSlotsList.remove");
-    commandList.append("reservedSlotsList.save");
-    commandList.append("spectatorList.add");
-    commandList.append("spectatorList.clear");
-    commandList.append("spectatorList.list");
-    commandList.append("spectatorList.remove");
-    commandList.append("spectatorList.save");
-    commandList.append("squad.leader");
-    commandList.append("squad.listActive");
-    commandList.append("squad.listPlayers");
-    commandList.append("squad.private");
-    commandList.append("vars.3dSpotting");
-    commandList.append("vars.3pCam");
-    commandList.append("vars.alwaysAllowSpectators");
-    commandList.append("vars.autoBalance");
-    commandList.append("vars.bulletDamage");
-    commandList.append("vars.commander");
-    commandList.append("vars.forceReloadWholeMags");
-    commandList.append("vars.friendlyFire");
-    commandList.append("vars.gameModeCounter");
-    commandList.append("vars.gamePassword");
-    commandList.append("vars.hitIndicatorsEnabled");
-    commandList.append("vars.hud");
-    commandList.append("vars.idleBanRounds");
-    commandList.append("vars.idleTimeout");
-    commandList.append("vars.killCam");
-    commandList.append("vars.maxPlayers");
-    commandList.append("vars.maxSpectators");
-    commandList.append("vars.miniMap");
-    commandList.append("vars.miniMapSpotting");
-    commandList.append("vars.mpExperience");
-    commandList.append("vars.nameTag");
-    commandList.append("vars.onlySquadLeaderSpawn");
-    commandList.append("vars.playerRespawnTime");
-    commandList.append("vars.preset");
-    commandList.append("vars.regenerateHealth");
-    commandList.append("vars.roundLockdownCountdown");
-    commandList.append("vars.roundRestartPlayerCount");
-    commandList.append("vars.roundStartPlayerCount");
-    commandList.append("vars.roundTimeLimit");
-    commandList.append("vars.roundWarmupTimeout");
-    commandList.append("vars.serverDescription");
-    commandList.append("vars.serverMessage");
-    commandList.append("vars.serverName");
-    commandList.append("vars.serverType");
-    commandList.append("vars.soldierHealth");
-    commandList.append("vars.teamFactionOverride");
-    commandList.append("vars.teamKillCountForKick");
-    commandList.append("vars.teamKillKickForBan");
-    commandList.append("vars.teamKillValueDecreasePerSecond");
-    commandList.append("vars.teamKillValueForKick");
-    commandList.append("vars.teamKillValueIncrease");
-    commandList.append("vars.unlockMode");
-    commandList.append("vars.vehicleSpawnAllowed");
-    commandList.append("vars.vehicleSpawnDelay");
+    QStringList commandList = {
+        "login.plainText",
+        "login.hashed",
+        "serverInfo",
+        "logout",
+        "quit",
+        "version",
+        "currentLevel",
+        "listPlayers",
+        "admin.eventsEnabled",
+        "admin.help",
+        "admin.kickPlayer",
+        "admin.killPlayer",
+        "admin.listPlayers",
+        "admin.movePlayer",
+        "admin.password",
+        "admin.say",
+        "admin.shutDown",
+        "admin.yell",
+        "banList.add",
+        "banList.clear",
+        "banList.list",
+        "banList.load",
+        "banList.remove",
+        "banList.save",
+        "fairFight.activate",
+        "fairfight.deactivate",
+        "fairFight.isActive",
+        "mapList.add",
+        "mapList.availableMaps",
+        "mapList.clear",
+        "mapList.endRound",
+        "mapList.getMapIndices",
+        "mapList.getRounds",
+        "mapList.list",
+        "mapList.load",
+        "mapList.remove",
+        "mapList.restartRound",
+        "mapList.runNextRound",
+        "mapList.save",
+        "mapList.setNextMapIndex",
+        "player.idleDuration",
+        "player.isAlive",
+        "player.ping",
+        "punkBuster.activate",
+        "punkBuster.isActive",
+        "punkBuster.pb_sv_command",
+        "reservedSlotsList.add",
+        "reservedSlotsList.aggressiveJoin",
+        "reservedSlotsList.clear",
+        "reservedSlotsList.list",
+        "reservedSlotsList.load",
+        "reservedSlotsList.remove",
+        "reservedSlotsList.save",
+        "spectatorList.add",
+        "spectatorList.clear",
+        "spectatorList.list",
+        "spectatorList.remove",
+        "spectatorList.save",
+        "squad.leader",
+        "squad.listActive",
+        "squad.listPlayers",
+        "squad.private",
+        "vars.3dSpotting",
+        "vars.3pCam",
+        "vars.alwaysAllowSpectators",
+        "vars.autoBalance",
+        "vars.bulletDamage",
+        "vars.commander",
+        "vars.forceReloadWholeMags",
+        "vars.friendlyFire",
+        "vars.gameModeCounter",
+        "vars.gamePassword",
+        "vars.hitIndicatorsEnabled",
+        "vars.hud",
+        "vars.idleBanRounds",
+        "vars.idleTimeout",
+        "vars.killCam",
+        "vars.maxPlayers",
+        "vars.maxSpectators",
+        "vars.miniMap",
+        "vars.miniMapSpotting",
+        "vars.mpExperience",
+        "vars.nameTag",
+        "vars.onlySquadLeaderSpawn",
+        "vars.playerRespawnTime",
+        "vars.preset",
+        "vars.regenerateHealth",
+        "vars.roundLockdownCountdown",
+        "vars.roundRestartPlayerCount",
+        "vars.roundStartPlayerCount",
+        "vars.roundTimeLimit",
+        "vars.roundWarmupTimeout",
+        "vars.serverDescription",
+        "vars.serverMessage",
+        "vars.serverName",
+        "vars.serverType",
+        "vars.soldierHealth",
+        "vars.teamFactionOverride",
+        "vars.teamKillCountForKick",
+        "vars.teamKillKickForBan",
+        "vars.teamKillValueDecreasePerSecond",
+        "vars.teamKillValueForKick",
+        "vars.teamKillValueIncrease",
+        "vars.unlockMode",
+        "vars.vehicleSpawnAllowed",
+        "vars.vehicleSpawnDelay"
+    };
 
     // Create tabs from widgets.
     playerListWidget = new PlayerListWidget(connection, this);
@@ -169,15 +170,15 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     spectatorSlotsWidget = new SpectatorSlotsWidget(connection, this);
     consoleWidget = new ConsoleWidget(connection, commandList, this);
 
-    ui->tabWidget->addTab(playerListWidget, QIcon(":/bf4/icons/players.png"), tr("Players"));
-    ui->tabWidget->addTab(eventsWidget, QIcon(":/bf4/icons/events.png"), tr("Events"));
-    ui->tabWidget->addTab(chatWidget, QIcon(":/bf4/icons/chat.png"), tr("Chat"));
-    ui->tabWidget->addTab(optionsWidget, QIcon(":icons/options.png"), tr("Options"));
+    ui->tabWidget->addTab(playerListWidget, QIcon(":/frostbite/icons/players.png"), tr("Players"));
+    ui->tabWidget->addTab(eventsWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
+    ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
+    ui->tabWidget->addTab(optionsWidget, QIcon(":/icons/options.png"), tr("Options"));
     ui->tabWidget->addTab(mapListWidget, tr("Maplist"));
     ui->tabWidget->addTab(banListWidget, tr("Banlist"));
     ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
     ui->tabWidget->addTab(spectatorSlotsWidget, tr("Spectator Slots"));
-    ui->tabWidget->addTab(consoleWidget, QIcon(":/icons/console.png"), tr("Console"));
+    ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
     connect(connection, &Connection::onConnected,    this, &BF4Widget::onConnected);
@@ -239,7 +240,7 @@ void BF4Widget::setAuthenticated(bool auth)
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), auth);
 
     if (auth) {
-        ui->tabWidget->setCurrentWidget(playerListWidget);
+        ui->tabWidget->setCurrentIndex(0);
     }
 
     startupCommands(auth);

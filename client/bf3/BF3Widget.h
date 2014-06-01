@@ -61,7 +61,7 @@ private:
 
     // Banlist
 
-    void setAuthenticated(bool authenticated);
+    void setAuthenticated(bool auth);
     void startupCommands(bool authenticated);
 //    void logEvent(const QString &event, const QString &message);
 

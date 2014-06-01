@@ -30,3 +30,6 @@ SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/ConsoleWidget.cpp
 
 FORMS += frostbite/ConsoleWidget.ui
+
+RESOURCES += \
+    frostbite/Frostbite.qrc
