@@ -28,10 +28,7 @@ DragDropTreeWidget::DragDropTreeWidget(QWidget *parent) :
     QTreeWidget(parent)
 {
     setDragDropMode(DragDropMode::DragDrop);
-<<<<<<< HEAD
     setAcceptDrops(true);
-=======
->>>>>>> d7801c1488e3e2b991bccb804a29813877f4f57f
 }
 
 DragDropTreeWidget::~DragDropTreeWidget()

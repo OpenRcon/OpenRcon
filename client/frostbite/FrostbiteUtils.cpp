@@ -21,6 +21,43 @@
 
 #include "FrostbiteUtils.h"
 #include "Time.h"
+#include "Squad.h"
+
+QStringList FrostbiteUtils::squads = {
+    "None",
+    "Alpha",
+    "Bravo",
+    "Charlie",
+    "Delta",
+    "Echo",
+    "Foxtrot",
+    "Golf",
+    "Hotel",
+    "India",
+    "Juliet",
+    "Kilo",
+    "Lima",
+    "Mike",
+    "November",
+    "Oscar",
+    "Papa",
+    "Quebec",
+    "Romeo",
+    "Sierra",
+    "Tango",
+    "Uniform",
+    "Victor",
+    "Whiskey",
+    "X-Ray",
+    "Yankee",
+    "Zulu",
+    "Haggard",
+    "Sweetwater",
+    "Preston",
+    "Redford",
+    "Faith",
+    "Celeste"
+};
 
 int FrostbiteUtils::toInt(const QString &value)
 {
@@ -72,141 +109,10 @@ QString FrostbiteUtils::toString(Time time)
 
 QString FrostbiteUtils::getSquadName(Squad squad)
 {
-    switch (squad) {
-    case Squad::Alpha:
-        return "Alpha";
-        break;
-
-    case Squad::Bravo:
-        return "Bravo";
-        break;
-
-    case Squad::Charlie:
-        return "Charlie";
-        break;
-
-    case Squad::Delta:
-        return "Delta";
-        break;
-
-    case Squad::Echo:
-        return "Echo";
-        break;
-
-    case Squad::Foxtrot:
-        return "Foxtrot";
-        break;
-
-    case Squad::Golf:
-        return "Golf";
-        break;
-
-    case Squad::Hotel:
-        return "Hotel";
-        break;
-
-    case Squad::India:
-        return "India";
-        break;
-
-    case Squad::Juliet:
-        return "Juliet";
-        break;
-
-    case Squad::Kilo:
-        return "Kilo";
-        break;
-
-    case Squad::Lima:
-        return "Lima";
-        break;
-
-    case Squad::Mike:
-        return "Mike";
-        break;
-
-    case Squad::November:
-        return "November";
-        break;
-
-    case Squad::Oscar:
-        return "Oscar";
-        break;
-
-    case Squad::Papa:
-        return "Papa";
-        break;
-
-    case Squad::Quebec:
-        return "Quebec";
-        break;
-
-    case Squad::Romeo:
-        return "Romeo";
-        break;
-
-    case Squad::Sierra:
-        return "Sierra";
-        break;
-
-    case Squad::Tango:
-        return "Tango";
-        break;
-
-    case Squad::Uniform:
-        return "Uniform";
-        break;
-
-    case Squad::Victor:
-        return "Victor";
-        break;
-
-    case Squad::Whiskey:
-        return "Whiskey";
-        break;
-
-    case Squad::Xray:
-        return "X-Ray";
-        break;
-
-    case Squad::Yankee:
-        return "Yankee";
-        break;
-
-    case Squad::Zulu:
-        return "Zulu";
-        break;
-
-    case Squad::Haggard:
-        return "Haggard";
-        break;
-
-    case Squad::Sweetwater:
-        return "Sweetwater";
-        break;
-
-    case Squad::Preston:
-        return "Preston";
-        break;
-
-    case Squad::Redford:
-        return "Redford";
-        break;
-
-    case Squad::Faith:
-        return "Faith";
-        break;
-
-    case Squad::Celeste:
-        return "Celeste";
-        break;
-
-    default:
-        return "None";
-    }
+    return getSquadName(static_cast<int>(squad));
 }
 
 QString FrostbiteUtils::getSquadName(int squadId)
 {
-    return getSquadName(static_cast<Squad>(squadId));
+    return squads.at(squadId);
 }

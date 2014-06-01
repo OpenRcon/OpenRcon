@@ -22,10 +22,10 @@
 
 #include <QObject>
 
+#include "GameType.h"
 #include "GameEntry.h"
+#include "Game.h"
 #include "ServerEntry.h"
-
-class Game;
 
 class GameManager : public QObject
 {

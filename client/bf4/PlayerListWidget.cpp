@@ -161,15 +161,13 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
                 teamItem->setIcon(0, team.image());
                 teamItem->setText(0, team.name);
 
+                // Add players to the teamItem.
                 for (QTreeWidgetItem *playerItem : playerItems) {
                     if (teamId == playerItem->data(0, Qt::UserRole).toInt()) {
                         teamItem->addChild(playerItem);
                     }
                 }
-            }
 
-            // Add team actions to the move menu, except for Neutral.
-            if (teamId > 0) {
                 // Add the team to the menu_pl_players_move menu.
                 action_pl_players_move_team = new QAction(team.image(), tr("Team %1").arg(team.name), menu_pl_players_move);
                 action_pl_players_move_team->setCheckable(true);
@@ -215,7 +213,7 @@ void PlayerListWidget::customContextMenuRequested(const QPoint &pos)
     QTreeWidgetItem *item = itemAt(pos);
 
     if (item && item->parent()) {
-        int teamIndex = item->data(0, Qt::UserRole).toInt() - 1;
+        int teamIndex = item->data(0, Qt::UserRole).toInt();
         int squadIndex = item->data(1, Qt::UserRole).toInt() + topLevelItemCount() + 1;
 
         for (int index = 0; index < menu_pl_players_move->actions().size(); index++) {

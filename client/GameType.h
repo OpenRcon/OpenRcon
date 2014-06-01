@@ -25,7 +25,6 @@ enum class GameType {
     BF3,
     BF4,
     Minecraft
-
 };
 
 // For use with QVariant
