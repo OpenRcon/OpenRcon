@@ -99,7 +99,7 @@ void MapListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     setAvailableMaplist(gameModeIndex);
 }
 
-void MapListWidget::onMapListListCommand(const MapList &mapList)
+void MapListWidget::onMapListListCommand(const QList<MapListEntry> &mapList)
 {
     setCurrentMaplist(mapList);
 }
@@ -199,7 +199,7 @@ void MapListWidget::addCurrentMapListItem(const QString &name, const QString &ga
     item->setText(2, QString::number(rounds));
 }
 
-void MapListWidget::setCurrentMaplist(const MapList &mapList)
+void MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
 {
     ui->treeWidget_ml_current->clear();
 

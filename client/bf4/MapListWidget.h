@@ -22,12 +22,13 @@
 
 #include <QWidget>
 
-#include "BF4CommandHandler.h"
-
 class QMenu;
 class QAction;
 class QTreeWidgetItem;
 class FrostbiteConnection;
+class BF4CommandHandler;
+struct BF4ServerInfo;
+struct MapListEntry;
 
 namespace Ui {
     class MapListWidget;
@@ -56,7 +57,7 @@ private slots:
     /* Commands */
     void onLoginHashedCommand(bool auth);
     void onServerInfoCommand(const BF4ServerInfo &serverInfo);
-    void onMapListListCommand(const MapList &mapList);
+    void onMapListListCommand(const QList<MapListEntry> &mapList);
 
     /* User Interface */
     void comboBox_ml_gameMode_currentIndexChanged(int);
@@ -70,7 +71,7 @@ private slots:
     void addAvailableMapListItem(const QString &name, const QString &gameMode);
     void setAvailableMaplist(int gameModeIndex);
     void addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds);
-    void setCurrentMaplist(const MapList &mapList);
+    void setCurrentMaplist(const QList<MapListEntry> &mapList);
     void addLevel(const QString &name, const QString &gameMode, int rounds);
     void removeLevel(int index);
 

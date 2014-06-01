@@ -31,12 +31,12 @@
 #include "LevelEntry.h"
 #include "BF4GameModeEntry.h"
 #include "BF4ServerInfo.h"
-#include "BanListEntry.h"
 #include "MapListEntry.h"
 
 class PlayerListWidget;
 class ChatWidget;
 class MapListWidget;
+class BanListWidget;
 class ReservedSlotsWidget;
 class SpectatorSlotsWidget;
 class ConsoleWidget;
@@ -53,7 +53,7 @@ public:
     BF4Widget(ServerEntry *serverEntry);
     ~BF4Widget();
 
-    virtual Connection *getConnection() { return con; }
+    virtual Connection *getConnection() { return connection; }
 
 private:
     Ui::BF4Widget *ui;
@@ -61,6 +61,7 @@ private:
     PlayerListWidget *playerListWidget;
     ChatWidget *chatWidget;
     MapListWidget *mapListWidget;
+    BanListWidget *banListWidget;
     ReservedSlotsWidget *reservedSlotsWidget;
     SpectatorSlotsWidget *spectatorSlotsWidget;
     ConsoleWidget *consoleWidget;
@@ -71,10 +72,6 @@ private:
     QTimer *timerServerInfoUpTime;
     int roundTime;
     int serverUpTime;
-
-    // Banlist
-    QMenu *menu_bl_banList;
-    QAction *action_bl_banList_remove;
 
     LevelEntry currentLevel;
     BF4GameModeEntry currentGameMode;
@@ -115,9 +112,6 @@ private slots:
 
     // Admin
     void onAdminPasswordCommand(const QString &password);
-
-    // Banning
-    void onBanListListCommand(const BanList &banList);
 
     // FairFight
     void onFairFightIsActiveCommand(bool isActive);
@@ -176,12 +170,6 @@ private slots:
     void pushButton_si_runNextRound_clicked();
     void updateRoundTime();
     void updateUpTime();
-
-    // BanList
-    void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);
-    void action_bl_banList_remove_triggered();
-    void addBanListRow(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason);
-    void setBanlist(const BanList &banList);
 
     // Options -> Details
     void lineEdit_op_so_serverName_editingFinished();

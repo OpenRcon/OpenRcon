@@ -34,6 +34,7 @@
 #include "PlayerListWidget.h"
 #include "ChatWidget.h"
 #include "MapListWidget.h"
+#include "BanListWidget.h"
 #include "ReservedSlotsWidget.h"
 #include "SpectatorSlotsWidget.h"
 #include "ConsoleWidget.h"
@@ -52,12 +53,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     timerServerInfoUpTime = new QTimer(this);
     connect(timerServerInfoUpTime, &QTimer::timeout, this, &BF4Widget::updateUpTime);
     timerServerInfoUpTime->start(1000);
-
-    // Banlist
-    menu_bl_banList = new QMenu(ui->tableWidget_bl_banList);
-    action_bl_banList_remove = new QAction(tr("Remove"), menu_bl_banList);
-
-    menu_bl_banList->addAction(action_bl_banList_remove);
 
     QStringList commandList;
     commandList.append("login.plainText");
@@ -168,23 +163,25 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     commandList.append("vars.vehicleSpawnDelay");
 
     // Create tabs from widgets.
-    playerListWidget = new PlayerListWidget(con, this);
-    chatWidget = new ChatWidget(con, this);
-    mapListWidget = new MapListWidget(con, this);
-    reservedSlotsWidget = new ReservedSlotsWidget(con, this);
-    spectatorSlotsWidget = new SpectatorSlotsWidget(con, this);
-    consoleWidget = new ConsoleWidget(con, commandList, this);
+    playerListWidget = new PlayerListWidget(connection, this);
+    chatWidget = new ChatWidget(connection, this);
+    mapListWidget = new MapListWidget(connection, this);
+    banListWidget = new BanListWidget(connection, this);
+    reservedSlotsWidget = new ReservedSlotsWidget(connection, this);
+    spectatorSlotsWidget = new SpectatorSlotsWidget(connection, this);
+    consoleWidget = new ConsoleWidget(connection, commandList, this);
 
     ui->tabWidget->addTab(playerListWidget, tr("Players"));
     ui->tabWidget->addTab(chatWidget, tr("Chat"));
     ui->tabWidget->addTab(mapListWidget, tr("Maplist"));
+    ui->tabWidget->addTab(banListWidget, tr("Banlist"));
     ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
     ui->tabWidget->addTab(spectatorSlotsWidget, tr("Spectator Slots"));
     ui->tabWidget->addTab(consoleWidget, QIcon(":/icons/console.png"), tr("Console"));
 
     /* Connection */
-    connect(con, SIGNAL(onConnected()), this, SLOT(onConnected()));
-    connect(con, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
+    connect(connection, SIGNAL(onConnected()), this, SLOT(onConnected()));
+    connect(connection, SIGNAL(onDisconnected()), this, SLOT(onDisconnected()));
 
     /* Events */ 
     connect(commandHandler, &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,       this, &BF4Widget::onPlayerAuthenticatedEvent);
@@ -210,9 +207,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 
     // Admin
     connect(commandHandler, &BF4CommandHandler::onAdminPasswordCommand,               this, &BF4Widget::onAdminPasswordCommand);
-
-    // BanList
-    connect(commandHandler, &BF4CommandHandler::onBanListListCommand,                 this, &BF4Widget::onBanListListCommand);
 
     // FairFight
     connect(commandHandler, &BF4CommandHandler::onFairFightIsActiveCommand,           this, &BF4Widget::onFairFightIsActiveCommand);
@@ -313,10 +307,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     connect(ui->spinBox_so_gp_roundWarmupTimeout,         static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_roundWarmupTimeout_valueChanged);
     connect(ui->spinBox_so_gp_roundRestartPlayerCount,    static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_roundRestartPlayerCount_valueChanged);
     connect(ui->spinBox_so_gp_roundStartPlayerCount,      static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4Widget::spinBox_so_gp_roundStartPlayerCount_valueChanged);
-
-    // Banlist
-    connect(ui->tableWidget_bl_banList, &QTreeWidget::customContextMenuRequested, this, &BF4Widget::tableWidget_bl_banList_customContextMenuRequested);
-    connect(action_bl_banList_remove,   &QAction::triggered,                      this, &BF4Widget::action_bl_banList_remove_triggered);
 }
 
 BF4Widget::~BF4Widget()
@@ -326,6 +316,7 @@ BF4Widget::~BF4Widget()
     delete playerListWidget;
     delete chatWidget;
     delete mapListWidget;
+    delete banListWidget;
     delete reservedSlotsWidget;
     delete spectatorSlotsWidget;
     delete consoleWidget;
@@ -339,7 +330,7 @@ void BF4Widget::setAuthenticated(bool auth)
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), auth);
 
@@ -428,7 +419,7 @@ void BF4Widget::onConnected()
 {
     setAuthenticated(false);
 
-    logEvent("Connected", tr("Connected to %1:%2.").arg(con->socket->peerAddress().toString()).arg(con->socket->peerPort()));
+    logEvent("Connected", tr("Connected to %1:%2.").arg(connection->socket->peerAddress().toString()).arg(connection->socket->peerPort()));
 }
 
 void BF4Widget::onDisconnected()
@@ -550,7 +541,7 @@ void BF4Widget::onLoginHashedCommand(bool auth)
         int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
 
         if (ret) {
-            con->hostDisconnect();
+            connection->hostDisconnect();
         }
     }
 }
@@ -637,12 +628,6 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 void BF4Widget::onAdminPasswordCommand(const QString &password)
 {
     ui->lineEdit_so_co_adminPassword->setText(password);
-}
-
-// Banning
-void BF4Widget::onBanListListCommand(const BanList &banList)
-{
-    setBanlist(banList);
 }
 
 // FairFight
@@ -903,50 +888,6 @@ void BF4Widget::updateUpTime()
 }
 
 // Event
-
-// BanList
-void BF4Widget::tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos)
-{
-    if (ui->tableWidget_bl_banList->itemAt(pos)) {
-        menu_bl_banList->exec(QCursor::pos());
-    }
-}
-
-void BF4Widget::action_bl_banList_remove_triggered()
-{
-    int row = ui->tableWidget_bl_banList->currentRow();
-    QString idType = ui->tableWidget_bl_banList->item(row, 0)->text();
-    QString player = ui->tableWidget_bl_banList->item(row, 1)->text();
-
-    if (!idType.isEmpty() && !player.isEmpty()) {
-        ui->tableWidget_bl_banList->removeRow(row);
-
-        commandHandler->sendBanListRemoveCommand(idType, player);
-    }
-}
-
-void BF4Widget::addBanListRow(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason)
-{
-    int row = ui->tableWidget_bl_banList->rowCount();
-
-    ui->tableWidget_bl_banList->insertRow(row);
-    ui->tableWidget_bl_banList->setItem(row, 0, new QTableWidgetItem(idType));
-    ui->tableWidget_bl_banList->setItem(row, 1, new QTableWidgetItem(id));
-    ui->tableWidget_bl_banList->setItem(row, 2, new QTableWidgetItem(banType));
-    ui->tableWidget_bl_banList->setItem(row, 3, new QTableWidgetItem(QString::number(seconds)));
-    ui->tableWidget_bl_banList->setItem(row, 4, new QTableWidgetItem(QString::number(rounds)));
-    ui->tableWidget_bl_banList->setItem(row, 5, new QTableWidgetItem(reason));
-}
-
-void BF4Widget::setBanlist(const BanList &banList)
-{
-    ui->tableWidget_bl_banList->clearContents();
-    ui->tableWidget_bl_banList->setRowCount(0);
-
-    for (BanListEntry entry : banList) {
-        addBanListRow(entry.idType, entry.id, entry.banType, entry.seconds, entry.rounds, entry.reason);
-    }
-}
 
 // Options -> Details
 void BF4Widget::lineEdit_op_so_serverName_editingFinished()

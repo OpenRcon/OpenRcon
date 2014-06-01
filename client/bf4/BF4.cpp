@@ -26,11 +26,11 @@
 
 BF4::BF4(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    con(new FrostbiteConnection(this)),
-    commandHandler(new BF4CommandHandler(con)),
+    connection(new FrostbiteConnection(this)),
+    commandHandler(new BF4CommandHandler(connection)),
     authenticated(false)
 {
-    con->hostConnect(serverEntry->host, serverEntry->port);
+    connection->hostConnect(serverEntry->host, serverEntry->port);
 
     versionMap.insert(70517, "OB-R2");
     versionMap.insert(72879, "OB-R3");
@@ -68,7 +68,7 @@ BF4::BF4(ServerEntry *serverEntry) :
     versionMap.insert(126936, "R34");
 
     // Connection
-    connect(con, &Connection::onConnected, this, &BF4::onConnected);
+    connect(connection, &Connection::onConnected, this, &BF4::onConnected);
 
     // Commands
     connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
@@ -80,7 +80,7 @@ BF4::BF4(ServerEntry *serverEntry) :
 
 BF4::~BF4()
 {
-    delete con;
+    delete connection;
 }
 
 void BF4::onConnected()
@@ -107,7 +107,7 @@ void BF4::onVersionCommand(const QString &type, int build)
     Q_UNUSED(build);
 
     if (type != "BF4") {
-        con->hostDisconnect();
+        connection->hostDisconnect();
 
         qDebug() << tr("Wrong server type, disconnecting...");
     }
