@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>624</width>
+    <height>387</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget_op">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_so_de">
       <attribute name="title">
@@ -37,6 +37,9 @@
           <widget class="QLineEdit" name="lineEdit_op_so_serverName">
            <property name="placeholderText">
             <string>Enter a servername, this name is used in Battlelog.</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -65,6 +68,9 @@
           <widget class="QLineEdit" name="lineEdit_op_so_serverMessage">
            <property name="placeholderText">
             <string>Enther a massage here, this message is shown to player on join.</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>

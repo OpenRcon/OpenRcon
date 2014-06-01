@@ -29,7 +29,14 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_10">
        <item row="1" column="0">
-        <widget class="QLineEdit" name="lineEdit_co_co"/>
+        <widget class="QLineEdit" name="lineEdit_co_co">
+         <property name="placeholderText">
+          <string>Enter command to execute here.</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="1" column="1">
         <widget class="QPushButton" name="pushButton_co_co">
@@ -70,7 +77,14 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLineEdit" name="lineEdit_co_pb"/>
+        <widget class="QLineEdit" name="lineEdit_co_pb">
+         <property name="placeholderText">
+          <string>Enter command to execute here.</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="1" column="1">
         <widget class="QPushButton" name="pushButton_co_pb">
