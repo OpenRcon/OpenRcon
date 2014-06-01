@@ -20,6 +20,8 @@
 #ifndef FROSTBITERCONPACKET_H
 #define FROSTBITERCONPACKET_H
 
+#include <QVector>
+
 #include "FrostbiteRconWord.h"
 
 #define MAX_PACKET_SIZE 16384

@@ -21,7 +21,6 @@
 #define FROSTBITERCONWORD_H
 
 #include <QObject>
-#include <QDebug>
 #include <QDataStream>
 
 class FrostbiteRconWord : public QObject

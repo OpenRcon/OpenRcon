@@ -18,6 +18,7 @@
  */
 
 #include <QTcpSocket>
+#include <QRegularExpression>
 
 #include "FrostbiteConnection.h"
 #include "FrostbiteRconPacket.h"
@@ -141,7 +142,7 @@ void FrostbiteConnection::sendCommand(const QString &command)
     if (!command.isEmpty()) {
         FrostbiteRconPacket packet(FrostbiteRconPacket::ServerOrigin, FrostbiteRconPacket::Request, nextPacketSequence);
         QStringList commandList;
-        commandList = command.split(QRegExp(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
+        commandList = command.split(QRegularExpression(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
         commandList.replaceInStrings("\"", "", Qt::CaseSensitive);
 
         for (QString command : commandList) {

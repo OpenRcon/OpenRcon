@@ -17,6 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDebug>
+
 #include "FrostbiteRconPacket.h"
 
 FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent), packetSequence(0), packetSize(0), packetWordCount(0)
