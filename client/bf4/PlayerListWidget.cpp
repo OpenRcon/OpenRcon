@@ -28,7 +28,6 @@
 #include "FrostbiteConnection.h"
 #include "FrostbiteUtils.h"
 #include "LevelEntry.h"
-#include "BF4GameModeEntry.h"
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
 
@@ -120,7 +119,6 @@ void PlayerListWidget::onLoginHashedCommand(bool auth)
 void PlayerListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     currentLevel = BF4LevelDictionary::getLevel(serverInfo.currentMap);
-    currentGameMode = BF4LevelDictionary::getGameMode(serverInfo.gameMode);
 }
 
 void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
@@ -153,26 +151,14 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
             teamIds.insert(player.teamId);
         }
 
-        bool squadDeathMatch = currentGameMode.engineName == BF4LevelDictionary::getGameMode(6).engineName; // This checks if gamemode is SquadDeathMatch0.
-
         for (int teamId = 0; teamId <= 4; teamId++) {
             if (teamId > 0 || (teamId == 0 && teamIds.contains(teamId))) {
+                TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.teams.at(teamId - 1));
+
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
                 teamItem->setData(0, Qt::UserRole, teamId);
-
-                if (!squadDeathMatch) {
-                    TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.teams.at(teamId - 1));
-
-                    teamItem->setIcon(0, team.image());
-                    teamItem->setText(0, team.name);
-
-                    action_pl_players_move_team = new QAction(team.image(), tr("Team %1").arg(team.name), menu_pl_players_move);
-                } else {
-                    QString teamName = FrostbiteUtils::getSquadName(teamId);
-                    teamItem->setText(0, teamName);
-
-                    action_pl_players_move_team = new QAction(tr("Team %1").arg(teamName), menu_pl_players_move);
-                }
+                teamItem->setIcon(0, team.image());
+                teamItem->setText(0, team.name);
 
                 // Add players to the teamItem.
                 for (QTreeWidgetItem *playerItem : playerItems) {
@@ -182,6 +168,7 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
                 }
 
                 // Add the team to the menu_pl_players_move menu.
+                action_pl_players_move_team = new QAction(team.image(), tr("Team %1").arg(team.name), menu_pl_players_move);
                 action_pl_players_move_team->setCheckable(true);
                 action_pl_players_move_team->setData(teamId);
 
