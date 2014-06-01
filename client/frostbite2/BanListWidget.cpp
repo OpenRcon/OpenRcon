@@ -94,7 +94,7 @@ void BanListWidget::addBanListItem(const QString &idType, const QString &id, con
     ui->tableWidget_bl_banList->setItem(row, 5, new QTableWidgetItem(reason));
 }
 
-void BanListWidget::setBanlist(const BanList &banList)
+void BanListWidget::setBanlist(const QList<BanListEntry> &banList)
 {
     ui->tableWidget_bl_banList->clearContents();
     ui->tableWidget_bl_banList->setRowCount(0);

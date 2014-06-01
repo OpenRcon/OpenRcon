@@ -17,17 +17,15 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef BANLISTWIDGET_H
 #define BANLISTWIDGET_H
 
 #include <QWidget>
 
-#include "BanListEntry.h"
-
 class QMenu;
 class FrostbiteConnection;
 class Frostbite2CommandHandler;
+struct BanListEntry;
 
 namespace Ui {
     class BanListWidget;
@@ -47,21 +45,18 @@ private:
     Frostbite2CommandHandler *commandHandler;
 
     /* User Interface */
-    // Banlist
     QMenu *menu_bl_banList;
     QAction *action_bl_banList_remove;
 
 private slots:
     /* Commands */
-    // Banning
     void onBanListListCommand(const QList<BanListEntry> &banList);
 
     /* User Interface */
-    // BanList
     void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);
     void action_bl_banList_remove_triggered();
     void addBanListItem(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason);
-    void setBanlist(const BanList &banList);
+    void setBanlist(const QList<BanListEntry> &banList);
 
 };
 
