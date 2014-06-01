@@ -151,7 +151,7 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
             teamIds.insert(player.teamId);
         }
 
-        for (int teamId = 0; teamId <= 4; teamId++) {
+        for (int teamId = 0; teamId <= 2; teamId++) {
             if (teamId > 0 || (teamId == 0 && teamIds.contains(teamId))) {
                 TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.teams.at(teamId - 1));
 
