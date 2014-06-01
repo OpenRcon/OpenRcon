@@ -10,7 +10,9 @@ HEADERS += bf4/BF4.h \
     bf4/DragDropTreeWidget.h \
     bf4/PlayerListWidget.h \
     bf4/MapListWidget.h \
-    bf4/SpectatorSlotsWidget.h
+    bf4/SpectatorSlotsWidget.h \
+    bf4/OptionsWidget.h \
+    bf4/EventsWidget.h
 
 SOURCES += bf4/BF4.cpp \
     bf4/BF4CommandHandler.cpp \
@@ -19,10 +21,14 @@ SOURCES += bf4/BF4.cpp \
     bf4/DragDropTreeWidget.cpp \
     bf4/PlayerListWidget.cpp \
     bf4/MapListWidget.cpp \
-    bf4/SpectatorSlotsWidget.cpp
+    bf4/SpectatorSlotsWidget.cpp \
+    bf4/OptionsWidget.cpp \
+    bf4/EventsWidget.cpp
 
 FORMS += bf4/BF4Widget.ui \
     bf4/MapListWidget.ui \
-    bf4/SpectatorSlotsWidget.ui
+    bf4/SpectatorSlotsWidget.ui \
+    bf4/OptionsWidget.ui \
+    bf4/EventsWidget.ui
 
 RESOURCES += bf4/BF4.qrc

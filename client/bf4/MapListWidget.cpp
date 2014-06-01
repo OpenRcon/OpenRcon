@@ -53,8 +53,11 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
     menu_ml_current->addAction(action_ml_current_remove);
 
     /* Commands */
+    // Misc
     connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &MapListWidget::onLoginHashedCommand);
     connect(commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &MapListWidget::onServerInfoCommand);
+
+    // MapList
     connect(commandHandler, &BF4CommandHandler::onMapListListCommand,                                                             this, &MapListWidget::onMapListListCommand);
 
     /* User Interface */
