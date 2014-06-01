@@ -62,6 +62,9 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(ui->treeWidget_ml_available, &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_ml_available_itemSelectionChanged);
     connect(ui->treeWidget_ml_available, &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_ml_available_customContextMenuRequested);
     connect(action_ml_available_add,     &QAction::triggered,                                                    this, &MapListWidget::pushButton_ml_add_clicked);
+    connect(ui->pushButton_ml_load,      &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_load_clicked);
+    connect(ui->pushButton_ml_save,      &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_save_clicked);
+    connect(ui->pushButton_ml_clear,     &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_clear_clicked);
     connect(ui->pushButton_ml_add,       &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_add_clicked);
     connect(ui->pushButton_ml_remove,    &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_remove_clicked);
     connect(ui->treeWidget_ml_current,   &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_ml_current_itemSelectionChanged);
@@ -121,6 +124,21 @@ void MapListWidget::treeWidget_ml_available_customContextMenuRequested(const QPo
     if (ui->treeWidget_ml_available->itemAt(pos)) {
         menu_ml_available->exec(QCursor::pos());
     }
+}
+
+void MapListWidget::pushButton_ml_load_clicked()
+{
+    commandHandler->sendMapListLoadCommand();
+}
+
+void MapListWidget::pushButton_ml_save_clicked()
+{
+    commandHandler->sendMapListSaveCommand();
+}
+
+void MapListWidget::pushButton_ml_clear_clicked()
+{
+    commandHandler->sendMapListClearCommand();
 }
 
 void MapListWidget::pushButton_ml_add_clicked()

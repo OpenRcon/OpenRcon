@@ -71,7 +71,6 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         { "banList.remove",                      nullptr /*&Frostbite2CommandHandler::parseBanListRemoveCommand*/ },
         { "banList.save",                        nullptr /*&Frostbite2CommandHandler::parseBanListSaveCommand*/ },
 
-
         // FairFight
 
         // MapList
@@ -208,6 +207,7 @@ void Frostbite2CommandHandler::sendBanListAddCommand(const QString &idType, cons
 void Frostbite2CommandHandler::sendBanListClearCommand()
 {
     con->sendCommand("banList.clear");
+    sendBanListListCommand();
 }
 
 void Frostbite2CommandHandler::sendBanListListCommand(int index)
@@ -222,6 +222,7 @@ void Frostbite2CommandHandler::sendBanListListCommand(int index)
 void Frostbite2CommandHandler::sendBanListLoadCommand()
 {
     con->sendCommand("banList.load");
+    sendBanListListCommand();
 }
 
 void Frostbite2CommandHandler::sendBanListRemoveCommand(const QString &idType, const QString &id)
@@ -250,6 +251,7 @@ void Frostbite2CommandHandler::sendMapListAvailableMapsCommand(const QString &fi
 void Frostbite2CommandHandler::sendMapListClearCommand()
 {
     con->sendCommand("mapList.clear");
+    sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListEndRoundCommand(int teamId)
@@ -279,11 +281,13 @@ void Frostbite2CommandHandler::sendMapListListCommand(int index)
 void Frostbite2CommandHandler::sendMapListLoadCommand()
 {
     con->sendCommand("mapList.load");
+    sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListRemoveCommand(int index)
 {
     con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
+    sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListRestartRoundCommand()

@@ -63,6 +63,9 @@ private slots:
     void comboBox_ml_gameMode_currentIndexChanged(int);
     void treeWidget_ml_available_itemSelectionChanged();
     void treeWidget_ml_available_customContextMenuRequested(const QPoint &pos);
+    void pushButton_ml_load_clicked();
+    void pushButton_ml_save_clicked();
+    void pushButton_ml_clear_clicked();
     void pushButton_ml_add_clicked();
     void pushButton_ml_remove_clicked();
     void treeWidget_ml_current_itemSelectionChanged();
