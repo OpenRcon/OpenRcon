@@ -70,6 +70,8 @@ private slots:
     void pushButton_ml_remove_clicked();
     void treeWidget_ml_current_itemSelectionChanged();
     void treeWidget_ml_current_customContextMenuRequested(const QPoint &pos);
+    void treeWidget_ml_available_itemDrop(int index);
+    void treeWidget_ml_current_itemDrop(QTreeWidgetItem *item);
 
     void addAvailableMapListItem(const QString &name, const QString &gameMode);
     void setAvailableMaplist(int gameModeIndex);
@@ -77,9 +79,6 @@ private slots:
     void setCurrentMaplist(const QList<MapListEntry> &mapList);
     void addLevel(const QString &name, const QString &gameMode, int rounds);
     void removeLevel(int index);
-
-    void treeWidget_ml_available_itemDrop(int index);
-    void treeWidget_ml_current_itemDrop(const QTreeWidgetItem *item);
 
 };
 

@@ -72,7 +72,7 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(action_ml_current_remove,    &QAction::triggered,                                                    this, &MapListWidget::pushButton_ml_remove_clicked);
 
     connect(ui->treeWidget_ml_available, static_cast<void (DragDropTreeWidget::*)(int)>(&DragDropTreeWidget::itemDrop),              this, &MapListWidget::treeWidget_ml_available_itemDrop);
-    connect(ui->treeWidget_ml_current,   static_cast<void (DragDropTreeWidget::*)(const QTreeWidgetItem*)>(&DragDropTreeWidget::itemDrop), this, &MapListWidget::treeWidget_ml_current_itemDrop);
+    connect(ui->treeWidget_ml_current,   static_cast<void (DragDropTreeWidget::*)(QTreeWidgetItem*)>(&DragDropTreeWidget::itemDrop), this, &MapListWidget::treeWidget_ml_current_itemDrop);
 }
 
 MapListWidget::~MapListWidget()
@@ -208,6 +208,16 @@ void MapListWidget::treeWidget_ml_current_customContextMenuRequested(const QPoin
     }
 }
 
+void MapListWidget::treeWidget_ml_available_itemDrop(int index)
+{
+    removeLevel(index);
+}
+
+void MapListWidget::treeWidget_ml_current_itemDrop(QTreeWidgetItem *item)
+{
+    addLevel(item->text(0), item->text(1), ui->spinBox_ml_rounds->value());
+}
+
 void MapListWidget::addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds)
 {
     // Add the item to the QTreeWidget.
@@ -259,14 +269,4 @@ void MapListWidget::removeLevel(int index)
 
     ui->treeWidget_ml_current->takeTopLevelItem(index);
     commandHandler->sendMapListRemoveCommand(index);
-}
-
-void MapListWidget::treeWidget_ml_available_itemDrop(int index)
-{
-    removeLevel(index);
-}
-
-void MapListWidget::treeWidget_ml_current_itemDrop(const QTreeWidgetItem *item)
-{
-    addLevel(item->text(0), item->text(1), ui->spinBox_ml_rounds->value());
 }

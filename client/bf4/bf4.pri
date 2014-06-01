@@ -23,6 +23,6 @@ SOURCES += bf4/BF4.cpp \
 
 FORMS += bf4/BF4Widget.ui \
     bf4/MapListWidget.ui \
-    bf4/SpectatorSlotsWidget.ui \
+    bf4/SpectatorSlotsWidget.ui
 
 RESOURCES += bf4/BF4.qrc

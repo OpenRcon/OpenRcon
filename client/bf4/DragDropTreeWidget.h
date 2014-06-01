@@ -37,7 +37,11 @@ private:
 
 signals:
     void itemDrop(int index);
+<<<<<<< HEAD
     void itemDrop(const QTreeWidgetItem *item);
+=======
+    void itemDrop(QTreeWidgetItem *item);
+>>>>>>> d7801c1488e3e2b991bccb804a29813877f4f57f
 
 };
 
