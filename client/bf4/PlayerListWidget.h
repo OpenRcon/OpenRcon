@@ -23,6 +23,7 @@
 #include <QTreeWidget>
 
 #include "LevelEntry.h"
+#include "GameModeEntry.h"
 
 class QClipboard;
 class FrostbiteConnection;
@@ -58,6 +59,7 @@ private:
     QAction *action_pl_players_copyTo_guid;
 
     LevelEntry currentLevel;
+    GameModeEntry currentGameMode;
 
     QIcon getRankIcon(int rank);
     QString getSquadName(int squadId);
