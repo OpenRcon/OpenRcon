@@ -56,16 +56,16 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
 
     // Actions
-    actionServerManager = new QAction(QIcon(":/icons/server-manager.png"), tr("&Server Manager"), this);
+    actionServerManager = new QAction(QIcon(":/icons/servermanager.png"), tr("&Servermanager"), this);
     actionServerManager->setShortcut(tr("Ctrl+S"));
-    actionServerManager->setToolTip(tr("Opens the ServerManager."));
+    actionServerManager->setToolTip(tr("Opens the servermanager."));
     actionQuit = new QAction(tr("&Quit"), this);
     actionQuit->setShortcut(tr("Ctrl+Q"));
     actionQuickConnect = new QAction(tr("Quickconnect"), this);
     actionQuickConnect->setCheckable(true);
     actionOptions = new QAction(QIcon(":/icons/options.png"), tr("&Options"), this);
     actionOptions->setShortcut(tr("Ctrl+O"));
-    actionDocumentation = new QAction(tr("Documentation"), this);
+    actionDocumentation = new QAction(QIcon(":/icons/documentation.png"), tr("Documentation"), this);
     actionVisitWebsite = new QAction(QIcon(":/icons/internet.png"), tr("Visit website"), this);
     actionReportBug = new QAction(QIcon(":/icons/report-bug.png"), tr("Report bug"), this);
     actionAbout = new QAction(QIcon(APP_ICON), tr("&About %1").arg(APP_NAME), this);
@@ -91,6 +91,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     comboBox_quickConnect_server = new QComboBox(ui->toolBar_quickConnect);
     comboBox_quickConnect_server->setToolTip(tr("Let's you select a prevously stored server."));
     pushButton_quickConnect_connect = new QPushButton(tr("Connect"), ui->toolBar_quickConnect);
+    pushButton_quickConnect_connect->setIcon(QIcon(":/icons/connection.png"));
     pushButton_quickConnect_connect->setToolTip(tr("Connect's to the server selected in the combobox."));
 
     ui->toolBar_quickConnect->addAction(actionServerManager);
@@ -200,7 +201,7 @@ void OpenRcon::updateServerList()
         }
 
         // Show an message in the disabled combobox that all the servers is connected.
-        if (comboBox_quickConnect_server->count() <= 0) {
+        if (comboBox_quickConnect_server->count() < 1) {
             comboBox_quickConnect_server->setEnabled(false);
             pushButton_quickConnect_connect->setEnabled(false);
             comboBox_quickConnect_server->addItem(tr("All servers connected."));

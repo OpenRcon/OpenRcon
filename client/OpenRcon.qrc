@@ -1,20 +1,21 @@
 <RCC>
     <qresource prefix="/">
-        <file>../AUTHORS</file>
-        <file>../CONTRIBUTORS</file>
-        <file>../COPYING</file>
-        <file>../TRANSLATORS</file>
+        <file alias="AUTHORS">../AUTHORS</file>
+        <file alias="CONTRIBUTORS">../CONTRIBUTORS</file>
+        <file alias="COPYING">../COPYING</file>
+        <file alias="TRANSLATORS">../TRANSLATORS</file>
     </qresource>
     <qresource prefix="/icons">
         <file alias="openrcon.png">images/icons/openrcon.png</file>
         <file alias="internet.png">images/icons/internet.png</file>
-        <file alias="server-manager.png">images/icons/server-manager.png</file>
         <file alias="options.png">images/icons/options.png</file>
         <file>images/icons/options-behavior.png</file>
         <file>images/icons/level-next.png</file>
         <file>images/icons/level-restart.png</file>
         <file alias="report-bug.png">images/icons/report-bug.png</file>
         <file>images/icons/connection.png</file>
+        <file>images/icons/documentation.png</file>
+        <file alias="servermanager.png">images/icons/servermanager.png</file>
     </qresource>
     <qresource prefix="/flags">
         <file>images/flags/algeria.png</file>
