@@ -105,7 +105,10 @@ void MapListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 }
 
 void MapListWidget::onMapListListCommand(const QList<MapListEntry> &mapList)
-{
+{   
+    ui->pushButton_ml_clear->setEnabled(!mapList.isEmpty());
+    ui->pushButton_ml_remove->setEnabled(!mapList.isEmpty());
+
     setCurrentMaplist(mapList);
 }
 
@@ -152,6 +155,8 @@ void MapListWidget::pushButton_ml_add_clicked()
         int rounds = ui->spinBox_ml_rounds->value();
 
         addLevel(name, gameMode, rounds);
+        ui->pushButton_ml_clear->setEnabled(ui->treeWidget_ml_current->topLevelItemCount() > 0);
+        ui->pushButton_ml_remove->setEnabled(ui->treeWidget_ml_current->topLevelItemCount() > 0);
     }
 }
 
@@ -162,6 +167,8 @@ void MapListWidget::pushButton_ml_remove_clicked()
         int index = ui->treeWidget_ml_current->currentIndex().row();
 
         removeLevel(index);
+        ui->pushButton_ml_clear->setEnabled(ui->treeWidget_ml_current->topLevelItemCount() > 0);
+        ui->pushButton_ml_remove->setEnabled(ui->treeWidget_ml_current->topLevelItemCount() > 0);
     }
 }
 
