@@ -44,6 +44,10 @@ private:
     FrostbiteConnection *m_connection;
     FrostbiteCommandHandler *m_commandHandler;
 
+    QStringList commandHistory;
+    bool commandHistoryFirst;
+    int commandHistoryIndex;
+
     void logConsole(int type, const QString &message);
 
 private slots:

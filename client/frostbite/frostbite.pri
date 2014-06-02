@@ -19,7 +19,8 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/Time.h \
     frostbite/ConsoleWidget.h \
     frostbite/Squad.h \
-    frostbite/TeamEntry.h
+    frostbite/TeamEntry.h \
+    frostbite/ConsoleLineEdit.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteRconPacket.cpp \
@@ -27,7 +28,8 @@ SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteCommandHandler.cpp \
     frostbite/FrostbiteGame.cpp \
     frostbite/FrostbiteUtils.cpp \
-    frostbite/ConsoleWidget.cpp
+    frostbite/ConsoleWidget.cpp \
+    frostbite/ConsoleLineEdit.cpp
 
 FORMS += frostbite/ConsoleWidget.ui
 

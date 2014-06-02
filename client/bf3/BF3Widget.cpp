@@ -17,18 +17,6 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-<<<<<<< HEAD
-#include "BF3Widget.h"
-#include "ui_BF3Widget.h"
-#include "FrostbiteUtils.h"
-#include "BF3CommandHandler.h"
-#include "BF3LevelDictionary.h"
-
-#include "ChatWidget.h"
-#include "ReservedSlotsWidget.h"
-#include "ConsoleWidget.h"
-
-=======
 #include <QMessageBox>
 
 #include "BF3Widget.h"
@@ -44,12 +32,10 @@
 #include "ReservedSlotsWidget.h"
 #include "ConsoleWidget.h"
 
->>>>>>> 5254a8257b47f02d290f14df40cf6b00f237dd12
 BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);
 
-<<<<<<< HEAD
     QStringList commandList = {
         "login.plainText",
         "login.hashed",
@@ -146,14 +132,9 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
         "vars.gunMasterWeaponsPreset"
     };
 
-    chatWidget = new ChatWidget(con, this);
-    reservedSlotsWidget = new ReservedSlotsWidget(con, this);
-    consoleWidget = new ConsoleWidget(con, commandList, this);
-=======
     chatWidget = new ChatWidget(m_connection, this);
     reservedSlotsWidget = new ReservedSlotsWidget(m_connection, this);
-    consoleWidget = new ConsoleWidget(m_connection, this);
->>>>>>> 5254a8257b47f02d290f14df40cf6b00f237dd12
+    consoleWidget = new ConsoleWidget(m_connection, commandList, this);
 
     ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
     ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));

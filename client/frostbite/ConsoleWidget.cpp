@@ -41,10 +41,10 @@ ConsoleWidget::ConsoleWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(m_commandHandler, &FrostbiteCommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
 
     /* User Interface */
-    connect(ui->pushButton_co_co, &QPushButton::clicked,       this, &ConsoleWidget::pushButton_co_co_clicked);
-    connect(ui->lineEdit_co_co,   &QLineEdit::editingFinished, this, &ConsoleWidget::pushButton_co_co_clicked);
-    connect(ui->pushButton_co_pb, &QPushButton::clicked,       this, &ConsoleWidget::pushButton_co_pb_clicked);
-    connect(ui->lineEdit_co_pb,   &QLineEdit::editingFinished, this, &ConsoleWidget::pushButton_co_pb_clicked);
+    connect(ui->pushButton_co_co, &QPushButton::clicked,        this, &ConsoleWidget::pushButton_co_co_clicked);
+    connect(ui->lineEdit_co_co,   &QLineEdit::editingFinished,  this, &ConsoleWidget::pushButton_co_co_clicked);
+    connect(ui->pushButton_co_pb, &QPushButton::clicked,        this, &ConsoleWidget::pushButton_co_pb_clicked);
+    connect(ui->lineEdit_co_pb,   &QLineEdit::editingFinished,  this, &ConsoleWidget::pushButton_co_pb_clicked);
 }
 
 ConsoleWidget::ConsoleWidget(FrostbiteConnection *connection, const QStringList &commandList, QWidget *parent) :
@@ -102,6 +102,9 @@ void ConsoleWidget::pushButton_co_co_clicked()
     QString command = ui->lineEdit_co_co->text();
 
     ui->lineEdit_co_co->clear();
+    commandHistory.append(command);
+    commandHistoryFirst = true;
+    commandHistoryIndex = commandHistory.length();
     m_connection->sendCommand(command);
 }
 

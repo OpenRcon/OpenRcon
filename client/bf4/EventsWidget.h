@@ -42,9 +42,7 @@ private:
     FrostbiteConnection *m_connection;
     BF4CommandHandler *m_commandHandler;
 
-    // Events
     void logEvent(const QString &event, const QString &message);
-    void addEvent(const QString &event, const QString &message);
 
 private slots:
     /* Connection */
