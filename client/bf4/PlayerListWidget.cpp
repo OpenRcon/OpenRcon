@@ -27,18 +27,19 @@
 
 #include "FrostbiteConnection.h"
 #include "FrostbiteUtils.h"
-#include "LevelEntry.h"
+#include "BF4ServerInfo.h"
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
 
 #include "PlayerListWidget.h"
 #include "BF4CommandHandler.h"
+#include "TeamEntry.h"
 #include "BF4LevelDictionary.h"
 
 PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *parent) :
     QTreeWidget(parent),
-    connection(connection),
-    commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
+    m_connection(connection),
+    m_commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
 {
     setFrameShape(Shape::NoFrame);
     setContextMenuPolicy(Qt::CustomContextMenu);
@@ -76,19 +77,19 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     menu_pl_players_copyTo->addAction(action_pl_players_copyTo_guid);
 
     /* Events */
-    connect(commandHandler, &Frostbite2CommandHandler::onPlayerAuthenticatedEvent, this, &PlayerListWidget::updatePlayerList);
-    connect(commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent,    this, &PlayerListWidget::updatePlayerList);
-    connect(commandHandler, &Frostbite2CommandHandler::onPlayerJoinEvent,          this, &PlayerListWidget::updatePlayerList);
-    connect(commandHandler, &Frostbite2CommandHandler::onPlayerLeaveEvent,         this, &PlayerListWidget::updatePlayerList);
-    connect(commandHandler, &Frostbite2CommandHandler::onPlayerSpawnEvent,         this, &PlayerListWidget::updatePlayerList);
-    connect(commandHandler, &Frostbite2CommandHandler::onPlayerKillEvent,          this, &PlayerListWidget::updatePlayerList);
-    connect(commandHandler, &Frostbite2CommandHandler::onPlayerSquadChangeEvent,   this, &PlayerListWidget::updatePlayerList);
-    connect(commandHandler, &Frostbite2CommandHandler::onPlayerTeamChangeEvent,    this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerAuthenticatedEvent, this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent,    this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerJoinEvent,          this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerLeaveEvent,         this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerSpawnEvent,         this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerKillEvent,          this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerSquadChangeEvent,   this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerTeamChangeEvent,    this, &PlayerListWidget::updatePlayerList);
 
     /* Commands */
-    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &PlayerListWidget::onLoginHashedCommand);
-    connect(commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &PlayerListWidget::onServerInfoCommand);
-    connect(commandHandler, &BF4CommandHandler::onAdminListPlayersCommand,                                                        this, &PlayerListWidget::onAdminListPlayersCommand);
+    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &PlayerListWidget::onLoginHashedCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &PlayerListWidget::onServerInfoCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onAdminListPlayersCommand,                                                        this, &PlayerListWidget::onAdminListPlayersCommand);
 
     /* User Interface */
     connect(this,                          &QTreeWidget::customContextMenuRequested, this, &PlayerListWidget::customContextMenuRequested);
@@ -112,7 +113,7 @@ PlayerListWidget::~PlayerListWidget()
 void PlayerListWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
+        m_commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
     }
 }
 
@@ -204,7 +205,7 @@ QIcon PlayerListWidget::getRankIcon(int rank)
 /* User Interface */
 void PlayerListWidget::updatePlayerList()
 {
-    commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
+    m_commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
 }
 
 void PlayerListWidget::customContextMenuRequested(const QPoint &pos)
@@ -240,28 +241,28 @@ void PlayerListWidget::action_pl_players_kill_triggered()
 {
     QString player = currentItem()->text(0);
 
-    commandHandler->sendAdminKillPlayerCommand(player);
+    m_commandHandler->sendAdminKillPlayerCommand(player);
 }
 
 void PlayerListWidget::action_pl_players_kick_triggered()
 {
     QString player = currentItem()->text(0);
 
-    commandHandler->sendAdminKickPlayerCommand(player, "Kicked by admin.");
+    m_commandHandler->sendAdminKickPlayerCommand(player, "Kicked by admin.");
 }
 
 void PlayerListWidget::action_pl_players_ban_triggered()
 {
     QString player = currentItem()->text(0);
 
-    commandHandler->sendBanListAddCommand("perm", player, "Banned by admin.");
+    m_commandHandler->sendBanListAddCommand("perm", player, "Banned by admin.");
 }
 
 void PlayerListWidget::action_pl_players_reserveSlot_triggered()
 {
     QString player = currentItem()->text(0);
 
-    commandHandler->sendReservedSlotsListAddCommand(player);
+    m_commandHandler->sendReservedSlotsListAddCommand(player);
 }
 
 void PlayerListWidget::action_pl_players_copyTo_name_triggered()
@@ -289,7 +290,7 @@ void PlayerListWidget::menu_pl_players_move_triggered(QAction *action)
         squadId = value - 5;
     }
 
-    commandHandler->sendAdminMovePlayerCommand(player, teamId, squadId, true);
+    m_commandHandler->sendAdminMovePlayerCommand(player, teamId, squadId, true);
 }
 
 void PlayerListWidget::dragEnterEvent(QDragEnterEvent *event)
@@ -311,7 +312,7 @@ void PlayerListWidget::dropEvent(QDropEvent *event)
             int teamId = pointItem->data(0, Qt::UserRole).toInt();
             int squadId = currentItem->data(1, Qt::UserRole).toInt();
 
-            commandHandler->sendAdminMovePlayerCommand(player, teamId, squadId, true);
+            m_commandHandler->sendAdminMovePlayerCommand(player, teamId, squadId, true);
             QTreeWidget::dropEvent(event);
         }
     }

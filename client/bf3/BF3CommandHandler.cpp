@@ -17,10 +17,10 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "BF3CommandHandler.h"
 #include "FrostbiteConnection.h"
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteUtils.h"
-#include "BF3CommandHandler.h"
 
 BF3CommandHandler::BF3CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)
 {
@@ -111,18 +111,18 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 // Misc
 void BF3CommandHandler::sendServerInfoCommand()
 {
-    con->sendCommand("serverInfo");
+    m_connection->sendCommand("serverInfo");
 }
 
 void BF3CommandHandler::sendCurrentLevelCommand()
 {
-    con->sendCommand("currentLevel");
+    m_connection->sendCommand("currentLevel");
 }
 
 void BF3CommandHandler::sendListPlayersCommand(const PlayerSubset &playerSubset)
 {
     if (playerSubset == PlayerSubset::All) {
-        con->sendCommand("\"listPlayers\" \"all\"");
+        m_connection->sendCommand("\"listPlayers\" \"all\"");
     }
 }
 

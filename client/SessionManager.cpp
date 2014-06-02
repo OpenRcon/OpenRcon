@@ -21,9 +21,10 @@
 
 #include "SessionManager.h"
 #include "OpenRcon.h"
-#include "Game.h"
+#include "ServerEntry.h"
 #include "GameEntry.h"
 #include "GameManager.h"
+#include "Game.h"
 
 SessionManager::SessionManager(QObject *parent) : QObject(parent)
 {

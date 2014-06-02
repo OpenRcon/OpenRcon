@@ -21,15 +21,13 @@
 #define SERVERLISTDIALOG_H
 
 #include <QDialog>
-#include <QMenu>
-#include <QMessageBox>
-#include <QTreeWidgetItem>
 
 #include "Constants.h"
-#include "GameType.h"
 
 using namespace Constants;
 
+class QMenu;
+class QTreeWidgetItem;
 class OpenRcon;
 class ServerManager;
 class SessionManager;

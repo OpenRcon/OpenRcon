@@ -18,6 +18,9 @@
  */
 
 #include "BF3LevelDictionary.h"
+#include "TeamEntry.h"
+#include "LevelEntry.h"
+#include "GameModeEntry.h"
 
 // TODO: More teams here?
 template<>

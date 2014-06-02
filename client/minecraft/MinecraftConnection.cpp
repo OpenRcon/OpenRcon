@@ -20,6 +20,8 @@
 #include <QTcpSocket>
 
 #include "MinecraftConnection.h"
+#include "MinecraftRconPacket.h"
+#include "MinecraftRconPacketType.h"
 
 MinecraftConnection::MinecraftConnection(QObject *parent) : Connection(new QTcpSocket(parent), parent)
 {

@@ -20,8 +20,6 @@
 #ifndef FROSTBITECOMMANDHANDLER_H
 #define FROSTBITECOMMANDHANDLER_H
 
-#include <QCryptographicHash>
-
 #include "CommandHandler.h"
 
 class FrostbiteConnection;
@@ -49,7 +47,7 @@ public:
     void sendPunkBusterPbSvCommand(const QString &command);
 
 protected:
-    FrostbiteConnection *con;
+    FrostbiteConnection *m_connection;
 
 private:
     /* Parse events */

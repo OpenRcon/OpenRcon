@@ -18,6 +18,7 @@
  */
 
 #include <QTcpSocket>
+#include <QHostAddress>
 #include <QRegularExpression>
 
 #include "FrostbiteConnection.h"

@@ -17,11 +17,13 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QSettings>
+#include <QPushButton>
+
 #include "ui_OptionsDialog.h"
 #include "OptionsDialog.h"
-
-#include "LanguageEntry.h"
 #include "LanguageManager.h"
+#include "LanguageEntry.h"
 
 OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::OptionsDialog)
 {

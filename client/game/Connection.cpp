@@ -17,6 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QHostAddress>
+#include <QMessageBox>
+
 #include "Connection.h"
 
 Connection::Connection(QAbstractSocket *socket, QObject *parent) : QObject(parent), socket(socket)

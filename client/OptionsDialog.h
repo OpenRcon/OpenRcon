@@ -21,15 +21,14 @@
 #define OPTIONSDIALOG_H
 
 #include <QDialog>
-#include <QSettings>
-#include <QPushButton>
-#include <QListWidgetItem>
 
 #include "Constants.h"
 
-class LanguageManager;
-
 using namespace Constants;
+
+class QSettings;
+class QListWidgetItem;
+class LanguageManager;
 
 namespace Ui {
     class OptionsDialog;

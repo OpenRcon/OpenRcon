@@ -18,6 +18,9 @@
  */
 
 #include "GameManager.h"
+#include "GameEntry.h"
+#include "ServerEntry.h"
+#include "GameType.h"
 
 #include "BFBC2Widget.h"
 #include "BF3Widget.h"

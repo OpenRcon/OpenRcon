@@ -21,7 +21,8 @@
 #define BFBC2LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
-#include "BFBC2LevelEntry.h"
+
+struct BFBC2LevelEntry;
 
 typedef LevelDictionary<1, TeamEntry, BFBC2LevelEntry, GameModeEntry> BFBC2LevelDictionary;
 

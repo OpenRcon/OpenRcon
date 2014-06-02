@@ -20,19 +20,14 @@
 #ifndef BFBC2WIDGET_H
 #define BFBC2WIDGET_H
 
-#include <QSettings>
-#include <QMenu>
-#include <QCompleter>
-#include <QTime>
-#include <QTimer>
-#include <QInputDialog>
-#include <QDesktopServices>
-#include <QTreeWidgetItem>
-#include <QListWidgetItem>
-
 #include "BFBC2.h"
 #include "FrostbiteConnection.h"
 #include "BFBC2CommandHandler.h"
+
+class QMenu;
+class QCompleter;
+class QSettings;
+class QListWidgetItem;
 
 namespace Ui {
     class BFBC2Widget;
@@ -46,7 +41,9 @@ public:
     BFBC2Widget(ServerEntry *serverEntry);
     ~BFBC2Widget();
 
-    virtual Connection *getConnection() { return con; }
+    virtual Connection *getConnection() {
+        return m_connection;
+    }
 
 private:
     Ui::BFBC2Widget *ui;

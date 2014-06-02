@@ -17,12 +17,11 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ui_ServerEditDialog.h"
-#include "ServerEditDialog.h"
-
-#include <QDebug>
+#include <QMessageBox>
 #include <QPushButton>
 
+#include "ui_ServerEditDialog.h"
+#include "ServerEditDialog.h"
 #include "GameEntry.h"
 #include "GameManager.h"
 

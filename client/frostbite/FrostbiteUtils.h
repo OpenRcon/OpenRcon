@@ -20,8 +20,8 @@
 #ifndef FROSTBITEUTILS_H
 #define FROSTBITEUTILS_H
 
-#include <QString>
-
+class QString;
+class QStringList;
 struct Time;
 enum class Squad;
 
@@ -29,11 +29,12 @@ class FrostbiteUtils
 {
 public:
     static int toInt(const QString &value);
+    static float toFloat(const QString &value);
     static bool toBool(const QString &value);
     static QString toString(bool value);
+    static QString toString(Time time);
 
     static Time getTimeFromSeconds(int elapsedSeconds);
-    static QString toString(Time time);
     static QString getSquadName(Squad squad);
     static QString getSquadName(int squadId);
 

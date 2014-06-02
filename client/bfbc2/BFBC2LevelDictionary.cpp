@@ -18,7 +18,9 @@
  */
 
 #include "BFBC2LevelDictionary.h"
-#include "BFBC2Mod.h"
+#include "TeamEntry.h"
+#include "BFBC2LevelEntry.h"
+#include "GameModeEntry.h"
 
 // TODO: More teams here?
 template<>

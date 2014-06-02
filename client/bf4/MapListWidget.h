@@ -44,8 +44,8 @@ public:
 
 private:
     Ui::MapListWidget *ui;
-    FrostbiteConnection *connection;
-    BF4CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    BF4CommandHandler *m_commandHandler;
 
     // Maplist
     QMenu *menu_ml_available;

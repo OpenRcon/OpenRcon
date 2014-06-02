@@ -39,8 +39,8 @@ public:
 
 private:
     Ui::OptionsWidget *ui;
-    FrostbiteConnection *connection;
-    BF4CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    BF4CommandHandler *m_commandHandler;
 
 private slots:
     /* Commands */

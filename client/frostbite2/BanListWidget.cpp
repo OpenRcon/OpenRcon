@@ -19,17 +19,16 @@
 
 #include <QMenu>
 
-#include "FrostbiteConnection.h"
-#include "BF4CommandHandler.h"
-
 #include "BanListWidget.h"
 #include "ui_BanListWidget.h"
+#include "FrostbiteConnection.h"
+#include "BF4CommandHandler.h"
 
 BanListWidget::BanListWidget(FrostbiteConnection *connection, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::BanListWidget),
-    connection(connection),
-    commandHandler(dynamic_cast<Frostbite2CommandHandler *>(connection->getCommandHandler()))
+    m_connection(connection),
+    m_commandHandler(dynamic_cast<Frostbite2CommandHandler *>(connection->getCommandHandler()))
 {
     ui->setupUi(this);
 
@@ -41,7 +40,7 @@ BanListWidget::BanListWidget(FrostbiteConnection *connection, QWidget *parent) :
 
     /* Commands */
     // BanList
-    connect(commandHandler, &Frostbite2CommandHandler::onBanListListCommand, this, &BanListWidget::onBanListListCommand);
+    connect(m_commandHandler, &Frostbite2CommandHandler::onBanListListCommand, this, &BanListWidget::onBanListListCommand);
 
     /* User Interface */
     // Banlist
@@ -77,7 +76,7 @@ void BanListWidget::action_bl_banList_remove_triggered()
     if (!idType.isEmpty() && !player.isEmpty()) {
         ui->tableWidget_bl_banList->removeRow(row);
 
-        commandHandler->sendBanListRemoveCommand(idType, player);
+        m_commandHandler->sendBanListRemoveCommand(idType, player);
     }
 }
 

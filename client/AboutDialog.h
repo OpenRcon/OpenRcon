@@ -21,9 +21,6 @@
 #define ABOUTDIALOG_H
 
 #include <QDialog>
-#include <QDateTime>
-#include <QFile>
-#include <QTextStream>
 
 #include "Constants.h"
 

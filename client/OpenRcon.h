@@ -21,13 +21,14 @@
 #define OPENRCON_H
 
 #include <QMainWindow>
-#include <QTabWidget>
-#include <QSettings>
-#include <QComboBox>
-#include <QPushButton>
 
 #include "Constants.h"
 
+using namespace Constants;
+
+class QComboBox;
+class QPushButton;
+class QSettings;
 struct ServerEntry;
 class ServerManager;
 class SessionManager;
@@ -35,8 +36,6 @@ class ServerListDialog;
 class OptionsDialog;
 class AboutDialog;
 class Game;
-
-using namespace Constants;
 
 namespace Ui {
     class OpenRcon;

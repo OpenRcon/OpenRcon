@@ -17,88 +17,88 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "FrostbiteConnection.h"
 #include "BF3.h"
-#include "BF3CommandHandler.h"
-#include "BF3LevelDictionary.h"
-
 #include "ServerEntry.h"
+#include "FrostbiteConnection.h"
+#include "BF3CommandHandler.h"
 
 BF3::BF3(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    con(new FrostbiteConnection(this)),
-    commandHandler(new BF3CommandHandler(con)),
+    m_connection(new FrostbiteConnection(this)),
+    m_commandHandler(new BF3CommandHandler(m_connection)),
     authenticated(false)
 {
-    con->hostConnect(serverEntry->host, serverEntry->port);
+    m_connection->hostConnect(serverEntry->host, serverEntry->port);
 
-    versionMap.insert(872601, "OB-E");
-    versionMap.insert(873274, "OB-F");
-    versionMap.insert(879322, "R3");
-    versionMap.insert(879793, "R4");
-    versionMap.insert(881071, "R5");
-    versionMap.insert(882210, "R6");
-    versionMap.insert(883137, "R7");
-    versionMap.insert(883971, "R8");
-    versionMap.insert(886605, "R9");
-    versionMap.insert(888890, "R10");
-    versionMap.insert(892188, "R11");
-    versionMap.insert(893642, "R12");
-    versionMap.insert(894307, "R13");
-    versionMap.insert(894565, "R14");
-    versionMap.insert(895012, "R15");
-    versionMap.insert(895921, "R16");
-    versionMap.insert(896646, "R17");
-    versionMap.insert(903227, "R19");
-    versionMap.insert(926998, "R20");
-    versionMap.insert(933688, "R21");
-    versionMap.insert(940924, "R22");
-    versionMap.insert(948577, "R23");
-    versionMap.insert(951336, "R24");
-    versionMap.insert(951364, "R25");
-    versionMap.insert(964189, "R26");
-    versionMap.insert(972386, "R27");
-    versionMap.insert(981883, "R28");
-    versionMap.insert(1000930, "R29");
-    versionMap.insert(1009356, "R30");
-    versionMap.insert(1014305, "R31");
-    versionMap.insert(1028652, "R32");
-    versionMap.insert(1043704, "R32 1/2");
-    versionMap.insert(1055290, "R33");
-    versionMap.insert(1066226, "R34");
-    versionMap.insert(1075133, "R34log");
-    versionMap.insert(1097264, "R35");
-    versionMap.insert(1125745, "R36");
-    versionMap.insert(1139617, "R37");
-    versionMap.insert(1149977, "R38");
+    versionMap = {
+        { 872601,  "OB-E" },
+        { 873274,  "OB-F" },
+        { 879322,  "R3" },
+        { 879793,  "R4" },
+        { 881071,  "R5" },
+        { 882210,  "R6" },
+        { 883137,  "R7" },
+        { 883971,  "R8" },
+        { 886605,  "R9" },
+        { 888890,  "R10" },
+        { 892188,  "R11" },
+        { 893642,  "R12" },
+        { 894307,  "R13" },
+        { 894565,  "R14" },
+        { 895012,  "R15" },
+        { 895921,  "R16" },
+        { 896646,  "R17" },
+        { 903227,  "R19" },
+        { 926998,  "R20" },
+        { 933688,  "R21" },
+        { 940924,  "R22" },
+        { 948577,  "R23" },
+        { 951336,  "R24" },
+        { 951364,  "R25" },
+        { 964189,  "R26" },
+        { 972386,  "R27" },
+        { 981883,  "R28" },
+        { 1000930, "R29" },
+        { 1009356, "R30" },
+        { 1014305, "R31" },
+        { 1028652, "R32" },
+        { 1043704, "R32 1/2" },
+        { 1055290, "R33" },
+        { 1066226, "R34" },
+        { 1075133, "R34log" },
+        { 1097264, "R35" },
+        { 1125745, "R36" },
+        { 1139617, "R37" },
+        { 1149977, "R38" }
+    };
 
     // Connection
-    connect(con, &Connection::onConnected, this, &BF3::onConnected);
+    connect(m_connection, &Connection::onConnected, this, &BF3::onConnected);
 
     // Commands
-    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,           static_cast<void (BF3::*)(const QByteArray&)>(&BF3::onLoginHashedCommand));
-    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,           static_cast<void (BF3::*)(bool)>(&BF3::onLoginHashedCommand));
-    connect(commandHandler, &FrostbiteCommandHandler::onVersionCommand, this, &BF3::onVersionCommand);
+    connect(m_commandHandler, &FrostbiteCommandHandler::onVersionCommand, this, &BF3::onVersionCommand);
 }
 
 BF3::~BF3()
 {
-    delete con;
+
 }
 
 void BF3::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
-        commandHandler->sendLoginHashedCommand();
+        m_commandHandler->sendLoginHashedCommand();
     }
 }
 
 void BF3::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
-        commandHandler->sendLoginHashedCommand(salt, serverEntry->password);
+        m_commandHandler->sendLoginHashedCommand(salt, serverEntry->password);
     }
 }
 
@@ -112,7 +112,7 @@ void BF3::onVersionCommand(const QString &type, int build)
     Q_UNUSED(build);
 
     if (type != "BF3") {
-        con->hostDisconnect();
+        m_connection->hostDisconnect();
 
         qDebug() << tr("Wrong server type, disconnecting...");
     }

@@ -17,8 +17,11 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "GameManager.h"
+#include <QSettings>
+
 #include "ServerManager.h"
+#include "ServerEntry.h"
+#include "GameManager.h"
 
 ServerManager::ServerManager(QObject *parent) : QObject(parent)
 {

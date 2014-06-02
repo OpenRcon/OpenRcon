@@ -34,8 +34,8 @@ public:
     ~BF3();
 
 protected:
-    FrostbiteConnection *con;
-    BF3CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    BF3CommandHandler *m_commandHandler;
 
     bool isAuthenticated();
 

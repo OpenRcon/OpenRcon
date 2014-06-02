@@ -18,6 +18,7 @@
  */
 
 #include "MinecraftRconPacket.h"
+#include "MinecraftRconPacketType.h"
 
 MinecraftRconPacket::MinecraftRconPacket(int requestId, MinecraftRconPacketType type, char* content) : requestId(requestId), type(type), content(content)
 {

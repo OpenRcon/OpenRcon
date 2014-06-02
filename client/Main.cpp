@@ -19,11 +19,9 @@
 
 #include <QApplication>
 #include <QSettings>
-#include <QString>
 #include <QTranslator>
-#include <QLocale>
 
-#include <OpenRcon.h>
+#include "OpenRcon.h"
 
 int main(int argc, char *argv[])
 {
