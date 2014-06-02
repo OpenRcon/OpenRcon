@@ -59,7 +59,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     actionServerManager = new QAction(QIcon(":/icons/servermanager.png"), tr("&Servermanager"), this);
     actionServerManager->setShortcut(tr("Ctrl+S"));
     actionServerManager->setToolTip(tr("Opens the servermanager."));
-    actionQuit = new QAction(tr("&Quit"), this);
+    actionQuit = new QAction(QIcon(":/icons/quit.png"), tr("&Quit"), this);
     actionQuit->setShortcut(tr("Ctrl+Q"));
     actionQuickConnect = new QAction(tr("Quickconnect"), this);
     actionQuickConnect->setCheckable(true);

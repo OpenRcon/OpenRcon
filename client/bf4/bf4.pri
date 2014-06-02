@@ -18,15 +18,15 @@ SOURCES += bf4/BF4.cpp \
     bf4/BF4Widget.cpp \
     bf4/BF4LevelDictionary.cpp \
     bf4/PlayerListWidget.cpp \
-    bf4/MapListWidget.cpp \
-    bf4/SpectatorSlotsWidget.cpp \
+    bf4/EventsWidget.cpp \
     bf4/OptionsWidget.cpp \
-    bf4/EventsWidget.cpp
+    bf4/MapListWidget.cpp \
+    bf4/SpectatorSlotsWidget.cpp
 
 FORMS += bf4/BF4Widget.ui \
-    bf4/MapListWidget.ui \
-    bf4/SpectatorSlotsWidget.ui \
+    bf4/EventsWidget.ui \
     bf4/OptionsWidget.ui \
-    bf4/EventsWidget.ui
+    bf4/MapListWidget.ui \
+    bf4/SpectatorSlotsWidget.ui
 
 RESOURCES += bf4/BF4.qrc

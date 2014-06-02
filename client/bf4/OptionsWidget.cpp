@@ -299,7 +299,7 @@ void OptionsWidget::onVarsIdleBanRoundsCommand(int rounds)
 
 void OptionsWidget::onVarsIdleTimeoutCommand(int timeout)
 {
-    if (timeout >= 84600) {
+    if (timeout >= 86400) {
         ui->checkBox_so_co_idleTimeout->setChecked(true);
         ui->spinBox_so_co_idleTimeout->setEnabled(false);
     } else {
@@ -474,7 +474,7 @@ void OptionsWidget::checkBox_so_co_fairFight_toggled(bool checked)
 
 void OptionsWidget::checkBox_so_co_idleTimeout_toggled(bool checked)
 {
-    int timeout = checked ? 84600 : 225;
+    int timeout = checked ? 86400 : 225;
 
     ui->spinBox_so_co_idleTimeout->setEnabled(!checked);
     ui->spinBox_so_co_idleTimeout->setValue(timeout);

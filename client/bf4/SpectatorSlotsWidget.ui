@@ -31,6 +31,10 @@
        <property name="text">
         <string>Add</string>
        </property>
+       <property name="icon">
+        <iconset resource="../frostbite/Frostbite.qrc">
+         <normaloff>:/frostbite/icons/add.png</normaloff>:/frostbite/icons/add.png</iconset>
+       </property>
       </widget>
      </item>
      <item row="1" column="0">
@@ -70,12 +74,20 @@
          <property name="text">
           <string>Save</string>
          </property>
+         <property name="icon">
+          <iconset resource="../frostbite/Frostbite.qrc">
+           <normaloff>:/frostbite/icons/save.png</normaloff>:/frostbite/icons/save.png</iconset>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_ss_clear">
          <property name="text">
           <string>Clear</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../frostbite/Frostbite.qrc">
+           <normaloff>:/frostbite/icons/clear.png</normaloff>:/frostbite/icons/clear.png</iconset>
          </property>
         </widget>
        </item>
@@ -111,6 +123,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../frostbite/Frostbite.qrc"/>
+ </resources>
  <connections/>
 </ui>

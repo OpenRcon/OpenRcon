@@ -7,9 +7,10 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/FrostbiteCommandHandler.h \
     frostbite/FrostbiteGame.h \
     frostbite/FrostbiteUtils.h \
+    frostbite/TeamEntry.h \
     frostbite/LevelEntry.h \
-    frostbite/LevelDictionary.h \
     frostbite/GameModeEntry.h \
+    frostbite/LevelDictionary.h \
     frostbite/PlayerSubset.h \
     frostbite/MapListEntry.h \
     frostbite/BanListEntry.h \
@@ -17,9 +18,8 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/OnlineState.h \
     frostbite/TeamScores.h \
     frostbite/Time.h \
-    frostbite/ConsoleWidget.h \
     frostbite/Squad.h \
-    frostbite/TeamEntry.h \
+    frostbite/ConsoleWidget.h \
     frostbite/ConsoleLineEdit.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
@@ -33,5 +33,4 @@ SOURCES += frostbite/FrostbiteConnection.cpp \
 
 FORMS += frostbite/ConsoleWidget.ui
 
-RESOURCES += \
-    frostbite/Frostbite.qrc
+RESOURCES += frostbite/Frostbite.qrc

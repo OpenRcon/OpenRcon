@@ -32,8 +32,8 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="../OpenRcon.qrc">
-         <normaloff>:/icons/images/icons/level-restart.png</normaloff>:/icons/images/icons/level-restart.png</iconset>
+        <iconset resource="../frostbite/Frostbite.qrc">
+         <normaloff>:/frostbite/icons/level-restart.png</normaloff>:/frostbite/icons/level-restart.png</iconset>
        </property>
       </widget>
      </item>
@@ -46,8 +46,8 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="../OpenRcon.qrc">
-         <normaloff>:/icons/images/icons/level-next.png</normaloff>:/icons/images/icons/level-next.png</iconset>
+        <iconset resource="../frostbite/Frostbite.qrc">
+         <normaloff>:/frostbite/icons/level-next.png</normaloff>:/frostbite/icons/level-next.png</iconset>
        </property>
       </widget>
      </item>
@@ -113,7 +113,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../OpenRcon.qrc"/>
+  <include location="../frostbite/Frostbite.qrc"/>
  </resources>
  <connections/>
 </ui>
