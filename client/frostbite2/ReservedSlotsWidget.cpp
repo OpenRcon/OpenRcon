@@ -69,6 +69,8 @@ void ReservedSlotsWidget::onLoginHashedCommand(bool auth)
 
 void ReservedSlotsWidget::onReservedSlotsListListCommand(const QStringList &reservedSlotsList)
 {
+    ui->pushButton_rs_clear->setEnabled(!reservedSlotsList.isEmpty());
+
     ui->listWidget_rs_reservedSlotsList->clear();
     ui->listWidget_rs_reservedSlotsList->addItems(reservedSlotsList);
 }
@@ -85,8 +87,10 @@ void ReservedSlotsWidget::action_rs_reservedSlotsList_remove_triggered()
     QString player = ui->listWidget_rs_reservedSlotsList->currentItem()->text();
 
     if (!player.isEmpty()) {
-        delete ui->listWidget_rs_reservedSlotsList->currentItem();
+        int index = ui->listWidget_rs_reservedSlotsList->currentRow();
 
+        ui->listWidget_rs_reservedSlotsList->takeItem(index);
+        ui->pushButton_rs_clear->setEnabled(ui->listWidget_rs_reservedSlotsList->count() > 0);
         m_commandHandler->sendReservedSlotsListRemoveCommand(player);
     }
 }
@@ -96,8 +100,9 @@ void ReservedSlotsWidget::pushButton_rs_add_clicked()
     QString player = ui->lineEdit_rs_player->text();
 
     if (!player.isEmpty()) {
-        ui->lineEdit_rs_player->clear();
         ui->listWidget_rs_reservedSlotsList->addItem(player);
+        ui->pushButton_rs_clear->setEnabled(true);
+        ui->lineEdit_rs_player->clear();
 
         m_commandHandler->sendReservedSlotsListAddCommand(player);
     }

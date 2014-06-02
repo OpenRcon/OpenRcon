@@ -65,6 +65,8 @@ void SpectatorSlotsWidget::onLoginHashedCommand(bool auth)
 
 void SpectatorSlotsWidget::onSpectatorListListCommand(const QStringList &spectatorList)
 {
+    ui->pushButton_ss_clear->setEnabled(!spectatorList.isEmpty());
+
     ui->listWidget_ss_spectatorList->clear();
     ui->listWidget_ss_spectatorList->addItems(spectatorList);
 }
@@ -84,6 +86,7 @@ void SpectatorSlotsWidget::action_ss_spectatorList_remove_triggered()
         int row = ui->listWidget_ss_spectatorList->currentRow();
 
         ui->listWidget_ss_spectatorList->takeItem(row);
+        ui->pushButton_ss_clear->setEnabled(ui->listWidget_ss_spectatorList->count() > 0);
         m_commandHandler->sendSpectatorListRemoveCommand(player);
     }
 }
@@ -93,8 +96,9 @@ void SpectatorSlotsWidget::pushButton_ss_add_clicked()
     QString player = ui->lineEdit_ss_player->text();
 
     if (!player.isEmpty()) {
-        ui->lineEdit_ss_player->clear();
         ui->listWidget_ss_spectatorList->addItem(player);
+        ui->pushButton_ss_clear->setEnabled(true);
+        ui->lineEdit_ss_player->clear();
 
         m_commandHandler->sendSpectatorListAddCommand(player);
     }
