@@ -17,6 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+<<<<<<< HEAD
 #include "BF3Widget.h"
 #include "ui_BF3Widget.h"
 #include "FrostbiteUtils.h"
@@ -27,10 +28,28 @@
 #include "ReservedSlotsWidget.h"
 #include "ConsoleWidget.h"
 
+=======
+#include <QMessageBox>
+
+#include "BF3Widget.h"
+#include "ui_BF3Widget.h"
+#include "BF3CommandHandler.h"
+#include "PlayerInfo.h"
+#include "PlayerSubset.h"
+#include "TeamEntry.h"
+#include "BF3LevelDictionary.h"
+#include "FrostbiteUtils.h"
+
+#include "ChatWidget.h"
+#include "ReservedSlotsWidget.h"
+#include "ConsoleWidget.h"
+
+>>>>>>> 5254a8257b47f02d290f14df40cf6b00f237dd12
 BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);
 
+<<<<<<< HEAD
     QStringList commandList = {
         "login.plainText",
         "login.hashed",
@@ -130,18 +149,23 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
     chatWidget = new ChatWidget(con, this);
     reservedSlotsWidget = new ReservedSlotsWidget(con, this);
     consoleWidget = new ConsoleWidget(con, commandList, this);
+=======
+    chatWidget = new ChatWidget(m_connection, this);
+    reservedSlotsWidget = new ReservedSlotsWidget(m_connection, this);
+    consoleWidget = new ConsoleWidget(m_connection, this);
+>>>>>>> 5254a8257b47f02d290f14df40cf6b00f237dd12
 
     ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
     ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
-    connect(con, &Connection::onConnected,    this, &BF3Widget::onConnected);
-    connect(con, &Connection::onDisconnected, this, &BF3Widget::onDisconnected);
+    connect(m_connection, &Connection::onConnected,    this, &BF3Widget::onConnected);
+    connect(m_connection, &Connection::onDisconnected, this, &BF3Widget::onDisconnected);
 
     /* Commands */
     // Misc
-    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
+    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
 
     /* User Interface */
 }
@@ -149,10 +173,6 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
 BF3Widget::~BF3Widget()
 {
     delete ui;
-
-    delete chatWidget;
-    delete reservedSlotsWidget;
-    delete consoleWidget;
 }
 
 void BF3Widget::setAuthenticated(bool auth)
@@ -173,11 +193,11 @@ void BF3Widget::setAuthenticated(bool auth)
 void BF3Widget::startupCommands(bool authenticated)
 {
     // Misc
-    commandHandler->sendVersionCommand();
-    commandHandler->sendServerInfoCommand();
+    m_commandHandler->sendVersionCommand();
+    m_commandHandler->sendServerInfoCommand();
 
     if (authenticated) {
-        commandHandler->sendAdminEventsEnabledCommand(true);
+        m_commandHandler->sendAdminEventsEnabledCommand(true);
 
         // Admins
 
@@ -193,7 +213,7 @@ void BF3Widget::startupCommands(bool authenticated)
 
         // Variables
     } else {
-        commandHandler->sendListPlayersCommand(PlayerSubset::All);
+        m_commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
 }
 
@@ -224,7 +244,7 @@ void BF3Widget::onLoginHashedCommand(bool auth)
         int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
 
         if (ret) {
-            con->hostDisconnect();
+            m_connection->hostDisconnect();
         }
     }
 }
@@ -271,7 +291,7 @@ void BF3Widget::updatePlayerList()
     if (isAuthenticated()) {
 //        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
     } else {
-        commandHandler->sendListPlayersCommand(PlayerSubset::All);
+        m_commandHandler->sendListPlayersCommand(PlayerSubset::All);
     }
 }
 

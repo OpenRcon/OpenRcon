@@ -41,8 +41,8 @@ public:
 
 private:
     Ui::ReservedSlotsWidget *ui;
-    FrostbiteConnection *connection;
-    Frostbite2CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    Frostbite2CommandHandler *m_commandHandler;
 
     QMenu *menu_rs_reservedSlotsList;
     QAction *action_rs_reservedSlotsList_remove;

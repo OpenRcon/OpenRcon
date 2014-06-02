@@ -47,7 +47,9 @@ public:
     BF4Widget(ServerEntry *serverEntry);
     ~BF4Widget();
 
-    virtual Connection *getConnection() { return connection; }
+    virtual Connection *getConnection() {
+        return m_connection;
+    }
 
 private:
     Ui::BF4Widget *ui;

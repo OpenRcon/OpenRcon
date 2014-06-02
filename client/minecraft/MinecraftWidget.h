@@ -20,8 +20,6 @@
 #ifndef MINECRAFTWIDGET_H
 #define MINECRAFTWIDGET_H
 
-#include <QTime>
-
 #include "Minecraft.h"
 
 namespace Ui {

@@ -17,22 +17,24 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QSettings>
+#include <QComboBox>
+#include <QPushButton>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QMessageBox>
 
 #include "ui_OpenRcon.h"
 #include "OpenRcon.h"
-
-#include "GameEntry.h"
-#include "GameManager.h"
-#include "ServerEntry.h"
 #include "ServerManager.h"
 #include "SessionManager.h"
+#include "ServerEntry.h"
+#include "GameEntry.h"
+#include "GameManager.h"
+
 #include "ServerListDialog.h"
 #include "OptionsDialog.h"
 #include "AboutDialog.h"
-
-#include "Game.h"
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 {
@@ -132,12 +134,6 @@ OpenRcon::~OpenRcon()
     writeSettings();
 
     delete ui;
-    delete settings;
-    delete serverManager;
-    delete sessionManager;
-    delete serverListDialog;
-    delete optionsDialog;
-    delete aboutDialog;
 }
 
 QTabWidget *OpenRcon::getTabWidget()

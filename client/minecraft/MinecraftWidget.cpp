@@ -17,6 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QTime>
+
 #include "ui_MinecraftWidget.h"
 #include "MinecraftWidget.h"
 
@@ -25,9 +27,9 @@ MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEnt
     ui->setupUi(this);
 
     /* Events */
-    connect(connection, &Connection::onDataSentEvent,          this, &MinecraftWidget::onDataSentEvent);
-    connect(connection, &Connection::onDataReceivedEvent,      this, &MinecraftWidget::onDataSentEvent);
-    connect(connection, &MinecraftConnection::onAuthenticated, this, &MinecraftWidget::onAuthenticated);
+    connect(m_connection, &Connection::onDataSentEvent,          this, &MinecraftWidget::onDataSentEvent);
+    connect(m_connection, &Connection::onDataReceivedEvent,      this, &MinecraftWidget::onDataSentEvent);
+    connect(m_connection, &MinecraftConnection::onAuthenticated, this, &MinecraftWidget::onAuthenticated);
 
     /* User Interface */
     connect(ui->lineEdit_co_input, &QLineEdit::returnPressed, this, &MinecraftWidget::on_pushButton_co_send_clicked);
@@ -81,7 +83,6 @@ void MinecraftWidget::on_pushButton_co_send_clicked()
 {
     QString command = ui->lineEdit_co_input->text();
 
-    connection->sendCommand(command);
-
     ui->lineEdit_co_input->clear();
+    m_connection->sendCommand(command);
 }

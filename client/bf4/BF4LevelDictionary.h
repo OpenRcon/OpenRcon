@@ -21,7 +21,8 @@
 #define BF4LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
-#include "BF4GameModeEntry.h"
+
+struct BF4GameModeEntry;
 
 typedef LevelDictionary<3, TeamEntry, LevelEntry, BF4GameModeEntry> BF4LevelDictionary;
 

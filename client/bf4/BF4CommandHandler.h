@@ -21,9 +21,9 @@
 #define BF4COMMANDHANDLER_H
 
 #include "Frostbite2CommandHandler.h"
-#include "PlayerInfo.h"
 
-#include "BF4ServerInfo.h"
+struct BF4ServerInfo;
+struct PlayerInfo;
 
 class BF4CommandHandler : public Frostbite2CommandHandler
 {

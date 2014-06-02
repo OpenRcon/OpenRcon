@@ -34,8 +34,8 @@ public:
     ~BFBC2();
 
 protected:
-    FrostbiteConnection *con;
-    BFBC2CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    BFBC2CommandHandler *m_commandHandler;
 
     bool isAuthenticated();
 

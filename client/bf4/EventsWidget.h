@@ -39,8 +39,8 @@ public:
 
 private:
     Ui::EventsWidget *ui;
-    FrostbiteConnection *connection;
-    BF4CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    BF4CommandHandler *m_commandHandler;
 
     // Events
     void logEvent(const QString &event, const QString &message);

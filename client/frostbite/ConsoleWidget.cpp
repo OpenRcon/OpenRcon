@@ -20,26 +20,25 @@
 #include <QCompleter>
 #include <QDateTime>
 
-#include "FrostbiteConnection.h"
-#include "FrostbiteCommandHandler.h"
-
 #include "ConsoleWidget.h"
 #include "ui_ConsoleWidget.h"
+#include "FrostbiteConnection.h"
+#include "FrostbiteCommandHandler.h"
 
 ConsoleWidget::ConsoleWidget(FrostbiteConnection *connection, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ConsoleWidget),
-    connection(connection),
-    commandHandler(connection->getCommandHandler())
+    m_connection(connection),
+    m_commandHandler(connection->getCommandHandler())
 {
     ui->setupUi(this);
 
     /* Events */
-    connect(connection, &Connection::onDataSentEvent,     this, &ConsoleWidget::onDataSentEvent);
-    connect(connection, &Connection::onDataReceivedEvent, this, &ConsoleWidget::onDataReceivedEvent);
+    connect(m_connection, &Connection::onDataSentEvent,     this, &ConsoleWidget::onDataSentEvent);
+    connect(m_connection, &Connection::onDataReceivedEvent, this, &ConsoleWidget::onDataReceivedEvent);
 
     /* Commands */
-    connect(commandHandler, &FrostbiteCommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
+    connect(m_commandHandler, &FrostbiteCommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
 
     /* User Interface */
     connect(ui->pushButton_co_co, &QPushButton::clicked,       this, &ConsoleWidget::pushButton_co_co_clicked);
@@ -101,15 +100,15 @@ void ConsoleWidget::onPunkBusterMessageEvent(const QString &message)
 void ConsoleWidget::pushButton_co_co_clicked()
 {
     QString command = ui->lineEdit_co_co->text();
-    ui->lineEdit_co_co->clear();
 
-    connection->sendCommand(command);
+    ui->lineEdit_co_co->clear();
+    m_connection->sendCommand(command);
 }
 
 void ConsoleWidget::pushButton_co_pb_clicked()
 {
     QString command = ui->lineEdit_co_pb->text();
-    ui->lineEdit_co_pb->clear();
 
-    commandHandler->sendPunkBusterPbSvCommand(command);
+    ui->lineEdit_co_pb->clear();
+    m_commandHandler->sendPunkBusterPbSvCommand(command);
 }

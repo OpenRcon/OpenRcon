@@ -17,10 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QDebug>
-#include <QTreeWidget>
-#include <QMouseEvent>
-#include <QApplication>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
 
 #include "DragDropTreeWidget.h"
 

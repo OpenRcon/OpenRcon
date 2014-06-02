@@ -26,12 +26,9 @@
 //Payload 	byte[] 	ASCII text
 //2-byte pad 	byte, byte 	Two null bytes
 
-#include <QDebug>
 #include <QVector>
-#include <QString>
-#include <QStringList>
 
-#include "MinecraftRconPacketType.h"
+enum class MinecraftRconPacketType;
 
 class MinecraftRconPacket
 {
@@ -44,13 +41,13 @@ public:
     int getLength();
     int getRequestId();
     MinecraftRconPacketType getType();
-    char* getContent();
+    char *getContent();
     int getContentSize();
 
 private:
     int requestId;
     MinecraftRconPacketType type;
-    char* content;
+    char *content;
 
 };
 

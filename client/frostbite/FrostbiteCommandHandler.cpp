@@ -17,11 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QCryptographicHash>
+
 #include "FrostbiteConnection.h"
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteCommandHandler.h"
+#include "FrostbiteUtils.h"
 
-FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *parent) : CommandHandler(parent), con(parent)
+FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *parent) : CommandHandler(parent), m_connection(parent)
 {
     if (parent) {
         parent->setCommandHandler(this);
@@ -70,43 +73,43 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
 // Misc
 void FrostbiteCommandHandler::sendLoginPlainTextCommand(const QString &password)
 {
-    con->sendCommand(QString("\"login.plainText\" \"%1\"").arg(password));
+    m_connection->sendCommand(QString("\"login.plainText\" \"%1\"").arg(password));
 }
 
 void FrostbiteCommandHandler::sendLoginHashedCommand(const QByteArray &salt, const QString &password)
 {
     if (salt.isNull() && password == 0) {
-        con->sendCommand("login.hashed");
+        m_connection->sendCommand("login.hashed");
     } else {
         if (!password.isEmpty() && password.length() <= 16) {
             QCryptographicHash hash(QCryptographicHash::Md5);
             hash.addData(salt);
             hash.addData(password.toLatin1().constData());
 
-            con->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
+            m_connection->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
         }
     }
 }
 
 void FrostbiteCommandHandler::sendLogoutCommand()
 {
-    con->sendCommand("logout");
+    m_connection->sendCommand("logout");
 }
 
 void FrostbiteCommandHandler::sendQuitCommand()
 {
-    con->sendCommand("quit");
+    m_connection->sendCommand("quit");
 }
 
 void FrostbiteCommandHandler::sendVersionCommand()
 {
-    con->sendCommand("version");
+    m_connection->sendCommand("version");
 }
 
 // PunkBuster
 void FrostbiteCommandHandler::sendPunkBusterPbSvCommand(const QString &command)
 {
-    con->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
+    m_connection->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
 }
 
 /* Parse events */
@@ -182,7 +185,7 @@ void FrostbiteCommandHandler::parseVersionCommand(const FrostbiteRconPacket &pac
 
     if (response == "OK" && packet.getWordCount() > 1) {
         QString type = packet.getWord(1).getContent();
-        int build = toInt(packet.getWord(2).getContent());
+        int build = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
         emit (onVersionCommand(type, build));
     }

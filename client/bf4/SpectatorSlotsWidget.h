@@ -41,8 +41,8 @@ public:
 
 private:
     Ui::SpectatorSlotsWidget *ui;
-    FrostbiteConnection *connection;
-    BF4CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    BF4CommandHandler *m_commandHandler;
 
     QMenu *menu_ss_spectatorList;
     QAction *action_ss_spectatorList_remove;

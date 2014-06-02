@@ -18,6 +18,9 @@
  */
 
 #include "BF4LevelDictionary.h"
+#include "TeamEntry.h"
+#include "LevelEntry.h"
+#include "BF4GameModeEntry.h"
 
 template<>
 QList<TeamEntry> BF4LevelDictionary::teamList = {

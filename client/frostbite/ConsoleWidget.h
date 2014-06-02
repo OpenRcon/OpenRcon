@@ -41,8 +41,8 @@ public:
 
 private:
     Ui::ConsoleWidget *ui;
-    FrostbiteConnection *connection;
-    FrostbiteCommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    FrostbiteCommandHandler *m_commandHandler;
 
     void logConsole(int type, const QString &message);
 

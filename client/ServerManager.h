@@ -20,13 +20,15 @@
 #ifndef SERVERMANAGER_H
 #define SERVERMANAGER_H
 
-#include <QSettings>
+#include <QObject>
 
 #include "Constants.h"
 
-#include "ServerEntry.h"
-
 using namespace Constants;
+
+class QSettings;
+struct ServerEntry;
+enum class GameType;
 
 class ServerManager : public QObject
 {

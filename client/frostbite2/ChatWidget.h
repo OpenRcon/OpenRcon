@@ -39,8 +39,8 @@ public:
 
 private:
     Ui::ChatWidget *ui;
-    FrostbiteConnection *connection;
-    Frostbite2CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    Frostbite2CommandHandler *m_commandHandler;
 
     void logChat(const QString &sender, const QString &message, const QString &target);
 

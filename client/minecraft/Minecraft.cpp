@@ -18,24 +18,25 @@
  */
 
 #include "Minecraft.h"
-
 #include "ServerEntry.h"
+#include "MinecraftRconPacket.h"
+#include "MinecraftRconPacketType.h"
 
 Minecraft::Minecraft(ServerEntry *serverEntry) : Game(serverEntry)
 {
-    connection = new MinecraftConnection(this);
-    connection->hostConnect(serverEntry->host, serverEntry->port);
+    m_connection = new MinecraftConnection(this);
+    m_connection->hostConnect(serverEntry->host, serverEntry->port);
 
-    connect(connection, &Connection::onConnected, this, &Minecraft::onConnected);
+    connect(m_connection, &Connection::onConnected, this, &Minecraft::onConnected);
 }
 
 Minecraft::~Minecraft()
 {
-    delete connection;
+
 }
 
 void Minecraft::onConnected()
 {
     MinecraftRconPacket packet(1, MinecraftRconPacketType::Login, serverEntry->password.toLatin1().data());
-    connection->sendPacket(packet);
+    m_connection->sendPacket(packet);
 }

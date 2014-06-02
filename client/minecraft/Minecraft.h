@@ -32,11 +32,11 @@ public:
     ~Minecraft();
 
     virtual Connection *getConnection() {
-        return connection;
+        return m_connection;
     }
 
 protected:
-    MinecraftConnection *connection;
+    MinecraftConnection *m_connection;
 
 private slots:
     void onConnected();

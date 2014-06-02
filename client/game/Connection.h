@@ -21,10 +21,7 @@
 #define CONNECTION_H
 
 #include <QObject>
-#include <QDebug>
 #include <QAbstractSocket>
-#include <QHostAddress>
-#include <QMessageBox>
 
 class Connection : public QObject
 {

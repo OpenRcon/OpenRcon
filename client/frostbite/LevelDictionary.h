@@ -22,16 +22,17 @@
 
 #include <QList>
 #include <QMultiHash>
+#include <QStringList>
 
-#include "LevelEntry.h"
-#include "GameModeEntry.h"
-#include "TeamEntry.h"
+struct TeamEntry;
+struct LevelEntry;
+struct GameModeEntry;
 
 typedef QList<TeamEntry> TeamList;
 typedef QList<LevelEntry> LevelList;
 typedef QList<GameModeEntry> GameModeList;
 
-template<int hack, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType>
+template<int gameId, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType>
 class LevelDictionary
 {
 public:

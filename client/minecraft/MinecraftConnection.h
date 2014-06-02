@@ -22,7 +22,7 @@
 
 #include "Connection.h"
 
-#include "MinecraftRconPacket.h"
+class MinecraftRconPacket;
 
 class MinecraftConnection : public Connection
 {

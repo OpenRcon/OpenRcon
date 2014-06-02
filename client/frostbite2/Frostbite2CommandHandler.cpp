@@ -132,44 +132,44 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
 // Admin
 void Frostbite2CommandHandler::sendAdminEventsEnabledCommand(bool enabled)
 {
-    con->sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    m_connection->sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendAdminHelpCommand()
 {
-    con->sendCommand("admin.help");
+    m_connection->sendCommand("admin.help");
 }
 
 void Frostbite2CommandHandler::sendAdminKickPlayerCommand(const QString &player, const QString &reason)
 {
-    con->sendCommand(QString("\"admin.kickPlayer\" \"%1\" \"%2\"").arg(player, reason));
+    m_connection->sendCommand(QString("\"admin.kickPlayer\" \"%1\" \"%2\"").arg(player, reason));
 }
 
 void Frostbite2CommandHandler::sendAdminKillPlayerCommand(const QString &player)
 {
-    con->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
+    m_connection->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
 }
 
 void Frostbite2CommandHandler::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
 {
-    con->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(forceKill)));
+    m_connection->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(forceKill)));
 }
 
 void Frostbite2CommandHandler::sendAdminPasswordCommand(const QString &password)
 {
     if (password.isEmpty()) {
-        con->sendCommand("admin.password");
+        m_connection->sendCommand("admin.password");
     } else {
-        con->sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
+        m_connection->sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
     }
 }
 
 void Frostbite2CommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
 {
     if (playerSubset == PlayerSubset::All) {
-        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, getPlayerSubsetString(playerSubset)));
+        m_connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, getPlayerSubsetString(playerSubset)));
     } else {
-        con->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, getPlayerSubsetString(playerSubset)).arg(parameter));
+        m_connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, getPlayerSubsetString(playerSubset)).arg(parameter));
     }
 }
 
@@ -182,9 +182,9 @@ void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int 
 {
     if (message.length() <= 256) {
         if (playerSubset == PlayerSubset::All) {
-            con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)));
+            m_connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)));
         } else {
-            con->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)).arg(parameter));
+            m_connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)).arg(parameter));
         }
     }
 }
@@ -192,7 +192,7 @@ void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int 
 // BanList
 void Frostbite2CommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason)
 {
-    con->sendCommand(QString("banList.add %1 %2 perm %4").arg(idType, id, reason));
+    m_connection->sendCommand(QString("banList.add %1 %2 perm %4").arg(idType, id, reason));
     sendBanListListCommand();
 }
 
@@ -200,208 +200,208 @@ void Frostbite2CommandHandler::sendBanListAddCommand(const QString &idType, cons
 {
     QString timeoutType = useRounds ? "rounds" : "seconds";
 
-    con->sendCommand(QString("banList.add %1 %2 %3 %4 %5").arg(idType, id, timeoutType).arg(FrostbiteUtils::toString(timeout), reason));
+    m_connection->sendCommand(QString("banList.add %1 %2 %3 %4 %5").arg(idType, id, timeoutType).arg(FrostbiteUtils::toString(timeout), reason));
     sendBanListListCommand();
 }
 
 void Frostbite2CommandHandler::sendBanListClearCommand()
 {
-    con->sendCommand("banList.clear");
+    m_connection->sendCommand("banList.clear");
     sendBanListListCommand();
 }
 
 void Frostbite2CommandHandler::sendBanListListCommand(int index)
 {
     if (index == 0) {
-        con->sendCommand("banList.list");
+        m_connection->sendCommand("banList.list");
     } else {
-        con->sendCommand(QString("\"banList.list\" \"%1\"").arg(index));
+        m_connection->sendCommand(QString("\"banList.list\" \"%1\"").arg(index));
     }
 }
 
 void Frostbite2CommandHandler::sendBanListLoadCommand()
 {
-    con->sendCommand("banList.load");
+    m_connection->sendCommand("banList.load");
     sendBanListListCommand();
 }
 
 void Frostbite2CommandHandler::sendBanListRemoveCommand(const QString &idType, const QString &id)
 {
-    con->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, id));
+    m_connection->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, id));
     sendBanListListCommand();
 }
 
 void Frostbite2CommandHandler::sendBanListSaveCommand()
 {
-    con->sendCommand("banList.save");
+    m_connection->sendCommand("banList.save");
 }
 
 // Maplist
 void Frostbite2CommandHandler::sendMapListAddCommand(const QString &level, const QString &gameMode, int rounds, int offSet)
 {
-    con->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(level).arg(gameMode).arg(rounds).arg(offSet));
+    m_connection->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(level).arg(gameMode).arg(rounds).arg(offSet));
     sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListAvailableMapsCommand(const QString &filter)
 {
-    con->sendCommand(QString("\"mapList.availableMaps\" \"%1\"").arg(filter));
+    m_connection->sendCommand(QString("\"mapList.availableMaps\" \"%1\"").arg(filter));
 }
 
 void Frostbite2CommandHandler::sendMapListClearCommand()
 {
-    con->sendCommand("mapList.clear");
+    m_connection->sendCommand("mapList.clear");
     sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListEndRoundCommand(int teamId)
 {
-    con->sendCommand(QString("\"mapList.endRound\" \"%1\"").arg(teamId));
+    m_connection->sendCommand(QString("\"mapList.endRound\" \"%1\"").arg(teamId));
 }
 
 void Frostbite2CommandHandler::sendMapListGetMapIndicesCommand()
 {
-    con->sendCommand("mapList.getMapIndices");
+    m_connection->sendCommand("mapList.getMapIndices");
 }
 
 void Frostbite2CommandHandler::sendMapListGetRoundsCommand()
 {
-    con->sendCommand("mapList.getRounds");
+    m_connection->sendCommand("mapList.getRounds");
 }
 
 void Frostbite2CommandHandler::sendMapListListCommand(int index)
 {
     if (index == 0) {
-        con->sendCommand("mapList.list");
+        m_connection->sendCommand("mapList.list");
     } else {
-        con->sendCommand(QString("\"mapList.list\" \"%1\"").arg(index));
+        m_connection->sendCommand(QString("\"mapList.list\" \"%1\"").arg(index));
     }
 }
 
 void Frostbite2CommandHandler::sendMapListLoadCommand()
 {
-    con->sendCommand("mapList.load");
+    m_connection->sendCommand("mapList.load");
     sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListRemoveCommand(int index)
 {
-    con->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
+    m_connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
     sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListRestartRoundCommand()
 {
-    con->sendCommand("mapList.restartRound");
+    m_connection->sendCommand("mapList.restartRound");
 }
 
 void Frostbite2CommandHandler::sendMapListRunNextRoundCommand()
 {
-    con->sendCommand("mapList.runNextRound");
+    m_connection->sendCommand("mapList.runNextRound");
 }
 
 void Frostbite2CommandHandler::sendMapListSaveCommand()
 {
-    con->sendCommand("mapList.save");
+    m_connection->sendCommand("mapList.save");
 }
 
 void Frostbite2CommandHandler::sendMapListSetNextMapIndexCommand(int index)
 {
-    con->sendCommand(QString("\"mapList.setNextMapIndex\" \"%1\"").arg(index));
+    m_connection->sendCommand(QString("\"mapList.setNextMapIndex\" \"%1\"").arg(index));
 }
 
 // Player
 void Frostbite2CommandHandler::sendPlayerIdleDurationCommand(const QString &player)
 {
-    con->sendCommand(QString("\"player.idleDuration\" \"%1\"").arg(player));
+    m_connection->sendCommand(QString("\"player.idleDuration\" \"%1\"").arg(player));
 }
 
 void Frostbite2CommandHandler::sendPlayerIsAliveCommand(const QString &player)
 {
-    con->sendCommand(QString("\"player.isAlive\" \"%1\"").arg(player));
+    m_connection->sendCommand(QString("\"player.isAlive\" \"%1\"").arg(player));
 }
 
 void Frostbite2CommandHandler::sendPlayerPingCommand(const QString &player)
 {
-    con->sendCommand(QString("\"player.ping\" \"%1\"").arg(player));
+    m_connection->sendCommand(QString("\"player.ping\" \"%1\"").arg(player));
 }
 
 // PunkBuster
 void Frostbite2CommandHandler::sendPunkBusterActivateCommand()
 {
-    con->sendCommand("punkBuster.activate");
+    m_connection->sendCommand("punkBuster.activate");
 }
 
 void Frostbite2CommandHandler::sendPunkBusterIsActiveCommand()
 {
-    con->sendCommand("punkBuster.isActive");
+    m_connection->sendCommand("punkBuster.isActive");
 }
 
 // Reserved Slots
 void Frostbite2CommandHandler::sendReservedSlotsListAddCommand(const QString &player)
 {
-    con->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
+    m_connection->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
     sendReservedSlotsListListCommand();
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListAggressiveJoinCommand()
 {
-    con->sendCommand("reservedSlotsList.aggressiveJoin");
+    m_connection->sendCommand("reservedSlotsList.aggressiveJoin");
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListAggressiveJoinCommand(bool enabled)
 {
-    con->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    m_connection->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListClearCommand()
 {
-    con->sendCommand("reservedSlotsList.clear");
+    m_connection->sendCommand("reservedSlotsList.clear");
     sendReservedSlotsListListCommand();
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListListCommand()
 {
-    con->sendCommand("reservedSlotsList.list");
+    m_connection->sendCommand("reservedSlotsList.list");
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListLoadCommand()
 {
-    con->sendCommand("reservedSlotsList.load");
+    m_connection->sendCommand("reservedSlotsList.load");
     sendReservedSlotsListListCommand();
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListRemoveCommand(const QString &player)
 {
-    con->sendCommand(QString("\"reservedSlotsList.remove\" \"%1\"").arg(player));
+    m_connection->sendCommand(QString("\"reservedSlotsList.remove\" \"%1\"").arg(player));
     sendReservedSlotsListListCommand();
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListSaveCommand()
 {
-    con->sendCommand("reservedSlotsList.save");
+    m_connection->sendCommand("reservedSlotsList.save");
     sendReservedSlotsListListCommand();
 }
 
 // Squad
 void Frostbite2CommandHandler::sendSquadLeaderCommand(int teamId, int squadId, const QString &player)
 {
-    con->sendCommand(QString("\"squad.leader\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(player));
+    m_connection->sendCommand(QString("\"squad.leader\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(player));
 }
 
 void Frostbite2CommandHandler::sendSquadListActiveCommand(int teamId)
 {
-    con->sendCommand(QString("\"squad.listActive\" \"%1\"").arg(teamId));
+    m_connection->sendCommand(QString("\"squad.listActive\" \"%1\"").arg(teamId));
 }
 
 void Frostbite2CommandHandler::sendSquadListPlayersCommand(int teamId, int squadId)
 {
-    con->sendCommand(QString("\"squad.listPlayers\" \"%1\" \"%2\"").arg(teamId).arg(squadId));
+    m_connection->sendCommand(QString("\"squad.listPlayers\" \"%1\" \"%2\"").arg(teamId).arg(squadId));
 }
 
 void Frostbite2CommandHandler::sendSquadPrivateCommand(int teamId, int squadId, bool isPrivate)
 {
-    con->sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(isPrivate)));
+    m_connection->sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(isPrivate)));
 }
 
 
@@ -484,8 +484,8 @@ void Frostbite2CommandHandler::parsePlayerTeamChangeEvent(const FrostbiteRconPac
     Q_UNUSED(lastSentPacket);
 
     QString player = packet.getWord(1).getContent();
-    int teamId = toInt(packet.getWord(2).getContent());
-    int squadId = toInt(packet.getWord(3).getContent());
+    int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+    int squadId = FrostbiteUtils::toInt(packet.getWord(3).getContent());
 
     emit (onPlayerTeamChangeEvent(player, teamId, squadId));
 }
@@ -613,8 +613,8 @@ void Frostbite2CommandHandler::parseBanListListCommand(const FrostbiteRconPacket
             QString idType = packet.getWord(i).getContent();
             QString id = packet.getWord(i + 1).getContent();
             QString banType = packet.getWord(i + 2).getContent();
-            int seconds = toInt(packet.getWord(i + 3).getContent());
-            int rounds = toInt(packet.getWord(i + 4).getContent());
+            int seconds = FrostbiteUtils::toInt(packet.getWord(i + 3).getContent());
+            int rounds = FrostbiteUtils::toInt(packet.getWord(i + 4).getContent());
             QString reason = packet.getWord(i + 5).getContent();
 
             banList.append(BanListEntry(idType, id, banType, seconds, rounds, reason));
@@ -681,8 +681,8 @@ void Frostbite2CommandHandler::parseMapListGetMapIndicesCommand(const FrostbiteR
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int currentMapIndex = toInt(packet.getWord(1).getContent());
-        int nextMapIndex = toInt(packet.getWord(2).getContent());
+        int currentMapIndex = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+        int nextMapIndex = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
         emit (onMapListGetMapIndicesCommand(currentMapIndex, nextMapIndex));
     }
@@ -695,8 +695,8 @@ void Frostbite2CommandHandler::parseMapListGetRoundsCommand(const FrostbiteRconP
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int currentRound = toInt(packet.getWord(1).getContent());
-        int totalRounds = toInt(packet.getWord(2).getContent());
+        int currentRound = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+        int totalRounds = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
         emit (onMapListGetRoundsCommand(currentRound, totalRounds));
     }
@@ -780,7 +780,7 @@ void Frostbite2CommandHandler::parsePlayerIdleDurationCommand(const FrostbiteRco
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() == 2) {
-        float idleDuration = toFloat(packet.getWord(1).getContent());
+        float idleDuration = FrostbiteUtils::toFloat(packet.getWord(1).getContent());
 
         emit (onPlayerIdleDurationCommand(idleDuration));
     }
@@ -807,7 +807,7 @@ void Frostbite2CommandHandler::parsePlayerPingCommand(const FrostbiteRconPacket 
 
     if (response == "OK" && packet.getWordCount() == 3) {
         QString player = packet.getWord(1).getContent();
-        int ping = toInt(packet.getWord(2).getContent());
+        int ping = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
         emit (onPlayerPingCommand(player, ping));
     }
@@ -914,7 +914,7 @@ void Frostbite2CommandHandler::parseSquadListPlayersCommand(const FrostbiteRconP
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        int playerCount = toInt(packet.getWord(1).getContent());
+        int playerCount = FrostbiteUtils::toInt(packet.getWord(1).getContent());
         QStringList playerList;
 
         for (int i = 2; i < playerCount; i++) {

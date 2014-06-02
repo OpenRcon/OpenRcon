@@ -41,8 +41,8 @@ public:
 
 private:
     Ui::BanListWidget *ui;
-    FrostbiteConnection *connection;
-    Frostbite2CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    Frostbite2CommandHandler *m_commandHandler;
 
     /* User Interface */
     QMenu *menu_bl_banList;

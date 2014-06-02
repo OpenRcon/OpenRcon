@@ -34,8 +34,8 @@ public:
     ~BF4();
 
 protected:
-    FrostbiteConnection *connection;
-    BF4CommandHandler *commandHandler;
+    FrostbiteConnection *m_connection;
+    BF4CommandHandler *m_commandHandler;
 
     bool authenticated;
 

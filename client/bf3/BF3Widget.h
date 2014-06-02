@@ -20,15 +20,11 @@
 #ifndef BF3WIDGET_H
 #define BF3WIDGET_H
 
-#include <QTime>
-#include <QTimer>
-#include <QCompleter>
-
 #include "BF3.h"
 #include "FrostbiteConnection.h"
-#include "PlayerInfo.h"
-#include "PlayerSubset.h"
 
+struct PlayerInfo;
+enum class PlayerSubset;
 class ChatWidget;
 class ReservedSlotsWidget;
 class ConsoleWidget;
@@ -45,7 +41,9 @@ public:
     BF3Widget(ServerEntry *serverEntry);
     ~BF3Widget();
 
-    virtual Connection* getConnection() { return con; }
+    virtual Connection *getConnection() {
+        return m_connection;
+    }
 
 private:
     Ui::BF3Widget *ui;

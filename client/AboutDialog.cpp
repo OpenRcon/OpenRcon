@@ -17,6 +17,10 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDateTime>
+#include <QFile>
+#include <QTextStream>
+
 #include "ui_AboutDialog.h"
 #include "AboutDialog.h"
 

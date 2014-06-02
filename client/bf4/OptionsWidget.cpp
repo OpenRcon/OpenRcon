@@ -19,70 +19,69 @@
 
 #include "OptionsWidget.h"
 #include "ui_OptionsWidget.h"
-
 #include "FrostbiteConnection.h"
 #include "BF4CommandHandler.h"
 
 OptionsWidget::OptionsWidget(FrostbiteConnection *connection, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::OptionsWidget),
-    connection(connection),
-    commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
+    m_connection(connection),
+    m_commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
 {
     ui->setupUi(this);
 
     /* Commands */
     // Misc
-    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &OptionsWidget::onLoginHashedCommand);
+    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &OptionsWidget::onLoginHashedCommand);
 
     // Admin
-    connect(commandHandler, &BF4CommandHandler::onAdminPasswordCommand,               this, &OptionsWidget::onAdminPasswordCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onAdminPasswordCommand,               this, &OptionsWidget::onAdminPasswordCommand);
 
     // FairFight
-    connect(commandHandler, &BF4CommandHandler::onFairFightIsActiveCommand,           this, &OptionsWidget::onFairFightIsActiveCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onFairFightIsActiveCommand,           this, &OptionsWidget::onFairFightIsActiveCommand);
 
     // Player
 
     // Punkbuster
-    connect(commandHandler, &BF4CommandHandler::onPunkBusterIsActiveCommand,          this, &OptionsWidget::onPunkBusterIsActiveCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onPunkBusterIsActiveCommand,          this, &OptionsWidget::onPunkBusterIsActiveCommand);
 
     // Variables
-    connect(commandHandler, &BF4CommandHandler::onVars3dSpottingCommand,              this, &OptionsWidget::onVars3dSpottingCommand);
-    connect(commandHandler, &BF4CommandHandler::onVars3pCamCommand,                   this, &OptionsWidget::onVars3pCamCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &OptionsWidget::onVarsAlwaysAllowSpectatorsCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsAutoBalanceCommand,             this, &OptionsWidget::onVarsAutoBalanceCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsBulletDamageCommand,            this, &OptionsWidget::onVarsBulletDamageCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsCommanderCommand,               this, &OptionsWidget::onVarsCommanderCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsForceReloadWholeMagsCommand,    this, &OptionsWidget::onVarsForceReloadWholeMagsCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsFriendlyFireCommand,            this, &OptionsWidget::onVarsFriendlyFireCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsGameModeCounterCommand,         this, &OptionsWidget::onVarsGameModeCounterCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsGamePasswordCommand,            this, &OptionsWidget::onVarsGamePasswordCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsHitIndicatorsEnabledCommand,    this, &OptionsWidget::onVarsHitIndicatorsEnabledCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsHudCommand,                     this, &OptionsWidget::onVarsHudCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsIdleBanRoundsCommand,           this, &OptionsWidget::onVarsIdleBanRoundsCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsIdleTimeoutCommand,             this, &OptionsWidget::onVarsIdleTimeoutCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsKillCamCommand,                 this, &OptionsWidget::onVarsKillCamCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsMaxPlayersCommand,              this, &OptionsWidget::onVarsMaxPlayersCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsMaxSpectatorsCommand,           this, &OptionsWidget::onVarsMaxSpectatorsCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsMiniMapCommand,                 this, &OptionsWidget::onVarsMiniMapCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsMiniMapSpottingCommand,         this, &OptionsWidget::onVarsMiniMapSpottingCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsNameTagCommand,                 this, &OptionsWidget::onVarsNameTagCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsOnlySquadLeaderSpawnCommand,    this, &OptionsWidget::onVarsOnlySquadLeaderSpawnCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsPlayerRespawnTimeCommand,       this, &OptionsWidget::onVarsPlayerRespawnTimeCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsRegenerateHealthCommand,        this, &OptionsWidget::onVarsRegenerateHealthCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsRoundLockdownCountdownCommand,  this, &OptionsWidget::onVarsRoundLockdownCountdownCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsRoundRestartPlayerCountCommand, this, &OptionsWidget::onVarsRoundRestartPlayerCountCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsRoundStartPlayerCountCommand,   this, &OptionsWidget::onVarsRoundStartPlayerCountCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsRoundTimeLimitCommand,          this, &OptionsWidget::onVarsRoundTimeLimitCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsRoundWarmupTimeoutCommand,      this, &OptionsWidget::onVarsRoundWarmupTimeoutCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsServerNameCommand,              this, &OptionsWidget::onVarsServerNameCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsServerDescriptionCommand,       this, &OptionsWidget::onVarsServerDescriptionCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsServerMessageCommand,           this, &OptionsWidget::onVarsServerMessageCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsServerTypeCommand,              this, &OptionsWidget::onVarsServerTypeCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsSoldierHealthCommand,           this, &OptionsWidget::onVarsSoldierHealthCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsTicketBleedRateCommand,         this, &OptionsWidget::onVarsTicketBleedRateCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsVehicleSpawnAllowedCommand,     this, &OptionsWidget::onVarsVehicleSpawnAllowedCommand);
-    connect(commandHandler, &BF4CommandHandler::onVarsVehicleSpawnDelayCommand,       this, &OptionsWidget::onVarsVehicleSpawnDelayCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVars3dSpottingCommand,              this, &OptionsWidget::onVars3dSpottingCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVars3pCamCommand,                   this, &OptionsWidget::onVars3pCamCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &OptionsWidget::onVarsAlwaysAllowSpectatorsCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsAutoBalanceCommand,             this, &OptionsWidget::onVarsAutoBalanceCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsBulletDamageCommand,            this, &OptionsWidget::onVarsBulletDamageCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsCommanderCommand,               this, &OptionsWidget::onVarsCommanderCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsForceReloadWholeMagsCommand,    this, &OptionsWidget::onVarsForceReloadWholeMagsCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsFriendlyFireCommand,            this, &OptionsWidget::onVarsFriendlyFireCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsGameModeCounterCommand,         this, &OptionsWidget::onVarsGameModeCounterCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsGamePasswordCommand,            this, &OptionsWidget::onVarsGamePasswordCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsHitIndicatorsEnabledCommand,    this, &OptionsWidget::onVarsHitIndicatorsEnabledCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsHudCommand,                     this, &OptionsWidget::onVarsHudCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsIdleBanRoundsCommand,           this, &OptionsWidget::onVarsIdleBanRoundsCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsIdleTimeoutCommand,             this, &OptionsWidget::onVarsIdleTimeoutCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsKillCamCommand,                 this, &OptionsWidget::onVarsKillCamCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsMaxPlayersCommand,              this, &OptionsWidget::onVarsMaxPlayersCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsMaxSpectatorsCommand,           this, &OptionsWidget::onVarsMaxSpectatorsCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsMiniMapCommand,                 this, &OptionsWidget::onVarsMiniMapCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsMiniMapSpottingCommand,         this, &OptionsWidget::onVarsMiniMapSpottingCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsNameTagCommand,                 this, &OptionsWidget::onVarsNameTagCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsOnlySquadLeaderSpawnCommand,    this, &OptionsWidget::onVarsOnlySquadLeaderSpawnCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsPlayerRespawnTimeCommand,       this, &OptionsWidget::onVarsPlayerRespawnTimeCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRegenerateHealthCommand,        this, &OptionsWidget::onVarsRegenerateHealthCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundLockdownCountdownCommand,  this, &OptionsWidget::onVarsRoundLockdownCountdownCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundRestartPlayerCountCommand, this, &OptionsWidget::onVarsRoundRestartPlayerCountCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundStartPlayerCountCommand,   this, &OptionsWidget::onVarsRoundStartPlayerCountCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundTimeLimitCommand,          this, &OptionsWidget::onVarsRoundTimeLimitCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundWarmupTimeoutCommand,      this, &OptionsWidget::onVarsRoundWarmupTimeoutCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsServerNameCommand,              this, &OptionsWidget::onVarsServerNameCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsServerDescriptionCommand,       this, &OptionsWidget::onVarsServerDescriptionCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsServerMessageCommand,           this, &OptionsWidget::onVarsServerMessageCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsServerTypeCommand,              this, &OptionsWidget::onVarsServerTypeCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsSoldierHealthCommand,           this, &OptionsWidget::onVarsSoldierHealthCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsTicketBleedRateCommand,         this, &OptionsWidget::onVarsTicketBleedRateCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsVehicleSpawnAllowedCommand,     this, &OptionsWidget::onVarsVehicleSpawnAllowedCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsVehicleSpawnDelayCommand,       this, &OptionsWidget::onVarsVehicleSpawnDelayCommand);
 
     /* User Interface */
     // Options -> Details
@@ -141,55 +140,55 @@ void OptionsWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
         // Admins
-        commandHandler->sendAdminPasswordCommand();
+        m_commandHandler->sendAdminPasswordCommand();
 
         // Banning
-        commandHandler->sendBanListListCommand();
+        m_commandHandler->sendBanListListCommand();
 
         // FairFight
-        commandHandler->sendFairFightIsActiveCommand();
+        m_commandHandler->sendFairFightIsActiveCommand();
 
         // Punkbuster
-        commandHandler->sendPunkBusterIsActiveCommand();
-        commandHandler->sendPunkBusterPbSvCommand("pb_sv_plist");
+        m_commandHandler->sendPunkBusterIsActiveCommand();
+        m_commandHandler->sendPunkBusterPbSvCommand("pb_sv_plist");
 
         // Variables
-        commandHandler->sendVars3dSpottingCommand();
-        commandHandler->sendVars3pCamCommand();
-        commandHandler->sendVarsAlwaysAllowSpectatorsCommand();
-        commandHandler->sendVarsAutoBalanceCommand();
-        commandHandler->sendVarsBulletDamageCommand();
-        commandHandler->sendVarsCommanderCommand();
-        commandHandler->sendVarsForceReloadWholeMagsCommand();
-        commandHandler->sendVarsFriendlyFireCommand();
-        commandHandler->sendVarsGameModeCounterCommand();
-        commandHandler->sendVarsGamePasswordCommand();
-        commandHandler->sendVarsHitIndicatorsEnabledCommand();
-        commandHandler->sendVarsHudCommand();
-        commandHandler->sendVarsIdleBanRoundsCommand();
-        commandHandler->sendVarsIdleTimeoutCommand();
-        commandHandler->sendVarsKillCamCommand();
-        commandHandler->sendVarsMaxPlayersCommand();
-        commandHandler->sendVarsMaxSpectatorsCommand();
-        commandHandler->sendVarsMiniMapCommand();
-        commandHandler->sendVarsMiniMapSpottingCommand();
-        commandHandler->sendVarsNameTagCommand();
-        commandHandler->sendVarsOnlySquadLeaderSpawnCommand();
-        commandHandler->sendVarsPlayerRespawnTimeCommand();
-        commandHandler->sendVarsRegenerateHealthCommand();
-        commandHandler->sendVarsRoundLockdownCountdownCommand();
-        commandHandler->sendVarsRoundRestartPlayerCountCommand();
-        commandHandler->sendVarsRoundStartPlayerCountCommand();
-        commandHandler->sendVarsRoundTimeLimitCommand();
-        commandHandler->sendVarsRoundWarmupTimeoutCommand();
-        commandHandler->sendVarsServerNameCommand();
-        commandHandler->sendVarsServerDescriptionCommand();
-        commandHandler->sendVarsServerMessageCommand();
-        commandHandler->sendVarsServerTypeCommand();
-        commandHandler->sendVarsSoldierHealthCommand();
-        commandHandler->sendVarsTicketBleedRateCommand();
-        commandHandler->sendVarsVehicleSpawnAllowedCommand();
-        commandHandler->sendVarsVehicleSpawnDelayCommand();
+        m_commandHandler->sendVars3dSpottingCommand();
+        m_commandHandler->sendVars3pCamCommand();
+        m_commandHandler->sendVarsAlwaysAllowSpectatorsCommand();
+        m_commandHandler->sendVarsAutoBalanceCommand();
+        m_commandHandler->sendVarsBulletDamageCommand();
+        m_commandHandler->sendVarsCommanderCommand();
+        m_commandHandler->sendVarsForceReloadWholeMagsCommand();
+        m_commandHandler->sendVarsFriendlyFireCommand();
+        m_commandHandler->sendVarsGameModeCounterCommand();
+        m_commandHandler->sendVarsGamePasswordCommand();
+        m_commandHandler->sendVarsHitIndicatorsEnabledCommand();
+        m_commandHandler->sendVarsHudCommand();
+        m_commandHandler->sendVarsIdleBanRoundsCommand();
+        m_commandHandler->sendVarsIdleTimeoutCommand();
+        m_commandHandler->sendVarsKillCamCommand();
+        m_commandHandler->sendVarsMaxPlayersCommand();
+        m_commandHandler->sendVarsMaxSpectatorsCommand();
+        m_commandHandler->sendVarsMiniMapCommand();
+        m_commandHandler->sendVarsMiniMapSpottingCommand();
+        m_commandHandler->sendVarsNameTagCommand();
+        m_commandHandler->sendVarsOnlySquadLeaderSpawnCommand();
+        m_commandHandler->sendVarsPlayerRespawnTimeCommand();
+        m_commandHandler->sendVarsRegenerateHealthCommand();
+        m_commandHandler->sendVarsRoundLockdownCountdownCommand();
+        m_commandHandler->sendVarsRoundRestartPlayerCountCommand();
+        m_commandHandler->sendVarsRoundStartPlayerCountCommand();
+        m_commandHandler->sendVarsRoundTimeLimitCommand();
+        m_commandHandler->sendVarsRoundWarmupTimeoutCommand();
+        m_commandHandler->sendVarsServerNameCommand();
+        m_commandHandler->sendVarsServerDescriptionCommand();
+        m_commandHandler->sendVarsServerMessageCommand();
+        m_commandHandler->sendVarsServerTypeCommand();
+        m_commandHandler->sendVarsSoldierHealthCommand();
+        m_commandHandler->sendVarsTicketBleedRateCommand();
+        m_commandHandler->sendVarsVehicleSpawnAllowedCommand();
+        m_commandHandler->sendVarsVehicleSpawnDelayCommand();
     }
 }
 
@@ -432,7 +431,7 @@ void OptionsWidget::lineEdit_op_so_serverName_editingFinished()
     QString serverName = ui->lineEdit_op_so_serverName->text();
 
     if (!serverName.isEmpty()) {
-        commandHandler->sendVarsServerNameCommand(serverName);
+        m_commandHandler->sendVarsServerNameCommand(serverName);
     }
 }
 
@@ -441,7 +440,7 @@ void OptionsWidget::textEdit_op_so_serverDescription_textChanged()
     QString serverDescription = ui->textEdit_op_so_serverDescription->toPlainText();
 
     if (!serverDescription.isEmpty()) {
-        commandHandler->sendVarsServerDescriptionCommand(serverDescription);
+        m_commandHandler->sendVarsServerDescriptionCommand(serverDescription);
     }
 }
 
@@ -450,7 +449,7 @@ void OptionsWidget::lineEdit_op_so_serverMessage_editingFinished()
     QString serverMessage = ui->lineEdit_op_so_serverMessage->text();
 
     if (!serverMessage.isEmpty()) {
-        commandHandler->sendVarsServerMessageCommand(serverMessage);
+        m_commandHandler->sendVarsServerMessageCommand(serverMessage);
     }
 }
 
@@ -458,19 +457,19 @@ void OptionsWidget::lineEdit_op_so_serverMessage_editingFinished()
 void OptionsWidget::checkBox_so_co_punkBuster_toggled(bool checked)
 {
     if (checked) {
-        commandHandler->sendPunkBusterActivateCommand();
+        m_commandHandler->sendPunkBusterActivateCommand();
     }
 }
 
 void OptionsWidget::checkBox_so_co_fairFight_toggled(bool checked)
 {
     if (checked) {
-        commandHandler->sendFairFightActivateCommand();
+        m_commandHandler->sendFairFightActivateCommand();
     } else {
-        commandHandler->sendFairFightDeactivateCommand();
+        m_commandHandler->sendFairFightDeactivateCommand();
     }
 
-    commandHandler->sendFairFightIsActiveCommand();
+    m_commandHandler->sendFairFightIsActiveCommand();
 }
 
 void OptionsWidget::checkBox_so_co_idleTimeout_toggled(bool checked)
@@ -483,13 +482,13 @@ void OptionsWidget::checkBox_so_co_idleTimeout_toggled(bool checked)
     ui->checkBox_so_co_idleBanRounds->setChecked(checked);
     checkBox_so_co_idleBanRounds_toggled(checked);
 
-    commandHandler->sendVarsIdleTimeoutCommand(timeout);
+    m_commandHandler->sendVarsIdleTimeoutCommand(timeout);
 }
 
 void OptionsWidget::spinBox_so_co_idleTimeout_valueChanged(int value)
 {
     if (value >= 225) {
-        commandHandler->sendVarsIdleTimeoutCommand(value);
+        m_commandHandler->sendVarsIdleTimeoutCommand(value);
     }
 }
 
@@ -500,163 +499,163 @@ void OptionsWidget::checkBox_so_co_idleBanRounds_toggled(bool checked)
     ui->spinBox_so_co_idleBanRounds->setEnabled(!checked);
     ui->spinBox_so_co_idleBanRounds->setValue(rounds);
 
-    commandHandler->sendVarsIdleBanRoundsCommand(rounds);
+    m_commandHandler->sendVarsIdleBanRoundsCommand(rounds);
 }
 
 void OptionsWidget::spinBox_so_co_idleBanRounds_valueChanged(int value)
 {
     if (value > 0) {
-        commandHandler->sendVarsIdleTimeoutCommand(value);
+        m_commandHandler->sendVarsIdleTimeoutCommand(value);
     }
 }
 
 void OptionsWidget::checkBox_so_co_aggressiveJoin_toggled(bool checked)
 {
-    commandHandler->sendReservedSlotsListAggressiveJoinCommand(checked);
+    m_commandHandler->sendReservedSlotsListAggressiveJoinCommand(checked);
 }
 
 void OptionsWidget::spinBox_so_co_maxPlayers_valueChanged(int value)
 {
-    commandHandler->sendVarsMaxPlayersCommand(value);
+    m_commandHandler->sendVarsMaxPlayersCommand(value);
 }
 
 void OptionsWidget::spinBox_so_co_maxSpectators_valueChanged(int value)
 {
-    commandHandler->sendVarsMaxSpectatorsCommand(value);
+    m_commandHandler->sendVarsMaxSpectatorsCommand(value);
 }
 
 void OptionsWidget::checkBox_so_co_alwaysAllowSpectators_toggled(bool checked)
 {
-    commandHandler->sendVarsAlwaysAllowSpectatorsCommand(checked);
+    m_commandHandler->sendVarsAlwaysAllowSpectatorsCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_co_commander_toggled(bool checked)
 {
-    commandHandler->sendVarsCommanderCommand(checked);
+    m_commandHandler->sendVarsCommanderCommand(checked);
 }
 
 // Options -> Gameplay
 void OptionsWidget::checkBox_so_gp_friendlyFire_toggled(bool checked)
 {
-    commandHandler->sendVarsFriendlyFireCommand(checked);
+    m_commandHandler->sendVarsFriendlyFireCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_autoBalance_toggled(bool checked)
 {
-    commandHandler->sendVarsAutoBalanceCommand(checked);
+    m_commandHandler->sendVarsAutoBalanceCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_killCam_toggled(bool checked)
 {
-    commandHandler->sendVarsKillCamCommand(checked);
+    m_commandHandler->sendVarsKillCamCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_miniMap_toggled(bool checked)
 {
-    commandHandler->sendVarsMiniMapCommand(checked);
+    m_commandHandler->sendVarsMiniMapCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_miniMapSpotting_toggled(bool checked)
 {
-    commandHandler->sendVarsMiniMapSpottingCommand(checked);
+    m_commandHandler->sendVarsMiniMapSpottingCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_3dSpotting_toggled(bool checked)
 {
-    commandHandler->sendVars3dSpottingCommand(checked);
+    m_commandHandler->sendVars3dSpottingCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_nameTag_toggled(bool checked)
 {
-    commandHandler->sendVarsNameTagCommand(checked);
+    m_commandHandler->sendVarsNameTagCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_regenerateHealth_toggled(bool checked)
 {
-    commandHandler->sendVarsRegenerateHealthCommand(checked);
+    m_commandHandler->sendVarsRegenerateHealthCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_hud_toggled(bool checked)
 {
-    commandHandler->sendVarsHudCommand(checked);
+    m_commandHandler->sendVarsHudCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_onlySquadLeaderSpawn_toggled(bool checked)
 {
-    commandHandler->sendVarsOnlySquadLeaderSpawnCommand(checked);
+    m_commandHandler->sendVarsOnlySquadLeaderSpawnCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_vehicleSpawnAllowed_toggled(bool checked)
 {
-    commandHandler->sendVarsVehicleSpawnAllowedCommand(checked);
+    m_commandHandler->sendVarsVehicleSpawnAllowedCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_hitIndicatorsEnabled_toggled(bool checked)
 {
-    commandHandler->sendVarsHitIndicatorsEnabledCommand(checked);
+    m_commandHandler->sendVarsHitIndicatorsEnabledCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_thirdPersonVehicleCameras_toggled(bool checked)
 {
-    commandHandler->sendVars3pCamCommand(checked);
+    m_commandHandler->sendVars3pCamCommand(checked);
 }
 
 void OptionsWidget::checkBox_so_gp_forceReloadWholeMags_toggled(bool checked)
 {
-    commandHandler->sendVarsForceReloadWholeMagsCommand(checked);
+    m_commandHandler->sendVarsForceReloadWholeMagsCommand(checked);
 }
 
 void OptionsWidget::spinBox_so_gp_bulletDamage_valueChanged(int value)
 {
-    commandHandler->sendVarsBulletDamageCommand(value);
+    m_commandHandler->sendVarsBulletDamageCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_soldierHealth_valueChanged(int value)
 {
-    commandHandler->sendVarsSoldierHealthCommand(value);
+    m_commandHandler->sendVarsSoldierHealthCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_vehicleSpawnDelay_valueChanged(int value)
 {
-    commandHandler->sendVarsVehicleSpawnDelayCommand(value);
+    m_commandHandler->sendVarsVehicleSpawnDelayCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_playerRespawnTime_valueChanged(int value)
 {
-    commandHandler->sendVarsPlayerRespawnTimeCommand(value);
+    m_commandHandler->sendVarsPlayerRespawnTimeCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_ticketBleedRate_valueChanged(int value)
 {
-    commandHandler->sendVarsTicketBleedRateCommand(value);
+    m_commandHandler->sendVarsTicketBleedRateCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_gameModeCounter_valueChanged(int value)
 {
-    commandHandler->sendVarsGameModeCounterCommand(value);
+    m_commandHandler->sendVarsGameModeCounterCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_roundTimeLimit_valueChanged(int value)
 {
-    commandHandler->sendVarsRoundTimeLimitCommand(value);
+    m_commandHandler->sendVarsRoundTimeLimitCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_roundLockdownCountdown_valueChanged(int value)
 {
-    commandHandler->sendVarsRoundLockdownCountdownCommand(value);
+    m_commandHandler->sendVarsRoundLockdownCountdownCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_roundWarmupTimeout_valueChanged(int value)
 {
-    commandHandler->sendVarsRoundWarmupTimeoutCommand(value);
+    m_commandHandler->sendVarsRoundWarmupTimeoutCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_roundRestartPlayerCount_valueChanged(int value)
 {
-    commandHandler->sendVarsRoundRestartPlayerCountCommand(value);
+    m_commandHandler->sendVarsRoundRestartPlayerCountCommand(value);
 }
 
 void OptionsWidget::spinBox_so_gp_roundStartPlayerCount_valueChanged(int value)
 {
-    commandHandler->sendVarsRoundStartPlayerCountCommand(value);
+    m_commandHandler->sendVarsRoundStartPlayerCountCommand(value);
 }

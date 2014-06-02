@@ -21,7 +21,6 @@
 #define COMMANDHANDLER_H
 
 #include <QObject>
-#include <QString>
 
 class Connection;
 
@@ -30,12 +29,8 @@ class CommandHandler : public QObject
     Q_OBJECT
 
 public:
-    CommandHandler(Connection *parent = 0);
+    CommandHandler(Connection *parent = nullptr);
     ~CommandHandler();
-
-protected:
-    int toInt(const QString &value);
-    float toFloat(const QString &value);
 
 };
 

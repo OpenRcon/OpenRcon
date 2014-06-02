@@ -21,9 +21,8 @@
 #define SERVEREDITDIALOG_H
 
 #include <QDialog>
-#include <QMessageBox>
 
-#include "GameType.h"
+enum class GameType;
 
 namespace Ui {
     class ServerEditDialog;
