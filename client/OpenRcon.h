@@ -26,9 +26,9 @@
 
 using namespace Constants;
 
+class QSettings;
 class QComboBox;
 class QPushButton;
-class QSettings;
 struct ServerEntry;
 class ServerManager;
 class SessionManager;
@@ -36,10 +36,6 @@ class ServerListDialog;
 class OptionsDialog;
 class AboutDialog;
 class Game;
-
-namespace Ui {
-    class OpenRcon;
-}
 
 class OpenRcon : public QMainWindow
 {
@@ -54,16 +50,15 @@ public:
     SessionManager *getSessionManager();
 
 private:
-    Ui::OpenRcon *ui;
-
     ServerManager *serverManager;
     SessionManager *sessionManager;
     ServerListDialog *serverListDialog;
     OptionsDialog *optionsDialog;
     AboutDialog *aboutDialog;
 
-    QSettings *settings;
+    QSettings *settings; 
 
+    // Actions
     QAction *actionServerManager;
     QAction *actionQuit;
     QAction *actionQuickConnect;
@@ -74,8 +69,24 @@ private:
     QAction *actionAbout;
     QAction *actionAboutQt;
 
+    // Menubar
+    QMenuBar *menuBar;
+    QMenu *menuApplication;
+    QMenu *menuView;
+    QMenu *menuToolbars;
+    QMenu *menuTools;
+    QMenu *menuHelp;
+
+    // Toolbar
+    QToolBar *toolBar_quickConnect;
     QComboBox *comboBox_quickConnect_server;
     QPushButton *pushButton_quickConnect_connect;
+
+    // TabWidget
+    QTabWidget *tabWidget;
+
+    // Statusbar
+    QStatusBar *statusBar;
 
     void readSettings();
     void writeSettings();

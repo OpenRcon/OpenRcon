@@ -35,7 +35,7 @@ SOURCES += Main.cpp \
     AboutDialog.cpp \
     SessionManager.cpp
 
-FORMS += OpenRcon.ui \
+FORMS += \
     ServerListDialog.ui \
     ServerEditDialog.ui \
     OptionsDialog.ui \

@@ -18,13 +18,15 @@
  */
 
 #include <QSettings>
+#include <QMenuBar>
+#include <QToolBar>
+#include <QStatusBar>
 #include <QComboBox>
 #include <QPushButton>
 #include <QDesktopServices>
 #include <QUrl>
 #include <QMessageBox>
 
-#include "ui_OpenRcon.h"
 #include "OpenRcon.h"
 #include "ServerManager.h"
 #include "SessionManager.h"
@@ -36,10 +38,8 @@
 #include "OptionsDialog.h"
 #include "AboutDialog.h"
 
-OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
+OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
 {
-    ui->setupUi(this);
-
     // Initialize the QSettings object.
     settings = new QSettings(APP_NAME, APP_NAME, this);
 
@@ -54,6 +54,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
 
     // Sets window title
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
+    setWindowIcon(QIcon(":/icons/openrcon.png"));
 
     // Actions
     actionServerManager = new QAction(QIcon(":/icons/servermanager.png"), tr("&Servers"), this);
@@ -73,33 +74,58 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     actionAboutQt = new QAction(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"), tr("About Qt"), this);
     actionAboutQt->setMenuRole(QAction::AboutQtRole);
 
-    ui->menuApplication->addAction(actionServerManager);
-    ui->menuApplication->addSeparator();
-    ui->menuApplication->addAction(actionQuit);
-    ui->menuToolbars->addAction(actionQuickConnect);
-    ui->menuTools->addAction(actionOptions);
-    ui->menuHelp->addAction(actionDocumentation);
-    ui->menuHelp->addAction(actionVisitWebsite);
-    ui->menuHelp->addAction(actionReportBug);
-    ui->menuHelp->addSeparator();
-    ui->menuHelp->addAction(actionAbout);
-    ui->menuHelp->addAction(actionAboutQt);
+    // Menubar
+    menuBar = new QMenuBar(this);
+
+    menuApplication = menuBar->addMenu(tr("Application"));
+    menuApplication->addAction(actionServerManager);
+    menuApplication->addSeparator();
+    menuApplication->addAction(actionQuit);
+
+    menuView = menuBar->addMenu(tr("View"));
+    menuToolbars = menuView->addMenu(tr("Toolbars"));
+    menuToolbars->addAction(actionQuickConnect);
+
+    menuTools = menuBar->addMenu(tr("Tools"));
+    menuTools->addAction(actionOptions);
+
+    menuHelp = menuBar->addMenu(tr("Help"));
+    menuHelp->addAction(actionDocumentation);
+    menuHelp->addAction(actionVisitWebsite);
+    menuHelp->addAction(actionReportBug);
+    menuHelp->addSeparator();
+    menuHelp->addAction(actionAbout);
+    menuHelp->addAction(actionAboutQt);
+    setMenuBar(menuBar);
+
+    // Toolbar
+    toolBar_quickConnect = new QToolBar(tr("Quick Connect"), this);
+    toolBar_quickConnect->setFloatable(false);
+
+    comboBox_quickConnect_server = new QComboBox(toolBar_quickConnect);
+    comboBox_quickConnect_server->setToolTip(tr("Let's you select a prevously stored server."));
+
+    pushButton_quickConnect_connect = new QPushButton(tr("Connect"), toolBar_quickConnect);
+    pushButton_quickConnect_connect->setToolTip(tr("Connect's to the server selected in the combobox."));
+
+    toolBar_quickConnect->addAction(actionServerManager);
+    toolBar_quickConnect->addWidget(comboBox_quickConnect_server);
+    toolBar_quickConnect->addWidget(pushButton_quickConnect_connect);
+    addToolBar(toolBar_quickConnect);
+
+    // TabWidget
+    tabWidget = new QTabWidget(this);
+    tabWidget->setDocumentMode(true);
+    tabWidget->setMovable(true);
+    tabWidget->setTabsClosable(true);
+    setCentralWidget(tabWidget);
+
+    // Statusbar
+    statusBar = new QStatusBar(this);
+    setStatusBar(statusBar);
 
     // Create and read settings
     readSettings();
-
-    // QuickConnect toolbar.
-    comboBox_quickConnect_server = new QComboBox(ui->toolBar_quickConnect);
-    comboBox_quickConnect_server->setToolTip(tr("Let's you select a prevously stored server."));
-    pushButton_quickConnect_connect = new QPushButton(tr("Connect"), ui->toolBar_quickConnect);
-    pushButton_quickConnect_connect->setToolTip(tr("Connect's to the server selected in the combobox."));
-
-    ui->toolBar_quickConnect->addAction(actionServerManager);
-    ui->toolBar_quickConnect->addWidget(comboBox_quickConnect_server);
-    ui->toolBar_quickConnect->addWidget(pushButton_quickConnect_connect);
-
-    // Loads the server list from ServerManager.
-    updateServerList();
 
     // Autoconnect which has the autoconnect option set to true.
     QList<ServerEntry *> serverList = serverManager->getServers();
@@ -109,6 +135,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
             sessionManager->open(entry);
         }
     }
+
+    // Loads the server list from ServerManager.
+    updateServerList();
 
     // Actions
     connect(actionServerManager, &QAction::triggered, this, &OpenRcon::actionServerManager_triggered);
@@ -127,19 +156,17 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     connect(sessionManager,                  &SessionManager::onServerConnected, this, &OpenRcon::updateServerList);
 
     // TabWidget
-    connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &OpenRcon::closeTab);
+    connect(tabWidget, &QTabWidget::tabCloseRequested, this, &OpenRcon::closeTab);
 }
 
 OpenRcon::~OpenRcon()
 {
     writeSettings();
-
-    delete ui;
 }
 
 QTabWidget *OpenRcon::getTabWidget()
 {
-    return ui->tabWidget;
+    return tabWidget;
 }
 
 ServerManager *OpenRcon::getServerManager()
@@ -163,10 +190,10 @@ void OpenRcon::readSettings()
         }
 
         if (settings->value("toolbarQuickConnect", true).toBool()) {
-            ui->toolBar_quickConnect->show();
+            toolBar_quickConnect->show();
             actionQuickConnect->setChecked(true);
         } else {
-            ui->toolBar_quickConnect->hide();
+            toolBar_quickConnect->hide();
             actionQuickConnect->setChecked(false);
         }
     settings->endGroup();
@@ -230,11 +257,11 @@ void OpenRcon::actionQuickConnect_triggered()
 {
     settings->beginGroup(APP_NAME);
         if (actionQuickConnect->isChecked()) {
-            ui->toolBar_quickConnect->show();
+            toolBar_quickConnect->show();
             settings->setValue("toolbarQuickConnect", true);
             actionQuickConnect->setChecked(true);
         } else {
-            ui->toolBar_quickConnect->hide();
+            toolBar_quickConnect->hide();
             settings->setValue("toolbarQuickConnect", false);
             actionQuickConnect->setChecked(false);
         }
