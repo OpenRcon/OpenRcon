@@ -24,7 +24,7 @@
 
 class QMenu;
 class FrostbiteConnection;
-class Frostbite2CommandHandler;
+class FrostbiteCommandHandler;
 struct BanListEntry;
 
 namespace Ui {
@@ -42,7 +42,7 @@ public:
 private:
     Ui::BanListWidget *ui;
     FrostbiteConnection *m_connection;
-    Frostbite2CommandHandler *m_commandHandler;
+    FrostbiteCommandHandler *m_commandHandler;
 
     /* User Interface */
     QMenu *menu_bl_banList;

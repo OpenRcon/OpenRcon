@@ -23,6 +23,7 @@
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteCommandHandler.h"
 #include "FrostbiteUtils.h"
+#include "BanListEntry.h"
 
 FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *parent) : CommandHandler(parent), m_connection(parent)
 {
@@ -42,18 +43,26 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
 
     static QHash<QString, ResponseFunction> responses = {
         /* Events */
-        { "punkBuster.onMessage",       &FrostbiteCommandHandler::parsePunkBusterMessageEvent },
+        { "punkBuster.onMessage",     &FrostbiteCommandHandler::parsePunkBusterMessageEvent },
 
         /* Commands */
         // Misc
-        { "login.plainText",            &FrostbiteCommandHandler::parseLoginPlainTextCommand },
-        { "login.hashed",               &FrostbiteCommandHandler::parseLoginHashedCommand },
-        { "logout",                     &FrostbiteCommandHandler::parseLogoutCommand },
-        { "quit",                       &FrostbiteCommandHandler::parseQuitCommand },
-        { "version",                    &FrostbiteCommandHandler::parseVersionCommand },
+        { "login.plainText",          &FrostbiteCommandHandler::parseLoginPlainTextCommand },
+        { "login.hashed",             &FrostbiteCommandHandler::parseLoginHashedCommand },
+        { "logout",                   &FrostbiteCommandHandler::parseLogoutCommand },
+        { "quit",                     &FrostbiteCommandHandler::parseQuitCommand },
+        { "version",                  &FrostbiteCommandHandler::parseVersionCommand },
+
+        // BanList
+        { "banList.add",              nullptr /*&Frostbite2CommandHandler::parseBanListAddCommand*/ },
+        { "banList.clear",            nullptr /*&Frostbite2CommandHandler::parseBanListClearCommand*/ },
+        { "banList.list",             &FrostbiteCommandHandler::parseBanListListCommand },
+        { "banList.load",             nullptr /*&Frostbite2CommandHandler::parseBanListLoadCommand*/ },
+        { "banList.remove",           nullptr /*&Frostbite2CommandHandler::parseBanListRemoveCommand*/ },
+        { "banList.save",             nullptr /*&Frostbite2CommandHandler::parseBanListSaveCommand*/ },
 
         // PunkBuster
-        { "punkBuster.pb_sv_command",   nullptr /*&Frostbite2CommandHandler::parsePunkBusterPbSvCommand*/ }
+        { "punkBuster.pb_sv_command", nullptr /*&Frostbite2CommandHandler::parsePunkBusterPbSvCommand*/ }
     };
 
     if (responses.contains(request)) {
@@ -106,6 +115,53 @@ void FrostbiteCommandHandler::sendVersionCommand()
     m_connection->sendCommand("version");
 }
 
+// BanList
+void FrostbiteCommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason)
+{
+    m_connection->sendCommand(QString("banList.add %1 %2 perm %4").arg(idType, id, reason));
+    sendBanListListCommand();
+}
+
+void FrostbiteCommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason)
+{
+    QString timeoutType = useRounds ? "rounds" : "seconds";
+
+    m_connection->sendCommand(QString("banList.add %1 %2 %3 %4 %5").arg(idType, id, timeoutType).arg(FrostbiteUtils::toString(timeout), reason));
+    sendBanListListCommand();
+}
+
+void FrostbiteCommandHandler::sendBanListClearCommand()
+{
+    m_connection->sendCommand("banList.clear");
+    sendBanListListCommand();
+}
+
+void FrostbiteCommandHandler::sendBanListListCommand(int index)
+{
+    if (index == 0) {
+        m_connection->sendCommand("banList.list");
+    } else {
+        m_connection->sendCommand(QString("\"banList.list\" \"%1\"").arg(index));
+    }
+}
+
+void FrostbiteCommandHandler::sendBanListLoadCommand()
+{
+    m_connection->sendCommand("banList.load");
+    sendBanListListCommand();
+}
+
+void FrostbiteCommandHandler::sendBanListRemoveCommand(const QString &idType, const QString &id)
+{
+    m_connection->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, id));
+    sendBanListListCommand();
+}
+
+void FrostbiteCommandHandler::sendBanListSaveCommand()
+{
+    m_connection->sendCommand("banList.save");
+}
+
 // PunkBuster
 void FrostbiteCommandHandler::sendPunkBusterPbSvCommand(const QString &command)
 {
@@ -123,6 +179,7 @@ void FrostbiteCommandHandler::parsePunkBusterMessageEvent(const FrostbiteRconPac
 }
 
 /* Parse commands */
+// Misc
 void FrostbiteCommandHandler::parseLoginPlainTextCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
@@ -190,6 +247,56 @@ void FrostbiteCommandHandler::parseVersionCommand(const FrostbiteRconPacket &pac
         emit (onVersionCommand(type, build));
     }
 }
+
+// BanList
+//void Frostbite2CommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+//void Frostbite2CommandHandler::parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QList<BanListEntry> banList;
+
+        for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
+            QString idType = packet.getWord(i).getContent();
+            QString id = packet.getWord(i + 1).getContent();
+            QString banType = packet.getWord(i + 2).getContent();
+            int seconds = FrostbiteUtils::toInt(packet.getWord(i + 3).getContent());
+            int rounds = FrostbiteUtils::toInt(packet.getWord(i + 4).getContent());
+            QString reason = packet.getWord(i + 5).getContent();
+
+            banList.append(BanListEntry(idType, id, banType, seconds, rounds, reason));
+        }
+
+        emit (onBanListListCommand(banList));
+    }
+}
+
+//void Frostbite2CommandHandler::parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+//void Frostbite2CommandHandler::parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+//void Frostbite2CommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
 
 // PunkBuster
 //void FrostbiteCommandHandler::parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

@@ -24,6 +24,7 @@ class QString;
 class QStringList;
 struct Time;
 enum class Squad;
+enum class BanType;
 
 class FrostbiteUtils
 {
@@ -37,9 +38,11 @@ public:
     static Time getTimeFromSeconds(int elapsedSeconds);
     static QString getSquadName(Squad squad);
     static QString getSquadName(int squadId);
+    static QString getBanTypeName(BanType banType);
 
 private:
     static QStringList squads;
+    static QStringList banTypes;
 
 };
 

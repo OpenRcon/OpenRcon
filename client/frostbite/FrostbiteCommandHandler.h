@@ -24,6 +24,7 @@
 
 class FrostbiteConnection;
 class FrostbiteRconPacket;
+struct BanListEntry;
 
 class FrostbiteCommandHandler : public CommandHandler
 {
@@ -43,6 +44,15 @@ public:
     void sendQuitCommand();
     void sendVersionCommand();
 
+    // BanList
+    void sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason);
+    void sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason);
+    void sendBanListClearCommand();
+    void sendBanListListCommand(int index = 0);
+    void sendBanListLoadCommand();
+    void sendBanListRemoveCommand(const QString &idType, const QString &id);
+    void sendBanListSaveCommand();
+
     // PunkBuster
     void sendPunkBusterPbSvCommand(const QString &command);
 
@@ -61,6 +71,14 @@ private:
     void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
+    // BanList
+//    void parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
     // PunkBuster
 //    void parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
@@ -76,6 +94,14 @@ signals:
     void onLogoutCommand();
     void onQuitCommand();
     void onVersionCommand(const QString &type, int build);
+
+    // BanList
+//    void onBanListAddCommand();
+//    void onBanListClearCommand();
+    void onBanListListCommand(const QList<BanListEntry> &banList);
+//    void onBanListLoadCommand();
+//    void onBanListRemoveCommand();
+//    void onBanListSaveCommand();
 
     // Punkbuster
     void onPunkBusterPbSvCommand();

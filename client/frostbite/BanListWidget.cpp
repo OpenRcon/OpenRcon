@@ -22,13 +22,14 @@
 #include "BanListWidget.h"
 #include "ui_BanListWidget.h"
 #include "FrostbiteConnection.h"
-#include "BF4CommandHandler.h"
+#include "FrostbiteCommandHandler.h"
+#include "BanListEntry.h"
 
 BanListWidget::BanListWidget(FrostbiteConnection *connection, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::BanListWidget),
     m_connection(connection),
-    m_commandHandler(dynamic_cast<Frostbite2CommandHandler *>(connection->getCommandHandler()))
+    m_commandHandler(dynamic_cast<FrostbiteCommandHandler *>(connection->getCommandHandler()))
 {
     ui->setupUi(this);
 
@@ -40,12 +41,12 @@ BanListWidget::BanListWidget(FrostbiteConnection *connection, QWidget *parent) :
 
     /* Commands */
     // BanList
-    connect(m_commandHandler, &Frostbite2CommandHandler::onBanListListCommand, this, &BanListWidget::onBanListListCommand);
+    connect(m_commandHandler, &FrostbiteCommandHandler::onBanListListCommand, this, &BanListWidget::onBanListListCommand);
 
     /* User Interface */
     // Banlist
     connect(ui->tableWidget_bl_banList, &QTableWidget::customContextMenuRequested, this, &BanListWidget::tableWidget_bl_banList_customContextMenuRequested);
-    connect(action_bl_banList_remove,   &QAction::triggered,                      this, &BanListWidget::action_bl_banList_remove_triggered);
+    connect(action_bl_banList_remove,   &QAction::triggered,                       this, &BanListWidget::action_bl_banList_remove_triggered);
 }
 
 BanListWidget::~BanListWidget()
@@ -54,7 +55,7 @@ BanListWidget::~BanListWidget()
 }
 
 /* Commands */
-void BanListWidget::onBanListListCommand(const BanList &banList)
+void BanListWidget::onBanListListCommand(const QList<BanListEntry> &banList)
 {
     setBanlist(banList);
 }

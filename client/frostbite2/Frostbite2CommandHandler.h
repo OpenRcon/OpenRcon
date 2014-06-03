@@ -23,7 +23,6 @@
 #include "FrostbiteCommandHandler.h"
 #include "PlayerSubset.h"
 #include "MapListEntry.h"
-#include "BanListEntry.h"
 
 class Frostbite2CommandHandler : public FrostbiteCommandHandler
 {
@@ -48,17 +47,6 @@ public:
     void sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
     void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
     void sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset, int parameter = -1);
-
-    // BanList
-    void sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason);
-    void sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason);
-    void sendBanListClearCommand();
-    void sendBanListListCommand(int index = 0);
-    void sendBanListLoadCommand();
-    void sendBanListRemoveCommand(const QString &idType, const QString &id);
-    void sendBanListSaveCommand();
-
-    // FairFight
 
     // Maplist
     void sendMapListAddCommand(const QString &level, const QString &gameMode, int rounds, int offSet = 0);
@@ -133,16 +121,6 @@ private:
 //    void parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 //    void parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // BanList
-//    void parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-
-    // FairFight
-
     // MapList
 //    void parseMapListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -211,16 +189,6 @@ signals:
 //    void onAdminSayCommand();
 //    void onAdminShutDownCommand();
 //    void onAdminYellCommand();
-
-    // BanList
-//    void onBanListAddCommand();
-//    void onBanListClearCommand();
-    void onBanListListCommand(const BanList &banList);
-//    void onBanListLoadCommand();
-//    void onBanListRemoveCommand();
-//    void onBanListSaveCommand();
-
-    // FairFight
 
     // MapList
 //    void onMapListAddCommand();

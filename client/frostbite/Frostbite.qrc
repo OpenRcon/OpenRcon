@@ -15,5 +15,8 @@
         <file alias="level-next.png">images/level-next.png</file>
         <file alias="level-restart.png">images/level-restart.png</file>
         <file alias="remove.png">images/remove.png</file>
+        <file alias="load.png">images/load.png</file>
+        <file alias="map.png">images/map.png</file>
+        <file alias="ban.png">images/ban.png</file>
     </qresource>
 </RCC>

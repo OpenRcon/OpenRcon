@@ -63,16 +63,6 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         { "admin.say",                          nullptr /*&Frostbite2CommandHandler::parseAdminSayCommand*/ },
         { "admin.yell",                         nullptr /*&Frostbite2CommandHandler::parseAdminYellCommand*/ },
 
-        // BanList
-        { "banList.add",                         nullptr /*&Frostbite2CommandHandler::parseBanListAddCommand*/ },
-        { "banList.clear",                       nullptr /*&Frostbite2CommandHandler::parseBanListClearCommand*/ },
-        { "banList.list",                        &Frostbite2CommandHandler::parseBanListListCommand },
-        { "banList.load",                        nullptr /*&Frostbite2CommandHandler::parseBanListLoadCommand*/ },
-        { "banList.remove",                      nullptr /*&Frostbite2CommandHandler::parseBanListRemoveCommand*/ },
-        { "banList.save",                        nullptr /*&Frostbite2CommandHandler::parseBanListSaveCommand*/ },
-
-        // FairFight
-
         // MapList
         { "mapList.add",                        nullptr /*&Frostbite2CommandHandler::parseMapListAddCommand*/ },
         { "mapList.availableMaps",              &Frostbite2CommandHandler::parseMapListAvailableMapsCommand },
@@ -187,53 +177,6 @@ void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int 
             m_connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)).arg(parameter));
         }
     }
-}
-
-// BanList
-void Frostbite2CommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason)
-{
-    m_connection->sendCommand(QString("banList.add %1 %2 perm %4").arg(idType, id, reason));
-    sendBanListListCommand();
-}
-
-void Frostbite2CommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason)
-{
-    QString timeoutType = useRounds ? "rounds" : "seconds";
-
-    m_connection->sendCommand(QString("banList.add %1 %2 %3 %4 %5").arg(idType, id, timeoutType).arg(FrostbiteUtils::toString(timeout), reason));
-    sendBanListListCommand();
-}
-
-void Frostbite2CommandHandler::sendBanListClearCommand()
-{
-    m_connection->sendCommand("banList.clear");
-    sendBanListListCommand();
-}
-
-void Frostbite2CommandHandler::sendBanListListCommand(int index)
-{
-    if (index == 0) {
-        m_connection->sendCommand("banList.list");
-    } else {
-        m_connection->sendCommand(QString("\"banList.list\" \"%1\"").arg(index));
-    }
-}
-
-void Frostbite2CommandHandler::sendBanListLoadCommand()
-{
-    m_connection->sendCommand("banList.load");
-    sendBanListListCommand();
-}
-
-void Frostbite2CommandHandler::sendBanListRemoveCommand(const QString &idType, const QString &id)
-{
-    m_connection->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, id));
-    sendBanListListCommand();
-}
-
-void Frostbite2CommandHandler::sendBanListSaveCommand()
-{
-    m_connection->sendCommand("banList.save");
 }
 
 // Maplist
@@ -588,57 +531,6 @@ void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPack
 //{
 //    Q_UNUSED(packet);
 //}
-
-// BanList
-//void Frostbite2CommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-//void Frostbite2CommandHandler::parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-void Frostbite2CommandHandler::parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        BanList banList;
-
-        for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
-            QString idType = packet.getWord(i).getContent();
-            QString id = packet.getWord(i + 1).getContent();
-            QString banType = packet.getWord(i + 2).getContent();
-            int seconds = FrostbiteUtils::toInt(packet.getWord(i + 3).getContent());
-            int rounds = FrostbiteUtils::toInt(packet.getWord(i + 4).getContent());
-            QString reason = packet.getWord(i + 5).getContent();
-
-            banList.append(BanListEntry(idType, id, banType, seconds, rounds, reason));
-        }
-
-        emit (onBanListListCommand(banList));
-    }
-}
-
-//void Frostbite2CommandHandler::parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-//void Frostbite2CommandHandler::parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-//void Frostbite2CommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
 
 // MapList
 //void Frostbite2CommandHandler::parseMapListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
