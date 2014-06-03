@@ -92,7 +92,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     comboBox_quickConnect_server = new QComboBox(ui->toolBar_quickConnect);
     comboBox_quickConnect_server->setToolTip(tr("Let's you select a prevously stored server."));
     pushButton_quickConnect_connect = new QPushButton(tr("Connect"), ui->toolBar_quickConnect);
-    pushButton_quickConnect_connect->setIcon(QIcon(":/icons/connection.png"));
     pushButton_quickConnect_connect->setToolTip(tr("Connect's to the server selected in the combobox."));
 
     ui->toolBar_quickConnect->addAction(actionServerManager);
@@ -193,11 +192,11 @@ void OpenRcon::updateServerList()
         comboBox_quickConnect_server->setEnabled(true);
         pushButton_quickConnect_connect->setEnabled(true);
 
-        for (ServerEntry *server : serverList) {
-            if (!sessionManager->isConnected(server)) {
-                GameEntry game = GameManager::getGame(server->gameType);
+        for (ServerEntry *serverEntry : serverList) {
+            if (!sessionManager->isConnected(serverEntry)) {
+                GameEntry game = GameManager::getGame(serverEntry->gameType);
 
-                comboBox_quickConnect_server->addItem(game.getIcon(), server->name);
+                comboBox_quickConnect_server->addItem(game.getIcon(), serverEntry->name, qVariantFromValue(serverEntry));
             }
         }
 
@@ -277,6 +276,7 @@ void OpenRcon::actionAboutQt_triggered()
 // QuickConnect toolbar
 void OpenRcon::pushButton_quickConnect_connect_clicked()
 {
-    ServerEntry *serverEntry = serverManager->getServer(comboBox_quickConnect_server->currentIndex());
+    ServerEntry *serverEntry = comboBox_quickConnect_server->currentData(Qt::UserRole).value<ServerEntry *>();
+
     sessionManager->open(serverEntry);
 }
