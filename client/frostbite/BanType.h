@@ -21,9 +21,9 @@
 #define BANTYPE_H
 
 enum class BanType {
-    Name,
-    IP,
-    GUID
+    Perm,
+    Rounds,
+    Seconds
 };
 
 #endif // BANTYPE_H

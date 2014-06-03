@@ -60,10 +60,16 @@ QStringList FrostbiteUtils::squads = {
     "Celeste"
 };
 
-QStringList FrostbiteUtils::banTypes = {
+QStringList FrostbiteUtils::banIdTypes = {
     "Name",
     "IP",
     "GUID"
+};
+
+QStringList FrostbiteUtils::banTypes = {
+    "Perm",
+    "Rounds",
+    "Seconds"
 };
 
 int FrostbiteUtils::toInt(const QString &value)
@@ -88,17 +94,22 @@ QString FrostbiteUtils::toString(bool value)
 
 Time FrostbiteUtils::getTimeFromSeconds(int elapsedSeconds)
 {
-    int days = elapsedSeconds / 60 / 60 / 24;
+    int weeks = elapsedSeconds / 60 / 60 / 24 / 7;
+    int days = (elapsedSeconds / 60 / 60 / 24) % 7;
     int hours = (elapsedSeconds / 60 / 60) % 24;
     int minutes = (elapsedSeconds / 60) % 60;
-    int seconds = elapsedSeconds % 60;
+    int seconds =  elapsedSeconds % 60;
 
-    return Time(days, hours, minutes, seconds);
+    return Time(weeks, days, hours, minutes, seconds);
 }
 
 QString FrostbiteUtils::toString(Time time)
 {
     QString timeString;
+
+    if (time.weeks != 0) {
+        timeString += " " + QObject::tr("%1w").arg(time.weeks);
+    }
 
     if (time.days != 0) {
         timeString += " " + QObject::tr("%1d").arg(time.days);
@@ -127,6 +138,11 @@ QString FrostbiteUtils::getSquadName(Squad squad)
 QString FrostbiteUtils::getSquadName(int squadId)
 {
     return squads.at(squadId);
+}
+
+QString FrostbiteUtils::getBanIdTypeName(BanIdType banIdType)
+{
+    return banIdTypes.at(static_cast<int>(banIdType));
 }
 
 QString FrostbiteUtils::getBanTypeName(BanType banType)

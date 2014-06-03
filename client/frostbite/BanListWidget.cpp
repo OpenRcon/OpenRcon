@@ -24,6 +24,7 @@
 #include "FrostbiteConnection.h"
 #include "FrostbiteCommandHandler.h"
 #include "BanListEntry.h"
+#include "FrostbiteUtils.h"
 
 BanListWidget::BanListWidget(FrostbiteConnection *connection, QWidget *parent) :
     QWidget(parent),
@@ -47,6 +48,9 @@ BanListWidget::BanListWidget(FrostbiteConnection *connection, QWidget *parent) :
     // Banlist
     connect(ui->tableWidget_bl_banList, &QTableWidget::customContextMenuRequested, this, &BanListWidget::tableWidget_bl_banList_customContextMenuRequested);
     connect(action_bl_banList_remove,   &QAction::triggered,                       this, &BanListWidget::action_bl_banList_remove_triggered);
+    connect(ui->pushButton_load,        &QPushButton::clicked,                     this, &BanListWidget::pushButton_load_clicked);
+    connect(ui->pushButton_save,        &QPushButton::clicked,                     this, &BanListWidget::pushButton_save_clicked);
+    connect(ui->pushButton_clear,       &QPushButton::clicked,                     this, &BanListWidget::pushButton_clear_clicked);
 }
 
 BanListWidget::~BanListWidget()
@@ -57,6 +61,8 @@ BanListWidget::~BanListWidget()
 /* Commands */
 void BanListWidget::onBanListListCommand(const QList<BanListEntry> &banList)
 {
+    ui->pushButton_clear->setEnabled(!banList.isEmpty());
+
     setBanlist(banList);
 }
 
@@ -81,16 +87,49 @@ void BanListWidget::action_bl_banList_remove_triggered()
     }
 }
 
-void BanListWidget::addBanListItem(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason)
+void BanListWidget::pushButton_load_clicked()
+{
+    m_commandHandler->sendBanListLoadCommand();
+}
+
+void BanListWidget::pushButton_save_clicked()
+{
+    m_commandHandler->sendBanListSaveCommand();
+}
+
+void BanListWidget::pushButton_clear_clicked()
+{
+    ui->tableWidget_bl_banList->clearContents();
+    ui->pushButton_clear->setEnabled(!ui->tableWidget_bl_banList->rowCount() > 0);
+    m_commandHandler->sendBanListClearCommand();
+}
+
+void BanListWidget::addBanListItem(BanIdType idType, const QString &id, BanType banType, int seconds, int rounds, const QString &reason)
 {
     int row = ui->tableWidget_bl_banList->rowCount();
 
     ui->tableWidget_bl_banList->insertRow(row);
-    ui->tableWidget_bl_banList->setItem(row, 0, new QTableWidgetItem(idType));
+    ui->tableWidget_bl_banList->setItem(row, 0, new QTableWidgetItem(FrostbiteUtils::getBanIdTypeName(idType)));
     ui->tableWidget_bl_banList->setItem(row, 1, new QTableWidgetItem(id));
-    ui->tableWidget_bl_banList->setItem(row, 2, new QTableWidgetItem(banType));
-    ui->tableWidget_bl_banList->setItem(row, 3, new QTableWidgetItem(QString::number(seconds)));
-    ui->tableWidget_bl_banList->setItem(row, 4, new QTableWidgetItem(QString::number(rounds)));
+    ui->tableWidget_bl_banList->setItem(row, 2, new QTableWidgetItem(FrostbiteUtils::getBanTypeName(banType)));
+
+    QString remaining;
+
+    switch (banType) {
+    case BanType::Perm:
+        remaining = tr("Permanent");
+        break;
+
+    case BanType::Rounds:
+        remaining = QString::number(rounds);
+        break;
+
+    case BanType::Seconds:
+        remaining = QString::number(seconds);
+        break;
+
+    }
+
     ui->tableWidget_bl_banList->setItem(row, 5, new QTableWidgetItem(reason));
 }
 

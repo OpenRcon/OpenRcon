@@ -25,6 +25,8 @@
 class QMenu;
 class FrostbiteConnection;
 class FrostbiteCommandHandler;
+enum class BanIdType;
+enum class BanType;
 struct BanListEntry;
 
 namespace Ui {
@@ -48,6 +50,9 @@ private:
     QMenu *menu_bl_banList;
     QAction *action_bl_banList_remove;
 
+    void addBanListItem(BanIdType idType, const QString &id, BanType banType, int seconds, int rounds, const QString &reason);
+    void setBanlist(const QList<BanListEntry> &banList);
+
 private slots:
     /* Commands */
     void onBanListListCommand(const QList<BanListEntry> &banList);
@@ -55,8 +60,9 @@ private slots:
     /* User Interface */
     void tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos);
     void action_bl_banList_remove_triggered();
-    void addBanListItem(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason);
-    void setBanlist(const QList<BanListEntry> &banList);
+    void pushButton_load_clicked();
+    void pushButton_save_clicked();
+    void pushButton_clear_clicked();
 
 };
 

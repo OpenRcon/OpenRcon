@@ -22,18 +22,18 @@
 
 struct Time
 {
-    Time(int days,
-              int hours,
-              int minutes,
-              int seconds) :
+    Time(int weeks,
+         int days,
+         int hours,
+         int minutes,
+         int seconds) :
+        weeks(weeks),
         days(days),
         hours(hours),
         minutes(minutes),
-        seconds(seconds)
-    {
+        seconds(seconds) {}
 
-    }
-
+    int weeks;
     int days;
     int hours;
     int minutes;

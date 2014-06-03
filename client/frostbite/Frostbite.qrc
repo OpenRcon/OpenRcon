@@ -18,5 +18,6 @@
         <file alias="load.png">images/load.png</file>
         <file alias="map.png">images/map.png</file>
         <file alias="ban.png">images/ban.png</file>
+        <file alias="reserved.png">images/reserved.png</file>
     </qresource>
 </RCC>

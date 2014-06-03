@@ -20,11 +20,13 @@
 #ifndef FROSTBITEUTILS_H
 #define FROSTBITEUTILS_H
 
+#include "BanIdType.h"
+#include "BanType.h"
+
 class QString;
 class QStringList;
 struct Time;
 enum class Squad;
-enum class BanType;
 
 class FrostbiteUtils
 {
@@ -38,10 +40,12 @@ public:
     static Time getTimeFromSeconds(int elapsedSeconds);
     static QString getSquadName(Squad squad);
     static QString getSquadName(int squadId);
+    static QString getBanIdTypeName(BanIdType banIdType);
     static QString getBanTypeName(BanType banType);
 
 private:
     static QStringList squads;
+    static QStringList banIdTypes;
     static QStringList banTypes;
 
 };

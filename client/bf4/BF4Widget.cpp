@@ -179,8 +179,8 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     ui->tabWidget->addTab(optionsWidget, QIcon(":/icons/options.png"), tr("Options"));
     ui->tabWidget->addTab(mapListWidget, QIcon(":/frostbite/icons/map.png"), tr("Maplist"));
     ui->tabWidget->addTab(banListWidget, QIcon(":/frostbite/icons/ban.png"), tr("Banlist"));
-    ui->tabWidget->addTab(reservedSlotsWidget, tr("Reserved Slots"));
-    ui->tabWidget->addTab(spectatorSlotsWidget, tr("Spectator Slots"));
+    ui->tabWidget->addTab(reservedSlotsWidget, QIcon(":/frostbite/icons/reserved.png"), tr("Reserved Slots"));
+    ui->tabWidget->addTab(spectatorSlotsWidget, QIcon(":/bf4/icons/spectator.png"), tr("Spectator Slots"));
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
@@ -301,7 +301,7 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.currentMap);
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.gameMode);
     roundTime = serverInfo.roundTime;
-    upTime = serverInfo.serverUpTime;
+    upTime = 31556926; //serverInfo.serverUpTime;
 
     ui->label_si_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(level.name).arg(gameMode.name));
 

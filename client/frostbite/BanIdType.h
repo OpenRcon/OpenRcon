@@ -17,40 +17,13 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BANLISTENTRY_H
-#define BANLISTENTRY_H
+#ifndef BANIDTYPE_H
+#define BANIDTYPE_H
 
-#include <QString>
-#include <QList>
-
-#include "BanIdType.h"
-#include "BanType.h"
-
-struct BanListEntry
-{
-    BanListEntry(BanIdType idType,
-                 const QString &id,
-                 BanType banType,
-                 int seconds,
-                 int rounds,
-                 const QString &reason) :
-        idType(idType),
-        id(id),
-        banType(banType),
-        seconds(seconds),
-        rounds(rounds),
-        reason(reason)
-    {
-
-    }
-
-    BanIdType idType;
-    QString id;
-    BanType banType;
-    int seconds;
-    int rounds;
-    QString reason;
-
+enum class BanIdType {
+    Name,
+    IP,
+    GUID
 };
 
-#endif // BANLISTENTRY_H
+#endif // BANIDTYPE_H

@@ -22,7 +22,8 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/BanListWidget.h \
     frostbite/BanType.h \
     frostbite/ConsoleWidget.h \
-    frostbite/ConsoleLineEdit.h
+    frostbite/ConsoleLineEdit.h \
+    frostbite/BanIdType.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteRconPacket.cpp \
