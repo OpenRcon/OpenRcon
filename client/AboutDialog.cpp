@@ -47,7 +47,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     ui->label_th->setText(tr("<p>We would like to thank Sourceforge.net for their services and support.<br />"
                              "A big thank to GitHub! For making a coders everyday easier.</p>"));
 
-    connect(ui->pushButton_ab_close, &QPushButton::clicked, this, &QDialog::reject);
+    connect(ui->pushButton_ab_close, &QPushButton::clicked, this, &QDialog::accept);
 }
 
 AboutDialog::~AboutDialog()
@@ -56,14 +56,11 @@ AboutDialog::~AboutDialog()
 }
 
 QString AboutDialog::getFile(const QString &fileName)
-{
+{   
     QFile file(fileName);
 
     if (file.open(QIODevice::ReadOnly)) {
-        QTextStream stream(&file);
-        stream.setCodec("UTF-8");
-
-        return stream.readAll();
+        return file.readAll();
     }
 
     return QString();
