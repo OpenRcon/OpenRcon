@@ -45,7 +45,7 @@ RESOURCES += OpenRcon.qrc
 
 RC_ICONS = images/icons/openrcon.ico
 
-include(locale/locale.pri)
+include(translations/translations.pri)
 include(game/game.pri)
 
 include(frostbite/frostbite.pri)

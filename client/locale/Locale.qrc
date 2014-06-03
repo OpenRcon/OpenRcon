@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/locale">
-        <file>OpenRcon_nb_NO.qm</file>
-        <file>OpenRcon_nb_NO.ts</file>
-    </qresource>
-</RCC>

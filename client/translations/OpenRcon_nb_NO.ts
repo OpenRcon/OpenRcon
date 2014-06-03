@@ -203,13 +203,13 @@
     <name>BF4Widget</name>
     <message>
         <location filename="../bf4/BF4Widget.ui" line="29"/>
-        <location filename="../bf4/BF4Widget.cpp" line="399"/>
+        <location filename="../bf4/BF4Widget.cpp" line="389"/>
         <source>Restart round</source>
         <translation>Start runden på nytt</translation>
     </message>
     <message>
         <location filename="../bf4/BF4Widget.ui" line="52"/>
-        <location filename="../bf4/BF4Widget.cpp" line="408"/>
+        <location filename="../bf4/BF4Widget.cpp" line="398"/>
         <source>Run next round</source>
         <translation>Kjør neste runde</translation>
     </message>
@@ -279,42 +279,42 @@
         <translation>Konsoll</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="293"/>
+        <location filename="../bf4/BF4Widget.cpp" line="283"/>
         <source>Error</source>
         <translation>Feil</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="305"/>
+        <location filename="../bf4/BF4Widget.cpp" line="295"/>
         <source>&lt;b&gt;Version&lt;/b&gt;: %1</source>
         <translation>&lt;b&gt;Versjon&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="318"/>
+        <location filename="../bf4/BF4Widget.cpp" line="308"/>
         <source>&lt;table&gt;&lt;tr&gt;&lt;td&gt;External IP address and port:&lt;/td&gt;&lt;td&gt;%1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Join queue enabled:&lt;/td&gt;&lt;td&gt;%2&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Matchmaking enabled:&lt;/td&gt;&lt;td&gt;%3&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Region:&lt;/td&gt;&lt;td&gt;%4&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Country:&lt;/td&gt;&lt;td&gt;%5&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Closest ping site:&lt;/td&gt;&lt;td&gt;%6&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Blaze player count:&lt;/td&gt;&lt;td&gt;%7&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Blaze game stat:&lt;/td&gt;&lt;td&gt;%8&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Punkbuster Server:&lt;/td&gt;&lt;td&gt;%9&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="375"/>
+        <location filename="../bf4/BF4Widget.cpp" line="365"/>
         <source>&lt;b&gt;Players&lt;/b&gt;: %1 of %2</source>
         <translation>&lt;b&gt;Spillere&lt;/b&gt;: %1 av %2</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="376"/>
+        <location filename="../bf4/BF4Widget.cpp" line="366"/>
         <source>&lt;b&gt;Round&lt;/b&gt;: %1 of %2</source>
         <translation>&lt;b&gt;Runde&lt;/b&gt;: %1 av %2</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="399"/>
+        <location filename="../bf4/BF4Widget.cpp" line="389"/>
         <source>Are you sure you want to restart the round?</source>
         <translation>Er du sikker på at du vil starte runden på nytt?</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="408"/>
+        <location filename="../bf4/BF4Widget.cpp" line="398"/>
         <source>Are you sure you want to run the next round?</source>
         <translation>Er du sikker på at du vil kjøre neste runde?</translation>
     </message>
     <message>
-        <location filename="../bf4/BF4Widget.cpp" line="422"/>
+        <location filename="../bf4/BF4Widget.cpp" line="412"/>
         <source>&lt;b&gt;Uptime:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Oppetid:&lt;/b&gt; %1</translation>
     </message>
@@ -1007,9 +1007,14 @@
         <translation>Tøm</translation>
     </message>
     <message>
-        <location filename="../frostbite/BanListWidget.cpp" line="38"/>
+        <location filename="../frostbite/BanListWidget.cpp" line="39"/>
         <source>Remove</source>
         <translation>Fjern</translation>
+    </message>
+    <message>
+        <location filename="../frostbite/BanListWidget.cpp" line="120"/>
+        <source>Permanent</source>
+        <translation>Permanent</translation>
     </message>
 </context>
 <context>
@@ -1294,7 +1299,7 @@
 <context>
     <name>MapListWidget</name>
     <message>
-        <location filename="../bf4/MapListWidget.ui" line="227"/>
+        <location filename="../bf4/MapListWidget.ui" line="231"/>
         <source>Gamemode:</source>
         <translation>Spillermodus:</translation>
     </message>
@@ -1323,7 +1328,7 @@
     </message>
     <message>
         <location filename="../bf4/MapListWidget.ui" line="31"/>
-        <location filename="../bf4/MapListWidget.ui" line="182"/>
+        <location filename="../bf4/MapListWidget.ui" line="186"/>
         <source>Rounds</source>
         <translation>Runder</translation>
     </message>
@@ -1333,23 +1338,23 @@
         <translation>Last</translation>
     </message>
     <message>
-        <location filename="../bf4/MapListWidget.ui" line="136"/>
+        <location filename="../bf4/MapListWidget.ui" line="140"/>
         <source>Save</source>
         <translation>Lagre</translation>
     </message>
     <message>
-        <location filename="../bf4/MapListWidget.ui" line="147"/>
+        <location filename="../bf4/MapListWidget.ui" line="151"/>
         <source>Clear</source>
         <translation>Tøm</translation>
     </message>
     <message>
-        <location filename="../bf4/MapListWidget.ui" line="171"/>
+        <location filename="../bf4/MapListWidget.ui" line="175"/>
         <location filename="../bf4/MapListWidget.cpp" line="47"/>
         <source>Add</source>
         <translation>Legg til</translation>
     </message>
     <message>
-        <location filename="../bf4/MapListWidget.ui" line="199"/>
+        <location filename="../bf4/MapListWidget.ui" line="203"/>
         <location filename="../bf4/MapListWidget.cpp" line="49"/>
         <source>Remove</source>
         <translation>Fjern</translation>
@@ -1520,17 +1525,17 @@
         <translation>Koble til</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="96"/>
+        <location filename="../OpenRcon.cpp" line="95"/>
         <source>Connect&apos;s to the server selected in the combobox.</source>
         <translation>Kobler til tjeneren valgt i rullgardingsmenyen.</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="208"/>
+        <location filename="../OpenRcon.cpp" line="207"/>
         <source>All servers connected.</source>
         <translation>Alle servere tilkoblet.</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="214"/>
+        <location filename="../OpenRcon.cpp" line="213"/>
         <source>No servers added yet.</source>
         <translation>Ingen tjenere lagt til enda.</translation>
     </message>
@@ -1855,7 +1860,7 @@
     <name>PlayerListWidget</name>
     <message>
         <location filename="../bf4/PlayerListWidget.cpp" line="50"/>
-        <location filename="../bf4/PlayerListWidget.cpp" line="67"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="68"/>
         <source>Name</source>
         <translation>Navn</translation>
     </message>
@@ -1886,7 +1891,7 @@
     </message>
     <message>
         <location filename="../bf4/PlayerListWidget.cpp" line="56"/>
-        <location filename="../bf4/PlayerListWidget.cpp" line="68"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="69"/>
         <source>GUID</source>
         <translation>GUID</translation>
     </message>
@@ -1921,12 +1926,12 @@
         <translation>Reserver plass</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="172"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="173"/>
         <source>Team %1</source>
         <translation>Lag %1</translation>
     </message>
     <message>
-        <location filename="../bf4/PlayerListWidget.cpp" line="183"/>
+        <location filename="../bf4/PlayerListWidget.cpp" line="184"/>
         <source>Squad %1</source>
         <translation>Skvadron %1</translation>
     </message>
@@ -1934,22 +1939,27 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../frostbite/FrostbiteUtils.cpp" line="104"/>
+        <location filename="../frostbite/FrostbiteUtils.cpp" line="111"/>
+        <source>%1w</source>
+        <translation>%1u</translation>
+    </message>
+    <message>
+        <location filename="../frostbite/FrostbiteUtils.cpp" line="115"/>
         <source>%1d</source>
         <translation>%1d</translation>
     </message>
     <message>
-        <location filename="../frostbite/FrostbiteUtils.cpp" line="108"/>
+        <location filename="../frostbite/FrostbiteUtils.cpp" line="119"/>
         <source>%1h</source>
         <translation>%1t</translation>
     </message>
     <message>
-        <location filename="../frostbite/FrostbiteUtils.cpp" line="112"/>
+        <location filename="../frostbite/FrostbiteUtils.cpp" line="123"/>
         <source>%1m</source>
         <translation>%1m</translation>
     </message>
     <message>
-        <location filename="../frostbite/FrostbiteUtils.cpp" line="116"/>
+        <location filename="../frostbite/FrostbiteUtils.cpp" line="127"/>
         <source>%1s</source>
         <translation>%1s</translation>
     </message>
@@ -1972,12 +1982,12 @@
         <translation>Last</translation>
     </message>
     <message>
-        <location filename="../frostbite2/ReservedSlotsWidget.ui" line="62"/>
+        <location filename="../frostbite2/ReservedSlotsWidget.ui" line="66"/>
         <source>Save</source>
         <translation>Lagre</translation>
     </message>
     <message>
-        <location filename="../frostbite2/ReservedSlotsWidget.ui" line="73"/>
+        <location filename="../frostbite2/ReservedSlotsWidget.ui" line="77"/>
         <source>Clear</source>
         <translation>Tøm</translation>
     </message>
