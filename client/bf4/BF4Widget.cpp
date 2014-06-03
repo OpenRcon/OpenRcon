@@ -301,7 +301,7 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.currentMap);
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.gameMode);
     roundTime = serverInfo.roundTime;
-    upTime = 31556926; //serverInfo.serverUpTime;
+    upTime = serverInfo.serverUpTime;
 
     ui->label_si_level->setText(QString("<b>%1</b> - <b>%2</b>").arg(level.name).arg(gameMode.name));
 

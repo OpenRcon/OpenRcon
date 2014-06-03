@@ -31,6 +31,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     // Sets application title
     setWindowTitle(tr("About %1 %2").arg(APP_NAME, APP_VERSION));
 
+    // About
     QDateTime current = QDateTime::currentDateTime();
     ui->label_ab_info->setText(tr("<p>A open-source cross-platform RCON administration tool, written in C++.</p>"));
     ui->label_ab_built->setText(tr("<p>Built on %2 at %3</p>").arg(current.toString("dd MMMM yyyy")).arg(current.toString("hh:mm:ss")));
@@ -39,11 +40,13 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
                                      "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND <br />"
                                      "FITNESS FOR A PARTICULAR PURPOSE.</p>");
 
+    // Tabs with text files.
     ui->textBrowser_au->setText(getFile(":/AUTHORS"));
     ui->textBrowser_cb->setText(getFile(":/CONTRIBUTORS"));
     ui->textBrowser_tr->setText(getFile(":/TRANSLATORS"));
     ui->textBrowser_li->setText(getFile(":/COPYING"));
 
+    // Thanks to
     ui->label_th->setText(tr("<p>We would like to thank Sourceforge.net for their services and support.<br />"
                              "A big thank to GitHub! For making a coders everyday easier.</p>"));
 
