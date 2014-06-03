@@ -35,6 +35,15 @@
         <iconset resource="../frostbite/Frostbite.qrc">
          <normaloff>:/frostbite/icons/level-restart.png</normaloff>:/frostbite/icons/level-restart.png</iconset>
        </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -48,6 +57,9 @@
        <property name="icon">
         <iconset resource="../frostbite/Frostbite.qrc">
          <normaloff>:/frostbite/icons/level-next.png</normaloff>:/frostbite/icons/level-next.png</iconset>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

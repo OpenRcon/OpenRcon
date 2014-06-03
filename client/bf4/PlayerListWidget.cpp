@@ -61,9 +61,10 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     menu_pl_players_move = new QMenu(tr("Move to..."), menu_pl_players);
     action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
     action_pl_players_kick = new QAction(tr("Kick"), menu_pl_players);
-    action_pl_players_ban = new QAction(tr("Ban"), menu_pl_players);
+    action_pl_players_ban = new QAction(QIcon(":/frostbite/icons/ban.png"), tr("Ban"), menu_pl_players);
     action_pl_players_reserveSlot = new QAction(tr("Reserve slot"), menu_pl_players);
     menu_pl_players_copyTo = new QMenu(tr("Copy..."), menu_pl_players);
+    menu_pl_players_copyTo->setIcon(QIcon(":/frostbite/icons/copy.png"));
     action_pl_players_copyTo_name = new QAction(tr("Name"), menu_pl_players_copyTo);
     action_pl_players_copyTo_guid = new QAction(tr("GUID"), menu_pl_players_copyTo);
 

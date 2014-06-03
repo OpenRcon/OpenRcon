@@ -54,6 +54,10 @@
          <property name="text">
           <string>Load</string>
          </property>
+         <property name="icon">
+          <iconset resource="../frostbite/Frostbite.qrc">
+           <normaloff>:/frostbite/icons/load.png</normaloff>:/frostbite/icons/load.png</iconset>
+         </property>
         </widget>
        </item>
        <item>

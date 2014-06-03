@@ -31,7 +31,7 @@ Connection::Connection(QAbstractSocket *socket, QObject *parent) : QObject(paren
 
 Connection::~Connection()
 {
-    delete socket;
+
 }
 
 void Connection::hostConnect(const QString &host, int port)

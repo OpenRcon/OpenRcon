@@ -218,16 +218,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
 BF4Widget::~BF4Widget()
 {
     delete ui;
-
-    delete playerListWidget;
-    delete eventsWidget;
-    delete chatWidget;
-    delete optionsWidget;
-    delete mapListWidget;
-    delete banListWidget;
-    delete reservedSlotsWidget;
-    delete spectatorSlotsWidget;
-    delete consoleWidget;
 }
 
 void BF4Widget::setAuthenticated(bool auth)
