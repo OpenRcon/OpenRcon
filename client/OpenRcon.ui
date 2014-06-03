@@ -106,7 +106,6 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">

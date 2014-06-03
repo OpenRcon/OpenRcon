@@ -19,6 +19,8 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/TeamScores.h \
     frostbite/Time.h \
     frostbite/Squad.h \
+    frostbite/BanListWidget.h \
+    frostbite/BanType.h \
     frostbite/ConsoleWidget.h \
     frostbite/ConsoleLineEdit.h
 
@@ -28,9 +30,11 @@ SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteCommandHandler.cpp \
     frostbite/FrostbiteGame.cpp \
     frostbite/FrostbiteUtils.cpp \
+    frostbite/BanListWidget.cpp \
     frostbite/ConsoleWidget.cpp \
     frostbite/ConsoleLineEdit.cpp
 
-FORMS += frostbite/ConsoleWidget.ui
+FORMS += frostbite/BanListWidget.ui \
+    frostbite/ConsoleWidget.ui
 
 RESOURCES += frostbite/Frostbite.qrc

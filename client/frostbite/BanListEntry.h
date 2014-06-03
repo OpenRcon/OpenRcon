@@ -50,6 +50,4 @@ struct BanListEntry
 
 };
 
-typedef QList<BanListEntry> BanList;
-
 #endif // BANLISTENTRY_H

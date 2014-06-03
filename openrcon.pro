@@ -1,12 +1,3 @@
 TEMPLATE = subdirs
 
 SUBDIRS += client
-
-OTHER_FILES += AUTHORS \
-    CHANGES \
-    CONTRIBUTORS \
-    COPYING \
-    GPLHEADER \
-    README \
-    TODO \
-    TRANSLATORS

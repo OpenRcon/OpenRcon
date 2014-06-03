@@ -56,9 +56,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
 
     // Actions
-    actionServerManager = new QAction(QIcon(":/icons/servermanager.png"), tr("&Servermanager"), this);
+    actionServerManager = new QAction(QIcon(":/icons/servermanager.png"), tr("&Servers"), this);
     actionServerManager->setShortcut(tr("Ctrl+S"));
-    actionServerManager->setToolTip(tr("Opens the servermanager."));
+    actionServerManager->setToolTip(tr("View and edit servers."));
     actionQuit = new QAction(QIcon(":/icons/quit.png"), tr("&Quit"), this);
     actionQuit->setShortcut(tr("Ctrl+Q"));
     actionQuickConnect = new QAction(tr("Quickconnect"), this);
@@ -74,6 +74,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent), ui(new Ui::OpenRcon)
     actionAboutQt->setMenuRole(QAction::AboutQtRole);
 
     ui->menuApplication->addAction(actionServerManager);
+    ui->menuApplication->addSeparator();
     ui->menuApplication->addAction(actionQuit);
     ui->menuToolbars->addAction(actionQuickConnect);
     ui->menuTools->addAction(actionOptions);

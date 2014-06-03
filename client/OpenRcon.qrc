@@ -7,13 +7,15 @@
     </qresource>
     <qresource prefix="/icons">
         <file alias="openrcon.png">images/icons/openrcon.png</file>
-        <file alias="internet.png">images/icons/internet.png</file>
+        <file alias="servermanager.png">images/icons/servermanager.png</file>
+        <file alias="quit.png">images/icons/quit.png</file>
         <file alias="options.png">images/icons/options.png</file>
         <file alias="options-behavior">images/icons/options-behavior.png</file>
-        <file alias="report-bug.png">images/icons/report-bug.png</file>
-        <file>images/icons/connection.png</file>
+        <file alias="connection.png">images/icons/connection.png</file>
         <file alias="documentation.png">images/icons/documentation.png</file>
-        <file alias="servermanager.png">images/icons/servermanager.png</file>
+        <file alias="report-bug.png">images/icons/report-bug.png</file>
+        <file alias="internet.png">images/icons/internet.png</file>
+        <file alias="plugins.png">images/icons/plugins.png</file>
     </qresource>
     <qresource prefix="/flags">
         <file>images/flags/algeria.png</file>
