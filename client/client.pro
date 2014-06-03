@@ -43,7 +43,7 @@ FORMS += OpenRcon.ui \
 
 RESOURCES += OpenRcon.qrc
 
-RC_ICONS = OpenRcon.ico
+RC_ICONS = images/icons/openrcon.ico
 
 include(locale/locale.pri)
 include(game/game.pri)
