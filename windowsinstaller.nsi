@@ -8,13 +8,13 @@
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 !define PRODUCT_FILENAME "openrcon"
-!define QTDIR "C:\Qt\5.2.1\mingw48_32"
+!define QTDIR "C:\Qt\5.3\mingw482_32"
 
 !include "MUI.nsh"
 
 !define MUI_ABORTWARNING
-!define MUI_ICON "Client\${PRODUCT_FILENAME}.ico"
-!define MUI_UNICON "Client\${PRODUCT_FILENAME}.ico"
+!define MUI_ICON "client\images\icons\${PRODUCT_FILENAME}.ico"
+!define MUI_UNICON "client\images\icons\${PRODUCT_FILENAME}.ico"
 ; !define MUI_WELCOMEFINISHPAGE_BITMAP "OpenRcon.bmp"
 
 !insertmacro MUI_PAGE_WELCOME
@@ -39,20 +39,18 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
   
-  File "../build-OpenRcon-Desktop_Qt_5_2_1_MinGW_32bit-Release\Client\release\${PRODUCT_FILENAME}.exe"
-  File "${QTDIR}\plugins\platforms\qwindows.dll"
-  File "${QTDIR}\bin\icudt51.dll"
-  File "${QTDIR}\bin\icuin51.dll"
-  File "${QTDIR}\bin\icuuc51.dll"
-  File "${QTDIR}\bin\libgcc_s_dw2-1.dll"
-  File "${QTDIR}\bin\libstdc++-6.dll"
-  File "${QTDIR}\bin\libwinpthread-1.dll"
+  File "../build-openrcon-Desktop_Qt_5_3_0_MinGW_32bit-Release\client\release\${PRODUCT_FILENAME}.exe"
   File "${QTDIR}\bin\Qt5Core.dll"
   File "${QTDIR}\bin\Qt5Gui.dll"
   File "${QTDIR}\bin\Qt5Network.dll"
   File "${QTDIR}\bin\Qt5Widgets.dll"
-  
-  
+  File "${QTDIR}\bin\libgcc_s_dw2-1.dll"
+  File "${QTDIR}\bin\libstdc++-6.dll"
+  File "${QTDIR}\bin\libwinpthread-1.dll"
+  File "${QTDIR}\bin\icuin52.dll"
+  File "${QTDIR}\bin\icuuc52.dll"
+  File "${QTDIR}\bin\icudt52.dll"
+
   CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\${PRODUCT_NAME}.lnk" "$INSTDIR\${PRODUCT_FILENAME}.exe"
   CreateShortCut "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\${PRODUCT_FILENAME}.exe"
