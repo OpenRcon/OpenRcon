@@ -50,7 +50,7 @@ private:
     QMenu *menu_bl_banList;
     QAction *action_bl_banList_remove;
 
-    void addBanListItem(BanIdType idType, const QString &id, BanType banType, int seconds, int rounds, const QString &reason);
+    void addBanListItem(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason);
     void setBanlist(const QList<BanListEntry> &banList);
     void setTemporaryEnabled(bool enabled);
 

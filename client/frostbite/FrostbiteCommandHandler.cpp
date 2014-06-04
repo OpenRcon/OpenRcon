@@ -272,29 +272,9 @@ void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket 
         QList<BanListEntry> banList;
 
         for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
-            QString banIdTypeString = packet.getWord(i).getContent();
-            BanIdType banIdType = BanIdType::Name;
-
-            if (banIdTypeString == "name") {
-                banIdType = BanIdType::Name;
-            } else if (banIdTypeString == "ip") {
-                banIdType = BanIdType::IP;
-            } else if (banIdTypeString == "guid") {
-                banIdType = BanIdType::GUID;
-            }
-
+            QString banIdType = packet.getWord(i).getContent();
             QString id = packet.getWord(i + 1).getContent();
-            QString banTypeString = packet.getWord(i + 2).getContent();
-            BanType banType = BanType::Perm;
-
-            if (banTypeString == "perm") {
-                banType = BanType::Perm;
-            } else if (banTypeString == "rounds") {
-                banType = BanType::Rounds;
-            } else if (banTypeString == "seconds") {
-                banType = BanType::Seconds;
-            }
-
+            QString banType = packet.getWord(i + 2).getContent();
             int seconds = FrostbiteUtils::toInt(packet.getWord(i + 3).getContent());
             int rounds = FrostbiteUtils::toInt(packet.getWord(i + 4).getContent());
             QString reason = packet.getWord(i + 5).getContent();

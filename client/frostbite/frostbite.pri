@@ -20,10 +20,8 @@ HEADERS += frostbite/FrostbiteConnection.h \
     frostbite/Time.h \
     frostbite/Squad.h \
     frostbite/BanListWidget.h \
-    frostbite/BanType.h \
     frostbite/ConsoleWidget.h \
-    frostbite/ConsoleLineEdit.h \
-    frostbite/BanIdType.h
+    frostbite/ConsoleLineEdit.h
 
 SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteRconPacket.cpp \

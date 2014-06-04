@@ -73,6 +73,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_rs_clear">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Clear</string>
          </property>

@@ -21,16 +21,12 @@
 #define BANLISTENTRY_H
 
 #include <QString>
-#include <QList>
-
-#include "BanIdType.h"
-#include "BanType.h"
 
 struct BanListEntry
 {
-    BanListEntry(BanIdType idType,
+    BanListEntry(const QString &idType,
                  const QString &id,
-                 BanType banType,
+                 const QString &banType,
                  int seconds,
                  int rounds,
                  const QString &reason) :
@@ -44,9 +40,9 @@ struct BanListEntry
 
     }
 
-    BanIdType idType;
+    QString idType;
     QString id;
-    BanType banType;
+    QString banType;
     int seconds;
     int rounds;
     QString reason;

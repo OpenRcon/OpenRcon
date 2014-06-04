@@ -62,7 +62,7 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
     action_pl_players_kick = new QAction(tr("Kick"), menu_pl_players);
     action_pl_players_ban = new QAction(QIcon(":/frostbite/icons/ban.png"), tr("Ban"), menu_pl_players);
-    action_pl_players_reserveSlot = new QAction(tr("Reserve slot"), menu_pl_players);
+    action_pl_players_reserveSlot = new QAction(QIcon(":/frostbite/icons/reserved.png"), tr("Reserve slot"), menu_pl_players);
     menu_pl_players_copyTo = new QMenu(tr("Copy..."), menu_pl_players);
     menu_pl_players_copyTo->setIcon(QIcon(":/frostbite/icons/copy.png"));
     action_pl_players_copyTo_name = new QAction(tr("Name"), menu_pl_players_copyTo);
@@ -79,7 +79,7 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
 
     /* Events */
     connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerAuthenticatedEvent, this, &PlayerListWidget::updatePlayerList);
-    connect(m_commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent,    this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent,           this, &PlayerListWidget::updatePlayerList);
     connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerJoinEvent,          this, &PlayerListWidget::updatePlayerList);
     connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerLeaveEvent,         this, &PlayerListWidget::updatePlayerList);
     connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerSpawnEvent,         this, &PlayerListWidget::updatePlayerList);

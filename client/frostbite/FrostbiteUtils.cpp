@@ -60,18 +60,6 @@ QStringList FrostbiteUtils::squads = {
     "Celeste"
 };
 
-QStringList FrostbiteUtils::banIdTypes = {
-    "Name",
-    "IP",
-    "GUID"
-};
-
-QStringList FrostbiteUtils::banTypes = {
-    "Perm",
-    "Rounds",
-    "Seconds"
-};
-
 int FrostbiteUtils::toInt(const QString &value)
 {
     return value.toInt();
@@ -138,19 +126,4 @@ QString FrostbiteUtils::getSquadName(Squad squad)
 QString FrostbiteUtils::getSquadName(int squadId)
 {
     return squads.at(squadId);
-}
-
-QStringList FrostbiteUtils::getBanIdTypes()
-{
-    return banIdTypes;
-}
-
-QString FrostbiteUtils::getBanIdTypeName(BanIdType banIdType)
-{
-    return banIdTypes.at(static_cast<int>(banIdType));
-}
-
-QString FrostbiteUtils::getBanTypeName(BanType banType)
-{
-    return banTypes.at(static_cast<int>(banType));
 }

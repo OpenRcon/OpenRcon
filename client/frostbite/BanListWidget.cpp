@@ -109,28 +109,21 @@ void BanListWidget::action_bl_banList_remove_triggered()
     }
 }
 
-void BanListWidget::addBanListItem(BanIdType idType, const QString &id, BanType banType, int seconds, int rounds, const QString &reason)
+void BanListWidget::addBanListItem(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason)
 {
     int row = ui->tableWidget_bl_banList->rowCount();
 
     ui->tableWidget_bl_banList->insertRow(row);
-    ui->tableWidget_bl_banList->setItem(row, 0, new QTableWidgetItem(FrostbiteUtils::getBanIdTypeName(idType)));
+    ui->tableWidget_bl_banList->setItem(row, 0, new QTableWidgetItem(idType));
     ui->tableWidget_bl_banList->setItem(row, 1, new QTableWidgetItem(id));
     QString remaining;
 
-    switch (banType) {
-    case BanType::Perm:
+    if (banType == "perm") {
         remaining = tr("Permanent");
-        break;
-
-    case BanType::Rounds:
+    } else if (banType == "rounds") {
         remaining = tr("%1 Rounds").arg(QString::number(rounds));
-        break;
-
-    case BanType::Seconds:
+    } else if (banType == "seconds") {
         remaining = tr("%1 Seconds").arg(QString::number(seconds));
-        break;
-
     }
 
     ui->tableWidget_bl_banList->setItem(row, 2, new QTableWidgetItem(remaining));
@@ -205,29 +198,32 @@ void BanListWidget::pushButton_ban_clicked()
         m_commandHandler->sendBanListAddCommand(idType, value, reason);
     } else {
         bool useRounds = ui->comboBox_by->currentIndex() > 0;
-        int timeoutValue = ui->spinBox_timeout->value();
-        int timeout = 0;
+        int timeout = ui->spinBox_timeout->value();
 
-        switch (ui->comboBox_timeUnit->currentIndex()) {
-        case 0:
-            timeout = timeoutValue;
-            break;
+        if (ui->comboBox_timeUnit->isEnabled()) {
+            int timeoutValue = timeout;
 
-        case 1:
-            timeout = timeoutValue * 60;
-            break;
+            switch (ui->comboBox_timeUnit->currentIndex()) {
+            case 0:
+                timeout = timeoutValue;
+                break;
 
-        case 2:
-            timeout = (timeoutValue * 60) * 60;
-            break;
+            case 1:
+                timeout = timeoutValue * 60;
+                break;
 
-        case 3:
-            timeout = (timeoutValue * 60 * 60) * 24;
-            break;
+            case 2:
+                timeout = (timeoutValue * 60) * 60;
+                break;
 
-        case 4:
-            timeout = (timeoutValue * 60 * 60 * 24) * 7;
-            break;
+            case 3:
+                timeout = (timeoutValue * 60 * 60) * 24;
+                break;
+
+            case 4:
+                timeout = (timeoutValue * 60 * 60 * 24) * 7;
+                break;
+            }
         }
 
         m_commandHandler->sendBanListAddCommand(idType, value, timeout, useRounds, reason);

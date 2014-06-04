@@ -33,22 +33,22 @@ SpectatorSlotsWidget::SpectatorSlotsWidget(FrostbiteConnection *connection, QWid
 {
     ui->setupUi(this);
 
-    menu_ss_spectatorList = new QMenu(ui->listWidget_ss_spectatorList);
-    action_ss_spectatorList_remove = new QAction(tr("Remove"), menu_ss_spectatorList);
+    menu_spectatorList = new QMenu(ui->listWidget_spectatorList);
+    action_spectatorList_remove = new QAction(tr("Remove"), menu_spectatorList);
 
-    menu_ss_spectatorList->addAction(action_ss_spectatorList_remove);
+    menu_spectatorList->addAction(action_spectatorList_remove);
 
     /* Commands */
     connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &SpectatorSlotsWidget::onLoginHashedCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onSpectatorListListCommand,                                           this, &SpectatorSlotsWidget::onSpectatorListListCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onSpectatorListListCommand,                                                       this, &SpectatorSlotsWidget::onSpectatorListListCommand);
 
     /* User Interface */
-    connect(ui->listWidget_ss_spectatorList, &QListWidget::customContextMenuRequested, this, &SpectatorSlotsWidget::listWidget_ss_spectatorList_customContextMenuRequested);
-    connect(action_ss_spectatorList_remove,  &QAction::triggered,                      this, &SpectatorSlotsWidget::action_ss_spectatorList_remove_triggered);
-    connect(ui->lineEdit_ss_player,          &QLineEdit::returnPressed,                this, &SpectatorSlotsWidget::pushButton_ss_add_clicked);
-    connect(ui->pushButton_ss_add,           &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_ss_add_clicked);
-    connect(ui->pushButton_ss_save,          &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_ss_save_clicked);
-    connect(ui->pushButton_ss_clear,         &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_ss_clear_clicked);
+    connect(ui->listWidget_spectatorList, &QListWidget::customContextMenuRequested, this, &SpectatorSlotsWidget::listWidget_spectatorList_customContextMenuRequested);
+    connect(action_spectatorList_remove,  &QAction::triggered,                      this, &SpectatorSlotsWidget::action_spectatorList_remove_triggered);
+    connect(ui->lineEdit_player,          &QLineEdit::returnPressed,                this, &SpectatorSlotsWidget::pushButton_add_clicked);
+    connect(ui->pushButton_add,           &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_add_clicked);
+    connect(ui->pushButton_save,          &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_save_clicked);
+    connect(ui->pushButton_clear,         &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_clear_clicked);
 }
 
 SpectatorSlotsWidget::~SpectatorSlotsWidget()
@@ -65,51 +65,51 @@ void SpectatorSlotsWidget::onLoginHashedCommand(bool auth)
 
 void SpectatorSlotsWidget::onSpectatorListListCommand(const QStringList &spectatorList)
 {
-    ui->pushButton_ss_clear->setEnabled(!spectatorList.isEmpty());
+    ui->pushButton_clear->setEnabled(!spectatorList.isEmpty());
 
-    ui->listWidget_ss_spectatorList->clear();
-    ui->listWidget_ss_spectatorList->addItems(spectatorList);
+    ui->listWidget_spectatorList->clear();
+    ui->listWidget_spectatorList->addItems(spectatorList);
 }
 
-void SpectatorSlotsWidget::listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos)
+void SpectatorSlotsWidget::listWidget_spectatorList_customContextMenuRequested(const QPoint &pos)
 {
-    if (ui->listWidget_ss_spectatorList->itemAt(pos)) {
-        menu_ss_spectatorList->exec(QCursor::pos());
+    if (ui->listWidget_spectatorList->itemAt(pos)) {
+        menu_spectatorList->exec(QCursor::pos());
     }
 }
 
-void SpectatorSlotsWidget::action_ss_spectatorList_remove_triggered()
+void SpectatorSlotsWidget::action_spectatorList_remove_triggered()
 {
-    QString player = ui->listWidget_ss_spectatorList->currentItem()->text();
+    QString player = ui->listWidget_spectatorList->currentItem()->text();
 
     if (!player.isEmpty()) {
-        int row = ui->listWidget_ss_spectatorList->currentRow();
+        int row = ui->listWidget_spectatorList->currentRow();
 
-        ui->listWidget_ss_spectatorList->takeItem(row);
-        ui->pushButton_ss_clear->setEnabled(ui->listWidget_ss_spectatorList->count() > 0);
+        ui->listWidget_spectatorList->takeItem(row);
+        ui->pushButton_clear->setEnabled(ui->listWidget_spectatorList->count() > 0);
         m_commandHandler->sendSpectatorListRemoveCommand(player);
     }
 }
 
-void SpectatorSlotsWidget::pushButton_ss_add_clicked()
+void SpectatorSlotsWidget::pushButton_add_clicked()
 {
-    QString player = ui->lineEdit_ss_player->text();
+    QString player = ui->lineEdit_player->text();
 
     if (!player.isEmpty()) {
-        ui->listWidget_ss_spectatorList->addItem(player);
-        ui->pushButton_ss_clear->setEnabled(true);
-        ui->lineEdit_ss_player->clear();
+        ui->listWidget_spectatorList->addItem(player);
+        ui->pushButton_clear->setEnabled(true);
+        ui->lineEdit_player->clear();
 
         m_commandHandler->sendSpectatorListAddCommand(player);
     }
 }
 
-void SpectatorSlotsWidget::pushButton_ss_save_clicked()
+void SpectatorSlotsWidget::pushButton_save_clicked()
 {
     m_commandHandler->sendSpectatorListSaveCommand();
 }
 
-void SpectatorSlotsWidget::pushButton_ss_clear_clicked()
+void SpectatorSlotsWidget::pushButton_clear_clicked()
 {
     m_commandHandler->sendSpectatorListClearCommand();
 }

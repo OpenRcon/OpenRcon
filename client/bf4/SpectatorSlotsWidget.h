@@ -44,8 +44,8 @@ private:
     FrostbiteConnection *m_connection;
     BF4CommandHandler *m_commandHandler;
 
-    QMenu *menu_ss_spectatorList;
-    QAction *action_ss_spectatorList_remove;
+    QMenu *menu_spectatorList;
+    QAction *action_spectatorList_remove;
 
 private slots:
     /* Commands */
@@ -53,11 +53,11 @@ private slots:
     void onSpectatorListListCommand(const QStringList &spectatorList);
 
     /* User Interface */
-    void listWidget_ss_spectatorList_customContextMenuRequested(const QPoint &pos);
-    void action_ss_spectatorList_remove_triggered();
-    void pushButton_ss_add_clicked();
-    void pushButton_ss_save_clicked();
-    void pushButton_ss_clear_clicked();
+    void listWidget_spectatorList_customContextMenuRequested(const QPoint &pos);
+    void action_spectatorList_remove_triggered();
+    void pushButton_add_clicked();
+    void pushButton_save_clicked();
+    void pushButton_clear_clicked();
 
 };
 

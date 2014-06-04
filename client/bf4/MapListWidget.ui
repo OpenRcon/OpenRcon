@@ -147,6 +147,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_ml_clear">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Clear</string>
        </property>
@@ -183,7 +186,7 @@
      <item>
       <widget class="QLabel" name="label_ml_rounds">
        <property name="text">
-        <string>Rounds</string>
+        <string>Rounds:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -199,6 +202,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_ml_remove">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Remove</string>
        </property>
