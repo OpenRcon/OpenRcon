@@ -90,6 +90,7 @@ private:
 
     void readSettings();
     void writeSettings();
+    void autoConnect();
 
 private slots:
     void updateServerList();

@@ -52,6 +52,7 @@ private:
 
     void addBanListItem(BanIdType idType, const QString &id, BanType banType, int seconds, int rounds, const QString &reason);
     void setBanlist(const QList<BanListEntry> &banList);
+    void setTemporaryEnabled(bool enabled);
 
 private slots:
     /* Commands */
@@ -63,6 +64,11 @@ private slots:
     void pushButton_load_clicked();
     void pushButton_save_clicked();
     void pushButton_clear_clicked();
+    void validate();
+    void radioButton_permanent_clicked();
+    void radioButton_temporary_clicked();
+    void comboBox_by_currentIndexChanged(int index);
+    void pushButton_ban_clicked();
 
 };
 

@@ -40,6 +40,7 @@ public:
     static Time getTimeFromSeconds(int elapsedSeconds);
     static QString getSquadName(Squad squad);
     static QString getSquadName(int squadId);
+    static QStringList getBanIdTypes();
     static QString getBanIdTypeName(BanIdType banIdType);
     static QString getBanTypeName(BanType banType);
 

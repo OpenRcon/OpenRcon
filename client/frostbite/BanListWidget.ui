@@ -6,116 +6,304 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>427</width>
     <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0">
-    <widget class="QSplitter" name="splitter">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="4">
+    <widget class="QPushButton" name="pushButton_clear">
+     <property name="enabled">
+      <bool>false</bool>
      </property>
-     <widget class="QTableWidget" name="tableWidget_bl_banList">
-      <property name="contextMenuPolicy">
-       <enum>Qt::CustomContextMenu</enum>
+     <property name="text">
+      <string>Clear</string>
+     </property>
+     <property name="icon">
+      <iconset resource="Frostbite.qrc">
+       <normaloff>:/frostbite/icons/clear.png</normaloff>:/frostbite/icons/clear.png</iconset>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5" colspan="6">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>156</width>
+       <height>21</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="1" colspan="2">
+    <widget class="QComboBox" name="comboBox_type">
+     <item>
+      <property name="text">
+       <string>Name</string>
       </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
+     </item>
+     <item>
+      <property name="text">
+       <string>IP</string>
       </property>
-      <property name="selectionMode">
-       <enum>QAbstractItemView::SingleSelection</enum>
+     </item>
+     <item>
+      <property name="text">
+       <string>GUID</string>
       </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QPushButton" name="pushButton_load">
+     <property name="text">
+      <string>Load</string>
+     </property>
+     <property name="icon">
+      <iconset resource="Frostbite.qrc">
+       <normaloff>:/frostbite/icons/load.png</normaloff>:/frostbite/icons/load.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="10">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>301</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="5" colspan="3">
+    <widget class="QComboBox" name="comboBox_timeUnit">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Seconds</string>
       </property>
-      <attribute name="horizontalHeaderStretchLastSection">
-       <bool>true</bool>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="verticalHeaderHighlightSections">
-       <bool>false</bool>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>Type</string>
+     </item>
+     <item>
+      <property name="text">
+       <string>Minutes</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Hours</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Days</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Weeks</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_type">
+     <property name="text">
+      <string>Type:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QLabel" name="label_value">
+     <property name="text">
+      <string>Value:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="6" colspan="2">
+    <widget class="QLabel" name="label_reason">
+     <property name="text">
+      <string>Reason:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2" colspan="2">
+    <widget class="QPushButton" name="pushButton_save">
+     <property name="text">
+      <string>Save</string>
+     </property>
+     <property name="icon">
+      <iconset resource="Frostbite.qrc">
+       <normaloff>:/frostbite/icons/save.png</normaloff>:/frostbite/icons/save.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="4" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_value">
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="8" colspan="2">
+    <widget class="QLineEdit" name="lineEdit_reason">
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2" colspan="2">
+    <widget class="QComboBox" name="comboBox_by">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>By time</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>By rounds</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="4" column="4">
+    <widget class="QSpinBox" name="spinBox_timeout">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QRadioButton" name="radioButton_permanent">
+       <property name="enabled">
+        <bool>false</bool>
        </property>
-      </column>
-      <column>
        <property name="text">
-        <string>Value</string>
+        <string>Permanent</string>
        </property>
-      </column>
-      <column>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_temporary">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
-        <string>Remaining</string>
+        <string>Temporary</string>
        </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Reason</string>
-       </property>
-      </column>
-     </widget>
-     <widget class="QWidget" name="gridLayoutWidget">
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QPushButton" name="pushButton_load">
-           <property name="text">
-            <string>Load</string>
-           </property>
-           <property name="icon">
-            <iconset resource="Frostbite.qrc">
-             <normaloff>:/frostbite/icons/load.png</normaloff>:/frostbite/icons/load.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_save">
-           <property name="text">
-            <string>Save</string>
-           </property>
-           <property name="icon">
-            <iconset resource="Frostbite.qrc">
-             <normaloff>:/frostbite/icons/save.png</normaloff>:/frostbite/icons/save.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_clear">
-           <property name="text">
-            <string>Clear</string>
-           </property>
-           <property name="icon">
-            <iconset resource="Frostbite.qrc">
-             <normaloff>:/frostbite/icons/clear.png</normaloff>:/frostbite/icons/clear.png</iconset>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0" colspan="11">
+    <widget class="QTableWidget" name="tableWidget_bl_banList">
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderHighlightSections">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>By</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Value</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Remaining</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Reason</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="4" column="9" colspan="2">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="8">
+    <widget class="QPushButton" name="pushButton_ban">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Ban</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="11">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
     </widget>
    </item>
   </layout>

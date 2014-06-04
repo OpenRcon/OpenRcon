@@ -118,15 +118,18 @@ void FrostbiteCommandHandler::sendVersionCommand()
 // BanList
 void FrostbiteCommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason)
 {
+//    banList.add <id-type: id-type> <id: string> <timeout: timeout> <reason: string>
+
     m_connection->sendCommand(QString("banList.add %1 %2 perm %4").arg(idType, id, reason));
     sendBanListListCommand();
 }
 
 void FrostbiteCommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason)
 {
-    QString timeoutType = useRounds ? "rounds" : "seconds";
+    QString timeoutString = useRounds ? "rounds" : "seconds";
+    timeoutString += " " + QString::number(timeout);
 
-    m_connection->sendCommand(QString("banList.add %1 %2 %3 %4 %5").arg(idType, id, timeoutType).arg(FrostbiteUtils::toString(timeout), reason));
+    m_connection->sendCommand(QString("banList.add %1 %2 %3 %4").arg(idType, id, timeoutString, reason));
     sendBanListListCommand();
 }
 
@@ -270,7 +273,7 @@ void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket 
 
         for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
             QString banIdTypeString = packet.getWord(i).getContent();
-            BanIdType banIdType;
+            BanIdType banIdType = BanIdType::Name;
 
             if (banIdTypeString == "name") {
                 banIdType = BanIdType::Name;
@@ -282,7 +285,7 @@ void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket 
 
             QString id = packet.getWord(i + 1).getContent();
             QString banTypeString = packet.getWord(i + 2).getContent();
-            BanType banType;
+            BanType banType = BanType::Perm;
 
             if (banTypeString == "perm") {
                 banType = BanType::Perm;

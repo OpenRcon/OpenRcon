@@ -127,14 +127,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     // Create and read settings
     readSettings();
 
-    // Autoconnect which has the autoconnect option set to true.
-    QList<ServerEntry *> serverList = serverManager->getServers();
-
-    for (ServerEntry *entry : serverList) {
-        if (entry->autoConnect) {
-            sessionManager->open(entry);
-        }
-    }
+    // Autoconnect serverentries which has the autoconnect option set to true.
+    autoConnect();
 
     // Loads the server list from ServerManager.
     updateServerList();
@@ -206,6 +200,17 @@ void OpenRcon::writeSettings()
         settings->setValue("IsMaximized", isMaximized());
         settings->setValue("Position", pos());
     settings->endGroup();
+}
+
+void OpenRcon::autoConnect()
+{
+    QList<ServerEntry *> serverList = serverManager->getServers();
+
+    for (ServerEntry *entry : serverList) {
+        if (entry->autoConnect) {
+            sessionManager->open(entry);
+        }
+    }
 }
 
 void OpenRcon::updateServerList()

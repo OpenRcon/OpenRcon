@@ -52,8 +52,8 @@ private slots:
     void onLoginHashedCommand(bool auth);
 
     /* User Interface */
-    void comboBox_ch_mode_currentIndexChanged(int index);
-    void pushButton_ch_send_clicked();
+    void comboBox_mode_currentIndexChanged(int index);
+    void pushButton_send_clicked();
 
 };
 

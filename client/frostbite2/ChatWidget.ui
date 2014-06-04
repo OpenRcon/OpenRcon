@@ -11,28 +11,8 @@
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="5">
-    <widget class="QTextEdit" name="textEdit_ch">
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLineEdit" name="lineEdit_ch">
-     <property name="placeholderText">
-      <string>Enter message to chat here.</string>
-     </property>
-     <property name="clearButtonEnabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="comboBox_ch_target"/>
-   </item>
    <item row="1" column="2">
-    <widget class="QComboBox" name="comboBox_ch_mode">
+    <widget class="QComboBox" name="comboBox_mode">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -48,8 +28,41 @@
      </item>
     </widget>
    </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="comboBox_target">
+     <item>
+      <property name="text">
+       <string>All</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="5">
+    <widget class="QPushButton" name="pushButton_send">
+     <property name="text">
+      <string>Send</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="placeholderText">
+      <string>Enter message to chat here.</string>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="6">
+    <widget class="QTextEdit" name="textEdit">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="3">
-    <widget class="QSpinBox" name="spinBox_ch_duration">
+    <widget class="QSpinBox" name="spinBox_duration">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -62,9 +75,9 @@
     </widget>
    </item>
    <item row="1" column="4">
-    <widget class="QPushButton" name="pushButton_ch_send">
+    <widget class="QLabel" name="label_duration">
      <property name="text">
-      <string>Send</string>
+      <string>Seconds</string>
      </property>
     </widget>
    </item>

@@ -140,6 +140,11 @@ QString FrostbiteUtils::getSquadName(int squadId)
     return squads.at(squadId);
 }
 
+QStringList FrostbiteUtils::getBanIdTypes()
+{
+    return banIdTypes;
+}
+
 QString FrostbiteUtils::getBanIdTypeName(BanIdType banIdType)
 {
     return banIdTypes.at(static_cast<int>(banIdType));

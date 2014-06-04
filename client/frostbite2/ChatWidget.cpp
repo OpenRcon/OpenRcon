@@ -33,8 +33,6 @@ ChatWidget::ChatWidget(FrostbiteConnection *connection, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->comboBox_ch_target->addItem(tr("All"));
-
     /* Events */
     connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
 
@@ -42,9 +40,9 @@ ChatWidget::ChatWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
 
     /* User Interface */
-    connect(ui->comboBox_ch_mode,   static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ChatWidget::comboBox_ch_mode_currentIndexChanged);
-    connect(ui->pushButton_ch_send, &QPushButton::clicked,                                                  this, &ChatWidget::pushButton_ch_send_clicked);
-    connect(ui->lineEdit_ch,        &QLineEdit::editingFinished,                                            this, &ChatWidget::pushButton_ch_send_clicked);
+    connect(ui->comboBox_mode,   static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ChatWidget::comboBox_mode_currentIndexChanged);
+    connect(ui->pushButton_send, &QPushButton::clicked,                                                  this, &ChatWidget::pushButton_send_clicked);
+    connect(ui->lineEdit,        &QLineEdit::editingFinished,                                            this, &ChatWidget::pushButton_send_clicked);
 }
 
 ChatWidget::~ChatWidget()
@@ -54,7 +52,7 @@ ChatWidget::~ChatWidget()
 
 void ChatWidget::logChat(const QString &sender, const QString &message, const QString &target)
 {
-    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
+    ui->textEdit->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
 }
 
 /* Events */
@@ -72,17 +70,17 @@ void ChatWidget::onLoginHashedCommand(bool auth)
 }
 
 /* User Interface */
-void ChatWidget::comboBox_ch_mode_currentIndexChanged(int index)
+void ChatWidget::comboBox_mode_currentIndexChanged(int index)
 {
-    ui->spinBox_ch_duration->setEnabled(index > 0);
+    ui->spinBox_duration->setEnabled(index > 0);
 }
 
-void ChatWidget::pushButton_ch_send_clicked()
+void ChatWidget::pushButton_send_clicked()
 {
-    QString message = ui->lineEdit_ch->text();
-    int target = ui->comboBox_ch_target->currentIndex();
-    int type = ui->comboBox_ch_mode->currentIndex();
-    int duration = ui->spinBox_ch_duration->value();
+    QString message = ui->lineEdit->text();
+    int target = ui->comboBox_target->currentIndex();
+    int type = ui->comboBox_mode->currentIndex();
+    int duration = ui->spinBox_duration->value();
 
     if (!message.isEmpty()) {
         PlayerSubset playerSubset;
@@ -122,6 +120,6 @@ void ChatWidget::pushButton_ch_send_clicked()
             break;
         }
 
-        ui->lineEdit_ch->clear();
+        ui->lineEdit->clear();
     }
 }
