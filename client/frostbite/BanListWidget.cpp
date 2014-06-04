@@ -153,7 +153,7 @@ void BanListWidget::pushButton_save_clicked()
 void BanListWidget::pushButton_clear_clicked()
 {
     ui->tableWidget_bl_banList->clearContents();
-    ui->pushButton_clear->setEnabled(!ui->tableWidget_bl_banList->rowCount() > 0);
+    ui->pushButton_clear->setEnabled(ui->tableWidget_bl_banList->rowCount() < 0);
     m_commandHandler->sendBanListClearCommand();
 }
 
