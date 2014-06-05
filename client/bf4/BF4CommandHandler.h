@@ -104,7 +104,7 @@ private:
 //    void parseSpectatorListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 //    void parseSpectatorListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Vars
+    // Variables
     void parseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsCommanderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsForceReloadWholeMagsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -146,7 +146,7 @@ signals:
 //    void onSpectatorListRemoveCommand();
 //    void onSpectatorListSaveCommand();
 
-    // Vars
+    // Variables
     void onVarsAlwaysAllowSpectatorsCommand(bool enabled);
     void onVarsCommanderCommand(bool enabled);
     void onVarsForceReloadWholeMagsCommand(bool enabled);

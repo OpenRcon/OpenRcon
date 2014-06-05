@@ -38,86 +38,84 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
 
     static QHash<QString, ResponseFunction> responses = {
         /* Events */
-        { "player.onAuthenticated",              &Frostbite2CommandHandler::parsePlayerAuthenticatedEvent },
-        { "player.onJoin",                       &Frostbite2CommandHandler::parsePlayerJoinEvent },
-        { "player.onSpawn",                      &Frostbite2CommandHandler::parsePlayerSpawnEvent },
-        { "player.onKill",                       &Frostbite2CommandHandler::parsePlayerKillEvent },
-        { "server.onMaxPlayerCountChange",       &Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent },
-        { "server.onLevelLoaded",                &Frostbite2CommandHandler::parseServerLevelLoadedEvent },
+        { "player.onAuthenticated",           &Frostbite2CommandHandler::parsePlayerAuthenticatedEvent },
+        { "player.onJoin",                    &Frostbite2CommandHandler::parsePlayerJoinEvent },
+        { "player.onSpawn",                   &Frostbite2CommandHandler::parsePlayerSpawnEvent },
+        { "player.onKill",                    &Frostbite2CommandHandler::parsePlayerKillEvent },
+        { "server.onMaxPlayerCountChange",    &Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent },
+        { "server.onLevelLoaded",             &Frostbite2CommandHandler::parseServerLevelLoadedEvent },
 
         /* Commands */
-        // Misc
-
         // Admin
-        { "admin.eventsEnabled",                 &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
-        { "admin.help",                          &Frostbite2CommandHandler::parseAdminHelpCommand },
-        { "admin.kickPlayer",                    nullptr /*&Frostbite2CommandHandler::parseAdminKickPlayerCommand*/ },
-        { "admin.killPlayer",                    nullptr /*&Frostbite2CommandHandler::parseAdminKillPlayerCommand*/ },
-        { "admin.movePlayer",                    nullptr /*&Frostbite2CommandHandler::parseAdminMovePlayerCommand*/ },
-        { "admin.password",                      &Frostbite2CommandHandler::parseAdminPasswordCommand },
-        { "admin.say",                           nullptr /*&Frostbite2CommandHandler::parseAdminSayCommand*/ },
-        { "admin.yell",                          nullptr /*&Frostbite2CommandHandler::parseAdminYellCommand*/ },
+        { "admin.eventsEnabled",              &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
+        { "admin.help",                       &Frostbite2CommandHandler::parseAdminHelpCommand },
+        { "admin.kickPlayer",                 nullptr /*&Frostbite2CommandHandler::parseAdminKickPlayerCommand*/ },
+        { "admin.killPlayer",                 nullptr /*&Frostbite2CommandHandler::parseAdminKillPlayerCommand*/ },
+        { "admin.movePlayer",                 nullptr /*&Frostbite2CommandHandler::parseAdminMovePlayerCommand*/ },
+        { "admin.password",                   &Frostbite2CommandHandler::parseAdminPasswordCommand },
+        { "admin.say",                        nullptr /*&Frostbite2CommandHandler::parseAdminSayCommand*/ },
+        { "admin.yell",                       nullptr /*&Frostbite2CommandHandler::parseAdminYellCommand*/ },
 
         // MapList
-        { "mapList.add",                         nullptr /*&Frostbite2CommandHandler::parseMapListAddCommand*/ },
-        { "mapList.availableMaps",               &Frostbite2CommandHandler::parseMapListAvailableMapsCommand },
-        { "mapList.clear",                       nullptr /*&Frostbite2CommandHandler::parseMapListClearCommand*/ },
-        { "mapList.endRound",                    nullptr /*&Frostbite2CommandHandler::parseMapListEndRoundCommand*/ },
-        { "mapList.getMapIndices",               &Frostbite2CommandHandler::parseMapListGetMapIndicesCommand },
-        { "mapList.getRounds",                   &Frostbite2CommandHandler::parseMapListGetRoundsCommand },
-        { "mapList.list",                        &Frostbite2CommandHandler::parseMapListListCommand },
-        { "mapList.load",                        nullptr /*&Frostbite2CommandHandler::parseMapListLoadCommand*/ },
-        { "mapList.remove",                      nullptr /*&Frostbite2CommandHandler::parseMapListRemoveCommand*/ },
-        { "mapList.restartRound",                nullptr /*&Frostbite2CommandHandler::parseMapListRestartRoundCommand*/ },
-        { "mapList.runNextRound",                nullptr /*&Frostbite2CommandHandler::parseMapListRunNextRoundCommand*/ },
-        { "mapList.save",                        nullptr /*&Frostbite2CommandHandler::parseMapListSaveCommand*/ },
-        { "mapList.setNextMapIndex",             nullptr /*&Frostbite2CommandHandler::parseMapListSetNextMapIndexCommand*/ },
+        { "mapList.add",                      nullptr /*&Frostbite2CommandHandler::parseMapListAddCommand*/ },
+        { "mapList.availableMaps",            &Frostbite2CommandHandler::parseMapListAvailableMapsCommand },
+        { "mapList.clear",                    nullptr /*&Frostbite2CommandHandler::parseMapListClearCommand*/ },
+        { "mapList.endRound",                 nullptr /*&Frostbite2CommandHandler::parseMapListEndRoundCommand*/ },
+        { "mapList.getMapIndices",            &Frostbite2CommandHandler::parseMapListGetMapIndicesCommand },
+        { "mapList.getRounds",                &Frostbite2CommandHandler::parseMapListGetRoundsCommand },
+        { "mapList.list",                     &Frostbite2CommandHandler::parseMapListListCommand },
+        { "mapList.load",                     nullptr /*&Frostbite2CommandHandler::parseMapListLoadCommand*/ },
+        { "mapList.remove",                   nullptr /*&Frostbite2CommandHandler::parseMapListRemoveCommand*/ },
+        { "mapList.restartRound",             nullptr /*&Frostbite2CommandHandler::parseMapListRestartRoundCommand*/ },
+        { "mapList.runNextRound",             nullptr /*&Frostbite2CommandHandler::parseMapListRunNextRoundCommand*/ },
+        { "mapList.save",                     nullptr /*&Frostbite2CommandHandler::parseMapListSaveCommand*/ },
+        { "mapList.setNextMapIndex",          nullptr /*&Frostbite2CommandHandler::parseMapListSetNextMapIndexCommand*/ },
 
         // Player
-        { "player.idleDuration",                 &Frostbite2CommandHandler::parsePlayerIdleDurationCommand },
-        { "player.isAlive",                      &Frostbite2CommandHandler::parsePlayerIsAliveCommand },
-        { "player.ping",                         &Frostbite2CommandHandler::parsePlayerPingCommand },
+        { "player.idleDuration",              &Frostbite2CommandHandler::parsePlayerIdleDurationCommand },
+        { "player.isAlive",                   &Frostbite2CommandHandler::parsePlayerIsAliveCommand },
+        { "player.ping",                      &Frostbite2CommandHandler::parsePlayerPingCommand },
 
         // PunkBuster
-        { "punkBuster.activate",                 nullptr /*&Frostbite2CommandHandler::parsePunkBusterActivateCommand*/ },
-        { "punkBuster.isActive",                 &Frostbite2CommandHandler::parsePunkBusterIsActiveCommand },
+        { "punkBuster.activate",              nullptr /*&Frostbite2CommandHandler::parsePunkBusterActivateCommand*/ },
+        { "punkBuster.isActive",              &Frostbite2CommandHandler::parsePunkBusterIsActiveCommand },
 
         // Reserved Slots
-        { "reservedSlotsList.add",               nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListAddCommand*/ },
-        { "reservedSlotsList.aggressiveJoin",    &Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand },
-        { "reservedSlotsList.clear",             nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListClearCommand*/ },
-        { "reservedSlotsList.list",              &Frostbite2CommandHandler::parseReservedSlotsListListCommand },
-        { "reservedSlotsList.load",              nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListLoadCommand*/ },
-        { "reservedSlotsList.remove",            nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListRemoveCommand*/ },
-        { "reservedSlotsList.save",              nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListSaveCommand*/ },
+        { "reservedSlotsList.add",            nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListAddCommand*/ },
+        { "reservedSlotsList.aggressiveJoin", &Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand },
+        { "reservedSlotsList.clear",          nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListClearCommand*/ },
+        { "reservedSlotsList.list",           &Frostbite2CommandHandler::parseReservedSlotsListListCommand },
+        { "reservedSlotsList.load",           nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListLoadCommand*/ },
+        { "reservedSlotsList.remove",         nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListRemoveCommand*/ },
+        { "reservedSlotsList.save",           nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListSaveCommand*/ },
 
         // Squad
-        { "squad.leader",                        &Frostbite2CommandHandler::parseSquadLeaderCommand },
-        { "squad.listActive",                    nullptr /*&Frostbite2CommandHandler::parseSquadListActiveCommand*/ },
-        { "squad.listPlayers",                   &Frostbite2CommandHandler::parseSquadListPlayersCommand },
-        { "squad.private",                       &Frostbite2CommandHandler::parseSquadPrivateCommand },
+        { "squad.leader",                     &Frostbite2CommandHandler::parseSquadLeaderCommand },
+        { "squad.listActive",                 nullptr /*&Frostbite2CommandHandler::parseSquadListActiveCommand*/ },
+        { "squad.listPlayers",                &Frostbite2CommandHandler::parseSquadListPlayersCommand },
+        { "squad.private",                    &Frostbite2CommandHandler::parseSquadPrivateCommand },
 
         // Variables
-        { "vars.3pCam",                          &Frostbite2CommandHandler::parseVars3pCamCommand },
-        { "vars.autoBalance",                    &Frostbite2CommandHandler::parseVarsAutoBalanceCommand },
-        { "vars.bulletDamage",                   &Frostbite2CommandHandler::parseVarsBulletDamageCommand },
-        { "vars.gameModeCounter",                &Frostbite2CommandHandler::parseVarsGameModeCounterCommand },
-        { "vars.hud",                            &Frostbite2CommandHandler::parseVarsHudCommand },
-        { "vars.idleBanRounds",                  &Frostbite2CommandHandler::parseVarsIdleBanRoundsCommand },
-        { "vars.maxPlayers",                     &Frostbite2CommandHandler::parseVarsMaxPlayersCommand },
-        { "vars.nameTag",                        &Frostbite2CommandHandler::parseVarsNameTagCommand },
-        { "vars.onlySquadLeaderSpawn",           &Frostbite2CommandHandler::parseVarsOnlySquadLeaderSpawnCommand },
-        { "vars.playerRespawnTime",              &Frostbite2CommandHandler::parseVarsPlayerRespawnTimeCommand },
-        { "vars.regenerateHealth",               &Frostbite2CommandHandler::parseVarsRegenerateHealthCommand },
-        { "vars.roundLockdownCountdown",         &Frostbite2CommandHandler::parseVarsRoundLockdownCountdownCommand },
-        { "vars.roundRestartPlayerCount",        &Frostbite2CommandHandler::parseVarsRoundRestartPlayerCountCommand },
-        { "vars.roundStartPlayerCount",          &Frostbite2CommandHandler::parseVarsRoundStartPlayerCountCommand },
-        { "vars.serverMessage",                  &Frostbite2CommandHandler::parseVarsServerMessageCommand },
-        { "vars.soldierHealth",                  &Frostbite2CommandHandler::parseVarsSoldierHealthCommand },
-        { "vars.teamKillKickForBan",             &Frostbite2CommandHandler::parseVarsTeamKillKickForBanCommand },
-        { "vars.unlockMode",                     &Frostbite2CommandHandler::parseVarsUnlockModeCommand },
-        { "vars.vehicleSpawnAllowed",            &Frostbite2CommandHandler::parseVarsVehicleSpawnAllowedCommand },
-        { "vars.vehicleSpawnDelay",              &Frostbite2CommandHandler::parseVarsVehicleSpawnDelayCommand }
+        { "vars.3pCam",                       &Frostbite2CommandHandler::parseVars3pCamCommand },
+        { "vars.autoBalance",                 &Frostbite2CommandHandler::parseVarsAutoBalanceCommand },
+        { "vars.bulletDamage",                &Frostbite2CommandHandler::parseVarsBulletDamageCommand },
+        { "vars.gameModeCounter",             &Frostbite2CommandHandler::parseVarsGameModeCounterCommand },
+        { "vars.hud",                         &Frostbite2CommandHandler::parseVarsHudCommand },
+        { "vars.idleBanRounds",               &Frostbite2CommandHandler::parseVarsIdleBanRoundsCommand },
+        { "vars.maxPlayers",                  &Frostbite2CommandHandler::parseVarsMaxPlayersCommand },
+        { "vars.nameTag",                     &Frostbite2CommandHandler::parseVarsNameTagCommand },
+        { "vars.onlySquadLeaderSpawn",        &Frostbite2CommandHandler::parseVarsOnlySquadLeaderSpawnCommand },
+        { "vars.playerRespawnTime",           &Frostbite2CommandHandler::parseVarsPlayerRespawnTimeCommand },
+        { "vars.regenerateHealth",            &Frostbite2CommandHandler::parseVarsRegenerateHealthCommand },
+        { "vars.roundLockdownCountdown",      &Frostbite2CommandHandler::parseVarsRoundLockdownCountdownCommand },
+        { "vars.roundRestartPlayerCount",     &Frostbite2CommandHandler::parseVarsRoundRestartPlayerCountCommand },
+        { "vars.roundStartPlayerCount",       &Frostbite2CommandHandler::parseVarsRoundStartPlayerCountCommand },
+        { "vars.serverMessage",               &Frostbite2CommandHandler::parseVarsServerMessageCommand },
+        { "vars.soldierHealth",               &Frostbite2CommandHandler::parseVarsSoldierHealthCommand },
+        { "vars.teamKillKickForBan",          &Frostbite2CommandHandler::parseVarsTeamKillKickForBanCommand },
+        { "vars.unlockMode",                  &Frostbite2CommandHandler::parseVarsUnlockModeCommand },
+        { "vars.vehicleSpawnAllowed",         &Frostbite2CommandHandler::parseVarsVehicleSpawnAllowedCommand },
+        { "vars.vehicleSpawnDelay",           &Frostbite2CommandHandler::parseVarsVehicleSpawnDelayCommand }
     };
 
     if (responses.contains(request)) {
@@ -781,6 +779,7 @@ void Frostbite2CommandHandler::parseAdminHelpCommand(const FrostbiteRconPacket &
 //void Frostbite2CommandHandler::parseAdminMovePlayerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -799,17 +798,20 @@ void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPack
 //void Frostbite2CommandHandler::parseAdminSayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void Frostbite2CommandHandler::parseAdminYellCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 // MapList
 //void Frostbite2CommandHandler::parseMapListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 void Frostbite2CommandHandler::parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -833,11 +835,13 @@ void Frostbite2CommandHandler::parseMapListAvailableMapsCommand(const FrostbiteR
 //void Frostbite2CommandHandler::parseMapListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void Frostbite2CommandHandler::parseMapListEndRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 void Frostbite2CommandHandler::parseMapListGetMapIndicesCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -910,31 +914,37 @@ void Frostbite2CommandHandler::parseMapListListCommand(const FrostbiteRconPacket
 //void Frostbite2CommandHandler::parseMapListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void Frostbite2CommandHandler::parseMapListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void Frostbite2CommandHandler::parseMapListRestartRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void Frostbite2CommandHandler::parseMapListRunNextRoundCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void Frostbite2CommandHandler::parseMapListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void Frostbite2CommandHandler::parseMapListSetNextMapIndexCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 
@@ -983,6 +993,7 @@ void Frostbite2CommandHandler::parsePlayerPingCommand(const FrostbiteRconPacket 
 //void Frostbite2CommandHandler::parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 void Frostbite2CommandHandler::parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -1002,6 +1013,7 @@ void Frostbite2CommandHandler::parsePunkBusterIsActiveCommand(const FrostbiteRco
 //void Frostbite2CommandHandler::parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 void Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -1020,6 +1032,7 @@ void Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand(const
 //void Frostbite2CommandHandler::parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 void Frostbite2CommandHandler::parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -1042,16 +1055,19 @@ void Frostbite2CommandHandler::parseReservedSlotsListListCommand(const Frostbite
 //void Frostbite2CommandHandler::parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void Frostbite2CommandHandler::parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void Frostbite2CommandHandler::parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 // Squad
@@ -1071,6 +1087,7 @@ void Frostbite2CommandHandler::parseSquadLeaderCommand(const FrostbiteRconPacket
 //void Frostbite2CommandHandler::parseSquadListActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 void Frostbite2CommandHandler::parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

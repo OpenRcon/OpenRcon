@@ -44,7 +44,7 @@ public:
     void sendAdminEffectiveMaxPlayersCommand();
     void sendAdminListPlayersCommand();
 
-    // Vars
+    // Variables
     void sendVarsRankedCommand();
     void sendVarsRankedCommand(bool ranked);
     void sendVarsCrossHairCommand();
@@ -57,8 +57,6 @@ public:
     void sendVarsGunMasterWeaponsPresetCommand(int weaponPreset = -1);
 
 private:
-    /* Parse events */ 
-
     /* Parse commands */
     // Misc
     void parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -69,7 +67,7 @@ private:
     void parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 //    void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Vars
+    // Variables
     void parseVarsRankedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsCrossHairCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsPlayerManDownTimeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -79,10 +77,6 @@ private:
     void parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 signals:
-    /* Event signals */
-    void onMaxPlayerCountChangeEvent();
-    void onLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
-
     /* Command signals */
     // Misc
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
@@ -93,7 +87,7 @@ signals:
     void onAdminEffectiveMaxPlayersCommand(int effectiveMaxPlayers);
     void onAdminListPlayersCommand();
 
-    // Vars
+    // Variables
     void onVarsRankedCommand(bool ranked);
     void onVarsCrossHairCommand(bool enabled);
     void onVarsPlayerManDownTimeCommand(int percent);

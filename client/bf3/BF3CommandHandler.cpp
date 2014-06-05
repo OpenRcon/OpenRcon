@@ -38,11 +38,9 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
     typedef void (BF3CommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
     static QHash<QString, ResponseFunction> responses = {
-        /* Events */
-
         /* Commands */
         // Misc
-        { "serverinfo",                  &BF3CommandHandler::parseServerInfoCommand },
+        { "serverInfo",                  &BF3CommandHandler::parseServerInfoCommand },
         { "currentLevel",                &BF3CommandHandler::parseCurrentLevelCommand },
         { "listPlayers",                 nullptr /*&BF3CommandHandler::parseListPlayersCommand*/ },
 
@@ -103,7 +101,7 @@ void BF3CommandHandler::sendAdminListPlayersCommand()
 
 }
 
-// Vars
+// Variables
 void BF3CommandHandler::sendVarsRankedCommand()
 {
     m_connection->sendCommand("vars.ranked");
@@ -169,8 +167,6 @@ void BF3CommandHandler::sendVarsGunMasterWeaponsPresetCommand(int weaponPreset)
         m_connection->sendCommand(QString("\"vars.gunMasterWeaponsPreset\" \"%1\"").arg(weaponPreset));
     }
 }
-
-/* Parse events */
 
 /* Parse commands */
 // Misc
@@ -274,6 +270,7 @@ void BF3CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket &pack
 //void BF3CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 // Admin

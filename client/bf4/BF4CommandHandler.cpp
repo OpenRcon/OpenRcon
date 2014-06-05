@@ -42,43 +42,43 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
     static QHash<QString, ResponseFunction> responses = {
         /* Events */
-        { "player.onDisconnect",                 &BF4CommandHandler::parsePlayerDisconnectEvent },
+        { "player.onDisconnect",        &BF4CommandHandler::parsePlayerDisconnectEvent },
 
         /* Commands */
         // Misc
-        { "serverInfo",                          &BF4CommandHandler::parseServerInfoCommand },
-        { "currentLevel",                        &BF4CommandHandler::parseCurrentLevelCommand },
-        { "listPlayers",                         &BF4CommandHandler::parseListPlayersCommand },
+        { "serverInfo",                 &BF4CommandHandler::parseServerInfoCommand },
+        { "currentLevel",               &BF4CommandHandler::parseCurrentLevelCommand },
+        { "listPlayers",                &BF4CommandHandler::parseListPlayersCommand },
 
         // Admin
-        { "admin.listPlayers",                   &BF4CommandHandler::parseAdminListPlayersCommand },
-        { "admin.shutDown",                      nullptr /*&BF4CommandHandler::parseAdminShutDownCommand*/ },
+        { "admin.listPlayers",          &BF4CommandHandler::parseAdminListPlayersCommand },
+        { "admin.shutDown",             nullptr /*&BF4CommandHandler::parseAdminShutDownCommand*/ },
 
         // FairFight
-        { "fairFight.activate",                  nullptr /*&BF4CommandHandler::parseFairFightActivateCommand*/ },
-        { "fairFight.deactivate",                nullptr /*&BF4CommandHandler::parseFairFightDeactivateCommand*/ },
-        { "fairFight.isActive",                  &BF4CommandHandler::parseFairFightIsActiveCommand },
+        { "fairFight.activate",         nullptr /*&BF4CommandHandler::parseFairFightActivateCommand*/ },
+        { "fairFight.deactivate",       nullptr /*&BF4CommandHandler::parseFairFightDeactivateCommand*/ },
+        { "fairFight.isActive",         &BF4CommandHandler::parseFairFightIsActiveCommand },
 
         // Spectator List
-        { "spectatorList.add",                   nullptr /*&BF4CommandHandler::parseSpectatorListAddCommand*/ },
-        { "spectatorList.clear",                 nullptr /*&BF4CommandHandler::parseSpectatorListClearCommand*/ },
-        { "spectatorList.list",                  &BF4CommandHandler::parseSpectatorListListCommand },
-        { "spectatorList.remove",                nullptr /*&BF4CommandHandler::parseSpectatorListRemoveCommand*/ },
-        { "spectatorList.save",                  nullptr /*&BF4CommandHandler::parseSpectatorListSaveCommand*/ },
+        { "spectatorList.add",          nullptr /*&BF4CommandHandler::parseSpectatorListAddCommand*/ },
+        { "spectatorList.clear",        nullptr /*&BF4CommandHandler::parseSpectatorListClearCommand*/ },
+        { "spectatorList.list",         &BF4CommandHandler::parseSpectatorListListCommand },
+        { "spectatorList.remove",       nullptr /*&BF4CommandHandler::parseSpectatorListRemoveCommand*/ },
+        { "spectatorList.save",         nullptr /*&BF4CommandHandler::parseSpectatorListSaveCommand*/ },
 
-        // Vars
-        { "vars.alwaysAllowSpectators",          &BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand },
-        { "vars.commander",                      &BF4CommandHandler::parseVarsCommanderCommand },
-        { "vars.forceReloadWholeMags",           &BF4CommandHandler::parseVarsForceReloadWholeMagsCommand },
-        { "vars.hitIndicatorsEnabled",           &BF4CommandHandler::parseVarsHitIndicatorsEnabledCommand },
-        { "vars.maxSpectators",                  &BF4CommandHandler::parseVarsMaxSpectatorsCommand },
-        { "vars.mpExperience",                   &BF4CommandHandler::parseVarsMpExperienceCommand },
-        { "vars.preset",                         &BF4CommandHandler::parseVarsPresetCommand },
-        { "vars.roundTimeLimit",                 &BF4CommandHandler::parseVarsRoundTimeLimitCommand },
-        { "vars.roundWarmupTimeout",             &BF4CommandHandler::parseVarsRoundWarmupTimeoutCommand },
-        { "vars.serverType",                     &BF4CommandHandler::parseVarsServerTypeCommand },
-        { "vars.teamFactionOverride",            &BF4CommandHandler::parseVarsTeamFactionOverrideCommand },
-        { "vars.ticketBleedRate",                &BF4CommandHandler::parseVarsTicketBleedRateCommand },
+        // Variables
+        { "vars.alwaysAllowSpectators", &BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand },
+        { "vars.commander",             &BF4CommandHandler::parseVarsCommanderCommand },
+        { "vars.forceReloadWholeMags",  &BF4CommandHandler::parseVarsForceReloadWholeMagsCommand },
+        { "vars.hitIndicatorsEnabled",  &BF4CommandHandler::parseVarsHitIndicatorsEnabledCommand },
+        { "vars.maxSpectators",         &BF4CommandHandler::parseVarsMaxSpectatorsCommand },
+        { "vars.mpExperience",          &BF4CommandHandler::parseVarsMpExperienceCommand },
+        { "vars.preset",                &BF4CommandHandler::parseVarsPresetCommand },
+        { "vars.roundTimeLimit",        &BF4CommandHandler::parseVarsRoundTimeLimitCommand },
+        { "vars.roundWarmupTimeout",    &BF4CommandHandler::parseVarsRoundWarmupTimeoutCommand },
+        { "vars.serverType",            &BF4CommandHandler::parseVarsServerTypeCommand },
+        { "vars.teamFactionOverride",   &BF4CommandHandler::parseVarsTeamFactionOverrideCommand },
+        { "vars.ticketBleedRate",       &BF4CommandHandler::parseVarsTicketBleedRateCommand },
     };
 
     if (responses.contains(request)) {
@@ -430,17 +430,20 @@ void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &
 //void BF4CommandHandler::parseAdminShutDownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 // FairFight
 //void BF4CommandHandler::parseFairFightActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void BF4CommandHandler::parseFairFightDeactivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -456,16 +459,18 @@ void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket 
     }
 }
 
-// SpectatorList
-/*void BF4CommandHandler::parseSpectatorListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}
+// Spectator List
+//void BF4CommandHandler::parseSpectatorListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
+//}
 
-void BF4CommandHandler::parseSpectatorListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-}*/
+//void BF4CommandHandler::parseSpectatorListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
+//}
 
 void BF4CommandHandler::parseSpectatorListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
@@ -487,14 +492,16 @@ void BF4CommandHandler::parseSpectatorListListCommand(const FrostbiteRconPacket 
 //void BF4CommandHandler::parseSpectatorListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void BF4CommandHandler::parseSpectatorListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
-// Vars
+// Variables
 void BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);

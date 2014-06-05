@@ -347,11 +347,13 @@ void FrostbiteCommandHandler::parseVersionCommand(const FrostbiteRconPacket &pac
 //void FrostbiteCommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void FrostbiteCommandHandler::parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -381,22 +383,26 @@ void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket 
 //void FrostbiteCommandHandler::parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void FrostbiteCommandHandler::parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 //void FrostbiteCommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 // PunkBuster
 //void FrostbiteCommandHandler::parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
+//    Q_UNUSED(lastSentPacket);
 //}
 
 // Variables

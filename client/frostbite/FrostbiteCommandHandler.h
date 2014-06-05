@@ -134,7 +134,7 @@ signals:
 //    void onBanListSaveCommand();
 
     // Punkbuster
-    void onPunkBusterPbSvCommand();
+//    void onPunkBusterPbSvCommand();
 
     // Variables
     void onVars3dSpottingCommand(bool enabled);
