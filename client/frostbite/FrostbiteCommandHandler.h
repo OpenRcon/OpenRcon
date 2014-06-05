@@ -56,6 +56,12 @@ public:
     // PunkBuster
     void sendPunkBusterPbSvCommand(const QString &command);
 
+    // Reserved Slots
+    void sendReservedSlotsListClearCommand();
+    void sendReservedSlotsListListCommand();
+    void sendReservedSlotsListLoadCommand();
+    void sendReservedSlotsListSaveCommand();
+
 protected:
     FrostbiteConnection *m_connection;
 
@@ -82,6 +88,12 @@ private:
     // PunkBuster
 //    void parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
+    // Reserverd Slots
+//    void parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
 signals:
     /* Event signals */
     void onPunkBusterMessageEvent(const QString &message);
@@ -105,6 +117,12 @@ signals:
 
     // Punkbuster
     void onPunkBusterPbSvCommand();
+
+    // Reserved Slots
+//    void onReservedSlotsListClearCommand();
+    void onReservedSlotsListListCommand(const QStringList &reservedSlotList);
+//    void onReservedSlotsListLoadCommand();
+//    void onReservedSlotsListSaveCommand();
 
 };
 

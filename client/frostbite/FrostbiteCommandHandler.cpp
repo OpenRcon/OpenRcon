@@ -54,15 +54,21 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
         { "version",                  &FrostbiteCommandHandler::parseVersionCommand },
 
         // BanList
-        { "banList.add",              nullptr /*&Frostbite2CommandHandler::parseBanListAddCommand*/ },
-        { "banList.clear",            nullptr /*&Frostbite2CommandHandler::parseBanListClearCommand*/ },
+        { "banList.add",              nullptr /*&FrostbiteCommandHandler::parseBanListAddCommand*/ },
+        { "banList.clear",            nullptr /*&FrostbiteCommandHandler::parseBanListClearCommand*/ },
         { "banList.list",             &FrostbiteCommandHandler::parseBanListListCommand },
-        { "banList.load",             nullptr /*&Frostbite2CommandHandler::parseBanListLoadCommand*/ },
-        { "banList.remove",           nullptr /*&Frostbite2CommandHandler::parseBanListRemoveCommand*/ },
-        { "banList.save",             nullptr /*&Frostbite2CommandHandler::parseBanListSaveCommand*/ },
+        { "banList.load",             nullptr /*&FrostbiteCommandHandler::parseBanListLoadCommand*/ },
+        { "banList.remove",           nullptr /*&FrostbiteCommandHandler::parseBanListRemoveCommand*/ },
+        { "banList.save",             nullptr /*&FrostbiteCommandHandler::parseBanListSaveCommand*/ },
 
         // PunkBuster
-        { "punkBuster.pb_sv_command", nullptr /*&Frostbite2CommandHandler::parsePunkBusterPbSvCommand*/ }
+        { "punkBuster.pb_sv_command", nullptr /*&FrostbiteCommandHandler::parsePunkBusterPbSvCommand*/ },
+
+        // Reserved Slots
+        { "reservedSlotsList.clear",            nullptr /*&FrostbiteCommandHandler::parseReservedSlotsListClearCommand*/ },
+        { "reservedSlotsList.list",             &FrostbiteCommandHandler::parseReservedSlotsListListCommand },
+        { "reservedSlotsList.load",             nullptr /*&FrostbiteCommandHandler::parseReservedSlotsListLoadCommand*/ },
+        { "reservedSlotsList.save",             nullptr /*&FrostbiteCommandHandler::parseReservedSlotsListSaveCommand*/ },
     };
 
     if (responses.contains(request)) {
@@ -171,6 +177,30 @@ void FrostbiteCommandHandler::sendPunkBusterPbSvCommand(const QString &command)
     m_connection->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
 }
 
+// Reserved Slots
+void FrostbiteCommandHandler::sendReservedSlotsListClearCommand()
+{
+    m_connection->sendCommand("reservedSlotsList.clear");
+    sendReservedSlotsListListCommand();
+}
+
+void FrostbiteCommandHandler::sendReservedSlotsListListCommand()
+{
+    m_connection->sendCommand("reservedSlotsList.list");
+}
+
+void FrostbiteCommandHandler::sendReservedSlotsListLoadCommand()
+{
+    m_connection->sendCommand("reservedSlotsList.load");
+    sendReservedSlotsListListCommand();
+}
+
+void FrostbiteCommandHandler::sendReservedSlotsListSaveCommand()
+{
+    m_connection->sendCommand("reservedSlotsList.save");
+    sendReservedSlotsListListCommand();
+}
+
 /* Parse events */
 void FrostbiteCommandHandler::parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
@@ -252,12 +282,12 @@ void FrostbiteCommandHandler::parseVersionCommand(const FrostbiteRconPacket &pac
 }
 
 // BanList
-//void Frostbite2CommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//void FrostbiteCommandHandler::parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
 //}
 
-//void Frostbite2CommandHandler::parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//void FrostbiteCommandHandler::parseBanListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
 //}
@@ -286,23 +316,56 @@ void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket 
     }
 }
 
-//void Frostbite2CommandHandler::parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//void FrostbiteCommandHandler::parseBanListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
 //}
 
-//void Frostbite2CommandHandler::parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//void FrostbiteCommandHandler::parseBanListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
 //}
 
-//void Frostbite2CommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//void FrostbiteCommandHandler::parseBanListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
 //}
 
 // PunkBuster
 //void FrostbiteCommandHandler::parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+// Reserved Slots
+//void FrostbiteCommandHandler::parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+void FrostbiteCommandHandler::parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK") {
+        QStringList reservedSlotList;
+
+        for (unsigned int i = 1; i < packet.getWordCount(); i++) {
+            reservedSlotList.append(packet.getWord(i).getContent());
+        }
+
+        emit (onReservedSlotsListListCommand(reservedSlotList));
+    }
+}
+
+//void FrostbiteCommandHandler::parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+//{
+//    Q_UNUSED(packet);
+//}
+
+//void FrostbiteCommandHandler::parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
 //}

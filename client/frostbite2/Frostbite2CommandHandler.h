@@ -76,11 +76,7 @@ public:
     void sendReservedSlotsListAddCommand(const QString &player);
     void sendReservedSlotsListAggressiveJoinCommand();
     void sendReservedSlotsListAggressiveJoinCommand(bool enabled);
-    void sendReservedSlotsListClearCommand();
-    void sendReservedSlotsListListCommand();
-    void sendReservedSlotsListLoadCommand();
     void sendReservedSlotsListRemoveCommand(const QString &player);
-    void sendReservedSlotsListSaveCommand();
 
     // Squad
     void sendSquadLeaderCommand(int teamId, int squadId, const QString &player);
@@ -148,11 +144,7 @@ private:
     // Reserverd Slots
 //    void parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 //    void parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Squad
     void parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -217,11 +209,7 @@ signals:
     // Reserved Slots
 //    void onReservedSlotsListAddCommand();
     void onReservedSlotsListAggressiveJoinCommand(bool enabled);
-//    void onReservedSlotsListClearCommand();
-    void onReservedSlotsListListCommand(const QStringList &reservedSlotList);
-//    void onReservedSlotsListLoadCommand();
 //    void onReservedSlotsListRemoveCommand();
-//    void onReservedSlotsListSaveCommand();
 
     // Squad
     void onSquadLeaderCommand(const QString &player);

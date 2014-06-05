@@ -90,11 +90,7 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         // Reserved Slots
         { "reservedSlotsList.add",              nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListAddCommand*/ },
         { "reservedSlotsList.aggressiveJoin",   &Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand },
-        { "reservedSlotsList.clear",            nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListClearCommand*/ },
-        { "reservedSlotsList.list",             &Frostbite2CommandHandler::parseReservedSlotsListListCommand },
-        { "reservedSlotsList.load",             nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListLoadCommand*/ },
         { "reservedSlotsList.remove",           nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListRemoveCommand*/ },
-        { "reservedSlotsList.save",             nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListSaveCommand*/ },
 
         // Squad
         { "squad.leader",                       &Frostbite2CommandHandler::parseSquadLeaderCommand },
@@ -297,32 +293,9 @@ void Frostbite2CommandHandler::sendReservedSlotsListAggressiveJoinCommand(bool e
     m_connection->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
-void Frostbite2CommandHandler::sendReservedSlotsListClearCommand()
-{
-    m_connection->sendCommand("reservedSlotsList.clear");
-    sendReservedSlotsListListCommand();
-}
-
-void Frostbite2CommandHandler::sendReservedSlotsListListCommand()
-{
-    m_connection->sendCommand("reservedSlotsList.list");
-}
-
-void Frostbite2CommandHandler::sendReservedSlotsListLoadCommand()
-{
-    m_connection->sendCommand("reservedSlotsList.load");
-    sendReservedSlotsListListCommand();
-}
-
 void Frostbite2CommandHandler::sendReservedSlotsListRemoveCommand(const QString &player)
 {
     m_connection->sendCommand(QString("\"reservedSlotsList.remove\" \"%1\"").arg(player));
-    sendReservedSlotsListListCommand();
-}
-
-void Frostbite2CommandHandler::sendReservedSlotsListSaveCommand()
-{
-    m_connection->sendCommand("reservedSlotsList.save");
     sendReservedSlotsListListCommand();
 }
 
@@ -743,39 +716,7 @@ void Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand(const
     }
 }
 
-//void Frostbite2CommandHandler::parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-void Frostbite2CommandHandler::parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK") {
-        QStringList reservedSlotList;
-
-        for (unsigned int i = 1; i < packet.getWordCount(); i++) {
-            reservedSlotList.append(packet.getWord(i).getContent());
-        }
-
-        emit (onReservedSlotsListListCommand(reservedSlotList));
-    }
-}
-
-//void Frostbite2CommandHandler::parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
 //void Frostbite2CommandHandler::parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//}
-
-//void Frostbite2CommandHandler::parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 //{
 //    Q_UNUSED(packet);
 //}
