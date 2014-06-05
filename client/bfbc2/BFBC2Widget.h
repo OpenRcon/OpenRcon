@@ -28,6 +28,7 @@ class QMenu;
 class QCompleter;
 class QSettings;
 class QListWidgetItem;
+
 class ChatWidget;
 class BanListWidget;
 class ConsoleWidget;

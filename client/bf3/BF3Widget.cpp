@@ -22,6 +22,7 @@
 #include "BF3Widget.h"
 #include "ui_BF3Widget.h"
 #include "BF3CommandHandler.h"
+#include "Frostbite2ServerInfo.h"
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
 #include "TeamEntry.h"
@@ -147,6 +148,7 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
     /* Commands */
     // Misc
     connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
+    connect(m_commandHandler, &BF3CommandHandler::onServerInfoCommand, this, &BF3Widget::onServerInfoCommand);
 
     /* User Interface */
 }
@@ -228,6 +230,11 @@ void BF3Widget::onLoginHashedCommand(bool auth)
             m_connection->hostDisconnect();
         }
     }
+}
+
+void BF3Widget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
+{
+    Q_UNUSED(serverInfo);
 }
 
 void BF3Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)

@@ -25,8 +25,10 @@
 class QMenu;
 class QAction;
 class QTreeWidgetItem;
+
 class FrostbiteConnection;
 class BF4CommandHandler;
+
 struct BF4ServerInfo;
 struct MapListEntry;
 

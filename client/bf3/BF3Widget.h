@@ -23,11 +23,13 @@
 #include "BF3.h"
 #include "FrostbiteConnection.h"
 
-struct PlayerInfo;
-enum class PlayerSubset;
 class ChatWidget;
 class ReservedSlotsWidget;
 class ConsoleWidget;
+
+struct Frostbite2ServerInfo;
+struct PlayerInfo;
+enum class PlayerSubset;
 
 namespace Ui {
     class BF3Widget;
@@ -76,6 +78,7 @@ private slots:
 
     // Misc
     void onLoginHashedCommand(bool auth);
+    void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
     // Admin

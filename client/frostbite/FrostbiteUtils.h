@@ -22,6 +22,7 @@
 
 class QString;
 class QStringList;
+
 struct Time;
 enum class Squad;
 

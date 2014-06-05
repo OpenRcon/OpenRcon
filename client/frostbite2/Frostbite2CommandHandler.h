@@ -76,7 +76,11 @@ public:
     void sendReservedSlotsListAddCommand(const QString &player);
     void sendReservedSlotsListAggressiveJoinCommand();
     void sendReservedSlotsListAggressiveJoinCommand(bool enabled);
+    void sendReservedSlotsListClearCommand();
+    void sendReservedSlotsListListCommand();
+    void sendReservedSlotsListLoadCommand();
     void sendReservedSlotsListRemoveCommand(const QString &player);
+    void sendReservedSlotsListSaveCommand();
 
     // Squad
     void sendSquadLeaderCommand(int teamId, int squadId, const QString &player);
@@ -131,7 +135,6 @@ public:
     void sendVarsVehicleSpawnAllowedCommand(bool enabled);
     void sendVarsVehicleSpawnDelayCommand(int percent = -1);
 
-
 protected:
     PlayerSubset getPlayerSubset(const QString &playerSubsetString);
     QString getPlayerSubsetString(const PlayerSubset &playerSubset);
@@ -140,17 +143,10 @@ private:
     /* Parse events */
     void parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerJoinEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerLeaveEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerSpawnEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePlayerKillEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerChatEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseServerLevelLoadedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     /* Parse commands */
     // Misc
@@ -189,10 +185,14 @@ private:
 //    void parsePunkBusterActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePunkBusterIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Reserverd Slots
+    // Reserved Slots
 //    void parseReservedSlotsListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseReservedSlotsListAggressiveJoinCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 //    void parseReservedSlotsListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+//    void onReservedSlotsListSaveCommand();
 
     // Squad
     void parseSquadLeaderCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -200,21 +200,14 @@ private:
     void parseSquadListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseSquadPrivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Vars
-    void parseVars3dSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    // Variables
     void parseVars3pCamCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsBulletDamageCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsGamePasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsHudCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsIdleBanRoundsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsKillCamCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsMiniMapCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsMiniMapSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsNameTagCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsOnlySquadLeaderSpawnCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsPlayerRespawnTimeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -222,15 +215,9 @@ private:
     void parseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsServerDescriptionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsServerMessageCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsServerNameCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsSoldierHealthCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsTeamKillCountForKickCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsTeamKillKickForBanCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsTeamKillValueDecreasePerSecondCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsUnlockModeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsVehicleSpawnAllowedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -239,17 +226,10 @@ signals:
     /* Event signals */
     void onPlayerAuthenticatedEvent(const QString &player);
     void onPlayerJoinEvent(const QString &player, const QString &guid);
-    void onPlayerLeaveEvent(const QString &player, const QString &info);
     void onPlayerSpawnEvent(const QString &player, int teamId);
     void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
-    void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
-    void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
-    void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
     void onServerMaxPlayerCountChangeEvent();
     void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
-    void onServerRoundOverEvent(int winningTeamId);
-    void onServerRoundOverPlayersEvent(const QString &playerInfo);
-    void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Command signals */
     // Misc
@@ -292,7 +272,11 @@ signals:
     // Reserved Slots
 //    void onReservedSlotsListAddCommand();
     void onReservedSlotsListAggressiveJoinCommand(bool enabled);
+//    void onReservedSlotsListClearCommand();
+    void onReservedSlotsListListCommand(const QStringList &reservedSlotList);
+//    void onReservedSlotsListLoadCommand();
 //    void onReservedSlotsListRemoveCommand();
+//    void onReservedSlotsListSaveCommand();
 
     // Squad
     void onSquadLeaderCommand(const QString &player);
@@ -300,21 +284,14 @@ signals:
     void onSquadListPlayersCommand(const QStringList &playerList);
     void onSquadPrivateCommand(bool isPrivate);
 
-    // Vars
-    void onVars3dSpottingCommand(bool enabled);
+    // Variables
     void onVars3pCamCommand(bool enabled);
     void onVarsAutoBalanceCommand(bool enabled);
     void onVarsBulletDamageCommand(int percent);
-    void onVarsFriendlyFireCommand(bool enabled);
     void onVarsGameModeCounterCommand(int percent);
-    void onVarsGamePasswordCommand(const QString &password);
     void onVarsHudCommand(bool enabled);
     void onVarsIdleBanRoundsCommand(int rounds);
-    void onVarsIdleTimeoutCommand(int seconds);
-    void onVarsKillCamCommand(bool enabled);
     void onVarsMaxPlayersCommand(int playerCount);
-    void onVarsMiniMapCommand(bool enabled);
-    void onVarsMiniMapSpottingCommand(bool enabled);
     void onVarsNameTagCommand(bool enabled);
     void onVarsOnlySquadLeaderSpawnCommand(bool enabled);
     void onVarsPlayerRespawnTimeCommand(int respawnTime);
@@ -322,15 +299,9 @@ signals:
     void onVarsRoundLockdownCountdownCommand(int seconds);
     void onVarsRoundRestartPlayerCountCommand(int players);
     void onVarsRoundStartPlayerCountCommand(int players);
-    void onVarsServerDescriptionCommand(const QString &description);
     void onVarsServerMessageCommand(const QString &message);
-    void onVarsServerNameCommand(const QString &name);
     void onVarsSoldierHealthCommand(int health);
-    void onVarsTeamKillCountForKickCommand(int count);
     void onVarsTeamKillKickForBanCommand(int count);
-    void onVarsTeamKillValueDecreasePerSecondCommand(int count);
-    void onVarsTeamKillValueForKickCommand(int count);
-    void onVarsTeamKillValueIncreaseCommand(int count);
     void onVarsUnlockModeCommand(const QString &type);
     void onVarsVehicleSpawnAllowedCommand(bool enabled);
     void onVarsVehicleSpawnDelayCommand(int delay);

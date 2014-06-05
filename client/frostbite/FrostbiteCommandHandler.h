@@ -24,6 +24,7 @@
 
 class FrostbiteConnection;
 class FrostbiteRconPacket;
+
 struct BanListEntry;
 
 class FrostbiteCommandHandler : public CommandHandler
@@ -56,18 +57,19 @@ public:
     // PunkBuster
     void sendPunkBusterPbSvCommand(const QString &command);
 
-    // Reserved Slots
-    void sendReservedSlotsListClearCommand();
-    void sendReservedSlotsListListCommand();
-    void sendReservedSlotsListLoadCommand();
-    void sendReservedSlotsListSaveCommand();
-
 protected:
     FrostbiteConnection *m_connection;
 
 private:
     /* Parse events */
+    void parsePlayerLeaveEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerChatEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     /* Parse commands */
     // Misc
@@ -88,15 +90,31 @@ private:
     // PunkBuster
 //    void parsePunkBusterPbSvCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Reserverd Slots
-//    void parseReservedSlotsListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseReservedSlotsListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parseReservedSlotsListLoadCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-//    void parseReservedSlotsListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    // Variables
+    void parseVars3dSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsGamePasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsKillCamCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsMiniMapCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsMiniMapSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsServerDescriptionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsServerNameCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsTeamKillCountForKickCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsTeamKillValueDecreasePerSecondCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 signals:
     /* Event signals */
+    void onPlayerLeaveEvent(const QString &player, const QString &info);
+    void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
+    void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
+    void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
     void onPunkBusterMessageEvent(const QString &message);
+    void onServerRoundOverEvent(int winningTeamId);
+    void onServerRoundOverPlayersEvent(const QString &playerInfo);
+    void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Command signals */
     // Misc
@@ -118,11 +136,20 @@ signals:
     // Punkbuster
     void onPunkBusterPbSvCommand();
 
-    // Reserved Slots
-//    void onReservedSlotsListClearCommand();
-    void onReservedSlotsListListCommand(const QStringList &reservedSlotList);
-//    void onReservedSlotsListLoadCommand();
-//    void onReservedSlotsListSaveCommand();
+    // Variables
+    void onVars3dSpottingCommand(bool enabled);
+    void onVarsFriendlyFireCommand(bool enabled);
+    void onVarsGamePasswordCommand(const QString &password);
+    void onVarsIdleTimeoutCommand(int seconds);
+    void onVarsKillCamCommand(bool enabled);
+    void onVarsMiniMapCommand(bool enabled);
+    void onVarsMiniMapSpottingCommand(bool enabled);
+    void onVarsServerDescriptionCommand(const QString &description);
+    void onVarsServerNameCommand(const QString &name);
+    void onVarsTeamKillCountForKickCommand(int count);
+    void onVarsTeamKillValueDecreasePerSecondCommand(int count);
+    void onVarsTeamKillValueForKickCommand(int count);
+    void onVarsTeamKillValueIncreaseCommand(int count);
 
 };
 

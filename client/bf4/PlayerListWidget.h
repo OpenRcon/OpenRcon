@@ -25,8 +25,10 @@
 #include "LevelEntry.h"
 
 class QClipboard;
+
 class FrostbiteConnection;
 class BF4CommandHandler;
+
 struct BF4ServerInfo;
 struct PlayerInfo;
 enum class PlayerSubset;

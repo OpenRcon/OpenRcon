@@ -24,6 +24,7 @@
 #include "FrostbiteConnection.h"
 
 class QTimer;
+
 class PlayerListWidget;
 class EventsWidget;
 class ChatWidget;
@@ -33,6 +34,7 @@ class BanListWidget;
 class ReservedSlotsWidget;
 class SpectatorSlotsWidget;
 class ConsoleWidget;
+
 struct BF4ServerInfo;
 
 namespace Ui {

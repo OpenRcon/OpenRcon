@@ -23,6 +23,7 @@
 #include <QWidget>
 
 class QCompleter;
+
 class FrostbiteConnection;
 class FrostbiteCommandHandler;
 

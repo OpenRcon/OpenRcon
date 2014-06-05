@@ -34,7 +34,7 @@ ChatWidget::ChatWidget(FrostbiteConnection *connection, QWidget *parent) :
     ui->setupUi(this);
 
     /* Events */
-    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
+    connect(m_commandHandler, &FrostbiteCommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
 
     /* Commands */
     connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);

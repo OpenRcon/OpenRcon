@@ -201,7 +201,7 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     connect(m_commandHandler, &BFBC2CommandHandler::onServerInfoCommand,                                                            this, &BFBC2Widget::onServerInfoCommand);
     connect(m_commandHandler, &BFBC2CommandHandler::onAdminListPlayersCommand,                                                      this, &BFBC2Widget::onAdminListPlayersCommand);
 
-    connect(m_commandHandler, &BFBC2CommandHandler::onVarsServerNameCommand, this, &BFBC2Widget::onVarsServerNameCommand);
+    connect(m_commandHandler, &FrostbiteCommandHandler::onVarsServerNameCommand, this, &BFBC2Widget::onVarsServerNameCommand);
     connect(m_commandHandler, &BFBC2CommandHandler::onVarsServerDescriptionCommand, this, &BFBC2Widget::onVarsServerDescriptionCommand);
     connect(m_commandHandler, &BFBC2CommandHandler::onVarsBannerUrlCommand, this, &BFBC2Widget::onVarsBannerUrlCommand);
     connect(m_commandHandler, &BFBC2CommandHandler::onVarsTextChatModerationModeCommand, this, &BFBC2Widget::onVarsTextChatModerationModeCommand);
