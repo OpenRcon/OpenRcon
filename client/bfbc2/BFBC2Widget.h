@@ -28,6 +28,9 @@ class QMenu;
 class QCompleter;
 class QSettings;
 class QListWidgetItem;
+class ChatWidget;
+class BanListWidget;
+class ConsoleWidget;
 
 namespace Ui {
     class BFBC2Widget;
@@ -47,6 +50,9 @@ public:
 
 private:
     Ui::BFBC2Widget *ui;
+    ChatWidget *chatWidget;
+    BanListWidget *banListWidget;
+    ConsoleWidget *consoleWidget;
 
     QAction *action_pl_sendmessage;
     QAction *action_pl_textchatmoderation_muted;
@@ -66,9 +72,6 @@ private:
 
     QTimer *commandRefreshTimer;
 
-    QStringList commandList;
-    QCompleter *completer;
-
     QMenu *menu_pl;
     QMenu *menu_pl_ban;
     QMenu *menu_pl_kick;
@@ -78,13 +81,9 @@ private:
     QMenu *menu_rs;
     QMenu *menu_ic;
 
-    QSettings *settings;
-
     void setAuthenticated(bool authenticated);
     void startupCommands(bool authenticated);
 //    void logEvent(const QString &event, const QString &message);
-//    void logChat(const QString &sender, const QString &message, const QString &target);
-    void logConsole(int type, const QString &message);
 
 private slots:
     /* Connection */
@@ -92,25 +91,8 @@ private slots:
     void onDisconnected();
 
     /* Events */
-    void onDataSentEvent(const QString &request);
-    void onDataReceivedEvent(const QString &response);
-
-    /* Event signals */
     void onPlayerJoinEvent(const QString &player);
-    void onPlayerAuthenticatedEvent(const QString &player, const QString &guid);
     void onPlayerLeaveEvent(const QString &player, const QString &info);
-    void onPlayerSpawnEvent(const QString &player, const QString &kit, const QStringList &weapons);
-    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
-    void onPlayerChatEvent(const QString &player, const QString &message, const QString &target);
-    void onPlayerKickedEvent(const QString &player, const QString &reason);
-    void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
-    void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
-    void onPunkBusterMessageEvent(const QString &message);
-    void onServerLoadingLevelEvent(const QString &levelName, int roundsPlayed, int roundsTotal);
-    void onServerLevelStartedEvent();
-    void onServerRoundOverEvent(int winningTeamId);
-    void onServerRoundOverPlayersEvent(const QString &playerInfo);
-    void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
     /* Commands */
     // Misc
@@ -122,7 +104,6 @@ private slots:
     void onVarsBannerUrlCommand(const QString &bannerUrl);
     void onMapListListCommand(const QStringList &mapList);
     void onMapListNextLevelIndexCommand(int index);
-    void onBanListListCommand(const QStringList &banList);
     void onReservedSlotsListCommand(const QStringList &reservedSlotList);
     void onVarsTextChatModerationModeCommand(const QString &mode);
     void onVarsTextChatSpamTriggerCountCommand(int count);
@@ -131,8 +112,7 @@ private slots:
     void onVarsIdleTimeoutCommand(int seconds);
 
     /* User Interface */
-
-    /* Players Tab */
+    /* Players */
     void treeWidget_pl_players_customContextMenuRequested(const QPoint &pos);
     void action_pl_sendmessage_triggered();
     void action_pl_textchatmoderation_muted_triggered();
@@ -165,7 +145,7 @@ private slots:
     void on_radioButton_op_tcm_moderated_clicked();
     void on_radioButton_op_tcm_muted_clicked();
 
-    /* Maplist Tab */
+    /* Maplist */
     void comboBox_ml_gamemode_currentIndexChanged(int index);
     void listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem*, QListWidgetItem*);
     void listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem* current);
@@ -176,13 +156,6 @@ private slots:
     void on_pushButton_ml_clear_clicked();
     void on_pushButton_ml_save_clicked();
 
-    /* Banlist Tab*/
-    void listWidget_bl_customContextMenuRequested(const QPoint &pos);
-    void action_bl_remove_triggered();
-    void on_pushButton_bl_ban_clicked();
-    void on_pushButton_bl_clear_clicked();
-    void on_pushButton_bl_save_clicked();
-
     /* Reserved Slots Tab */
     void listWidget_rs_customContextMenuRequested(const QPoint &pos);
     void action_rs_remove_triggered();
@@ -190,14 +163,6 @@ private slots:
     void on_pushButton_rs_load_clicked();
     void on_pushButton_rs_save_clicked();
     void on_pushButton_rs_clear_clicked();
-
-    /* Chat Tab */
-    void comboBox_ch_type_currentIndexChanged(int index);
-    void pushButton_ch_send_clicked();
-
-    /* Console Tab */
-    void on_pushButton_co_co_send_clicked();
-    void on_pushButton_co_pb_send_clicked();
 
     // TODO: Look over this.
     void slotMovePlayerTeam();

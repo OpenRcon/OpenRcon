@@ -31,12 +31,15 @@
 #include "GameModeEntry.h"
 #include "BFBC2LevelDictionary.h"
 
+#include "ChatWidget.h"
+#include "BanListWidget.h"
+#include "ConsoleWidget.h"
+
 BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new Ui::BFBC2Widget)
 {
     ui->setupUi(this);
 
     ui->label_op_so_bannerImage->hide();
-    ui->spinBox_ch_duration->hide();
 
     action_pl_sendmessage = new QAction(tr("Send message"), this);
     action_pl_textchatmoderation_muted = new QAction(tr("Muted"), this);
@@ -175,31 +178,22 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
         "levelVars.list"
     };
 
-    completer = new QCompleter(commandList, this);
-    ui->lineEdit_co_co->setCompleter(completer);
+    // Create tabs from widgets.
+    chatWidget = new ChatWidget(m_connection, this);
+    banListWidget = new BanListWidget(m_connection, this);
+    consoleWidget = new ConsoleWidget(m_connection, commandList, this);
+
+    ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
+    ui->tabWidget->addTab(banListWidget, QIcon(":/frostbite/icons/ban.png"), tr("Banlist"));
+    ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
     connect(m_connection, &Connection::onConnected,    this, &BFBC2Widget::onConnected);
     connect(m_connection, &Connection::onDisconnected, this, &BFBC2Widget::onDisconnected);
 
     /* Events */
-    connect(m_connection, &Connection::onDataSentEvent,     this, &BFBC2Widget::onDataSentEvent);
-    connect(m_connection, &Connection::onDataReceivedEvent, this, &BFBC2Widget::onDataReceivedEvent);
-
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerJoinEvent, this, &BFBC2Widget::onPlayerJoinEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerAuthenticatedEvent, this, &BFBC2Widget::onPlayerAuthenticatedEvent);
+    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerJoinEvent,  this, &BFBC2Widget::onPlayerJoinEvent);
     connect(m_commandHandler, &BFBC2CommandHandler::onPlayerLeaveEvent, this, &BFBC2Widget::onPlayerLeaveEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerSpawnEvent, this, &BFBC2Widget::onPlayerSpawnEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerKillEvent, this, &BFBC2Widget::onPlayerKillEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerChatEvent, this, &BFBC2Widget::onPlayerChatEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerKickedEvent, this, &BFBC2Widget::onPlayerKickedEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerSquadChangeEvent, this, &BFBC2Widget::onPlayerSquadChangeEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerTeamChangeEvent, this, &BFBC2Widget::onPlayerTeamChangeEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onServerLoadingLevelEvent, this, &BFBC2Widget::onServerLoadingLevelEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onServerLevelStartedEvent, this, &BFBC2Widget::onServerLevelStartedEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onServerRoundOverEvent, this, &BFBC2Widget::onServerRoundOverEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onServerRoundOverPlayersEvent, this, &BFBC2Widget::onServerRoundOverPlayersEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onServerRoundOverTeamScoresEvent, this, &BFBC2Widget::onServerRoundOverTeamScoresEvent);
 
     /* Commands */
     // Misc
@@ -216,7 +210,6 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     connect(m_commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamCoolDownTimeCommand, this, &BFBC2Widget::onVarsTextChatSpamCoolDownTimeCommand);
     connect(m_commandHandler, &BFBC2CommandHandler::onMapListListCommand, this, &BFBC2Widget::onMapListListCommand);
     connect(m_commandHandler, &BFBC2CommandHandler::onMapListNextLevelIndexCommand, this, &BFBC2Widget::onMapListNextLevelIndexCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onBanListListCommand, this, &BFBC2Widget::onBanListListCommand);
     connect(m_commandHandler, &BFBC2CommandHandler::onReservedSlotsListCommand, this, &BFBC2Widget::onReservedSlotsListCommand);
     connect(m_commandHandler, &BFBC2CommandHandler::onVarsIdleTimeoutCommand, this, &BFBC2Widget::onVarsIdleTimeoutCommand);
 
@@ -265,20 +258,6 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
 //    connect(ui->listWidget_ml_currentmaps,   &QListWidget::dropEvent,                                                this, &BFBC2Widget::slotAddMapToServer);
 //    connect(ui->listWidget_ml_avaliablemaps, &QListWidget::dropEvent,                                                this, &BFBC2Widget::slotRemoveMapFromServer);
 //    connect(ui->listWidget_ml_currentmaps,   &QListWidget::sameDropEvent,                                            this, &BFBC2Widget::playerListUpdate);
-
-    connect(ui->tableWidget_bl, &QTableWidget::customContextMenuRequested, this, &BFBC2Widget::listWidget_bl_customContextMenuRequested);
-    connect(action_bl_remove,   &QAction::triggered,                       this, &BFBC2Widget::action_bl_remove_triggered);
-
-    connect(ui->lineEdit_ch,      &QLineEdit::returnPressed,                                              this, &BFBC2Widget::pushButton_ch_send_clicked);
-    connect(ui->comboBox_ch_type, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BFBC2Widget::comboBox_ch_type_currentIndexChanged);
-
-    connect(action_rs_remove,       &QAction::triggered,                      this, &BFBC2Widget::action_rs_remove_triggered);
-    connect(ui->listWidget_rs,      &QListWidget::customContextMenuRequested, this, &BFBC2Widget::listWidget_rs_customContextMenuRequested);
-    connect(ui->lineEdit_rs_player, &QLineEdit::returnPressed,                this, &BFBC2Widget::on_pushButton_rs_reserve_clicked);
-
-    connect(ui->lineEdit_co_co, &QLineEdit::returnPressed, this, &BFBC2Widget::on_pushButton_co_co_send_clicked);
-    connect(ui->lineEdit_co_pb, &QLineEdit::returnPressed, this, &BFBC2Widget::on_pushButton_co_pb_send_clicked);
-
 }
 
 BFBC2Widget::~BFBC2Widget()
@@ -358,34 +337,6 @@ void BFBC2Widget::startupCommands(bool authenticated)
 //    ui->tableWidget_ev_events->resizeColumnsToContents();
 //}
 
-//void BFBC2Widget::logChat(const QString &sender, const QString &message, const QString &target)
-//{
-//    ui->textEdit_ch->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
-//}
-
-void BFBC2Widget::logConsole(int type, const QString &message)
-{
-    QString time = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
-
-    switch (type) {
-        case 0: // Server con->send
-            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
-            break;
-
-        case 1: // Server receive
-            ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
-            break;
-
-        case 2: // Punkbuster con->send
-            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
-            break;
-
-        case 3: // PunkBuster receive
-            ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
-            break;
-    }
-}
-
 /* Connection */
 void BFBC2Widget::onConnected()
 {
@@ -399,113 +350,19 @@ void BFBC2Widget::onDisconnected()
 //    logEvent("Disconnected", tr("Disconnected."));
 }
 
-/* Events */
-void BFBC2Widget::onDataSentEvent(const QString &request)
-{
-    logConsole(0, request);
-}
-
-void BFBC2Widget::onDataReceivedEvent(const QString &response)
-{
-    logConsole(1, response);
-}
-
 void BFBC2Widget::onPlayerJoinEvent(const QString &player)
 {
-    logConsole(0, tr("Player <b>%1</b> joined the game.").arg(player));
+    Q_UNUSED(player);
 
     m_connection->sendCommand("\"admin.listPlayers\" \"all\"");
-}
-
-void BFBC2Widget::onPlayerAuthenticatedEvent(const QString &player, const QString &guid)
-{
-    logConsole(0, tr("Player <b>%1</b> authenticated with GUID: <b>%2</b>.").arg(player).arg(guid));
 }
 
 void BFBC2Widget::onPlayerLeaveEvent(const QString &player, const QString &info)
 {
-    logConsole(0, tr("Player <b>%1</b> left the game.").arg(player).arg(info)); // TODO: Impelment score stuffs here?
+    Q_UNUSED(player);
+    Q_UNUSED(info);
 
     m_connection->sendCommand("\"admin.listPlayers\" \"all\"");
-}
-
-void BFBC2Widget::onPlayerSpawnEvent(const QString &player, const QString &kit, const QStringList &weaponList)
-{
-    logConsole(0, tr("Player <b>%1</b> spawned as <b>%2</b> and with <b>%3</b>, <b>%4</b> and <b>%5</b> selected.").arg(player).arg(kit).arg(weaponList.at(0)).arg(weaponList.at(1)).arg(weaponList.at(2))); // TODO: Implement dynamic length on selected weapons.
-}
-
-void BFBC2Widget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
-{
-    if (killer != victim) {
-        if (headshot) {
-            logConsole(0, tr("Player <b>%1</b> headshoted player <b>%2</b> using <b>%3</b>").arg(killer).arg(victim).arg(weapon));
-        } else {
-            logConsole(0, tr("Player <b>%1</b> killed player <b>%2</b> with <b>%3</b>").arg(killer).arg(victim).arg(weapon));
-        }
-    } else {
-        logConsole(0, tr("Player <b>%1</b> commited sucide using <b>%3</b>").arg(killer).arg(weapon));
-    }
-}
-
-void BFBC2Widget::onPlayerChatEvent(const QString &player, const QString &message, const QString &target)
-{
-    Q_UNUSED(target)
-
-    logConsole(4, tr("<b>%2</b>: %3").arg(player).arg(message));
-}
-
-void BFBC2Widget::onPlayerKickedEvent(const QString &player, const QString &reason)
-{
-    logConsole(0, tr("Player <b>%1</b> was kicked from the game, the reason was: <b>%2</b>.").arg(player).arg(reason));
-}
-
-void BFBC2Widget::onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId)
-{
-    Q_UNUSED(teamId);
-
-    if (squadId != 0) {
-        logConsole(0, tr("Player <b>%1</b> changed squad to <b>%3</b>.").arg(player).arg(FrostbiteUtils::getSquadName(squadId)));
-    }
-}
-
-void BFBC2Widget::onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId)
-{
-    Q_UNUSED(squadId);
-
-    logConsole(0, tr("Player <b>%1</b> changed team to <b>%2</b>.").arg(player).arg(teamId));
-}
-
-void BFBC2Widget::onPunkBusterMessageEvent(const QString &message)
-{
-    logConsole(5, message);
-}
-
-void BFBC2Widget::onServerLoadingLevelEvent(const QString &levelName, int roundsPlayed, int roundsTotal)
-{
-    Q_UNUSED(roundsPlayed);
-    Q_UNUSED(roundsTotal);
-
-    logConsole(0, tr("Loading level: <b>%1</b>").arg(levelName)); // TODO: Transelate internal level name to human readable.
-}
-
-void BFBC2Widget::onServerLevelStartedEvent()
-{
-    logConsole(0, tr("Level started"));
-}
-
-void BFBC2Widget::onServerRoundOverEvent(int winningTeamId)
-{
-    logConsole(0, tr("The round has just ended, and <b>%1</b> won").arg(winningTeamId));
-}
-
-void BFBC2Widget::onServerRoundOverPlayersEvent(const QString &playerInfo)
-{
-    logConsole(0, tr("The round has just ended, and <b>%1</b> is the final detailed player stats").arg(playerInfo)); // TODO: Check what this actually outputs.
-}
-
-void BFBC2Widget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
-{
-    logConsole(0, tr("The round has just ended, and <b>%1</b> is the final ticket/kill/life count for each team").arg(teamScores));
 }
 
 /* Commands */
@@ -679,12 +536,6 @@ void BFBC2Widget::onMapListListCommand(const QStringList &mapList)
 void BFBC2Widget::onMapListNextLevelIndexCommand(int index)
 {
     nextLevelIndex = index;
-}
-
-void BFBC2Widget::onBanListListCommand(const QStringList &banList)
-{
-    ui->tableWidget_bl->clearContents();
-    ui->tableWidget_bl->setRowCount(banList.size());
 }
 
 void BFBC2Widget::onReservedSlotsListCommand(const QStringList &reservedSlotList)
@@ -1068,48 +919,6 @@ void BFBC2Widget::on_pushButton_ml_save_clicked()
     m_connection->sendCommand("\"mapList.save\"");
 }
 
-// BanList
-void BFBC2Widget::listWidget_bl_customContextMenuRequested(const QPoint &pos)
-{
-    if (ui->tableWidget_bl->itemAt(pos)) {
-        menu_bl->exec(QCursor::pos());
-    }
-}
-
-void BFBC2Widget::action_bl_remove_triggered()
-{
-    QString id = ui->tableWidget_bl->currentItem()->text();
-    QString type = ui->comboBox_bl_type->currentText().toLower();
-
-    if (!id.isEmpty()) {
-        unbanPlayer(type, id);
-    }
-}
-
-void BFBC2Widget::on_pushButton_bl_ban_clicked()
-{
-    QString type = ui->comboBox_bl_type->currentText().toLower();
-    QString id = ui->lineEdit_bl_id->text();
-    QString timeout = ui->comboBox_bl_timeout->currentText().toLower();
-    QString reason = ui->lineEdit_bl_reason->text();
-
-    if (!id.isEmpty() || !reason.isEmpty()) {
-        banPlayer(type, id, timeout, reason);
-        ui->lineEdit_bl_id->clear();
-        ui->lineEdit_bl_reason->clear();
-    }
-}
-
-void BFBC2Widget::on_pushButton_bl_clear_clicked()
-{
-    m_connection->sendCommand("\"banList.clear\"");
-}
-
-void BFBC2Widget::on_pushButton_bl_save_clicked()
-{
-    m_connection->sendCommand("\"banList.save\"");
-}
-
 // Reserved slots
 void BFBC2Widget::listWidget_rs_customContextMenuRequested(const QPoint &pos)
 {
@@ -1148,60 +957,6 @@ void BFBC2Widget::on_pushButton_rs_clear_clicked()
 {
     m_connection->sendCommand("reservedSlots.clear");
     m_connection->sendCommand("reservedSlots.list");
-}
-
-// Chat
-void BFBC2Widget::pushButton_ch_send_clicked()
-{
-    int type = ui->comboBox_ch_type->currentIndex();
-
-    QString message = ui->lineEdit_ch->text();
-    int duration = ui->spinBox_ch_duration->value();
-    QString group = ui->comboBox_ch_target->currentText().toLower();
-
-    switch (type) {
-    case 0:
-        sendSayMessage(message, group);
-        break;
-    case 1:
-        sendYellMessage(message, duration, group);
-        break;
-    }
-
-    ui->lineEdit_ch->clear();
-}
-
-void BFBC2Widget::comboBox_ch_type_currentIndexChanged(int index)
-{
-    switch (index) {
-    case 0:
-        ui->spinBox_ch_duration->hide();
-        break;
-    case 1:
-        ui->spinBox_ch_duration->show();
-        break;
-    }
-}
-
-// Console
-void BFBC2Widget::on_pushButton_co_co_send_clicked()
-{
-    QString cmd = ui->lineEdit_co_co->text();
-
-    if (!cmd.isEmpty()) {
-        ui->lineEdit_co_co->clear();
-        m_connection->sendCommand(cmd);
-    }
-}
-
-void BFBC2Widget::on_pushButton_co_pb_send_clicked()
-{
-    QString cmd = ui->lineEdit_co_pb->text();
-
-    if (!cmd.isEmpty()) {
-        ui->lineEdit_co_pb->clear();
-        m_connection->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(cmd));
-    }
 }
 
 void BFBC2Widget::slotChangePlayerTeam(const QString &player, const QString &altTeam)
