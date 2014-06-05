@@ -19,19 +19,19 @@
 
 #include <QKeyEvent>
 
-#include "ConsoleLineEdit.h"
+#include "HistoryLineEdit.h"
 
-ConsoleLineEdit::ConsoleLineEdit(QWidget *parent) : QLineEdit(parent)
+HistoryLineEdit::HistoryLineEdit(QWidget *parent) : QLineEdit(parent)
 {
 
 }
 
-ConsoleLineEdit::~ConsoleLineEdit()
+HistoryLineEdit::~HistoryLineEdit()
 {
 
 }
 
-void ConsoleLineEdit::keyPressEvent(QKeyEvent *event)
+void HistoryLineEdit::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Up:

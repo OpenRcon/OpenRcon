@@ -17,28 +17,25 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONSOLELINEEDIT_H
-#define CONSOLELINEEDIT_H
+#ifndef HISTORYLINEEDIT_H
+#define HISTORYLINEEDIT_H
 
 #include <QLineEdit>
 
-class ConsoleLineEdit : public QLineEdit
+class HistoryLineEdit : public QLineEdit
 {
     Q_OBJECT
 
 public:
-    ConsoleLineEdit(QWidget *parent = nullptr);
-    ~ConsoleLineEdit();
+    HistoryLineEdit(QWidget *parent = nullptr);
+    ~HistoryLineEdit();
 
 private:
-    void keyPressEvent(QKeyEvent *event) override;
-
     QStringList historyList;
     QStringList::Iterator it;
 
-signals:
-    void keyPressed(Qt::Key key);
+    void keyPressEvent(QKeyEvent *event) override;
 
 };
 
-#endif // CONSOLELINEEDIT_H
+#endif // HISTORYLINEEDIT_H

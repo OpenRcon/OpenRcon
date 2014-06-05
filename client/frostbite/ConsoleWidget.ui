@@ -29,7 +29,7 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_10">
        <item row="1" column="0">
-        <widget class="ConsoleLineEdit" name="lineEdit_co_co">
+        <widget class="HistoryLineEdit" name="lineEdit_co_co">
          <property name="placeholderText">
           <string>Enter command to execute here...</string>
          </property>
@@ -77,7 +77,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="ConsoleLineEdit" name="lineEdit_co_pb">
+        <widget class="HistoryLineEdit" name="lineEdit_co_pb">
          <property name="placeholderText">
           <string>Enter command to execute here...</string>
          </property>
@@ -101,9 +101,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ConsoleLineEdit</class>
+   <class>HistoryLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>ConsoleLineEdit.h</header>
+   <header>HistoryLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources>
