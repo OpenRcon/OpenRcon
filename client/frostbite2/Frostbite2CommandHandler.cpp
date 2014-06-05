@@ -38,67 +38,102 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
 
     static QHash<QString, ResponseFunction> responses = {
         /* Events */
-        { "player.onAuthenticated",             &Frostbite2CommandHandler::parsePlayerAuthenticatedEvent },
-        { "player.onJoin",                      &Frostbite2CommandHandler::parsePlayerJoinEvent },
-        { "player.onLeave",                     &Frostbite2CommandHandler::parsePlayerLeaveEvent },
-        { "player.onSpawn",                     &Frostbite2CommandHandler::parsePlayerSpawnEvent },
-        { "player.onKill",                      &Frostbite2CommandHandler::parsePlayerKillEvent },
-        { "player.onChat",                      &Frostbite2CommandHandler::parsePlayerChatEvent },
-        { "player.onSquadChange",               &Frostbite2CommandHandler::parsePlayerSquadChangeEvent },
-        { "player.onTeamChange",                &Frostbite2CommandHandler::parsePlayerTeamChangeEvent },
-        { "server.onRoundOver",                 &Frostbite2CommandHandler::parseServerRoundOverEvent },
-        { "server.onRoundOverPlayers",          &Frostbite2CommandHandler::parseServerRoundOverPlayersEvent },
-        { "server.onRoundOverTeamScores",       &Frostbite2CommandHandler::parseServerRoundOverTeamScoresEvent },
+        { "player.onAuthenticated",              &Frostbite2CommandHandler::parsePlayerAuthenticatedEvent },
+        { "player.onJoin",                       &Frostbite2CommandHandler::parsePlayerJoinEvent },
+        { "player.onLeave",                      &Frostbite2CommandHandler::parsePlayerLeaveEvent },
+        { "player.onSpawn",                      &Frostbite2CommandHandler::parsePlayerSpawnEvent },
+        { "player.onKill",                       &Frostbite2CommandHandler::parsePlayerKillEvent },
+        { "player.onChat",                       &Frostbite2CommandHandler::parsePlayerChatEvent },
+        { "player.onSquadChange",                &Frostbite2CommandHandler::parsePlayerSquadChangeEvent },
+        { "player.onTeamChange",                 &Frostbite2CommandHandler::parsePlayerTeamChangeEvent },
+        { "server.onMaxPlayerCountChange",       &Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent },
+        { "server.onLevelLoaded",                &Frostbite2CommandHandler::parseServerLevelLoadedEvent },
+        { "server.onRoundOver",                  &Frostbite2CommandHandler::parseServerRoundOverEvent },
+        { "server.onRoundOverPlayers",           &Frostbite2CommandHandler::parseServerRoundOverPlayersEvent },
+        { "server.onRoundOverTeamScores",        &Frostbite2CommandHandler::parseServerRoundOverTeamScoresEvent },
 
         /* Commands */
         // Misc
 
         // Admin
-        { "admin.eventsEnabled",                &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
-        { "admin.help",                         &Frostbite2CommandHandler::parseAdminHelpCommand },
-        { "admin.kickPlayer",                   nullptr /*&Frostbite2CommandHandler::parseAdminKickPlayerCommand*/ },
-        { "admin.killPlayer",                   nullptr /*&Frostbite2CommandHandler::parseAdminKillPlayerCommand*/ },
-        { "admin.movePlayer",                   nullptr /*&Frostbite2CommandHandler::parseAdminMovePlayerCommand*/ },
-        { "admin.password",                     &Frostbite2CommandHandler::parseAdminPasswordCommand },
-        { "admin.say",                          nullptr /*&Frostbite2CommandHandler::parseAdminSayCommand*/ },
-        { "admin.yell",                         nullptr /*&Frostbite2CommandHandler::parseAdminYellCommand*/ },
+        { "admin.eventsEnabled",                 &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
+        { "admin.help",                          &Frostbite2CommandHandler::parseAdminHelpCommand },
+        { "admin.kickPlayer",                    nullptr /*&Frostbite2CommandHandler::parseAdminKickPlayerCommand*/ },
+        { "admin.killPlayer",                    nullptr /*&Frostbite2CommandHandler::parseAdminKillPlayerCommand*/ },
+        { "admin.movePlayer",                    nullptr /*&Frostbite2CommandHandler::parseAdminMovePlayerCommand*/ },
+        { "admin.password",                      &Frostbite2CommandHandler::parseAdminPasswordCommand },
+        { "admin.say",                           nullptr /*&Frostbite2CommandHandler::parseAdminSayCommand*/ },
+        { "admin.yell",                          nullptr /*&Frostbite2CommandHandler::parseAdminYellCommand*/ },
 
         // MapList
-        { "mapList.add",                        nullptr /*&Frostbite2CommandHandler::parseMapListAddCommand*/ },
-        { "mapList.availableMaps",              &Frostbite2CommandHandler::parseMapListAvailableMapsCommand },
-        { "mapList.clear",                      nullptr /*&Frostbite2CommandHandler::parseMapListClearCommand*/ },
-        { "mapList.endRound",                   nullptr /*&Frostbite2CommandHandler::parseMapListEndRoundCommand*/ },
-        { "mapList.getMapIndices",              &Frostbite2CommandHandler::parseMapListGetMapIndicesCommand },
-        { "mapList.getRounds",                  &Frostbite2CommandHandler::parseMapListGetRoundsCommand },
-        { "mapList.list",                       &Frostbite2CommandHandler::parseMapListListCommand },
-        { "mapList.load",                       nullptr /*&Frostbite2CommandHandler::parseMapListLoadCommand*/ },
-        { "mapList.remove",                     nullptr /*&Frostbite2CommandHandler::parseMapListRemoveCommand*/ },
-        { "mapList.restartRound",               nullptr /*&Frostbite2CommandHandler::parseMapListRestartRoundCommand*/ },
-        { "mapList.runNextRound",               nullptr /*&Frostbite2CommandHandler::parseMapListRunNextRoundCommand*/ },
-        { "mapList.save",                       nullptr /*&Frostbite2CommandHandler::parseMapListSaveCommand*/ },
-        { "mapList.setNextMapIndex",            nullptr /*&Frostbite2CommandHandler::parseMapListSetNextMapIndexCommand*/ },
+        { "mapList.add",                         nullptr /*&Frostbite2CommandHandler::parseMapListAddCommand*/ },
+        { "mapList.availableMaps",               &Frostbite2CommandHandler::parseMapListAvailableMapsCommand },
+        { "mapList.clear",                       nullptr /*&Frostbite2CommandHandler::parseMapListClearCommand*/ },
+        { "mapList.endRound",                    nullptr /*&Frostbite2CommandHandler::parseMapListEndRoundCommand*/ },
+        { "mapList.getMapIndices",               &Frostbite2CommandHandler::parseMapListGetMapIndicesCommand },
+        { "mapList.getRounds",                   &Frostbite2CommandHandler::parseMapListGetRoundsCommand },
+        { "mapList.list",                        &Frostbite2CommandHandler::parseMapListListCommand },
+        { "mapList.load",                        nullptr /*&Frostbite2CommandHandler::parseMapListLoadCommand*/ },
+        { "mapList.remove",                      nullptr /*&Frostbite2CommandHandler::parseMapListRemoveCommand*/ },
+        { "mapList.restartRound",                nullptr /*&Frostbite2CommandHandler::parseMapListRestartRoundCommand*/ },
+        { "mapList.runNextRound",                nullptr /*&Frostbite2CommandHandler::parseMapListRunNextRoundCommand*/ },
+        { "mapList.save",                        nullptr /*&Frostbite2CommandHandler::parseMapListSaveCommand*/ },
+        { "mapList.setNextMapIndex",             nullptr /*&Frostbite2CommandHandler::parseMapListSetNextMapIndexCommand*/ },
 
         // Player
-        { "player.idleDuration",                &Frostbite2CommandHandler::parsePlayerIdleDurationCommand },
-        { "player.isAlive",                     &Frostbite2CommandHandler::parsePlayerIsAliveCommand },
-        { "player.ping",                        &Frostbite2CommandHandler::parsePlayerPingCommand },
+        { "player.idleDuration",                 &Frostbite2CommandHandler::parsePlayerIdleDurationCommand },
+        { "player.isAlive",                      &Frostbite2CommandHandler::parsePlayerIsAliveCommand },
+        { "player.ping",                         &Frostbite2CommandHandler::parsePlayerPingCommand },
 
         // PunkBuster
-        { "punkBuster.activate",                nullptr /*&Frostbite2CommandHandler::parsePunkBusterActivateCommand*/ },
-        { "punkBuster.isActive",                &Frostbite2CommandHandler::parsePunkBusterIsActiveCommand },
+        { "punkBuster.activate",                 nullptr /*&Frostbite2CommandHandler::parsePunkBusterActivateCommand*/ },
+        { "punkBuster.isActive",                 &Frostbite2CommandHandler::parsePunkBusterIsActiveCommand },
 
         // Reserved Slots
-        { "reservedSlotsList.add",              nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListAddCommand*/ },
-        { "reservedSlotsList.aggressiveJoin",   &Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand },
-        { "reservedSlotsList.remove",           nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListRemoveCommand*/ },
+        { "reservedSlotsList.add",               nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListAddCommand*/ },
+        { "reservedSlotsList.aggressiveJoin",    &Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand },
+        { "reservedSlotsList.remove",            nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListRemoveCommand*/ },
 
         // Squad
-        { "squad.leader",                       &Frostbite2CommandHandler::parseSquadLeaderCommand },
-        { "squad.listActive",                   nullptr /*&Frostbite2CommandHandler::parseSquadListActiveCommand*/ },
-        { "squad.listPlayers",                  &Frostbite2CommandHandler::parseSquadListPlayersCommand },
-        { "squad.private",                      &Frostbite2CommandHandler::parseSquadPrivateCommand }
+        { "squad.leader",                        &Frostbite2CommandHandler::parseSquadLeaderCommand },
+        { "squad.listActive",                    nullptr /*&Frostbite2CommandHandler::parseSquadListActiveCommand*/ },
+        { "squad.listPlayers",                   &Frostbite2CommandHandler::parseSquadListPlayersCommand },
+        { "squad.private",                       &Frostbite2CommandHandler::parseSquadPrivateCommand },
 
         // Vars
+        { "vars.3dSpotting",                     &Frostbite2CommandHandler::parseVars3dSpottingCommand },
+        { "vars.3pCam",                          &Frostbite2CommandHandler::parseVars3pCamCommand },
+        { "vars.autoBalance",                    &Frostbite2CommandHandler::parseVarsAutoBalanceCommand },
+        { "vars.bulletDamage",                   &Frostbite2CommandHandler::parseVarsBulletDamageCommand },
+        { "vars.friendlyFire",                   &Frostbite2CommandHandler::parseVarsFriendlyFireCommand },
+        { "vars.gameModeCounter",                &Frostbite2CommandHandler::parseVarsGameModeCounterCommand },
+        { "vars.gamePassword",                   &Frostbite2CommandHandler::parseVarsGamePasswordCommand },
+        { "vars.hud",                            &Frostbite2CommandHandler::parseVarsHudCommand },
+        { "vars.idleBanRounds",                  &Frostbite2CommandHandler::parseVarsIdleBanRoundsCommand },
+        { "vars.idleTimeout",                    &Frostbite2CommandHandler::parseVarsIdleTimeoutCommand },
+        { "vars.killCam",                        &Frostbite2CommandHandler::parseVarsKillCamCommand },
+        { "vars.maxPlayers",                     &Frostbite2CommandHandler::parseVarsMaxPlayersCommand },
+        { "vars.miniMap",                        &Frostbite2CommandHandler::parseVarsMiniMapCommand },
+        { "vars.miniMapSpotting",                &Frostbite2CommandHandler::parseVarsMiniMapSpottingCommand },
+        { "vars.nameTag",                        &Frostbite2CommandHandler::parseVarsNameTagCommand },
+        { "vars.onlySquadLeaderSpawn",           &Frostbite2CommandHandler::parseVarsOnlySquadLeaderSpawnCommand },
+        { "vars.playerRespawnTime",              &Frostbite2CommandHandler::parseVarsPlayerRespawnTimeCommand },
+        { "vars.regenerateHealth",               &Frostbite2CommandHandler::parseVarsRegenerateHealthCommand },
+        { "vars.roundLockdownCountdown",         &Frostbite2CommandHandler::parseVarsRoundLockdownCountdownCommand },
+        { "vars.roundRestartPlayerCount",        &Frostbite2CommandHandler::parseVarsRoundRestartPlayerCountCommand },
+        { "vars.roundStartPlayerCount",          &Frostbite2CommandHandler::parseVarsRoundStartPlayerCountCommand },
+        { "vars.serverDescription",              &Frostbite2CommandHandler::parseVarsServerDescriptionCommand },
+        { "vars.serverMessage",                  &Frostbite2CommandHandler::parseVarsServerMessageCommand },
+        { "vars.serverName",                     &Frostbite2CommandHandler::parseVarsServerNameCommand },
+        { "vars.soldierHealth",                  &Frostbite2CommandHandler::parseVarsSoldierHealthCommand },
+        { "vars.teamKillCountForKick",           &Frostbite2CommandHandler::parseVarsTeamKillCountForKickCommand },
+        { "vars.teamKillKickForBan",             &Frostbite2CommandHandler::parseVarsTeamKillKickForBanCommand },
+        { "vars.teamKillValueDecreasePerSecond", &Frostbite2CommandHandler::parseVarsTeamKillValueDecreasePerSecondCommand },
+        { "vars.teamKillValueForKick",           &Frostbite2CommandHandler::parseVarsTeamKillValueForKickCommand },
+        { "vars.teamKillValueIncrease",          &Frostbite2CommandHandler::parseVarsTeamKillValueIncreaseCommand },
+        { "vars.unlockMode",                     &Frostbite2CommandHandler::parseVarsUnlockModeCommand },
+        { "vars.vehicleSpawnAllowed",            &Frostbite2CommandHandler::parseVarsVehicleSpawnAllowedCommand },
+        { "vars.vehicleSpawnDelay",              &Frostbite2CommandHandler::parseVarsVehicleSpawnDelayCommand }
     };
 
     if (responses.contains(request)) {
@@ -320,6 +355,315 @@ void Frostbite2CommandHandler::sendSquadPrivateCommand(int teamId, int squadId, 
     m_connection->sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(isPrivate)));
 }
 
+// Vars
+void Frostbite2CommandHandler::sendVars3dSpottingCommand()
+{
+    m_connection->sendCommand("vars.3dSpotting");
+}
+
+void Frostbite2CommandHandler::sendVars3dSpottingCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVars3pCamCommand()
+{
+    m_connection->sendCommand("vars.3pCam");
+}
+
+void Frostbite2CommandHandler::sendVars3pCamCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.3pCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsAutoBalanceCommand()
+{
+    m_connection->sendCommand("vars.autoBalance");
+}
+
+void Frostbite2CommandHandler::sendVarsAutoBalanceCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.autoBalance\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsBulletDamageCommand(int damage)
+{
+    if (damage == -1) {
+        m_connection->sendCommand("vars.bulletDamage");
+    } else {
+        m_connection->sendCommand(QString("\"vars.bulletDamage\" \"%1\"").arg(damage));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsFriendlyFireCommand()
+{
+    m_connection->sendCommand("vars.friendlyFire");
+}
+
+void Frostbite2CommandHandler::sendVarsFriendlyFireCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsGameModeCounterCommand(int scale)
+{
+    if (scale == -1) {
+        m_connection->sendCommand("vars.gameModeCounter");
+    } else {
+        m_connection->sendCommand(QString("\"vars.gameModeCounter\" \"%1\"").arg(scale));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsGamePasswordCommand(const QString &password)
+{
+    if (password == 0) {
+        m_connection->sendCommand("vars.gamePassword");
+    } else {
+        m_connection->sendCommand(QString("\"vars.gamePassword\" \"%1\"").arg(password));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsHudCommand()
+{
+    m_connection->sendCommand("vars.hud");
+}
+
+void Frostbite2CommandHandler::sendVarsHudCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.hud\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsIdleBanRoundsCommand(int rounds)
+{
+    if (rounds == -1) {
+        m_connection->sendCommand("vars.idleBanRounds");
+    } else {
+        m_connection->sendCommand(QString("\"vars.idleBanRounds\" \"%1\"").arg(rounds));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsIdleTimeoutCommand(int seconds)
+{
+    if (seconds == -1) {
+        m_connection->sendCommand("vars.idleTimeout");
+    } else {
+        m_connection->sendCommand(QString("\"vars.idleTimeout\" \"%1\"").arg(seconds));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsKillCamCommand()
+{
+    m_connection->sendCommand("vars.killCam");
+}
+
+void Frostbite2CommandHandler::sendVarsKillCamCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.killCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsMaxPlayersCommand(int players)
+{
+    if (players == -1) {
+        m_connection->sendCommand("vars.maxPlayers");
+    } else {
+        m_connection->sendCommand(QString("\"vars.maxPlayers\" \"%1\"").arg(players));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsMiniMapCommand()
+{
+    m_connection->sendCommand("vars.miniMap");
+}
+
+void Frostbite2CommandHandler::sendVarsMiniMapCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsMiniMapSpottingCommand()
+{
+    m_connection->sendCommand("vars.miniMapSpotting");
+}
+
+void Frostbite2CommandHandler::sendVarsMiniMapSpottingCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.miniMapSpotting\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsNameTagCommand()
+{
+    m_connection->sendCommand("vars.nameTag");
+}
+
+void Frostbite2CommandHandler::sendVarsNameTagCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.nameTag\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsOnlySquadLeaderSpawnCommand()
+{
+    m_connection->sendCommand("vars.onlySquadLeaderSpawn");
+}
+
+void Frostbite2CommandHandler::sendVarsOnlySquadLeaderSpawnCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.onlySquadLeaderSpawn\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsPlayerRespawnTimeCommand(int respawnTime)
+{
+    if (respawnTime == -1) {
+        m_connection->sendCommand("vars.playerRespawnTime");
+    } else {
+        m_connection->sendCommand(QString("\"vars.playerRespawnTime\" \"%1\"").arg(respawnTime));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsRegenerateHealthCommand()
+{
+    m_connection->sendCommand("vars.regenerateHealth");
+}
+
+void Frostbite2CommandHandler::sendVarsRegenerateHealthCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.regenerateHealth\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsRoundLockdownCountdownCommand(int seconds)
+{
+    if (seconds == -1) {
+        m_connection->sendCommand("vars.roundLockdownCountdown");
+    } else {
+        m_connection->sendCommand(QString("\"vars.roundLockdownCountdown\" \"%1\"").arg(seconds));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsRoundRestartPlayerCountCommand(int players)
+{
+    if (players == -1) {
+        m_connection->sendCommand("vars.roundRestartPlayerCount");
+    } else {
+        m_connection->sendCommand(QString("\"vars.roundRestartPlayerCount\" \"%1\"").arg(players));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsRoundStartPlayerCountCommand(int players)
+{
+    if (players == -1) {
+        m_connection->sendCommand("vars.roundStartPlayerCount");
+    } else {
+        m_connection->sendCommand(QString("\"vars.roundStartPlayerCount\" \"%1\"").arg(players));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsServerDescriptionCommand(const QString &description)
+{
+    if (description == 0) {
+        m_connection->sendCommand("vars.serverDescription");
+    } else {
+        m_connection->sendCommand(QString("\"vars.serverDescription\" \"%1\"").arg(description));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsServerMessageCommand(const QString &message)
+{
+    if (message == 0) {
+        m_connection->sendCommand("vars.serverMessage");
+    } else {
+        m_connection->sendCommand(QString("\"vars.serverMessage\" \"%1\"").arg(message));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsServerNameCommand(const QString &name)
+{
+    if (name == 0) {
+        m_connection->sendCommand("vars.serverName");
+    } else {
+        m_connection->sendCommand(QString("\"vars.serverName\" \"%1\"").arg(name));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsSoldierHealthCommand(int percent)
+{
+    if (percent == -1) {
+        m_connection->sendCommand("vars.soldierHealth");
+    } else {
+        m_connection->sendCommand(QString("\"vars.soldierHealth\" \"%1\"").arg(percent));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsTeamKillCountForKickCommand(int count)
+{
+    if (count == -1) {
+        m_connection->sendCommand("vars.teamKillCountForKick");
+    } else {
+        m_connection->sendCommand(QString("\"vars.teamKillCountForKick\" \"%1\"").arg(count));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsTeamKillKickForBanCommand(int count)
+{
+    if (count == -1) {
+        m_connection->sendCommand("vars.teamKillKickForBan");
+    } else {
+        m_connection->sendCommand(QString("\"vars.teamKillKickForBan\" \"%1\"").arg(count));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsTeamKillValueDecreasePerSecondCommand(int count)
+{
+    if (count == -1) {
+        m_connection->sendCommand("vars.teamKillValueDecreasePerSecond");
+    } else {
+        m_connection->sendCommand(QString("\"vars.teamKillValueDecreasePerSecond\" \"%1\"").arg(count));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsTeamKillValueForKickCommand(int count)
+{
+    if (count == -1) {
+        m_connection->sendCommand("vars.teamKillValueForKick");
+    } else {
+        m_connection->sendCommand(QString("\"vars.teamKillValueForKick\" \"%1\"").arg(count));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsTeamKillValueIncreaseCommand(int count)
+{
+    if (count == -1) {
+        m_connection->sendCommand("vars.teamKillValueIncrease");
+    } else {
+        m_connection->sendCommand(QString("\"vars.teamKillValueIncrease\" \"%1\"").arg(count));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsUnlockModeCommand(const QString &type)
+{
+    if (type == 0) {
+        m_connection->sendCommand("vars.unlockMode");
+    } else {
+        m_connection->sendCommand(QString("\"vars.unlockMode\" \"%1\"").arg(type));
+    }
+}
+
+void Frostbite2CommandHandler::sendVarsVehicleSpawnAllowedCommand()
+{
+    m_connection->sendCommand("vars.vehicleSpawnAllowed");
+}
+
+void Frostbite2CommandHandler::sendVarsVehicleSpawnAllowedCommand(bool enabled)
+{
+    m_connection->sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void Frostbite2CommandHandler::sendVarsVehicleSpawnDelayCommand(int percent)
+{
+    if (percent == -1) {
+        m_connection->sendCommand("vars.vehicleSpawnDelay");
+    } else {
+        m_connection->sendCommand(QString("\"vars.vehicleSpawnDelay\" \"%1\"").arg(percent));
+    }
+}
 
 /* Parse events */
 void Frostbite2CommandHandler::parsePlayerAuthenticatedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -404,6 +748,26 @@ void Frostbite2CommandHandler::parsePlayerTeamChangeEvent(const FrostbiteRconPac
     int squadId = FrostbiteUtils::toInt(packet.getWord(3).getContent());
 
     emit (onPlayerTeamChangeEvent(player, teamId, squadId));
+}
+
+void Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(packet);
+    Q_UNUSED(lastSentPacket);
+
+    // TODO: Implement this, not implemented yet as i don't have any docs for this and i could trigger the event.
+}
+
+void Frostbite2CommandHandler::parseServerLevelLoadedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString levelName = packet.getWord(1).getContent();
+    QString gameModeName = packet.getWord(2).getContent();
+    int roundsPlayed = QString(packet.getWord(3).getContent()).toInt();
+    int roundsTotal = QString(packet.getWord(4).getContent()).toInt();
+
+    emit (onServerLevelLoadedEvent(levelName, gameModeName, roundsPlayed, roundsTotal));
 }
 
 void Frostbite2CommandHandler::parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -768,6 +1132,436 @@ void Frostbite2CommandHandler::parseSquadPrivateCommand(const FrostbiteRconPacke
         bool isPrivate = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onSquadPrivateCommand(isPrivate));
+    }
+}
+
+// Vars
+void Frostbite2CommandHandler::parseVars3dSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVars3dSpottingCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVars3pCamCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVars3pCamCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsAutoBalanceCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsAutoBalanceCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsBulletDamageCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsBulletDamageCommand(percent));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsFriendlyFireCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsFriendlyFireCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsGameModeCounterCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsGameModeCounterCommand(percent));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsGamePasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString password = packet.getWord(1).getContent();
+
+        emit (onVarsGamePasswordCommand(password));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsHudCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsHudCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsIdleBanRoundsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int rounds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsIdleBanRoundsCommand(rounds));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsIdleTimeoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int seconds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsIdleTimeoutCommand(seconds));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsKillCamCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsKillCamCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int playerCount = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsMaxPlayersCommand(playerCount));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsMiniMapCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsMiniMapCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsMiniMapSpottingCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsMiniMapSpottingCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsNameTagCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsNameTagCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsOnlySquadLeaderSpawnCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsOnlySquadLeaderSpawnCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsPlayerRespawnTimeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int respawnTime = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsPlayerRespawnTimeCommand(respawnTime));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsRegenerateHealthCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsRegenerateHealthCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsRoundLockdownCountdownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int seconds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsRoundLockdownCountdownCommand(seconds));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsRoundRestartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int players = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsRoundRestartPlayerCountCommand(players));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsRoundStartPlayerCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int players = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsRoundStartPlayerCountCommand(players));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsServerDescriptionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString description = packet.getWord(1).getContent();
+
+        emit (onVarsServerDescriptionCommand(description));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsServerMessageCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString message = packet.getWord(1).getContent();
+
+        emit (onVarsServerMessageCommand(message));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsServerNameCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString name = packet.getWord(1).getContent();
+
+        emit (onVarsServerNameCommand(name));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsSoldierHealthCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int health = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsSoldierHealthCommand(health));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsTeamKillCountForKickCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillCountForKickCommand(count));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsTeamKillKickForBanCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillKickForBanCommand(count));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsTeamKillValueDecreasePerSecondCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillValueDecreasePerSecondCommand(count));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillValueForKickCommand(count));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsTeamKillValueIncreaseCommand(count));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsUnlockModeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString type = packet.getWord(1).getContent();
+
+        emit (onVarsUnlockModeCommand(type));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsVehicleSpawnAllowedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        emit (onVarsVehicleSpawnAllowedCommand(enabled));
+    }
+}
+
+void Frostbite2CommandHandler::parseVarsVehicleSpawnDelayCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        int delay = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsVehicleSpawnDelayCommand(delay));
     }
 }
 
