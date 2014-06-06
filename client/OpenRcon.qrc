@@ -16,6 +16,7 @@
         <file alias="report-bug.png">images/icons/report-bug.png</file>
         <file alias="internet.png">images/icons/internet.png</file>
         <file alias="plugins.png">images/icons/plugins.png</file>
+        <file alias="add.png">images/icons/add.png</file>
     </qresource>
     <qresource prefix="/flags">
         <file>images/flags/algeria.png</file>

@@ -29,8 +29,8 @@
         <string>Add</string>
        </property>
        <property name="icon">
-        <iconset resource="../frostbite/Frostbite.qrc">
-         <normaloff>:/frostbite/icons/add.png</normaloff>:/frostbite/icons/add.png</iconset>
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
        </property>
       </widget>
      </item>
@@ -139,6 +139,7 @@
  </widget>
  <resources>
   <include location="../frostbite/Frostbite.qrc"/>
+  <include location="../OpenRcon.qrc"/>
  </resources>
  <connections/>
 </ui>

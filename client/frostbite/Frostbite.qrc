@@ -8,7 +8,6 @@
         <file alias="copy.png">images/copy.png</file>
         <file alias="reload.png">images/reload.png</file>
         <file alias="save.png">images/save.png</file>
-        <file alias="add.png">images/add.png</file>
         <file alias="clear.png">images/clear.png</file>
         <file alias="cur.png">images/cut.png</file>
         <file alias="delete.png">images/delete.png</file>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>473</width>
+    <height>332</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -178,8 +178,8 @@
         <string>Add</string>
        </property>
        <property name="icon">
-        <iconset resource="../frostbite/Frostbite.qrc">
-         <normaloff>:/frostbite/icons/add.png</normaloff>:/frostbite/icons/add.png</iconset>
+        <iconset resource="../OpenRcon.qrc">
+         <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
        </property>
       </widget>
      </item>
@@ -267,6 +267,7 @@
  </customwidgets>
  <resources>
   <include location="../frostbite/Frostbite.qrc"/>
+  <include location="../OpenRcon.qrc"/>
  </resources>
  <connections/>
 </ui>

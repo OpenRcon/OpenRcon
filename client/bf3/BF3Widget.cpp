@@ -40,7 +40,7 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
     QStringList commandList = {
         "login.plainText",
         "login.hashed",
-        "serverinfo",
+        "serverInfo",
         "admin.help",
         "logout",
         "quit",
