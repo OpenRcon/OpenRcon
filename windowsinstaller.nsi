@@ -82,6 +82,7 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
+  RequestExecutionLevel user
 
   Delete "$SMPROGRAMS\${PRODUCT_NAME}\${PRODUCT_NAME}.lnk"
   Delete "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk"

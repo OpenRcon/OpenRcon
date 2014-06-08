@@ -32,7 +32,8 @@ OptionsWidget::OptionsWidget(FrostbiteConnection *connection, QWidget *parent) :
 
     /* Commands */
     // Misc
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &OptionsWidget::onLoginHashedCommand);
+    connect(m_commandHandler, static_cast<void (BF4CommandHandler::*)(bool)>(&BF4CommandHandler::onLoginHashedCommand),
+            this, &OptionsWidget::onLoginHashedCommand);
 
     // Admin
     connect(m_commandHandler, &BF4CommandHandler::onAdminPasswordCommand,               this, &OptionsWidget::onAdminPasswordCommand);
@@ -68,6 +69,7 @@ OptionsWidget::OptionsWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(m_commandHandler, &BF4CommandHandler::onVarsNameTagCommand,                 this, &OptionsWidget::onVarsNameTagCommand);
     connect(m_commandHandler, &BF4CommandHandler::onVarsOnlySquadLeaderSpawnCommand,    this, &OptionsWidget::onVarsOnlySquadLeaderSpawnCommand);
     connect(m_commandHandler, &BF4CommandHandler::onVarsPlayerRespawnTimeCommand,       this, &OptionsWidget::onVarsPlayerRespawnTimeCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsPresetCommand,                  this, &OptionsWidget::onVarsPresetCommand);
     connect(m_commandHandler, &BF4CommandHandler::onVarsRegenerateHealthCommand,        this, &OptionsWidget::onVarsRegenerateHealthCommand);
     connect(m_commandHandler, &BF4CommandHandler::onVarsRoundLockdownCountdownCommand,  this, &OptionsWidget::onVarsRoundLockdownCountdownCommand);
     connect(m_commandHandler, &BF4CommandHandler::onVarsRoundRestartPlayerCountCommand, this, &OptionsWidget::onVarsRoundRestartPlayerCountCommand);
@@ -80,6 +82,7 @@ OptionsWidget::OptionsWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(m_commandHandler, &BF4CommandHandler::onVarsServerTypeCommand,              this, &OptionsWidget::onVarsServerTypeCommand);
     connect(m_commandHandler, &BF4CommandHandler::onVarsSoldierHealthCommand,           this, &OptionsWidget::onVarsSoldierHealthCommand);
     connect(m_commandHandler, &BF4CommandHandler::onVarsTicketBleedRateCommand,         this, &OptionsWidget::onVarsTicketBleedRateCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsUnlockModeCommand,              this, &OptionsWidget::onVarsUnlockModeCommand);
     connect(m_commandHandler, &BF4CommandHandler::onVarsVehicleSpawnAllowedCommand,     this, &OptionsWidget::onVarsVehicleSpawnAllowedCommand);
     connect(m_commandHandler, &BF4CommandHandler::onVarsVehicleSpawnDelayCommand,       this, &OptionsWidget::onVarsVehicleSpawnDelayCommand);
 
@@ -103,31 +106,36 @@ OptionsWidget::OptionsWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(ui->checkBox_so_co_commander,             &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_co_commander_toggled);
 
     // Options -> Gameplay
-    connect(ui->checkBox_so_gp_friendlyFire,              &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_friendlyFire_toggled);
-    connect(ui->checkBox_so_gp_autoBalance,               &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_autoBalance_toggled);
-    connect(ui->checkBox_so_gp_killCam,                   &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_killCam_toggled);
-    connect(ui->checkBox_so_gp_miniMap,                   &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_miniMap_toggled);
-    connect(ui->checkBox_so_gp_miniMapSpotting,           &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_miniMapSpotting_toggled);
-    connect(ui->checkBox_so_gp_3dSpotting,                &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_3dSpotting_toggled);
-    connect(ui->checkBox_so_gp_nameTag,                   &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_nameTag_toggled);
-    connect(ui->checkBox_so_gp_regenerateHealth,          &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_regenerateHealth_toggled);
-    connect(ui->checkBox_so_gp_hud,                       &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_hud_toggled);
-    connect(ui->checkBox_so_gp_onlySquadLeaderSpawn,      &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_onlySquadLeaderSpawn_toggled);
-    connect(ui->checkBox_so_gp_vehicleSpawnAllowed,       &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_vehicleSpawnAllowed_toggled);
-    connect(ui->checkBox_so_gp_hitIndicatorsEnabled,      &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_hitIndicatorsEnabled_toggled);
-    connect(ui->checkBox_so_gp_thirdPersonVehicleCameras, &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_thirdPersonVehicleCameras_toggled);
-    connect(ui->checkBox_so_gp_forceReloadWholeMags,      &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_gp_forceReloadWholeMags_toggled);
-    connect(ui->spinBox_so_gp_bulletDamage,               static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_bulletDamage_valueChanged);
-    connect(ui->spinBox_so_gp_soldierHealth,              static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_soldierHealth_valueChanged);
-    connect(ui->spinBox_so_gp_vehicleSpawnDelay,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_vehicleSpawnDelay_valueChanged);
-    connect(ui->spinBox_so_gp_playerRespawnTime,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_playerRespawnTime_valueChanged);
-    connect(ui->spinBox_so_gp_ticketBleedRate,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_ticketBleedRate_valueChanged);
-    connect(ui->spinBox_so_gp_gameModeCounter,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_gameModeCounter_valueChanged);
-    connect(ui->spinBox_so_gp_roundTimeLimit,             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_roundTimeLimit_valueChanged);
-    connect(ui->spinBox_so_gp_roundLockdownCountdown,     static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_roundLockdownCountdown_valueChanged);
-    connect(ui->spinBox_so_gp_roundWarmupTimeout,         static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_roundWarmupTimeout_valueChanged);
-    connect(ui->spinBox_so_gp_roundRestartPlayerCount,    static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_roundRestartPlayerCount_valueChanged);
-    connect(ui->spinBox_so_gp_roundStartPlayerCount,      static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_gp_roundStartPlayerCount_valueChanged);
+    connect(ui->checkBox_so_gp_friendlyFire,              &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_friendlyFire_toggled);
+    connect(ui->checkBox_so_gp_autoBalance,               &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_autoBalance_toggled);
+    connect(ui->checkBox_so_gp_killCam,                   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_killCam_toggled);
+    connect(ui->checkBox_so_gp_miniMap,                   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_miniMap_toggled);
+    connect(ui->checkBox_so_gp_miniMapSpotting,           &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_miniMapSpotting_toggled);
+    connect(ui->checkBox_so_gp_3dSpotting,                &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_3dSpotting_toggled);
+    connect(ui->checkBox_so_gp_nameTag,                   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_nameTag_toggled);
+    connect(ui->checkBox_so_gp_regenerateHealth,          &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_regenerateHealth_toggled);
+    connect(ui->checkBox_so_gp_hud,                       &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_hud_toggled);
+    connect(ui->checkBox_so_gp_onlySquadLeaderSpawn,      &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_onlySquadLeaderSpawn_toggled);
+    connect(ui->checkBox_so_gp_vehicleSpawnAllowed,       &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_vehicleSpawnAllowed_toggled);
+    connect(ui->checkBox_so_gp_hitIndicatorsEnabled,      &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_hitIndicatorsEnabled_toggled);
+    connect(ui->checkBox_so_gp_thirdPersonVehicleCameras, &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_thirdPersonVehicleCameras_toggled);
+    connect(ui->checkBox_so_gp_forceReloadWholeMags,      &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_forceReloadWholeMags_toggled);
+    connect(ui->spinBox_so_gp_bulletDamage,               static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_bulletDamage_valueChanged);
+    connect(ui->spinBox_so_gp_soldierHealth,              static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_soldierHealth_valueChanged);
+    connect(ui->spinBox_so_gp_vehicleSpawnDelay,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_vehicleSpawnDelay_valueChanged);
+    connect(ui->spinBox_so_gp_playerRespawnTime,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_playerRespawnTime_valueChanged);
+    connect(ui->spinBox_so_gp_ticketBleedRate,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_ticketBleedRate_valueChanged);
+    connect(ui->spinBox_so_gp_gameModeCounter,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_gameModeCounter_valueChanged);
+    connect(ui->spinBox_so_gp_roundTimeLimit,             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundTimeLimit_valueChanged);
+    connect(ui->spinBox_so_gp_roundLockdownCountdown,     static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundLockdownCountdown_valueChanged);
+    connect(ui->spinBox_so_gp_roundWarmupTimeout,         static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundWarmupTimeout_valueChanged);
+    connect(ui->spinBox_so_gp_roundRestartPlayerCount,    static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundRestartPlayerCount_valueChanged);
+    connect(ui->spinBox_so_gp_roundStartPlayerCount,      static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundStartPlayerCount_valueChanged);
+    connect(ui->comboBox_so_gp_preset,                    static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentTextChanged), this, &OptionsWidget::comboBox_so_gp_preset_currentIndexChanged);
+    connect(ui->checkBox_so_gp_presetLockPresetSetting,   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_presetLockPresetSetting_toggled);
+    connect(ui->comboBox_so_gp_unlockMode,                static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),           this, &OptionsWidget::comboBox_so_gp_unlockMode_currentIndexChanged);
+
+    // Options -> Teamkilling
 
 }
 
@@ -175,6 +183,7 @@ void OptionsWidget::onLoginHashedCommand(bool auth)
         m_commandHandler->sendVarsNameTagCommand();
         m_commandHandler->sendVarsOnlySquadLeaderSpawnCommand();
         m_commandHandler->sendVarsPlayerRespawnTimeCommand();
+        m_commandHandler->sendVarsPresetCommand();
         m_commandHandler->sendVarsRegenerateHealthCommand();
         m_commandHandler->sendVarsRoundLockdownCountdownCommand();
         m_commandHandler->sendVarsRoundRestartPlayerCountCommand();
@@ -187,6 +196,7 @@ void OptionsWidget::onLoginHashedCommand(bool auth)
         m_commandHandler->sendVarsServerTypeCommand();
         m_commandHandler->sendVarsSoldierHealthCommand();
         m_commandHandler->sendVarsTicketBleedRateCommand();
+        m_commandHandler->sendVarsUnlockModeCommand();
         m_commandHandler->sendVarsVehicleSpawnAllowedCommand();
         m_commandHandler->sendVarsVehicleSpawnDelayCommand();
     }
@@ -350,6 +360,24 @@ void OptionsWidget::onVarsPlayerRespawnTimeCommand(int respawnTime)
     ui->spinBox_so_gp_playerRespawnTime->setValue(respawnTime);
 }
 
+void OptionsWidget::onVarsPresetCommand(const QString &serverPreset, bool lockPresetSetting)
+{
+    int index;
+
+    if (serverPreset == "NORMAL") {
+        index = 0;
+    } else if (serverPreset == "HARDCORE") {
+        index = 1;
+    } else if (serverPreset == "INFANTRY") {
+        index = 2;
+    } else if (serverPreset == "CUSTOM") {
+        index = 3;
+    }
+
+    ui->comboBox_so_gp_preset->setCurrentIndex(index);
+    ui->checkBox_so_gp_presetLockPresetSetting->setChecked(lockPresetSetting);
+}
+
 void OptionsWidget::onVarsRegenerateHealthCommand(bool enabled)
 {
     ui->checkBox_so_gp_regenerateHealth->setChecked(enabled);
@@ -412,6 +440,23 @@ void OptionsWidget::onVarsSoldierHealthCommand(int health)
 void OptionsWidget::onVarsTicketBleedRateCommand(int percent)
 {
     ui->spinBox_so_gp_ticketBleedRate->setValue(percent);
+}
+
+void OptionsWidget::onVarsUnlockModeCommand(const QString &type)
+{
+    int index;
+
+    if (type == "none") {
+        index = 0;
+    } else if (type == "all") {
+        index = 1;
+    } else if (type == "common") {
+        index = 2;
+    } else if (type == "stats") {
+        index = 3;
+    }
+
+    ui->comboBox_so_gp_unlockMode->setCurrentIndex(index);
 }
 
 void OptionsWidget::onVarsVehicleSpawnAllowedCommand(bool enabled)
@@ -658,4 +703,43 @@ void OptionsWidget::spinBox_so_gp_roundRestartPlayerCount_valueChanged(int value
 void OptionsWidget::spinBox_so_gp_roundStartPlayerCount_valueChanged(int value)
 {
     m_commandHandler->sendVarsRoundStartPlayerCountCommand(value);
+}
+
+void OptionsWidget::comboBox_so_gp_preset_currentIndexChanged(const QString &text)
+{
+    bool presetLockPresetSetting = ui->checkBox_so_gp_presetLockPresetSetting->isChecked();
+
+    m_commandHandler->sendVarsPresetCommand(text.toLower(), presetLockPresetSetting);
+}
+
+void OptionsWidget::checkBox_so_gp_presetLockPresetSetting_toggled(bool checked)
+{
+    QString preset = ui->comboBox_so_gp_preset->currentText().toLower();
+
+    m_commandHandler->sendVarsPresetCommand(preset, checked);
+}
+
+void OptionsWidget::comboBox_so_gp_unlockMode_currentIndexChanged(int index)
+{
+    QString unlockMode;
+
+    switch (index) {
+    case 0:
+        unlockMode = "none";
+        break;
+
+    case 1:
+        unlockMode = "all";
+        break;
+
+    case 2:
+        unlockMode = "common";
+        break;
+
+    case 3:
+        unlockMode = "stats";
+        break;
+    }
+
+    m_commandHandler->sendVarsUnlockModeCommand(unlockMode);
 }
