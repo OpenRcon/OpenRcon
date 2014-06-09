@@ -38,7 +38,7 @@
         <string>Behavior</string>
        </property>
        <property name="icon">
-        <iconset resource="OpenRcon.qrc">
+        <iconset>
          <normaloff>:/icons/images/icons/options-behavior.png</normaloff>:/icons/images/icons/options-behavior.png</iconset>
        </property>
       </item>
@@ -47,7 +47,7 @@
         <string>Connection</string>
        </property>
        <property name="icon">
-        <iconset resource="OpenRcon.qrc">
+        <iconset>
          <normaloff>:/icons/images/icons/connection.png</normaloff>:/icons/images/icons/connection.png</iconset>
        </property>
       </item>
@@ -133,6 +133,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>listWidget</tabstop>
+  <tabstop>comboBox_be_language</tabstop>
+ </tabstops>
  <resources>
   <include location="OpenRcon.qrc"/>
  </resources>

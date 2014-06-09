@@ -186,12 +186,13 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>comboBox_game</tabstop>
   <tabstop>lineEdit_name</tabstop>
   <tabstop>lineEdit_host</tabstop>
   <tabstop>spinBox_port</tabstop>
   <tabstop>lineEdit_password</tabstop>
   <tabstop>checkBox_autoConnect</tabstop>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>comboBox_game</tabstop>
  </tabstops>
  <resources>
   <include location="OpenRcon.qrc"/>

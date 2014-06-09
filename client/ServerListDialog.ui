@@ -108,6 +108,9 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>pushButton_sld_add</tabstop>
+  <tabstop>pushButton_sld_connect</tabstop>
   <tabstop>treeWidget</tabstop>
  </tabstops>
  <resources>

@@ -315,8 +315,8 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>tabWidget</tabstop>
   <tabstop>pushButton_ab_close</tabstop>
+  <tabstop>tabWidget</tabstop>
   <tabstop>textBrowser_au</tabstop>
   <tabstop>textBrowser_cb</tabstop>
   <tabstop>textBrowser_tr</tabstop>
