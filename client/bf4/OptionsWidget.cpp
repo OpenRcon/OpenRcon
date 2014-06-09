@@ -362,7 +362,7 @@ void OptionsWidget::onVarsPlayerRespawnTimeCommand(int respawnTime)
 
 void OptionsWidget::onVarsPresetCommand(const QString &serverPreset, bool lockPresetSetting)
 {
-    int index;
+    int index = 0;
 
     if (serverPreset == "NORMAL") {
         index = 0;
@@ -444,7 +444,7 @@ void OptionsWidget::onVarsTicketBleedRateCommand(int percent)
 
 void OptionsWidget::onVarsUnlockModeCommand(const QString &type)
 {
-    int index;
+    int index = 0;
 
     if (type == "none") {
         index = 0;
