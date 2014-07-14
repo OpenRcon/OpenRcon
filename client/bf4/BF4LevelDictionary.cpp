@@ -25,10 +25,10 @@
 template<>
 QList<TeamEntry> BF4LevelDictionary::teamList = {
     /* List of all teams */
-    TeamEntry("Neutral", ""),
-    TeamEntry("RU", ":/bf4/teams/RU.png"),
-    TeamEntry("US", ":/bf4/teams/US.png"),
-    TeamEntry("CN", ":/bf4/teams/CN.png"),
+    TeamEntry("Neutral", ""),              // -1
+    TeamEntry("RU", ":/bf4/teams/RU.png"), // 0
+    TeamEntry("US", ":/bf4/teams/US.png"), // 1
+    TeamEntry("CN", ":/bf4/teams/CN.png"), // 3
 //    TeamEntry("CH", "") // TODO: This is from documentation, but seems to be a typo of CN.
 };
 
@@ -65,6 +65,10 @@ QList<LevelEntry> BF4LevelDictionary::levelList = {
     LevelEntry("XP2_004", "Operation Mortar", QList<int>({ 1, 3 }), ":/bf4/levels/operation_mortar.png"),           // 21
 
     // XP4 (Dragon's Teeth)
+    LevelEntry("XP3_MarketPl", "Pearl Market", QList<int>({ 0, 0 }), ":/bf4/levels/pearl_market.png"),              // 22
+    LevelEntry("XP3_Prpganda", "Propaganda", QList<int>({ 0, 0 }), ":/bf4/levels/propaganda.png"),                  // 23
+    LevelEntry("XP3_UrbanGrn", "Lumphini Garden", QList<int>({ 0, 0 }), ":/bf4/levels/lumphini_garden.png"),        // 24
+    LevelEntry("XP3_WtrFront", "Sunken Dragon", QList<int>({ 0, 0 }), ":/bf4/levels/sunken_dragon.png"),            // 25
 
     // XP5 (Final Stand)
 };
@@ -90,7 +94,6 @@ template<>
 QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     /* Levels and gamemodes combined */
     /* ConquestLarge0 */
-    { 0, 0 },
     { 0, 0 },
     { 0, 1 },
     { 0, 2 },
@@ -119,6 +122,14 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 0, 19 },
     { 0, 20 },
     { 0, 21 },
+
+    // XP4 (Dragon's Teeth)
+    { 0, 22 },
+    { 0, 23 },
+    { 0, 24 },
+    { 0, 25 },
+
+    // XP5 (Final Stand)
 
     /* ConquestSmall0 */
     { 1, 0 },
@@ -150,6 +161,14 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 1, 20 },
     { 1, 21 },
 
+    // XP4 (Dragon's Teeth)
+    { 1, 22 },
+    { 1, 23 },
+    { 1, 24 },
+    { 1, 25 },
+
+    // XP5 (Final Stand)
+
     /* Domination0 */
     { 2, 2 },
     { 2, 1 },
@@ -179,6 +198,14 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 2, 19 },
     { 2, 20 },
     { 2, 21 },
+
+    // XP4 (Dragon's Teeth)
+    { 2, 22 },
+    { 2, 23 },
+    { 2, 24 },
+    { 2, 25 },
+
+    // XP5 (Final Stand)
 
     /* Elemination0 */
     { 3, 0 },
@@ -210,6 +237,14 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 3, 20 },
     { 3, 21 },
 
+    // XP4 (Dragon's Teeth)
+    { 3, 22 },
+    { 3, 23 },
+    { 3, 24 },
+    { 3, 25 },
+
+    // XP5 (Final Stand)
+
     /* Obliteration */
     { 4, 0 },
     { 4, 1 },
@@ -239,6 +274,14 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 4, 19 },
     { 4, 20 },
     { 4, 21 },
+
+    // XP4 (Dragon's Teeth)
+    { 4, 22 },
+    { 4, 23 },
+    { 4, 24 },
+    { 4, 25 },
+
+    // XP5 (Final Stand)
 
     /* RushLarge0 */
     { 5, 0 },
@@ -270,6 +313,14 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 5, 20 },
     { 5, 21 },
 
+    // XP4 (Dragon's Teeth)
+    { 5, 22 },
+    { 5, 23 },
+    { 5, 24 },
+    { 5, 25 },
+
+    // XP5 (Final Stand)
+
     /* TeamDeathMatch0 */
     { 6, 0 },
     { 6, 1 },
@@ -300,6 +351,14 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 6, 20 },
     { 6, 21 },
 
+    // XP4 (Dragon's Teeth)
+    { 6, 22 },
+    { 6, 23 },
+    { 6, 24 },
+    { 6, 25 },
+
+    // XP5 (Final Stand)
+
     /* SquadDeathMatch0 */
     { 7, 0 },
     { 7, 1 },
@@ -329,6 +388,14 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 7, 19 },
     { 7, 20 },
     { 7, 21 },
+
+    // XP4 (Dragon's Teeth)
+    { 7, 22 },
+    { 7, 23 },
+    { 7, 24 },
+    { 7, 25 },
+
+    // XP5 (Final Stand)
 
     /* AirSuperiority0 */
 
