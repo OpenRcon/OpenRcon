@@ -67,7 +67,7 @@ QList<LevelEntry> BF4LevelDictionary::levelList = {
     // XP4 (Dragon's Teeth)
     LevelEntry("XP3_MarketPl", "Pearl Market", QList<int>({ 0, 0 }), ":/bf4/levels/pearl_market.png"),              // 22
     LevelEntry("XP3_Prpganda", "Propaganda", QList<int>({ 0, 0 }), ":/bf4/levels/propaganda.png"),                  // 23
-    LevelEntry("XP3_UrbanGrn", "Lumphini Garden", QList<int>({ 0, 0 }), ":/bf4/levels/lumphini_garden.png"),        // 24
+    LevelEntry("XP3_UrbanGdn", "Lumphini Garden", QList<int>({ 0, 0 }), ":/bf4/levels/lumphini_garden.png"),        // 24
     LevelEntry("XP3_WtrFront", "Sunken Dragon", QList<int>({ 0, 0 }), ":/bf4/levels/sunken_dragon.png"),            // 25
 
     // XP5 (Final Stand)
