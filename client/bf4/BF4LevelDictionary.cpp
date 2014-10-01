@@ -71,6 +71,11 @@ QList<LevelEntry> BF4LevelDictionary::levelList = {
     LevelEntry("XP3_WtrFront", "Sunken Dragon", QList<int>({ 2, 3 }), ":/bf4/levels/sunken_dragon.png"),            // 25
 
     // XP5 (Final Stand)
+    LevelEntry("XP4_Arctic", "Operation Whiteout", QList<int>({ 2, 1 }), ":/bf4/levels/operation_whiteout.png"),         // 26
+    LevelEntry("XP4_SubBase", "Hammerhead", QList<int>({ 2, 1 }), ":/bf4/levels/hammerhead.png"),                        // 27
+    LevelEntry("XP4_Titan", "Giants Of Karelia", QList<int>({ 2, 1 }), ":/bf4/levels/giants_of_karelia.png"),            // 28
+    LevelEntry("XP4_Wlkrftry", "Hangar 21", QList<int>({ 2, 1 }), ":/bf4/levels/hangar 21.png"),                         // 29
+
 };
 
 template<>
@@ -88,7 +93,7 @@ QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList = {
     BF4GameModeEntry("CaptureTheFlag0", "Capture the flag", 32, 0, 4),           // 9
     BF4GameModeEntry("CarrierAssaultLarge0", "Carrier Assault Large", 64, 0, 4), // 10
     BF4GameModeEntry("CarrierAssaultSmall0", "Carrier Assault Small", 64, 0, 4), // 11 Check this when docs are available.
-    BF4GameModeEntry("Chainlink0", "Chain Link", 64, 0, 4)                         // 11 Check this when docs are available.
+    BF4GameModeEntry("Chainlink0", "Chain Link", 64, 0, 4)                       // 12 Check this when docs are available.
 };
 
 template<>
@@ -131,6 +136,10 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 0, 25 },
 
     // XP5 (Final Stand)
+    { 0, 26 },
+    { 0, 27 },
+    { 0, 28 },
+    { 0, 29 },
 
     /* ConquestSmall0 */
     { 1, 0 },
@@ -169,6 +178,10 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 1, 25 },
 
     // XP5 (Final Stand)
+    { 1, 26 },
+    { 1, 27 },
+    { 1, 28 },
+    { 1, 29 },
 
     /* Domination0 */
     { 2, 2 },
@@ -207,6 +220,10 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 2, 25 },
 
     // XP5 (Final Stand)
+    { 2, 26 },
+    { 2, 27 },
+    { 2, 28 },
+    { 2, 29 },
 
     /* Elemination0 */
     { 3, 0 },
@@ -245,6 +262,10 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 3, 25 },
 
     // XP5 (Final Stand)
+    { 3, 26 },
+    { 3, 27 },
+    { 3, 28 },
+    { 3, 29 },
 
     /* Obliteration */
     { 4, 0 },
@@ -283,6 +304,10 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 4, 25 },
 
     // XP5 (Final Stand)
+    { 4, 26 },
+    { 4, 27 },
+    { 4, 28 },
+    { 4, 29 },
 
     /* RushLarge0 */
     { 5, 0 },
@@ -321,8 +346,12 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 5, 25 },
 
     // XP5 (Final Stand)
+    { 5, 26 },
+    { 5, 27 },
+    { 5, 28 },
+    { 5, 29 },
 
-    /* TeamDeathMatch0 */
+    /* SquadDeathMatch0 */
     { 6, 0 },
     { 6, 1 },
     { 6, 2 },
@@ -359,8 +388,12 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 6, 25 },
 
     // XP5 (Final Stand)
+    { 6, 26 },
+    { 6, 27 },
+    { 6, 28 },
+    { 6, 29 },
 
-    /* SquadDeathMatch0 */
+    /* TeamDeathMatch0 */
     { 7, 0 },
     { 7, 1 },
     { 7, 2 },
@@ -397,6 +430,10 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 7, 25 },
 
     // XP5 (Final Stand)
+    { 7, 26 },
+    { 7, 27 },
+    { 7, 28 },
+    { 7, 29 },
 
     /* AirSuperiority0 */
 
@@ -425,6 +462,12 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 9, 23 },
     { 9, 24 },
     { 9, 25 },
+
+    // XP5 (Final Stand)
+    { 9, 26 },
+    { 9, 27 },
+    { 9, 28 },
+    { 9, 29 },
 
     /* Carrier Assault Large */
 
