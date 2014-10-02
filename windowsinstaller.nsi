@@ -39,7 +39,7 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
   
-  File "../build-openrcon-Desktop_Qt_5_3_0_MinGW_32bit-Release\client\release\${PRODUCT_FILENAME}.exe"
+  File "../build-openrcon-Desktop_Qt_5_3_MinGW_32bit-Release\client\release\${PRODUCT_FILENAME}.exe"
   File "${QTDIR}\bin\Qt5Core.dll"
   File "${QTDIR}\bin\Qt5Gui.dll"
   File "${QTDIR}\bin\Qt5Network.dll"
@@ -82,7 +82,7 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
-  RequestExecutionLevel user
+  ;RequestExecutionLevel user
 
   Delete "$SMPROGRAMS\${PRODUCT_NAME}\${PRODUCT_NAME}.lnk"
   Delete "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk"
