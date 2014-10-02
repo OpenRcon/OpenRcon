@@ -30,7 +30,7 @@ struct MapListEntry
                  int rounds) :
         level(level),
         gameMode(gameMode),
-        rounds(rounds)
+        rounds(rounds = 0)
     {
 
     }

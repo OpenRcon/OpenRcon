@@ -27,7 +27,7 @@ struct TeamScores
     TeamScores(const QList<int> &scores,
                int targetScore) :
         scores(scores),
-        targetScore(targetScore)
+        targetScore(targetScore = 0)
     {
 
     }

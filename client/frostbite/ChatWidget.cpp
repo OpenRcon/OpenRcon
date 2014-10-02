@@ -84,7 +84,7 @@ void ChatWidget::pushButton_send_clicked()
 
     if (!message.isEmpty()) {
         PlayerSubset playerSubset;
-        int parameter;
+        int parameter = 0;
 
         switch (target) {
         case 0:
