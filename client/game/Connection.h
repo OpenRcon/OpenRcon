@@ -36,6 +36,7 @@ public:
 public slots:
     virtual void hostConnect(const QString &host, int port);
     virtual void hostDisconnect();
+    void hostReconnect();
 
 protected:
     void responseDataSentEvent(const QString &request);

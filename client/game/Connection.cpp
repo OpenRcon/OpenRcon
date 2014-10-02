@@ -22,6 +22,9 @@
 
 #include "Connection.h"
 
+#include "Game.h"
+#include "ServerEntry.h"
+
 Connection::Connection(QAbstractSocket *socket, QObject *parent) : QObject(parent), socket(socket)
 {
     connect(socket, &QAbstractSocket::connected,                                                                   this, &Connection::connected);
@@ -50,6 +53,17 @@ void Connection::hostDisconnect()
     } else {
         qDebug() << tr("Could not disconnect, because there was no open sockets to close.");
     }
+}
+
+void Connection::hostReconnect()
+{
+    // Store current connected host ip and port.
+    QString host = socket->peerAddress().toString();
+    int port = socket->peerPort();
+
+    // Disconnect from host and reconnect.
+    socket->disconnectFromHost();
+    socket->connectToHost(host, port);
 }
 
 void Connection::connected()

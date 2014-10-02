@@ -37,6 +37,7 @@
 #include "ServerListDialog.h"
 #include "OptionsDialog.h"
 #include "AboutDialog.h"
+#include "Game.h"
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
 {
@@ -73,6 +74,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     actionAbout->setShortcut(tr("Ctrl+A"));
     actionAboutQt = new QAction(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"), tr("About Qt"), this);
     actionAboutQt->setMenuRole(QAction::AboutQtRole);
+    actionTabReconnect = new QAction(tr("Reconnect"), this);
 
     // Menubar
     menuBar = new QMenuBar(this);
@@ -98,6 +100,9 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     menuHelp->addAction(actionAboutQt);
     setMenuBar(menuBar);
 
+    menuTab = new QMenu(this);
+    menuTab->addAction(actionTabReconnect);
+
     // Toolbar
     toolBar_quickConnect = new QToolBar(tr("Quick Connect"), this);
     toolBar_quickConnect->setFloatable(false);
@@ -118,6 +123,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     tabWidget->setDocumentMode(true);
     tabWidget->setMovable(true);
     tabWidget->setTabsClosable(true);
+    tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     setCentralWidget(tabWidget);
 
     // Statusbar
@@ -143,6 +149,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     connect(actionReportBug,     &QAction::triggered, this, &OpenRcon::actionReportBug_triggered);
     connect(actionAbout,         &QAction::triggered, this, &OpenRcon::actionAbout_triggered);
     connect(actionAboutQt,       &QAction::triggered, this, &OpenRcon::actionAboutQt_triggered);
+    connect(actionTabReconnect,  &QAction::triggered, this, &OpenRcon::actionTabReconnect_triggered);
 
     // Toolbars
     connect(pushButton_quickConnect_connect, &QPushButton::clicked,              this, &OpenRcon::pushButton_quickConnect_connect_clicked);
@@ -150,7 +157,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     connect(sessionManager,                  &SessionManager::onServerConnected, this, &OpenRcon::updateServerList);
 
     // TabWidget
-    connect(tabWidget, &QTabWidget::tabCloseRequested, this, &OpenRcon::closeTab);
+    connect(tabWidget, &QTabWidget::tabCloseRequested, this, &OpenRcon::tabWidget_tabCloseRequested);
+    connect(tabWidget, &QTabWidget::customContextMenuRequested, this, &OpenRcon::tabWidget_customContextMenuRequested);
 }
 
 OpenRcon::~OpenRcon()
@@ -246,9 +254,16 @@ void OpenRcon::updateServerList()
     }
 }
 
-void OpenRcon::closeTab(int index)
+void OpenRcon::tabWidget_tabCloseRequested(int index)
 {
     sessionManager->close(index);
+}
+
+void OpenRcon::tabWidget_customContextMenuRequested(const QPoint &pos)
+{
+    if (tabWidget->tabBar()->tabAt(pos) >= 0) {
+        menuTab->exec(QCursor::pos());
+    }
 }
 
 // Application menu
@@ -303,6 +318,13 @@ void OpenRcon::actionAbout_triggered()
 void OpenRcon::actionAboutQt_triggered()
 {
     QMessageBox::aboutQt(this);
+}
+
+void OpenRcon::actionTabReconnect_triggered()
+{
+    QWidget *widget = tabWidget->currentWidget();
+    Game *game = dynamic_cast<Game*>(widget);
+    game->getConnection()->hostReconnect();
 }
 
 // QuickConnect toolbar
