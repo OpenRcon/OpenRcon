@@ -29,7 +29,6 @@ QList<TeamEntry> BF4LevelDictionary::teamList = {
     TeamEntry("RU", ":/bf4/teams/RU.png"), // 1
     TeamEntry("US", ":/bf4/teams/US.png"), // 2
     TeamEntry("CN", ":/bf4/teams/CN.png"), // 3
-//    TeamEntry("CH", "") // TODO: This is from documentation, but seems to be a typo of CN.
 };
 
 template<>
@@ -87,12 +86,12 @@ QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList = {
     BF4GameModeEntry("Elimination0", "Defuse", 10, 0, 4),                        // 3
     BF4GameModeEntry("Obliteration", "Obliteration", 32, 2, 4),                  // 4
     BF4GameModeEntry("RushLarge0", "Rush", 32, 2, 4),                            // 5
-    BF4GameModeEntry("SquadDeathMatch0", "Squad Deathmatch", 20, 0, 4),          // 6
-    BF4GameModeEntry("TeamDeathMatch0", "Team Deathmatch", 20, 0, 4),            // 7
+    BF4GameModeEntry("SquadDeathMatch0", "Squad Deathmatch", 16, 0, 4),          // 6
+    BF4GameModeEntry("TeamDeathMatch0", "Team Deathmatch", 24, 0, 4),            // 7
     BF4GameModeEntry("AirSuperiority0", "Air Superiority", 24, 0, 4),            // 8
     BF4GameModeEntry("CaptureTheFlag0", "Capture the flag", 32, 0, 4),           // 9
-    BF4GameModeEntry("CarrierAssaultLarge0", "Carrier Assault Large", 64, 0, 4), // 10
-    BF4GameModeEntry("CarrierAssaultSmall0", "Carrier Assault Small", 64, 0, 4), // 11 Check this when docs are available.
+    BF4GameModeEntry("CarrierAssaultSmall0", "Carrier Assault Small", 32, 0, 4), // 10
+    BF4GameModeEntry("CarrierAssaultLarge0", "Carrier Assault Large", 64, 0, 4), // 11
     BF4GameModeEntry("Chainlink0", "Chain Link", 64, 0, 4)                       // 12 Check this when docs are available.
 };
 
@@ -469,7 +468,7 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 9, 28 },
     { 9, 29 },
 
-    /* Carrier Assault Large */
+    /* Carrier Assault Small */
 
     // XP3 (Naval Strike)
     { 10, 18 },
@@ -477,7 +476,7 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 10, 20 },
     { 10, 21 },
 
-    /* Carrier Assault Small */
+    /* Carrier Assault Large */
 
     // XP3 (Naval Strike)
     { 11, 18 },
