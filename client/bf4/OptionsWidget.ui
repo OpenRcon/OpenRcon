@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
+    <width>625</width>
     <height>473</height>
    </rect>
   </property>
@@ -600,6 +600,11 @@
            <item>
             <property name="text">
              <string>Normal</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Classic</string>
             </property>
            </item>
            <item>

@@ -366,13 +366,15 @@ void OptionsWidget::onVarsPresetCommand(const QString &serverPreset, bool lockPr
 
     if (serverPreset == "NORMAL") {
         index = 0;
-    } else if (serverPreset == "HARDCORE") {
+    } else if (serverPreset == "CLASSIC") {
         index = 1;
-    } else if (serverPreset == "INFANTRY") {
+    } else if (serverPreset == "HARDCORE") {
         index = 2;
-    } else if (serverPreset == "CUSTOM") {
+    } else if (serverPreset == "INFANTRY") {
         index = 3;
-    }
+    } else if (serverPreset == "CUSTOM") {
+        index = 4;
+    }  
 
     ui->comboBox_so_gp_preset->setCurrentIndex(index);
     ui->checkBox_so_gp_presetLockPresetSetting->setChecked(lockPresetSetting);
