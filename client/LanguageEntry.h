@@ -41,4 +41,7 @@ struct LanguageEntry
 
 };
 
+// For use with QVariant
+Q_DECLARE_METATYPE(LanguageEntry);
+
 #endif // LANGUAGEENTRY_H

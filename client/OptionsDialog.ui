@@ -18,6 +18,13 @@
     <normaloff>:/icons/openrcon.png</normaloff>:/icons/openrcon.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
+   <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
@@ -38,8 +45,8 @@
         <string>Behavior</string>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>:/icons/images/icons/options-behavior.png</normaloff>:/icons/images/icons/options-behavior.png</iconset>
+        <iconset resource="OpenRcon.qrc">
+         <normaloff>:/icons/options-behavior</normaloff>:/icons/options-behavior</iconset>
        </property>
       </item>
       <item>
@@ -47,8 +54,8 @@
         <string>Connection</string>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>:/icons/images/icons/connection.png</normaloff>:/icons/images/icons/connection.png</iconset>
+        <iconset resource="OpenRcon.qrc">
+         <normaloff>:/icons/connection.png</normaloff>:/icons/connection.png</iconset>
        </property>
       </item>
      </widget>
@@ -107,34 +114,9 @@
      </widget>
     </widget>
    </item>
-   <item row="1" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>buttonBox</tabstop>
   <tabstop>listWidget</tabstop>
   <tabstop>comboBox_be_language</tabstop>
  </tabstops>

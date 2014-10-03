@@ -19,6 +19,8 @@
 
 #include <QSettings>
 #include <QPushButton>
+#include <QMessageBox>
+#include <QProcess>
 
 #include "ui_OptionsDialog.h"
 #include "OptionsDialog.h"
@@ -32,43 +34,52 @@ OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Opti
     settings = new QSettings(APP_NAME, APP_NAME, this);
     languageManager = new LanguageManager(this);
 
-    // Add languages to comboBox_ge_language.
-    ui->comboBox_be_language->addItem(tr("System Default"));
-
-    for (LanguageEntry language : languageManager->getLanguages()) {
-        ui->comboBox_be_language->addItem(language.icon, language.name);
-    }
-
-    readSettings();
-
-    pushButton_ok = ui->buttonBox->button(QDialogButtonBox::Ok);
-    pushButton_cancel = ui->buttonBox->button(QDialogButtonBox::Cancel);
-    pushButton_apply = ui->buttonBox->button(QDialogButtonBox::Apply);
+    loadSettings();
 
     connect(ui->listWidget,    &QListWidget::currentItemChanged, this, &OptionsDialog::listWidget_currentItemChanged);
-    connect(pushButton_ok,     &QPushButton::clicked,            this, &OptionsDialog::pushButton_ok_clicked);
-    connect(pushButton_cancel, &QPushButton::clicked,            this, &QDialog::reject);
+    connect(ui->buttonBox,     &QDialogButtonBox::accepted,      this, &OptionsDialog::accept);
+    connect(ui->buttonBox,     &QDialogButtonBox::rejected,      this, &QDialog::reject);
 }
 
 OptionsDialog::~OptionsDialog()
 {
-    writeSettings();
-
     delete ui;
-    delete settings;
-    delete languageManager;
 }
 
-void OptionsDialog::readSettings()
+void OptionsDialog::loadSettings()
 {
-    QString language = settings->value("Settings/General/Language").toString();
+    // Add languages to comboBox_ge_language.
+    QList<LanguageEntry> languageList = languageManager->getLanguages();
+    languageList.insert(0, LanguageEntry(tr("System Default"), QLocale::system().name(), ""));
 
-    // TODO: Set the current language index here.
+    for (LanguageEntry language : languageList) {
+        ui->comboBox_be_language->addItem(language.icon, language.name, qVariantFromValue(language));
+    }
+
+    // Set index of combobox to selected language.
+    LanguageEntry language = languageManager->getLanguage(settings->value("Settings/General/Locale").toString());
+    int index = ui->comboBox_be_language->findData(qVariantFromValue(language));
+
+    if (index >= 0) {
+        ui->comboBox_be_language->setCurrentIndex(index);
+    }
 }
 
-void OptionsDialog::writeSettings()
+void OptionsDialog::saveSettings()
 {
+    LanguageEntry previousLanguage = languageManager->getLanguage(settings->value("Settings/General/Locale").toString());
+    LanguageEntry language = ui->comboBox_be_language->currentData().value<LanguageEntry>();
 
+    if (previousLanguage.code != language.code) {
+        settings->setValue("Settings/General/Locale", language.code);
+
+        int answer = QMessageBox::question(this, tr("Language changed"), tr("In order for language to change on user interface, you'll have to restart %1. Do you want to restart it now?").arg(Constants::APP_NAME));
+
+        if (answer == QMessageBox::Yes) {
+            // Restart the application process.
+            QProcess::startDetached(QApplication::applicationFilePath());
+        }
+    }
 }
 
 void OptionsDialog::listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
@@ -80,12 +91,9 @@ void OptionsDialog::listWidget_currentItemChanged(QListWidgetItem *current, QLis
     }
 }
 
-void OptionsDialog::pushButton_ok_clicked()
+void OptionsDialog::accept()
 {
-    int index = ui->comboBox_be_language->currentIndex();
-    QString language = index >= 1 ? languageManager->getLanguage(index - 1).code : QLocale::system().name();
-
-    settings->setValue("Settings/General/Language", language);
+    saveSettings();
 
     QDialog::accept();
 }

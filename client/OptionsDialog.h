@@ -53,12 +53,12 @@ private:
     QPushButton *pushButton_cancel;
     QPushButton *pushButton_apply;
 
-    void readSettings();
-    void writeSettings();
+    void loadSettings();
+    void saveSettings();
 
 private slots:
     void listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-    void pushButton_ok_clicked();
+    void accept();
 
 };
 

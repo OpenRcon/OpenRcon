@@ -35,8 +35,7 @@ SOURCES += Main.cpp \
     AboutDialog.cpp \
     SessionManager.cpp
 
-FORMS += \
-    ServerListDialog.ui \
+FORMS += ServerListDialog.ui \
     ServerEditDialog.ui \
     OptionsDialog.ui \
     AboutDialog.ui
