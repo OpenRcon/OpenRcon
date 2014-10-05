@@ -61,7 +61,7 @@ ConsoleWidget::~ConsoleWidget()
 
 void ConsoleWidget::logConsole(int type, const QString &message)
 {
-    QString time = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
+    QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
 
     switch (type) {
         case 0: // Server send
@@ -102,9 +102,6 @@ void ConsoleWidget::pushButton_co_co_clicked()
     QString command = ui->lineEdit_co_co->text();
 
     ui->lineEdit_co_co->clear();
-    commandHistory.append(command);
-    commandHistoryFirst = true;
-    commandHistoryIndex = commandHistory.length();
     m_connection->sendCommand(command);
 }
 
