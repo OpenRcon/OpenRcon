@@ -22,7 +22,6 @@
 #include "LevelEntry.h"
 #include "GameModeEntry.h"
 
-// TODO: More teams here?
 template<>
 QList<TeamEntry> BF3LevelDictionary::teamList = {
     TeamEntry("US", ""),
@@ -32,66 +31,66 @@ QList<TeamEntry> BF3LevelDictionary::teamList = {
 template<>
 QList<LevelEntry> BF3LevelDictionary::levelList = {
     /* List of all levels */
-    LevelEntry("MP_001", "Grand Bazaar", QList<int>({ 0, 0 }), ":/bf3/levels/grand_bazaar.png"),                  // 0
-    LevelEntry("MP_003", "Teheran Highway", QList<int>({ 0, 0 }), ":/bf3/levels/teheran_highway.png"),            // 1
-    LevelEntry("MP_007", "Caspian Border", QList<int>({ 0, 0 }), ":/bf3/levels/caspian_border.png"),              // 2
-    LevelEntry("MP_011", "Seine Crossing", QList<int>({ 0, 0 }), ":/bf3/levels/seine_crossing.png"),              // 3
-    LevelEntry("MP_012", "Operation Firestorm", QList<int>({ 0, 0 }), ":/bf3/levels/operation_firestorm.png"),    // 4
-    LevelEntry("MP_013", "Damavand Peak", QList<int>({ 0, 0 }), ":/bf3/levels/damavand_peak.png"),                // 5
-    LevelEntry("MP_017", "Noshahr Canals", QList<int>({ 0, 0 }), ":/bf3/levels/noshahr_canals.png"),              // 6
-    LevelEntry("MP_018", "Kharg Island", QList<int>({ 0, 0 }), ":/bf3/levels/kharg_island.png"),                  // 7
-    LevelEntry("MP_Subway", "Operation Metro", QList<int>({ 0, 0 }), ":/bf3/levels/operation_metro.png"),         // 8
+    LevelEntry("MP_001",        "Grand Bazaar",         QList<int>({ 0, 0 }), ":/bf3/levels/grand_bazaar.png"),         // 0
+    LevelEntry("MP_003",        "Teheran Highway",      QList<int>({ 0, 0 }), ":/bf3/levels/teheran_highway.png"),      // 1
+    LevelEntry("MP_007",        "Caspian Border",       QList<int>({ 0, 0 }), ":/bf3/levels/caspian_border.png"),       // 2
+    LevelEntry("MP_011",        "Seine Crossing",       QList<int>({ 0, 0 }), ":/bf3/levels/seine_crossing.png"),       // 3
+    LevelEntry("MP_012",        "Operation Firestorm",  QList<int>({ 0, 0 }), ":/bf3/levels/operation_firestorm.png"),  // 4
+    LevelEntry("MP_013",        "Damavand Peak",        QList<int>({ 0, 0 }), ":/bf3/levels/damavand_peak.png"),        // 5
+    LevelEntry("MP_017",        "Noshahr Canals",       QList<int>({ 0, 0 }), ":/bf3/levels/noshahr_canals.png"),       // 6
+    LevelEntry("MP_018",        "Kharg Island",         QList<int>({ 0, 0 }), ":/bf3/levels/kharg_island.png"),         // 7
+    LevelEntry("MP_Subway",     "Operation Metro",      QList<int>({ 0, 0 }), ":/bf3/levels/operation_metro.png"),      // 8
 
     // XP1 (Back to Karkand)
-    LevelEntry("XP1_001", "Strike at Karkand", QList<int>({ 0, 0 }), ":/bf3/levels/strike_at_karkand.png"),       // 9
-    LevelEntry("XP1_002", "Gulf of Oman", QList<int>({ 0, 0 }), ":/bf3/levels/gulf_of_oman.png"),                 // 10
-    LevelEntry("XP1_003", "Sharqi Peninsula", QList<int>({ 0, 0 }), ":/bf3/levels/sharqi_peninsula.png"),         // 11
-    LevelEntry("XP1_004", "Wake Island", QList<int>({ 0, 0 }), ":/bf3/levels/wake_island.png"),                   // 12
+    LevelEntry("XP1_001",       "Strike at Karkand",    QList<int>({ 0, 0 }), ":/bf3/levels/strike_at_karkand.png"),    // 9
+    LevelEntry("XP1_002",       "Gulf of Oman",         QList<int>({ 0, 0 }), ":/bf3/levels/gulf_of_oman.png"),         // 10
+    LevelEntry("XP1_003",       "Sharqi Peninsula",     QList<int>({ 0, 0 }), ":/bf3/levels/sharqi_peninsula.png"),     // 11
+    LevelEntry("XP1_004",       "Wake Island",          QList<int>({ 0, 0 }), ":/bf3/levels/wake_island.png"),          // 12
 
     // XP2 (Close Quarters)
-    LevelEntry("XP2_Factory", "Scrapmetal", QList<int>({ 0, 0 }), ":/bf3/levels/scrapmetal.png"),                 // 13
-    LevelEntry("XP2_Office", "Operation 925", QList<int>({ 0, 0 }), ":/bf3/levels/operation_925.png"),            // 14
-    LevelEntry("XP2_Palace", "Donya Fortress", QList<int>({ 0, 0 }), ":/bf3/levels/donya_fortress.png"),          // 15
-    LevelEntry("XP2_Skybar", "Ziba Tower", QList<int>({ 0, 0 }), ":/bf3/levels/ziba_tower.png"),                  // 16
+    LevelEntry("XP2_Factory",   "Scrapmetal",           QList<int>({ 0, 0 }), ":/bf3/levels/scrapmetal.png"),           // 13
+    LevelEntry("XP2_Office",    "Operation 925",        QList<int>({ 0, 0 }), ":/bf3/levels/operation_925.png"),        // 14
+    LevelEntry("XP2_Palace",    "Donya Fortress",       QList<int>({ 0, 0 }), ":/bf3/levels/donya_fortress.png"),       // 15
+    LevelEntry("XP2_Skybar",    "Ziba Tower",           QList<int>({ 0, 0 }), ":/bf3/levels/ziba_tower.png"),           // 16
 
     // XP3 (Armored Kill)
-    LevelEntry("XP3_Desert", "Bandar Desert", QList<int>({ 0, 0 }), ":/bf3/levels/bandar_desert.png"),            // 17
-    LevelEntry("XP3_Alborz", "Alborz Mountains", QList<int>({ 0, 0 }), ":/bf3/levels/alborz_mountains.png"),      // 18
-    LevelEntry("XP3_Shield", "Armored Shield", QList<int>({ 0, 0 }), ":/bf3/levels/armored_shield.png"),          // 19
-    LevelEntry("XP3_Valley", "Death Valley", QList<int>({ 0, 0 }), ":/bf3/levels/death_valley.png"),              // 20
+    LevelEntry("XP3_Desert",    "Bandar Desert",        QList<int>({ 0, 0 }), ":/bf3/levels/bandar_desert.png"),        // 17
+    LevelEntry("XP3_Alborz",    "Alborz Mountains",     QList<int>({ 0, 0 }), ":/bf3/levels/alborz_mountains.png"),     // 18
+    LevelEntry("XP3_Shield",    "Armored Shield",       QList<int>({ 0, 0 }), ":/bf3/levels/armored_shield.png"),       // 19
+    LevelEntry("XP3_Valley",    "Death Valley",         QList<int>({ 0, 0 }), ":/bf3/levels/death_valley.png"),         // 20
 
     // XP4 (Aftermath)
-    LevelEntry("XP4_Quake", "Epicenter", QList<int>({ 0, 0 }), ":/bf3/levels/epicenter.png"),                     // 21
-    LevelEntry("XP4_FD", "Markaz Monolith", QList<int>({ 0, 0 }), ":/bf3/levels/markaz_monolith.png"),            // 22
-    LevelEntry("XP4_Parl", "Azadi Palace", QList<int>({ 0, 0 }), ":/bf3/levels/azadi_palace.png"),                // 23
-    LevelEntry("XP4_Rubble", "Talah Market", QList<int>({ 0, 0 }), ":/bf3/levels/talah_market.png"),              // 24
+    LevelEntry("XP4_Quake",     "Epicenter",            QList<int>({ 0, 0 }), ":/bf3/levels/epicenter.png"),            // 21
+    LevelEntry("XP4_FD",        "Markaz Monolith",      QList<int>({ 0, 0 }), ":/bf3/levels/markaz_monolith.png"),      // 22
+    LevelEntry("XP4_Parl",      "Azadi Palace",         QList<int>({ 0, 0 }), ":/bf3/levels/azadi_palace.png"),         // 23
+    LevelEntry("XP4_Rubble",    "Talah Market",         QList<int>({ 0, 0 }), ":/bf3/levels/talah_market.png"),         // 24
 
     // XP5 (Endgame)
-    LevelEntry("XP5_001", "Operation Riverside", QList<int>({ 0, 0 }), ":/bf3/levels/operation_riverside.png"),   // 25
-    LevelEntry("XP5_002", "Nebandan Flats", QList<int>({ 0, 0 }), ":/bf3/levels/nebandan_flats.png"),             // 26
-    LevelEntry("XP5_003", "Kiasar Railroad", QList<int>({ 0, 0 }), ":/bf3/levels/kiasar_railroad.png"),           // 27
-    LevelEntry("XP5_004", "Sabalan Pipeline", QList<int>({ 0, 0 }), ":/bf3/levels/sabalan_pipeline.png")          // 28
+    LevelEntry("XP5_001",       "Operation Riverside",  QList<int>({ 0, 0 }), ":/bf3/levels/operation_riverside.png"),  // 25
+    LevelEntry("XP5_002",       "Nebandan Flats",       QList<int>({ 0, 0 }), ":/bf3/levels/nebandan_flats.png"),       // 26
+    LevelEntry("XP5_003",       "Kiasar Railroad",      QList<int>({ 0, 0 }), ":/bf3/levels/kiasar_railroad.png"),      // 27
+    LevelEntry("XP5_004",       "Sabalan Pipeline",     QList<int>({ 0, 0 }), ":/bf3/levels/sabalan_pipeline.png")      // 28
 };
 
 template<>
 QList<GameModeEntry> BF3LevelDictionary::gameModeList = {
     /* List of all gamemodes */
-    GameModeEntry("ConquestLarge0", "Conquest Large", 64),                // 0
-    GameModeEntry("ConquestSmall0", "Conquest Small", 32),                // 1
-    GameModeEntry("RushLarge0", "Rush", 32),                              // 2
-    GameModeEntry("SquadRush0", "Squad Rush", 8),                         // 3
-    GameModeEntry("SquadDeathMatch0", "Squad Deathmatch", 16),            // 4
-    GameModeEntry("TeamDeathMatch0", "Team Deathmatch", 24),              // 5
-    GameModeEntry("ConquestAssaultLarge0", "Conquest Assault Large", 64), // 6
-    GameModeEntry("ConquestAssaultSmall0", "Conquest Assault Small", 32), // 7
-    GameModeEntry("ConquestAssaultSmall1", "Conquest Assault Small", 32), // 8
-    GameModeEntry("Domination0", "Domination", 16),                       // 9
-    GameModeEntry("GunMaster0", "Gun master", 16),                        // 10
-    GameModeEntry("TeamDeathMatchC0", "TDM Close Quarters", 16),          // 11
-    GameModeEntry("TankSuperiority0", "Tank Superiority", 24),            // 12
-    GameModeEntry("Scavenger0", "Scavenger", 32),                         // 13
-    GameModeEntry("CaptureTheFlag0", "Capture The Flag", 32),             // 14
-    GameModeEntry("AirSuperiority0", "Air Superiority", 24)               // 15
+    GameModeEntry("ConquestLarge0",         "Conquest Large",           64), // 0
+    GameModeEntry("ConquestSmall0",         "Conquest Small",           32), // 1
+    GameModeEntry("RushLarge0",             "Rush",                     32), // 2
+    GameModeEntry("SquadRush0",             "Squad Rush",               8),  // 3
+    GameModeEntry("SquadDeathMatch0",       "Squad Deathmatch",         16), // 4
+    GameModeEntry("TeamDeathMatch0",        "Team Deathmatch",          24), // 5
+    GameModeEntry("ConquestAssaultLarge0",  "Conquest Assault Large",   64), // 6
+    GameModeEntry("ConquestAssaultSmall0",  "Conquest Assault Small",   32), // 7
+    GameModeEntry("ConquestAssaultSmall1",  "Conquest Assault Small",   32), // 8
+    GameModeEntry("Domination0",            "Domination",               16), // 9
+    GameModeEntry("GunMaster0",             "Gun master",               16), // 10
+    GameModeEntry("TeamDeathMatchC0",       "TDM Close Quarters",       16), // 11
+    GameModeEntry("TankSuperiority0",       "Tank Superiority",         24), // 12
+    GameModeEntry("Scavenger0",             "Scavenger",                32), // 13
+    GameModeEntry("CaptureTheFlag0",        "Capture The Flag",         32), // 14
+    GameModeEntry("AirSuperiority0",        "Air Superiority",          24)  // 15
 };
 
 template<>
