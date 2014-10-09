@@ -29,47 +29,50 @@ QList<TeamEntry> BF3LevelDictionary::teamList = {
 };
 
 template<>
+QString BF3LevelDictionary::imagePath = ":/bfbc2/levels";
+
+template<>
 QList<LevelEntry> BF3LevelDictionary::levelList = {
     /* List of all levels */
-    LevelEntry("MP_001",        "Grand Bazaar",         QList<int>({ 0, 0 }), ":/bf3/levels/grand_bazaar.png"),         // 0
-    LevelEntry("MP_003",        "Teheran Highway",      QList<int>({ 0, 0 }), ":/bf3/levels/teheran_highway.png"),      // 1
-    LevelEntry("MP_007",        "Caspian Border",       QList<int>({ 0, 0 }), ":/bf3/levels/caspian_border.png"),       // 2
-    LevelEntry("MP_011",        "Seine Crossing",       QList<int>({ 0, 0 }), ":/bf3/levels/seine_crossing.png"),       // 3
-    LevelEntry("MP_012",        "Operation Firestorm",  QList<int>({ 0, 0 }), ":/bf3/levels/operation_firestorm.png"),  // 4
-    LevelEntry("MP_013",        "Damavand Peak",        QList<int>({ 0, 0 }), ":/bf3/levels/damavand_peak.png"),        // 5
-    LevelEntry("MP_017",        "Noshahr Canals",       QList<int>({ 0, 0 }), ":/bf3/levels/noshahr_canals.png"),       // 6
-    LevelEntry("MP_018",        "Kharg Island",         QList<int>({ 0, 0 }), ":/bf3/levels/kharg_island.png"),         // 7
-    LevelEntry("MP_Subway",     "Operation Metro",      QList<int>({ 0, 0 }), ":/bf3/levels/operation_metro.png"),      // 8
+    LevelEntry("MP_001",        "Grand Bazaar",         QList<int>({ 0, 0 }), imagePath, "grand_bazaar.png"),         // 0
+    LevelEntry("MP_003",        "Teheran Highway",      QList<int>({ 0, 0 }), imagePath, "teheran_highway.png"),      // 1
+    LevelEntry("MP_007",        "Caspian Border",       QList<int>({ 0, 0 }), imagePath, "caspian_border.png"),       // 2
+    LevelEntry("MP_011",        "Seine Crossing",       QList<int>({ 0, 0 }), imagePath, "seine_crossing.png"),       // 3
+    LevelEntry("MP_012",        "Operation Firestorm",  QList<int>({ 0, 0 }), imagePath, "operation_firestorm.png"),  // 4
+    LevelEntry("MP_013",        "Damavand Peak",        QList<int>({ 0, 0 }), imagePath, "damavand_peak.png"),        // 5
+    LevelEntry("MP_017",        "Noshahr Canals",       QList<int>({ 0, 0 }), imagePath, "noshahr_canals.png"),       // 6
+    LevelEntry("MP_018",        "Kharg Island",         QList<int>({ 0, 0 }), imagePath, "kharg_island.png"),         // 7
+    LevelEntry("MP_Subway",     "Operation Metro",      QList<int>({ 0, 0 }), imagePath, "operation_metro.png"),      // 8
 
     // XP1 (Back to Karkand)
-    LevelEntry("XP1_001",       "Strike at Karkand",    QList<int>({ 0, 0 }), ":/bf3/levels/strike_at_karkand.png"),    // 9
-    LevelEntry("XP1_002",       "Gulf of Oman",         QList<int>({ 0, 0 }), ":/bf3/levels/gulf_of_oman.png"),         // 10
-    LevelEntry("XP1_003",       "Sharqi Peninsula",     QList<int>({ 0, 0 }), ":/bf3/levels/sharqi_peninsula.png"),     // 11
-    LevelEntry("XP1_004",       "Wake Island",          QList<int>({ 0, 0 }), ":/bf3/levels/wake_island.png"),          // 12
+    LevelEntry("XP1_001",       "Strike at Karkand",    QList<int>({ 0, 0 }), imagePath, "strike_at_karkand.png"),    // 9
+    LevelEntry("XP1_002",       "Gulf of Oman",         QList<int>({ 0, 0 }), imagePath, "gulf_of_oman.png"),         // 10
+    LevelEntry("XP1_003",       "Sharqi Peninsula",     QList<int>({ 0, 0 }), imagePath, "sharqi_peninsula.png"),     // 11
+    LevelEntry("XP1_004",       "Wake Island",          QList<int>({ 0, 0 }), imagePath, "wake_island.png"),          // 12
 
     // XP2 (Close Quarters)
-    LevelEntry("XP2_Factory",   "Scrapmetal",           QList<int>({ 0, 0 }), ":/bf3/levels/scrapmetal.png"),           // 13
-    LevelEntry("XP2_Office",    "Operation 925",        QList<int>({ 0, 0 }), ":/bf3/levels/operation_925.png"),        // 14
-    LevelEntry("XP2_Palace",    "Donya Fortress",       QList<int>({ 0, 0 }), ":/bf3/levels/donya_fortress.png"),       // 15
-    LevelEntry("XP2_Skybar",    "Ziba Tower",           QList<int>({ 0, 0 }), ":/bf3/levels/ziba_tower.png"),           // 16
+    LevelEntry("XP2_Factory",   "Scrapmetal",           QList<int>({ 0, 0 }), imagePath, "scrapmetal.png"),           // 13
+    LevelEntry("XP2_Office",    "Operation 925",        QList<int>({ 0, 0 }), imagePath, "operation_925.png"),        // 14
+    LevelEntry("XP2_Palace",    "Donya Fortress",       QList<int>({ 0, 0 }), imagePath, "donya_fortress.png"),       // 15
+    LevelEntry("XP2_Skybar",    "Ziba Tower",           QList<int>({ 0, 0 }), imagePath, "ziba_tower.png"),           // 16
 
     // XP3 (Armored Kill)
-    LevelEntry("XP3_Desert",    "Bandar Desert",        QList<int>({ 0, 0 }), ":/bf3/levels/bandar_desert.png"),        // 17
-    LevelEntry("XP3_Alborz",    "Alborz Mountains",     QList<int>({ 0, 0 }), ":/bf3/levels/alborz_mountains.png"),     // 18
-    LevelEntry("XP3_Shield",    "Armored Shield",       QList<int>({ 0, 0 }), ":/bf3/levels/armored_shield.png"),       // 19
-    LevelEntry("XP3_Valley",    "Death Valley",         QList<int>({ 0, 0 }), ":/bf3/levels/death_valley.png"),         // 20
+    LevelEntry("XP3_Desert",    "Bandar Desert",        QList<int>({ 0, 0 }), imagePath, "bandar_desert.png"),        // 17
+    LevelEntry("XP3_Alborz",    "Alborz Mountains",     QList<int>({ 0, 0 }), imagePath, "alborz_mountains.png"),     // 18
+    LevelEntry("XP3_Shield",    "Armored Shield",       QList<int>({ 0, 0 }), imagePath, "armored_shield.png"),       // 19
+    LevelEntry("XP3_Valley",    "Death Valley",         QList<int>({ 0, 0 }), imagePath, "death_valley.png"),         // 20
 
     // XP4 (Aftermath)
-    LevelEntry("XP4_Quake",     "Epicenter",            QList<int>({ 0, 0 }), ":/bf3/levels/epicenter.png"),            // 21
-    LevelEntry("XP4_FD",        "Markaz Monolith",      QList<int>({ 0, 0 }), ":/bf3/levels/markaz_monolith.png"),      // 22
-    LevelEntry("XP4_Parl",      "Azadi Palace",         QList<int>({ 0, 0 }), ":/bf3/levels/azadi_palace.png"),         // 23
-    LevelEntry("XP4_Rubble",    "Talah Market",         QList<int>({ 0, 0 }), ":/bf3/levels/talah_market.png"),         // 24
+    LevelEntry("XP4_Quake",     "Epicenter",            QList<int>({ 0, 0 }), imagePath, "epicenter.png"),            // 21
+    LevelEntry("XP4_FD",        "Markaz Monolith",      QList<int>({ 0, 0 }), imagePath, "markaz_monolith.png"),      // 22
+    LevelEntry("XP4_Parl",      "Azadi Palace",         QList<int>({ 0, 0 }), imagePath, "azadi_palace.png"),         // 23
+    LevelEntry("XP4_Rubble",    "Talah Market",         QList<int>({ 0, 0 }), imagePath, "talah_market.png"),         // 24
 
     // XP5 (Endgame)
-    LevelEntry("XP5_001",       "Operation Riverside",  QList<int>({ 0, 0 }), ":/bf3/levels/operation_riverside.png"),  // 25
-    LevelEntry("XP5_002",       "Nebandan Flats",       QList<int>({ 0, 0 }), ":/bf3/levels/nebandan_flats.png"),       // 26
-    LevelEntry("XP5_003",       "Kiasar Railroad",      QList<int>({ 0, 0 }), ":/bf3/levels/kiasar_railroad.png"),      // 27
-    LevelEntry("XP5_004",       "Sabalan Pipeline",     QList<int>({ 0, 0 }), ":/bf3/levels/sabalan_pipeline.png")      // 28
+    LevelEntry("XP5_001",       "Operation Riverside",  QList<int>({ 0, 0 }), imagePath, "operation_riverside.png"),  // 25
+    LevelEntry("XP5_002",       "Nebandan Flats",       QList<int>({ 0, 0 }), imagePath, "nebandan_flats.png"),       // 26
+    LevelEntry("XP5_003",       "Kiasar Railroad",      QList<int>({ 0, 0 }), imagePath, "kiasar_railroad.png"),      // 27
+    LevelEntry("XP5_004",       "Sabalan Pipeline",     QList<int>({ 0, 0 }), imagePath, "sabalan_pipeline.png")      // 28
 };
 
 template<>

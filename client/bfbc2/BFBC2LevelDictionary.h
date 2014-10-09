@@ -22,11 +22,12 @@
 
 #include "LevelDictionary.h"
 
-struct BFBC2LevelEntry;
+class BFBC2LevelEntry;
 
 typedef LevelDictionary<1, TeamEntry, BFBC2LevelEntry, GameModeEntry> BFBC2LevelDictionary;
 
 template<> QList<TeamEntry> BFBC2LevelDictionary::teamList;
+template<> QString BFBC2LevelDictionary::imagePath;
 template<> QList<BFBC2LevelEntry> BFBC2LevelDictionary::levelList;
 template<> QList<GameModeEntry> BFBC2LevelDictionary::gameModeList;
 template<> QMultiHash<int, int> BFBC2LevelDictionary::levelMap;

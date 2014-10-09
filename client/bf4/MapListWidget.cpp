@@ -97,8 +97,8 @@ void MapListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 
     int gameModeIndex = BF4LevelDictionary::getGameModeNames().indexOf(gameMode.name);
 
-    ui->label_ml_currentMapValue->setText(level.name);
-    ui->label_ml_currentMapImage->setPixmap(level.image());
+    ui->label_ml_currentMapValue->setText(level.getName());
+    ui->label_ml_currentMapImage->setPixmap(level.getImage());
 
     ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
     setAvailableMaplist(gameModeIndex);
@@ -121,7 +121,7 @@ void MapListWidget::treeWidget_ml_available_itemSelectionChanged()
 {
     LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
 
-    ui->label_ml_availableSelectedMapImage->setPixmap(level.image());
+    ui->label_ml_availableSelectedMapImage->setPixmap(level.getImage());
 }
 
 void MapListWidget::treeWidget_ml_available_customContextMenuRequested(const QPoint &pos)
@@ -186,7 +186,7 @@ void MapListWidget::setAvailableMaplist(int gameModeIndex)
     QList<LevelEntry> levelList = BF4LevelDictionary::getLevels(gameModeIndex);
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeIndex);
 
-    ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().image());
+    ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().getImage());
 
     for (LevelEntry level : levelList) {
         addAvailableMapListItem(level.name, gameMode.name);
@@ -206,7 +206,7 @@ void MapListWidget::treeWidget_ml_current_itemSelectionChanged()
     if (ui->treeWidget_ml_current->topLevelItemCount() > 1) {
         LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_current->currentItem()->text(0));
 
-        ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
+        ui->label_ml_currentSelectedMapImage->setPixmap(level.getImage());
     }
 }
 
@@ -246,7 +246,7 @@ void MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
         BF4GameModeEntry gameMode = BF4LevelDictionary::getGameMode(entry.gameMode);
 
         if (i == 0) {
-            ui->label_ml_currentSelectedMapImage->setPixmap(level.image());
+            ui->label_ml_currentSelectedMapImage->setPixmap(level.getImage());
         }
 
         addCurrentMapListItem(level.name, gameMode.name, entry.rounds);
@@ -264,7 +264,7 @@ void MapListWidget::addLevel(const QString &name, const QString &gameMode, int r
         LevelEntry levelEntry = BF4LevelDictionary::getLevel(name);
         BF4GameModeEntry gameModeEntry = BF4LevelDictionary::getGameMode(gameMode);
 
-        ui->label_ml_currentSelectedMapImage->setPixmap(levelEntry.image());
+        ui->label_ml_currentSelectedMapImage->setPixmap(levelEntry.getImage());
         addCurrentMapListItem(name, gameMode, rounds);
         m_commandHandler->sendMapListAddCommand(levelEntry.engineName, gameModeEntry.engineName, rounds);
     }

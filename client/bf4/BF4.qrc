@@ -3,6 +3,75 @@
         <file alias="bf4.png">images/icons/bf4.png</file>
         <file alias="spectator.png">images/icons/spectator.png</file>
     </qresource>
+    <qresource prefix="/bf4/teams">
+        <file alias="CN.png">images/teams/CN.png</file>
+        <file alias="US.png">images/teams/US.png</file>
+        <file alias="RU.png">images/teams/RU.png</file>
+    </qresource>
+    <qresource prefix="/bf4/levels">        
+        <file alias="zavod_311.png">images/levels/zavod_311.png</file>
+        <file alias="lancang_dam.png">images/levels/lancang_dam.png</file>
+        <file alias="flood_zone.png">images/levels/flood_zone.png</file>
+        <file alias="golmud_railway.png">images/levels/golmud_railway.png</file>
+        <file alias="paracel_storm.png">images/levels/paracel_storm.png</file>
+        <file alias="operation_locker.png">images/levels/operation_locker.png</file>
+        <file alias="hainan_resort.png">images/levels/hainan_resort.png</file>
+        <file alias="seige_of_shanghai.png">images/levels/seige_of_shanghai.png</file>
+        <file alias="rogue_transmission.png">images/levels/rogue_transmission.png</file>
+        <file alias="dawnbreaker.png">images/levels/dawnbreaker.png</file>
+
+        <file alias="silk_road.png">images/levels/silk_road.png</file>
+        <file alias="altai_range.png">images/levels/altai_range.png</file>
+        <file alias="guilin_peaks.png">images/levels/guilin_peaks.png</file>
+        <file alias="dragon_pass.png">images/levels/dragon_pass.png</file>
+
+        <file alias="caspian_border_2014.png">images/levels/caspian_border_2014.png</file>
+        <file alias="firestorm_2014.png">images/levels/firestorm_2014.png</file>
+        <file alias="operation_metro_2014.png">images/levels/operation_metro_2014.png</file>
+        <file alias="gulf_of_oman_2014.png">images/levels/gulf_of_oman_2014.png</file>
+
+        <file alias="lost_islands.png">images/levels/lost_islands.png</file>
+        <file alias="nansha_strike.png">images/levels/nansha_strike.png</file>
+        <file alias="wave_breaker.png">images/levels/wave_breaker.png</file>
+        <file alias="operation_mortar.png">images/levels/operation_mortar.png</file>
+
+        <file alias="pearl_market.png">images/levels/pearl_market.png</file>
+        <file alias="propaganda.png">images/levels/propaganda.png</file>
+        <file alias="lumphini_garden.png">images/levels/lumphini_garden.png</file>
+        <file alias="sunken_dragon.png">images/levels/sunken_dragon.png</file>
+    </qresource>
+    <qresource prefix="/bf4/levels/thumbnails">
+        <file alias="zavod_311.png">images/levels/thumbnails/zavod_311.png</file>
+        <file alias="lancang_dam.png">images/levels/thumbnails/lancang_dam.png</file>
+        <file alias="flood_zone.png">images/levels/thumbnails/flood_zone.png</file>
+        <file alias="golmud_railway.png">images/levels/thumbnails/golmud_railway.png</file>
+        <file alias="paracel_storm.png">images/levels/thumbnails/paracel_storm.png</file>
+        <file alias="operation_locker.png">images/levels/thumbnails/operation_locker.png</file>
+        <file alias="hainan_resort.png">images/levels/thumbnails/hainan_resort.png</file>
+        <file alias="seige_of_shanghai.png">images/levels/thumbnails/seige_of_shanghai.png</file>
+        <file alias="rogue_transmission.png">images/levels/thumbnails/rogue_transmission.png</file>
+        <file alias="dawnbreaker.png">images/levels/thumbnails/dawnbreaker.png</file>
+
+        <file alias="silk_road.png">images/levels/thumbnails/silk_road.png</file>
+        <file alias="altai_range.png">images/levels/thumbnails/altai_range.png</file>
+        <file alias="guilin_peaks.png">images/levels/thumbnails/guilin_peaks.png</file>
+        <file alias="dragon_pass.png">images/levels/thumbnails/dragon_pass.png</file>
+
+        <file alias="caspian_border_2014.png">images/levels/thumbnails/caspian_border_2014.png</file>
+        <file alias="firestorm_2014.png">images/levels/thumbnails/firestorm_2014.png</file>
+        <file alias="operation_metro_2014.png">images/levels/thumbnails/operation_metro_2014.png</file>
+        <file alias="gulf_of_oman_2014.png">images/levels/thumbnails/gulf_of_oman_2014.png</file>
+
+        <file alias="lost_islands.png">images/levels/thumbnails/lost_islands.png</file>
+        <file alias="nansha_strike.png">images/levels/thumbnails/nansha_strike.png</file>
+        <file alias="wave_breaker.png">images/levels/thumbnails/wave_breaker.png</file>
+        <file alias="operation_mortar.png">images/levels/thumbnails/operation_mortar.png</file>
+
+        <file alias="pearl_market.png">images/levels/thumbnails/pearl_market.png</file>
+        <file alias="propaganda.png">images/levels/thumbnails/propaganda.png</file>
+        <file alias="lumphini_garden.png">images/levels/thumbnails/lumphini_garden.png</file>
+        <file alias="sunken_dragon.png">images/levels/thumbnails/sunken_dragon.png</file>
+    </qresource>
     <qresource prefix="/bf4/ranks">
         <file alias="rank_0.png">images/ranks/rank_0.png</file>
         <file alias="rank_1.png">images/ranks/rank_1.png</file>
@@ -125,26 +194,5 @@
         <file alias="rank_118.png">images/ranks/rank_118.png</file>
         <file alias="rank_119.png">images/ranks/rank_119.png</file>
         <file alias="rank_120.png">images/ranks/rank_120.png</file>
-    </qresource>
-    <qresource prefix="/bf4/levels">
-        <file alias="dawnbreaker.png">images/levels/dawnbreaker.png</file>
-        <file alias="flood_zone.png">images/levels/flood_zone.png</file>
-        <file alias="golmud_railway.png">images/levels/golmud_railway.png</file>
-        <file alias="hainan_resort.png">images/levels/hainan_resort.png</file>
-        <file alias="lancang_dam.png">images/levels/lancang_dam.png</file>
-        <file alias="lost_islands.png">images/levels/lost_islands.png</file>
-        <file alias="nansha_strike.png">images/levels/nansha_strike.png</file>
-        <file alias="operation_locker.png">images/levels/operation_locker.png</file>
-        <file alias="operation_mortar.png">images/levels/operation_mortar.png</file>
-        <file alias="paracel_storm.png">images/levels/paracel_storm.png</file>
-        <file alias="rogue_transmission.png">images/levels/rogue_transmission.png</file>
-        <file alias="seige_of_shanghai.png">images/levels/seige_of_shanghai.png</file>
-        <file alias="wave_breaker.png">images/levels/wave_breaker.png</file>
-        <file alias="zavod_311.png">images/levels/zavod_311.png</file>
-    </qresource>
-    <qresource prefix="/bf4/teams">
-        <file alias="CN.png">images/teams/CN.png</file>
-        <file alias="US.png">images/teams/US.png</file>
-        <file alias="RU.png">images/teams/RU.png</file>
     </qresource>
 </RCC>

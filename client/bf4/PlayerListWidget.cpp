@@ -155,7 +155,7 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
 
         for (int teamId = 0; teamId <= 2; teamId++) {
             if (teamId > 0 || (teamId == 0 && teamIds.contains(teamId))) {
-                TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.teams.at(teamId - 1));
+                TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.getTeamList().at(teamId - 1));
 
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
                 teamItem->setData(0, Qt::UserRole, teamId);

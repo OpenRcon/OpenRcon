@@ -166,6 +166,7 @@ public:
 
 private:
     static QList<TeamEntryType> teamList;
+    static QString imagePath;
     static QList<LevelEntryType> levelList;
     static QList<GameModeEntryType> gameModeList;
     static QMultiHash<int, int> levelMap;

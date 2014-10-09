@@ -153,9 +153,9 @@ QString BFBC2::getMapName(const QString &engineName, const QString &gamemode)
     int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
 
     if (gamemodeIndex != -1) {
-        LevelEntry level = BFBC2LevelDictionary::getLevel(engineName); // TODO: Mind the gamemode?
+        BFBC2LevelEntry level = BFBC2LevelDictionary::getLevel(engineName); // TODO: Mind the gamemode?
 
-        return level.name;
+        return level.getName();
     }
 
     return QString();
@@ -166,9 +166,9 @@ QPixmap BFBC2::getMapImage(const QString &engineName, const QString &gamemode)
     int gamemodeIndex = gamemodes.indexOf(QRegExp(gamemode, Qt::CaseInsensitive));
 
     if (gamemodeIndex != -1) {
-        LevelEntry level = BFBC2LevelDictionary::getLevel(engineName); // TODO: Mind the gamemode?
+        BFBC2LevelEntry level = BFBC2LevelDictionary::getLevel(engineName); // TODO: Mind the gamemode?
 
-        return level.image();
+        return level.getImage();
     }
 
     return QPixmap();

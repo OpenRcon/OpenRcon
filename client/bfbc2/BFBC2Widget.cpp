@@ -410,7 +410,7 @@ void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
     LevelEntry level = BFBC2LevelDictionary::getLevel(serverInfo.at(4));
     GameModeEntry gameMode = BFBC2LevelDictionary::getGameMode(serverInfo.at(3));
 
-    ui->label_serverInfo_level->setText(QString("%1 - %2").arg(level.name).arg(gameMode.name));
+    ui->label_serverInfo_level->setText(QString("%1 - %2").arg(level.getName()).arg(gameMode.name));
     ui->label_serverInfo_mod->setText(QString("Mod: %1").arg(serverInfo.at(17)));
     ui->label_serverInfo_rounds->setText("");
     ui->label_serverInfo_state->setText("");
@@ -427,9 +427,8 @@ void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
 
     // Maplist
     ui->label_ml_mod->setText(currentMod);
-    ui->label_ml_currentmap_name->setText(level.name);
-    //ui->label_ml_currentmap_image->setPixmap(level.image);
-    ui->label_ml_currentmap_image->setPixmap(level.image());
+    ui->label_ml_currentmap_name->setText(level.getName());
+    ui->label_ml_currentmap_image->setPixmap(level.getImage());
 }
 
 void BFBC2Widget::onAdminListPlayersCommand(const PlayerList &playerList)
@@ -519,9 +518,9 @@ void BFBC2Widget::onVarsBannerUrlCommand(const QString &bannerUrl)
 void BFBC2Widget::onMapListListCommand(const QStringList &mapList)
 {
     for (QString engineName : mapList) {
-        LevelEntry level = BFBC2LevelDictionary::getLevel(engineName);
+        BFBC2LevelEntry level = BFBC2LevelDictionary::getLevel(engineName);
 
-        ui->listWidget_ml_currentmaps->addItem(level.name);
+        ui->listWidget_ml_currentmaps->addItem(level.getName());
     }
 
     // Sets nextMap
@@ -810,9 +809,9 @@ void BFBC2Widget::listWidget_ml_avaliablemaps_currentItemChanged(QListWidgetItem
 
     int index = ui->listWidget_ml_avaliablemaps->currentIndex().row();
     int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
-    LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
+    BFBC2LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
 
-    ui->label_ml_previewmap_image->setPixmap(level.image());
+    ui->label_ml_previewmap_image->setPixmap(level.getImage());
 }
 
 void BFBC2Widget::on_pushButton_ml_add_clicked()
@@ -856,12 +855,12 @@ void BFBC2Widget::on_pushButton_ml_add_clicked()
 
     // create a new map item and insert it into current map list
     QListWidgetItem *item = new QListWidgetItem(ui->listWidget_ml_currentmaps);
-    item->setText(level.name);
-    item->setData (Qt::UserRole, level.engineName);
+    item->setText(level.getName());
+    item->setData (Qt::UserRole, level.getEngineName());
     ui->listWidget_ml_currentmaps->addItem(item);
 
     // append the map to the server map list
-    m_connection->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.engineName).arg(rounds));
+    m_connection->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.getEngineName()).arg(rounds));
 
     if (ret == QMessageBox::Yes) {
        m_connection->sendCommand("\"mapList.save\"");
@@ -910,7 +909,7 @@ void BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem *
 
     LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
 
-    ui->label_ml_previewmap_image->setPixmap(level.image());
+    ui->label_ml_previewmap_image->setPixmap(level.getImage());
     m_connection->sendCommand("\"mapList.list\" \"rounds\"");
 }
 
@@ -990,7 +989,7 @@ void BFBC2Widget::playerListUpdate(int oldRow)
 //    QString mapPath = mapPaths.at(avaliableMapIndex);
 
     // Append the map to the server map list
-    m_connection->sendCommand(QString("\"mapList.insert\" \"%1\" \"%2\" \"%3\"").arg(index).arg(level.engineName).arg(rounds));
+    m_connection->sendCommand(QString("\"mapList.insert\" \"%1\" \"%2\" \"%3\"").arg(index).arg(level.getEngineName()).arg(rounds));
 
     m_connection->sendCommand("\"mapList.list\" \"rounds\"");
 }
@@ -1046,7 +1045,7 @@ void BFBC2Widget::slotAddMapToServer(const QString &mapName)
     int rounds = ui->spinBox_ml_rounds->value();
 
     // append the map to the server map list
-    m_connection->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.engineName).arg(rounds));
+    m_connection->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.getEngineName()).arg(rounds));
 
     if (ret == QMessageBox::Yes) {
         m_connection->sendCommand("\"mapList.save\"");

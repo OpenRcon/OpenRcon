@@ -32,24 +32,44 @@ struct LevelEntry
 
     LevelEntry(const QString &engineName,
                const QString &name,
-               const QList<int> &teams,
-               const QString &image) :
+               const QList<int> &teamList,
+               const QString &imagePath,
+               const QString &imageFile) :
         engineName(engineName),
         name(name),
-        teams(teams),
-        imagePath(image)
+        teamList(teamList),
+        imagePath(imagePath),
+        imageFile(imageFile)
     {
 
     }
 
-    QPixmap image() {
-        return QPixmap(imagePath).scaled(QSize(320, 200), Qt::KeepAspectRatio);
+    QString getEngineName() {
+        return engineName;
+    }
+
+    QString getName() {
+        return name;
+    }
+
+    QList<int> getTeamList() {
+        return teamList;
+    }
+
+    QPixmap getImage() {
+        return QPixmap(imagePath + "/" + imageFile).scaled(QSize(335, 160), Qt::KeepAspectRatio);
+    }
+
+    QPixmap getIcon() {
+        return QPixmap(imagePath + "/thumbnails/" + imageFile).scaled(QSize(62, 42), Qt::KeepAspectRatio);
     }
 
     QString engineName;
     QString name;
-    QList<int> teams;
+    QList<int> teamList;
     QString imagePath;
+    QString imageFile;
+
 };
 
 #endif // LEVELENTRY_H

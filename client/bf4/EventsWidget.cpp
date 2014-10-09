@@ -171,7 +171,7 @@ void EventsWidget::onServerLevelLoadedEvent(const QString &levelName, const QStr
     LevelEntry level = BF4LevelDictionary::getLevel(levelName);
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeName);
 
-    logEvent("ServerLevelLoaded", tr("Loading level %1 with gamemode %2.").arg(level.name).arg(gameMode.name));
+    logEvent("ServerLevelLoaded", tr("Loading level %1 with gamemode %2.").arg(level.getName()).arg(gameMode.name));
 }
 
 void EventsWidget::onServerRoundOverEvent(int winningTeamId)

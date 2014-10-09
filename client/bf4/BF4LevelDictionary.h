@@ -27,6 +27,7 @@ struct BF4GameModeEntry;
 typedef LevelDictionary<3, TeamEntry, LevelEntry, BF4GameModeEntry> BF4LevelDictionary;
 
 template<> QList<TeamEntry> BF4LevelDictionary::teamList;
+template<> QString BF4LevelDictionary::imagePath;
 template<> QList<LevelEntry> BF4LevelDictionary::levelList;
 template<> QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList;
 template<> QMultiHash<int, int> BF4LevelDictionary::levelMap;
