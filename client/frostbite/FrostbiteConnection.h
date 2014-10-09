@@ -32,11 +32,11 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    FrostbiteConnection(QObject *parent = nullptr);
+    explicit FrostbiteConnection(QObject *parent = nullptr);
     ~FrostbiteConnection();
 
-    void setCommandHandler(FrostbiteCommandHandler *commandHandler);
     FrostbiteCommandHandler *getCommandHandler() const;
+    void setCommandHandler(FrostbiteCommandHandler *commandHandler);
 
     void hostConnect(const QString &host, int port);
     void sendCommand(const QString &command);

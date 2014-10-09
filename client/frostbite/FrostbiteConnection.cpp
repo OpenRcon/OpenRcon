@@ -40,14 +40,14 @@ FrostbiteConnection::~FrostbiteConnection()
 
 }
 
-void FrostbiteConnection::setCommandHandler(FrostbiteCommandHandler *commandHandler)
-{
-    m_commandHandler = commandHandler;
-}
-
 FrostbiteCommandHandler *FrostbiteConnection::getCommandHandler() const
 {
     return m_commandHandler;
+}
+
+void FrostbiteConnection::setCommandHandler(FrostbiteCommandHandler *commandHandler)
+{
+    m_commandHandler = commandHandler;
 }
 
 void FrostbiteConnection::hostConnect(const QString &host, int port)
@@ -88,8 +88,6 @@ void FrostbiteConnection::readyRead()
                 exit = true;
                 break;
             }
-            // *Intentionally* not breaking.
-
         case PacketReadingData:
             QDataStream hdrstream(QByteArray(lastHeader, MIN_PACKET_SIZE));
             hdrstream.setByteOrder(QDataStream::LittleEndian);
@@ -109,8 +107,6 @@ void FrostbiteConnection::readyRead()
                         FrostbiteRconPacket packet;
                         pstream >> packet;
                         handlePacket(packet);
-
-                        qDebug() << QByteArray(data, length).toHex();
                     } else {
                         qDebug() << tr("Error while reading data.");
                     }
@@ -157,8 +153,6 @@ void FrostbiteConnection::sendCommand(const QString &command)
 
 void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
 {
-    qDebug() << tr("We have %1 words in this packet:").arg(packet.getWordCount());
-
     if (packet.isResponse()) {
         QVector<FrostbiteRconPacket>::iterator it;
 
