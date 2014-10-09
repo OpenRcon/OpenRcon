@@ -24,6 +24,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="label_si_status">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_si_restartRound">
        <property name="toolTip">
         <string>Restart round</string>
