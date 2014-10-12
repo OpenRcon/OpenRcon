@@ -25,10 +25,10 @@
 template<>
 QList<TeamEntry> BF4LevelDictionary::teamList = {
     /* List of all teams */
-    TeamEntry("Neutral", ""),              // 0
-    TeamEntry("RU", ":/bf4/teams/RU.png"), // 1
-    TeamEntry("US", ":/bf4/teams/US.png"), // 2
-    TeamEntry("CN", ":/bf4/teams/CN.png"), // 3
+    TeamEntry("Neutral",     ""),                   // 0
+    TeamEntry("RU",         ":/bf4/teams/RU.png"),  // 1
+    TeamEntry("US",         ":/bf4/teams/US.png"),  // 2
+    TeamEntry("CN",         ":/bf4/teams/CN.png"),  // 3
 };
 
 template<>
@@ -100,7 +100,7 @@ QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList = {
 
 template<>
 QMultiHash<int, int> BF4LevelDictionary::levelMap = {
-    /* Levels and gamemodes combined */
+    /* List of all levels and gamemodes combined */
     /* ConquestLarge0 */
     { 0, 0 },
     { 0, 1 },

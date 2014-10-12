@@ -23,29 +23,16 @@
 #include "LevelEntry.h"
 #include "BFBC2Mod.h"
 
-struct BFBC2LevelEntry : public LevelEntry
+class BFBC2LevelEntry : public LevelEntry
 {
-    BFBC2LevelEntry()
-    {
+public:
+    BFBC2LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile, BFBC2Mod mod);
+    BFBC2LevelEntry();
+    ~BFBC2LevelEntry();
 
-    }
+    BFBC2Mod getMod();
 
-    BFBC2LevelEntry(const QString &engineName,
-                    const QString &name,
-                    const QList<int> &teamList,
-                    const QString &imagePath,
-                    const QString &imageFile,
-                    BFBC2Mod mod) :
-        LevelEntry(engineName,
-                   name,
-                   teamList,
-                   imagePath,
-                   imageFile),
-        mod(mod)
-    {
-
-    }
-
+private:
     BFBC2Mod mod;
 
 };

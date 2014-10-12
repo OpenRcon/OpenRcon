@@ -304,7 +304,7 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     upTime = serverInfo.serverUpTime;
 
     ui->label_si_level->setPixmap(level.getIcon());
-    ui->label_si_status->setText(QString("%1 • %2").arg(level.getName(), gameMode.name));
+    ui->label_si_status->setText(QString("%1 • %2").arg(level.getName(), gameMode.getName()));
     ui->label_si_status->setToolTip(tr("<table>"
                                           "<tr>"
                                               "<td>External IP address and port:</td>"

@@ -24,12 +24,14 @@
 
 template<>
 QList<TeamEntry> BF3LevelDictionary::teamList = {
-    TeamEntry("US", ""),
-    TeamEntry("RU", "")
+    /* List of all teams */
+    TeamEntry("Neutral",    ""),                    // 0
+    TeamEntry("US",         ":/bf3/teams/RU.png"),  // 1
+    TeamEntry("RU",         ":/bf3/teams/US.png")   // 2
 };
 
 template<>
-QString BF3LevelDictionary::imagePath = ":/bfbc2/levels";
+QString BF3LevelDictionary::imagePath = ":/bf3/levels";
 
 template<>
 QList<LevelEntry> BF3LevelDictionary::levelList = {
@@ -98,7 +100,7 @@ QList<GameModeEntry> BF3LevelDictionary::gameModeList = {
 
 template<>
 QMultiHash<int, int> BF3LevelDictionary::levelMap = {
-    /* Levels and gamemodes combined */
+    /* List of all levels and gamemodes combined */
     /* ConquestLarge0 */
     { 0, 0 },
     { 0, 1 },

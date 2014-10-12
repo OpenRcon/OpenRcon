@@ -95,7 +95,7 @@ void MapListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.currentMap);
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.gameMode);
 
-    int gameModeIndex = BF4LevelDictionary::getGameModeNames().indexOf(gameMode.name);
+    int gameModeIndex = BF4LevelDictionary::getGameModeNames().indexOf(gameMode.getName());
 
     ui->label_ml_currentMapValue->setText(level.getName());
     ui->label_ml_currentMapImage->setPixmap(level.getImage());
@@ -189,7 +189,7 @@ void MapListWidget::setAvailableMaplist(int gameModeIndex)
     ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().getImage());
 
     for (LevelEntry level : levelList) {
-        addAvailableMapListItem(level.name, gameMode.name);
+        addAvailableMapListItem(level.getName(), gameMode.getName());
     }
 
     // Sort items.
@@ -241,15 +241,15 @@ void MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
     ui->treeWidget_ml_current->clear();
 
     for (int i = 0; i < mapList.length(); i++) {
-        MapListEntry entry = mapList.at(i);
-        LevelEntry level = BF4LevelDictionary::getLevel(entry.level);
-        BF4GameModeEntry gameMode = BF4LevelDictionary::getGameMode(entry.gameMode);
+        MapListEntry mapListEntry = mapList.at(i);
+        LevelEntry level = BF4LevelDictionary::getLevel(mapListEntry.getLevel());
+        BF4GameModeEntry gameMode = BF4LevelDictionary::getGameMode(mapListEntry.getGameMode());
 
         if (i == 0) {
             ui->label_ml_currentSelectedMapImage->setPixmap(level.getImage());
         }
 
-        addCurrentMapListItem(level.name, gameMode.name, entry.rounds);
+        addCurrentMapListItem(level.getName(), gameMode.getName(), mapListEntry.getRounds());
     }
 
     // Resize columns so that they fits the content.
@@ -266,7 +266,7 @@ void MapListWidget::addLevel(const QString &name, const QString &gameMode, int r
 
         ui->label_ml_currentSelectedMapImage->setPixmap(levelEntry.getImage());
         addCurrentMapListItem(name, gameMode, rounds);
-        m_commandHandler->sendMapListAddCommand(levelEntry.engineName, gameModeEntry.engineName, rounds);
+        m_commandHandler->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getName(), rounds);
     }
 }
 

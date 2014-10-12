@@ -31,7 +31,10 @@ SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/FrostbiteUtils.cpp \
     frostbite/ChatWidget.cpp \
     frostbite/BanListWidget.cpp \
-    frostbite/ConsoleWidget.cpp
+    frostbite/ConsoleWidget.cpp \
+    $$PWD/MapListEntry.cpp \
+    $$PWD/GameModeEntry.cpp \
+    $$PWD/LevelEntry.cpp
 
 FORMS += frostbite/ChatWidget.ui \
     frostbite/BanListWidget.ui \

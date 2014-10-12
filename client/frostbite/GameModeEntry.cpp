@@ -17,32 +17,38 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LEVELENTRY_H
-#define LEVELENTRY_H
+#include "GameModeEntry.h"
 
-#include <QString>
-#include <QPixmap>
-
-class LevelEntry
+GameModeEntry::GameModeEntry(const QString &engineName, const QString &name, int players) :
+    engineName(engineName),
+    name(name),
+    players(players)
 {
-public:
-    LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile);
-    LevelEntry();
-    ~LevelEntry();
 
-    QString getEngineName();
-    QString getName();
-    QList<int> getTeamList();
-    QPixmap getImage();
-    QPixmap getIcon();
+}
 
-private:
-    QString engineName;
-    QString name;
-    QList<int> teamList;
-    QString imagePath;
-    QString imageFile;
+GameModeEntry::GameModeEntry()
+{
 
-};
+}
 
-#endif // LEVELENTRY_H
+GameModeEntry::~GameModeEntry()
+{
+
+}
+
+QString GameModeEntry::getEngineName()
+{
+    return engineName;
+}
+
+QString GameModeEntry::getName()
+{
+    return name;
+}
+
+int GameModeEntry::getPlayers()
+{
+    return players;
+}
+

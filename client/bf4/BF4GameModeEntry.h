@@ -22,27 +22,17 @@
 
 #include "GameModeEntry.h"
 
-struct BF4GameModeEntry : public GameModeEntry
+class BF4GameModeEntry : public GameModeEntry
 {
-    BF4GameModeEntry()
-    {
+public:
+    BF4GameModeEntry(const QString &engineName, const QString &name, int players, int commanders, int spectators);
+    BF4GameModeEntry();
+    ~BF4GameModeEntry();
 
-    }
+    int getCommanders();
+    int getSpectators();
 
-    BF4GameModeEntry(const QString &engineName,
-                     const QString &name,
-                     int players,
-                     int commanders,
-                     int spectators) :
-        GameModeEntry(engineName,
-                      name,
-                      players),
-        commanders(commanders),
-        spectators(spectators)
-    {
-
-    }
-
+private:
     int commanders;
     int spectators;
 

@@ -22,23 +22,18 @@
 
 #include <QString>
 
-struct GameModeEntry
+class GameModeEntry
 {
-    GameModeEntry()
-    {
+public:
+    GameModeEntry(const QString &engineName, const QString &name, int players);
+    GameModeEntry();
+    ~GameModeEntry();
 
-    }
+    QString getEngineName();
+    QString getName();
+    int getPlayers();
 
-    GameModeEntry(const QString &engineName,
-                  const QString &name,
-                  int players) :
-        engineName(engineName),
-        name(name),
-        players(players)
-    {
-
-    }
-
+private:
     QString engineName;
     QString name;
     int players;

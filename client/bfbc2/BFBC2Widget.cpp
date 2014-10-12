@@ -410,7 +410,7 @@ void BFBC2Widget::onServerInfoCommand(const QStringList &serverInfo)
     LevelEntry level = BFBC2LevelDictionary::getLevel(serverInfo.at(4));
     GameModeEntry gameMode = BFBC2LevelDictionary::getGameMode(serverInfo.at(3));
 
-    ui->label_serverInfo_level->setText(QString("%1 - %2").arg(level.getName()).arg(gameMode.name));
+    ui->label_serverInfo_level->setText(QString("%1 - %2").arg(level.getName()).arg(gameMode.getName()));
     ui->label_serverInfo_mod->setText(QString("Mod: %1").arg(serverInfo.at(17)));
     ui->label_serverInfo_rounds->setText("");
     ui->label_serverInfo_state->setText("");

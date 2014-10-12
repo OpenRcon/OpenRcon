@@ -24,8 +24,10 @@
 
 template<>
 QList<TeamEntry> BFBC2LevelDictionary::teamList = {
-    TeamEntry("US", ""),
-    TeamEntry("RU", ""),
+    /* List of all teams */
+    TeamEntry("Neutral",    ""),                    // 0
+    TeamEntry("US",         ":/bf3/teams/RU.png"),  // 1
+    TeamEntry("RU",         ":/bf3/teams/US.png")   // 2
 };
 
 template<>
@@ -115,7 +117,7 @@ QList<GameModeEntry> BFBC2LevelDictionary::gameModeList = {
 
 template<>
 QMultiHash<int, int> BFBC2LevelDictionary::levelMap = {
-    /* Levels and gamemodes combined */
+    /* List of all levels and gamemodes combined */
     /* CONQUEST */
     { 0, 0 },
     { 0, 1 },

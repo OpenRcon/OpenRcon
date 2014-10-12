@@ -23,18 +23,17 @@
 #include <QString>
 #include <QList>
 
-struct MapListEntry
+class MapListEntry
 {
-    MapListEntry(const QString &level,
-                 const QString &gameMode,
-                 int rounds) :
-        level(level),
-        gameMode(gameMode),
-        rounds(rounds = 0)
-    {
+public:
+    MapListEntry(const QString &level, const QString &gameMode, int rounds = 0);
+    ~MapListEntry();
 
-    }
+    QString getLevel();
+    QString getGameMode();
+    int getRounds();
 
+private:
     QString level;
     QString gameMode;
     int rounds;

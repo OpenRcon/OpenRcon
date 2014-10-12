@@ -26,7 +26,7 @@
 
 struct TeamEntry;
 struct LevelEntry;
-struct GameModeEntry;
+class GameModeEntry;
 
 typedef QList<TeamEntry> TeamList;
 typedef QList<LevelEntry> LevelList;
@@ -43,8 +43,7 @@ public:
         static_assert(std::is_base_of<GameModeEntry, GameModeEntryType>::value, "GameModeEntryType must be a subclass of GameModeEntry.");
     }
 
-    LevelDictionary(const QString &imagePath);
-    ~LevelDictionary() {}
+    ~LevelDictionary();
 
     static const LevelEntryType &getLevel(int index)
     {
@@ -53,10 +52,10 @@ public:
 
     static const LevelEntryType &getLevel(const QString &level)
     {
-        static LevelEntryType empty;
+        static const LevelEntryType empty;
 
-        for (const LevelEntryType &entry : getLevels()) {
-            if (entry.engineName == level || entry.name == level) {
+        for (LevelEntryType &entry : levelList) {
+            if (entry.getEngineName() == level || entry.getName() == level) {
                 return entry;
             }
         }
@@ -100,8 +99,8 @@ public:
     {
         QStringList list;
 
-        for (const LevelEntryType &entry : getLevels(gameModeIndex)) {
-            list.append(entry.name);
+        for (LevelEntryType &entry : getLevels(gameModeIndex)) {
+            list.append(entry.getName());
         }
 
         return list;
@@ -114,10 +113,10 @@ public:
 
     static const GameModeEntryType &getGameMode(const QString &level)
     {
-        static GameModeEntryType empty;
+        static const GameModeEntryType empty;
 
-        for (const GameModeEntryType & entry : gameModeList) {
-            if (entry.engineName == level || entry.name == level) {
+        for (GameModeEntryType &entry : gameModeList) {
+            if (entry.getEngineName() == level || entry.getName() == level) {
                 return entry;
             }
         }
@@ -134,8 +133,8 @@ public:
     {
         QStringList list;
 
-        for (const GameModeEntryType &entry : gameModeList) {
-            list.append(entry.name);
+        for (GameModeEntryType &entry : gameModeList) {
+            list.append(entry.getName());
         }
 
         return list;
@@ -149,19 +148,6 @@ public:
     static const QList<TeamEntryType> &getTeams()
     {
         return teamList;
-    }
-
-    static QList<TeamEntryType> getTeams(const LevelEntryType &level)
-    {
-        QList<TeamEntryType> list;
-
-        for (int i = 0; i > getTeams().length(); i++) {
-            if (i == level.team1 || i == level.team2) {
-                list.append(getTeam(i));
-            }
-        }
-
-        return list;
     }
 
 private:
