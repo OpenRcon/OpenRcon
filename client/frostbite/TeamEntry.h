@@ -23,22 +23,19 @@
 #include <QString>
 #include <QPixmap>
 
-struct TeamEntry
+class TeamEntry
 {
-    TeamEntry(const QString &name,
-              const QString &image = QString()) :
-        name(name),
-        imagePath(image)
-    {
+public:
+    TeamEntry(const QString &name, const QString &image = QString());
+    ~TeamEntry();
 
-    }
+    QString getName();
+    QPixmap getImage();
 
-    QPixmap image() {
-        return QPixmap(imagePath);
-    }
-
+private:
     QString name;
-    QString imagePath;
+    QString image;
+
 };
 
 #endif // TEAMENTRY_H

@@ -159,8 +159,8 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
 
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
                 teamItem->setData(0, Qt::UserRole, teamId);
-                teamItem->setIcon(0, team.image());
-                teamItem->setText(0, team.name);
+                teamItem->setIcon(0, team.getImage());
+                teamItem->setText(0, team.getName());
 
                 // Add players to the teamItem.
                 for (QTreeWidgetItem *playerItem : playerItems) {
@@ -170,7 +170,7 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
                 }
 
                 // Add the team to the menu_pl_players_move menu.
-                action_pl_players_move_team = new QAction(team.image(), tr("Team %1").arg(team.name), menu_pl_players_move);
+                action_pl_players_move_team = new QAction(team.getImage(), tr("Team %1").arg(team.getName()), menu_pl_players_move);
                 action_pl_players_move_team->setCheckable(true);
                 action_pl_players_move_team->setData(teamId);
 

@@ -311,7 +311,7 @@ void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
         for (int teamId : teamIds) {
             if (teamId > 0) { // Don't list team with id 0, as this is the neutrual team.
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
-                teamItem->setText(0, BF3LevelDictionary::getTeam(teamId - 1).name);
+                teamItem->setText(0, BF3LevelDictionary::getTeam(teamId - 1).getName());
 
                 foreach (QTreeWidgetItem *playerItem, playerItems) {
                     if (teamId == playerItem->data(0, Qt::UserRole)) {

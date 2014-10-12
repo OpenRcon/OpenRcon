@@ -24,8 +24,8 @@
 #include <QMultiHash>
 #include <QStringList>
 
-struct TeamEntry;
-struct LevelEntry;
+class TeamEntry;
+class LevelEntry;
 class GameModeEntry;
 
 typedef QList<TeamEntry> TeamList;
@@ -140,12 +140,12 @@ public:
         return list;
     }
 
-    static const TeamEntryType &getTeam(int index)
+    static TeamEntryType getTeam(int index)
     {
         return teamList.at(index);
     }
 
-    static const QList<TeamEntryType> &getTeams()
+    static QList<TeamEntryType> getTeams()
     {
         return teamList;
     }

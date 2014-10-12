@@ -22,7 +22,7 @@
 
 #include "LevelDictionary.h"
 
-struct BF4GameModeEntry;
+class BF4GameModeEntry;
 
 typedef LevelDictionary<3, TeamEntry, LevelEntry, BF4GameModeEntry> BF4LevelDictionary;
 
