@@ -35,7 +35,7 @@ class ReservedSlotsWidget;
 class SpectatorSlotsWidget;
 class ConsoleWidget;
 
-struct BF4ServerInfo;
+class BF4ServerInfo;
 
 namespace Ui {
     class BF4Widget;
@@ -88,7 +88,7 @@ private slots:
     // Misc
     void onLoginHashedCommand(bool auth);
     void onVersionCommand(const QString &type, int build);
-    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
+    void onServerInfoCommand(BF4ServerInfo &serverInfo);
 
     // Admin
 

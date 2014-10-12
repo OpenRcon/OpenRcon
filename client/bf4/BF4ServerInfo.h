@@ -24,58 +24,38 @@
 
 #include "Frostbite2ServerInfo.h"
 
-struct BF4ServerInfo : public Frostbite2ServerInfo
+class BF4ServerInfo : public Frostbite2ServerInfo
 {
+public:
     BF4ServerInfo(const QString &serverName,
-               int playerCount,
-               int maxPlayerCount,
-               const QString &gameMode,
-               const QString &currentMap,
-               int roundsPlayed,
-               int roundsTotal,
-               const TeamScores &scores,
-               const OnlineState &onlineState,
-               bool ranked,
-               bool punkBuster,
-               bool hasGamePassword,
-               int serverUpTime,
-               int roundTime,
-               const QString &gameIpAndPort,
-               const QString &punkBusterVersion,
-               bool joinQueueEnabled,
-               const QString &region,
-               const QString &closestPingSite,
-               const QString &country,
-               bool matchMakingEnabled,
-               int blazePlayerCount,
-               const QString &blazeGameState) :
-        Frostbite2ServerInfo(serverName,
-                             playerCount,
-                             maxPlayerCount,
-                             gameMode,
-                             currentMap,
-                             roundsPlayed,
-                             roundsTotal,
-                             scores,
-                             onlineState,
-                             ranked,
-                             punkBuster,
-                             hasGamePassword,
-                             serverUpTime,
-                             roundTime,
-                             gameIpAndPort,
-                             punkBusterVersion,
-                             joinQueueEnabled,
-                             region,
-                             closestPingSite,
-                             country,
-                             matchMakingEnabled),
-        blazePlayerCount(blazePlayerCount),
-        blazeGameState(blazeGameState)
-    {
+                  int playerCount,
+                  int maxPlayerCount,
+                  const QString &gameMode,
+                  const QString &currentMap,
+                  int roundsPlayed,
+                  int roundsTotal,
+                  const TeamScores &scores,
+                  const OnlineState &onlineState,
+                  bool ranked,
+                  bool punkBuster,
+                  bool hasGamePassword,
+                  int serverUpTime,
+                  int roundTime,
+                  const QString &gameIpAndPort,
+                  const QString &punkBusterVersion,
+                  bool joinQueueEnabled,
+                  const QString &region,
+                  const QString &closestPingSite,
+                  const QString &country,
+                  bool matchMakingEnabled,
+                  int blazePlayerCount,
+                  const QString &blazeGameState);
+    ~BF4ServerInfo();
 
-    }
+    int getBlazePlayerCount();
+    QString getBlazeGameState();
 
+private:
     int blazePlayerCount;
     QString blazeGameState;
 

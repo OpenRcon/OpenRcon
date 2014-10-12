@@ -34,7 +34,8 @@ SOURCES += frostbite/FrostbiteConnection.cpp \
     frostbite/ConsoleWidget.cpp \
     $$PWD/MapListEntry.cpp \
     $$PWD/GameModeEntry.cpp \
-    $$PWD/LevelEntry.cpp
+    $$PWD/LevelEntry.cpp \
+    $$PWD/ServerInfo.cpp
 
 FORMS += frostbite/ChatWidget.ui \
     frostbite/BanListWidget.ui \

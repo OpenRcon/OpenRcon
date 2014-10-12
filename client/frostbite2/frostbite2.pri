@@ -7,6 +7,7 @@ HEADERS += frostbite2/PlayerInfo.h \
     frostbite2/ReservedSlotsWidget.h
 
 SOURCES += frostbite2/Frostbite2CommandHandler.cpp \
-    frostbite2/ReservedSlotsWidget.cpp
+    frostbite2/ReservedSlotsWidget.cpp \
+    $$PWD/Frostbite2ServerInfo.cpp
 
 FORMS += frostbite2/ReservedSlotsWidget.ui

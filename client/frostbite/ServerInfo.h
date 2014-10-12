@@ -25,40 +25,28 @@
 #include "TeamScores.h"
 #include "OnlineState.h"
 
-struct ServerInfo
+class ServerInfo
 {
-    ServerInfo(const QString &serverName,
-               int playerCount,
-               int maxPlayerCount,
-               const QString &gameMode,
-               const QString &currentMap,
-               int roundsPlayed,
-               int roundsTotal,
-               const TeamScores &scores,
-               const OnlineState &onlineState,
-               bool ranked,
-               bool punkBuster,
-               bool hasGamePassword,
-               int serverUpTime,
-               int roundTime) :
-        serverName(serverName),
-        playerCount(playerCount),
-        maxPlayerCount(maxPlayerCount),
-        gameMode(gameMode),
-        currentMap(currentMap),
-        roundsPlayed(roundsPlayed),
-        roundsTotal(roundsTotal),
-        scores(scores),
-        onlineState(onlineState),
-        ranked(ranked),
-        punkBuster(punkBuster),
-        hasGamePassword(hasGamePassword),
-        serverUpTime(serverUpTime),
-        roundTime(roundTime)
-    {
+public:
+    ServerInfo(const QString &serverName, int playerCount, int maxPlayerCount, const QString &gameMode, const QString &currentMap, int roundsPlayed, int roundsTotal, const TeamScores &scores, const OnlineState &onlineState, bool ranked, bool punkBuster, bool hasGamePassword, int serverUpTime, int roundTime);
+    ~ServerInfo();
 
-    }
+    QString getServerName();
+    int getPlayerCount();
+    int getMaxPlayerCount();
+    QString getGameMode();
+    QString getCurrentMap();
+    int getRoundsPlayed();
+    int getRoundsTotal();
+    TeamScores getScores();
+    OnlineState getOnlineState();
+    bool getRanked();
+    bool getPunkBuster();
+    bool getHasGamePassword();
+    int getServerUpTime();
+    int getRoundTime();
 
+private:
     QString serverName;
     int playerCount;
     int maxPlayerCount;

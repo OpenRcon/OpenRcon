@@ -22,7 +22,8 @@ SOURCES += bf4/BF4.cpp \
     bf4/OptionsWidget.cpp \
     bf4/MapListWidget.cpp \
     bf4/SpectatorSlotsWidget.cpp \
-    $$PWD/BF4GameModeEntry.cpp
+    $$PWD/BF4GameModeEntry.cpp \
+    $$PWD/BF4ServerInfo.cpp
 
 FORMS += bf4/BF4Widget.ui \
     bf4/EventsWidget.ui \

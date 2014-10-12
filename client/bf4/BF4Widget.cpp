@@ -296,12 +296,12 @@ void BF4Widget::onVersionCommand(const QString &type, int build)
     ui->label_si_version->setToolTip(QString::number(build));
 }
 
-void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
+void BF4Widget::onServerInfoCommand(BF4ServerInfo &serverInfo)
 {
-    LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.currentMap);
-    GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.gameMode);
-    roundTime = serverInfo.roundTime;
-    upTime = serverInfo.serverUpTime;
+    LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
+    GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.getGameMode());
+    roundTime = serverInfo.getRoundTime();
+    upTime = serverInfo.getServerUpTime();
 
     ui->label_si_level->setPixmap(level.getIcon());
     ui->label_si_status->setText(QString("%1 • %2").arg(level.getName(), gameMode.getName()));
@@ -352,18 +352,18 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
                                               "<td>Punkbuster Server:</td>"
                                               "<td>%9</td>"
                                           "</tr>"
-                                      "</table>").arg(serverInfo.gameIpAndPort)
-                                                 .arg(FrostbiteUtils::toString(serverInfo.joinQueueEnabled),
-                                                      FrostbiteUtils::toString(serverInfo.matchMakingEnabled),
-                                                      serverInfo.region,
-                                                      serverInfo.country,
-                                                      serverInfo.closestPingSite)
-                                                 .arg(serverInfo.blazePlayerCount)
-                                                 .arg(serverInfo.blazeGameState,
-                                                      serverInfo.punkBusterVersion));
+                                      "</table>").arg(serverInfo.getGameIpAndPort())
+                                                 .arg(FrostbiteUtils::toString(serverInfo.getJoinQueueEnabled()),
+                                                      FrostbiteUtils::toString(serverInfo.getMatchMakingEnabled()),
+                                                      serverInfo.getRegion(),
+                                                      serverInfo.getCountry(),
+                                                      serverInfo.getClosestPingSite())
+                                                 .arg(serverInfo.getBlazePlayerCount())
+                                                 .arg(serverInfo.getBlazeGameState(),
+                                                      serverInfo.getPunkBusterVersion()));
 
-    ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.playerCount).arg(serverInfo.maxPlayerCount));
-    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.roundsPlayed + 1).arg(serverInfo.roundsTotal));
+    ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.getPlayerCount()).arg(serverInfo.getMaxPlayerCount()));
+    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.getRoundsPlayed() + 1).arg(serverInfo.getRoundsTotal()));
 }
 
 // Admin

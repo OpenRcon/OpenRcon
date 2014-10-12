@@ -24,8 +24,9 @@
 
 #include "ServerInfo.h"
 
-struct Frostbite2ServerInfo : public ServerInfo
+class Frostbite2ServerInfo : public ServerInfo
 {
+public:
     Frostbite2ServerInfo(const QString &serverName,
                int playerCount,
                int maxPlayerCount,
@@ -46,32 +47,18 @@ struct Frostbite2ServerInfo : public ServerInfo
                const QString &region,
                const QString &closestPingSite,
                const QString &country,
-               bool matchMakingEnabled) :
-        ServerInfo(serverName,
-                   playerCount,
-                   maxPlayerCount,
-                   gameMode,
-                   currentMap,
-                   roundsPlayed,
-                   roundsTotal,
-                   scores,
-                   onlineState,
-                   ranked,
-                   punkBuster,
-                   hasGamePassword,
-                   serverUpTime,
-                   roundTime),
-        gameIpAndPort(gameIpAndPort),
-        punkBusterVersion(punkBusterVersion),
-        joinQueueEnabled(joinQueueEnabled),
-        region(region),
-        closestPingSite(closestPingSite),
-        country(country),
-        matchMakingEnabled(matchMakingEnabled)
-    {
+               bool matchMakingEnabled);
+    ~Frostbite2ServerInfo();
 
-    }
+    QString getGameIpAndPort();
+    QString getPunkBusterVersion();
+    bool getJoinQueueEnabled();
+    QString getRegion();
+    QString getClosestPingSite();
+    QString getCountry();
+    bool getMatchMakingEnabled();
 
+private:
     QString gameIpAndPort;
     QString punkBusterVersion;
     bool joinQueueEnabled;

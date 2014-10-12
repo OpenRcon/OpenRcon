@@ -70,7 +70,7 @@ private slots:
 
     /* Command slots */
     void onLoginHashedCommand(bool auth);
-    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
+    void onServerInfoCommand(BF4ServerInfo &serverInfo);
     void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
 
     /* User Interface */
