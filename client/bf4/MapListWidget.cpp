@@ -266,7 +266,7 @@ void MapListWidget::addLevel(const QString &name, const QString &gameMode, int r
 
         ui->label_ml_currentSelectedMapImage->setPixmap(levelEntry.getImage());
         addCurrentMapListItem(name, gameMode, rounds);
-        m_commandHandler->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getName(), rounds);
+        m_commandHandler->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getEngineName(), rounds);
     }
 }
 
