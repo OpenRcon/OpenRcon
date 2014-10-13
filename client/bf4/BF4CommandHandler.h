@@ -24,6 +24,7 @@
 
 class BF4ServerInfo;
 struct PlayerInfo;
+enum class BF4PresetType;
 
 class BF4CommandHandler : public Frostbite2CommandHandler
 {
@@ -153,7 +154,7 @@ signals:
     void onVarsHitIndicatorsEnabledCommand(bool enabled);
     void onVarsMaxSpectatorsCommand(int spectatorCount);
     void onVarsMpExperienceCommand(const QString &experience);
-    void onVarsPresetCommand(const QString &serverPreset, bool lockPresetSetting);
+    void onVarsPresetCommand(const BF4PresetType &presetType, bool lockPresetSetting);
     void onVarsRoundTimeLimitCommand(int percentage);
     void onVarsRoundWarmupTimeoutCommand(int timeout);
     void onVarsServerTypeCommand(const QString &type);

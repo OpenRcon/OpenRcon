@@ -21,6 +21,7 @@
 #include "ui_OptionsWidget.h"
 #include "FrostbiteConnection.h"
 #include "BF4CommandHandler.h"
+#include "BF4Preset.h"
 
 OptionsWidget::OptionsWidget(FrostbiteConnection *connection, QWidget *parent) :
     QWidget(parent),
@@ -29,6 +30,9 @@ OptionsWidget::OptionsWidget(FrostbiteConnection *connection, QWidget *parent) :
     m_commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
 {
     ui->setupUi(this);
+
+    // Initialize comboBox with preset types.
+    ui->comboBox_so_gp_preset->addItems(BF4Preset::getList());
 
     /* Commands */
     // Misc
@@ -360,23 +364,9 @@ void OptionsWidget::onVarsPlayerRespawnTimeCommand(int respawnTime)
     ui->spinBox_so_gp_playerRespawnTime->setValue(respawnTime);
 }
 
-void OptionsWidget::onVarsPresetCommand(const QString &serverPreset, bool lockPresetSetting)
+void OptionsWidget::onVarsPresetCommand(const BF4PresetType &presetType, bool lockPresetSetting)
 {
-    int index = 0;
-
-    if (serverPreset == "NORMAL") {
-        index = 0;
-    } else if (serverPreset == "CLASSIC") {
-        index = 1;
-    } else if (serverPreset == "HARDCORE") {
-        index = 2;
-    } else if (serverPreset == "INFANTRY") {
-        index = 3;
-    } else if (serverPreset == "CUSTOM") {
-        index = 4;
-    }  
-
-    ui->comboBox_so_gp_preset->setCurrentIndex(index);
+    ui->comboBox_so_gp_preset->setCurrentIndex(BF4Preset::toInt(presetType));
     ui->checkBox_so_gp_presetLockPresetSetting->setChecked(lockPresetSetting);
 }
 

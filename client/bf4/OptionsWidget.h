@@ -24,6 +24,7 @@
 
 class FrostbiteConnection;
 class BF4CommandHandler;
+enum class BF4PresetType;
 
 namespace Ui {
     class OptionsWidget;
@@ -82,7 +83,7 @@ private slots:
     void onVarsNameTagCommand(bool enabled);
     void onVarsOnlySquadLeaderSpawnCommand(bool enabled);
     void onVarsPlayerRespawnTimeCommand(int respawnTime);
-    void onVarsPresetCommand(const QString &serverPreset, bool lockPresetSetting);
+    void onVarsPresetCommand(const BF4PresetType &presetType, bool lockPresetSetting);
     void onVarsRegenerateHealthCommand(bool enabled);
     void onVarsRoundLockdownCountdownCommand(int seconds);
     void onVarsRoundRestartPlayerCountCommand(int players);

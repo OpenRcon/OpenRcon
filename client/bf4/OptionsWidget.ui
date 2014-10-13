@@ -596,33 +596,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox_so_gp_preset">
-           <item>
-            <property name="text">
-             <string>Normal</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Classic</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Hardcore</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Infantry</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Custom</string>
-            </property>
-           </item>
-          </widget>
+          <widget class="QComboBox" name="comboBox_so_gp_preset"/>
          </item>
          <item row="1" column="0" colspan="2">
           <widget class="QCheckBox" name="checkBox_so_gp_presetLockPresetSetting">
