@@ -68,7 +68,9 @@ private:
     QAction *actionReportBug;
     QAction *actionAbout;
     QAction *actionAboutQt;
+
     QAction *actionTabReconnect;
+    QAction *actionTabDisconnect;
 
     // Menubar
     QMenuBar *menuBar;
@@ -114,7 +116,10 @@ private slots:
     void actionReportBug_triggered();
     void actionAbout_triggered();
     void actionAboutQt_triggered();
+
+    // Tab menu
     void actionTabReconnect_triggered();
+    void actionTabDisconnect_triggered();
 
     // ServerManager
     void pushButton_quickConnect_connect_clicked();

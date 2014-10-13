@@ -61,7 +61,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_ml_currentMapText">
          <property name="text">
-          <string>Current map</string>
+          <string>Current map:</string>
          </property>
         </widget>
        </item>
