@@ -21,7 +21,6 @@
 #define BF3WIDGET_H
 
 #include "BF3.h"
-#include "FrostbiteConnection.h"
 
 class ChatWidget;
 class ReservedSlotsWidget;
@@ -42,10 +41,6 @@ class BF3Widget : public BF3
 public:
     BF3Widget(ServerEntry *serverEntry);
     ~BF3Widget();
-
-    virtual Connection *getConnection() {
-        return m_connection;
-    }
 
 private:
     Ui::BF3Widget *ui;

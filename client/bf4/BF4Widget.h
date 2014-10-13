@@ -21,7 +21,6 @@
 #define BF4WIDGET_H
 
 #include "BF4.h"
-#include "FrostbiteConnection.h"
 
 class QTimer;
 
@@ -48,10 +47,6 @@ class BF4Widget : public BF4
 public:    
     BF4Widget(ServerEntry *serverEntry);
     ~BF4Widget();
-
-    virtual Connection *getConnection() {
-        return m_connection;
-    }
 
 private:
     Ui::BF4Widget *ui;

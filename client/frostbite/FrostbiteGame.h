@@ -21,8 +21,7 @@
 #define FROSTBITEGAME_H
 
 #include "Game.h"
-
-class FrostbiteConnection;
+#include "FrostbiteConnection.h"
 
 class FrostbiteGame : public Game
 {
@@ -31,6 +30,10 @@ class FrostbiteGame : public Game
 public:
     FrostbiteGame(ServerEntry *serverEntry);
     ~FrostbiteGame();    
+
+    virtual Connection *getConnection() {
+        return m_connection;
+    }
 
 protected:
     FrostbiteConnection *m_connection;

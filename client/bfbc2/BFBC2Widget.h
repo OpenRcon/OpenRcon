@@ -21,7 +21,6 @@
 #define BFBC2WIDGET_H
 
 #include "BFBC2.h"
-#include "FrostbiteConnection.h"
 #include "BFBC2CommandHandler.h"
 
 class QMenu;
@@ -44,10 +43,6 @@ class BFBC2Widget : public BFBC2
 public:
     BFBC2Widget(ServerEntry *serverEntry);
     ~BFBC2Widget();
-
-    virtual Connection *getConnection() {
-        return m_connection;
-    }
 
 private:
     Ui::BFBC2Widget *ui;
