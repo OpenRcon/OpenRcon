@@ -23,6 +23,8 @@
 #include <QObject>
 #include <QAbstractSocket>
 
+struct ServerEntry;
+
 class Connection : public QObject
 {
     Q_OBJECT
@@ -34,9 +36,8 @@ public:
     QAbstractSocket *socket;
 
 public slots:
-    virtual void hostConnect(const QString &host, int port);
+    virtual void hostConnect(ServerEntry *serverEntry);
     virtual void hostDisconnect();
-    void hostReconnect();
 
 protected:
     void responseDataSentEvent(const QString &request);

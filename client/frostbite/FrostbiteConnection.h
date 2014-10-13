@@ -38,7 +38,7 @@ public:
     FrostbiteCommandHandler *getCommandHandler() const;
     void setCommandHandler(FrostbiteCommandHandler *commandHandler);
 
-    void hostConnect(const QString &host, int port);
+    void hostConnect(ServerEntry *serverEntry);
     void sendCommand(const QString &command);
 
 private:

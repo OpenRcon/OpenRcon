@@ -50,14 +50,13 @@ void FrostbiteConnection::setCommandHandler(FrostbiteCommandHandler *commandHand
     m_commandHandler = commandHandler;
 }
 
-void FrostbiteConnection::hostConnect(const QString &host, int port)
+void FrostbiteConnection::hostConnect(ServerEntry *serverEntry)
 {
     if (!socket->isOpen()) {
         clear();
-        socket->connectToHost(host, port);
-    } else {
-        qDebug() << tr("Already connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
     }
+
+    Connection::hostConnect(serverEntry);
 }
 
 void FrostbiteConnection::sendPacket(const FrostbiteRconPacket &packet, bool response)

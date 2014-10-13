@@ -30,7 +30,7 @@ BFBC2::BFBC2(ServerEntry *serverEntry) :
     m_commandHandler(new BFBC2CommandHandler(m_connection)),
     authenticated(false)
 {
-    m_connection->hostConnect(serverEntry->host, serverEntry->port);
+    m_connection->hostConnect(serverEntry);
 
     versionMap = {
         { 571287, "R21" },

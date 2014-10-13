@@ -324,7 +324,7 @@ void OpenRcon::actionTabReconnect_triggered()
 {
     QWidget *widget = tabWidget->currentWidget();
     Game *game = dynamic_cast<Game*>(widget);
-    game->getConnection()->hostReconnect();
+    game->getConnection()->hostConnect(game->getServerEntry());
 }
 
 // QuickConnect toolbar

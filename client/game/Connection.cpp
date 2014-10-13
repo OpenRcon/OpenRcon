@@ -37,10 +37,10 @@ Connection::~Connection()
 
 }
 
-void Connection::hostConnect(const QString &host, int port)
+void Connection::hostConnect(ServerEntry *serverEntry)
 {
     if (!socket->isOpen()) {
-        socket->connectToHost(host, port);
+        socket->connectToHost(serverEntry->host, serverEntry->port);
     } else {
         qDebug() << tr("Already connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
     }
@@ -53,17 +53,6 @@ void Connection::hostDisconnect()
     } else {
         qDebug() << tr("Could not disconnect, because there was no open sockets to close.");
     }
-}
-
-void Connection::hostReconnect()
-{
-    // Store current connected host ip and port.
-    QString host = socket->peerAddress().toString();
-    int port = socket->peerPort();
-
-    // Disconnect from host and reconnect.
-    socket->disconnectFromHost();
-    socket->connectToHost(host, port);
 }
 
 void Connection::connected()

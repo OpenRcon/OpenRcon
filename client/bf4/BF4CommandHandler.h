@@ -22,7 +22,7 @@
 
 #include "Frostbite2CommandHandler.h"
 
-struct BF4ServerInfo;
+class BF4ServerInfo;
 struct PlayerInfo;
 
 class BF4CommandHandler : public Frostbite2CommandHandler

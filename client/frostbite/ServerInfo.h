@@ -28,7 +28,20 @@
 class ServerInfo
 {
 public:
-    ServerInfo(const QString &serverName, int playerCount, int maxPlayerCount, const QString &gameMode, const QString &currentMap, int roundsPlayed, int roundsTotal, const TeamScores &scores, const OnlineState &onlineState, bool ranked, bool punkBuster, bool hasGamePassword, int serverUpTime, int roundTime);
+    ServerInfo(const QString &serverName,
+               int playerCount,
+               int maxPlayerCount,
+               const QString &gameMode,
+               const QString &currentMap,
+               int roundsPlayed,
+               int roundsTotal,
+               const TeamScores &scores,
+               const OnlineState &onlineState,
+               bool ranked,
+               bool punkBuster,
+               bool hasGamePassword,
+               int serverUpTime,
+               int roundTime);
     ~ServerInfo();
 
     QString getServerName();

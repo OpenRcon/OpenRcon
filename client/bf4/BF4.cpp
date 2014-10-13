@@ -28,7 +28,7 @@ BF4::BF4(ServerEntry *serverEntry) :
     m_commandHandler(new BF4CommandHandler(m_connection)),
     authenticated(false)
 {
-    m_connection->hostConnect(serverEntry->host, serverEntry->port);
+    m_connection->hostConnect(serverEntry);
 
     versionMap = {
         { 70517,  "OB-R2" },

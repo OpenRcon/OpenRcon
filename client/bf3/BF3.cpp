@@ -28,7 +28,7 @@ BF3::BF3(ServerEntry *serverEntry) :
     m_commandHandler(new BF3CommandHandler(m_connection)),
     authenticated(false)
 {
-    m_connection->hostConnect(serverEntry->host, serverEntry->port);
+    m_connection->hostConnect(serverEntry);
 
     versionMap = {
         { 872601,  "OB-E" },

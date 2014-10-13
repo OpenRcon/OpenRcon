@@ -29,8 +29,8 @@ class QTreeWidgetItem;
 class FrostbiteConnection;
 class BF4CommandHandler;
 
-struct BF4ServerInfo;
-struct MapListEntry;
+class BF4ServerInfo;
+class MapListEntry;
 
 namespace Ui {
     class MapListWidget;

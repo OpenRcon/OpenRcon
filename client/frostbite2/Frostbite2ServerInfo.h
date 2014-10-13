@@ -39,7 +39,7 @@ public:
                bool ranked,
                bool punkBuster,
                bool hasGamePassword,
-               int&serverUpTime,
+               int serverUpTime,
                int roundTime,
                const QString &gameIpAndPort,
                const QString &punkBusterVersion,

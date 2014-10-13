@@ -25,7 +25,7 @@
 Minecraft::Minecraft(ServerEntry *serverEntry) : Game(serverEntry)
 {
     m_connection = new MinecraftConnection(this);
-    m_connection->hostConnect(serverEntry->host, serverEntry->port);
+    m_connection->hostConnect(serverEntry);
 
     connect(m_connection, &Connection::onConnected, this, &Minecraft::onConnected);
 }
