@@ -36,9 +36,9 @@ OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Opti
 
     loadSettings();
 
-    connect(ui->listWidget,    &QListWidget::currentItemChanged, this, &OptionsDialog::listWidget_currentItemChanged);
-    connect(ui->buttonBox,     &QDialogButtonBox::accepted,      this, &OptionsDialog::accept);
-    connect(ui->buttonBox,     &QDialogButtonBox::rejected,      this, &QDialog::reject);
+    connect(ui->listWidget, &QListWidget::currentItemChanged, this, &OptionsDialog::listWidget_currentItemChanged);
+    connect(ui->buttonBox,  &QDialogButtonBox::accepted,      this, &OptionsDialog::accept);
+    connect(ui->buttonBox,  &QDialogButtonBox::rejected,      this, &QDialog::reject);
 }
 
 OptionsDialog::~OptionsDialog()
@@ -50,7 +50,7 @@ void OptionsDialog::loadSettings()
 {
     // Add languages to comboBox_ge_language.
     QList<LanguageEntry> languageList = languageManager->getLanguages();
-    languageList.insert(0, LanguageEntry(tr("System Default"), QLocale::system().name(), ""));
+    languageList.insert(0, LanguageEntry(tr("Detect automatically"), QLocale::system().name(), nullptr));
 
     for (LanguageEntry language : languageList) {
         ui->comboBox_be_language->addItem(language.icon, language.name, qVariantFromValue(language));
