@@ -25,6 +25,7 @@
 #include "OnlineState.h"
 #include "BF4ServerInfo.h"
 #include "PlayerInfo.h"
+#include "BF4Preset.h"
 
 BF4CommandHandler::BF4CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)
 {
@@ -590,7 +591,7 @@ void BF4CommandHandler::parseVarsPresetCommand(const FrostbiteRconPacket &packet
         QString serverPreset = packet.getWord(1).getContent();
         bool lockPresetSetting = FrostbiteUtils::toBool(packet.getWord(2).getContent());
 
-        emit (onVarsPresetCommand(serverPreset, lockPresetSetting));
+        emit (onVarsPresetCommand(BF4Preset::fromString(serverPreset), lockPresetSetting));
     }
 }
 
