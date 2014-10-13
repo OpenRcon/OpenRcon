@@ -24,12 +24,9 @@
 
 BF4::BF4(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    m_connection(new FrostbiteConnection(this)),
     m_commandHandler(new BF4CommandHandler(m_connection)),
     authenticated(false)
 {
-    m_connection->hostConnect(serverEntry);
-
     versionMap = {
         { 70517,  "OB-R2" },
         { 72879,  "OB-R3" },
@@ -80,9 +77,9 @@ BF4::BF4(ServerEntry *serverEntry) :
 
     // Commands
     connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this,           static_cast<void (BF4::*)(const QByteArray&)>(&BF4::onLoginHashedCommand));
+            this,             static_cast<void (BF4::*)(const QByteArray&)>(&BF4::onLoginHashedCommand));
     connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this,           static_cast<void (BF4::*)(bool)>(&BF4::onLoginHashedCommand));
+            this,             static_cast<void (BF4::*)(bool)>(&BF4::onLoginHashedCommand));
     connect(m_commandHandler, &BF4CommandHandler::onVersionCommand, this, &BF4::onVersionCommand);
 }
 

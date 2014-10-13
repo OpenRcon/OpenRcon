@@ -22,7 +22,6 @@
 
 #include "FrostbiteGame.h"
 
-class FrostbiteConnection;
 class BF3CommandHandler;
 
 class BF3 : public FrostbiteGame
@@ -34,7 +33,6 @@ public:
     ~BF3();
 
 protected:
-    FrostbiteConnection *m_connection;
     BF3CommandHandler *m_commandHandler;
 
     bool isAuthenticated();

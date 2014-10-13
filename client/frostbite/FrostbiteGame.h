@@ -22,15 +22,19 @@
 
 #include "Game.h"
 
+class FrostbiteConnection;
+
 class FrostbiteGame : public Game
 {
     Q_OBJECT
 
 public:
     FrostbiteGame(ServerEntry *serverEntry);
-    ~FrostbiteGame();
+    ~FrostbiteGame();    
 
 protected:
+    FrostbiteConnection *m_connection;
+
     QMap<int, QString> versionMap;
     QStringList commandList;
 

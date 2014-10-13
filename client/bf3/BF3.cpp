@@ -24,12 +24,9 @@
 
 BF3::BF3(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    m_connection(new FrostbiteConnection(this)),
     m_commandHandler(new BF3CommandHandler(m_connection)),
     authenticated(false)
 {
-    m_connection->hostConnect(serverEntry);
-
     versionMap = {
         { 872601,  "OB-E" },
         { 873274,  "OB-F" },
