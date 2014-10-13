@@ -56,72 +56,72 @@ ServerInfo::~ServerInfo()
 
 }
 
-QString ServerInfo::getServerName()
+QString ServerInfo::getServerName() const
 {
     return serverName;
 }
 
-int ServerInfo::getPlayerCount()
+int ServerInfo::getPlayerCount() const
 {
     return playerCount;
 }
 
-int ServerInfo::getMaxPlayerCount()
+int ServerInfo::getMaxPlayerCount() const
 {
     return maxPlayerCount;
 }
 
-QString ServerInfo::getGameMode()
+QString ServerInfo::getGameMode() const
 {
     return gameMode;
 }
 
-QString ServerInfo::getCurrentMap()
+QString ServerInfo::getCurrentMap() const
 {
     return currentMap;
 }
 
-int ServerInfo::getRoundsPlayed()
+int ServerInfo::getRoundsPlayed() const
 {
     return roundsPlayed;
 }
 
-int ServerInfo::getRoundsTotal()
+int ServerInfo::getRoundsTotal() const
 {
     return roundsTotal;
 }
 
-TeamScores ServerInfo::getScores()
+TeamScores ServerInfo::getScores() const
 {
     return scores;
 }
 
-OnlineState ServerInfo::getOnlineState()
+OnlineState ServerInfo::getOnlineState() const
 {
     return onlineState;
 }
 
-bool ServerInfo::getRanked()
+bool ServerInfo::getRanked() const
 {
     return ranked;
 }
 
-bool ServerInfo::getPunkBuster()
+bool ServerInfo::getPunkBuster() const
 {
     return punkBuster;
 }
 
-bool ServerInfo::getHasGamePassword()
+bool ServerInfo::getHasGamePassword() const
 {
     return hasGamePassword;
 }
 
-int ServerInfo::getServerUpTime()
+int ServerInfo::getServerUpTime() const
 {
     return serverUpTime;
 }
 
-int ServerInfo::getRoundTime()
+int ServerInfo::getRoundTime() const
 {
     return roundTime;
 }

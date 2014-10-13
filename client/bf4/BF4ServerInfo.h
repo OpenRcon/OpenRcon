@@ -52,8 +52,8 @@ public:
                   const QString &blazeGameState);
     ~BF4ServerInfo();
 
-    int getBlazePlayerCount();
-    QString getBlazeGameState();
+    int getBlazePlayerCount() const;
+    QString getBlazeGameState() const;
 
 private:
     int blazePlayerCount;

@@ -44,20 +44,20 @@ public:
                int roundTime);
     ~ServerInfo();
 
-    QString getServerName();
-    int getPlayerCount();
-    int getMaxPlayerCount();
-    QString getGameMode();
-    QString getCurrentMap();
-    int getRoundsPlayed();
-    int getRoundsTotal();
-    TeamScores getScores();
-    OnlineState getOnlineState();
-    bool getRanked();
-    bool getPunkBuster();
-    bool getHasGamePassword();
-    int getServerUpTime();
-    int getRoundTime();
+    QString getServerName() const;
+    int getPlayerCount() const;
+    int getMaxPlayerCount() const;
+    QString getGameMode() const;
+    QString getCurrentMap() const;
+    int getRoundsPlayed() const;
+    int getRoundsTotal() const;
+    TeamScores getScores() const;
+    OnlineState getOnlineState() const;
+    bool getRanked() const;
+    bool getPunkBuster() const;
+    bool getHasGamePassword() const;
+    int getServerUpTime() const;
+    int getRoundTime() const;
 
 private:
     QString serverName;

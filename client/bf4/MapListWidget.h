@@ -58,7 +58,7 @@ private:
 private slots:
     /* Commands */
     void onLoginHashedCommand(bool auth);
-    void onServerInfoCommand(BF4ServerInfo &serverInfo);
+    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
     void onMapListListCommand(const QList<MapListEntry> &mapList);
 
     /* User Interface */

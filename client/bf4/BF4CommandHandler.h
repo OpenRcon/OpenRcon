@@ -127,7 +127,7 @@ signals:
 
     /* Command signals */
     // Misc
-    void onServerInfoCommand(BF4ServerInfo &serverInfo);
+    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
     void onCurrentLevelCommand(const QString &level);
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 

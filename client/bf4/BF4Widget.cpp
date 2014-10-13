@@ -296,7 +296,7 @@ void BF4Widget::onVersionCommand(const QString &type, int build)
     ui->label_si_version->setToolTip(QString::number(build));
 }
 
-void BF4Widget::onServerInfoCommand(BF4ServerInfo &serverInfo)
+void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.getGameMode());

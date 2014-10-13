@@ -74,12 +74,12 @@ BF4ServerInfo::~BF4ServerInfo()
 
 }
 
-int BF4ServerInfo::getBlazePlayerCount()
+int BF4ServerInfo::getBlazePlayerCount() const
 {
     return blazePlayerCount;
 }
 
-QString BF4ServerInfo::getBlazeGameState()
+QString BF4ServerInfo::getBlazeGameState() const
 {
     return blazeGameState;
 }

@@ -83,7 +83,7 @@ private slots:
     // Misc
     void onLoginHashedCommand(bool auth);
     void onVersionCommand(const QString &type, int build);
-    void onServerInfoCommand(BF4ServerInfo &serverInfo);
+    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
 
     // Admin
 

@@ -90,7 +90,7 @@ void MapListWidget::onLoginHashedCommand(bool auth)
     }
 }
 
-void MapListWidget::onServerInfoCommand(BF4ServerInfo &serverInfo)
+void MapListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.getGameMode());

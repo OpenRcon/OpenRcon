@@ -50,13 +50,13 @@ public:
                bool matchMakingEnabled);
     ~Frostbite2ServerInfo();
 
-    QString getGameIpAndPort();
-    QString getPunkBusterVersion();
-    bool getJoinQueueEnabled();
-    QString getRegion();
-    QString getClosestPingSite();
-    QString getCountry();
-    bool getMatchMakingEnabled();
+    QString getGameIpAndPort() const;
+    QString getPunkBusterVersion() const;
+    bool getJoinQueueEnabled() const;
+    QString getRegion() const;
+    QString getClosestPingSite() const;
+    QString getCountry() const;
+    bool getMatchMakingEnabled() const;
 
 private:
     QString gameIpAndPort;

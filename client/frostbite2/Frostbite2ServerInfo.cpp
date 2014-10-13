@@ -70,37 +70,37 @@ Frostbite2ServerInfo::~Frostbite2ServerInfo()
 
 }
 
-QString Frostbite2ServerInfo::getGameIpAndPort()
+QString Frostbite2ServerInfo::getGameIpAndPort() const
 {
     return gameIpAndPort;
 }
 
-QString Frostbite2ServerInfo::getPunkBusterVersion()
+QString Frostbite2ServerInfo::getPunkBusterVersion() const
 {
     return punkBusterVersion;
 }
 
-bool Frostbite2ServerInfo::getJoinQueueEnabled()
+bool Frostbite2ServerInfo::getJoinQueueEnabled() const
 {
     return joinQueueEnabled;
 }
 
-QString Frostbite2ServerInfo::getRegion()
+QString Frostbite2ServerInfo::getRegion() const
 {
     return region;
 }
 
-QString Frostbite2ServerInfo::getClosestPingSite()
+QString Frostbite2ServerInfo::getClosestPingSite() const
 {
     return closestPingSite;
 }
 
-QString Frostbite2ServerInfo::getCountry()
+QString Frostbite2ServerInfo::getCountry() const
 {
     return country;
 }
 
-bool Frostbite2ServerInfo::getMatchMakingEnabled()
+bool Frostbite2ServerInfo::getMatchMakingEnabled() const
 {
     return matchMakingEnabled;
 }

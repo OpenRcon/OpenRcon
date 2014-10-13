@@ -118,7 +118,7 @@ void PlayerListWidget::onLoginHashedCommand(bool auth)
     }
 }
 
-void PlayerListWidget::onServerInfoCommand(BF4ServerInfo &serverInfo)
+void PlayerListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
 }
