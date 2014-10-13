@@ -167,27 +167,27 @@ void Frostbite2CommandHandler::sendAdminPasswordCommand(const QString &password)
     }
 }
 
-void Frostbite2CommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
+void Frostbite2CommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetType &playerSubsetType, int parameter)
 {
-    if (playerSubset == PlayerSubset::All) {
-        m_connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, getPlayerSubsetString(playerSubset)));
+    if (playerSubsetType == PlayerSubsetType::All) {
+        m_connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubsetType)));
     } else {
-        m_connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, getPlayerSubsetString(playerSubset)).arg(parameter));
+        m_connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubsetType)).arg(parameter));
     }
 }
 
-void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter)
+void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetType &playerSubsetType, int parameter)
 {
-    sendAdminYellCommand(message, 10, playerSubset, parameter);
+    sendAdminYellCommand(message, 10, playerSubsetType, parameter);
 }
 
-void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset, int parameter)
+void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetType &playerSubsetType, int parameter)
 {
     if (message.length() <= 256) {
-        if (playerSubset == PlayerSubset::All) {
-            m_connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)));
+        if (playerSubsetType == PlayerSubsetType::All) {
+            m_connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubsetType)));
         } else {
-            m_connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(getPlayerSubsetString(playerSubset)).arg(parameter));
+            m_connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubsetType)).arg(parameter));
         }
     }
 }
@@ -1379,44 +1379,5 @@ void Frostbite2CommandHandler::parseVarsVehicleSpawnDelayCommand(const Frostbite
         int delay = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsVehicleSpawnDelayCommand(delay));
-    }
-}
-
-PlayerSubset Frostbite2CommandHandler::getPlayerSubset(const QString &playerSubsetString)
-{
-    if (playerSubsetString == "all") {
-        return PlayerSubset::All;
-    } else if (playerSubsetString == "team") {
-        return PlayerSubset::Team;
-    } else if (playerSubsetString == "squad") {
-        return PlayerSubset::Squad;
-    } else if (playerSubsetString == "player") {
-        return PlayerSubset::Player;
-    } else {
-        return PlayerSubset::Unknown;
-    }
-}
-
-QString Frostbite2CommandHandler::getPlayerSubsetString(const PlayerSubset &playerSubset)
-{
-    switch (playerSubset) {
-    case PlayerSubset::All:
-        return "all";
-        break;
-
-    case PlayerSubset::Team:
-        return "team";
-        break;
-
-    case PlayerSubset::Squad:
-        return "squad";
-        break;
-
-    case PlayerSubset::Player:
-        return "player";
-        break;
-
-    default:
-        return QString();
     }
 }

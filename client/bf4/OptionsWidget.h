@@ -35,7 +35,7 @@ class OptionsWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit OptionsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    OptionsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
     ~OptionsWidget();
 
 private:

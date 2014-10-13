@@ -34,7 +34,7 @@ class EventsWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit EventsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    EventsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
     ~EventsWidget();
 
 private:

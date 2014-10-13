@@ -38,7 +38,7 @@ public:
     // Misc
     void sendServerInfoCommand();
     void sendCurrentLevelCommand();
-    void sendListPlayersCommand(const PlayerSubset &playerSubset);
+    void sendListPlayersCommand(const PlayerSubsetType &playerSubsetType);
 
     // Admin
     void sendAdminEffectiveMaxPlayersCommand();

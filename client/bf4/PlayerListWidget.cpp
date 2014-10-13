@@ -114,7 +114,7 @@ PlayerListWidget::~PlayerListWidget()
 void PlayerListWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        m_commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
+        m_commandHandler->sendAdminListPlayersCommand(PlayerSubsetType::All);
     }
 }
 
@@ -123,9 +123,9 @@ void PlayerListWidget::onServerInfoCommand(BF4ServerInfo &serverInfo)
     currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
 }
 
-void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
+void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
 {
-    if (playerSubset == PlayerSubset::All) {
+    if (playerSubsetType == PlayerSubsetType::All) {
         // Clear the QTreeWidget and item.
         clear();
         menu_pl_players_move->clear();
@@ -206,7 +206,7 @@ QIcon PlayerListWidget::getRankIcon(int rank)
 /* User Interface */
 void PlayerListWidget::updatePlayerList()
 {
-    m_commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
+    m_commandHandler->sendAdminListPlayersCommand(PlayerSubsetType::All);
 }
 
 void PlayerListWidget::customContextMenuRequested(const QPoint &pos)

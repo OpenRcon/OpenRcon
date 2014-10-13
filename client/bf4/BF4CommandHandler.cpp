@@ -107,17 +107,17 @@ void BF4CommandHandler::sendCurrentLevelCommand()
     m_connection->sendCommand("currentLevel");
 }
 
-void BF4CommandHandler::sendListPlayersCommand(const PlayerSubset &playerSubset)
+void BF4CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
-    if (playerSubset == PlayerSubset::All) {
+    if (playerSubsetType == PlayerSubsetType::All) {
         m_connection->sendCommand("\"listPlayers\" \"all\"");
     }
 }
 
 // Admin
-void BF4CommandHandler::sendAdminListPlayersCommand(const PlayerSubset &playerSubset)
+void BF4CommandHandler::sendAdminListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
-    if (playerSubset == PlayerSubset::All) {
+    if (playerSubsetType == PlayerSubsetType::All) {
         m_connection->sendCommand(QString("\"admin.listPlayers\" \"all\""));
     }
 }
@@ -415,17 +415,17 @@ void BF4CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket &pack
 void BF4CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
-    PlayerSubset playerSubset = getPlayerSubset(lastSentPacket.getWord(1).getContent());
+    PlayerSubsetType playerSubsetType = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
 
-    emit (onListPlayersCommand(playerList, playerSubset));
+    emit (onListPlayersCommand(playerList, playerSubsetType));
 }
 
 void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
-    PlayerSubset playerSubset = getPlayerSubset(lastSentPacket.getWord(1).getContent());
+    PlayerSubsetType playerSubsetType = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
 
-    emit (onAdminListPlayersCommand(playerList, playerSubset));
+    emit (onAdminListPlayersCommand(playerList, playerSubsetType));
 }
 
 //void BF4CommandHandler::parseAdminShutDownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

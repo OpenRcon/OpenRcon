@@ -41,7 +41,7 @@ class MapListWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit MapListWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    MapListWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
     ~MapListWidget();
 
 private:

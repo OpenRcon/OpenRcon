@@ -37,7 +37,7 @@ public:
     static BF4PresetType fromString(const QString &preset);
     static QString toString(const BF4PresetType &presetType);
     static int toInt(const BF4PresetType &presetType);
-    static QStringList getList();
+    static QStringList asList();
 
 private:
     static QStringList list;

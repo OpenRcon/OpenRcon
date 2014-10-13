@@ -37,7 +37,7 @@ class SpectatorSlotsWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit SpectatorSlotsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    SpectatorSlotsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
     ~SpectatorSlotsWidget();
 
 private:

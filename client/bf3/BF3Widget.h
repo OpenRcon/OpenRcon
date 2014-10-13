@@ -28,7 +28,7 @@ class ConsoleWidget;
 
 class Frostbite2ServerInfo;
 struct PlayerInfo;
-enum class PlayerSubset;
+enum class PlayerSubsetType;
 
 namespace Ui {
     class BF3Widget;
@@ -74,10 +74,10 @@ private slots:
     // Misc
     void onLoginHashedCommand(bool auth);
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
-    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 
     // Admin
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 
     // Banning
 
@@ -99,7 +99,7 @@ private slots:
 
     // Players
     void updatePlayerList();
-    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 
     // Maplist
 

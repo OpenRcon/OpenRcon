@@ -44,9 +44,9 @@ public:
     void sendAdminKillPlayerCommand(const QString &player);
     void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
     void sendAdminPasswordCommand(const QString &password = QString());
-    void sendAdminSayCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
-    void sendAdminYellCommand(const QString &message, const PlayerSubset &playerSubset, int parameter = -1);
-    void sendAdminYellCommand(const QString &message, int duration, const PlayerSubset &playerSubset, int parameter = -1);
+    void sendAdminSayCommand(const QString &message, const PlayerSubsetType &playerSubsetType, int parameter = -1);
+    void sendAdminYellCommand(const QString &message, const PlayerSubsetType &playerSubsetType, int parameter = -1);
+    void sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetType &playerSubsetType, int parameter = -1);
 
     // Maplist
     void sendMapListAddCommand(const QString &level, const QString &gameMode, int rounds, int offSet = 0);
@@ -134,10 +134,6 @@ public:
     void sendVarsVehicleSpawnAllowedCommand();
     void sendVarsVehicleSpawnAllowedCommand(bool enabled);
     void sendVarsVehicleSpawnDelayCommand(int percent = -1);
-
-protected:
-    PlayerSubset getPlayerSubset(const QString &playerSubsetString);
-    QString getPlayerSubsetString(const PlayerSubset &playerSubset);
 
 private:
     /* Parse events */

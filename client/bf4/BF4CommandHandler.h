@@ -40,10 +40,10 @@ public:
     // Misc
     void sendServerInfoCommand();
     void sendCurrentLevelCommand();
-    void sendListPlayersCommand(const PlayerSubset &playerSubset);
+    void sendListPlayersCommand(const PlayerSubsetType &playerSubsetType);
 
     // Admin
-    void sendAdminListPlayersCommand(const PlayerSubset &playerSubset);
+    void sendAdminListPlayersCommand(const PlayerSubsetType &playerSubsetType);
     void sendAdminShutdownCommand();
     void sendAdminShutdownCommand(bool graceful);
     void sendAdminShutdownCommand(bool graceful, int seconds);
@@ -129,10 +129,10 @@ signals:
     // Misc
     void onServerInfoCommand(BF4ServerInfo &serverInfo);
     void onCurrentLevelCommand(const QString &level);
-    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 
     // Admin
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 //    void onAdminShutDownCommand();
 
     // FairFight

@@ -196,7 +196,7 @@ void BF3Widget::startupCommands(bool authenticated)
 
         // Variables
     } else {
-        m_commandHandler->sendListPlayersCommand(PlayerSubset::All);
+        m_commandHandler->sendListPlayersCommand(PlayerSubsetType::All);
     }
 }
 
@@ -237,15 +237,15 @@ void BF3Widget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
     Q_UNUSED(serverInfo);
 }
 
-void BF3Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
+void BF3Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
 {
-    listPlayers(playerList, playerSubset);
+    listPlayers(playerList, playerSubsetType);
 }
 
 // Admin
-void BF3Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
+void BF3Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
 {
-    listPlayers(playerList, playerSubset);
+    listPlayers(playerList, playerSubsetType);
 }
 
 // Banning
@@ -279,13 +279,13 @@ void BF3Widget::updatePlayerList()
     if (isAuthenticated()) {
 //        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
     } else {
-        m_commandHandler->sendListPlayersCommand(PlayerSubset::All);
+        m_commandHandler->sendListPlayersCommand(PlayerSubsetType::All);
     }
 }
 
-void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset)
+void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
 {
-    if (playerSubset == PlayerSubset::All) {
+    if (playerSubsetType == PlayerSubsetType::All) {
         ui->treeWidget_pl_players->clear();
 
         QList<QTreeWidgetItem *> playerItems;

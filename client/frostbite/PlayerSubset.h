@@ -20,12 +20,28 @@
 #ifndef PLAYERSUBSET_H
 #define PLAYERSUBSET_H
 
-enum class PlayerSubset {
+#include <QString>
+#include <QStringList>
+
+enum class PlayerSubsetType {
     Unknown,
     All,
     Team,
     Squad,
     Player
+};
+
+class PlayerSubset
+{
+public:
+    static PlayerSubsetType fromString(const QString &playerSubset);
+    static QString toString(const PlayerSubsetType &playerSubsetType);
+    static int toInt(const PlayerSubsetType &playerSubsetType);
+    static QStringList asList();
+
+private:
+    static QStringList list;
+
 };
 
 #endif // PLAYERSUBSET_H

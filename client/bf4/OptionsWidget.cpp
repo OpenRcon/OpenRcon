@@ -32,7 +32,7 @@ OptionsWidget::OptionsWidget(FrostbiteConnection *connection, QWidget *parent) :
     ui->setupUi(this);
 
     // Initialize comboBox with preset types.
-    ui->comboBox_so_gp_preset->addItems(BF4Preset::getList());
+    ui->comboBox_so_gp_preset->addItems(BF4Preset::asList());
 
     /* Commands */
     // Misc

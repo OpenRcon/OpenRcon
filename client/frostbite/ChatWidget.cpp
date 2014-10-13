@@ -83,21 +83,21 @@ void ChatWidget::pushButton_send_clicked()
     int duration = ui->spinBox_duration->value();
 
     if (!message.isEmpty()) {
-        PlayerSubset playerSubset;
+        PlayerSubsetType playerSubsetType;
         int parameter = 0;
 
         switch (target) {
         case 0:
-            playerSubset = PlayerSubset::All;
+            playerSubsetType = PlayerSubsetType::All;
             break;
 
         case 1:
-            playerSubset = PlayerSubset::Team;
+            playerSubsetType = PlayerSubsetType::Team;
             parameter = 0;
             break;
 
         case 2:
-            playerSubset = PlayerSubset::Team;
+            playerSubsetType = PlayerSubsetType::Team;
             parameter = 1;
             break;
         }
@@ -105,17 +105,17 @@ void ChatWidget::pushButton_send_clicked()
         switch (type) {
         case 0:
             if (parameter) {
-                m_commandHandler->sendAdminSayCommand(message, playerSubset, parameter);
+                m_commandHandler->sendAdminSayCommand(message, playerSubsetType, parameter);
             } else {
-                m_commandHandler->sendAdminSayCommand(message, playerSubset);
+                m_commandHandler->sendAdminSayCommand(message, playerSubsetType);
             }
             break;
 
         case 1:
             if (parameter) {
-                m_commandHandler->sendAdminYellCommand(message, duration, playerSubset, parameter);
+                m_commandHandler->sendAdminYellCommand(message, duration, playerSubsetType, parameter);
             } else {
-                m_commandHandler->sendAdminYellCommand(message, duration, playerSubset);
+                m_commandHandler->sendAdminYellCommand(message, duration, playerSubsetType);
             }
             break;
         }

@@ -31,14 +31,14 @@ class BF4CommandHandler;
 
 class BF4ServerInfo;
 struct PlayerInfo;
-enum class PlayerSubset;
+enum class PlayerSubsetType;
 
 class PlayerListWidget : public QTreeWidget
 {
     Q_OBJECT
 
 public:
-    explicit PlayerListWidget(FrostbiteConnection *connection, QWidget *parent = 0);
+    PlayerListWidget(FrostbiteConnection *connection, QWidget *parent = 0);
     ~PlayerListWidget();
 
 private:
@@ -71,7 +71,7 @@ private slots:
     /* Command slots */
     void onLoginHashedCommand(bool auth);
     void onServerInfoCommand(BF4ServerInfo &serverInfo);
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubset &playerSubset);
+    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 
     /* User Interface */
     void customContextMenuRequested(const QPoint &pos);

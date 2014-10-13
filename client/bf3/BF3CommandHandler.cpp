@@ -83,9 +83,9 @@ void BF3CommandHandler::sendCurrentLevelCommand()
     m_connection->sendCommand("currentLevel");
 }
 
-void BF3CommandHandler::sendListPlayersCommand(const PlayerSubset &playerSubset)
+void BF3CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
-    if (playerSubset == PlayerSubset::All) {
+    if (playerSubsetType == PlayerSubsetType::All) {
         m_connection->sendCommand("\"listPlayers\" \"all\"");
     }
 }

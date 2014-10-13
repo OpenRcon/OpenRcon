@@ -56,7 +56,7 @@ int BF4Preset::toInt(const BF4PresetType &presetType)
     return static_cast<int>(presetType);
 }
 
-QStringList BF4Preset::getList()
+QStringList BF4Preset::asList()
 {
     return list;
 }
