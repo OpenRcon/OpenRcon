@@ -63,7 +63,7 @@ QList<GameEntry> GameManager::getGames()
 
 Game *GameManager::getGameObject(ServerEntry *serverEntry)
 {
-    GameType gameType = serverEntry->gameType;
+    GameType gameType = serverEntry->getGameType();
     Game *gameObject = nullptr;
 
     switch (gameType) {

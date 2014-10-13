@@ -27,7 +27,8 @@
 using namespace Constants;
 
 class QSettings;
-struct ServerEntry;
+
+class ServerEntry;
 enum class GameType;
 
 class ServerManager : public QObject

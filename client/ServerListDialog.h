@@ -28,10 +28,11 @@ using namespace Constants;
 
 class QMenu;
 class QTreeWidgetItem;
+
 class OpenRcon;
 class ServerManager;
 class SessionManager;
-struct ServerEntry;
+class ServerEntry;
 
 namespace Ui {
     class ServerListDialog;

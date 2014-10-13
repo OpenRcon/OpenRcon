@@ -64,15 +64,15 @@ BFBC2::~BFBC2()
 
 void BFBC2::onConnected()
 {
-    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
+    if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
         m_commandHandler->sendLoginHashedCommand();
     }
 }
 
 void BFBC2::onLoginHashedCommand(const QByteArray &salt)
 {
-    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
-        m_commandHandler->sendLoginHashedCommand(salt, serverEntry->password);
+    if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
+        m_commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
     }
 }
 

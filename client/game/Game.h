@@ -22,7 +22,7 @@
 
 #include "ConnectionTabWidget.h"
 
-struct ServerEntry;
+class ServerEntry;
 
 class Game : public ConnectionTabWidget
 {

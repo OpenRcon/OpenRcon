@@ -27,7 +27,7 @@ class ChatWidget;
 class ReservedSlotsWidget;
 class ConsoleWidget;
 
-struct Frostbite2ServerInfo;
+class Frostbite2ServerInfo;
 struct PlayerInfo;
 enum class PlayerSubset;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -19,13 +19,20 @@
 
 #include "ServerEntry.h"
 
-ServerEntry::ServerEntry(const QString &game, const QString &name, const QHostAddress &host, int port, const QString &password)
+ServerEntry::ServerEntry(GameType gameType, const QString &name, const QString &host, int port, const QString &password, bool autoConnect) :
+    gameType(gameType),
+    name(name),
+    host(host),
+    port(port),
+    password(password),
+    autoConnect(autoConnect)
 {
-    this->game = game;
-    this->name = name;
-    this->host = host;
-    this->port = port;
-    this->password = password;
+
+}
+
+ServerEntry::ServerEntry()
+{
+
 }
 
 ServerEntry::~ServerEntry()
@@ -33,9 +40,9 @@ ServerEntry::~ServerEntry()
 
 }
 
-QString ServerEntry::getGame()
+GameType ServerEntry::getGameType()
 {
-    return game;
+    return gameType;
 }
 
 QString ServerEntry::getName()
@@ -43,7 +50,7 @@ QString ServerEntry::getName()
     return name;
 }
 
-QHostAddress ServerEntry::getHost()
+QString ServerEntry::getHost()
 {
     return host;
 }
@@ -56,4 +63,14 @@ int ServerEntry::getPort()
 QString ServerEntry::getPassword()
 {
     return password;
+}
+
+bool ServerEntry::getAutoConnect()
+{
+    return autoConnect;
+}
+
+void ServerEntry::setAutoConnect(bool autoConnect)
+{
+    this->autoConnect = autoConnect;
 }

@@ -24,7 +24,7 @@
 #include <QSet>
 
 class OpenRcon;
-struct ServerEntry;
+class ServerEntry;
 
 class SessionManager : public QObject
 {

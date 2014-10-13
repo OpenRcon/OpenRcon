@@ -43,11 +43,11 @@ void SessionManager::open(ServerEntry *serverEntry)
         sessions.insert(serverEntry);
 
         QTabWidget *tabWidget = openRcon->getTabWidget();
-        GameEntry gameEntry = GameManager::getGame(serverEntry->gameType);
+        GameEntry gameEntry = GameManager::getGame(serverEntry->getGameType());
         Game *gameObject = GameManager::getGameObject(serverEntry);
-        int index = tabWidget->addTab(gameObject, QIcon(gameEntry.icon), serverEntry->name);
+        int index = tabWidget->addTab(gameObject, QIcon(gameEntry.icon), serverEntry->getName());
 
-        tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->host).arg(serverEntry->port));
+        tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->getHost()).arg(serverEntry->getPort()));
         tabWidget->setCurrentIndex(index);
 
         emit (onServerConnected());

@@ -23,7 +23,7 @@
 #include <QObject>
 #include <QAbstractSocket>
 
-struct ServerEntry;
+class ServerEntry;
 
 class Connection : public QObject
 {

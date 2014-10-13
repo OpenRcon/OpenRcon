@@ -220,7 +220,7 @@ void OpenRcon::autoConnect()
     QList<ServerEntry *> serverList = serverManager->getServers();
 
     for (ServerEntry *entry : serverList) {
-        if (entry->autoConnect) {
+        if (entry->getAutoConnect()) {
             sessionManager->open(entry);
         }
     }
@@ -239,9 +239,9 @@ void OpenRcon::updateServerList()
 
         for (ServerEntry *serverEntry : serverList) {
             if (!sessionManager->isConnected(serverEntry)) {
-                GameEntry game = GameManager::getGame(serverEntry->gameType);
+                GameEntry game = GameManager::getGame(serverEntry->getGameType());
 
-                comboBox_quickConnect_server->addItem(game.getIcon(), serverEntry->name, qVariantFromValue(serverEntry));
+                comboBox_quickConnect_server->addItem(game.getIcon(), serverEntry->getName(), qVariantFromValue(serverEntry));
             }
         }
 

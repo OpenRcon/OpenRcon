@@ -29,7 +29,8 @@ using namespace Constants;
 class QSettings;
 class QComboBox;
 class QPushButton;
-struct ServerEntry;
+
+class ServerEntry;
 class ServerManager;
 class SessionManager;
 class ServerListDialog;

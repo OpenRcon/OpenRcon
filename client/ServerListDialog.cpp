@@ -120,7 +120,7 @@ void ServerListDialog::treeWidget_itemClicked(QTreeWidgetItem *item, int column)
         ServerEntry *entry = variant.value<ServerEntry *>();
 
         // Sets the checked state of autoconnect.
-        entry->autoConnect = item->checkState(column) == Qt::Checked ? true : false;
+        entry->setAutoConnect(item->checkState(column) == Qt::Checked ? true : false);
     }
 }
 
@@ -148,7 +148,7 @@ void ServerListDialog::createTreeData()
         QList<ServerEntry *> list;
 
         for (ServerEntry *entry : serverEntries) {
-            if (entry->gameType == gameEntry.gameType) {
+            if (entry->getGameType() == gameEntry.gameType) {
                 list.append(entry);
             }
         }
@@ -162,11 +162,11 @@ void ServerListDialog::createTreeData()
             for (ServerEntry *serverEntry : list) {
                 QTreeWidgetItem *childItem = new QTreeWidgetItem(parentItem);
                 childItem->setData(0, Qt::UserRole, qVariantFromValue(serverEntry));
-                childItem->setText(0, serverEntry->name);
-                childItem->setText(1, serverEntry->host);
-                childItem->setText(2, QString::number(serverEntry->port));
+                childItem->setText(0, serverEntry->getName());
+                childItem->setText(1, serverEntry->getHost());
+                childItem->setText(2, QString::number(serverEntry->getPort()));
                 childItem->setFlags(childItem->flags() | Qt::ItemIsUserCheckable);
-                childItem->setCheckState(3, serverEntry->autoConnect ? Qt::Checked : Qt::Unchecked);
+                childItem->setCheckState(3, serverEntry->getAutoConnect() ? Qt::Checked : Qt::Unchecked);
             }
         }
     }
@@ -209,7 +209,13 @@ void ServerListDialog::editItem()
         QVariant variant = item->data(0, Qt::UserRole);
         ServerEntry *entry = variant.value<ServerEntry *>();
 
-        ServerEditDialog *sed = new ServerEditDialog(GameManager::toInt(entry->gameType), entry->name, entry->host, entry->port, entry->password, entry->autoConnect, this);
+        ServerEditDialog *sed = new ServerEditDialog(GameManager::toInt(entry->getGameType()),
+                                                     entry->getName(),
+                                                     entry->getHost(),
+                                                     entry->getPort(),
+                                                     entry->getPassword(),
+                                                     entry->getAutoConnect(),
+                                                     this);
 
         if (sed->exec() == QDialog::Accepted) {
             ServerEntry editEntry = ServerEntry(

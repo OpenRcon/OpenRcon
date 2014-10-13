@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,33 +20,27 @@
 #ifndef SERVERENTRY_H
 #define SERVERENTRY_H
 
+#include <QMetaType>
 #include <QString>
 
 #include "GameType.h"
 
-struct ServerEntry
+class ServerEntry
 {
-    ServerEntry()
-    {
+public:
+    ServerEntry(GameType gameType, const QString &name, const QString &host, int port, const QString &password, bool autoConnect);
+    ServerEntry();
+    ~ServerEntry();
 
-    }
+    GameType getGameType();
+    QString getName();
+    QString getHost();
+    int getPort();
+    QString getPassword();
+    bool getAutoConnect();
+    void setAutoConnect(bool autoConnect);
 
-    ServerEntry(GameType gameType,
-                const QString &name,
-                const QString &host,
-                int port,
-                const QString &password,
-                bool autoConnect) :
-                gameType(gameType),
-                name(name),
-                host(host),
-                port(port),
-                password(password),
-                autoConnect(autoConnect)
-    {
-
-    }
-
+private:
     GameType gameType;
     QString name;
     QString host;
@@ -54,9 +48,6 @@ struct ServerEntry
     QString password;
     bool autoConnect;
 
-    bool operator == (const ServerEntry &e) const {
-        return (gameType == e.gameType && name == e.name && host == e.host && port == e.port && password == e.password && autoConnect == e.autoConnect);
-    }
 };
 
 // For use with QVariant

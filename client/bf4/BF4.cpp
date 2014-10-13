@@ -93,15 +93,15 @@ BF4::~BF4()
 
 void BF4::onConnected()
 {
-    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
+    if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
         m_commandHandler->sendLoginHashedCommand();
     }
 }
 
 void BF4::onLoginHashedCommand(const QByteArray &salt)
 {
-    if (!isAuthenticated() && !serverEntry->password.isEmpty()) {
-        m_commandHandler->sendLoginHashedCommand(salt, serverEntry->password);
+    if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
+        m_commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
     }
 }
 

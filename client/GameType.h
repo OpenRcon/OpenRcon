@@ -20,6 +20,8 @@
 #ifndef GAMETYPE_H
 #define GAMETYPE_H
 
+#include <QMetaType>
+
 enum class GameType {
     BFBC2,
     BF3,

@@ -22,7 +22,7 @@
 
 #include "Frostbite2CommandHandler.h"
 
-struct Frostbite2ServerInfo;
+class Frostbite2ServerInfo;
 
 class BF3CommandHandler : public Frostbite2CommandHandler
 {

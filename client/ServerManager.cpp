@@ -73,12 +73,12 @@ void ServerManager::writeSettings()
                 settings->setArrayIndex(i);
 
                 ServerEntry *entry = serverList.at(i);
-                settings->setValue("game", GameManager::toInt(entry->gameType));
-                settings->setValue("name", entry->name);
-                settings->setValue("host", entry->host);
-                settings->setValue("port", entry->port);
-                settings->setValue("password", entry->password);
-                settings->setValue("autoconnect", entry->autoConnect);
+                settings->setValue("game", GameManager::toInt(entry->getGameType()));
+                settings->setValue("name", entry->getName());
+                settings->setValue("host", entry->getHost());
+                settings->setValue("port", entry->getPort());
+                settings->setValue("password", entry->getPassword());
+                settings->setValue("autoconnect", entry->getAutoConnect());
             }
         settings->endArray();
     settings->endGroup();
@@ -113,7 +113,7 @@ QList<ServerEntry *> ServerManager::getServers(GameType gameType)
     QList<ServerEntry *> list;
 
     for (ServerEntry *entry : serverList) {
-        if (entry->gameType == gameType) {
+        if (entry->getGameType() == gameType) {
             list.append(entry);
         }
     }

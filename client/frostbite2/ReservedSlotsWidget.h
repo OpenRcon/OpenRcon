@@ -24,6 +24,7 @@
 
 class QMenu;
 class QAction;
+
 class FrostbiteConnection;
 class Frostbite2CommandHandler;
 

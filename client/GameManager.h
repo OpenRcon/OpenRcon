@@ -22,9 +22,9 @@
 
 #include <QObject>
 
-struct GameEntry;
+class GameEntry;
 class Game;
-struct ServerEntry;
+class ServerEntry;
 enum class GameType;
 
 class GameManager : public QObject

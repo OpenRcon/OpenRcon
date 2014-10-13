@@ -40,7 +40,7 @@ Connection::~Connection()
 void Connection::hostConnect(ServerEntry *serverEntry)
 {
     if (!socket->isOpen()) {
-        socket->connectToHost(serverEntry->host, serverEntry->port);
+        socket->connectToHost(serverEntry->getHost(), serverEntry->getPort());
     } else {
         qDebug() << tr("Already connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
     }
