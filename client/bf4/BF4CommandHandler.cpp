@@ -587,8 +587,10 @@ void BF4CommandHandler::parseVarsPresetCommand(const FrostbiteRconPacket &packet
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() == 2) {
-        QString serverPreset = packet.getWord(1).getContent();
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString serverPreset = QString(packet.getWord(1).getContent()).toLower();
+        serverPreset.replace(0, 1, serverPreset[0].toUpper());
+
         bool lockPresetSetting = FrostbiteUtils::toBool(packet.getWord(2).getContent());
 
         emit (onVarsPresetCommand(BF4Preset::fromString(serverPreset), lockPresetSetting));
