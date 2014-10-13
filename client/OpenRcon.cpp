@@ -65,6 +65,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     actionQuit->setShortcut(tr("Ctrl+Q"));
     actionQuickConnect = new QAction(tr("Quickconnect"), this);
     actionQuickConnect->setCheckable(true);
+    actionStatusBar = new QAction(tr("Statusbar"), this);
+    actionStatusBar->setCheckable(true);
     actionOptions = new QAction(QIcon(":/icons/options.png"), tr("&Options"), this);
     actionOptions->setShortcut(tr("Ctrl+O"));
     actionDocumentation = new QAction(QIcon(":/icons/documentation.png"), tr("Documentation"), this);
@@ -89,6 +91,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     menuView = menuBar->addMenu(tr("View"));
     menuToolbars = menuView->addMenu(tr("Toolbars"));
     menuToolbars->addAction(actionQuickConnect);
+    menuToolbars->addAction(actionStatusBar);
 
     menuTools = menuBar->addMenu(tr("Tools"));
     menuTools->addAction(actionOptions);
@@ -147,6 +150,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     connect(actionServerManager, &QAction::triggered, this, &OpenRcon::actionServerManager_triggered);
     connect(actionQuit,          &QAction::triggered, this, &OpenRcon::close);
     connect(actionQuickConnect,  &QAction::triggered, this, &OpenRcon::actionQuickConnect_triggered);
+    connect(actionStatusBar,     &QAction::triggered, this, &OpenRcon::actionStatusBar_triggered);
     connect(actionOptions,       &QAction::triggered, this, &OpenRcon::actionOptions_triggered);
     connect(actionDocumentation, &QAction::triggered, this, &OpenRcon::actionDocumentation_triggered);
     connect(actionVisitWebsite,  &QAction::triggered, this, &OpenRcon::actionVisitWebsite_triggered);
@@ -202,6 +206,14 @@ void OpenRcon::readSettings()
         } else {
             toolBar_quickConnect->hide();
             actionQuickConnect->setChecked(false);
+        }
+
+        if (settings->value("statusBar", true).toBool()) {
+            statusBar->show();
+            actionStatusBar->setChecked(true);
+        } else {
+            statusBar->hide();
+            actionStatusBar->setChecked(false);
         }
     settings->endGroup();
 }
@@ -289,6 +301,21 @@ void OpenRcon::actionQuickConnect_triggered()
             toolBar_quickConnect->hide();
             settings->setValue("toolbarQuickConnect", false);
             actionQuickConnect->setChecked(false);
+        }
+    settings->endGroup();
+}
+
+void OpenRcon::actionStatusBar_triggered()
+{
+    settings->beginGroup(APP_NAME);
+        if (actionStatusBar->isChecked()) {
+            statusBar->show();
+            settings->setValue("statusBar", true);
+            actionStatusBar->setChecked(true);
+        } else {
+            statusBar->hide();
+            settings->setValue("statusBar", false);
+            actionStatusBar->setChecked(false);
         }
     settings->endGroup();
 }

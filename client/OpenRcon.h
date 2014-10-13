@@ -63,6 +63,7 @@ private:
     QAction *actionServerManager;
     QAction *actionQuit;
     QAction *actionQuickConnect;
+    QAction *actionStatusBar;
     QAction *actionOptions;
     QAction *actionDocumentation;
     QAction *actionVisitWebsite;
@@ -107,6 +108,7 @@ private slots:
 
     // View menu
     void actionQuickConnect_triggered();
+    void actionStatusBar_triggered();
 
     // Setting menu
     void actionOptions_triggered();

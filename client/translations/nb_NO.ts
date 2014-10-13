@@ -534,7 +534,7 @@
     <message>
         <location filename="../bfbc2/BFBC2Widget.ui" line="465"/>
         <source>Team balance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lag balanse</translation>
     </message>
     <message>
         <location filename="../bfbc2/BFBC2Widget.ui" line="475"/>
@@ -1385,37 +1385,37 @@
 <context>
     <name>OpenRcon</name>
     <message>
-        <location filename="../OpenRcon.cpp" line="93"/>
+        <location filename="../OpenRcon.cpp" line="96"/>
         <source>Tools</source>
         <translation>Verktøy</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="96"/>
+        <location filename="../OpenRcon.cpp" line="99"/>
         <source>Help</source>
         <translation>Hjelp</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="89"/>
+        <location filename="../OpenRcon.cpp" line="91"/>
         <source>View</source>
         <translation>Vis</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="90"/>
+        <location filename="../OpenRcon.cpp" line="92"/>
         <source>Toolbars</source>
         <translation>Verktøy</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="84"/>
+        <location filename="../OpenRcon.cpp" line="86"/>
         <source>Application</source>
         <translation>Applikasjon </translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="72"/>
+        <location filename="../OpenRcon.cpp" line="74"/>
         <source>Report bug</source>
         <translation>Rapporter feil</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="70"/>
+        <location filename="../OpenRcon.cpp" line="72"/>
         <source>Documentation</source>
         <translation>Dokumentasjon</translation>
     </message>
@@ -1446,31 +1446,36 @@
     </message>
     <message>
         <location filename="../OpenRcon.cpp" line="68"/>
+        <source>Statusbar</source>
+        <translation>Statuslinje</translation>
+    </message>
+    <message>
+        <location filename="../OpenRcon.cpp" line="70"/>
         <source>&amp;Options</source>
         <translation>&amp;Alternativer</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="69"/>
+        <location filename="../OpenRcon.cpp" line="71"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+A</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="73"/>
+        <location filename="../OpenRcon.cpp" line="75"/>
         <source>&amp;About %1</source>
         <translation>&amp;Om %1</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="74"/>
+        <location filename="../OpenRcon.cpp" line="76"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="75"/>
+        <location filename="../OpenRcon.cpp" line="77"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="71"/>
+        <location filename="../OpenRcon.cpp" line="73"/>
         <source>Visit website</source>
         <translation>Besøk nettside</translation>
     </message>
@@ -1480,42 +1485,42 @@
         <translation>Hurtigtilkobling</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="78"/>
+        <location filename="../OpenRcon.cpp" line="80"/>
         <source>Reconnect</source>
         <translation>Koble til på nytt</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="79"/>
+        <location filename="../OpenRcon.cpp" line="81"/>
         <source>Disconnect</source>
         <translation>Koble fra</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="106"/>
+        <location filename="../OpenRcon.cpp" line="109"/>
         <source>Quick Connect</source>
         <translation>Hurtigtilkobling</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="110"/>
+        <location filename="../OpenRcon.cpp" line="113"/>
         <source>Let&apos;s you select a prevously stored server.</source>
         <translation>Lar deg velge en tidligere lagret tjener.</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="112"/>
+        <location filename="../OpenRcon.cpp" line="115"/>
         <source>Connect</source>
         <translation>Koble til</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="113"/>
+        <location filename="../OpenRcon.cpp" line="116"/>
         <source>Connect&apos;s to the server selected in the combobox.</source>
         <translation>Kobler til tjeneren valgt i rullgardingsmenyen.</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="252"/>
+        <location filename="../OpenRcon.cpp" line="264"/>
         <source>All servers connected.</source>
         <translation>Alle servere tilkoblet.</translation>
     </message>
     <message>
-        <location filename="../OpenRcon.cpp" line="258"/>
+        <location filename="../OpenRcon.cpp" line="270"/>
         <source>No servers added yet.</source>
         <translation>Ingen tjenere lagt til enda.</translation>
     </message>
