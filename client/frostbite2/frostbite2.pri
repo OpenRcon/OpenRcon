@@ -1,13 +1,13 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += frostbite2/PlayerInfo.h \
-    frostbite2/Frostbite2ServerInfo.h \
-    frostbite2/Frostbite2CommandHandler.h \
-    frostbite2/ReservedSlotsWidget.h
+HEADERS += $$PWD/PlayerInfo.h \
+    $$PWD/Frostbite2ServerInfo.h \
+    $$PWD/Frostbite2CommandHandler.h \
+    $$PWD/ReservedSlotsWidget.h
 
-SOURCES += frostbite2/Frostbite2CommandHandler.cpp \
-    frostbite2/ReservedSlotsWidget.cpp \
+SOURCES += $$PWD/Frostbite2CommandHandler.cpp \
+    $$PWD/ReservedSlotsWidget.cpp \
     $$PWD/Frostbite2ServerInfo.cpp
 
-FORMS += frostbite2/ReservedSlotsWidget.ui
+FORMS += $$PWD/ReservedSlotsWidget.ui

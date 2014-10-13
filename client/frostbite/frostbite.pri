@@ -1,37 +1,37 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += frostbite/FrostbiteConnection.h \
-    frostbite/FrostbiteRconPacket.h \
-    frostbite/FrostbiteRconWord.h \
-    frostbite/FrostbiteCommandHandler.h \
-    frostbite/FrostbiteGame.h \
-    frostbite/FrostbiteUtils.h \
-    frostbite/TeamEntry.h \
-    frostbite/LevelEntry.h \
-    frostbite/GameModeEntry.h \
-    frostbite/LevelDictionary.h \
-    frostbite/PlayerSubset.h \
-    frostbite/MapListEntry.h \
-    frostbite/BanListEntry.h \
-    frostbite/ServerInfo.h \
-    frostbite/OnlineState.h \
-    frostbite/TeamScores.h \
-    frostbite/Time.h \
-    frostbite/Squad.h \
-    frostbite/ChatWidget.h \
-    frostbite/BanListWidget.h \
-    frostbite/ConsoleWidget.h
+HEADERS += $$PWD/FrostbiteConnection.h \
+    $$PWD/FrostbiteRconPacket.h \
+    $$PWD/FrostbiteRconWord.h \
+    $$PWD/FrostbiteCommandHandler.h \
+    $$PWD/FrostbiteGame.h \
+    $$PWD/FrostbiteUtils.h \
+    $$PWD/TeamEntry.h \
+    $$PWD/LevelEntry.h \
+    $$PWD/GameModeEntry.h \
+    $$PWD/LevelDictionary.h \
+    $$PWD/PlayerSubset.h \
+    $$PWD/MapListEntry.h \
+    $$PWD/BanListEntry.h \
+    $$PWD/ServerInfo.h \
+    $$PWD/OnlineState.h \
+    $$PWD/TeamScores.h \
+    $$PWD/Time.h \
+    $$PWD/Squad.h \
+    $$PWD/ChatWidget.h \
+    $$PWD/BanListWidget.h \
+    $$PWD/ConsoleWidget.h
 
-SOURCES += frostbite/FrostbiteConnection.cpp \
-    frostbite/FrostbiteRconPacket.cpp \
-    frostbite/FrostbiteRconWord.cpp \
-    frostbite/FrostbiteCommandHandler.cpp \
-    frostbite/FrostbiteGame.cpp \
-    frostbite/FrostbiteUtils.cpp \
-    frostbite/ChatWidget.cpp \
-    frostbite/BanListWidget.cpp \
-    frostbite/ConsoleWidget.cpp \
+SOURCES += $$PWD/FrostbiteConnection.cpp \
+    $$PWD/FrostbiteRconPacket.cpp \
+    $$PWD/FrostbiteRconWord.cpp \
+    $$PWD/FrostbiteCommandHandler.cpp \
+    $$PWD/FrostbiteGame.cpp \
+    $$PWD/FrostbiteUtils.cpp \
+    $$PWD/ChatWidget.cpp \
+    $$PWD/BanListWidget.cpp \
+    $$PWD/ConsoleWidget.cpp \
     $$PWD/MapListEntry.cpp \
     $$PWD/GameModeEntry.cpp \
     $$PWD/LevelEntry.cpp \
@@ -39,8 +39,8 @@ SOURCES += frostbite/FrostbiteConnection.cpp \
     $$PWD/TeamEntry.cpp \
     $$PWD/PlayerSubset.cpp
 
-FORMS += frostbite/ChatWidget.ui \
-    frostbite/BanListWidget.ui \
-    frostbite/ConsoleWidget.ui
+FORMS += $$PWD/ChatWidget.ui \
+    $$PWD/BanListWidget.ui \
+    $$PWD/ConsoleWidget.ui
 
-RESOURCES += frostbite/Frostbite.qrc
+RESOURCES += $$PWD/Frostbite.qrc

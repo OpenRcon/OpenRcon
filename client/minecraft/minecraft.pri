@@ -1,17 +1,17 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += minecraft/Minecraft.h \
-    minecraft/MinecraftConnection.h \
-    minecraft/MinecraftRconPacketType.h \
-    minecraft/MinecraftRconPacket.h \
-    minecraft/MinecraftWidget.h
+HEADERS += $$PWD/Minecraft.h \
+    $$PWD/MinecraftConnection.h \
+    $$PWD/MinecraftRconPacketType.h \
+    $$PWD/MinecraftRconPacket.h \
+    $$PWD/MinecraftWidget.h
 
-SOURCES += minecraft/Minecraft.cpp \
-    minecraft/MinecraftConnection.cpp \
-    minecraft/MinecraftRconPacket.cpp \
-    minecraft/MinecraftWidget.cpp
+SOURCES += $$PWD/Minecraft.cpp \
+    $$PWD/MinecraftConnection.cpp \
+    $$PWD/MinecraftRconPacket.cpp \
+    $$PWD/MinecraftWidget.cpp
 
-FORMS += minecraft/MinecraftWidget.ui
+FORMS += $$PWD/MinecraftWidget.ui
 
-RESOURCES += minecraft/Minecraft.qrc
+RESOURCES += $$PWD/Minecraft.qrc

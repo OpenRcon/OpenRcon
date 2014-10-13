@@ -1,21 +1,21 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += bfbc2/BFBC2.h \
-    bfbc2/BFBC2CommandHandler.h \
-    bfbc2/BFBC2LevelDictionary.h \
-    bfbc2/BFBC2LevelEntry.h \
-    bfbc2/BFBC2Mod.h \
-    bfbc2/BFBC2ServerInfo.h \
-    bfbc2/BFBC2Widget.h
+HEADERS += $$PWD/BFBC2.h \
+    $$PWD/BFBC2CommandHandler.h \
+    $$PWD/BFBC2LevelDictionary.h \
+    $$PWD/BFBC2LevelEntry.h \
+    $$PWD/BFBC2Mod.h \
+    $$PWD/BFBC2ServerInfo.h \
+    $$PWD/BFBC2Widget.h
 
-SOURCES += bfbc2/BFBC2.cpp \
-    bfbc2/BFBC2CommandHandler.cpp \
-    bfbc2/BFBC2LevelDictionary.cpp \
-    bfbc2/BFBC2Widget.cpp \
+SOURCES += $$PWD/BFBC2.cpp \
+    $$PWD/BFBC2CommandHandler.cpp \
+    $$PWD/BFBC2LevelDictionary.cpp \
+    $$PWD/BFBC2Widget.cpp \
     $$PWD/BFBC2LevelEntry.cpp \
     $$PWD/BFBC2ServerInfo.cpp
 
-FORMS += bfbc2/BFBC2Widget.ui
+FORMS += $$PWD/BFBC2Widget.ui
 
-RESOURCES += bfbc2/BFBC2.qrc
+RESOURCES += $$PWD/BFBC2.qrc

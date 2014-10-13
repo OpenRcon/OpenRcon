@@ -1,36 +1,36 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += bf4/BF4.h \
-    bf4/BF4CommandHandler.h \
-    bf4/BF4LevelDictionary.h \
-    bf4/BF4Widget.h \
-    bf4/BF4GameModeEntry.h \
-    bf4/BF4ServerInfo.h \
-    bf4/PlayerListWidget.h \
-    bf4/MapListWidget.h \
-    bf4/SpectatorSlotsWidget.h \
-    bf4/OptionsWidget.h \
-    bf4/EventsWidget.h \
+HEADERS += $$PWD/BF4.h \
+    $$PWD/BF4CommandHandler.h \
+    $$PWD/BF4LevelDictionary.h \
+    $$PWD/BF4Widget.h \
+    $$PWD/BF4GameModeEntry.h \
+    $$PWD/BF4ServerInfo.h \
+    $$PWD/PlayerListWidget.h \
+    $$PWD/MapListWidget.h \
+    $$PWD/SpectatorSlotsWidget.h \
+    $$PWD/OptionsWidget.h \
+    $$PWD/EventsWidget.h \
     $$PWD/BF4Preset.h
 
-SOURCES += bf4/BF4.cpp \
-    bf4/BF4CommandHandler.cpp \
-    bf4/BF4LevelDictionary.cpp \
-    bf4/BF4Widget.cpp \
-    bf4/PlayerListWidget.cpp \
-    bf4/EventsWidget.cpp \
-    bf4/OptionsWidget.cpp \
-    bf4/MapListWidget.cpp \
-    bf4/SpectatorSlotsWidget.cpp \
+SOURCES += $$PWD/BF4.cpp \
+    $$PWD/BF4CommandHandler.cpp \
+    $$PWD/BF4LevelDictionary.cpp \
+    $$PWD/BF4Widget.cpp \
+    $$PWD/PlayerListWidget.cpp \
+    $$PWD/EventsWidget.cpp \
+    $$PWD/OptionsWidget.cpp \
+    $$PWD/MapListWidget.cpp \
+    $$PWD/SpectatorSlotsWidget.cpp \
     $$PWD/BF4GameModeEntry.cpp \
     $$PWD/BF4ServerInfo.cpp \
     $$PWD/BF4Preset.cpp
 
-FORMS += bf4/BF4Widget.ui \
-    bf4/EventsWidget.ui \
-    bf4/OptionsWidget.ui \
-    bf4/MapListWidget.ui \
-    bf4/SpectatorSlotsWidget.ui
+FORMS += $$PWD/BF4Widget.ui \
+    $$PWD/EventsWidget.ui \
+    $$PWD/OptionsWidget.ui \
+    $$PWD/MapListWidget.ui \
+    $$PWD/SpectatorSlotsWidget.ui
 
-RESOURCES += bf4/BF4.qrc
+RESOURCES += $$PWD/BF4.qrc

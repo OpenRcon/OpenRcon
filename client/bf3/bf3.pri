@@ -1,16 +1,16 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += bf3/BF3.h \
-    bf3/BF3CommandHandler.h \
-    bf3/BF3LevelDictionary.h \
-    bf3/BF3Widget.h
+HEADERS += $$PWD/BF3.h \
+    $$PWD/BF3CommandHandler.h \
+    $$PWD/BF3LevelDictionary.h \
+    $$PWD/BF3Widget.h
 
-SOURCES += bf3/BF3.cpp \
-    bf3/BF3CommandHandler.cpp \
-    bf3/BF3LevelDictionary.cpp \
-    bf3/BF3Widget.cpp
+SOURCES += $$PWD/BF3.cpp \
+    $$PWD/BF3CommandHandler.cpp \
+    $$PWD/BF3LevelDictionary.cpp \
+    $$PWD/BF3Widget.cpp
 
-FORMS += bf3/BF3Widget.ui
+FORMS += $$PWD/BF3Widget.ui
 
-RESOURCES += bf3/BF3.qrc
+RESOURCES += $$PWD/BF3.qrc
