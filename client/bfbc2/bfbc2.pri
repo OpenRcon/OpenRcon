@@ -13,7 +13,8 @@ SOURCES += bfbc2/BFBC2.cpp \
     bfbc2/BFBC2CommandHandler.cpp \
     bfbc2/BFBC2LevelDictionary.cpp \
     bfbc2/BFBC2Widget.cpp \
-    $$PWD/BFBC2LevelEntry.cpp
+    $$PWD/BFBC2LevelEntry.cpp \
+    $$PWD/BFBC2ServerInfo.cpp
 
 FORMS += bfbc2/BFBC2Widget.ui
 

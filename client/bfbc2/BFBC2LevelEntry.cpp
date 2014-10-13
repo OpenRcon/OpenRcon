@@ -18,6 +18,7 @@
 */
 
 #include "BFBC2LevelEntry.h"
+#include "BFBC2Mod.h"
 
 BFBC2LevelEntry::BFBC2LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile, BFBC2Mod mod) :
     LevelEntry(engineName,

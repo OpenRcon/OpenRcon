@@ -37,7 +37,7 @@ class ReservedSlotsWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ReservedSlotsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    ReservedSlotsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
     ~ReservedSlotsWidget();
 
 private:

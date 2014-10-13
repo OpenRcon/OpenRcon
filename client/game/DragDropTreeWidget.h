@@ -27,7 +27,7 @@ class DragDropTreeWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    explicit DragDropTreeWidget(QWidget *parent = nullptr);
+    DragDropTreeWidget(QWidget *parent = nullptr);
     ~DragDropTreeWidget();
 
 private:

@@ -22,52 +22,33 @@
 
 #include "ServerInfo.h"
 
-struct BFBC2ServerInfo : public ServerInfo
+class BFBC2ServerInfo : public ServerInfo
 {
+public:
     BFBC2ServerInfo(const QString &serverName,
-               int playerCount,
-               int maxPlayerCount,
-               const QString &gameMode,
-               const QString &currentMap,
-               int roundsPlayed,
-               int roundsTotal,
-               const QString &scores,
-               const OnlineState &onlineState,
-               bool ranked,
-               bool punkBuster,
-               bool hasGamePassword,
-               int serverUpTime,
-               int roundTime,
-               int gameModId,
-               int mapPack,
-               const QString &externalGameIpAndPort) :
-        Frostbite2ServerInfo(serverName,
-                             playerCount,
-                             maxPlayerCount,
-                             gameMode,
-                             currentMap,
-                             roundsPlayed,
-                             roundsTotal,
-                             scores,
-                             onlineState,
-                             ranked,
-                             punkBuster,
-                             hasGamePassword,
-                             serverUpTime,
-                             roundTime,
-                             gameIpAndPort,
-                             punkBusterVersion,
-                             joinQueueEnabled,
-                             region,
-                             closestPingSite,
-                             country,
-                             matchMakingEnabled),
-        blazePlayerCount(blazePlayerCount),
-        blazeGameState(blazeGameState)
-    {
+                    int playerCount,
+                    int maxPlayerCount,
+                    const QString &gameMode,
+                    const QString &currentMap,
+                    int roundsPlayed,
+                    int roundsTotal,
+                    const TeamScores &scores,
+                    const OnlineState &onlineState,
+                    bool ranked,
+                    bool punkBuster,
+                    bool hasGamePassword,
+                    int serverUpTime,
+                    int roundTime,
+                    int gameModId,
+                    int mapPack,
+                    const QString &externalGameIpAndPort);
+    ~BFBC2ServerInfo();
 
-    }
+    int getGameModId();
+    int getMapPack();
+    QString getExternalGameIpAndPort();
 
+private:
     int gameModId;
     int mapPack;
     QString externalGameIpAndPort;

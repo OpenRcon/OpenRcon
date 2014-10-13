@@ -32,7 +32,7 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    explicit FrostbiteConnection(QObject *parent = nullptr);
+    FrostbiteConnection(QObject *parent = nullptr);
     ~FrostbiteConnection();
 
     FrostbiteCommandHandler *getCommandHandler() const;

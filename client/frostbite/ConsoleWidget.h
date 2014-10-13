@@ -36,8 +36,8 @@ class ConsoleWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ConsoleWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
-    explicit ConsoleWidget(FrostbiteConnection *connection, const QStringList &commandList, QWidget *parent = nullptr);
+    ConsoleWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    ConsoleWidget(FrostbiteConnection *connection, const QStringList &commandList, QWidget *parent = nullptr);
     ~ConsoleWidget();
 
 private:

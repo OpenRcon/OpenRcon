@@ -21,7 +21,8 @@
 #define BFBC2LEVELENTRY_H
 
 #include "LevelEntry.h"
-#include "BFBC2Mod.h"
+
+enum class BFBC2Mod;
 
 class BFBC2LevelEntry : public LevelEntry
 {

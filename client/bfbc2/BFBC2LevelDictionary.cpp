@@ -20,6 +20,7 @@
 #include "BFBC2LevelDictionary.h"
 #include "TeamEntry.h"
 #include "BFBC2LevelEntry.h"
+#include "BFBC2Mod.h"
 #include "GameModeEntry.h"
 
 template<>

@@ -34,7 +34,7 @@ class ChatWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ChatWidget(FrostbiteConnection *connection, QWidget *parent = 0);
+    ChatWidget(FrostbiteConnection *connection, QWidget *parent = 0);
     ~ChatWidget();
 
 private:
