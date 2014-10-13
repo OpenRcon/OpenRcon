@@ -328,16 +328,16 @@ void OpenRcon::actionAboutQt_triggered()
 // Tab menu
 void OpenRcon::actionTabReconnect_triggered()
 {
-    QWidget *widget = tabWidget->currentWidget();
-    Game *game = dynamic_cast<Game *>(widget);
-    game->getConnection()->hostConnect(game->getServerEntry());
+    Game *game = dynamic_cast<Game *>(tabWidget->currentWidget());
+    Connection *connection = game->getConnection();
+    connection->hostConnect(game->getServerEntry());
 }
 
 void OpenRcon::actionTabDisconnect_triggered()
 {
-    QWidget *widget = tabWidget->currentWidget();
-    Game *game = dynamic_cast<Game *>(widget);
-    game->getConnection()->hostDisconnect();
+    Game *game = dynamic_cast<Game *>(tabWidget->currentWidget());
+    Connection *connection = game->getConnection();
+    connection->hostDisconnect();
 }
 
 // QuickConnect toolbar

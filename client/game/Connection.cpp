@@ -39,19 +39,19 @@ Connection::~Connection()
 
 void Connection::hostConnect(ServerEntry *serverEntry)
 {
-    if (!socket->isOpen()) {
+    if (socket->state() == QAbstractSocket::UnconnectedState) {
         socket->connectToHost(serverEntry->getHost(), serverEntry->getPort());
     } else {
-        qDebug() << tr("Already connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
+        qDebug() << tr("Already connected to %1:%2.").arg(serverEntry->getHost()).arg(serverEntry->getPort());
     }
 }
 
 void Connection::hostDisconnect()
 {
-    if (socket->isOpen()) {
+    if (socket->state() == QAbstractSocket::ConnectedState) {
         socket->disconnectFromHost();
     } else {
-        qDebug() << tr("Could not disconnect, because there was no open sockets to close.");
+        qDebug() << tr("Could not disconnect, there is no open socket to disconnect.");
     }
 }
 
