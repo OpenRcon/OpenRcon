@@ -1,10 +1,10 @@
 OpenRcon
 ========
 
-Description:
+#### Description:
 An open-source cross-platform RCON administration tool, written in C++
 
-Other:
+#### Other:
 For more information please visit: http://openrcon.org/
 You can find downloads here: https://sourceforge.net/projects/openrcon/
 
