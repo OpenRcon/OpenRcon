@@ -42,6 +42,7 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     m_commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
 {
     setFrameShape(Shape::NoFrame);
+    setSortingEnabled(true);
     setContextMenuPolicy(Qt::CustomContextMenu);
     setDragDropMode(DragDropMode::InternalMove);
 
