@@ -121,9 +121,9 @@ private:
     void parseVarsServerTypeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsTeamFactionOverrideCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsTicketBleedRateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsRoundPlayersReadyBypassTimer(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsRoundPlayersReadyMinCount(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsRoundPlayersReadyPercent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundPlayersReadyBypassTimerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundPlayersReadyMinCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundPlayersReadyPercentCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     QList<PlayerInfo> parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 

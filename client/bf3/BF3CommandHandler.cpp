@@ -38,24 +38,27 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
     typedef void (BF3CommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
     static QHash<QString, ResponseFunction> responses = {
+        /* Events */
+        { "server.onMaxPlayerCountChange", &BF3CommandHandler::parseServerMaxPlayerCountChangeEvent },
+
         /* Commands */
         // Misc
-        { "serverInfo",                  &BF3CommandHandler::parseServerInfoCommand },
-        { "currentLevel",                &BF3CommandHandler::parseCurrentLevelCommand },
-        { "listPlayers",                 nullptr /*&BF3CommandHandler::parseListPlayersCommand*/ },
+        { "serverInfo",                    &BF3CommandHandler::parseServerInfoCommand },
+        { "currentLevel",                  &BF3CommandHandler::parseCurrentLevelCommand },
+        { "listPlayers",                   nullptr /*&BF3CommandHandler::parseListPlayersCommand*/ },
 
         // Admin
-        { "admin.effectiveMaxPlayers",   &BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand },
-        { "admin.listPlayers",           nullptr /*&BF3CommandHandler::parseAdminListPlayersCommand*/ },
+        { "admin.effectiveMaxPlayers",     &BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand },
+        { "admin.listPlayers",             nullptr /*&BF3CommandHandler::parseAdminListPlayersCommand*/ },
 
         // Vars
-        { "vars.ranked",                 &BF3CommandHandler::parseVarsRankedCommand },
-        { "vars.crossHair",              &BF3CommandHandler::parseVarsCrossHairCommand },
-        { "vars.playerManDownTime",      &BF3CommandHandler::parseVarsPlayerManDownTimeCommand },
-        { "vars.premiumStatus",          &BF3CommandHandler::parseVarsPremiumStatusCommand },
-        { "vars.bannerUrl",              &BF3CommandHandler::parseVarsBannerUrlCommand },
-        { "vars.roundsPerMap",           &BF3CommandHandler::parseVarsRoundsPerMapCommand },
-        { "vars.gunMasterWeaponsPreset", &BF3CommandHandler::parseVarsGunMasterWeaponsPresetCommand }
+        { "vars.ranked",                   &BF3CommandHandler::parseVarsRankedCommand },
+        { "vars.crossHair",                &BF3CommandHandler::parseVarsCrossHairCommand },
+        { "vars.playerManDownTime",        &BF3CommandHandler::parseVarsPlayerManDownTimeCommand },
+        { "vars.premiumStatus",            &BF3CommandHandler::parseVarsPremiumStatusCommand },
+        { "vars.bannerUrl",                &BF3CommandHandler::parseVarsBannerUrlCommand },
+        { "vars.roundsPerMap",             &BF3CommandHandler::parseVarsRoundsPerMapCommand },
+        { "vars.gunMasterWeaponsPreset",   &BF3CommandHandler::parseVarsGunMasterWeaponsPresetCommand }
     };
 
     if (responses.contains(request)) {
@@ -166,6 +169,16 @@ void BF3CommandHandler::sendVarsGunMasterWeaponsPresetCommand(int weaponPreset)
     } else {
         m_connection->sendCommand(QString("\"vars.gunMasterWeaponsPreset\" \"%1\"").arg(weaponPreset));
     }
+}
+
+/* Parse events */
+void BF3CommandHandler::parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+    emit (onServerMaxPlayerCountChangeEvent(count));
 }
 
 /* Parse commands */

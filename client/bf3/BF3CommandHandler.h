@@ -57,6 +57,9 @@ public:
     void sendVarsGunMasterWeaponsPresetCommand(int weaponPreset = -1);
 
 private:
+    /* Parse events */
+    void parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
     /* Parse commands */
     // Misc
     void parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -77,6 +80,9 @@ private:
     void parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 signals:
+    /* Event signals */
+    void onServerMaxPlayerCountChangeEvent(int count);
+
     /* Command signals */
     // Misc
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);

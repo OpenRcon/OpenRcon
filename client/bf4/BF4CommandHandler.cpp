@@ -80,9 +80,9 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "vars.serverType",                   &BF4CommandHandler::parseVarsServerTypeCommand },
         { "vars.teamFactionOverride",          &BF4CommandHandler::parseVarsTeamFactionOverrideCommand },
         { "vars.ticketBleedRate",              &BF4CommandHandler::parseVarsTicketBleedRateCommand },
-        { "vars.roundPlayersReadyBypassTimer", &BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimer },
-        { "vars.roundPlayersReadyMinCount",    &BF4CommandHandler::parseVarsRoundPlayersReadyMinCount },
-        { "vars.roundPlayersReadyPercent",     &BF4CommandHandler::parseVarsRoundPlayersReadyPercent }
+        { "vars.roundPlayersReadyBypassTimer", &BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimerCommand },
+        { "vars.roundPlayersReadyMinCount",    &BF4CommandHandler::parseVarsRoundPlayersReadyMinCountCommand },
+        { "vars.roundPlayersReadyPercent",     &BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand }
     };
 
     if (responses.contains(request)) {
@@ -695,7 +695,7 @@ void BF4CommandHandler::parseVarsTicketBleedRateCommand(const FrostbiteRconPacke
     }
 }
 
-void BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimer(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimerCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
@@ -708,7 +708,7 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimer(const FrostbiteRco
     }
 }
 
-void BF4CommandHandler::parseVarsRoundPlayersReadyMinCount(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF4CommandHandler::parseVarsRoundPlayersReadyMinCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
@@ -721,7 +721,7 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyMinCount(const FrostbiteRconPa
     }
 }
 
-void BF4CommandHandler::parseVarsRoundPlayersReadyPercent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 

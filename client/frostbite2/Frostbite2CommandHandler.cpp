@@ -42,7 +42,6 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         { "player.onJoin",                    &Frostbite2CommandHandler::parsePlayerJoinEvent },
         { "player.onSpawn",                   &Frostbite2CommandHandler::parsePlayerSpawnEvent },
         { "player.onKill",                    &Frostbite2CommandHandler::parsePlayerKillEvent },
-        { "server.onMaxPlayerCountChange",    &Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent },
         { "server.onLevelLoaded",             &Frostbite2CommandHandler::parseServerLevelLoadedEvent },
 
         /* Commands */
@@ -710,14 +709,6 @@ void Frostbite2CommandHandler::parsePlayerKillEvent(const FrostbiteRconPacket &p
     bool headshot = packet.getWord(4).getContent();
 
     emit (onPlayerKillEvent(killer, victim, weapon, headshot));
-}
-
-void Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(packet);
-    Q_UNUSED(lastSentPacket);
-
-    // TODO: Implement this, not implemented yet as i don't have any docs for this and i could trigger the event.
 }
 
 void Frostbite2CommandHandler::parseServerLevelLoadedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
