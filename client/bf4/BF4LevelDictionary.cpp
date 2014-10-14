@@ -89,13 +89,13 @@ QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList = {
     BF4GameModeEntry("Elimination0",         "Defuse",                10, 0, 4), // 3
     BF4GameModeEntry("Obliteration",         "Obliteration",          32, 2, 4), // 4
     BF4GameModeEntry("RushLarge0",           "Rush",                  32, 2, 4), // 5
-    BF4GameModeEntry("SquadDeathMatch0",     "Squad Deathmatch",      16, 0, 4), // 6
-    BF4GameModeEntry("TeamDeathMatch0",      "Team Deathmatch",       24, 0, 4), // 7
+    BF4GameModeEntry("SquadDeathMatch0",     "Squad Deathmatch",      20, 0, 4), // 6
+    BF4GameModeEntry("TeamDeathMatch0",      "Team Deathmatch",       20, 0, 4), // 7
     BF4GameModeEntry("AirSuperiority0",      "Air Superiority",       24, 0, 4), // 8
     BF4GameModeEntry("CaptureTheFlag0",      "Capture the flag",      32, 0, 4), // 9
-    BF4GameModeEntry("CarrierAssaultSmall0", "Carrier Assault Small", 32, 0, 4), // 10
-    BF4GameModeEntry("CarrierAssaultLarge0", "Carrier Assault Large", 64, 0, 4), // 11
-    BF4GameModeEntry("Chainlink0",           "Chain Link",            64, 0, 4)  // 12 Check this when docs are available.
+    BF4GameModeEntry("CarrierAssaultSmall0", "Carrier Assault Small", 32, 2, 4), // 10
+    BF4GameModeEntry("CarrierAssaultLarge0", "Carrier Assault Large", 64, 2, 4), // 11
+    BF4GameModeEntry("Chainlink0",           "Chain Link",            32, 0, 4)  // 12
 };
 
 template<>
