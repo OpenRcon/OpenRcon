@@ -99,6 +99,9 @@ private slots:
     void onVarsUnlockModeCommand(const QString &type);
     void onVarsVehicleSpawnAllowedCommand(bool enabled);
     void onVarsVehicleSpawnDelayCommand(int delay);
+    void onVarsRoundPlayersReadyBypassTimerCommand(int timer);
+    void onVarsRoundPlayersReadyMinCountCommand(int count);
+    void onVarsRoundPlayersReadyPercentCommand(int percent);
 
     /* User Interface */
     // Options -> Details
@@ -145,6 +148,9 @@ private slots:
     void spinBox_so_gp_roundWarmupTimeout_valueChanged(int value);
     void spinBox_so_gp_roundRestartPlayerCount_valueChanged(int value);
     void spinBox_so_gp_roundStartPlayerCount_valueChanged(int value);
+    void spinBox_so_gp_roundPlayersReadyBypassTimer(int value);
+    void spinBox_so_gp_roundPlayersReadyMinCount(int value);
+    void spinBox_so_gp_roundPlayersReadyPercent(int value);
     void comboBox_so_gp_preset_currentIndexChanged(const QString &text);
     void checkBox_so_gp_presetLockPresetSetting_toggled(bool checked);
     void comboBox_so_gp_unlockMode_currentIndexChanged(int index);

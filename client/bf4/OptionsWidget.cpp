@@ -40,104 +40,110 @@ OptionsWidget::OptionsWidget(FrostbiteConnection *connection, QWidget *parent) :
             this, &OptionsWidget::onLoginHashedCommand);
 
     // Admin
-    connect(m_commandHandler, &BF4CommandHandler::onAdminPasswordCommand,               this, &OptionsWidget::onAdminPasswordCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onAdminPasswordCommand,                    this, &OptionsWidget::onAdminPasswordCommand);
 
     // FairFight
-    connect(m_commandHandler, &BF4CommandHandler::onFairFightIsActiveCommand,           this, &OptionsWidget::onFairFightIsActiveCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onFairFightIsActiveCommand,                this, &OptionsWidget::onFairFightIsActiveCommand);
 
     // Player
 
     // Punkbuster
-    connect(m_commandHandler, &BF4CommandHandler::onPunkBusterIsActiveCommand,          this, &OptionsWidget::onPunkBusterIsActiveCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onPunkBusterIsActiveCommand,               this, &OptionsWidget::onPunkBusterIsActiveCommand);
 
     // Variables
-    connect(m_commandHandler, &BF4CommandHandler::onVars3dSpottingCommand,              this, &OptionsWidget::onVars3dSpottingCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVars3pCamCommand,                   this, &OptionsWidget::onVars3pCamCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &OptionsWidget::onVarsAlwaysAllowSpectatorsCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsAutoBalanceCommand,             this, &OptionsWidget::onVarsAutoBalanceCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsBulletDamageCommand,            this, &OptionsWidget::onVarsBulletDamageCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsCommanderCommand,               this, &OptionsWidget::onVarsCommanderCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsForceReloadWholeMagsCommand,    this, &OptionsWidget::onVarsForceReloadWholeMagsCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsFriendlyFireCommand,            this, &OptionsWidget::onVarsFriendlyFireCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsGameModeCounterCommand,         this, &OptionsWidget::onVarsGameModeCounterCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsGamePasswordCommand,            this, &OptionsWidget::onVarsGamePasswordCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsHitIndicatorsEnabledCommand,    this, &OptionsWidget::onVarsHitIndicatorsEnabledCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsHudCommand,                     this, &OptionsWidget::onVarsHudCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsIdleBanRoundsCommand,           this, &OptionsWidget::onVarsIdleBanRoundsCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsIdleTimeoutCommand,             this, &OptionsWidget::onVarsIdleTimeoutCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsKillCamCommand,                 this, &OptionsWidget::onVarsKillCamCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsMaxPlayersCommand,              this, &OptionsWidget::onVarsMaxPlayersCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsMaxSpectatorsCommand,           this, &OptionsWidget::onVarsMaxSpectatorsCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsMiniMapCommand,                 this, &OptionsWidget::onVarsMiniMapCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsMiniMapSpottingCommand,         this, &OptionsWidget::onVarsMiniMapSpottingCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsNameTagCommand,                 this, &OptionsWidget::onVarsNameTagCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsOnlySquadLeaderSpawnCommand,    this, &OptionsWidget::onVarsOnlySquadLeaderSpawnCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsPlayerRespawnTimeCommand,       this, &OptionsWidget::onVarsPlayerRespawnTimeCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsPresetCommand,                  this, &OptionsWidget::onVarsPresetCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsRegenerateHealthCommand,        this, &OptionsWidget::onVarsRegenerateHealthCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundLockdownCountdownCommand,  this, &OptionsWidget::onVarsRoundLockdownCountdownCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundRestartPlayerCountCommand, this, &OptionsWidget::onVarsRoundRestartPlayerCountCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundStartPlayerCountCommand,   this, &OptionsWidget::onVarsRoundStartPlayerCountCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundTimeLimitCommand,          this, &OptionsWidget::onVarsRoundTimeLimitCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundWarmupTimeoutCommand,      this, &OptionsWidget::onVarsRoundWarmupTimeoutCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsServerNameCommand,              this, &OptionsWidget::onVarsServerNameCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsServerDescriptionCommand,       this, &OptionsWidget::onVarsServerDescriptionCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsServerMessageCommand,           this, &OptionsWidget::onVarsServerMessageCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsServerTypeCommand,              this, &OptionsWidget::onVarsServerTypeCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsSoldierHealthCommand,           this, &OptionsWidget::onVarsSoldierHealthCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsTicketBleedRateCommand,         this, &OptionsWidget::onVarsTicketBleedRateCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsUnlockModeCommand,              this, &OptionsWidget::onVarsUnlockModeCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsVehicleSpawnAllowedCommand,     this, &OptionsWidget::onVarsVehicleSpawnAllowedCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onVarsVehicleSpawnDelayCommand,       this, &OptionsWidget::onVarsVehicleSpawnDelayCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVars3dSpottingCommand,                   this, &OptionsWidget::onVars3dSpottingCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVars3pCamCommand,                        this, &OptionsWidget::onVars3pCamCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,        this, &OptionsWidget::onVarsAlwaysAllowSpectatorsCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsAutoBalanceCommand,                  this, &OptionsWidget::onVarsAutoBalanceCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsBulletDamageCommand,                 this, &OptionsWidget::onVarsBulletDamageCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsCommanderCommand,                    this, &OptionsWidget::onVarsCommanderCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsForceReloadWholeMagsCommand,         this, &OptionsWidget::onVarsForceReloadWholeMagsCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsFriendlyFireCommand,                 this, &OptionsWidget::onVarsFriendlyFireCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsGameModeCounterCommand,              this, &OptionsWidget::onVarsGameModeCounterCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsGamePasswordCommand,                 this, &OptionsWidget::onVarsGamePasswordCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsHitIndicatorsEnabledCommand,         this, &OptionsWidget::onVarsHitIndicatorsEnabledCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsHudCommand,                          this, &OptionsWidget::onVarsHudCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsIdleBanRoundsCommand,                this, &OptionsWidget::onVarsIdleBanRoundsCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsIdleTimeoutCommand,                  this, &OptionsWidget::onVarsIdleTimeoutCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsKillCamCommand,                      this, &OptionsWidget::onVarsKillCamCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsMaxPlayersCommand,                   this, &OptionsWidget::onVarsMaxPlayersCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsMaxSpectatorsCommand,                this, &OptionsWidget::onVarsMaxSpectatorsCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsMiniMapCommand,                      this, &OptionsWidget::onVarsMiniMapCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsMiniMapSpottingCommand,              this, &OptionsWidget::onVarsMiniMapSpottingCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsNameTagCommand,                      this, &OptionsWidget::onVarsNameTagCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsOnlySquadLeaderSpawnCommand,         this, &OptionsWidget::onVarsOnlySquadLeaderSpawnCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsPlayerRespawnTimeCommand,            this, &OptionsWidget::onVarsPlayerRespawnTimeCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsPresetCommand,                       this, &OptionsWidget::onVarsPresetCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRegenerateHealthCommand,             this, &OptionsWidget::onVarsRegenerateHealthCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundLockdownCountdownCommand,       this, &OptionsWidget::onVarsRoundLockdownCountdownCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundRestartPlayerCountCommand,      this, &OptionsWidget::onVarsRoundRestartPlayerCountCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundStartPlayerCountCommand,        this, &OptionsWidget::onVarsRoundStartPlayerCountCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundTimeLimitCommand,               this, &OptionsWidget::onVarsRoundTimeLimitCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundWarmupTimeoutCommand,           this, &OptionsWidget::onVarsRoundWarmupTimeoutCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsServerNameCommand,                   this, &OptionsWidget::onVarsServerNameCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsServerDescriptionCommand,            this, &OptionsWidget::onVarsServerDescriptionCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsServerMessageCommand,                this, &OptionsWidget::onVarsServerMessageCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsServerTypeCommand,                   this, &OptionsWidget::onVarsServerTypeCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsSoldierHealthCommand,                this, &OptionsWidget::onVarsSoldierHealthCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsTicketBleedRateCommand,              this, &OptionsWidget::onVarsTicketBleedRateCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsUnlockModeCommand,                   this, &OptionsWidget::onVarsUnlockModeCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsVehicleSpawnAllowedCommand,          this, &OptionsWidget::onVarsVehicleSpawnAllowedCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsVehicleSpawnDelayCommand,            this, &OptionsWidget::onVarsVehicleSpawnDelayCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundPlayersReadyBypassTimerCommand, this, &OptionsWidget::onVarsRoundPlayersReadyBypassTimerCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundPlayersReadyMinCountCommand,    this, &OptionsWidget::onVarsRoundPlayersReadyMinCountCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onVarsRoundPlayersReadyPercentCommand,     this, &OptionsWidget::onVarsRoundPlayersReadyPercentCommand);
 
     /* User Interface */
     // Options -> Details
-    connect(ui->lineEdit_op_so_serverName,        &QLineEdit::editingFinished, this, &OptionsWidget::lineEdit_op_so_serverName_editingFinished);
-    connect(ui->textEdit_op_so_serverDescription, &QTextEdit::textChanged,     this, &OptionsWidget::textEdit_op_so_serverDescription_textChanged);
-    connect(ui->lineEdit_op_so_serverMessage,     &QLineEdit::editingFinished, this, &OptionsWidget::lineEdit_op_so_serverMessage_editingFinished);
+    connect(ui->lineEdit_op_so_serverName,                  &QLineEdit::editingFinished,                                                      this, &OptionsWidget::lineEdit_op_so_serverName_editingFinished);
+    connect(ui->textEdit_op_so_serverDescription,           &QTextEdit::textChanged,                                                          this, &OptionsWidget::textEdit_op_so_serverDescription_textChanged);
+    connect(ui->lineEdit_op_so_serverMessage,               &QLineEdit::editingFinished,                                                      this, &OptionsWidget::lineEdit_op_so_serverMessage_editingFinished);
 
     // Options -> Configuration
-    connect(ui->checkBox_so_co_punkBuster,            &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_co_punkBuster_toggled);
-    connect(ui->checkBox_so_co_fairFight,             &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_co_fairFight_toggled);
-    connect(ui->checkBox_so_co_idleTimeout,           &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_co_idleTimeout_toggled);
-    connect(ui->spinBox_so_co_idleTimeout,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_co_idleTimeout_valueChanged);
-    connect(ui->checkBox_so_co_idleBanRounds,         &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_co_idleBanRounds_toggled);
-    connect(ui->spinBox_so_co_idleBanRounds,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_co_idleBanRounds_valueChanged);
-    connect(ui->checkBox_so_co_aggressiveJoin,        &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_co_aggressiveJoin_toggled);
-    connect(ui->spinBox_so_co_maxPlayers,             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_co_maxPlayers_valueChanged);
-    connect(ui->spinBox_so_co_maxSpectators,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &OptionsWidget::spinBox_so_co_maxSpectators_valueChanged);
-    connect(ui->checkBox_so_co_alwaysAllowSpectators, &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_co_alwaysAllowSpectators_toggled);
-    connect(ui->checkBox_so_co_commander,             &QCheckBox::toggled,                                           this, &OptionsWidget::checkBox_so_co_commander_toggled);
+    connect(ui->checkBox_so_co_punkBuster,                  &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_co_punkBuster_toggled);
+    connect(ui->checkBox_so_co_fairFight,                   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_co_fairFight_toggled);
+    connect(ui->checkBox_so_co_idleTimeout,                 &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_co_idleTimeout_toggled);
+    connect(ui->spinBox_so_co_idleTimeout,                  static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_co_idleTimeout_valueChanged);
+    connect(ui->checkBox_so_co_idleBanRounds,               &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_co_idleBanRounds_toggled);
+    connect(ui->spinBox_so_co_idleBanRounds,                static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_co_idleBanRounds_valueChanged);
+    connect(ui->checkBox_so_co_aggressiveJoin,              &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_co_aggressiveJoin_toggled);
+    connect(ui->spinBox_so_co_maxPlayers,                   static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_co_maxPlayers_valueChanged);
+    connect(ui->spinBox_so_co_maxSpectators,                static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_co_maxSpectators_valueChanged);
+    connect(ui->checkBox_so_co_alwaysAllowSpectators,       &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_co_alwaysAllowSpectators_toggled);
+    connect(ui->checkBox_so_co_commander,                   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_co_commander_toggled);
 
     // Options -> Gameplay
-    connect(ui->checkBox_so_gp_friendlyFire,              &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_friendlyFire_toggled);
-    connect(ui->checkBox_so_gp_autoBalance,               &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_autoBalance_toggled);
-    connect(ui->checkBox_so_gp_killCam,                   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_killCam_toggled);
-    connect(ui->checkBox_so_gp_miniMap,                   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_miniMap_toggled);
-    connect(ui->checkBox_so_gp_miniMapSpotting,           &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_miniMapSpotting_toggled);
-    connect(ui->checkBox_so_gp_3dSpotting,                &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_3dSpotting_toggled);
-    connect(ui->checkBox_so_gp_nameTag,                   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_nameTag_toggled);
-    connect(ui->checkBox_so_gp_regenerateHealth,          &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_regenerateHealth_toggled);
-    connect(ui->checkBox_so_gp_hud,                       &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_hud_toggled);
-    connect(ui->checkBox_so_gp_onlySquadLeaderSpawn,      &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_onlySquadLeaderSpawn_toggled);
-    connect(ui->checkBox_so_gp_vehicleSpawnAllowed,       &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_vehicleSpawnAllowed_toggled);
-    connect(ui->checkBox_so_gp_hitIndicatorsEnabled,      &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_hitIndicatorsEnabled_toggled);
-    connect(ui->checkBox_so_gp_thirdPersonVehicleCameras, &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_thirdPersonVehicleCameras_toggled);
-    connect(ui->checkBox_so_gp_forceReloadWholeMags,      &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_forceReloadWholeMags_toggled);
-    connect(ui->spinBox_so_gp_bulletDamage,               static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_bulletDamage_valueChanged);
-    connect(ui->spinBox_so_gp_soldierHealth,              static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_soldierHealth_valueChanged);
-    connect(ui->spinBox_so_gp_vehicleSpawnDelay,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_vehicleSpawnDelay_valueChanged);
-    connect(ui->spinBox_so_gp_playerRespawnTime,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_playerRespawnTime_valueChanged);
-    connect(ui->spinBox_so_gp_ticketBleedRate,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_ticketBleedRate_valueChanged);
-    connect(ui->spinBox_so_gp_gameModeCounter,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_gameModeCounter_valueChanged);
-    connect(ui->spinBox_so_gp_roundTimeLimit,             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundTimeLimit_valueChanged);
-    connect(ui->spinBox_so_gp_roundLockdownCountdown,     static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundLockdownCountdown_valueChanged);
-    connect(ui->spinBox_so_gp_roundWarmupTimeout,         static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundWarmupTimeout_valueChanged);
-    connect(ui->spinBox_so_gp_roundRestartPlayerCount,    static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundRestartPlayerCount_valueChanged);
-    connect(ui->spinBox_so_gp_roundStartPlayerCount,      static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundStartPlayerCount_valueChanged);
-    connect(ui->comboBox_so_gp_preset,                    static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentTextChanged), this, &OptionsWidget::comboBox_so_gp_preset_currentIndexChanged);
-    connect(ui->checkBox_so_gp_presetLockPresetSetting,   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_presetLockPresetSetting_toggled);
-    connect(ui->comboBox_so_gp_unlockMode,                static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),           this, &OptionsWidget::comboBox_so_gp_unlockMode_currentIndexChanged);
+    connect(ui->checkBox_so_gp_friendlyFire,                &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_friendlyFire_toggled);
+    connect(ui->checkBox_so_gp_autoBalance,                 &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_autoBalance_toggled);
+    connect(ui->checkBox_so_gp_killCam,                     &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_killCam_toggled);
+    connect(ui->checkBox_so_gp_miniMap,                     &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_miniMap_toggled);
+    connect(ui->checkBox_so_gp_miniMapSpotting,             &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_miniMapSpotting_toggled);
+    connect(ui->checkBox_so_gp_3dSpotting,                  &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_3dSpotting_toggled);
+    connect(ui->checkBox_so_gp_nameTag,                     &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_nameTag_toggled);
+    connect(ui->checkBox_so_gp_regenerateHealth,            &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_regenerateHealth_toggled);
+    connect(ui->checkBox_so_gp_hud,                         &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_hud_toggled);
+    connect(ui->checkBox_so_gp_onlySquadLeaderSpawn,        &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_onlySquadLeaderSpawn_toggled);
+    connect(ui->checkBox_so_gp_vehicleSpawnAllowed,         &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_vehicleSpawnAllowed_toggled);
+    connect(ui->checkBox_so_gp_hitIndicatorsEnabled,        &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_hitIndicatorsEnabled_toggled);
+    connect(ui->checkBox_so_gp_thirdPersonVehicleCameras,   &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_thirdPersonVehicleCameras_toggled);
+    connect(ui->checkBox_so_gp_forceReloadWholeMags,        &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_forceReloadWholeMags_toggled);
+    connect(ui->spinBox_so_gp_bulletDamage,                 static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_bulletDamage_valueChanged);
+    connect(ui->spinBox_so_gp_soldierHealth,                static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_soldierHealth_valueChanged);
+    connect(ui->spinBox_so_gp_vehicleSpawnDelay,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_vehicleSpawnDelay_valueChanged);
+    connect(ui->spinBox_so_gp_playerRespawnTime,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_playerRespawnTime_valueChanged);
+    connect(ui->spinBox_so_gp_ticketBleedRate,              static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_ticketBleedRate_valueChanged);
+    connect(ui->spinBox_so_gp_gameModeCounter,              static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_gameModeCounter_valueChanged);
+    connect(ui->spinBox_so_gp_roundTimeLimit,               static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundTimeLimit_valueChanged);
+    connect(ui->spinBox_so_gp_roundLockdownCountdown,       static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundLockdownCountdown_valueChanged);
+    connect(ui->spinBox_so_gp_roundWarmupTimeout,           static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundWarmupTimeout_valueChanged);
+    connect(ui->spinBox_so_gp_roundRestartPlayerCount,      static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundRestartPlayerCount_valueChanged);
+    connect(ui->spinBox_so_gp_roundStartPlayerCount,        static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundStartPlayerCount_valueChanged);
+    connect(ui->spinBox_so_gp_roundPlayersReadyBypassTimer, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundPlayersReadyBypassTimer);
+    connect(ui->spinBox_so_gp_roundPlayersReadyMinCount,    static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundPlayersReadyMinCount);
+    connect(ui->spinBox_so_gp_roundPlayersReadyPercent,     static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &OptionsWidget::spinBox_so_gp_roundPlayersReadyPercent);
+    connect(ui->comboBox_so_gp_preset,                      static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentTextChanged), this, &OptionsWidget::comboBox_so_gp_preset_currentIndexChanged);
+    connect(ui->checkBox_so_gp_presetLockPresetSetting,     &QCheckBox::toggled,                                                              this, &OptionsWidget::checkBox_so_gp_presetLockPresetSetting_toggled);
+    connect(ui->comboBox_so_gp_unlockMode,                  static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),           this, &OptionsWidget::comboBox_so_gp_unlockMode_currentIndexChanged);
 
     // Options -> Teamkilling
 
@@ -203,6 +209,9 @@ void OptionsWidget::onLoginHashedCommand(bool auth)
         m_commandHandler->sendVarsUnlockModeCommand();
         m_commandHandler->sendVarsVehicleSpawnAllowedCommand();
         m_commandHandler->sendVarsVehicleSpawnDelayCommand();
+        m_commandHandler->sendVarsRoundPlayersReadyBypassTimerCommand();
+        m_commandHandler->sendVarsRoundPlayersReadyMinCountCommand();
+        m_commandHandler->sendVarsRoundPlayersReadyPercentCommand();
     }
 }
 
@@ -461,6 +470,21 @@ void OptionsWidget::onVarsVehicleSpawnDelayCommand(int delay)
     ui->spinBox_so_gp_vehicleSpawnDelay->setValue(delay);
 }
 
+void OptionsWidget::onVarsRoundPlayersReadyBypassTimerCommand(int timer)
+{
+    ui->spinBox_so_gp_roundPlayersReadyBypassTimer->setValue(timer);
+}
+
+void OptionsWidget::onVarsRoundPlayersReadyMinCountCommand(int count)
+{
+    ui->spinBox_so_gp_roundPlayersReadyMinCount->setValue(count);
+}
+
+void OptionsWidget::onVarsRoundPlayersReadyPercentCommand(int percent)
+{
+    ui->spinBox_so_gp_roundPlayersReadyPercent->setValue(percent);
+}
+
 /* User Interface */
 // Options -> Details
 void OptionsWidget::lineEdit_op_so_serverName_editingFinished()
@@ -697,11 +721,26 @@ void OptionsWidget::spinBox_so_gp_roundStartPlayerCount_valueChanged(int value)
     m_commandHandler->sendVarsRoundStartPlayerCountCommand(value);
 }
 
+void OptionsWidget::spinBox_so_gp_roundPlayersReadyBypassTimer(int value)
+{
+    m_commandHandler->sendVarsRoundPlayersReadyBypassTimerCommand(value);
+}
+
+void OptionsWidget::spinBox_so_gp_roundPlayersReadyMinCount(int value)
+{
+    m_commandHandler->sendVarsRoundPlayersReadyMinCountCommand(value);
+}
+
+void OptionsWidget::spinBox_so_gp_roundPlayersReadyPercent(int value)
+{
+    m_commandHandler->sendVarsRoundPlayersReadyPercentCommand(value);
+}
+
 void OptionsWidget::comboBox_so_gp_preset_currentIndexChanged(const QString &text)
 {
     bool presetLockPresetSetting = ui->checkBox_so_gp_presetLockPresetSetting->isChecked();
 
-    m_commandHandler->sendVarsPresetCommand(text.toLower(), presetLockPresetSetting);
+    m_commandHandler->sendVarsPresetCommand(text, presetLockPresetSetting);
 }
 
 void OptionsWidget::checkBox_so_gp_presetLockPresetSetting_toggled(bool checked)

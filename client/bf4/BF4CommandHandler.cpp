@@ -319,8 +319,6 @@ void BF4CommandHandler::sendVarsRoundPlayersReadyMinCountCommand(int count)
     } else {
         m_connection->sendCommand(QString("\"vars.roundPlayersReadyMinCount\" \"%1\"").arg(count));
     }
-
-    m_connection->sendCommand("vars.roundPlayersReadyMinCount");
 }
 
 void BF4CommandHandler::sendVarsRoundPlayersReadyPercentCommand(int percent)
@@ -706,7 +704,7 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimer(const FrostbiteRco
     if (response == "OK" && packet.getWordCount() > 1) {
         int timer = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsRoundPlayersReadyMinCountCommand(timer));
+        emit (onVarsRoundPlayersReadyBypassTimerCommand(timer));
     }
 }
 
