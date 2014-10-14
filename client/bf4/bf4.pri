@@ -10,9 +10,9 @@ HEADERS += $$PWD/BF4.h \
     $$PWD/PlayerListWidget.h \
     $$PWD/MapListWidget.h \
     $$PWD/SpectatorSlotsWidget.h \
-    $$PWD/OptionsWidget.h \
     $$PWD/EventsWidget.h \
-    $$PWD/BF4Preset.h
+    $$PWD/BF4Preset.h \
+    $$PWD/BF4OptionsWidget.h
 
 SOURCES += $$PWD/BF4.cpp \
     $$PWD/BF4CommandHandler.cpp \
@@ -20,17 +20,17 @@ SOURCES += $$PWD/BF4.cpp \
     $$PWD/BF4Widget.cpp \
     $$PWD/PlayerListWidget.cpp \
     $$PWD/EventsWidget.cpp \
-    $$PWD/OptionsWidget.cpp \
     $$PWD/MapListWidget.cpp \
     $$PWD/SpectatorSlotsWidget.cpp \
     $$PWD/BF4GameModeEntry.cpp \
     $$PWD/BF4ServerInfo.cpp \
-    $$PWD/BF4Preset.cpp
+    $$PWD/BF4Preset.cpp \
+    $$PWD/BF4OptionsWidget.cpp
 
 FORMS += $$PWD/BF4Widget.ui \
     $$PWD/EventsWidget.ui \
-    $$PWD/OptionsWidget.ui \
     $$PWD/MapListWidget.ui \
-    $$PWD/SpectatorSlotsWidget.ui
+    $$PWD/SpectatorSlotsWidget.ui \
+    $$PWD/BF4OptionsWidget.ui
 
 RESOURCES += $$PWD/BF4.qrc

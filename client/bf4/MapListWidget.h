@@ -50,10 +50,10 @@ private:
     BF4CommandHandler *m_commandHandler;
 
     // Maplist
-    QMenu *menu_ml_available;
-    QAction *action_ml_available_add;
-    QMenu *menu_ml_current;
-    QAction *action_ml_current_remove;
+    QMenu *menu_available;
+    QAction *action_available_add;
+    QMenu *menu_current;
+    QAction *action_current_remove;
 
 private slots:
     /* Commands */
@@ -62,18 +62,18 @@ private slots:
     void onMapListListCommand(const QList<MapListEntry> &mapList);
 
     /* User Interface */
-    void comboBox_ml_gameMode_currentIndexChanged(int);
-    void treeWidget_ml_available_itemSelectionChanged();
-    void treeWidget_ml_available_customContextMenuRequested(const QPoint &pos);
-    void pushButton_ml_load_clicked();
-    void pushButton_ml_save_clicked();
-    void pushButton_ml_clear_clicked();
-    void pushButton_ml_add_clicked();
-    void pushButton_ml_remove_clicked();
-    void treeWidget_ml_current_itemSelectionChanged();
-    void treeWidget_ml_current_customContextMenuRequested(const QPoint &pos);
-    void treeWidget_ml_available_itemDrop(int index);
-    void treeWidget_ml_current_itemDrop(QTreeWidgetItem *item);
+    void comboBox_gameMode_currentIndexChanged(int);
+    void treeWidget_available_itemSelectionChanged();
+    void treeWidget_available_customContextMenuRequested(const QPoint &pos);
+    void pushButton_load_clicked();
+    void pushButton_save_clicked();
+    void pushButton_clear_clicked();
+    void pushButton_add_clicked();
+    void pushButton_remove_clicked();
+    void treeWidget_current_itemSelectionChanged();
+    void treeWidget_current_customContextMenuRequested(const QPoint &pos);
+    void treeWidget_available_itemDrop(int index);
+    void treeWidget_current_itemDrop(QTreeWidgetItem *item);
 
     void addAvailableMapListItem(const QString &name, const QString &gameMode);
     void setAvailableMaplist(int gameModeIndex);

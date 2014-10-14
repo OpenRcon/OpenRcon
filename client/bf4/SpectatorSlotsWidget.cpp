@@ -45,7 +45,7 @@ SpectatorSlotsWidget::SpectatorSlotsWidget(FrostbiteConnection *connection, QWid
     /* User Interface */
     connect(ui->listWidget_spectatorList, &QListWidget::customContextMenuRequested, this, &SpectatorSlotsWidget::listWidget_spectatorList_customContextMenuRequested);
     connect(action_spectatorList_remove,  &QAction::triggered,                      this, &SpectatorSlotsWidget::action_spectatorList_remove_triggered);
-    connect(ui->lineEdit_player,          &QLineEdit::returnPressed,                this, &SpectatorSlotsWidget::pushButton_add_clicked);
+    connect(ui->lineEdit_nickname,        &QLineEdit::returnPressed,                this, &SpectatorSlotsWidget::pushButton_add_clicked);
     connect(ui->pushButton_add,           &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_add_clicked);
     connect(ui->pushButton_save,          &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_save_clicked);
     connect(ui->pushButton_clear,         &QPushButton::clicked,                    this, &SpectatorSlotsWidget::pushButton_clear_clicked);
@@ -93,12 +93,12 @@ void SpectatorSlotsWidget::action_spectatorList_remove_triggered()
 
 void SpectatorSlotsWidget::pushButton_add_clicked()
 {
-    QString player = ui->lineEdit_player->text();
+    QString player = ui->lineEdit_nickname->text();
 
     if (!player.isEmpty()) {
         ui->listWidget_spectatorList->addItem(player);
         ui->pushButton_clear->setEnabled(true);
-        ui->lineEdit_player->clear();
+        ui->lineEdit_nickname->clear();
 
         m_commandHandler->sendSpectatorListAddCommand(player);
     }

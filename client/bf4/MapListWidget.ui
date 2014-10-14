@@ -12,7 +12,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="2">
-    <widget class="DragDropTreeWidget" name="treeWidget_ml_current">
+    <widget class="DragDropTreeWidget" name="treeWidget_current">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
      </property>
@@ -38,14 +38,14 @@
      <item>
       <layout class="QFormLayout" name="formLayout">
        <item row="1" column="0" colspan="2">
-        <widget class="QLabel" name="label_ml_availableSelectedMapImage">
+        <widget class="QLabel" name="label_availableSelectedMapImage">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
        <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label_ml_availableSelectedMapText">
+        <widget class="QLabel" name="label_availableSelectedMapText">
          <property name="text">
           <string>Preview of selected map</string>
          </property>
@@ -59,21 +59,21 @@
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
        </property>
        <item row="0" column="0">
-        <widget class="QLabel" name="label_ml_currentMapText">
+        <widget class="QLabel" name="label_currentMapText">
          <property name="text">
           <string>Current map:</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLabel" name="label_ml_currentMapValue">
+        <widget class="QLabel" name="label_currentMapValue">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
        <item row="1" column="0" colspan="2">
-        <widget class="QLabel" name="label_ml_currentMapImage">
+        <widget class="QLabel" name="label_currentMapImage">
          <property name="text">
           <string/>
          </property>
@@ -87,14 +87,14 @@
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
        </property>
        <item row="1" column="0" colspan="2">
-        <widget class="QLabel" name="label_ml_currentSelectedMapImage">
+        <widget class="QLabel" name="label_currentSelectedMapImage">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
        <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label_ml_currentSelectedMapText">
+        <widget class="QLabel" name="label_currentSelectedMapText">
          <property name="text">
           <string>Preview of selected map</string>
          </property>
@@ -105,7 +105,7 @@
     </layout>
    </item>
    <item row="2" column="0">
-    <widget class="DragDropTreeWidget" name="treeWidget_ml_available">
+    <widget class="DragDropTreeWidget" name="treeWidget_available">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
      </property>
@@ -124,7 +124,7 @@
    <item row="2" column="1">
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <widget class="QPushButton" name="pushButton_ml_load">
+      <widget class="QPushButton" name="pushButton_load">
        <property name="text">
         <string>Load</string>
        </property>
@@ -135,7 +135,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_ml_save">
+      <widget class="QPushButton" name="pushButton_save">
        <property name="text">
         <string>Save</string>
        </property>
@@ -146,7 +146,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_ml_clear">
+      <widget class="QPushButton" name="pushButton_clear">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -173,7 +173,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_ml_add">
+      <widget class="QPushButton" name="pushButton_add">
        <property name="text">
         <string>Add</string>
        </property>
@@ -184,7 +184,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_ml_rounds">
+      <widget class="QLabel" name="label_rounds">
        <property name="text">
         <string>Rounds:</string>
        </property>
@@ -194,14 +194,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinBox_ml_rounds">
+      <widget class="QSpinBox" name="spinBox_rounds">
        <property name="minimum">
         <number>1</number>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_ml_remove">
+      <widget class="QPushButton" name="pushButton_remove">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -232,14 +232,14 @@
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <widget class="QLabel" name="label_ml_gameMode">
+      <widget class="QLabel" name="label_gameMode">
        <property name="text">
         <string>Gamemode:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox_ml_gameMode"/>
+      <widget class="QComboBox" name="comboBox_gameMode"/>
      </item>
      <item>
       <spacer name="horizontalSpacer">

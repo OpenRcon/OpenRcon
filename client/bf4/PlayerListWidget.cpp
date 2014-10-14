@@ -57,25 +57,25 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
 
     // Players
     clipboard = QApplication::clipboard();
-    menu_pl_players = new QMenu(this);
-    menu_pl_players_move = new QMenu(tr("Move to..."), menu_pl_players);
-    action_pl_players_kill = new QAction(tr("Kill"), menu_pl_players);
-    action_pl_players_kick = new QAction(tr("Kick"), menu_pl_players);
-    action_pl_players_ban = new QAction(QIcon(":/frostbite/icons/ban.png"), tr("Ban"), menu_pl_players);
-    action_pl_players_reserveSlot = new QAction(QIcon(":/frostbite/icons/reserved.png"), tr("Reserve slot"), menu_pl_players);
-    menu_pl_players_copyTo = new QMenu(tr("Copy..."), menu_pl_players);
-    menu_pl_players_copyTo->setIcon(QIcon(":/frostbite/icons/copy.png"));
-    action_pl_players_copyTo_name = new QAction(tr("Name"), menu_pl_players_copyTo);
-    action_pl_players_copyTo_guid = new QAction(tr("GUID"), menu_pl_players_copyTo);
+    menu_player = new QMenu(this);
+    menu_player_move = new QMenu(tr("Move to..."), menu_player);
+    action_player_kill = new QAction(tr("Kill"), menu_player);
+    action_player_kick = new QAction(tr("Kick"), menu_player);
+    action_player_ban = new QAction(QIcon(":/frostbite/icons/ban.png"), tr("Ban"), menu_player);
+    action_player_reserveSlot = new QAction(QIcon(":/frostbite/icons/reserved.png"), tr("Reserve slot"), menu_player);
+    menu_player_copyTo = new QMenu(tr("Copy..."), menu_player);
+    menu_player_copyTo->setIcon(QIcon(":/frostbite/icons/copy.png"));
+    action_player_copyTo_name = new QAction(tr("Name"), menu_player_copyTo);
+    action_player_copyTo_guid = new QAction(tr("GUID"), menu_player_copyTo);
 
-    menu_pl_players->addMenu(menu_pl_players_move);
-    menu_pl_players->addAction(action_pl_players_kill);
-    menu_pl_players->addAction(action_pl_players_kick);
-    menu_pl_players->addAction(action_pl_players_ban);
-    menu_pl_players->addAction(action_pl_players_reserveSlot);
-    menu_pl_players->addMenu(menu_pl_players_copyTo);
-    menu_pl_players_copyTo->addAction(action_pl_players_copyTo_name);
-    menu_pl_players_copyTo->addAction(action_pl_players_copyTo_guid);
+    menu_player->addMenu(menu_player_move);
+    menu_player->addAction(action_player_kill);
+    menu_player->addAction(action_player_kick);
+    menu_player->addAction(action_player_ban);
+    menu_player->addAction(action_player_reserveSlot);
+    menu_player->addMenu(menu_player_copyTo);
+    menu_player_copyTo->addAction(action_player_copyTo_name);
+    menu_player_copyTo->addAction(action_player_copyTo_guid);
 
     /* Events */
     connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerAuthenticatedEvent, this, &PlayerListWidget::updatePlayerList);
@@ -94,13 +94,13 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
 
     /* User Interface */
     connect(this,                          &QTreeWidget::customContextMenuRequested, this, &PlayerListWidget::customContextMenuRequested);
-    connect(action_pl_players_kill,        &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_kill_triggered);
-    connect(action_pl_players_kick,        &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_kick_triggered);
-    connect(action_pl_players_ban,         &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_ban_triggered);
-    connect(action_pl_players_reserveSlot, &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_reserveSlot_triggered);
-    connect(action_pl_players_copyTo_name, &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_copyTo_name_triggered);
-    connect(action_pl_players_copyTo_guid, &QAction::triggered,                      this, &PlayerListWidget::action_pl_players_copyTo_guid_triggered);
-    connect(menu_pl_players_move,          &QMenu::triggered,                        this, &PlayerListWidget::menu_pl_players_move_triggered);
+    connect(action_player_kill,        &QAction::triggered,                      this, &PlayerListWidget::action_player_kill_triggered);
+    connect(action_player_kick,        &QAction::triggered,                      this, &PlayerListWidget::action_player_kick_triggered);
+    connect(action_player_ban,         &QAction::triggered,                      this, &PlayerListWidget::action_player_ban_triggered);
+    connect(action_player_reserveSlot, &QAction::triggered,                      this, &PlayerListWidget::action_player_reserveSlot_triggered);
+    connect(action_player_copyTo_name, &QAction::triggered,                      this, &PlayerListWidget::action_player_copyTo_name_triggered);
+    connect(action_player_copyTo_guid, &QAction::triggered,                      this, &PlayerListWidget::action_player_copyTo_guid_triggered);
+    connect(menu_player_move,          &QMenu::triggered,                        this, &PlayerListWidget::menu_player_move_triggered);
 }
 
 PlayerListWidget::~PlayerListWidget()
@@ -128,7 +128,7 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
     if (playerSubsetType == PlayerSubsetType::All) {
         // Clear the QTreeWidget and item.
         clear();
-        menu_pl_players_move->clear();
+        menu_player_move->clear();
 
         // Create a list of all players as QTreeWidgetItem's.
         QSet<QTreeWidgetItem *> playerItems;
@@ -169,23 +169,23 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
                     }
                 }
 
-                // Add the team to the menu_pl_players_move menu.
-                action_pl_players_move_team = new QAction(team.getImage(), tr("Team %1").arg(team.getName()), menu_pl_players_move);
-                action_pl_players_move_team->setCheckable(true);
-                action_pl_players_move_team->setData(teamId);
+                // Add the team to the menu_player_move menu.
+                action_player_move_team = new QAction(team.getImage(), tr("Team %1").arg(team.getName()), menu_player_move);
+                action_player_move_team->setCheckable(true);
+                action_player_move_team->setData(teamId);
 
-                menu_pl_players_move->addAction(action_pl_players_move_team);
+                menu_player_move->addAction(action_player_move_team);
             }
         }
 
-        menu_pl_players_move->addSeparator();
+        menu_player_move->addSeparator();
 
         for (int squadId = 0; squadId <= 8; squadId++) {
-            action_pl_players_move_squad = new QAction(tr("Squad %1").arg(FrostbiteUtils::getSquadName(squadId)), menu_pl_players_move);
-            action_pl_players_move_squad->setCheckable(true);
-            action_pl_players_move_squad->setData(squadId + 5);
+            action_player_move_squad = new QAction(tr("Squad %1").arg(FrostbiteUtils::getSquadName(squadId)), menu_player_move);
+            action_player_move_squad->setCheckable(true);
+            action_player_move_squad->setData(squadId + 5);
 
-            menu_pl_players_move->addAction(action_pl_players_move_squad);
+            menu_player_move->addAction(action_player_move_squad);
         }
 
         // Expand all items.
@@ -217,8 +217,8 @@ void PlayerListWidget::customContextMenuRequested(const QPoint &pos)
         int teamIndex = item->data(0, Qt::UserRole).toInt();
         int squadIndex = item->data(1, Qt::UserRole).toInt() + topLevelItemCount() + 1;
 
-        for (int index = 0; index < menu_pl_players_move->actions().size(); index++) {
-            QAction *action = menu_pl_players_move->actions().at(index);
+        for (int index = 0; index < menu_player_move->actions().size(); index++) {
+            QAction *action = menu_player_move->actions().at(index);
 
             // Reset actions so that they're not checked and is enabled.
             if (!action->isEnabled() && action->isChecked()) {
@@ -234,49 +234,49 @@ void PlayerListWidget::customContextMenuRequested(const QPoint &pos)
             }
         }
 
-        menu_pl_players->exec(QCursor::pos());
+        menu_player->exec(QCursor::pos());
     }
 }
 
-void PlayerListWidget::action_pl_players_kill_triggered()
+void PlayerListWidget::action_player_kill_triggered()
 {
     QString player = currentItem()->text(0);
 
     m_commandHandler->sendAdminKillPlayerCommand(player);
 }
 
-void PlayerListWidget::action_pl_players_kick_triggered()
+void PlayerListWidget::action_player_kick_triggered()
 {
     QString player = currentItem()->text(0);
 
     m_commandHandler->sendAdminKickPlayerCommand(player, "Kicked by admin.");
 }
 
-void PlayerListWidget::action_pl_players_ban_triggered()
+void PlayerListWidget::action_player_ban_triggered()
 {
     QString player = currentItem()->text(0);
 
     m_commandHandler->sendBanListAddCommand("perm", player, "Banned by admin.");
 }
 
-void PlayerListWidget::action_pl_players_reserveSlot_triggered()
+void PlayerListWidget::action_player_reserveSlot_triggered()
 {
     QString player = currentItem()->text(0);
 
     m_commandHandler->sendReservedSlotsListAddCommand(player);
 }
 
-void PlayerListWidget::action_pl_players_copyTo_name_triggered()
+void PlayerListWidget::action_player_copyTo_name_triggered()
 {
     clipboard->setText(currentItem()->text(0));
 }
 
-void PlayerListWidget::action_pl_players_copyTo_guid_triggered()
+void PlayerListWidget::action_player_copyTo_guid_triggered()
 {
     clipboard->setText(currentItem()->text(6));
 }
 
-void PlayerListWidget::menu_pl_players_move_triggered(QAction *action)
+void PlayerListWidget::menu_player_move_triggered(QAction *action)
 {
     QTreeWidgetItem *item = currentItem();
     QString player = item->text(0);

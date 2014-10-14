@@ -70,13 +70,13 @@ EventsWidget::~EventsWidget()
 
 void EventsWidget::logEvent(const QString &event, const QString &message)
 {
-    int row = ui->tableWidget_ev_events->rowCount();
+    int row = ui->tableWidget->rowCount();
 
-    ui->tableWidget_ev_events->insertRow(row);
-    ui->tableWidget_ev_events->setItem(row, 0, new QTableWidgetItem(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss")));
-    ui->tableWidget_ev_events->setItem(row, 1, new QTableWidgetItem(event));
-    ui->tableWidget_ev_events->setItem(row, 2, new QTableWidgetItem(message));
-    ui->tableWidget_ev_events->resizeColumnsToContents();
+    ui->tableWidget->insertRow(row);
+    ui->tableWidget->setItem(row, 0, new QTableWidgetItem(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss")));
+    ui->tableWidget->setItem(row, 1, new QTableWidgetItem(event));
+    ui->tableWidget->setItem(row, 2, new QTableWidgetItem(message));
+    ui->tableWidget->resizeColumnsToContents();
 }
 
 /* Connection */

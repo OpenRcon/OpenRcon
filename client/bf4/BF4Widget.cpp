@@ -32,7 +32,7 @@
 #include "PlayerListWidget.h"
 #include "EventsWidget.h"
 #include "ChatWidget.h"
-#include "OptionsWidget.h"
+#include "BF4OptionsWidget.h"
 #include "MapListWidget.h"
 #include "BanListWidget.h"
 #include "ReservedSlotsWidget.h"
@@ -169,7 +169,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     playerListWidget = new PlayerListWidget(m_connection, this);
     eventsWidget = new EventsWidget(m_connection, this);
     chatWidget = new ChatWidget(m_connection, this);
-    optionsWidget = new OptionsWidget(m_connection, this);
+    optionsWidget = new BF4OptionsWidget(m_connection, this);
     mapListWidget = new MapListWidget(m_connection, this);
     banListWidget = new BanListWidget(m_connection, this);
     reservedSlotsWidget = new ReservedSlotsWidget(m_connection, this);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OptionsWidget</class>
- <widget class="QWidget" name="OptionsWidget">
+ <class>BF4OptionsWidget</class>
+ <widget class="QWidget" name="BF4OptionsWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,14 +12,14 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QTabWidget" name="tabWidget_op">
+    <widget class="QTabWidget" name="tabWidget">
      <property name="enabled">
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
-     <widget class="QWidget" name="tab_so_de">
+     <widget class="QWidget" name="tab_details">
       <attribute name="title">
        <string>Details</string>
       </attribute>
@@ -27,14 +27,14 @@
        <item row="0" column="0">
         <layout class="QFormLayout" name="formLayout_5">
          <item row="0" column="0">
-          <widget class="QLabel" name="label_op_so_serverName">
+          <widget class="QLabel" name="label_details_serverName">
            <property name="text">
             <string>Name</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_op_so_serverName">
+          <widget class="QLineEdit" name="lineEdit_details_serverName">
            <property name="placeholderText">
             <string>Enter a servername, this name is used in Battlelog.</string>
            </property>
@@ -44,28 +44,28 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="label_op_so_serverDescription">
+          <widget class="QLabel" name="label_details_serverDescription">
            <property name="text">
             <string>Description</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QTextEdit" name="textEdit_op_so_serverDescription">
+          <widget class="QTextEdit" name="textEdit_details_serverDescription">
            <property name="placeholderText">
             <string>Enter a server description, this description is displayed on the loading screen.</string>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="label_op_so_serverMessage">
+          <widget class="QLabel" name="label_details_serverMessage">
            <property name="text">
             <string>Message</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_op_so_serverMessage">
+          <widget class="QLineEdit" name="lineEdit_details_serverMessage">
            <property name="placeholderText">
             <string>Enter a massage here, this message is shown to player on join.</string>
            </property>
@@ -104,7 +104,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_so_co">
+     <widget class="QWidget" name="tab_configuration">
       <attribute name="title">
        <string>Configuration</string>
       </attribute>
@@ -112,14 +112,14 @@
        <item row="1" column="0">
         <layout class="QFormLayout" name="formLayout_7">
          <item row="0" column="0">
-          <widget class="QLabel" name="label_so_co_gamePassword">
+          <widget class="QLabel" name="label_configuration_gamePassword">
            <property name="text">
             <string>Game password</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_so_co_gamePassword">
+          <widget class="QLineEdit" name="lineEdit_configuration_gamePassword">
            <property name="echoMode">
             <enum>QLineEdit::Password</enum>
            </property>
@@ -129,14 +129,14 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="label_so_co_adminPassword">
+          <widget class="QLabel" name="label_configuration_adminPassword">
            <property name="text">
             <string>Admin password</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_so_co_adminPassword">
+          <widget class="QLineEdit" name="lineEdit_configuration_adminPassword">
            <property name="echoMode">
             <enum>QLineEdit::Password</enum>
            </property>
@@ -163,28 +163,28 @@
        <item row="0" column="0">
         <layout class="QFormLayout" name="formLayout_4">
          <item row="0" column="0">
-          <widget class="QLabel" name="label_so_co_serverTypeText">
+          <widget class="QLabel" name="label_configuration_serverTypeText">
            <property name="text">
             <string>Servertype</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLabel" name="label_so_co_serverType">
+          <widget class="QLabel" name="label_configuration_serverType">
            <property name="text">
             <string/>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QCheckBox" name="checkBox_so_co_punkBuster">
+          <widget class="QCheckBox" name="checkBox_configuration_punkBuster">
            <property name="text">
             <string>PunkBuster</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QCheckBox" name="checkBox_so_co_fairFight">
+          <widget class="QCheckBox" name="checkBox_configuration_fairFight">
            <property name="text">
             <string>FairFight</string>
            </property>
@@ -193,19 +193,19 @@
          <item row="3" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QLabel" name="label_so_co_maxSpectators">
+            <widget class="QLabel" name="label_configuration_maxSpectators">
              <property name="text">
               <string>Spectator limit</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="spinBox_so_co_maxSpectators"/>
+            <widget class="QSpinBox" name="spinBox_configuration_maxSpectators"/>
            </item>
           </layout>
          </item>
          <item row="3" column="1">
-          <widget class="QCheckBox" name="checkBox_so_co_alwaysAllowSpectators">
+          <widget class="QCheckBox" name="checkBox_configuration_alwaysAllowSpectators">
            <property name="text">
             <string>Public spectators</string>
            </property>
@@ -214,14 +214,14 @@
          <item row="2" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QLabel" name="label_so_co_maxPlayers">
+            <widget class="QLabel" name="label_configuration_maxPlayers">
              <property name="text">
               <string>Player limit</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="spinBox_so_co_maxPlayers"/>
+            <widget class="QSpinBox" name="spinBox_configuration_maxPlayers"/>
            </item>
           </layout>
          </item>
@@ -230,14 +230,14 @@
        <item row="0" column="1">
         <layout class="QFormLayout" name="formLayout_6">
          <item row="0" column="0">
-          <widget class="QCheckBox" name="checkBox_so_co_idleTimeout">
+          <widget class="QCheckBox" name="checkBox_configuration_idleTimeout">
            <property name="text">
             <string>Disable idle kick</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox_so_co_idleTimeout">
+          <widget class="QSpinBox" name="spinBox_configuration_idleTimeout">
            <property name="minimum">
             <number>0</number>
            </property>
@@ -247,28 +247,28 @@
           </widget>
          </item>
          <item row="2" column="0" colspan="2">
-          <widget class="QCheckBox" name="checkBox_so_co_aggressiveJoin">
+          <widget class="QCheckBox" name="checkBox_configuration_aggressiveJoin">
            <property name="text">
             <string>Aggresive join</string>
            </property>
           </widget>
          </item>
          <item row="3" column="0" colspan="2">
-          <widget class="QCheckBox" name="checkBox_so_co_commander">
+          <widget class="QCheckBox" name="checkBox_configuration_commander">
            <property name="text">
             <string>Commander</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QCheckBox" name="checkBox_so_co_idleBanRounds">
+          <widget class="QCheckBox" name="checkBox_configuration_idleBanRounds">
            <property name="text">
             <string>Disable idle ban</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="spinBox_so_co_idleBanRounds"/>
+          <widget class="QSpinBox" name="spinBox_configuration_idleBanRounds"/>
          </item>
         </layout>
        </item>
@@ -300,7 +300,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_so_gp">
+     <widget class="QWidget" name="tab_gameplay">
       <attribute name="title">
        <string>Gameplay</string>
       </attribute>
@@ -308,98 +308,98 @@
        <item row="0" column="0" rowspan="4">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_friendlyFire">
+          <widget class="QCheckBox" name="checkBox_gameplay_friendlyFire">
            <property name="text">
             <string>Friendly fire</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_autoBalance">
+          <widget class="QCheckBox" name="checkBox_gameplay_autoBalance">
            <property name="text">
             <string>Auto balance</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_killCam">
+          <widget class="QCheckBox" name="checkBox_gameplay_killCam">
            <property name="text">
             <string>Killcam</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_miniMap">
+          <widget class="QCheckBox" name="checkBox_gameplay_miniMap">
            <property name="text">
             <string>Minimap</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_miniMapSpotting">
+          <widget class="QCheckBox" name="checkBox_gameplay_miniMapSpotting">
            <property name="text">
             <string>Minimap spotting</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_3dSpotting">
+          <widget class="QCheckBox" name="checkBox_gameplay_3dSpotting">
            <property name="text">
             <string>3D spotting</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_nameTag">
+          <widget class="QCheckBox" name="checkBox_gameplay_nameTag">
            <property name="text">
             <string>Show nametags</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_regenerateHealth">
+          <widget class="QCheckBox" name="checkBox_gameplay_regenerateHealth">
            <property name="text">
             <string>Regenerate health</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_hud">
+          <widget class="QCheckBox" name="checkBox_gameplay_hud">
            <property name="text">
             <string>Show HUD</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_onlySquadLeaderSpawn">
+          <widget class="QCheckBox" name="checkBox_gameplay_onlySquadLeaderSpawn">
            <property name="text">
             <string>Spawn only on squad leader</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_vehicleSpawnAllowed">
+          <widget class="QCheckBox" name="checkBox_gameplay_vehicleSpawnAllowed">
            <property name="text">
             <string>Vehicles</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_hitIndicatorsEnabled">
+          <widget class="QCheckBox" name="checkBox_gameplay_hitIndicatorsEnabled">
            <property name="text">
             <string>Hit indicators</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_thirdPersonVehicleCameras">
+          <widget class="QCheckBox" name="checkBox_gameplay_thirdPersonVehicleCameras">
            <property name="text">
             <string>Third person vehicle cameras</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_so_gp_forceReloadWholeMags">
+          <widget class="QCheckBox" name="checkBox_gameplay_forceReloadWholeMags">
            <property name="text">
             <string>Force reload of whole mags</string>
            </property>
@@ -410,63 +410,63 @@
        <item row="0" column="1" rowspan="3">
         <layout class="QFormLayout" name="formLayout_11">
          <item row="3" column="0">
-          <widget class="QLabel" name="label_so_gp_playerRespawnTime">
+          <widget class="QLabel" name="label_gameplay_playerRespawnTime">
            <property name="text">
             <string>Player respawn time (%)</string>
            </property>
           </widget>
          </item>
          <item row="4" column="0">
-          <widget class="QLabel" name="label_so_gp_ticketBleedRate">
+          <widget class="QLabel" name="label_gameplay_ticketBleedRate">
            <property name="text">
             <string>Ticket bleed rate (%)</string>
            </property>
           </widget>
          </item>
          <item row="5" column="0">
-          <widget class="QLabel" name="label_so_gp_gameModeCounter">
+          <widget class="QLabel" name="label_gameplay_gameModeCounter">
            <property name="text">
             <string>Gamemode counter (%)</string>
            </property>
           </widget>
          </item>
          <item row="6" column="0">
-          <widget class="QLabel" name="label_so_gp_roundTimeLimit">
+          <widget class="QLabel" name="label_gameplay_roundTimeLimit">
            <property name="text">
             <string>Round time limit (%)</string>
            </property>
           </widget>
          </item>
          <item row="7" column="0">
-          <widget class="QLabel" name="label_so_gp_roundLockdownCountdown">
+          <widget class="QLabel" name="label_gameplay_roundLockdownCountdown">
            <property name="text">
             <string>Round lockdown countdown</string>
            </property>
           </widget>
          </item>
          <item row="8" column="0">
-          <widget class="QLabel" name="label_so_gp_roundWarmupTimeout">
+          <widget class="QLabel" name="label_gameplay_roundWarmupTimeout">
            <property name="text">
             <string>Round warmup timeout</string>
            </property>
           </widget>
          </item>
          <item row="9" column="0">
-          <widget class="QLabel" name="label_so_gp_roundRestartPlayerCount">
+          <widget class="QLabel" name="label_gameplay_roundRestartPlayerCount">
            <property name="text">
             <string>Round restart player count</string>
            </property>
           </widget>
          </item>
          <item row="10" column="0">
-          <widget class="QLabel" name="label_so_gp_roundStartPlayerCount">
+          <widget class="QLabel" name="label_gameplay_roundStartPlayerCount">
            <property name="text">
             <string>Round start player count</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_playerRespawnTime">
+          <widget class="QSpinBox" name="spinBox_gameplay_playerRespawnTime">
            <property name="minimum">
             <number>2</number>
            </property>
@@ -476,7 +476,7 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_ticketBleedRate">
+          <widget class="QSpinBox" name="spinBox_gameplay_ticketBleedRate">
            <property name="minimum">
             <number>1</number>
            </property>
@@ -486,7 +486,7 @@
           </widget>
          </item>
          <item row="5" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_gameModeCounter">
+          <widget class="QSpinBox" name="spinBox_gameplay_gameModeCounter">
            <property name="minimum">
             <number>2</number>
            </property>
@@ -496,14 +496,14 @@
           </widget>
          </item>
          <item row="6" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_roundTimeLimit">
+          <widget class="QSpinBox" name="spinBox_gameplay_roundTimeLimit">
            <property name="maximum">
             <number>1000</number>
            </property>
           </widget>
          </item>
          <item row="7" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_roundLockdownCountdown">
+          <widget class="QSpinBox" name="spinBox_gameplay_roundLockdownCountdown">
            <property name="minimum">
             <number>10</number>
            </property>
@@ -513,21 +513,21 @@
           </widget>
          </item>
          <item row="8" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_roundWarmupTimeout">
+          <widget class="QSpinBox" name="spinBox_gameplay_roundWarmupTimeout">
            <property name="maximum">
             <number>3600</number>
            </property>
           </widget>
          </item>
          <item row="9" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_roundRestartPlayerCount">
+          <widget class="QSpinBox" name="spinBox_gameplay_roundRestartPlayerCount">
            <property name="maximum">
             <number>64</number>
            </property>
           </widget>
          </item>
          <item row="10" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_roundStartPlayerCount">
+          <widget class="QSpinBox" name="spinBox_gameplay_roundStartPlayerCount">
            <property name="minimum">
             <number>4</number>
            </property>
@@ -537,7 +537,7 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_vehicleSpawnDelay">
+          <widget class="QSpinBox" name="spinBox_gameplay_vehicleSpawnDelay">
            <property name="minimum">
             <number>2</number>
            </property>
@@ -547,14 +547,14 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="label_so_gp_vehicleSpawnDelay">
+          <widget class="QLabel" name="label_gameplay_vehicleSpawnDelay">
            <property name="text">
             <string>Vehicle spawn delay (%)</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_soldierHealth">
+          <widget class="QSpinBox" name="spinBox_gameplay_soldierHealth">
            <property name="minimum">
             <number>60</number>
            </property>
@@ -564,72 +564,90 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="label_so_gp_soldierHealth">
+          <widget class="QLabel" name="label_gameplay_soldierHealth">
            <property name="text">
             <string>Solider health (%)</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_bulletDamage">
+          <widget class="QSpinBox" name="spinBox_gameplay_bulletDamage">
            <property name="maximum">
             <number>100</number>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="label_so_gp_bulletDamage">
+          <widget class="QLabel" name="label_gameplay_bulletDamage">
            <property name="text">
             <string>Bullet damage (%)</string>
            </property>
           </widget>
          </item>
          <item row="11" column="0">
-          <widget class="QLabel" name="label_so_gp_roundPlayersReadyBypassTimer">
+          <widget class="QLabel" name="label_gameplay_roundPlayersReadyBypassTimer">
            <property name="text">
             <string>Round players ready bypass timer</string>
            </property>
           </widget>
          </item>
          <item row="11" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_roundPlayersReadyBypassTimer"/>
+          <widget class="QSpinBox" name="spinBox_gameplay_roundPlayersReadyBypassTimer">
+           <property name="minimum">
+            <number>30</number>
+           </property>
+           <property name="maximum">
+            <number>300</number>
+           </property>
+          </widget>
          </item>
          <item row="12" column="0">
-          <widget class="QLabel" name="label_so_gp_roundPlayersReadyMinCount">
+          <widget class="QLabel" name="label_gameplay_roundPlayersReadyMinCount">
            <property name="text">
             <string>Round players ready min count</string>
            </property>
           </widget>
          </item>
          <item row="13" column="0">
-          <widget class="QLabel" name="label_so_gp_roundPlayersReadyPercent">
+          <widget class="QLabel" name="label_gameplay_roundPlayersReadyPercent">
            <property name="text">
             <string>Round players ready percent (%)</string>
            </property>
           </widget>
          </item>
          <item row="12" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_roundPlayersReadyMinCount"/>
+          <widget class="QSpinBox" name="spinBox_gameplay_roundPlayersReadyMinCount">
+           <property name="minimum">
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>33</number>
+           </property>
+          </widget>
          </item>
          <item row="13" column="1">
-          <widget class="QSpinBox" name="spinBox_so_gp_roundPlayersReadyPercent"/>
+          <widget class="QSpinBox" name="spinBox_gameplay_roundPlayersReadyPercent">
+           <property name="maximum">
+            <number>100</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
        <item row="0" column="2" colspan="2">
         <layout class="QFormLayout" name="formLayout_2">
          <item row="0" column="0">
-          <widget class="QLabel" name="label_so_gp_preset">
+          <widget class="QLabel" name="label_gameplay_preset">
            <property name="text">
             <string>Game preset (Server side)</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox_so_gp_preset"/>
+          <widget class="QComboBox" name="comboBox_gameplay_preset"/>
          </item>
          <item row="1" column="0" colspan="2">
-          <widget class="QCheckBox" name="checkBox_so_gp_presetLockPresetSetting">
+          <widget class="QCheckBox" name="checkBox_gameplay_presetLockPresetSetting">
            <property name="text">
             <string>Lock preset related values</string>
            </property>
@@ -653,14 +671,14 @@
        <item row="1" column="2">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLabel" name="label_so_gp_unlockMode">
+          <widget class="QLabel" name="label_gameplay_unlockMode">
            <property name="text">
             <string>Unlock unlocks</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_so_gp_unlockMode">
+          <widget class="QComboBox" name="comboBox_gameplay_unlockMode">
            <item>
             <property name="text">
              <string>None</string>
@@ -726,7 +744,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_so_tk">
+     <widget class="QWidget" name="tab_teamkilling">
       <attribute name="title">
        <string>Teamkilling</string>
       </attribute>
@@ -744,34 +762,34 @@
          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
         </property>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="spinBox_so_tk_teamKillCountForKick"/>
+         <widget class="QSpinBox" name="spinBox_teamkilling_teamKillCountForKick"/>
         </item>
         <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_so_tk_teamKillCountForKick">
+         <widget class="QCheckBox" name="checkBox_teamkilling_teamKillCountForKick">
           <property name="text">
            <string>No teamkill counter limit</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSpinBox" name="spinBox_so_tk_teamKillKickForBan"/>
+         <widget class="QSpinBox" name="spinBox_teamkilling_teamKillKickForBan"/>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_so_tk_teamKillKickForBan">
+         <widget class="QCheckBox" name="checkBox_teamkilling_teamKillKickForBan">
           <property name="text">
            <string>No teamkill ban limit</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_so_tk_teamKillValueForKick">
+         <widget class="QCheckBox" name="checkBox_teamkilling_teamKillValueForKick">
           <property name="text">
            <string>No teamkill value limit</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSpinBox" name="spinBox_so_tk_teamKillValueForKick"/>
+         <widget class="QSpinBox" name="spinBox_teamkilling_teamKillValueForKick"/>
         </item>
        </layout>
       </widget>
@@ -789,24 +807,24 @@
          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_so_tk_teamKillValueIncrease">
+         <widget class="QLabel" name="label_teamkilling_teamKillValueIncrease">
           <property name="text">
            <string>Value per teamkill</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_so_tk_teamKillValueDecreasePerSecond">
+         <widget class="QLabel" name="label_teamkilling_teamKillValueDecreasePerSecond">
           <property name="text">
            <string>Teamkill value cooldown (per second)</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSpinBox" name="spinBox_so_tk_teamKillValueDecreasePerSecond"/>
+         <widget class="QSpinBox" name="spinBox_teamkilling_teamKillValueDecreasePerSecond"/>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="spinBox_so_tk_teamKillValueIncrease"/>
+         <widget class="QSpinBox" name="spinBox_teamkilling_teamKillValueIncrease"/>
         </item>
        </layout>
       </widget>

@@ -27,7 +27,7 @@ class QTimer;
 class PlayerListWidget;
 class EventsWidget;
 class ChatWidget;
-class OptionsWidget;
+class BF4OptionsWidget;
 class MapListWidget;
 class BanListWidget;
 class ReservedSlotsWidget;
@@ -54,7 +54,7 @@ private:
     PlayerListWidget *playerListWidget;
     EventsWidget *eventsWidget;
     ChatWidget *chatWidget;
-    OptionsWidget *optionsWidget;
+    BF4OptionsWidget *optionsWidget;
     MapListWidget *mapListWidget;
     BanListWidget *banListWidget;
     ReservedSlotsWidget *reservedSlotsWidget;

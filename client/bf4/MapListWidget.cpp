@@ -38,18 +38,18 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
     ui->setupUi(this);
 
     // Set default values
-    ui->comboBox_ml_gameMode->addItems(BF4LevelDictionary::getGameModeNames());
-    ui->spinBox_ml_rounds->setValue(2);
+    ui->comboBox_gameMode->addItems(BF4LevelDictionary::getGameModeNames());
+    ui->spinBox_rounds->setValue(2);
     setAvailableMaplist(0);
 
     // Add menus
-    menu_ml_available = new QMenu(ui->treeWidget_ml_available);
-    action_ml_available_add = new QAction(tr("Add"), menu_ml_available);
-    menu_ml_current = new QMenu(ui->treeWidget_ml_current);
-    action_ml_current_remove = new QAction(tr("Remove"), menu_ml_current);
+    menu_available = new QMenu(ui->treeWidget_available);
+    action_available_add = new QAction(tr("Add"), menu_available);
+    menu_current = new QMenu(ui->treeWidget_current);
+    action_current_remove = new QAction(tr("Remove"), menu_current);
 
-    menu_ml_available->addAction(action_ml_available_add);
-    menu_ml_current->addAction(action_ml_current_remove);
+    menu_available->addAction(action_available_add);
+    menu_current->addAction(action_current_remove);
 
     /* Commands */
     // Misc
@@ -60,21 +60,21 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(m_commandHandler, &BF4CommandHandler::onMapListListCommand,                                                             this, &MapListWidget::onMapListListCommand);
 
     /* User Interface */
-    connect(ui->comboBox_ml_gameMode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &MapListWidget::comboBox_ml_gameMode_currentIndexChanged);
-    connect(ui->treeWidget_ml_available, &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_ml_available_itemSelectionChanged);
-    connect(ui->treeWidget_ml_available, &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_ml_available_customContextMenuRequested);
-    connect(action_ml_available_add,     &QAction::triggered,                                                    this, &MapListWidget::pushButton_ml_add_clicked);
-    connect(ui->pushButton_ml_load,      &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_load_clicked);
-    connect(ui->pushButton_ml_save,      &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_save_clicked);
-    connect(ui->pushButton_ml_clear,     &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_clear_clicked);
-    connect(ui->pushButton_ml_add,       &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_add_clicked);
-    connect(ui->pushButton_ml_remove,    &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_ml_remove_clicked);
-    connect(ui->treeWidget_ml_current,   &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_ml_current_itemSelectionChanged);
-    connect(ui->treeWidget_ml_current,   &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_ml_current_customContextMenuRequested);
-    connect(action_ml_current_remove,    &QAction::triggered,                                                    this, &MapListWidget::pushButton_ml_remove_clicked);
+    connect(ui->comboBox_gameMode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &MapListWidget::comboBox_gameMode_currentIndexChanged);
+    connect(ui->treeWidget_available, &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_available_itemSelectionChanged);
+    connect(ui->treeWidget_available, &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_available_customContextMenuRequested);
+    connect(action_available_add,     &QAction::triggered,                                                    this, &MapListWidget::pushButton_add_clicked);
+    connect(ui->pushButton_load,      &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_load_clicked);
+    connect(ui->pushButton_save,      &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_save_clicked);
+    connect(ui->pushButton_clear,     &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_clear_clicked);
+    connect(ui->pushButton_add,       &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_add_clicked);
+    connect(ui->pushButton_remove,    &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_remove_clicked);
+    connect(ui->treeWidget_current,   &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_current_itemSelectionChanged);
+    connect(ui->treeWidget_current,   &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_current_customContextMenuRequested);
+    connect(action_current_remove,    &QAction::triggered,                                                    this, &MapListWidget::pushButton_remove_clicked);
 
-    connect(ui->treeWidget_ml_available, static_cast<void (DragDropTreeWidget::*)(int)>(&DragDropTreeWidget::itemDrop),              this, &MapListWidget::treeWidget_ml_available_itemDrop);
-    connect(ui->treeWidget_ml_current,   static_cast<void (DragDropTreeWidget::*)(QTreeWidgetItem*)>(&DragDropTreeWidget::itemDrop), this, &MapListWidget::treeWidget_ml_current_itemDrop);
+    connect(ui->treeWidget_available, static_cast<void (DragDropTreeWidget::*)(int)>(&DragDropTreeWidget::itemDrop),              this, &MapListWidget::treeWidget_available_itemDrop);
+    connect(ui->treeWidget_current,   static_cast<void (DragDropTreeWidget::*)(QTreeWidgetItem*)>(&DragDropTreeWidget::itemDrop), this, &MapListWidget::treeWidget_current_itemDrop);
 }
 
 MapListWidget::~MapListWidget()
@@ -97,140 +97,140 @@ void MapListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 
     int gameModeIndex = BF4LevelDictionary::getGameModeNames().indexOf(gameMode.getName());
 
-    ui->label_ml_currentMapValue->setText(level.getName());
-    ui->label_ml_currentMapImage->setPixmap(level.getImage());
+    ui->label_currentMapValue->setText(level.getName());
+    ui->label_currentMapImage->setPixmap(level.getImage());
 
-    ui->comboBox_ml_gameMode->setCurrentIndex(gameModeIndex);
+    ui->comboBox_gameMode->setCurrentIndex(gameModeIndex);
     setAvailableMaplist(gameModeIndex);
 }
 
 void MapListWidget::onMapListListCommand(const QList<MapListEntry> &mapList)
 {   
-    ui->pushButton_ml_clear->setEnabled(!mapList.isEmpty());
-    ui->pushButton_ml_remove->setEnabled(!mapList.isEmpty());
+    ui->pushButton_clear->setEnabled(!mapList.isEmpty());
+    ui->pushButton_remove->setEnabled(!mapList.isEmpty());
 
     setCurrentMaplist(mapList);
 }
 
-void MapListWidget::comboBox_ml_gameMode_currentIndexChanged(int index)
+void MapListWidget::comboBox_gameMode_currentIndexChanged(int index)
 {
     setAvailableMaplist(index);
 }
 
-void MapListWidget::treeWidget_ml_available_itemSelectionChanged()
+void MapListWidget::treeWidget_available_itemSelectionChanged()
 {
-    LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_available->currentItem()->text(0));
+    LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_available->currentItem()->text(0));
 
-    ui->label_ml_availableSelectedMapImage->setPixmap(level.getImage());
+    ui->label_availableSelectedMapImage->setPixmap(level.getImage());
 }
 
-void MapListWidget::treeWidget_ml_available_customContextMenuRequested(const QPoint &pos)
+void MapListWidget::treeWidget_available_customContextMenuRequested(const QPoint &pos)
 {
-    if (ui->treeWidget_ml_available->itemAt(pos)) {
-        menu_ml_available->exec(QCursor::pos());
+    if (ui->treeWidget_available->itemAt(pos)) {
+        menu_available->exec(QCursor::pos());
     }
 }
 
-void MapListWidget::pushButton_ml_load_clicked()
+void MapListWidget::pushButton_load_clicked()
 {
     m_commandHandler->sendMapListLoadCommand();
 }
 
-void MapListWidget::pushButton_ml_save_clicked()
+void MapListWidget::pushButton_save_clicked()
 {
     m_commandHandler->sendMapListSaveCommand();
 }
 
-void MapListWidget::pushButton_ml_clear_clicked()
+void MapListWidget::pushButton_clear_clicked()
 {
     m_commandHandler->sendMapListClearCommand();
 }
 
-void MapListWidget::pushButton_ml_add_clicked()
+void MapListWidget::pushButton_add_clicked()
 {
-    // Make sure that treeWidget_ml_available selected item count is greater than zero.
-    if (ui->treeWidget_ml_available->selectedItems().size() > 0) {
-        QString name = ui->treeWidget_ml_available->currentItem()->text(0);
-        QString gameMode = ui->treeWidget_ml_available->currentItem()->text(1);
-        int rounds = ui->spinBox_ml_rounds->value();
+    // Make sure that treeWidget_available selected item count is greater than zero.
+    if (ui->treeWidget_available->selectedItems().size() > 0) {
+        QString name = ui->treeWidget_available->currentItem()->text(0);
+        QString gameMode = ui->treeWidget_available->currentItem()->text(1);
+        int rounds = ui->spinBox_rounds->value();
 
         addLevel(name, gameMode, rounds);
-        ui->pushButton_ml_clear->setEnabled(ui->treeWidget_ml_current->topLevelItemCount() > 0);
-        ui->pushButton_ml_remove->setEnabled(ui->treeWidget_ml_current->topLevelItemCount() > 0);
+        ui->pushButton_clear->setEnabled(ui->treeWidget_current->topLevelItemCount() > 0);
+        ui->pushButton_remove->setEnabled(ui->treeWidget_current->topLevelItemCount() > 0);
     }
 }
 
-void MapListWidget::pushButton_ml_remove_clicked()
+void MapListWidget::pushButton_remove_clicked()
 {
-    // Make sure that treeWidget_ml_current selected item count is greater than zero.
-    if (ui->treeWidget_ml_current->selectedItems().size() > 0) {
-        int index = ui->treeWidget_ml_current->currentIndex().row();
+    // Make sure that treeWidget_current selected item count is greater than zero.
+    if (ui->treeWidget_current->selectedItems().size() > 0) {
+        int index = ui->treeWidget_current->currentIndex().row();
 
         removeLevel(index);
-        ui->pushButton_ml_clear->setEnabled(ui->treeWidget_ml_current->topLevelItemCount() > 0);
-        ui->pushButton_ml_remove->setEnabled(ui->treeWidget_ml_current->topLevelItemCount() > 0);
+        ui->pushButton_clear->setEnabled(ui->treeWidget_current->topLevelItemCount() > 0);
+        ui->pushButton_remove->setEnabled(ui->treeWidget_current->topLevelItemCount() > 0);
     }
 }
 
 void MapListWidget::addAvailableMapListItem(const QString &name, const QString &gameMode)
 {
-    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_ml_available);
+    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_available);
     item->setText(0, name);
     item->setText(1, gameMode);
 }
 
 void MapListWidget::setAvailableMaplist(int gameModeIndex)
 {
-    ui->treeWidget_ml_available->clear();
+    ui->treeWidget_available->clear();
 
     QList<LevelEntry> levelList = BF4LevelDictionary::getLevels(gameModeIndex);
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeIndex);
 
-    ui->label_ml_availableSelectedMapImage->setPixmap(levelList.first().getImage());
+    ui->label_availableSelectedMapImage->setPixmap(levelList.first().getImage());
 
     for (LevelEntry level : levelList) {
         addAvailableMapListItem(level.getName(), gameMode.getName());
     }
 
     // Sort items.
-    ui->treeWidget_ml_available->sortItems(0, Qt::AscendingOrder);
+    ui->treeWidget_available->sortItems(0, Qt::AscendingOrder);
 
     // Resize columns so that they fits the content.
-    for (int i = 0; i < ui->treeWidget_ml_available->columnCount(); i++) {
-        ui->treeWidget_ml_available->resizeColumnToContents(i);
+    for (int i = 0; i < ui->treeWidget_available->columnCount(); i++) {
+        ui->treeWidget_available->resizeColumnToContents(i);
     }
 }
 
-void MapListWidget::treeWidget_ml_current_itemSelectionChanged()
+void MapListWidget::treeWidget_current_itemSelectionChanged()
 {
-    if (ui->treeWidget_ml_current->topLevelItemCount() > 1) {
-        LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_ml_current->currentItem()->text(0));
+    if (ui->treeWidget_current->topLevelItemCount() > 1) {
+        LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_current->currentItem()->text(0));
 
-        ui->label_ml_currentSelectedMapImage->setPixmap(level.getImage());
+        ui->label_currentSelectedMapImage->setPixmap(level.getImage());
     }
 }
 
-void MapListWidget::treeWidget_ml_current_customContextMenuRequested(const QPoint &pos)
+void MapListWidget::treeWidget_current_customContextMenuRequested(const QPoint &pos)
 {
-    if (ui->treeWidget_ml_current->itemAt(pos)) {
-        menu_ml_current->exec(QCursor::pos());
+    if (ui->treeWidget_current->itemAt(pos)) {
+        menu_current->exec(QCursor::pos());
     }
 }
 
-void MapListWidget::treeWidget_ml_available_itemDrop(int index)
+void MapListWidget::treeWidget_available_itemDrop(int index)
 {
     removeLevel(index);
 }
 
-void MapListWidget::treeWidget_ml_current_itemDrop(QTreeWidgetItem *item)
+void MapListWidget::treeWidget_current_itemDrop(QTreeWidgetItem *item)
 {
-    addLevel(item->text(0), item->text(1), ui->spinBox_ml_rounds->value());
+    addLevel(item->text(0), item->text(1), ui->spinBox_rounds->value());
 }
 
 void MapListWidget::addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds)
 {
     // Add the item to the QTreeWidget.
-    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_ml_current);
+    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_current);
     item->setText(0, name);
     item->setText(1, gameMode);
     item->setText(2, QString::number(rounds));
@@ -238,7 +238,7 @@ void MapListWidget::addCurrentMapListItem(const QString &name, const QString &ga
 
 void MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
 {
-    ui->treeWidget_ml_current->clear();
+    ui->treeWidget_current->clear();
 
     for (int i = 0; i < mapList.length(); i++) {
         MapListEntry mapListEntry = mapList.at(i);
@@ -246,15 +246,15 @@ void MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
         BF4GameModeEntry gameMode = BF4LevelDictionary::getGameMode(mapListEntry.getGameMode());
 
         if (i == 0) {
-            ui->label_ml_currentSelectedMapImage->setPixmap(level.getImage());
+            ui->label_currentSelectedMapImage->setPixmap(level.getImage());
         }
 
         addCurrentMapListItem(level.getName(), gameMode.getName(), mapListEntry.getRounds());
     }
 
     // Resize columns so that they fits the content.
-    for (int i = 0; i < ui->treeWidget_ml_available->columnCount(); i++) {
-        ui->treeWidget_ml_current->resizeColumnToContents(i);
+    for (int i = 0; i < ui->treeWidget_available->columnCount(); i++) {
+        ui->treeWidget_current->resizeColumnToContents(i);
     }
 }
 
@@ -264,7 +264,7 @@ void MapListWidget::addLevel(const QString &name, const QString &gameMode, int r
         LevelEntry levelEntry = BF4LevelDictionary::getLevel(name);
         BF4GameModeEntry gameModeEntry = BF4LevelDictionary::getGameMode(gameMode);
 
-        ui->label_ml_currentSelectedMapImage->setPixmap(levelEntry.getImage());
+        ui->label_currentSelectedMapImage->setPixmap(levelEntry.getImage());
         addCurrentMapListItem(name, gameMode, rounds);
         m_commandHandler->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getEngineName(), rounds);
     }
@@ -272,10 +272,10 @@ void MapListWidget::addLevel(const QString &name, const QString &gameMode, int r
 
 void MapListWidget::removeLevel(int index)
 {
-    if (ui->treeWidget_ml_current->topLevelItemCount() <= 1) {
-        ui->label_ml_currentSelectedMapImage->clear();
+    if (ui->treeWidget_current->topLevelItemCount() <= 1) {
+        ui->label_currentSelectedMapImage->clear();
     }
 
-    ui->treeWidget_ml_current->takeTopLevelItem(index);
+    ui->treeWidget_current->takeTopLevelItem(index);
     m_commandHandler->sendMapListRemoveCommand(index);
 }

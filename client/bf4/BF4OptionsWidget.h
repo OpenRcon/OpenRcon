@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef OPTIONSWIDGET_H
-#define OPTIONSWIDGET_H
+#ifndef BF4OPTIONSWIDGET_H
+#define BF4OPTIONSWIDGET_H
 
 #include <QWidget>
 
@@ -27,19 +27,19 @@ class BF4CommandHandler;
 enum class BF4PresetType;
 
 namespace Ui {
-    class OptionsWidget;
+    class BF4OptionsWidget;
 }
 
-class OptionsWidget : public QWidget
+class BF4OptionsWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    OptionsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
-    ~OptionsWidget();
+    BF4OptionsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    ~BF4OptionsWidget();
 
 private:
-    Ui::OptionsWidget *ui;
+    Ui::BF4OptionsWidget *ui;
     FrostbiteConnection *m_connection;
     BF4CommandHandler *m_commandHandler;
 
@@ -105,56 +105,56 @@ private slots:
 
     /* User Interface */
     // Options -> Details
-    void lineEdit_op_so_serverName_editingFinished();
-    void textEdit_op_so_serverDescription_textChanged();
-    void lineEdit_op_so_serverMessage_editingFinished();
+    void lineEdit_details_serverName_editingFinished();
+    void textEdit_details_serverDescription_textChanged();
+    void lineEdit_details_serverMessage_editingFinished();
 
     // Options -> Configuration
-    void checkBox_so_co_punkBuster_toggled(bool checked);
-    void checkBox_so_co_fairFight_toggled(bool checked);
-    void checkBox_so_co_idleTimeout_toggled(bool checked);
-    void spinBox_so_co_idleTimeout_valueChanged(int value);
-    void checkBox_so_co_idleBanRounds_toggled(bool checked);
-    void spinBox_so_co_idleBanRounds_valueChanged(int value);
-    void checkBox_so_co_aggressiveJoin_toggled(bool checked);
-    void spinBox_so_co_maxPlayers_valueChanged(int value);
-    void spinBox_so_co_maxSpectators_valueChanged(int value);
-    void checkBox_so_co_alwaysAllowSpectators_toggled(bool checked);
-    void checkBox_so_co_commander_toggled(bool checked);
+    void checkBox_configuration_punkBuster_toggled(bool checked);
+    void checkBox_configuration_fairFight_toggled(bool checked);
+    void checkBox_configuration_idleTimeout_toggled(bool checked);
+    void spinBox_configuration_idleTimeout_valueChanged(int value);
+    void checkBox_configuration_idleBanRounds_toggled(bool checked);
+    void spinBox_configuration_idleBanRounds_valueChanged(int value);
+    void checkBox_configuration_aggressiveJoin_toggled(bool checked);
+    void spinBox_configuration_maxPlayers_valueChanged(int value);
+    void spinBox_configuration_maxSpectators_valueChanged(int value);
+    void checkBox_configuration_alwaysAllowSpectators_toggled(bool checked);
+    void checkBox_configuration_commander_toggled(bool checked);
 
     // Options -> Gameplay
-    void checkBox_so_gp_friendlyFire_toggled(bool checked);
-    void checkBox_so_gp_autoBalance_toggled(bool checked);
-    void checkBox_so_gp_killCam_toggled(bool checked);
-    void checkBox_so_gp_miniMap_toggled(bool checked);
-    void checkBox_so_gp_miniMapSpotting_toggled(bool checked);
-    void checkBox_so_gp_3dSpotting_toggled(bool checked);
-    void checkBox_so_gp_nameTag_toggled(bool checked);
-    void checkBox_so_gp_regenerateHealth_toggled(bool checked);
-    void checkBox_so_gp_hud_toggled(bool checked);
-    void checkBox_so_gp_onlySquadLeaderSpawn_toggled(bool checked);
-    void checkBox_so_gp_vehicleSpawnAllowed_toggled(bool checked);
-    void checkBox_so_gp_hitIndicatorsEnabled_toggled(bool checked);
-    void checkBox_so_gp_thirdPersonVehicleCameras_toggled(bool checked);
-    void checkBox_so_gp_forceReloadWholeMags_toggled(bool checked);
-    void spinBox_so_gp_bulletDamage_valueChanged(int value);
-    void spinBox_so_gp_soldierHealth_valueChanged(int value);
-    void spinBox_so_gp_vehicleSpawnDelay_valueChanged(int value);
-    void spinBox_so_gp_playerRespawnTime_valueChanged(int value);
-    void spinBox_so_gp_ticketBleedRate_valueChanged(int value);
-    void spinBox_so_gp_gameModeCounter_valueChanged(int value);
-    void spinBox_so_gp_roundTimeLimit_valueChanged(int value);
-    void spinBox_so_gp_roundLockdownCountdown_valueChanged(int value);
-    void spinBox_so_gp_roundWarmupTimeout_valueChanged(int value);
-    void spinBox_so_gp_roundRestartPlayerCount_valueChanged(int value);
-    void spinBox_so_gp_roundStartPlayerCount_valueChanged(int value);
-    void spinBox_so_gp_roundPlayersReadyBypassTimer(int value);
-    void spinBox_so_gp_roundPlayersReadyMinCount(int value);
-    void spinBox_so_gp_roundPlayersReadyPercent(int value);
-    void comboBox_so_gp_preset_currentIndexChanged(const QString &text);
-    void checkBox_so_gp_presetLockPresetSetting_toggled(bool checked);
-    void comboBox_so_gp_unlockMode_currentIndexChanged(int index);
+    void checkBox_gameplay_friendlyFire_toggled(bool checked);
+    void checkBox_gameplay_autoBalance_toggled(bool checked);
+    void checkBox_gameplay_killCam_toggled(bool checked);
+    void checkBox_gameplay_miniMap_toggled(bool checked);
+    void checkBox_gameplay_miniMapSpotting_toggled(bool checked);
+    void checkBox_gameplay_3dSpotting_toggled(bool checked);
+    void checkBox_gameplay_nameTag_toggled(bool checked);
+    void checkBox_gameplay_regenerateHealth_toggled(bool checked);
+    void checkBox_gameplay_hud_toggled(bool checked);
+    void checkBox_gameplay_onlySquadLeaderSpawn_toggled(bool checked);
+    void checkBox_gameplay_vehicleSpawnAllowed_toggled(bool checked);
+    void checkBox_gameplay_hitIndicatorsEnabled_toggled(bool checked);
+    void checkBox_gameplay_thirdPersonVehicleCameras_toggled(bool checked);
+    void checkBox_gameplay_forceReloadWholeMags_toggled(bool checked);
+    void spinBox_gameplay_bulletDamage_valueChanged(int value);
+    void spinBox_gameplay_soldierHealth_valueChanged(int value);
+    void spinBox_gameplay_vehicleSpawnDelay_valueChanged(int value);
+    void spinBox_gameplay_playerRespawnTime_valueChanged(int value);
+    void spinBox_gameplay_ticketBleedRate_valueChanged(int value);
+    void spinBox_gameplay_gameModeCounter_valueChanged(int value);
+    void spinBox_gameplay_roundTimeLimit_valueChanged(int value);
+    void spinBox_gameplay_roundLockdownCountdown_valueChanged(int value);
+    void spinBox_gameplay_roundWarmupTimeout_valueChanged(int value);
+    void spinBox_gameplay_roundRestartPlayerCount_valueChanged(int value);
+    void spinBox_gameplay_roundStartPlayerCount_valueChanged(int value);
+    void spinBox_gameplay_roundPlayersReadyBypassTimer(int value);
+    void spinBox_gameplay_roundPlayersReadyMinCount(int value);
+    void spinBox_gameplay_roundPlayersReadyPercent(int value);
+    void comboBox_gameplay_preset_currentIndexChanged(const QString &text);
+    void checkBox_gameplay_presetLockPresetSetting_toggled(bool checked);
+    void comboBox_gameplay_unlockMode_currentIndexChanged(int index);
 
 };
 
-#endif // OPTIONSWIDGET_H
+#endif // BF4OPTIONSWIDGET_H

@@ -47,17 +47,17 @@ private:
 
     // Players
     QClipboard *clipboard;
-    QMenu *menu_pl_players;
-    QAction *action_pl_players_kill;
-    QAction *action_pl_players_kick;
-    QAction *action_pl_players_ban;
-    QAction *action_pl_players_reserveSlot;
-    QMenu *menu_pl_players_move;
-    QAction *action_pl_players_move_team;
-    QAction *action_pl_players_move_squad;
-    QMenu *menu_pl_players_copyTo;
-    QAction *action_pl_players_copyTo_name;
-    QAction *action_pl_players_copyTo_guid;
+    QMenu *menu_player;
+    QAction *action_player_kill;
+    QAction *action_player_kick;
+    QAction *action_player_ban;
+    QAction *action_player_reserveSlot;
+    QMenu *menu_player_move;
+    QAction *action_player_move_team;
+    QAction *action_player_move_squad;
+    QMenu *menu_player_copyTo;
+    QAction *action_player_copyTo_name;
+    QAction *action_player_copyTo_guid;
 
     LevelEntry currentLevel;
 
@@ -75,13 +75,13 @@ private slots:
 
     /* User Interface */
     void customContextMenuRequested(const QPoint &pos);
-    void action_pl_players_kill_triggered();
-    void action_pl_players_kick_triggered();
-    void action_pl_players_ban_triggered();
-    void action_pl_players_reserveSlot_triggered();
-    void action_pl_players_copyTo_name_triggered();
-    void action_pl_players_copyTo_guid_triggered();
-    void menu_pl_players_move_triggered(QAction *action);
+    void action_player_kill_triggered();
+    void action_player_kick_triggered();
+    void action_player_ban_triggered();
+    void action_player_reserveSlot_triggered();
+    void action_player_copyTo_name_triggered();
+    void action_player_copyTo_guid_triggered();
+    void menu_player_move_triggered(QAction *action);
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dropEvent(QDropEvent *event) override;
 
