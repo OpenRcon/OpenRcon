@@ -159,7 +159,10 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
         "vars.teamKillValueIncrease",
         "vars.unlockMode",
         "vars.vehicleSpawnAllowed",
-        "vars.vehicleSpawnDelay"
+        "vars.vehicleSpawnDelay",
+        "vars.roundPlayersReadyBypassTimer",
+        "vars.roundPlayersReadyMinCount",
+        "vars.roundPlayersReadyPercent"
     };
 
     // Create tabs from widgets.
