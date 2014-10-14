@@ -877,7 +877,7 @@ void Frostbite2CommandHandler::parseMapListListCommand(const FrostbiteRconPacket
         for (int i = 0; i < maps; i++) {
             QString level;
             QString gameMode;
-            int rounds;
+            int rounds = 0;
 
             for (int j = 0; j < parameters; j++) {
                 QString data = packet.getWord(3 + (i * parameters) + j).getContent();

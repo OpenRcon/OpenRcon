@@ -29,7 +29,7 @@ QStringList PlayerSubset::list = {
 
 PlayerSubsetType PlayerSubset::fromString(const QString &playerSubset)
 {
-    PlayerSubsetType playerSubsetType;
+    PlayerSubsetType playerSubsetType = nullptr;
 
     if (playerSubset == "Unknown") {
         playerSubsetType = PlayerSubsetType::Unknown;
