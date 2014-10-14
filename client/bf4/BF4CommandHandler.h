@@ -77,6 +77,9 @@ public:
     void sendVarsServerTypeCommand(const QString &type = QString());
     void sendVarsTeamFactionOverrideCommand(int teamId = -1, int factionId = -1);
     void sendVarsTicketBleedRateCommand(int percent = -1);
+    void sendVarsRoundPlayersReadyBypassTimerCommand(int timer = -1);
+    void sendVarsRoundPlayersReadyMinCountCommand(int count = -1);
+    void sendVarsRoundPlayersReadyPercentCommand(int percent = -1);
 
 private:
     /* Parse events */
@@ -118,6 +121,9 @@ private:
     void parseVarsServerTypeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsTeamFactionOverrideCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsTicketBleedRateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundPlayersReadyBypassTimer(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundPlayersReadyMinCount(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseVarsRoundPlayersReadyPercent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     QList<PlayerInfo> parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
@@ -160,6 +166,9 @@ signals:
     void onVarsServerTypeCommand(const QString &type);
     void onVarsTeamFactionOverrideCommand(int team1, int team2, int team3, int team4);
     void onVarsTicketBleedRateCommand(int percent);
+    void onVarsRoundPlayersReadyBypassTimerCommand(int timer);
+    void onVarsRoundPlayersReadyMinCountCommand(int count);
+    void onVarsRoundPlayersReadyPercentCommand(int percent);
 
 };
 
