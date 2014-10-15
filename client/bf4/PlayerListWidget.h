@@ -22,12 +22,12 @@
 
 #include <QTreeWidget>
 
-#include "LevelEntry.h"
-
 class QClipboard;
 
 class FrostbiteConnection;
 class BF4CommandHandler;
+
+class LevelEntry;
 
 class BF4ServerInfo;
 struct PlayerInfo;
@@ -60,6 +60,7 @@ private:
     QAction *action_player_copyTo_guid;
 
     LevelEntry currentLevel;
+    GameModeEntry currentGameMode;
 
     QIcon getRankIcon(int rank);
     QString getSquadName(int squadId);

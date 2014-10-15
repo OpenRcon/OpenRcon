@@ -30,6 +30,6 @@ template<> QList<TeamEntry> BF4LevelDictionary::teamList;
 template<> QString BF4LevelDictionary::imagePath;
 template<> QList<LevelEntry> BF4LevelDictionary::levelList;
 template<> QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList;
-template<> QMultiHash<int, int> BF4LevelDictionary::levelMap;
+template<> QList<GameModeLevel> BF4LevelDictionary::levelMap;
 
 #endif // BF4LEVELDICTIONARY_H

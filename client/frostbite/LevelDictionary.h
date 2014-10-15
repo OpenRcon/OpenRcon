@@ -28,6 +28,8 @@ class TeamEntry;
 class LevelEntry;
 class GameModeEntry;
 
+#include "GameModeLevel.h"
+
 typedef QList<TeamEntry> TeamList;
 typedef QList<LevelEntry> LevelList;
 typedef QList<GameModeEntry> GameModeList;
@@ -77,8 +79,10 @@ public:
     {
         QList<LevelEntryType> list;
 
-        for (int index : levelMap.values(gameModeIndex)) {
-            list.append(levelList.at(index));
+        for (GameModeLevel gameModeLevel : levelMap) {
+            if (gameModeLevel.getGamemode() == gameModeIndex) {
+                list.append(levelList.at(gameModeLevel.getLevel()));
+            }
         }
 
         return list;
@@ -111,12 +115,12 @@ public:
         return getGameModes().at(index);
     }
 
-    static const GameModeEntryType &getGameMode(const QString &level)
+    static const GameModeEntryType &getGameMode(const QString &gameMode)
     {
         static const GameModeEntryType empty;
 
         for (GameModeEntryType &entry : gameModeList) {
-            if (entry.getEngineName() == level || entry.getName() == level) {
+            if (entry.getEngineName() == gameMode || entry.getName() == gameMode) {
                 return entry;
             }
         }
@@ -150,12 +154,48 @@ public:
         return teamList;
     }
 
+    static QList<TeamEntryType> getTeams(GameModeEntryType gameModeEntry, LevelEntryType levelEntry)
+    {
+        QList<TeamEntryType> list;
+
+        for (GameModeLevel gameModeLevel : levelMap) {
+            if (gameModeLevel.getGamemode() == gameModeList.indexOf(gameModeEntry) &&
+                gameModeLevel.getLevel() == levelList.indexOf(levelEntry)) {
+                for (int i = 0; 0 < teamList.length(); i++) {
+                    if (gameModeLevel.getTeamList().contains(i)) {
+                        list.append(teamList.at(i));
+                    }
+                }
+            }
+        }
+
+        return list;
+    }
+
+    static QList<TeamEntryType> getTeams(int gameModeId, int levelId)
+    {
+        QList<TeamEntryType> list;
+
+        for (GameModeLevel gameModeLevel : levelMap) {
+            if (gameModeLevel.getGamemode() == gameModeId &&
+                gameModeLevel.getLevel() == levelId) {
+                for (int i = 0; 0 < teamList.length(); i++) {
+                    if (gameModeLevel.getTeamList().contains(i)) {
+                        list.append(teamList.at(i));
+                    }
+                }
+            }
+        }
+
+        return list;
+    }
+
 private:
     static QList<TeamEntryType> teamList;
     static QString imagePath;
     static QList<LevelEntryType> levelList;
     static QList<GameModeEntryType> gameModeList;
-    static QMultiHash<int, int> levelMap;
+    static QList<GameModeLevel> levelMap;
 
 };
 

@@ -31,6 +31,9 @@
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
 
+#include "LevelEntry.h"
+#include "GameModeEntry.h"
+
 #include "PlayerListWidget.h"
 #include "BF4CommandHandler.h"
 #include "TeamEntry.h"
@@ -122,6 +125,7 @@ void PlayerListWidget::onLoginHashedCommand(bool auth)
 void PlayerListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
+    currentGameMode = BF4LevelDictionary::getGameMode(serverInfo.getGameMode());
 }
 
 void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
@@ -156,7 +160,8 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
 
         for (int teamId = 0; teamId <= 2; teamId++) {
             if (teamId > 0 || (teamId == 0 && teamIds.contains(teamId))) {
-                TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.getTeamList().at(teamId - 1));
+                //TeamEntry team = BF4LevelDictionary::getTeam(teamId == 0 ? 0 : currentLevel.getTeamList().at(teamId - 1));
+                TeamEntry team = BF4LevelDictionary::getTeams(currentLevel, currentGameMode).at(teamId == 0 ? 0 : currentLevel.getTeamList().at(teamId - 1));
 
                 QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
                 teamItem->setData(0, Qt::UserRole, teamId);

@@ -28,6 +28,6 @@ template<> QList<TeamEntry> BF3LevelDictionary::teamList;
 template<> QString BF3LevelDictionary::imagePath;
 template<> QList<LevelEntry> BF3LevelDictionary::levelList;
 template<> QList<GameModeEntry> BF3LevelDictionary::gameModeList;
-template<> QMultiHash<int, int> BF3LevelDictionary::levelMap;
+template<> QList<GameModeLevel> BF3LevelDictionary::levelMap;
 
 #endif // BF3LEVELDICTIONARY_H

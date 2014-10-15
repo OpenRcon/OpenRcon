@@ -29,6 +29,9 @@
 #include "FrostbiteUtils.h"
 #include "Time.h"
 
+#include "LevelEntry.h"
+#include "GameModeEntry.h"
+
 #include "PlayerListWidget.h"
 #include "EventsWidget.h"
 #include "ChatWidget.h"

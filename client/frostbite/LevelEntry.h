@@ -26,20 +26,18 @@
 class LevelEntry
 {
 public:
-    LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile);
+    LevelEntry(const QString &engineName, const QString &name, const QString &imagePath, const QString &imageFile);
     LevelEntry();
     ~LevelEntry();
 
     QString getEngineName();
     QString getName();
-    QList<int> getTeamList();
     QPixmap getImage();
     QPixmap getIcon();
 
 private:
     QString engineName;
     QString name;
-    QList<int> teamList;
     QString imagePath;
     QString imageFile;
 

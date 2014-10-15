@@ -19,10 +19,9 @@
 
 #include "LevelEntry.h"
 
-LevelEntry::LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile) :
+LevelEntry::LevelEntry(const QString &engineName, const QString &name, const QString &imagePath, const QString &imageFile) :
     engineName(engineName),
     name(name),
-    teamList(teamList),
     imagePath(imagePath),
     imageFile(imageFile)
 {
@@ -47,11 +46,6 @@ QString LevelEntry::getEngineName()
 QString LevelEntry::getName()
 {
     return name;
-}
-
-QList<int> LevelEntry::getTeamList()
-{
-    return teamList;
 }
 
 QPixmap LevelEntry::getImage()
