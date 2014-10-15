@@ -20,9 +20,9 @@
 #ifndef FROSTBITE2SERVERINFO_H
 #define FROSTBITE2SERVERINFO_H
 
-#include <QString>
-
 #include "ServerInfo.h"
+
+class QString;
 
 class Frostbite2ServerInfo : public ServerInfo
 {

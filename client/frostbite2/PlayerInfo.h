@@ -20,10 +20,11 @@
 #ifndef PLAYERINFO_H
 #define PLAYERINFO_H
 
-#include <QString>
+class QString;
 
-struct PlayerInfo
+class PlayerInfo
 {
+public:
     PlayerInfo(const QString &name,
                const QString &guid,
                int teamId,
@@ -32,20 +33,20 @@ struct PlayerInfo
                int deaths,
                int score,
                int rank,
-               int ping) :
-               name(name),
-               guid(guid),
-               teamId(teamId),
-               squadId(squadId),
-               kills(kills),
-               deaths(deaths),
-               score(score),
-               rank(rank),
-               ping(ping)
-    {
+               int ping);
+    ~PlayerInfo();
 
-    }
+    QString getName();
+    QString getGuid();
+    int getTeamId();
+    int getSquadId();
+    int getKills();
+    int getDeaths();
+    int getScore();
+    int getRank();
+    int getPing();
 
+private:
     QString name;
     QString guid;
     int teamId;

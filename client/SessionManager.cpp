@@ -18,9 +18,11 @@
  */
 
 #include <QTabWidget>
+#include <QDebug>
 
 #include "SessionManager.h"
 #include "OpenRcon.h"
+#include "Connection.h"
 #include "ServerEntry.h"
 #include "GameEntry.h"
 #include "GameManager.h"

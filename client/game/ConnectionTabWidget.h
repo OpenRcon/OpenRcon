@@ -22,7 +22,7 @@
 
 #include <QTabWidget>
 
-#include "Connection.h"
+class Connection;
 
 class ConnectionTabWidget : public QTabWidget
 {

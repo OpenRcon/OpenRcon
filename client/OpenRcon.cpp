@@ -28,6 +28,7 @@
 #include <QMessageBox>
 
 #include "OpenRcon.h"
+#include "Connection.h"
 #include "ServerManager.h"
 #include "SessionManager.h"
 #include "ServerEntry.h"
