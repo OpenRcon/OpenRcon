@@ -25,9 +25,9 @@
 template<>
 QList<TeamEntry> BF3LevelDictionary::teamList = {
     /* List of all teams */
-    TeamEntry("Neutral", ""),                   // 0
-    TeamEntry("US",      ":/bf3/teams/RU.png"), // 1
-    TeamEntry("RU",      ":/bf3/teams/US.png")  // 2
+    TeamEntry("Neutral"),                  // 0
+    TeamEntry("US", ":/bf3/teams/RU.png"), // 1
+    TeamEntry("RU", ":/bf3/teams/US.png")  // 2
 };
 
 template<>
