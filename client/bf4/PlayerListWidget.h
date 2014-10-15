@@ -27,7 +27,8 @@ class QClipboard;
 class FrostbiteConnection;
 class BF4CommandHandler;
 
-class LevelEntry;
+#include "LevelEntry.h"
+#include "BF4GameModeEntry.h"
 
 class BF4ServerInfo;
 struct PlayerInfo;
@@ -60,7 +61,7 @@ private:
     QAction *action_player_copyTo_guid;
 
     LevelEntry currentLevel;
-    GameModeEntry currentGameMode;
+    BF4GameModeEntry currentGameMode;
 
     QIcon getRankIcon(int rank);
     QString getSquadName(int squadId);
