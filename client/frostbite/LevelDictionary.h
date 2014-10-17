@@ -28,10 +28,6 @@ class TeamEntry;
 class LevelEntry;
 class GameModeEntry;
 
-typedef QList<TeamEntry> TeamList;
-typedef QList<LevelEntry> LevelList;
-typedef QList<GameModeEntry> GameModeList;
-
 template<int gameId, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType>
 class LevelDictionary
 {
