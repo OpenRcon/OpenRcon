@@ -30,7 +30,7 @@ class FrostbiteConnection;
 class BF4CommandHandler;
 
 class BF4ServerInfo;
-struct PlayerInfo;
+class PlayerInfo;
 enum class PlayerSubsetType;
 
 class PlayerListWidget : public QTreeWidget

@@ -27,7 +27,7 @@ class ReservedSlotsWidget;
 class ConsoleWidget;
 
 class Frostbite2ServerInfo;
-struct PlayerInfo;
+class PlayerInfo;
 enum class PlayerSubsetType;
 
 namespace Ui {

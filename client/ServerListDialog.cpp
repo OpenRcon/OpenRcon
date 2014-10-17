@@ -148,16 +148,16 @@ void ServerListDialog::createTreeData()
         QList<ServerEntry *> list;
 
         for (ServerEntry *entry : serverEntries) {
-            if (entry->getGameType() == gameEntry.gameType) {
+            if (entry->getGameType() == gameEntry.getGameType()) {
                 list.append(entry);
             }
         }
 
         if (!list.isEmpty()) {
             QTreeWidgetItem *parentItem = new QTreeWidgetItem(ui->treeWidget);
-            parentItem->setData(0, Qt::UserRole, qVariantFromValue(gameEntry.gameType));
-            parentItem->setIcon(0, QIcon(gameEntry.icon));
-            parentItem->setText(0, gameEntry.name);
+            parentItem->setData(0, Qt::UserRole, qVariantFromValue(gameEntry.getGameType()));
+            parentItem->setIcon(0, QIcon(gameEntry.getIcon()));
+            parentItem->setText(0, gameEntry.getName());
 
             for (ServerEntry *serverEntry : list) {
                 QTreeWidgetItem *childItem = new QTreeWidgetItem(parentItem);

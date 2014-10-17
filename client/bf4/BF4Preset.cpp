@@ -29,7 +29,7 @@ QStringList BF4Preset::list = {
 
 BF4PresetType BF4Preset::fromString(const QString &preset)
 {
-    BF4PresetType presetType;
+    BF4PresetType presetType = BF4PresetType::Normal;
 
     if (preset == "Normal") {
         presetType = BF4PresetType::Normal;

@@ -23,7 +23,7 @@
 #include "Frostbite2CommandHandler.h"
 
 class BF4ServerInfo;
-struct PlayerInfo;
+class PlayerInfo;
 enum class BF4PresetType;
 
 class BF4CommandHandler : public Frostbite2CommandHandler
