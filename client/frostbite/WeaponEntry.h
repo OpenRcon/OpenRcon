@@ -26,6 +26,7 @@ class WeaponEntry
 {
 public:
     WeaponEntry(const QString &className, const QString &name, const QString &priority, const QString &type);
+    WeaponEntry();
     ~WeaponEntry();
 
     QString getClassName();

@@ -35,6 +35,24 @@ public:
 
     ~WeaponDictionary();
 
+    static WeaponEntryType getWeapon(const QString &name)
+    {
+        static WeaponEntryType empty;
+
+        for (WeaponEntryType weaponEntry : weaponList) {
+            if (weaponEntry.getName() == name) {
+                return weaponEntry;
+            }
+        }
+
+        return empty;
+    }
+
+    static QList<WeaponEntryType> getWeapons()
+    {
+        return weaponList;
+    }
+
 private:
     static QList<WeaponEntryType> weaponList;
 

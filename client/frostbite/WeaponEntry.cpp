@@ -30,6 +30,11 @@ WeaponEntry::WeaponEntry(const QString &className, const QString &name, const QS
 
 }
 
+WeaponEntry::WeaponEntry()
+{
+
+}
+
 WeaponEntry::~WeaponEntry()
 {
 
