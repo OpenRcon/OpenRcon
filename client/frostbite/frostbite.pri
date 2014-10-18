@@ -22,7 +22,9 @@ HEADERS += $$PWD/FrostbiteConnection.h \
     $$PWD/ChatWidget.h \
     $$PWD/BanListWidget.h \
     $$PWD/ConsoleWidget.h \
-    $$PWD/GameModeLevel.h
+    $$PWD/GameModeLevel.h \
+    $$PWD/WeaponEntry.h \
+    $$PWD/WeaponDictionary.h
 
 SOURCES += $$PWD/FrostbiteConnection.cpp \
     $$PWD/FrostbiteRconPacket.cpp \
@@ -39,7 +41,8 @@ SOURCES += $$PWD/FrostbiteConnection.cpp \
     $$PWD/ServerInfo.cpp \
     $$PWD/TeamEntry.cpp \
     $$PWD/PlayerSubset.cpp \
-    $$PWD/GameModeLevel.cpp
+    $$PWD/GameModeLevel.cpp \
+    $$PWD/WeaponEntry.cpp
 
 FORMS += $$PWD/ChatWidget.ui \
     $$PWD/BanListWidget.ui \

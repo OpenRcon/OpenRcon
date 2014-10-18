@@ -17,46 +17,29 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYERINFO_H
-#define PLAYERINFO_H
+#ifndef WEAPONENTRY_H
+#define WEAPONENTRY_H
 
-class QString;
+#include <QString>
 
-class PlayerInfo
+class WeaponEntry
 {
 public:
-    PlayerInfo(const QString &name,
-               const QString &guid,
-               int teamId,
-               int squadId,
-               int kills,
-               int deaths,
-               int score,
-               int rank,
-               int ping);
-    ~PlayerInfo();
+    WeaponEntry(const QString &className, const QString &name, const QString &priority, const QString &type);
+    WeaponEntry();
+    ~WeaponEntry();
 
+    QString getClassName();
     QString getName();
-    QString getGuid();
-    int getTeamId();
-    int getSquadId();
-    int getKills();
-    int getDeaths();
-    int getScore();
-    int getRank();
-    int getPing();
+    QString getPriority();
+    QString getType();
 
 private:
+    QString className;
     QString name;
-    QString guid;
-    int teamId;
-    int squadId;
-    int kills;
-    int deaths;
-    int score;
-    int rank;
-    int ping;
+    QString priority;
+    QString type;
 
 };
 
-#endif // PLAYERINFO_H
+#endif // WEAPONENTRY_H

@@ -48,7 +48,7 @@ GameEntry GameManager::getGame(int index)
 GameEntry GameManager::getGame(const QString &gamePrefix)
 {
     for (GameEntry entry : gameList) {
-        if (entry.prefix == gamePrefix) {
+        if (entry.getPrefix() == gamePrefix) {
             return entry;
         }
     }
@@ -103,5 +103,5 @@ GameType GameManager::toGameType(int gameType)
 
 GameType GameManager::toGameType(const QString &gameType)
 {
-    return getGame(gameType).gameType;
+    return getGame(gameType).getGameType();
 }

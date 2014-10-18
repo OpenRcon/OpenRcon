@@ -27,10 +27,10 @@
 template<>
 QList<TeamEntry> BFBC2LevelDictionary::teamList = {
     /* List of all teams */
-    TeamEntry("Neutral", ""),                     // 0
-    TeamEntry("US",      ":/bfbc2/teams/RU.png"), // 1
-    TeamEntry("RU",      ":/bfbc2/teams/US.png"), // 2
-    TeamEntry("NVA",     ":/bfbc2/teams/NVA.png") // 3
+    TeamEntry("Neutral"),                     // 0
+    TeamEntry("US",  ":/bfbc2/teams/RU.png"), // 1
+    TeamEntry("RU",  ":/bfbc2/teams/US.png"), // 2
+    TeamEntry("NVA", ":/bfbc2/teams/NVA.png") // 3
 };
 
 template<>

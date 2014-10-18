@@ -77,7 +77,7 @@
    <item row="1" column="4">
     <widget class="QLabel" name="label_duration">
      <property name="text">
-      <string>Seconds</string>
+      <string>Second</string>
      </property>
     </widget>
    </item>

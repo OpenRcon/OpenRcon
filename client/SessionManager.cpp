@@ -18,9 +18,11 @@
  */
 
 #include <QTabWidget>
+#include <QDebug>
 
 #include "SessionManager.h"
 #include "OpenRcon.h"
+#include "Connection.h"
 #include "ServerEntry.h"
 #include "GameEntry.h"
 #include "GameManager.h"
@@ -45,7 +47,7 @@ void SessionManager::open(ServerEntry *serverEntry)
         QTabWidget *tabWidget = openRcon->getTabWidget();
         GameEntry gameEntry = GameManager::getGame(serverEntry->getGameType());
         Game *gameObject = GameManager::getGameObject(serverEntry);
-        int index = tabWidget->addTab(gameObject, QIcon(gameEntry.icon), serverEntry->getName());
+        int index = tabWidget->addTab(gameObject, QIcon(gameEntry.getIcon()), serverEntry->getName());
 
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->getHost()).arg(serverEntry->getPort()));
         tabWidget->setCurrentIndex(index);

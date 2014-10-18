@@ -17,46 +17,13 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYERINFO_H
-#define PLAYERINFO_H
+#ifndef BF4WEAPONDICTIONARY_H
+#define BF4WEAPONDICTIONARY_H
 
-class QString;
+#include "WeaponDictionary.h"
 
-class PlayerInfo
-{
-public:
-    PlayerInfo(const QString &name,
-               const QString &guid,
-               int teamId,
-               int squadId,
-               int kills,
-               int deaths,
-               int score,
-               int rank,
-               int ping);
-    ~PlayerInfo();
+typedef WeaponDictionary<3, WeaponEntry> BF4WeaponDictionary;
 
-    QString getName();
-    QString getGuid();
-    int getTeamId();
-    int getSquadId();
-    int getKills();
-    int getDeaths();
-    int getScore();
-    int getRank();
-    int getPing();
+template<> QList<WeaponEntry> BF4WeaponDictionary::weaponList;
 
-private:
-    QString name;
-    QString guid;
-    int teamId;
-    int squadId;
-    int kills;
-    int deaths;
-    int score;
-    int rank;
-    int ping;
-
-};
-
-#endif // PLAYERINFO_H
+#endif // BF4WEAPONDICTIONARY_H

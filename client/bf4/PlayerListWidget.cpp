@@ -141,20 +141,20 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
         // Create player items and adding them to the list.
         for (PlayerInfo player : playerList) {
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
-            playerItem->setData(0, Qt::UserRole, player.teamId);
-            playerItem->setIcon(0, getRankIcon(player.rank));
-            playerItem->setText(0, player.name);
-            playerItem->setData(1, Qt::UserRole, player.squadId);
-            playerItem->setText(1, FrostbiteUtils::getSquadName(player.squadId));
-            playerItem->setText(2, QString::number(player.kills));
-            playerItem->setText(3, QString::number(player.deaths));
-            playerItem->setText(4, QString::number(player.score));
-            playerItem->setText(5, QString::number(player.ping));
-            playerItem->setText(6, player.guid);
+            playerItem->setData(0, Qt::UserRole, player.getTeamId());
+            playerItem->setIcon(0, getRankIcon(player.getRank()));
+            playerItem->setText(0, player.getName());
+            playerItem->setData(1, Qt::UserRole, player.getSquadId());
+            playerItem->setText(1, FrostbiteUtils::getSquadName(player.getSquadId()));
+            playerItem->setText(2, QString::number(player.getKills()));
+            playerItem->setText(3, QString::number(player.getDeaths()));
+            playerItem->setText(4, QString::number(player.getScore()));
+            playerItem->setText(5, QString::number(player.getPing()));
+            playerItem->setText(6, player.getGuid());
 
             // Add player item and team id to lists.
             playerItems.insert(playerItem);
-            teamIds.insert(player.teamId);
+            teamIds.insert(player.getTeamId());
         }
 
         for (int teamId = 0; teamId <= 2; teamId++) {

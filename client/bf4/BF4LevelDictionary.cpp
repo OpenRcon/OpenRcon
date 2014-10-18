@@ -26,10 +26,17 @@
 template<>
 QList<TeamEntry> BF4LevelDictionary::teamList = {
     /* List of all teams */
+<<<<<<< HEAD
     TeamEntry("Neutral", ""),                  // 0
     TeamEntry("US",     ":/bf4/teams/US.png"), // 1
     TeamEntry("RU",     ":/bf4/teams/RU.png"), // 2
     TeamEntry("CN",     ":/bf4/teams/CN.png"), // 3
+=======
+    TeamEntry("Neutral"),                  // 0
+    TeamEntry("RU", ":/bf4/teams/RU.png"), // 1
+    TeamEntry("US", ":/bf4/teams/US.png"), // 2
+    TeamEntry("CN", ":/bf4/teams/CN.png"), // 3
+>>>>>>> master
 };
 
 template<>
@@ -74,10 +81,17 @@ QList<LevelEntry> BF4LevelDictionary::levelList = {
     LevelEntry("XP3_WtrFront",  "Sunken Dragon",        imagePath, "sunken_dragon.png"),       // 25
 
     // XP5 (Final Stand)
+<<<<<<< HEAD
     LevelEntry("XP4_Arctic",    "Operation Whiteout",   imagePath, "operation_whiteout.png"),  // 26
     LevelEntry("XP4_SubBase",   "Hammerhead",           imagePath, "hammerhead.png"),          // 27
     LevelEntry("XP4_Titan",     "Giants Of Karelia",    imagePath, "giants_of_karelia.png"),   // 28
     LevelEntry("XP4_Wlkrftry",  "Hangar 21",            imagePath, "hangar_21.png"),           // 29
+=======
+    LevelEntry("XP4_Arctic",    "Operation Whiteout",   QList<int>({ 2, 1 }), imagePath, "operation_whiteout.png"),   // 26
+    LevelEntry("XP4_SubBase",   "Hammerhead",           QList<int>({ 2, 1 }), imagePath, "hammerhead.png"),           // 27
+    LevelEntry("XP4_Titan",     "Hangar 21",            QList<int>({ 2, 1 }), imagePath, "hangar_21.png"),            // 28
+    LevelEntry("XP4_Wlkrftry",  "Giants Of Karelia",    QList<int>({ 2, 1 }), imagePath, "giants_of_karelia.png"),    // 29
+>>>>>>> master
 
 };
 

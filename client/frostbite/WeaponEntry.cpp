@@ -17,46 +17,45 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYERINFO_H
-#define PLAYERINFO_H
+#include <QString>
 
-class QString;
+#include "WeaponEntry.h"
 
-class PlayerInfo
+WeaponEntry::WeaponEntry(const QString &className, const QString &name, const QString &priority, const QString &type) :
+    className(className),
+    name(name),
+    priority(priority),
+    type(type)
 {
-public:
-    PlayerInfo(const QString &name,
-               const QString &guid,
-               int teamId,
-               int squadId,
-               int kills,
-               int deaths,
-               int score,
-               int rank,
-               int ping);
-    ~PlayerInfo();
 
-    QString getName();
-    QString getGuid();
-    int getTeamId();
-    int getSquadId();
-    int getKills();
-    int getDeaths();
-    int getScore();
-    int getRank();
-    int getPing();
+}
 
-private:
-    QString name;
-    QString guid;
-    int teamId;
-    int squadId;
-    int kills;
-    int deaths;
-    int score;
-    int rank;
-    int ping;
+WeaponEntry::WeaponEntry()
+{
 
-};
+}
 
-#endif // PLAYERINFO_H
+WeaponEntry::~WeaponEntry()
+{
+
+}
+
+QString WeaponEntry::getClassName()
+{
+    return className;
+}
+
+QString WeaponEntry::getName()
+{
+    return name;
+}
+
+QString WeaponEntry::getPriority()
+{
+    return priority;
+}
+
+QString WeaponEntry::getType()
+{
+    return type;
+}

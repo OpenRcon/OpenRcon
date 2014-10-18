@@ -17,20 +17,56 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONNECTIONTABWIDGET_H
-#define CONNECTIONTABWIDGET_H
+#include <QString>
+#include <QIcon>
 
-#include <QTabWidget>
+#include "GameEntry.h"
 
-class Connection;
-
-class ConnectionTabWidget : public QTabWidget
+GameEntry::GameEntry(GameType gameType,
+          const QString &prefix,
+          const QString &name,
+          const QString &icon,
+          int defaultPort) :
+    gameType(gameType),
+    prefix(prefix),
+    name(name),
+    icon(icon),
+    defaultPort(defaultPort)
 {
-    Q_OBJECT
 
-public:
-    virtual Connection *getConnection() = 0;
+}
 
-};
+GameEntry::GameEntry()
+{
 
-#endif // CONNECTIONTABWIDGET_H
+}
+
+GameEntry::~GameEntry()
+{
+
+}
+
+GameType GameEntry::getGameType()
+{
+    return gameType;
+}
+
+QString GameEntry::getPrefix()
+{
+    return prefix;
+}
+
+QString GameEntry::getName()
+{
+    return name;
+}
+
+QIcon GameEntry::getIcon()
+{
+    return QIcon(icon);
+}
+
+int GameEntry::getDefaultPort()
+{
+    return defaultPort;
+}

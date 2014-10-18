@@ -12,7 +12,8 @@ HEADERS += $$PWD/BF4.h \
     $$PWD/SpectatorSlotsWidget.h \
     $$PWD/EventsWidget.h \
     $$PWD/BF4Preset.h \
-    $$PWD/BF4OptionsWidget.h
+    $$PWD/BF4OptionsWidget.h \
+    $$PWD/BF4WeaponDictionary.h
 
 SOURCES += $$PWD/BF4.cpp \
     $$PWD/BF4CommandHandler.cpp \
@@ -25,7 +26,8 @@ SOURCES += $$PWD/BF4.cpp \
     $$PWD/BF4GameModeEntry.cpp \
     $$PWD/BF4ServerInfo.cpp \
     $$PWD/BF4Preset.cpp \
-    $$PWD/BF4OptionsWidget.cpp
+    $$PWD/BF4OptionsWidget.cpp \
+    $$PWD/BF4WeaponDictionary.cpp
 
 FORMS += $$PWD/BF4Widget.ui \
     $$PWD/EventsWidget.ui \

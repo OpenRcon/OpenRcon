@@ -34,7 +34,8 @@ SOURCES += Main.cpp \
     OptionsDialog.cpp \
     AboutDialog.cpp \
     SessionManager.cpp \
-    ServerEntry.cpp
+    ServerEntry.cpp \
+    GameEntry.cpp
 
 FORMS += ServerListDialog.ui \
     ServerEditDialog.ui \

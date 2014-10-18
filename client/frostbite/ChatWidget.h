@@ -53,8 +53,8 @@ private slots:
 
     /* User Interface */
     void comboBox_mode_currentIndexChanged(int index);
+    void spinBox_duration_valueChanged(int index);
     void pushButton_send_clicked();
-
 };
 
 #endif // CHATWIDGET_H

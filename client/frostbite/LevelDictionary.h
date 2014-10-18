@@ -28,6 +28,7 @@ class TeamEntry;
 class LevelEntry;
 class GameModeEntry;
 
+<<<<<<< HEAD
 #include "GameModeLevel.h"
 
 typedef QList<TeamEntry> TeamList;
@@ -35,6 +36,9 @@ typedef QList<LevelEntry> LevelList;
 typedef QList<GameModeEntry> GameModeList;
 
 template<int gameId, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType, typename GameModeLevelType>
+=======
+template<int gameId, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType>
+>>>>>>> master
 class LevelDictionary
 {
 public:

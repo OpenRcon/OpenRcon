@@ -31,7 +31,7 @@ class BF4CommandHandler;
 #include "BF4GameModeEntry.h"
 
 class BF4ServerInfo;
-struct PlayerInfo;
+class PlayerInfo;
 enum class PlayerSubsetType;
 
 class PlayerListWidget : public QTreeWidget

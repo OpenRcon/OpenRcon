@@ -293,19 +293,19 @@ void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSub
 
         for (PlayerInfo player : playerList) {
             QTreeWidgetItem *playerItem = new QTreeWidgetItem();
-            playerItem->setIcon(0, getRankIcon(player.rank));
-            playerItem->setText(0, player.name);
-            playerItem->setText(1, FrostbiteUtils::getSquadName(player.squadId));
-            playerItem->setText(2, QString::number(player.kills));
-            playerItem->setText(3, QString::number(player.deaths));
-            playerItem->setText(4, QString::number(player.score));
-            playerItem->setText(5, QString::number(player.ping));
-            playerItem->setText(6, player.guid);
-            playerItem->setData(0, Qt::UserRole, player.teamId);
+            playerItem->setData(0, Qt::UserRole, player.getTeamId());
+            playerItem->setIcon(0, getRankIcon(player.getRank()));
+            playerItem->setText(0, player.getName());
+            playerItem->setText(1, FrostbiteUtils::getSquadName(player.getSquadId()));
+            playerItem->setText(2, QString::number(player.getKills()));
+            playerItem->setText(3, QString::number(player.getDeaths()));
+            playerItem->setText(4, QString::number(player.getScore()));
+            playerItem->setText(5, QString::number(player.getPing()));
+            playerItem->setText(6, player.getGuid());
 
             // Add player item and team id to lists.
             playerItems.append(playerItem);
-            teamIds.insert(player.teamId);
+            teamIds.insert(player.getTeamId());
         }
 
         for (int teamId : teamIds) {

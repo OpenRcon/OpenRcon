@@ -29,11 +29,11 @@ ServerEditDialog::ServerEditDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 {
     ui->setupUi(this);
 
-    for (GameEntry entry : GameManager::getGames()) {
-        ui->comboBox_game->addItem(QIcon(entry.icon), entry.name);
+    for (GameEntry gameEntry : GameManager::getGames()) {
+        ui->comboBox_game->addItem(gameEntry.getIcon(), gameEntry.getName());
     }
 
-    ui->spinBox_port->setValue(GameManager::getGame(0).defaultPort);
+    ui->spinBox_port->setValue(GameManager::getGame(0).getDefaultPort());
 
     validate();
 
@@ -78,7 +78,7 @@ ServerEditDialog::~ServerEditDialog()
 
 void ServerEditDialog::comboBox_game_currentIndexChanged(int index)
 {
-    ui->spinBox_port->setValue(GameManager::getGame(GameManager::toGameType(index)).defaultPort);
+    ui->spinBox_port->setValue(GameManager::getGame(GameManager::toGameType(index)).getDefaultPort());
 }
 
 void ServerEditDialog::lineEdit_host_editingFinished()
@@ -90,9 +90,10 @@ void ServerEditDialog::lineEdit_host_editingFinished()
 
 void ServerEditDialog::detect(const QString &value)
 {
-    for (GameEntry entry : GameManager::getGames()) {
-        if (value.contains(entry.prefix, Qt::CaseInsensitive) || value.contains(entry.name, Qt::CaseInsensitive)) {
-            ui->comboBox_game->setCurrentIndex(GameManager::toInt(entry.gameType));
+    for (GameEntry gameEntry : GameManager::getGames()) {
+        if (value.contains(gameEntry.getPrefix(), Qt::CaseInsensitive) ||
+            value.contains(gameEntry.getName(), Qt::CaseInsensitive)) {
+            ui->comboBox_game->setCurrentIndex(GameManager::toInt(gameEntry.getGameType()));
         }
     }
 }

@@ -20,36 +20,29 @@
 #ifndef GAMEENTRY_H
 #define GAMEENTRY_H
 
-#include <QString>
-#include <QIcon>
-
 #include "GameType.h"
 
-struct GameEntry
+class QString;
+class QIcon;
+
+class GameEntry
 {
-    GameEntry()
-    {
-
-    }
-
+public:
     GameEntry(GameType gameType,
               const QString &prefix,
               const QString &name,
               const QString &icon,
-              int defaultPort) :
-        gameType(gameType),
-        prefix(prefix),
-        name(name),
-        icon(icon),
-        defaultPort(defaultPort)
-    {
+              int defaultPort);
+    GameEntry();
+    ~GameEntry();
 
-    }
+    GameType getGameType();
+    QString getPrefix();
+    QString getName();
+    QIcon getIcon();
+    int getDefaultPort();
 
-    QIcon getIcon() {
-        return QIcon(icon);
-    }
-
+private:
     GameType gameType;
     QString prefix;
     QString name;

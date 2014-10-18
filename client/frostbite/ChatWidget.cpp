@@ -40,9 +40,10 @@ ChatWidget::ChatWidget(FrostbiteConnection *connection, QWidget *parent) :
     connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
 
     /* User Interface */
-    connect(ui->comboBox_mode,   static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ChatWidget::comboBox_mode_currentIndexChanged);
-    connect(ui->pushButton_send, &QPushButton::clicked,                                                  this, &ChatWidget::pushButton_send_clicked);
-    connect(ui->lineEdit,        &QLineEdit::editingFinished,                                            this, &ChatWidget::pushButton_send_clicked);
+    connect(ui->comboBox_mode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ChatWidget::comboBox_mode_currentIndexChanged);
+    connect(ui->spinBox_duration, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),          this, &ChatWidget::spinBox_duration_valueChanged);
+    connect(ui->pushButton_send,  &QPushButton::clicked,                                                  this, &ChatWidget::pushButton_send_clicked);
+    connect(ui->lineEdit,         &QLineEdit::editingFinished,                                            this, &ChatWidget::pushButton_send_clicked);
 }
 
 ChatWidget::~ChatWidget()
@@ -73,6 +74,11 @@ void ChatWidget::onLoginHashedCommand(bool auth)
 void ChatWidget::comboBox_mode_currentIndexChanged(int index)
 {
     ui->spinBox_duration->setEnabled(index > 0);
+}
+
+void ChatWidget::spinBox_duration_valueChanged(int index)
+{
+    ui->label_duration->setText(index > 1 ? tr("Seconds") : tr("Second"));
 }
 
 void ChatWidget::pushButton_send_clicked()
