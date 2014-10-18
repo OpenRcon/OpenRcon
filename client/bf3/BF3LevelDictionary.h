@@ -22,12 +22,12 @@
 
 #include "LevelDictionary.h"
 
-typedef LevelDictionary<2, TeamEntry, LevelEntry, GameModeEntry, GameModeLevel> BF3LevelDictionary;
+typedef LevelDictionary<2, TeamEntry, LevelEntry, GameModeEntry, GameModeLevelEntry> BF3LevelDictionary;
 
 template<> QList<TeamEntry> BF3LevelDictionary::teamList;
 template<> QString BF3LevelDictionary::imagePath;
 template<> QList<LevelEntry> BF3LevelDictionary::levelList;
 template<> QList<GameModeEntry> BF3LevelDictionary::gameModeList;
-template<> QList<GameModeLevel> BF3LevelDictionary::levelMap;
+template<> QList<GameModeLevelEntry> BF3LevelDictionary::levelMap;
 
 #endif // BF3LEVELDICTIONARY_H

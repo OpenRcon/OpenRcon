@@ -27,18 +27,9 @@
 class TeamEntry;
 class LevelEntry;
 class GameModeEntry;
+class GameModeLevelEntry;
 
-<<<<<<< HEAD
-#include "GameModeLevel.h"
-
-typedef QList<TeamEntry> TeamList;
-typedef QList<LevelEntry> LevelList;
-typedef QList<GameModeEntry> GameModeList;
-
-template<int gameId, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType, typename GameModeLevelType>
-=======
-template<int gameId, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType>
->>>>>>> master
+template<int gameId, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType, typename GameModeLevelEntryType>
 class LevelDictionary
 {
 public:
@@ -47,21 +38,19 @@ public:
         static_assert(std::is_base_of<TeamEntry, TeamEntryType>::value, "TeamEntryType must be a subclass of TeamEntry.");
         static_assert(std::is_base_of<LevelEntry, LevelEntryType>::value, "LevelEntryType must be a subclass of LevelEntry.");
         static_assert(std::is_base_of<GameModeEntry, GameModeEntryType>::value, "GameModeEntryType must be a subclass of GameModeEntry.");
-        static_assert(std::is_base_of<GameModeLevel, GameModeLevelType>::value, "GameModeLevelType must be a subclass of GameModeLevel.");
+        static_assert(std::is_base_of<GameModeLevelEntry, GameModeLevelEntryType>::value, "GameModeLevelEntryType must be a subclass of GameModeLevelEntry.");
     }
 
-    ~LevelDictionary();
-
-    static const LevelEntryType &getLevel(int index)
+    static LevelEntryType getLevel(int index)
     {
         return levelList.at(index);
     }
 
-    static const LevelEntryType &getLevel(const QString &level)
+    static LevelEntryType getLevel(const QString &level)
     {
-        static const LevelEntryType empty;
+        LevelEntryType empty;
 
-        for (LevelEntryType &entry : levelList) {
+        for (LevelEntryType entry : levelList) {
             if (entry.getEngineName() == level || entry.getName() == level) {
                 return entry;
             }
@@ -70,12 +59,12 @@ public:
         return empty;
     }
 
-    static const LevelEntryType &getLevel(int index, int gameModeIndex)
+    static LevelEntryType getLevel(int index, int gameModeIndex)
     {
         return getLevels(gameModeIndex).at(index);
     }
 
-    static const QList<LevelEntryType> &getLevels()
+    static QList<LevelEntryType> getLevels()
     {
         return levelList;
     }
@@ -84,9 +73,9 @@ public:
     {
         QList<LevelEntryType> list;
 
-        for (GameModeLevelType &gameModeLevel : levelMap) {
-            if (gameModeLevel.getGamemode() == gameModeIndex) {
-                list.append(levelList.at(gameModeLevel.getLevel()));
+        for (GameModeLevelEntryType gameModeLevelEntry : levelMap) {
+            if (gameModeLevelEntry.getGamemode() == gameModeIndex) {
+                list.append(levelList.at(gameModeLevelEntry.getLevel()));
             }
         }
 
@@ -97,7 +86,7 @@ public:
     {
         QStringList list;
 
-        for (const LevelEntryType &entry : levelList) {
+        for (LevelEntryType entry : levelList) {
             list.append(entry.name);
         }
 
@@ -108,23 +97,23 @@ public:
     {
         QStringList list;
 
-        for (LevelEntryType &entry : getLevels(gameModeIndex)) {
+        for (LevelEntryType entry : getLevels(gameModeIndex)) {
             list.append(entry.getName());
         }
 
         return list;
     }
 
-    static const GameModeEntryType &getGameMode(int index)
+    static GameModeEntryType getGameMode(int index)
     {
         return getGameModes().at(index);
     }
 
-    static const GameModeEntryType &getGameMode(const QString &gameMode)
+    static GameModeEntryType getGameMode(const QString &gameMode)
     {
-        static const GameModeEntryType empty;
+        GameModeEntryType empty;
 
-        for (GameModeEntryType &entry : gameModeList) {
+        for (GameModeEntryType entry : gameModeList) {
             if (entry.getEngineName() == gameMode || entry.getName() == gameMode) {
                 return entry;
             }
@@ -133,7 +122,7 @@ public:
         return empty;
     }
 
-    static const QList<GameModeEntryType> &getGameModes()
+    static QList<GameModeEntryType> getGameModes()
     {
         return gameModeList;
     }
@@ -142,7 +131,7 @@ public:
     {
         QStringList list;
 
-        for (GameModeEntryType &entry : gameModeList) {
+        for (GameModeEntryType entry : gameModeList) {
             list.append(entry.getName());
         }
 
@@ -163,11 +152,11 @@ public:
     {
         QList<TeamEntryType> list;
 
-        for (GameModeLevelType gameModeLevel : levelMap) {
-            if (gameModeLevel.getGamemode() == gameModeList.indexOf(gameModeEntry) &&
-                gameModeLevel.getLevel() == levelList.indexOf(levelEntry)) {
+        for (GameModeLevelEntryType gameModeLevelEntry : levelMap) {
+            if (gameModeLevelEntry.getGamemode() == gameModeList.indexOf(gameModeEntry) &&
+                gameModeLevelEntry.getLevel() == levelList.indexOf(levelEntry)) {
                 for (int i = 0; i < teamList.length(); i++) {
-                    if (gameModeLevel.getTeamList().contains(i)) {
+                    if (gameModeLevelEntry.getTeamList().contains(i)) {
                         list.append(teamList.at(i));
                     }
                 }
@@ -182,7 +171,7 @@ private:
     static QString imagePath;
     static QList<LevelEntryType> levelList;
     static QList<GameModeEntryType> gameModeList;
-    static QList<GameModeLevelType> levelMap;
+    static QList<GameModeLevelEntry> levelMap;
 
 };
 

@@ -11,6 +11,8 @@ HEADERS += $$PWD/FrostbiteConnection.h \
     $$PWD/LevelEntry.h \
     $$PWD/GameModeEntry.h \
     $$PWD/LevelDictionary.h \
+    $$PWD/WeaponEntry.h \
+    $$PWD/WeaponDictionary.h \
     $$PWD/PlayerSubset.h \
     $$PWD/MapListEntry.h \
     $$PWD/BanListEntry.h \
@@ -22,9 +24,8 @@ HEADERS += $$PWD/FrostbiteConnection.h \
     $$PWD/ChatWidget.h \
     $$PWD/BanListWidget.h \
     $$PWD/ConsoleWidget.h \
-    $$PWD/GameModeLevel.h \
-    $$PWD/WeaponEntry.h \
-    $$PWD/WeaponDictionary.h
+    $$PWD/GameModeLevelEntry.h
+
 
 SOURCES += $$PWD/FrostbiteConnection.cpp \
     $$PWD/FrostbiteRconPacket.cpp \
@@ -32,17 +33,17 @@ SOURCES += $$PWD/FrostbiteConnection.cpp \
     $$PWD/FrostbiteCommandHandler.cpp \
     $$PWD/FrostbiteGame.cpp \
     $$PWD/FrostbiteUtils.cpp \
+    $$PWD/LevelEntry.cpp \
+    $$PWD/GameModeEntry.cpp \
+    $$PWD/WeaponEntry.cpp \
     $$PWD/ChatWidget.cpp \
     $$PWD/BanListWidget.cpp \
     $$PWD/ConsoleWidget.cpp \
     $$PWD/MapListEntry.cpp \
-    $$PWD/GameModeEntry.cpp \
-    $$PWD/LevelEntry.cpp \
     $$PWD/ServerInfo.cpp \
     $$PWD/TeamEntry.cpp \
     $$PWD/PlayerSubset.cpp \
-    $$PWD/GameModeLevel.cpp \
-    $$PWD/WeaponEntry.cpp
+    $$PWD/GameModeLevelEntry.cpp
 
 FORMS += $$PWD/ChatWidget.ui \
     $$PWD/BanListWidget.ui \

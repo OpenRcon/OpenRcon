@@ -24,12 +24,12 @@
 
 class BFBC2LevelEntry;
 
-typedef LevelDictionary<1, TeamEntry, BFBC2LevelEntry, GameModeEntry, GameModeLevel> BFBC2LevelDictionary;
+typedef LevelDictionary<1, TeamEntry, BFBC2LevelEntry, GameModeEntry, GameModeLevelEntry> BFBC2LevelDictionary;
 
 template<> QList<TeamEntry> BFBC2LevelDictionary::teamList;
 template<> QString BFBC2LevelDictionary::imagePath;
 template<> QList<BFBC2LevelEntry> BFBC2LevelDictionary::levelList;
 template<> QList<GameModeEntry> BFBC2LevelDictionary::gameModeList;
-template<> QList<GameModeLevel> BFBC2LevelDictionary::levelMap;
+template<> QList<GameModeLevelEntry> BFBC2LevelDictionary::levelMap;
 
 #endif // BFBC2LEVELDICTIONARY_H

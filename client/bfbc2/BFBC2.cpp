@@ -21,9 +21,9 @@
 #include "ServerEntry.h"
 #include "FrostbiteConnection.h"
 #include "BFBC2CommandHandler.h"
-#include "BFBC2LevelEntry.h"
 #include "BFBC2LevelDictionary.h"
-#include "GameModeLevel.h"
+#include "BFBC2LevelEntry.h"
+#include "GameModeLevelEntry.h"
 
 BFBC2::BFBC2(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),

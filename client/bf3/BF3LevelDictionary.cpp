@@ -21,7 +21,7 @@
 #include "TeamEntry.h"
 #include "LevelEntry.h"
 #include "GameModeEntry.h"
-#include "GameModeLevel.h"
+#include "GameModeLevelEntry.h"
 
 template<>
 QList<TeamEntry> BF3LevelDictionary::teamList = {
@@ -100,299 +100,299 @@ QList<GameModeEntry> BF3LevelDictionary::gameModeList = {
 };
 
 template<>
-QList<GameModeLevel> BF3LevelDictionary::levelMap = {
+QList<GameModeLevelEntry> BF3LevelDictionary::levelMap = {
     /* List of all levels and gamemodes combined */
     /* ConquestLarge0 */
-    GameModeLevel(0, 0,  QList<int>({ 0, 0 })),
-    GameModeLevel(0, 1,  QList<int>({ 0, 0 })),
-    GameModeLevel(0, 2,  QList<int>({ 0, 0 })),
-    GameModeLevel(0, 3,  QList<int>({ 0, 0 })),
-    GameModeLevel(0, 4,  QList<int>({ 0, 0 })),
-    GameModeLevel(0, 5,  QList<int>({ 0, 0 })),
-    GameModeLevel(0, 6,  QList<int>({ 0, 0 })),
-    GameModeLevel(0, 7,  QList<int>({ 0, 0 })),
-    GameModeLevel(0, 8,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 0,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 1,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 2,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 3,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 4,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 5,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 6,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 7,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 8,  QList<int>({ 0, 0 })),
 
     // XP1 (Back to Karkand)
-    GameModeLevel(0, 10, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 10, QList<int>({ 0, 0 })),
 
     // XP3 (Armored Kill)
-    GameModeLevel(0, 17, QList<int>({ 0, 0 })),
-    GameModeLevel(0, 18, QList<int>({ 0, 0 })),
-    GameModeLevel(0, 19, QList<int>({ 0, 0 })),
-    GameModeLevel(0, 20, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 17, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 18, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 19, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 20, QList<int>({ 0, 0 })),
 
     // XP4 (Aftermath)
-    GameModeLevel(0, 21, QList<int>({ 0, 0 })),
-    GameModeLevel(0, 22, QList<int>({ 0, 0 })),
-    GameModeLevel(0, 23, QList<int>({ 0, 0 })),
-    GameModeLevel(0, 24, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 21, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 22, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 23, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 24, QList<int>({ 0, 0 })),
 
     // XP5 (Endgame)
-    GameModeLevel(0, 25, QList<int>({ 0, 0 })),
-    GameModeLevel(0, 26, QList<int>({ 0, 0 })),
-    GameModeLevel(0, 27, QList<int>({ 0, 0 })),
-    GameModeLevel(0, 28, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 25, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 26, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 27, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(0, 28, QList<int>({ 0, 0 })),
 
     /* ConquestSmall0 */
-    GameModeLevel(1, 0,  QList<int>({ 0, 0 })),
-    GameModeLevel(1, 1,  QList<int>({ 0, 0 })),
-    GameModeLevel(1, 2,  QList<int>({ 0, 0 })),
-    GameModeLevel(1, 3,  QList<int>({ 0, 0 })),
-    GameModeLevel(1, 4,  QList<int>({ 0, 0 })),
-    GameModeLevel(1, 5,  QList<int>({ 0, 0 })),
-    GameModeLevel(1, 6,  QList<int>({ 0, 0 })),
-    GameModeLevel(1, 7,  QList<int>({ 0, 0 })),
-    GameModeLevel(1, 8,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 0,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 1,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 2,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 3,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 4,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 5,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 6,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 7,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 8,  QList<int>({ 0, 0 })),
 
     // XP1 (Back to Karkand)
-    GameModeLevel(1, 10, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 10, QList<int>({ 0, 0 })),
 
     // XP3 (Armored Kill)
-    GameModeLevel(1, 17, QList<int>({ 0, 0 })),
-    GameModeLevel(1, 18, QList<int>({ 0, 0 })),
-    GameModeLevel(1, 19, QList<int>({ 0, 0 })),
-    GameModeLevel(1, 20, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 17, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 18, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 19, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 20, QList<int>({ 0, 0 })),
 
     // XP4 (Aftermath)
-    GameModeLevel(1, 21, QList<int>({ 0, 0 })),
-    GameModeLevel(1, 22, QList<int>({ 0, 0 })),
-    GameModeLevel(1, 23, QList<int>({ 0, 0 })),
-    GameModeLevel(1, 24, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 21, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 22, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 23, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 24, QList<int>({ 0, 0 })),
 
     // XP5 (Endgame)
-    GameModeLevel(1, 25, QList<int>({ 0, 0 })),
-    GameModeLevel(1, 26, QList<int>({ 0, 0 })),
-    GameModeLevel(1, 27, QList<int>({ 0, 0 })),
-    GameModeLevel(1, 28, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 25, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 26, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 27, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(1, 28, QList<int>({ 0, 0 })),
 
     /* RushLarge0 */
-    GameModeLevel(2, 0,  QList<int>({ 0, 0 })),
-    GameModeLevel(2, 1,  QList<int>({ 0, 0 })),
-    GameModeLevel(2, 2,  QList<int>({ 0, 0 })),
-    GameModeLevel(2, 3,  QList<int>({ 0, 0 })),
-    GameModeLevel(2, 4,  QList<int>({ 0, 0 })),
-    GameModeLevel(2, 5,  QList<int>({ 0, 0 })),
-    GameModeLevel(2, 6,  QList<int>({ 0, 0 })),
-    GameModeLevel(2, 7,  QList<int>({ 0, 0 })),
-    GameModeLevel(2, 8,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 0,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 1,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 2,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 3,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 4,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 5,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 6,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 7,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 8,  QList<int>({ 0, 0 })),
 
     // XP1 (Back to Karkand)
-    GameModeLevel(2, 9,  QList<int>({ 0, 0 })),
-    GameModeLevel(2, 10, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 11, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 12, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 9,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 10, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 11, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 12, QList<int>({ 0, 0 })),
 
     // XP3 (Armored Kill)
-    GameModeLevel(2, 17, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 18, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 19, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 20, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 17, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 18, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 19, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 20, QList<int>({ 0, 0 })),
 
     // XP4 (Aftermath)
-    GameModeLevel(2, 21, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 22, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 23, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 24, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 21, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 22, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 23, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 24, QList<int>({ 0, 0 })),
 
     // XP5 (Endgame)
-    GameModeLevel(2, 25, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 26, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 27, QList<int>({ 0, 0 })),
-    GameModeLevel(2, 28, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 25, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 26, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 27, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(2, 28, QList<int>({ 0, 0 })),
 
     /* SquadRush0 */
-    GameModeLevel(3, 0,  QList<int>({ 0, 0 })),
-    GameModeLevel(3, 1,  QList<int>({ 0, 0 })),
-    GameModeLevel(3, 2,  QList<int>({ 0, 0 })),
-    GameModeLevel(3, 3,  QList<int>({ 0, 0 })),
-    GameModeLevel(3, 4,  QList<int>({ 0, 0 })),
-    GameModeLevel(3, 5,  QList<int>({ 0, 0 })),
-    GameModeLevel(3, 6,  QList<int>({ 0, 0 })),
-    GameModeLevel(3, 7,  QList<int>({ 0, 0 })),
-    GameModeLevel(3, 8,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 0,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 1,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 2,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 3,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 4,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 5,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 6,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 7,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 8,  QList<int>({ 0, 0 })),
 
     // XP1 (Back to Karkand)
-    GameModeLevel(3, 9,  QList<int>({ 0, 0 })),
-    GameModeLevel(3, 10, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 11, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 12, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 9,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 10, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 11, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 12, QList<int>({ 0, 0 })),
 
     // XP3 (Armored Kill)
-    GameModeLevel(3, 17, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 18, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 19, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 20, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 17, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 18, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 19, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 20, QList<int>({ 0, 0 })),
 
     // XP4 (Aftermath)
-    GameModeLevel(3, 21, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 22, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 23, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 24, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 21, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 22, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 23, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 24, QList<int>({ 0, 0 })),
 
     // XP5 (Endgame)
-    GameModeLevel(3, 25, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 26, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 27, QList<int>({ 0, 0 })),
-    GameModeLevel(3, 28, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 25, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 26, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 27, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(3, 28, QList<int>({ 0, 0 })),
 
     /* SquadDeathMatch0 */
-    GameModeLevel(4, 0,  QList<int>({ 0, 0 })),
-    GameModeLevel(4, 1,  QList<int>({ 0, 0 })),
-    GameModeLevel(4, 2,  QList<int>({ 0, 0 })),
-    GameModeLevel(4, 3,  QList<int>({ 0, 0 })),
-    GameModeLevel(4, 4,  QList<int>({ 0, 0 })),
-    GameModeLevel(4, 5,  QList<int>({ 0, 0 })),
-    GameModeLevel(4, 6,  QList<int>({ 0, 0 })),
-    GameModeLevel(4, 7,  QList<int>({ 0, 0 })),
-    GameModeLevel(4, 8,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 0,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 1,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 2,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 3,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 4,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 5,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 6,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 7,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 8,  QList<int>({ 0, 0 })),
 
     // XP1 (Back to Karkand)
-    GameModeLevel(4, 9,  QList<int>({ 0, 0 })),
-    GameModeLevel(4, 10, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 11, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 12, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 9,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 10, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 11, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 12, QList<int>({ 0, 0 })),
 
     // XP2 (Close Quarters)
-    GameModeLevel(4, 13, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 14, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 15, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 16, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 13, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 14, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 15, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 16, QList<int>({ 0, 0 })),
 
     // XP3 (Armored Kill)
-    GameModeLevel(4, 17, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 18, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 19, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 20, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 17, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 18, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 19, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 20, QList<int>({ 0, 0 })),
 
     // XP4 (Aftermath)
-    GameModeLevel(4, 21, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 22, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 23, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 24, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 21, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 22, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 23, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 24, QList<int>({ 0, 0 })),
 
     // XP5 (Endgame)
-    GameModeLevel(4, 25, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 26, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 27, QList<int>({ 0, 0 })),
-    GameModeLevel(4, 28, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 25, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 26, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 27, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(4, 28, QList<int>({ 0, 0 })),
 
     /* TeamDeathMatch0 */
-    GameModeLevel(5, 0,  QList<int>({ 0, 0 })),
-    GameModeLevel(5, 1,  QList<int>({ 0, 0 })),
-    GameModeLevel(5, 2,  QList<int>({ 0, 0 })),
-    GameModeLevel(5, 3,  QList<int>({ 0, 0 })),
-    GameModeLevel(5, 4,  QList<int>({ 0, 0 })),
-    GameModeLevel(5, 5,  QList<int>({ 0, 0 })),
-    GameModeLevel(5, 6,  QList<int>({ 0, 0 })),
-    GameModeLevel(5, 7,  QList<int>({ 0, 0 })),
-    GameModeLevel(5, 8,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 0,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 1,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 2,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 3,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 4,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 5,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 6,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 7,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 8,  QList<int>({ 0, 0 })),
 
     // XP1 (Back to Karkand)
-    GameModeLevel(5, 9,  QList<int>({ 0, 0 })),
-    GameModeLevel(5, 10, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 11, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 12, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 9,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 10, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 11, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 12, QList<int>({ 0, 0 })),
 
     // XP3 (Armored Kill)
-    GameModeLevel(5, 17, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 18, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 19, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 20, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 17, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 18, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 19, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 20, QList<int>({ 0, 0 })),
 
     // XP4 (Aftermath)
-    GameModeLevel(5, 21, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 22, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 23, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 24, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 21, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 22, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 23, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 24, QList<int>({ 0, 0 })),
 
     // XP5 (Endgame)
-    GameModeLevel(5, 25, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 26, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 27, QList<int>({ 0, 0 })),
-    GameModeLevel(5, 28, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 25, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 26, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 27, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(5, 28, QList<int>({ 0, 0 })),
 
     /* ConquestAssaultLarge0 */
 
     // XP1 (Back to Karkand)
-    GameModeLevel(6, 9,  QList<int>({ 0, 0 })),
-    GameModeLevel(6, 11, QList<int>({ 0, 0 })),
-    GameModeLevel(6, 12, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(6, 9,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(6, 11, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(6, 12, QList<int>({ 0, 0 })),
 
     /* ConquestAssaultSmall0 */
 
     // XP1 (Back to Karkand)
-    GameModeLevel(7, 9,  QList<int>({ 0, 0 })),
-    GameModeLevel(7, 10, QList<int>({ 0, 0 })),
-    GameModeLevel(7, 11, QList<int>({ 0, 0 })),
-    GameModeLevel(7, 12, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(7, 9,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(7, 10, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(7, 11, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(7, 12, QList<int>({ 0, 0 })),
 
     /* ConquestAssaultSmall1 */
 
     // XP1 (Back to Karkand)
-    GameModeLevel(8, 9,  QList<int>({ 0, 0 })),
-    GameModeLevel(8, 11, QList<int>({ 0, 0 })),
-    GameModeLevel(8, 12, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(8, 9,  QList<int>({ 0, 0 })),
+    GameModeLevelEntry(8, 11, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(8, 12, QList<int>({ 0, 0 })),
 
     /* Domination0 */
 
     // XP1 (Close Quarters)
-    GameModeLevel(9, 13, QList<int>({ 0, 0 })),
-    GameModeLevel(9, 14, QList<int>({ 0, 0 })),
-    GameModeLevel(9, 15, QList<int>({ 0, 0 })),
-    GameModeLevel(9, 16, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(9, 13, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(9, 14, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(9, 15, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(9, 16, QList<int>({ 0, 0 })),
 
     /* GunMaster0 */
 
     // XP1 (Close Quarters)
-    GameModeLevel(10, 13, QList<int>({ 0, 0 })),
-    GameModeLevel(10, 14, QList<int>({ 0, 0 })),
-    GameModeLevel(10, 15, QList<int>({ 0, 0 })),
-    GameModeLevel(10, 16, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(10, 13, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(10, 14, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(10, 15, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(10, 16, QList<int>({ 0, 0 })),
 
     // XP4 (Aftermath)
-    GameModeLevel(10, 21, QList<int>({ 0, 0 })),
-    GameModeLevel(10, 22, QList<int>({ 0, 0 })),
-    GameModeLevel(10, 23, QList<int>({ 0, 0 })),
-    GameModeLevel(10, 24, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(10, 21, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(10, 22, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(10, 23, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(10, 24, QList<int>({ 0, 0 })),
 
     /* TeamDeathMatchC0 */
 
     // XP1 (Close Quarters)
-    GameModeLevel(11, 13, QList<int>({ 0, 0 })),
-    GameModeLevel(11, 14, QList<int>({ 0, 0 })),
-    GameModeLevel(11, 15, QList<int>({ 0, 0 })),
-    GameModeLevel(11, 16, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(11, 13, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(11, 14, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(11, 15, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(11, 16, QList<int>({ 0, 0 })),
 
     /* TankSuperiority0 */
 
     // XP3 (Armored Kill)
-    GameModeLevel(12, 17, QList<int>({ 0, 0 })),
-    GameModeLevel(12, 18, QList<int>({ 0, 0 })),
-    GameModeLevel(12, 19, QList<int>({ 0, 0 })),
-    GameModeLevel(12, 20, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(12, 17, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(12, 18, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(12, 19, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(12, 20, QList<int>({ 0, 0 })),
 
     /* Scavenger0 */
 
     // XP4 (Aftermath)
-    GameModeLevel(13, 21, QList<int>({ 0, 0 })),
-    GameModeLevel(13, 22, QList<int>({ 0, 0 })),
-    GameModeLevel(13, 23, QList<int>({ 0, 0 })),
-    GameModeLevel(13, 24, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(13, 21, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(13, 22, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(13, 23, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(13, 24, QList<int>({ 0, 0 })),
 
     /* CaptureTheFlag0 */
 
     // XP5 (Endgame)
-    GameModeLevel(14, 25, QList<int>({ 0, 0 })),
-    GameModeLevel(14, 26, QList<int>({ 0, 0 })),
-    GameModeLevel(14, 27, QList<int>({ 0, 0 })),
-    GameModeLevel(14, 28, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(14, 25, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(14, 26, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(14, 27, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(14, 28, QList<int>({ 0, 0 })),
 
     /* AirSuperiority0 */
 
     // XP5 (Endgame)
-    GameModeLevel(15, 25, QList<int>({ 0, 0 })),
-    GameModeLevel(15, 26, QList<int>({ 0, 0 })),
-    GameModeLevel(15, 27, QList<int>({ 0, 0 })),
-    GameModeLevel(15, 28, QList<int>({ 0, 0 }))
+    GameModeLevelEntry(15, 25, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(15, 26, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(15, 27, QList<int>({ 0, 0 })),
+    GameModeLevelEntry(15, 28, QList<int>({ 0, 0 }))
 };

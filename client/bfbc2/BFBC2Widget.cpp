@@ -27,9 +27,11 @@
 #include "ui_BFBC2Widget.h"
 #include "BFBC2Widget.h"
 #include "FrostbiteUtils.h"
+#include "BFBC2LevelDictionary.h"
 #include "BFBC2LevelEntry.h"
 #include "GameModeEntry.h"
-#include "BFBC2LevelDictionary.h"
+#include "GameModeLevelEntry.h"
+
 
 #include "ChatWidget.h"
 #include "BanListWidget.h"

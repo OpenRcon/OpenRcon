@@ -21,22 +21,15 @@
 #include "TeamEntry.h"
 #include "LevelEntry.h"
 #include "BF4GameModeEntry.h"
-#include "GameModeLevel.h"
+#include "GameModeLevelEntry.h"
 
 template<>
 QList<TeamEntry> BF4LevelDictionary::teamList = {
     /* List of all teams */
-<<<<<<< HEAD
     TeamEntry("Neutral", ""),                  // 0
     TeamEntry("US",     ":/bf4/teams/US.png"), // 1
     TeamEntry("RU",     ":/bf4/teams/RU.png"), // 2
     TeamEntry("CN",     ":/bf4/teams/CN.png"), // 3
-=======
-    TeamEntry("Neutral"),                  // 0
-    TeamEntry("RU", ":/bf4/teams/RU.png"), // 1
-    TeamEntry("US", ":/bf4/teams/US.png"), // 2
-    TeamEntry("CN", ":/bf4/teams/CN.png"), // 3
->>>>>>> master
 };
 
 template<>
@@ -81,18 +74,10 @@ QList<LevelEntry> BF4LevelDictionary::levelList = {
     LevelEntry("XP3_WtrFront",  "Sunken Dragon",        imagePath, "sunken_dragon.png"),       // 25
 
     // XP5 (Final Stand)
-<<<<<<< HEAD
     LevelEntry("XP4_Arctic",    "Operation Whiteout",   imagePath, "operation_whiteout.png"),  // 26
     LevelEntry("XP4_SubBase",   "Hammerhead",           imagePath, "hammerhead.png"),          // 27
-    LevelEntry("XP4_Titan",     "Giants Of Karelia",    imagePath, "giants_of_karelia.png"),   // 28
-    LevelEntry("XP4_Wlkrftry",  "Hangar 21",            imagePath, "hangar_21.png"),           // 29
-=======
-    LevelEntry("XP4_Arctic",    "Operation Whiteout",   QList<int>({ 2, 1 }), imagePath, "operation_whiteout.png"),   // 26
-    LevelEntry("XP4_SubBase",   "Hammerhead",           QList<int>({ 2, 1 }), imagePath, "hammerhead.png"),           // 27
-    LevelEntry("XP4_Titan",     "Hangar 21",            QList<int>({ 2, 1 }), imagePath, "hangar_21.png"),            // 28
-    LevelEntry("XP4_Wlkrftry",  "Giants Of Karelia",    QList<int>({ 2, 1 }), imagePath, "giants_of_karelia.png"),    // 29
->>>>>>> master
-
+    LevelEntry("XP4_Titan",     "Hangar 21",            imagePath, "hangar_21.png"),           // 28
+    LevelEntry("XP4_Wlkrftry",  "Giants Of Karelia",    imagePath, "giants_of_karelia.png"),   // 29
 };
 
 template<>
@@ -114,393 +99,393 @@ QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList = {
 };
 
 template<>
-QList<GameModeLevel> BF4LevelDictionary::levelMap = {
+QList<GameModeLevelEntry> BF4LevelDictionary::levelMap = {
     /* List of all levels and gamemodes combined */
     /* ConquestLarge0 */
-    GameModeLevel(0, 0,   QList<int>({ 2, 1 })),
-    GameModeLevel(0, 1,   QList<int>({ 2, 3 })),
-    GameModeLevel(0, 2,   QList<int>({ 1, 3 })),
-    GameModeLevel(0, 3,   QList<int>({ 2, 3 })),
-    GameModeLevel(0, 4,   QList<int>({ 1, 3 })),
-    GameModeLevel(0, 5,   QList<int>({ 1, 2 })),
-    GameModeLevel(0, 6,   QList<int>({ 1, 3 })),
-    GameModeLevel(0, 7,   QList<int>({ 1, 3 })),
-    GameModeLevel(0, 8,   QList<int>({ 2, 3 })),
-    GameModeLevel(0, 9,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 0,   QList<int>({ 2, 1 })),
+    GameModeLevelEntry(0, 1,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(0, 2,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 3,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(0, 4,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 5,   QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 6,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 7,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 8,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(0, 9,   QList<int>({ 1, 3 })),
 
     // XP1 (China Rising)
-    GameModeLevel(0, 10,  QList<int>({ 1, 3 })),
-    GameModeLevel(0, 11,  QList<int>({ 1, 3 })),
-    GameModeLevel(0, 12,  QList<int>({ 1, 3 })),
-    GameModeLevel(0, 13,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 10,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 11,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 12,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 13,  QList<int>({ 1, 3 })),
 
     // XP2 (Second Assault)
-    GameModeLevel(0, 14,  QList<int>({ 1, 2 })),
-    GameModeLevel(0, 15,  QList<int>({ 1, 2 })),
-    GameModeLevel(0, 16,  QList<int>({ 1, 2 })),
-    GameModeLevel(0, 17,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 14,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 15,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 16,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 17,  QList<int>({ 1, 2 })),
 
     // XP3 (Naval Strike)
-    GameModeLevel(0, 18,  QList<int>({ 1, 2 })),
-    GameModeLevel(0, 19,  QList<int>({ 1, 2 })),
-    GameModeLevel(0, 20,  QList<int>({ 1, 2 })),
-    GameModeLevel(0, 21,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 18,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 19,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 20,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 21,  QList<int>({ 1, 2 })),
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(0, 22,  QList<int>({ 1, 3 })),
-    GameModeLevel(0, 23,  QList<int>({ 1, 3 })),
-    GameModeLevel(0, 24,  QList<int>({ 1, 3 })),
-    GameModeLevel(0, 25,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 22,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 23,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 24,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(0, 25,  QList<int>({ 1, 3 })),
 
     // XP5 (Final Stand)
-    GameModeLevel(0, 26,  QList<int>({ 1, 2 })),
-    GameModeLevel(0, 27,  QList<int>({ 1, 2 })),
-    GameModeLevel(0, 28,  QList<int>({ 1, 2 })),
-    GameModeLevel(0, 29,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 26,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 27,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 28,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(0, 29,  QList<int>({ 1, 2 })),
 
     /* ConquestSmall0 */
-    GameModeLevel(1, 0,   QList<int>({ 2, 1 })),
-    GameModeLevel(1, 1,   QList<int>({ 2, 3 })),
-    GameModeLevel(1, 2,   QList<int>({ 1, 3 })),
-    GameModeLevel(1, 3,   QList<int>({ 2, 3 })),
-    GameModeLevel(1, 4,   QList<int>({ 1, 3 })),
-    GameModeLevel(1, 5,   QList<int>({ 1, 2 })),
-    GameModeLevel(1, 6,   QList<int>({ 1, 3 })),
-    GameModeLevel(1, 7,   QList<int>({ 1, 3 })),
-    GameModeLevel(1, 8,   QList<int>({ 2, 3 })),
-    GameModeLevel(1, 9,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 0,   QList<int>({ 2, 1 })),
+    GameModeLevelEntry(1, 1,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(1, 2,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 3,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(1, 4,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 5,   QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 6,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 7,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 8,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(1, 9,   QList<int>({ 1, 3 })),
 
     // XP1 (China Rising)
-    GameModeLevel(1, 10,  QList<int>({ 1, 3 })),
-    GameModeLevel(1, 11,  QList<int>({ 1, 3 })),
-    GameModeLevel(1, 12,  QList<int>({ 1, 3 })),
-    GameModeLevel(1, 13,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 10,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 11,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 12,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 13,  QList<int>({ 1, 3 })),
 
     // XP2 (Second Assault)
-    GameModeLevel(1, 14,  QList<int>({ 1, 2 })),
-    GameModeLevel(1, 15,  QList<int>({ 1, 2 })),
-    GameModeLevel(1, 16,  QList<int>({ 1, 2 })),
-    GameModeLevel(1, 17,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 14,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 15,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 16,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 17,  QList<int>({ 1, 2 })),
 
     // XP3 (Naval Strike)
-    GameModeLevel(1, 18,  QList<int>({ 1, 2 })),
-    GameModeLevel(1, 19,  QList<int>({ 1, 2 })),
-    GameModeLevel(1, 20,  QList<int>({ 1, 2 })),
-    GameModeLevel(1, 21,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 18,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 19,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 20,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 21,  QList<int>({ 1, 2 })),
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(1, 22,  QList<int>({ 1, 3 })),
-    GameModeLevel(1, 23,  QList<int>({ 1, 3 })),
-    GameModeLevel(1, 24,  QList<int>({ 1, 3 })),
-    GameModeLevel(1, 25,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 22,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 23,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 24,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(1, 25,  QList<int>({ 1, 3 })),
 
     // XP5 (Final Stand)
-    GameModeLevel(1, 26,  QList<int>({ 1, 2 })),
-    GameModeLevel(1, 27,  QList<int>({ 1, 2 })),
-    GameModeLevel(1, 28,  QList<int>({ 1, 2 })),
-    GameModeLevel(1, 29,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 26,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 27,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 28,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(1, 29,  QList<int>({ 1, 2 })),
 
     /* Domination0 */
-    GameModeLevel(2, 0,   QList<int>({ 2, 1 })),
-    GameModeLevel(2, 1,   QList<int>({ 2, 3 })),
-    GameModeLevel(2, 2,   QList<int>({ 1, 3 })),
-    GameModeLevel(2, 3,   QList<int>({ 2, 3 })),
-    GameModeLevel(2, 4,   QList<int>({ 1, 3 })),
-    GameModeLevel(2, 5,   QList<int>({ 1, 2 })),
-    GameModeLevel(2, 6,   QList<int>({ 1, 3 })),
-    GameModeLevel(2, 7,   QList<int>({ 1, 3 })),
-    GameModeLevel(2, 8,   QList<int>({ 2, 3 })),
-    GameModeLevel(2, 9,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 0,   QList<int>({ 2, 1 })),
+    GameModeLevelEntry(2, 1,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(2, 2,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 3,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(2, 4,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 5,   QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 6,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 7,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 8,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(2, 9,   QList<int>({ 1, 3 })),
 
     // XP1 (China Rising)
-    GameModeLevel(2, 10,  QList<int>({ 1, 3 })),
-    GameModeLevel(2, 11,  QList<int>({ 1, 3 })),
-    GameModeLevel(2, 12,  QList<int>({ 1, 3 })),
-    GameModeLevel(2, 13,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 10,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 11,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 12,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 13,  QList<int>({ 1, 3 })),
 
     // XP2 (Second Assault)
-    GameModeLevel(2, 14,  QList<int>({ 1, 2 })),
-    GameModeLevel(2, 15,  QList<int>({ 1, 2 })),
-    GameModeLevel(2, 16,  QList<int>({ 1, 2 })),
-    GameModeLevel(2, 17,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 14,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 15,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 16,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 17,  QList<int>({ 1, 2 })),
 
     // XP3 (Naval Strike)
-    GameModeLevel(2, 18,  QList<int>({ 1, 2 })),
-    GameModeLevel(2, 19,  QList<int>({ 1, 2 })),
-    GameModeLevel(2, 20,  QList<int>({ 1, 2 })),
-    GameModeLevel(2, 21,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 18,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 19,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 20,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 21,  QList<int>({ 1, 2 })),
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(2, 22,  QList<int>({ 1, 3 })),
-    GameModeLevel(2, 23,  QList<int>({ 1, 3 })),
-    GameModeLevel(2, 24,  QList<int>({ 1, 3 })),
-    GameModeLevel(2, 25,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 22,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 23,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 24,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(2, 25,  QList<int>({ 1, 3 })),
 
     // XP5 (Final Stand)
-    GameModeLevel(2, 26,  QList<int>({ 1, 2 })),
-    GameModeLevel(2, 27,  QList<int>({ 1, 2 })),
-    GameModeLevel(2, 28,  QList<int>({ 1, 2 })),
-    GameModeLevel(2, 29,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 26,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 27,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 28,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(2, 29,  QList<int>({ 1, 2 })),
 
     /* Elemination0 */
-    GameModeLevel(3, 0,   QList<int>({ 2, 1 })),
-    GameModeLevel(3, 1,   QList<int>({ 2, 3 })),
-    GameModeLevel(3, 2,   QList<int>({ 1, 3 })),
-    GameModeLevel(3, 3,   QList<int>({ 2, 3 })),
-    GameModeLevel(3, 4,   QList<int>({ 1, 3 })),
-    GameModeLevel(3, 5,   QList<int>({ 1, 2 })),
-    GameModeLevel(3, 6,   QList<int>({ 1, 3 })),
-    GameModeLevel(3, 7,   QList<int>({ 1, 3 })),
-    GameModeLevel(3, 8,   QList<int>({ 2, 3 })),
-    GameModeLevel(3, 9,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 0,   QList<int>({ 2, 1 })),
+    GameModeLevelEntry(3, 1,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(3, 2,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 3,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(3, 4,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 5,   QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 6,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 7,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 8,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(3, 9,   QList<int>({ 1, 3 })),
 
     // XP1 (China Rising)
-    GameModeLevel(3, 10,  QList<int>({ 1, 3 })),
-    GameModeLevel(3, 11,  QList<int>({ 1, 3 })),
-    GameModeLevel(3, 12,  QList<int>({ 1, 3 })),
-    GameModeLevel(3, 13,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 10,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 11,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 12,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 13,  QList<int>({ 1, 3 })),
 
     // XP2 (Second Assault)
-    GameModeLevel(3, 14,  QList<int>({ 1, 2 })),
-    GameModeLevel(3, 15,  QList<int>({ 1, 2 })),
-    GameModeLevel(3, 16,  QList<int>({ 1, 2 })),
-    GameModeLevel(3, 17,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 14,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 15,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 16,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 17,  QList<int>({ 1, 2 })),
 
     // XP3 (Naval Strike)
-    GameModeLevel(3, 18,  QList<int>({ 1, 2 })),
-    GameModeLevel(3, 19,  QList<int>({ 1, 2 })),
-    GameModeLevel(3, 20,  QList<int>({ 1, 2 })),
-    GameModeLevel(3, 21,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 18,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 19,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 20,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 21,  QList<int>({ 1, 2 })),
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(3, 22,  QList<int>({ 1, 3 })),
-    GameModeLevel(3, 23,  QList<int>({ 1, 3 })),
-    GameModeLevel(3, 24,  QList<int>({ 1, 3 })),
-    GameModeLevel(3, 25,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 22,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 23,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 24,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(3, 25,  QList<int>({ 1, 3 })),
 
     // XP5 (Final Stand)
-    GameModeLevel(3, 26,  QList<int>({ 1, 2 })),
-    GameModeLevel(3, 27,  QList<int>({ 1, 2 })),
-    GameModeLevel(3, 28,  QList<int>({ 1, 2 })),
-    GameModeLevel(3, 29,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 26,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 27,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 28,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(3, 29,  QList<int>({ 1, 2 })),
 
     /* Obliteration */
-    GameModeLevel(4, 0,   QList<int>({ 2, 1 })),
-    GameModeLevel(4, 1,   QList<int>({ 2, 3 })),
-    GameModeLevel(4, 2,   QList<int>({ 1, 3 })),
-    GameModeLevel(4, 3,   QList<int>({ 2, 3 })),
-    GameModeLevel(4, 4,   QList<int>({ 1, 3 })),
-    GameModeLevel(4, 5,   QList<int>({ 1, 2 })),
-    GameModeLevel(4, 6,   QList<int>({ 1, 3 })),
-    GameModeLevel(4, 7,   QList<int>({ 1, 3 })),
-    GameModeLevel(4, 8,   QList<int>({ 2, 3 })),
-    GameModeLevel(4, 9,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 0,   QList<int>({ 2, 1 })),
+    GameModeLevelEntry(4, 1,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(4, 2,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 3,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(4, 4,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 5,   QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 6,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 7,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 8,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(4, 9,   QList<int>({ 1, 3 })),
 
     // XP1 (China Rising)
-    GameModeLevel(4, 10,  QList<int>({ 1, 3 })),
-    GameModeLevel(4, 11,  QList<int>({ 1, 3 })),
-    GameModeLevel(4, 12,  QList<int>({ 1, 3 })),
-    GameModeLevel(4, 13,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 10,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 11,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 12,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 13,  QList<int>({ 1, 3 })),
 
     // XP2 (Second Assault)
-    GameModeLevel(4, 14,  QList<int>({ 1, 2 })),
-    GameModeLevel(4, 15,  QList<int>({ 1, 2 })),
-    GameModeLevel(4, 16,  QList<int>({ 1, 2 })),
-    GameModeLevel(4, 17,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 14,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 15,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 16,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 17,  QList<int>({ 1, 2 })),
 
     // XP3 (Naval Strike)
-    GameModeLevel(4, 18,  QList<int>({ 1, 2 })),
-    GameModeLevel(4, 19,  QList<int>({ 1, 2 })),
-    GameModeLevel(4, 20,  QList<int>({ 1, 2 })),
-    GameModeLevel(4, 21,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 18,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 19,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 20,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 21,  QList<int>({ 1, 2 })),
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(4, 22,  QList<int>({ 1, 3 })),
-    GameModeLevel(4, 23,  QList<int>({ 1, 3 })),
-    GameModeLevel(4, 24,  QList<int>({ 1, 3 })),
-    GameModeLevel(4, 25,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 22,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 23,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 24,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(4, 25,  QList<int>({ 1, 3 })),
 
     // XP5 (Final Stand)
-    GameModeLevel(4, 26,  QList<int>({ 1, 2 })),
-    GameModeLevel(4, 27,  QList<int>({ 1, 2 })),
-    GameModeLevel(4, 28,  QList<int>({ 1, 2 })),
-    GameModeLevel(4, 29,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 26,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 27,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 28,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(4, 29,  QList<int>({ 1, 2 })),
 
     /* RushLarge0 */
-    GameModeLevel(5, 0,   QList<int>({ 1, 3 })),
-    GameModeLevel(5, 1,   QList<int>({ 1, 3 })),
-    GameModeLevel(5, 2,   QList<int>({ 1, 3 })),
-    GameModeLevel(5, 3,   QList<int>({ 1, 3 })),
-    GameModeLevel(5, 4,   QList<int>({ 1, 3 })),
-    GameModeLevel(5, 5,   QList<int>({ 1, 3 })),
-    GameModeLevel(5, 6,   QList<int>({ 1, 3 })),
-    GameModeLevel(5, 7,   QList<int>({ 1, 3 })),
-    GameModeLevel(5, 8,   QList<int>({ 1, 3 })),
-    GameModeLevel(5, 9,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 0,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 1,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 2,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 3,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 4,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 5,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 6,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 7,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 8,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 9,   QList<int>({ 1, 3 })),
 
     // XP1 (China Rising)
-    GameModeLevel(5, 10,  QList<int>({ 1, 3 })),
-    GameModeLevel(5, 11,  QList<int>({ 1, 3 })),
-    GameModeLevel(5, 12,  QList<int>({ 1, 3 })),
-    GameModeLevel(5, 13,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 10,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 11,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 12,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 13,  QList<int>({ 1, 3 })),
 
     // XP2 (Second Assault)
-    GameModeLevel(5, 14,  QList<int>({ 1, 2 })),
-    GameModeLevel(5, 15,  QList<int>({ 1, 2 })),
-    GameModeLevel(5, 16,  QList<int>({ 1, 2 })),
-    GameModeLevel(5, 17,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 14,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 15,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 16,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 17,  QList<int>({ 1, 2 })),
 
     // XP3 (Naval Strike)
-    GameModeLevel(5, 18,  QList<int>({ 1, 2 })),
-    GameModeLevel(5, 19,  QList<int>({ 1, 2 })),
-    GameModeLevel(5, 20,  QList<int>({ 1, 2 })),
-    GameModeLevel(5, 21,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 18,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 19,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 20,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 21,  QList<int>({ 1, 2 })),
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(5, 22,  QList<int>({ 1, 3 })),
-    GameModeLevel(5, 23,  QList<int>({ 1, 3 })),
-    GameModeLevel(5, 24,  QList<int>({ 1, 3 })),
-    GameModeLevel(5, 25,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 22,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 23,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 24,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(5, 25,  QList<int>({ 1, 3 })),
 
     // XP5 (Final Stand)
-    GameModeLevel(5, 26,  QList<int>({ 1, 2 })),
-    GameModeLevel(5, 27,  QList<int>({ 1, 2 })),
-    GameModeLevel(5, 28,  QList<int>({ 1, 2 })),
-    GameModeLevel(5, 29,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 26,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 27,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 28,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(5, 29,  QList<int>({ 1, 2 })),
 
     /* SquadDeathMatch0 */
-    GameModeLevel(6, 0,   QList<int>({ 2, 1, 2, 1 })),
-    GameModeLevel(6, 1,   QList<int>({ 2, 3, 2, 3 })),
-    GameModeLevel(6, 2,   QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 3,   QList<int>({ 2, 3, 2, 3 })),
-    GameModeLevel(6, 4,   QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 5,   QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 6,   QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 7,   QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 8,   QList<int>({ 2, 3, 2, 3 })),
-    GameModeLevel(6, 9,   QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 0,   QList<int>({ 2, 1, 2, 1 })),
+    GameModeLevelEntry(6, 1,   QList<int>({ 2, 3, 2, 3 })),
+    GameModeLevelEntry(6, 2,   QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 3,   QList<int>({ 2, 3, 2, 3 })),
+    GameModeLevelEntry(6, 4,   QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 5,   QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 6,   QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 7,   QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 8,   QList<int>({ 2, 3, 2, 3 })),
+    GameModeLevelEntry(6, 9,   QList<int>({ 1, 3, 1, 3 })),
 
     // XP1 (China Rising)
-    GameModeLevel(6, 10,  QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 11,  QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 12,  QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 13,  QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 10,  QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 11,  QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 12,  QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 13,  QList<int>({ 1, 3, 1, 3 })),
 
     // XP2 (Second Assault)
-    GameModeLevel(6, 14,  QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 15,  QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 16,  QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 17,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 14,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 15,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 16,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 17,  QList<int>({ 1, 2, 1, 2 })),
 
     // XP3 (Naval Strike)
-    GameModeLevel(6, 18,  QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 19,  QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 20,  QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 21,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 18,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 19,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 20,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 21,  QList<int>({ 1, 2, 1, 2 })),
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(6, 22,  QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 23,  QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 24,  QList<int>({ 1, 3, 1, 3 })),
-    GameModeLevel(6, 25,  QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 22,  QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 23,  QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 24,  QList<int>({ 1, 3, 1, 3 })),
+    GameModeLevelEntry(6, 25,  QList<int>({ 1, 3, 1, 3 })),
 
     // XP5 (Final Stand)
-    GameModeLevel(6, 26,  QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 27,  QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 28,  QList<int>({ 1, 2, 1, 2 })),
-    GameModeLevel(6, 29,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 26,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 27,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 28,  QList<int>({ 1, 2, 1, 2 })),
+    GameModeLevelEntry(6, 29,  QList<int>({ 1, 2, 1, 2 })),
 
     /* TeamDeathMatch0 */
-    GameModeLevel(7, 0,   QList<int>({ 2, 1 })),
-    GameModeLevel(7, 1,   QList<int>({ 2, 3 })),
-    GameModeLevel(7, 2,   QList<int>({ 1, 3 })),
-    GameModeLevel(7, 3,   QList<int>({ 2, 3 })),
-    GameModeLevel(7, 4,   QList<int>({ 1, 3 })),
-    GameModeLevel(7, 5,   QList<int>({ 1, 2 })),
-    GameModeLevel(7, 6,   QList<int>({ 1, 3 })),
-    GameModeLevel(7, 7,   QList<int>({ 1, 3 })),
-    GameModeLevel(7, 8,   QList<int>({ 2, 3 })),
-    GameModeLevel(7, 9,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 0,   QList<int>({ 2, 1 })),
+    GameModeLevelEntry(7, 1,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(7, 2,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 3,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(7, 4,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 5,   QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 6,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 7,   QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 8,   QList<int>({ 2, 3 })),
+    GameModeLevelEntry(7, 9,   QList<int>({ 1, 3 })),
 
     // XP1 (China Rising)
-    GameModeLevel(7, 10,  QList<int>({ 1, 3 })),
-    GameModeLevel(7, 11,  QList<int>({ 1, 3 })),
-    GameModeLevel(7, 12,  QList<int>({ 1, 3 })),
-    GameModeLevel(7, 13,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 10,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 11,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 12,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 13,  QList<int>({ 1, 3 })),
 
     // XP2 (Second Assault)
-    GameModeLevel(7, 14,  QList<int>({ 1, 2 })),
-    GameModeLevel(7, 15,  QList<int>({ 1, 2 })),
-    GameModeLevel(7, 16,  QList<int>({ 1, 2 })),
-    GameModeLevel(7, 17,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 14,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 15,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 16,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 17,  QList<int>({ 1, 2 })),
 
     // XP3 (Naval Strike)
-    GameModeLevel(7, 18,  QList<int>({ 1, 2 })),
-    GameModeLevel(7, 19,  QList<int>({ 1, 2 })),
-    GameModeLevel(7, 20,  QList<int>({ 1, 2 })),
-    GameModeLevel(7, 21,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 18,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 19,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 20,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 21,  QList<int>({ 1, 2 })),
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(7, 22,  QList<int>({ 1, 3 })),
-    GameModeLevel(7, 23,  QList<int>({ 1, 3 })),
-    GameModeLevel(7, 24,  QList<int>({ 1, 3 })),
-    GameModeLevel(7, 25,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 22,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 23,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 24,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(7, 25,  QList<int>({ 1, 3 })),
 
     // XP5 (Final Stand)
-    GameModeLevel(7, 26,  QList<int>({ 1, 2 })),
-    GameModeLevel(7, 27,  QList<int>({ 1, 2 })),
-    GameModeLevel(7, 28,  QList<int>({ 1, 2 })),
-    GameModeLevel(7, 29,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 26,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 27,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 28,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(7, 29,  QList<int>({ 1, 2 })),
 
     /* AirSuperiority0 */
 
     // XP1 (China Rising)
-    GameModeLevel(8, 10,  QList<int>({ 1, 3 })),
-    GameModeLevel(8, 11,  QList<int>({ 1, 3 })),
-    GameModeLevel(8, 12,  QList<int>({ 1, 3 })),
-    GameModeLevel(8, 13,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(8, 10,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(8, 11,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(8, 12,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(8, 13,  QList<int>({ 1, 3 })),
 
     /* CaptureTheFlag0 */
 
     // XP2 (Second Assault)
-    GameModeLevel(9, 14,  QList<int>({ 1, 2 })),
-    GameModeLevel(9, 15,  QList<int>({ 1, 2 })),
-    GameModeLevel(9, 16,  QList<int>({ 1, 2 })),
-    GameModeLevel(9, 17,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(9, 14,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(9, 15,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(9, 16,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(9, 17,  QList<int>({ 1, 2 })),
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(9, 22,  QList<int>({ 1, 3 })),
-    GameModeLevel(9, 23,  QList<int>({ 1, 3 })),
-    GameModeLevel(9, 24,  QList<int>({ 1, 3 })),
-    GameModeLevel(9, 25,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(9, 22,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(9, 23,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(9, 24,  QList<int>({ 1, 3 })),
+    GameModeLevelEntry(9, 25,  QList<int>({ 1, 3 })),
 
     // XP5 (Final Stand)
-    GameModeLevel(9, 26,  QList<int>({ 1, 2 })),
-    GameModeLevel(9, 27,  QList<int>({ 1, 2 })),
-    GameModeLevel(9, 28,  QList<int>({ 1, 2 })),
-    GameModeLevel(9, 29,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(9, 26,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(9, 27,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(9, 28,  QList<int>({ 1, 2 })),
+    GameModeLevelEntry(9, 29,  QList<int>({ 1, 2 })),
 
     /* Carrier Assault Small */
 
     // XP3 (Naval Strike)
-    GameModeLevel(10, 18, QList<int>({ 1, 3 })),
-    GameModeLevel(10, 19, QList<int>({ 1, 3 })),
-    GameModeLevel(10, 20, QList<int>({ 1, 3 })),
-    GameModeLevel(10, 21, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(10, 18, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(10, 19, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(10, 20, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(10, 21, QList<int>({ 1, 3 })),
 
     /* Carrier Assault Large */
 
     // XP3 (Naval Strike)
-    GameModeLevel(11, 18, QList<int>({ 1, 3 })),
-    GameModeLevel(11, 19, QList<int>({ 1, 3 })),
-    GameModeLevel(11, 20, QList<int>({ 1, 3 })),
-    GameModeLevel(11, 21, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(11, 18, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(11, 19, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(11, 20, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(11, 21, QList<int>({ 1, 3 })),
 
     /* Chainlink */
 
     // XP4 (Dragon's Teeth)
-    GameModeLevel(12, 22, QList<int>({ 1, 3 })),
-    GameModeLevel(12, 23, QList<int>({ 1, 3 })),
-    GameModeLevel(12, 24, QList<int>({ 1, 3 })),
-    GameModeLevel(12, 25, QList<int>({ 1, 3 }))
+    GameModeLevelEntry(12, 22, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(12, 23, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(12, 24, QList<int>({ 1, 3 })),
+    GameModeLevelEntry(12, 25, QList<int>({ 1, 3 }))
 };

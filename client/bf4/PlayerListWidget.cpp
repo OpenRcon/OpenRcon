@@ -37,6 +37,7 @@
 #include "TeamEntry.h"
 #include "LevelEntry.h"
 #include "BF4GameModeEntry.h"
+#include "GameModeLevelEntry.h"
 
 PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *parent) :
     QTreeWidget(parent),

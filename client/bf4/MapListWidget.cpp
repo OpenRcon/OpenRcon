@@ -24,10 +24,11 @@
 #include "ui_MapListWidget.h"
 #include "FrostbiteConnection.h"
 #include "BF4CommandHandler.h"
-#include "LevelEntry.h"
-#include "BF4LevelDictionary.h"
 #include "BF4ServerInfo.h"
+#include "BF4LevelDictionary.h"
+#include "LevelEntry.h"
 #include "BF4GameModeEntry.h"
+#include "GameModeLevelEntry.h"
 
 MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
     QWidget(parent),
