@@ -227,7 +227,6 @@ void BF4Widget::setAuthenticated(bool auth)
 {
     authenticated = auth;
 
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(optionsWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), auth);

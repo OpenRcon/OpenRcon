@@ -65,15 +65,13 @@ private:
     QString getSquadName(int squadId);
 
 private slots:
-    /* Events */
-    void updatePlayerList();
-
     /* Command slots */
     void onLoginHashedCommand(bool auth);
     void onServerInfoCommand(const BF4ServerInfo &serverInfo);
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 
     /* User Interface */
+    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
+    void updatePlayerList();
     void customContextMenuRequested(const QPoint &pos);
     void action_player_kill_triggered();
     void action_player_kick_triggered();

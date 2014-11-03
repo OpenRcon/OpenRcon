@@ -91,10 +91,11 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *par
     /* Commands */
     connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &PlayerListWidget::onLoginHashedCommand);
     connect(m_commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &PlayerListWidget::onServerInfoCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onAdminListPlayersCommand,                                                        this, &PlayerListWidget::onAdminListPlayersCommand);
+    connect(m_commandHandler, &BF4CommandHandler::onListPlayersCommand,                                                             this, &PlayerListWidget::listPlayers);
+    connect(m_commandHandler, &BF4CommandHandler::onAdminListPlayersCommand,                                                        this, &PlayerListWidget::listPlayers);
 
     /* User Interface */
-    connect(this,                          &QTreeWidget::customContextMenuRequested, this, &PlayerListWidget::customContextMenuRequested);
+    connect(this,                      &QTreeWidget::customContextMenuRequested, this, &PlayerListWidget::customContextMenuRequested);
     connect(action_player_kill,        &QAction::triggered,                      this, &PlayerListWidget::action_player_kill_triggered);
     connect(action_player_kick,        &QAction::triggered,                      this, &PlayerListWidget::action_player_kick_triggered);
     connect(action_player_ban,         &QAction::triggered,                      this, &PlayerListWidget::action_player_ban_triggered);
@@ -124,7 +125,13 @@ void PlayerListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
 }
 
-void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
+QIcon PlayerListWidget::getRankIcon(int rank)
+{
+    return QIcon(QString(":/bf4/ranks/rank_%1.png").arg(rank));
+}
+
+/* User Interface */
+void PlayerListWidget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
 {
     if (playerSubsetType == PlayerSubsetType::All) {
         // Clear the QTreeWidget and item.
@@ -199,12 +206,6 @@ void PlayerListWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &player
     }
 }
 
-QIcon PlayerListWidget::getRankIcon(int rank)
-{
-    return QIcon(QString(":/bf4/ranks/rank_%1.png").arg(rank));
-}
-
-/* User Interface */
 void PlayerListWidget::updatePlayerList()
 {
     m_commandHandler->sendAdminListPlayersCommand(PlayerSubsetType::All);
