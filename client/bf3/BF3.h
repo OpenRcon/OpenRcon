@@ -35,11 +35,6 @@ public:
 protected:
     BF3CommandHandler *m_commandHandler;
 
-    bool isAuthenticated();
-
-private:
-    bool authenticated;
-
 private slots:
     void onConnected();
     void onLoginHashedCommand(const QByteArray &salt);

@@ -24,9 +24,11 @@
 
 BF4::BF4(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    m_commandHandler(new BF4CommandHandler(m_connection)),
-    authenticated(false)
+    m_commandHandler(new BF4CommandHandler(m_connection))
+//    authenticated(false)
 {
+    authenticated = false;
+
     versionMap = {
         { 70517,  "OB-R2" },
         { 72879,  "OB-R3" },
@@ -117,9 +119,4 @@ void BF4::onVersionCommand(const QString &type, int build)
 
         qDebug() << tr("Wrong server type, disconnecting...");
     }
-}
-
-bool BF4::isAuthenticated()
-{
-    return authenticated;
 }

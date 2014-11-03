@@ -26,6 +26,7 @@
 
 class QClipboard;
 
+class FrostbiteGame;
 class FrostbiteConnection;
 class BF4CommandHandler;
 
@@ -38,10 +39,11 @@ class PlayerListWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    PlayerListWidget(FrostbiteConnection *connection, QWidget *parent = 0);
+    PlayerListWidget(FrostbiteConnection *connection, QWidget *game = 0);
     ~PlayerListWidget();
 
 private:
+    FrostbiteGame *m_game;
     FrostbiteConnection *m_connection;
     BF4CommandHandler *m_commandHandler;
 

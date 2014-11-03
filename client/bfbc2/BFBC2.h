@@ -35,8 +35,6 @@ public:
 protected:
     BFBC2CommandHandler *m_commandHandler;
 
-    bool isAuthenticated();
-
     QString currentMod;
     QString currentGamemode;
     QStringList gamemodes;
@@ -53,9 +51,6 @@ protected:
 
     QString getMapName(const QString &engineName, const QString &gamemode);
     QPixmap getMapImage(const QString &engineName, const QString &gamemode);
-
-private:
-    bool authenticated;
 
 private slots:
     void onConnected();

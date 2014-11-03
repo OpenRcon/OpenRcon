@@ -30,6 +30,11 @@ FrostbiteGame::~FrostbiteGame()
 
 }
 
+bool FrostbiteGame::isAuthenticated()
+{
+    return authenticated;
+}
+
 QString FrostbiteGame::getVersionFromBuild(int build)
 {
     return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);

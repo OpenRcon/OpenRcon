@@ -24,9 +24,11 @@
 
 BF3::BF3(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    m_commandHandler(new BF3CommandHandler(m_connection)),
-    authenticated(false)
+    m_commandHandler(new BF3CommandHandler(m_connection))
+//    authenticated(false)
 {
+    authenticated = false;
+
     versionMap = {
         { 872601,  "OB-E" },
         { 873274,  "OB-F" },
@@ -113,9 +115,4 @@ void BF3::onVersionCommand(const QString &type, int build)
 
         qDebug() << tr("Wrong server type, disconnecting...");
     }
-}
-
-bool BF3::isAuthenticated()
-{
-    return authenticated;
 }

@@ -26,6 +26,7 @@
 #include <QDropEvent>
 
 #include "FrostbiteConnection.h"
+#include "FrostbiteGame.h"
 #include "FrostbiteUtils.h"
 #include "BF4ServerInfo.h"
 #include "PlayerInfo.h"
@@ -36,8 +37,9 @@
 #include "TeamEntry.h"
 #include "BF4LevelDictionary.h"
 
-PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *parent) :
-    QTreeWidget(parent),
+PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *game) :
+    QTreeWidget(game),
+    m_game(dynamic_cast<FrostbiteGame *>(game)),
     m_connection(connection),
     m_commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
 {
@@ -213,30 +215,33 @@ void PlayerListWidget::updatePlayerList()
 
 void PlayerListWidget::customContextMenuRequested(const QPoint &pos)
 {
-    QTreeWidgetItem *item = itemAt(pos);
+    // Check if we are authenticated.
+    if (m_game->isAuthenticated()) {
+        QTreeWidgetItem *item = itemAt(pos);
 
-    if (item && item->parent()) {
-        int teamIndex = item->data(0, Qt::UserRole).toInt();
-        int squadIndex = item->data(1, Qt::UserRole).toInt() + topLevelItemCount() + 1;
+        if (item && item->parent()) {
+            int teamIndex = item->data(0, Qt::UserRole).toInt();
+            int squadIndex = item->data(1, Qt::UserRole).toInt() + topLevelItemCount() + 1;
 
-        for (int index = 0; index < menu_player_move->actions().size(); index++) {
-            QAction *action = menu_player_move->actions().at(index);
+            for (int index = 0; index < menu_player_move->actions().size(); index++) {
+                QAction *action = menu_player_move->actions().at(index);
 
-            // Reset actions so that they're not checked and is enabled.
-            if (!action->isEnabled() && action->isChecked()) {
-                action->setEnabled(true);
-                action->setChecked(false);
+                // Reset actions so that they're not checked and is enabled.
+                if (!action->isEnabled() && action->isChecked()) {
+                    action->setEnabled(true);
+                    action->setChecked(false);
+                }
+
+                // Set action checked and disabled if index matches squad or team.
+                if (index == teamIndex ||
+                    index == squadIndex) {
+                    action->setEnabled(false);
+                    action->setChecked(true);
+                }
             }
 
-            // Set action checked and disabled if index matches squad or team.
-            if (index == teamIndex ||
-                index == squadIndex) {
-                action->setEnabled(false);
-                action->setChecked(true);
-            }
+            menu_player->exec(QCursor::pos());
         }
-
-        menu_player->exec(QCursor::pos());
     }
 }
 

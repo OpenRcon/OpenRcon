@@ -35,9 +35,12 @@ public:
         return m_connection;
     }
 
+    bool isAuthenticated();
+
 protected:
     FrostbiteConnection *m_connection;
 
+    bool authenticated;
     QMap<int, QString> versionMap;
     QStringList commandList;
 

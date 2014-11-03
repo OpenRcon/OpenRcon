@@ -27,6 +27,7 @@
 #include "BF4ServerInfo.h"
 #include "BF4GameModeEntry.h"
 #include "FrostbiteUtils.h"
+#include "LevelEntry.h"
 #include "Time.h"
 
 #include "PlayerListWidget.h"

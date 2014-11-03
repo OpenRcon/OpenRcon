@@ -26,9 +26,11 @@
 
 BFBC2::BFBC2(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    m_commandHandler(new BFBC2CommandHandler(m_connection)),
-    authenticated(false)
+    m_commandHandler(new BFBC2CommandHandler(m_connection))
+//    authenticated(false)
 {
+    authenticated = false;
+
     versionMap = {
         { 571287, "R21" },
         { 581637, "R22" },
@@ -87,11 +89,6 @@ void BFBC2::onVersionCommand(const QString &type, int build)
 
         qDebug() << tr("Wrong server type, disconnecting...");
     }
-}
-
-bool BFBC2::isAuthenticated()
-{
-    return authenticated;
 }
 
 void BFBC2::slotCommandMapListListRounds(QStringList ml)
