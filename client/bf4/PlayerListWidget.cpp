@@ -81,30 +81,31 @@ PlayerListWidget::PlayerListWidget(FrostbiteConnection *connection, QWidget *gam
     menu_player_copyTo->addAction(action_player_copyTo_guid);
 
     /* Events */
-    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerAuthenticatedEvent, this, &PlayerListWidget::updatePlayerList);
-    connect(m_commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent,           this, &PlayerListWidget::updatePlayerList);
-    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerJoinEvent,          this, &PlayerListWidget::updatePlayerList);
-    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerLeaveEvent,         this, &PlayerListWidget::updatePlayerList);
-    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerSpawnEvent,         this, &PlayerListWidget::updatePlayerList);
-    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerKillEvent,          this, &PlayerListWidget::updatePlayerList);
-    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerSquadChangeEvent,   this, &PlayerListWidget::updatePlayerList);
-    connect(m_commandHandler, &Frostbite2CommandHandler::onPlayerTeamChangeEvent,    this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler,           &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,  this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler,           &BF4CommandHandler::onPlayerDisconnectEvent,            this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler,           &Frostbite2CommandHandler::onPlayerJoinEvent,           this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler,           &Frostbite2CommandHandler::onPlayerLeaveEvent,          this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler,           &Frostbite2CommandHandler::onPlayerSpawnEvent,          this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler,           &Frostbite2CommandHandler::onPlayerKillEvent,           this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler,           &Frostbite2CommandHandler::onPlayerSquadChangeEvent,    this, &PlayerListWidget::updatePlayerList);
+    connect(m_commandHandler,           &Frostbite2CommandHandler::onPlayerTeamChangeEvent,     this, &PlayerListWidget::updatePlayerList);
 
     /* Commands */
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &PlayerListWidget::onLoginHashedCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &PlayerListWidget::onServerInfoCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onListPlayersCommand,                                                             this, &PlayerListWidget::listPlayers);
-    connect(m_commandHandler, &BF4CommandHandler::onAdminListPlayersCommand,                                                        this, &PlayerListWidget::listPlayers);
+    connect(m_commandHandler,           static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this, &PlayerListWidget::onLoginHashedCommand);
+    connect(m_commandHandler,           &BF4CommandHandler::onServerInfoCommand,                this, &PlayerListWidget::onServerInfoCommand);
+    connect(m_commandHandler,           &BF4CommandHandler::onListPlayersCommand,               this, &PlayerListWidget::listPlayers);
+    connect(m_commandHandler,           &BF4CommandHandler::onAdminListPlayersCommand,          this, &PlayerListWidget::listPlayers);
 
     /* User Interface */
-    connect(this,                      &QTreeWidget::customContextMenuRequested, this, &PlayerListWidget::customContextMenuRequested);
-    connect(action_player_kill,        &QAction::triggered,                      this, &PlayerListWidget::action_player_kill_triggered);
-    connect(action_player_kick,        &QAction::triggered,                      this, &PlayerListWidget::action_player_kick_triggered);
-    connect(action_player_ban,         &QAction::triggered,                      this, &PlayerListWidget::action_player_ban_triggered);
-    connect(action_player_reserveSlot, &QAction::triggered,                      this, &PlayerListWidget::action_player_reserveSlot_triggered);
-    connect(action_player_copyTo_name, &QAction::triggered,                      this, &PlayerListWidget::action_player_copyTo_name_triggered);
-    connect(action_player_copyTo_guid, &QAction::triggered,                      this, &PlayerListWidget::action_player_copyTo_guid_triggered);
-    connect(menu_player_move,          &QMenu::triggered,                        this, &PlayerListWidget::menu_player_move_triggered);
+    connect(this,                       &QTreeWidget::customContextMenuRequested,               this, &PlayerListWidget::customContextMenuRequested);
+    connect(action_player_kill,         &QAction::triggered,                                    this, &PlayerListWidget::action_player_kill_triggered);
+    connect(action_player_kick,         &QAction::triggered,                                    this, &PlayerListWidget::action_player_kick_triggered);
+    connect(action_player_ban,          &QAction::triggered,                                    this, &PlayerListWidget::action_player_ban_triggered);
+    connect(action_player_reserveSlot,  &QAction::triggered,                                    this, &PlayerListWidget::action_player_reserveSlot_triggered);
+    connect(action_player_copyTo_name,  &QAction::triggered,                                    this, &PlayerListWidget::action_player_copyTo_name_triggered);
+    connect(action_player_copyTo_guid,  &QAction::triggered,                                    this, &PlayerListWidget::action_player_copyTo_guid_triggered);
+    connect(menu_player_move,           &QMenu::triggered,                                      this, &PlayerListWidget::menu_player_move_triggered);
 }
 
 PlayerListWidget::~PlayerListWidget()

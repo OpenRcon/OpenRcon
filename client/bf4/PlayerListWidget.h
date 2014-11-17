@@ -67,7 +67,9 @@ private:
     QString getSquadName(int squadId);
 
 private slots:
-    /* Command slots */
+    /* Events */
+
+    /* Commands */
     void onLoginHashedCommand(bool auth);
     void onServerInfoCommand(const BF4ServerInfo &serverInfo);
 

@@ -76,14 +76,14 @@ BF4::BF4(ServerEntry *serverEntry) :
     };
 
     // Connection
-    connect(m_connection, &Connection::onConnected, this, &BF4::onConnected);
+    connect(m_connection,       &Connection::onConnected,               this, &BF4::onConnected);
 
     // Commands
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this,             static_cast<void (BF4::*)(const QByteArray&)>(&BF4::onLoginHashedCommand));
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this,             static_cast<void (BF4::*)(bool)>(&BF4::onLoginHashedCommand));
-    connect(m_commandHandler, &BF4CommandHandler::onVersionCommand, this, &BF4::onVersionCommand);
+    connect(m_commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this,               static_cast<void (BF4::*)(const QByteArray&)>(&BF4::onLoginHashedCommand));
+    connect(m_commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this,               static_cast<void (BF4::*)(bool)>(&BF4::onLoginHashedCommand));
+    connect(m_commandHandler,   &BF4CommandHandler::onVersionCommand,   this, &BF4::onVersionCommand);
 }
 
 BF4::~BF4()
