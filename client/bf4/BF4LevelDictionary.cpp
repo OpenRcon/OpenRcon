@@ -76,7 +76,7 @@ QList<LevelEntry> BF4LevelDictionary::levelList = {
     LevelEntry("XP4_Arctic",    "Operation Whiteout",   QList<int>({ 2, 1 }), imagePath, "operation_whiteout.png"),   // 26
     LevelEntry("XP4_SubBase",   "Hammerhead",           QList<int>({ 2, 1 }), imagePath, "hammerhead.png"),           // 27
     LevelEntry("XP4_Titan",     "Hangar 21",            QList<int>({ 2, 1 }), imagePath, "hangar_21.png"),            // 28
-    LevelEntry("XP4_Wlkrftry",  "Giants Of Karelia",    QList<int>({ 2, 1 }), imagePath, "giants_of_karelia.png"),    // 29
+    LevelEntry("XP4_Wlkrftry",  "Giants of Karelia",    QList<int>({ 2, 1 }), imagePath, "giants_of_karelia.png"),    // 29
 
 };
 
