@@ -95,7 +95,8 @@ QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList = {
     BF4GameModeEntry("CaptureTheFlag0",      "Capture the flag",      32, 0, 4), // 9
     BF4GameModeEntry("CarrierAssaultSmall0", "Carrier Assault Small", 32, 2, 4), // 10
     BF4GameModeEntry("CarrierAssaultLarge0", "Carrier Assault Large", 64, 2, 4), // 11
-    BF4GameModeEntry("Chainlink0",           "Chain Link",            32, 0, 4)  // 12
+    BF4GameModeEntry("Chainlink0",           "Chain Link",            32, 0, 4), // 12
+    BF4GameModeEntry("SquadObliteration0",   "Squad Obliteration",    10, 0, 4)  // 13
 };
 
 template<>
@@ -471,7 +472,7 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 9, 28 },
     { 9, 29 },
 
-    /* Carrier Assault Small */
+    /* CarrierAssaultSmall0 */
 
     // XP3 (Naval Strike)
     { 10, 18 },
@@ -479,7 +480,7 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 10, 20 },
     { 10, 21 },
 
-    /* Carrier Assault Large */
+    /* CarrierAssaultLarge0 */
 
     // XP3 (Naval Strike)
     { 11, 18 },
@@ -487,11 +488,20 @@ QMultiHash<int, int> BF4LevelDictionary::levelMap = {
     { 11, 20 },
     { 11, 21 },
 
-    /* Chainlink */
+    /* Chainlink0 */
 
     // XP4 (Dragon's Teeth)
     { 12, 22 },
     { 12, 23 },
     { 12, 24 },
-    { 12, 25 }
+    { 12, 25 },
+
+    /* SquadObliteration0 */
+    { 13, 0 },
+    { 13, 3 },
+    { 13, 4 },
+    { 13, 5 },
+    { 13, 6 },
+    { 13, 7 },
+    { 13, 9 }
 };
