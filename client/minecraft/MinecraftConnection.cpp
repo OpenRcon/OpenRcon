@@ -18,6 +18,7 @@
  */
 
 #include <QTcpSocket>
+#include <QDataStream>
 
 #include "MinecraftConnection.h"
 #include "MinecraftRconPacket.h"
