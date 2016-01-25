@@ -27,10 +27,7 @@
 BFBC2::BFBC2(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
     m_commandHandler(new BFBC2CommandHandler(m_connection))
-//    authenticated(false)
 {
-    authenticated = false;
-
     versionMap = {
         { 571287, "R21" },
         { 581637, "R22" },

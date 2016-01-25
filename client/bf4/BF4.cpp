@@ -25,10 +25,7 @@
 BF4::BF4(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
     m_commandHandler(new BF4CommandHandler(m_connection))
-//    authenticated(false)
 {
-    authenticated = false;
-
     versionMap = {
         { 70517,  "OB-R2" },
         { 72879,  "OB-R3" },
@@ -70,17 +67,19 @@ BF4::BF4(ServerEntry *serverEntry) :
         { 136921, "R38" },
         { 138571, "R39" },
         { 139796, "R40" },
-		{ 140136, "R41" },
+        { 140136, "R41" },
         { 147837, "R42" },
         { 150767, "R43" },
         { 154100, "R44" },
         { 154793, "R45" },
         { 155011, "R46" },
         { 157186, "R48" },
-		{ 158113, "R49" },
-		{ 162016, "R50" },
-		{ 165241, "R51" },
-		{ 166185, "R52" }
+        { 158113, "R49" },
+        { 162016, "R50" },
+        { 165241, "R51" },
+        { 166185, "R52" },
+        { 171730, "R53" },
+        { 176744, "R55" }
     };
 
     // Connection
