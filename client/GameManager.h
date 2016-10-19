@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,11 +21,15 @@
 #define GAMEMANAGER_H
 
 #include <QObject>
+#include <QList>
+
+class QString;
 
 class GameEntry;
+
+enum class GameType;
 class Game;
 class ServerEntry;
-enum class GameType;
 
 class GameManager : public QObject
 {

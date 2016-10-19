@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -23,10 +23,12 @@
 #include <QWidget>
 
 class QMenu;
+class QAction;
+class QString;
+class QPoint;
+
 class FrostbiteConnection;
 class FrostbiteCommandHandler;
-enum class BanIdType;
-enum class BanType;
 struct BanListEntry;
 
 namespace Ui {

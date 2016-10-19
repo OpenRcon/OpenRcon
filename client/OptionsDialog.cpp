@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,10 +17,16 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QWidget>
 #include <QSettings>
-#include <QPushButton>
+#include <QListWidget>
+#include <QDialogButtonBox>
+#include <QList>
+#include <QLocale>
 #include <QMessageBox>
 #include <QProcess>
+#include <QApplication>
+#include <QListWidgetItem>
 
 #include "ui_OptionsDialog.h"
 #include "OptionsDialog.h"

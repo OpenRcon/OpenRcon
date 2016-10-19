@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,8 +17,20 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QWidget>
 #include <QMenu>
+#include <QAction>
+#include <QTreeWidget>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QPoint>
+#include <QTreeWidgetItem>
+#include <QCursor>
+#include <QVariant>
+#include <QList>
+#include <QString>
 #include <QMessageBox>
+#include <QIcon>
 
 #include "ui_ServerListDialog.h"
 #include "ServerListDialog.h"
@@ -35,9 +47,8 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
 {
     ui->setupUi(this);
 
-    openRcon = dynamic_cast<OpenRcon *>(parent);
-    serverManager = openRcon->getServerManager();
-    sessionManager = openRcon->getSessionManager();
+    serverManager = ServerManager::getInstance();
+    sessionManager = SessionManager::getInstance();
 
     // Fetch ServerEntries from ServerManager.
     serverEntries = serverManager->getServers();

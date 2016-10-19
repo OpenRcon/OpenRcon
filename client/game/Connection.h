@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -22,6 +22,8 @@
 
 #include <QObject>
 #include <QAbstractSocket>
+
+class QString;
 
 class ServerEntry;
 

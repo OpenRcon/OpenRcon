@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,12 +17,13 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QAbstractSocket>
+#include <QString>
 #include <QHostAddress>
 #include <QMessageBox>
 
 #include "Connection.h"
 
-#include "Game.h"
 #include "ServerEntry.h"
 
 Connection::Connection(QAbstractSocket *socket, QObject *parent) : QObject(parent), socket(socket)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,11 +17,15 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QPushButton>
+#include <QLineEdit>
 #include <QCompleter>
+#include <QString>
 #include <QDateTime>
 
 #include "ConsoleWidget.h"
 #include "ui_ConsoleWidget.h"
+
 #include "FrostbiteConnection.h"
 #include "FrostbiteCommandHandler.h"
 

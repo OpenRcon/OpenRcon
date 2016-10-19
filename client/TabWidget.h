@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -12,35 +12,31 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4_H
-#define BF4_H
+#ifndef TABWIDGET_H
+#define TABWIDGET_H
 
-#include "FrostbiteGame.h"
+#include <QTabWidget>
 
-class BF4CommandHandler;
+class QWidget;
 
-class BF4 : public FrostbiteGame
+class TabWidget : public QTabWidget
 {
     Q_OBJECT
 
 public:
-    BF4(ServerEntry *serverEntry);
-    ~BF4();
+    explicit TabWidget(QWidget *parent = nullptr);
+    ~TabWidget();
 
-protected:
-    BF4CommandHandler *commandHandler;
+    static TabWidget *getInstance(QWidget *parent = nullptr);
 
-private slots:
-    void onConnected();
-    void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand(bool auth);
-    void onVersionCommand(const QString &type, int build);
+private:
+    static TabWidget *instance;
 
 };
 
-#endif // BF4_H
+#endif // TABWIDGET_H

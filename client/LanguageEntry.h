@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,8 +20,8 @@
 #ifndef LANGUAGEENTRY_H
 #define LANGUAGEENTRY_H
 
-#include <QIcon>
 #include <QString>
+#include <QIcon>
 
 struct LanguageEntry
 {
@@ -30,7 +30,12 @@ struct LanguageEntry
 
     }
 
-    LanguageEntry(const QString &name, const QString &code, const QString &icon) : name(name), code(code), icon(QIcon(icon))
+    LanguageEntry(const QString &name,
+                  const QString &code,
+                  const QString &icon) :
+        name(name),
+        code(code),
+        icon(QIcon(icon))
     {
 
     }
@@ -42,6 +47,6 @@ struct LanguageEntry
 };
 
 // For use with QVariant
-Q_DECLARE_METATYPE(LanguageEntry);
+Q_DECLARE_METATYPE(LanguageEntry)
 
 #endif // LANGUAGEENTRY_H

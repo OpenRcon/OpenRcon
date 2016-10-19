@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -22,6 +22,9 @@
 
 #include "FrostbiteGame.h"
 
+class QByteArray;
+class QString;
+
 class BF3CommandHandler;
 
 class BF3 : public FrostbiteGame
@@ -33,7 +36,7 @@ public:
     ~BF3();
 
 protected:
-    BF3CommandHandler *m_commandHandler;
+    BF3CommandHandler *commandHandler;
 
 private slots:
     void onConnected();

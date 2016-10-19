@@ -28,7 +28,7 @@
 
 FrostbiteConnection::FrostbiteConnection(QObject *parent) :
     Connection(new QTcpSocket(parent), parent),
-    m_commandHandler(nullptr),
+    commandHandler(nullptr),
     packetReadState(PacketReadingHeader),
     nextPacketSequence(0)
 {
@@ -42,12 +42,12 @@ FrostbiteConnection::~FrostbiteConnection()
 
 FrostbiteCommandHandler *FrostbiteConnection::getCommandHandler() const
 {
-    return m_commandHandler;
+    return commandHandler;
 }
 
 void FrostbiteConnection::setCommandHandler(FrostbiteCommandHandler *commandHandler)
 {
-    m_commandHandler = commandHandler;
+    this->commandHandler = commandHandler;
 }
 
 void FrostbiteConnection::hostConnect(ServerEntry *serverEntry)
@@ -190,7 +190,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                         responseDataReceivedEvent(messager);
                         qDebug() << messager;
 
-                        m_commandHandler->parse(request, packet, lastSentPacket);
+                        commandHandler->parse(request, packet, lastSentPacket);
                     }
                 }
             }
@@ -213,6 +213,6 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
         }
 
         responseDataSentEvent(message);
-        m_commandHandler->parse(request, packet, FrostbiteRconPacket());
+        commandHandler->parse(request, packet, FrostbiteRconPacket());
     }
 }

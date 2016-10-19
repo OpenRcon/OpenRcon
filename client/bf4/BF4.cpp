@@ -24,7 +24,7 @@
 
 BF4::BF4(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    m_commandHandler(new BF4CommandHandler(m_connection))
+    commandHandler(new BF4CommandHandler(connection))
 {
     versionMap = {
         { 70517,  "OB-R2" },
@@ -84,14 +84,14 @@ BF4::BF4(ServerEntry *serverEntry) :
     };
 
     // Connection
-    connect(m_connection,       &Connection::onConnected,               this, &BF4::onConnected);
+    connect(connection,       &Connection::onConnected,               this, &BF4::onConnected);
 
     // Commands
-    connect(m_commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+    connect(commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,               static_cast<void (BF4::*)(const QByteArray&)>(&BF4::onLoginHashedCommand));
-    connect(m_commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+    connect(commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,               static_cast<void (BF4::*)(bool)>(&BF4::onLoginHashedCommand));
-    connect(m_commandHandler,   &BF4CommandHandler::onVersionCommand,   this, &BF4::onVersionCommand);
+    connect(commandHandler,   &BF4CommandHandler::onVersionCommand,   this, &BF4::onVersionCommand);
 }
 
 BF4::~BF4()
@@ -102,14 +102,14 @@ BF4::~BF4()
 void BF4::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
-        m_commandHandler->sendLoginHashedCommand();
+        commandHandler->sendLoginHashedCommand();
     }
 }
 
 void BF4::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
-        m_commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
+        commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
     }
 }
 
@@ -123,7 +123,7 @@ void BF4::onVersionCommand(const QString &type, int build)
     Q_UNUSED(build);
 
     if (type != "BF4") {
-        m_connection->hostDisconnect();
+        connection->hostDisconnect();
 
         qDebug() << tr("Wrong server type, disconnecting...");
     }

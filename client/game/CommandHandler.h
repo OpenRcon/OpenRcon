@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -31,7 +31,6 @@ class CommandHandler : public QObject
 public:
     CommandHandler(Connection *parent = nullptr);
     ~CommandHandler();
-
 };
 
 #endif // COMMANDHANDLER_H

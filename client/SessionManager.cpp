@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,25 +17,38 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QTabWidget>
+#include <QIcon>
+#include <QString>
 #include <QDebug>
 
 #include "SessionManager.h"
-#include "OpenRcon.h"
-#include "Connection.h"
-#include "ServerEntry.h"
+
+#include "TabWidget.h"
 #include "GameEntry.h"
 #include "GameManager.h"
 #include "Game.h"
+#include "ServerEntry.h"
+#include "Connection.h"
+
+SessionManager *SessionManager::instance = nullptr;
 
 SessionManager::SessionManager(QObject *parent) : QObject(parent)
 {
-    openRcon = dynamic_cast<OpenRcon *>(parent);
+
 }
 
 SessionManager::~SessionManager()
 {
 
+}
+
+SessionManager *SessionManager::getInstance(QObject *parent)
+{
+    if (!instance) {
+        instance = new SessionManager(parent);
+    }
+
+    return instance;
 }
 
 void SessionManager::open(ServerEntry *serverEntry)
@@ -44,7 +57,7 @@ void SessionManager::open(ServerEntry *serverEntry)
     if (!sessions.contains(serverEntry)) {
         sessions.insert(serverEntry);
 
-        QTabWidget *tabWidget = openRcon->getTabWidget();
+        TabWidget *tabWidget = TabWidget::getInstance();
         GameEntry gameEntry = GameManager::getGame(serverEntry->getGameType());
         Game *gameObject = GameManager::getGameObject(serverEntry);
         int index = tabWidget->addTab(gameObject, QIcon(gameEntry.getIcon()), serverEntry->getName());
@@ -59,7 +72,7 @@ void SessionManager::open(ServerEntry *serverEntry)
 }
  void SessionManager::close(int index)
 {
-    QTabWidget *tabWidget = openRcon->getTabWidget();
+    TabWidget *tabWidget = TabWidget::getInstance();
     Game *game = dynamic_cast<Game *>(tabWidget->widget(index));
     ServerEntry *serverEntry = game->getServerEntry();
 

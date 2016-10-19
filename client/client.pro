@@ -22,7 +22,8 @@ HEADERS += OpenRcon.h \
     OptionsDialog.h \
     AboutDialog.h \
     GameType.h \
-    SessionManager.h
+    SessionManager.h \
+    TabWidget.h
 
 SOURCES += Main.cpp \
     OpenRcon.cpp \
@@ -35,7 +36,8 @@ SOURCES += Main.cpp \
     AboutDialog.cpp \
     SessionManager.cpp \
     ServerEntry.cpp \
-    GameEntry.cpp
+    GameEntry.cpp \
+    TabWidget.cpp
 
 FORMS += ServerListDialog.ui \
     ServerEditDialog.ui \

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -23,6 +23,8 @@
 #include "ServerEntry.h"
 #include "GameManager.h"
 
+ServerManager *ServerManager::instance = nullptr;
+
 ServerManager::ServerManager(QObject *parent) : QObject(parent)
 {
     settings = new QSettings(APP_NAME, APP_NAME, this);
@@ -36,6 +38,15 @@ ServerManager::~ServerManager()
     writeSettings();
 
     delete settings;
+}
+
+ServerManager *ServerManager::getInstance(QObject *parent)
+{
+    if (!instance) {
+        instance = new ServerManager(parent);
+    }
+
+    return instance;
 }
 
 void ServerManager::readSettings()

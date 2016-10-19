@@ -18,11 +18,12 @@
  */
 
 #include "FrostbiteGame.h"
-#include "FrostbiteConnection.h"
 
-FrostbiteGame::FrostbiteGame(ServerEntry *serverEntry) : Game(serverEntry), m_connection(new FrostbiteConnection(this))
+#include "FrostbiteCommandHandler.h"
+
+FrostbiteGame::FrostbiteGame(ServerEntry *serverEntry) : Game(serverEntry), connection(new FrostbiteConnection(this))
 {
-    m_connection->hostConnect(serverEntry);
+    connection->hostConnect(serverEntry);
 }
 
 FrostbiteGame::~FrostbiteGame()

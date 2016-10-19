@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -23,7 +23,6 @@
 #include <QObject>
 #include <QSet>
 
-class OpenRcon;
 class ServerEntry;
 
 class SessionManager : public QObject
@@ -34,12 +33,14 @@ public:
     SessionManager(QObject *parent = nullptr);
     ~SessionManager();
 
+    static SessionManager *getInstance(QObject *parent = nullptr);
+
     void open(ServerEntry *serverEntry);
     void close(int index);
     bool isConnected(ServerEntry *serverEntry);
 
 private:
-    OpenRcon *openRcon;
+    static SessionManager *instance;
 
     QSet<ServerEntry *> sessions;
 

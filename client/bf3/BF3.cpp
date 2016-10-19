@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,14 +17,18 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QByteArray>
+#include <QString>
+
 #include "BF3.h"
+
 #include "ServerEntry.h"
-#include "FrostbiteConnection.h"
 #include "BF3CommandHandler.h"
+#include "Connection.h"
 
 BF3::BF3(ServerEntry *serverEntry) :
     FrostbiteGame(serverEntry),
-    m_commandHandler(new BF3CommandHandler(m_connection))
+    commandHandler(new BF3CommandHandler(connection))
 {
     versionMap = {
         { 872601,  "OB-E" },
@@ -69,14 +73,14 @@ BF3::BF3(ServerEntry *serverEntry) :
     };
 
     // Connection
-    connect(m_connection, &Connection::onConnected, this, &BF3::onConnected);
+    connect(connection, &Connection::onConnected, this, &BF3::onConnected);
 
     // Commands
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,           static_cast<void (BF3::*)(const QByteArray&)>(&BF3::onLoginHashedCommand));
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,           static_cast<void (BF3::*)(bool)>(&BF3::onLoginHashedCommand));
-    connect(m_commandHandler, &FrostbiteCommandHandler::onVersionCommand, this, &BF3::onVersionCommand);
+    connect(commandHandler, &FrostbiteCommandHandler::onVersionCommand, this, &BF3::onVersionCommand);
 }
 
 BF3::~BF3()
@@ -87,14 +91,14 @@ BF3::~BF3()
 void BF3::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
-        m_commandHandler->sendLoginHashedCommand();
+        commandHandler->sendLoginHashedCommand();
     }
 }
 
 void BF3::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
-        m_commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
+        commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
     }
 }
 
@@ -108,7 +112,7 @@ void BF3::onVersionCommand(const QString &type, int build)
     Q_UNUSED(build);
 
     if (type != "BF3") {
-        m_connection->hostDisconnect();
+        connection->hostDisconnect();
 
         qDebug() << tr("Wrong server type, disconnecting...");
     }

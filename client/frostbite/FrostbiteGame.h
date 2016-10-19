@@ -23,6 +23,8 @@
 #include "Game.h"
 #include "FrostbiteConnection.h"
 
+class FrostbiteCommandHandler;
+
 class FrostbiteGame : public Game
 {
     Q_OBJECT
@@ -32,13 +34,14 @@ public:
     ~FrostbiteGame();    
 
     virtual Connection *getConnection() {
-        return m_connection;
+        return connection;
     }
 
     bool isAuthenticated();
 
 protected:
-    FrostbiteConnection *m_connection;
+    FrostbiteConnection *connection;
+    FrostbiteCommandHandler *commandHandler;
 
     bool authenticated;
     QMap<int, QString> versionMap;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,8 +17,20 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QMenu>
+#include <QStringList>
 #include <QCompleter>
+#include <QMenu>
+#include <QAction>
+#include <QTableWidget>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QRadioButton>
+#include <QComboBox>
+#include <QList>
+#include <QPoint>
+#include <QCursor>
+#include <QString>
+#include <QTableWidgetItem>
 
 #include "BanListWidget.h"
 #include "ui_BanListWidget.h"
@@ -213,15 +225,15 @@ void BanListWidget::pushButton_ban_clicked()
                 break;
 
             case 2:
-                timeout = (timeoutValue * 60) * 60;
+                timeout = timeoutValue * 60 * 60;
                 break;
 
             case 3:
-                timeout = (timeoutValue * 60 * 60) * 24;
+                timeout = timeoutValue * 60 * 60 * 24;
                 break;
 
             case 4:
-                timeout = (timeoutValue * 60 * 60 * 24) * 7;
+                timeout = timeoutValue * 60 * 60 * 24 * 7;
                 break;
             }
         }

@@ -134,44 +134,44 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
 // Admin
 void Frostbite2CommandHandler::sendAdminEventsEnabledCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendAdminHelpCommand()
 {
-    m_connection->sendCommand("admin.help");
+    connection->sendCommand("admin.help");
 }
 
 void Frostbite2CommandHandler::sendAdminKickPlayerCommand(const QString &player, const QString &reason)
 {
-    m_connection->sendCommand(QString("\"admin.kickPlayer\" \"%1\" \"%2\"").arg(player, reason));
+    connection->sendCommand(QString("\"admin.kickPlayer\" \"%1\" \"%2\"").arg(player, reason));
 }
 
 void Frostbite2CommandHandler::sendAdminKillPlayerCommand(const QString &player)
 {
-    m_connection->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
 }
 
 void Frostbite2CommandHandler::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
 {
-    m_connection->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(forceKill)));
+    connection->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(forceKill)));
 }
 
 void Frostbite2CommandHandler::sendAdminPasswordCommand(const QString &password)
 {
     if (password.isEmpty()) {
-        m_connection->sendCommand("admin.password");
+        connection->sendCommand("admin.password");
     } else {
-        m_connection->sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
+        connection->sendCommand(QString("\"admin.password\" \"%1\"").arg(password));
     }
 }
 
 void Frostbite2CommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetType &playerSubsetType, int parameter)
 {
     if (playerSubsetType == PlayerSubsetType::All) {
-        m_connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubsetType)));
+        connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubsetType)));
     } else {
-        m_connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubsetType)).arg(parameter));
+        connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubsetType)).arg(parameter));
     }
 }
 
@@ -184,9 +184,9 @@ void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int 
 {
     if (message.length() <= 256) {
         if (playerSubsetType == PlayerSubsetType::All) {
-            m_connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubsetType)));
+            connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubsetType)));
         } else {
-            m_connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubsetType)).arg(parameter));
+            connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubsetType)).arg(parameter));
         }
     }
 }
@@ -194,478 +194,478 @@ void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int 
 // Maplist
 void Frostbite2CommandHandler::sendMapListAddCommand(const QString &level, const QString &gameMode, int rounds, int offSet)
 {
-    m_connection->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(level).arg(gameMode).arg(rounds).arg(offSet));
+    connection->sendCommand(QString("\"mapList.add\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(level).arg(gameMode).arg(rounds).arg(offSet));
     sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListAvailableMapsCommand(const QString &filter)
 {
-    m_connection->sendCommand(QString("\"mapList.availableMaps\" \"%1\"").arg(filter));
+    connection->sendCommand(QString("\"mapList.availableMaps\" \"%1\"").arg(filter));
 }
 
 void Frostbite2CommandHandler::sendMapListClearCommand()
 {
-    m_connection->sendCommand("mapList.clear");
+    connection->sendCommand("mapList.clear");
     sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListEndRoundCommand(int teamId)
 {
-    m_connection->sendCommand(QString("\"mapList.endRound\" \"%1\"").arg(teamId));
+    connection->sendCommand(QString("\"mapList.endRound\" \"%1\"").arg(teamId));
 }
 
 void Frostbite2CommandHandler::sendMapListGetMapIndicesCommand()
 {
-    m_connection->sendCommand("mapList.getMapIndices");
+    connection->sendCommand("mapList.getMapIndices");
 }
 
 void Frostbite2CommandHandler::sendMapListGetRoundsCommand()
 {
-    m_connection->sendCommand("mapList.getRounds");
+    connection->sendCommand("mapList.getRounds");
 }
 
 void Frostbite2CommandHandler::sendMapListListCommand(int index)
 {
     if (index == 0) {
-        m_connection->sendCommand("mapList.list");
+        connection->sendCommand("mapList.list");
     } else {
-        m_connection->sendCommand(QString("\"mapList.list\" \"%1\"").arg(index));
+        connection->sendCommand(QString("\"mapList.list\" \"%1\"").arg(index));
     }
 }
 
 void Frostbite2CommandHandler::sendMapListLoadCommand()
 {
-    m_connection->sendCommand("mapList.load");
+    connection->sendCommand("mapList.load");
     sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListRemoveCommand(int index)
 {
-    m_connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
+    connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
     sendMapListListCommand();
 }
 
 void Frostbite2CommandHandler::sendMapListRestartRoundCommand()
 {
-    m_connection->sendCommand("mapList.restartRound");
+    connection->sendCommand("mapList.restartRound");
 }
 
 void Frostbite2CommandHandler::sendMapListRunNextRoundCommand()
 {
-    m_connection->sendCommand("mapList.runNextRound");
+    connection->sendCommand("mapList.runNextRound");
 }
 
 void Frostbite2CommandHandler::sendMapListSaveCommand()
 {
-    m_connection->sendCommand("mapList.save");
+    connection->sendCommand("mapList.save");
 }
 
 void Frostbite2CommandHandler::sendMapListSetNextMapIndexCommand(int index)
 {
-    m_connection->sendCommand(QString("\"mapList.setNextMapIndex\" \"%1\"").arg(index));
+    connection->sendCommand(QString("\"mapList.setNextMapIndex\" \"%1\"").arg(index));
 }
 
 // Player
 void Frostbite2CommandHandler::sendPlayerIdleDurationCommand(const QString &player)
 {
-    m_connection->sendCommand(QString("\"player.idleDuration\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"player.idleDuration\" \"%1\"").arg(player));
 }
 
 void Frostbite2CommandHandler::sendPlayerIsAliveCommand(const QString &player)
 {
-    m_connection->sendCommand(QString("\"player.isAlive\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"player.isAlive\" \"%1\"").arg(player));
 }
 
 void Frostbite2CommandHandler::sendPlayerPingCommand(const QString &player)
 {
-    m_connection->sendCommand(QString("\"player.ping\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"player.ping\" \"%1\"").arg(player));
 }
 
 // PunkBuster
 void Frostbite2CommandHandler::sendPunkBusterActivateCommand()
 {
-    m_connection->sendCommand("punkBuster.activate");
+    connection->sendCommand("punkBuster.activate");
 }
 
 void Frostbite2CommandHandler::sendPunkBusterIsActiveCommand()
 {
-    m_connection->sendCommand("punkBuster.isActive");
+    connection->sendCommand("punkBuster.isActive");
 }
 
 // Reserved Slots
 void Frostbite2CommandHandler::sendReservedSlotsListAddCommand(const QString &player)
 {
-    m_connection->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"reservedSlotsList.add\" \"%1\"").arg(player));
     sendReservedSlotsListListCommand();
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListAggressiveJoinCommand()
 {
-    m_connection->sendCommand("reservedSlotsList.aggressiveJoin");
+    connection->sendCommand("reservedSlotsList.aggressiveJoin");
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListAggressiveJoinCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"reservedSlotsList.aggressiveJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListClearCommand()
 {
-    m_connection->sendCommand("reservedSlotsList.clear");
+    connection->sendCommand("reservedSlotsList.clear");
     sendReservedSlotsListListCommand();
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListListCommand()
 {
-    m_connection->sendCommand("reservedSlotsList.list");
+    connection->sendCommand("reservedSlotsList.list");
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListLoadCommand()
 {
-    m_connection->sendCommand("reservedSlotsList.load");
+    connection->sendCommand("reservedSlotsList.load");
     sendReservedSlotsListListCommand();
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListRemoveCommand(const QString &player)
 {
-    m_connection->sendCommand(QString("\"reservedSlotsList.remove\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"reservedSlotsList.remove\" \"%1\"").arg(player));
     sendReservedSlotsListListCommand();
 }
 
 void Frostbite2CommandHandler::sendReservedSlotsListSaveCommand()
 {
-    m_connection->sendCommand("reservedSlotsList.save");
+    connection->sendCommand("reservedSlotsList.save");
     sendReservedSlotsListListCommand();
 }
 
 // Squad
 void Frostbite2CommandHandler::sendSquadLeaderCommand(int teamId, int squadId, const QString &player)
 {
-    m_connection->sendCommand(QString("\"squad.leader\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(player));
+    connection->sendCommand(QString("\"squad.leader\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(player));
 }
 
 void Frostbite2CommandHandler::sendSquadListActiveCommand(int teamId)
 {
-    m_connection->sendCommand(QString("\"squad.listActive\" \"%1\"").arg(teamId));
+    connection->sendCommand(QString("\"squad.listActive\" \"%1\"").arg(teamId));
 }
 
 void Frostbite2CommandHandler::sendSquadListPlayersCommand(int teamId, int squadId)
 {
-    m_connection->sendCommand(QString("\"squad.listPlayers\" \"%1\" \"%2\"").arg(teamId).arg(squadId));
+    connection->sendCommand(QString("\"squad.listPlayers\" \"%1\" \"%2\"").arg(teamId).arg(squadId));
 }
 
 void Frostbite2CommandHandler::sendSquadPrivateCommand(int teamId, int squadId, bool isPrivate)
 {
-    m_connection->sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(isPrivate)));
+    connection->sendCommand(QString("\"squad.private\" \"%1\" \"%2\" \"%3\"").arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(isPrivate)));
 }
 
 // Vars
 void Frostbite2CommandHandler::sendVars3dSpottingCommand()
 {
-    m_connection->sendCommand("vars.3dSpotting");
+    connection->sendCommand("vars.3dSpotting");
 }
 
 void Frostbite2CommandHandler::sendVars3dSpottingCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVars3pCamCommand()
 {
-    m_connection->sendCommand("vars.3pCam");
+    connection->sendCommand("vars.3pCam");
 }
 
 void Frostbite2CommandHandler::sendVars3pCamCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.3pCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.3pCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsAutoBalanceCommand()
 {
-    m_connection->sendCommand("vars.autoBalance");
+    connection->sendCommand("vars.autoBalance");
 }
 
 void Frostbite2CommandHandler::sendVarsAutoBalanceCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.autoBalance\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.autoBalance\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsBulletDamageCommand(int damage)
 {
     if (damage == -1) {
-        m_connection->sendCommand("vars.bulletDamage");
+        connection->sendCommand("vars.bulletDamage");
     } else {
-        m_connection->sendCommand(QString("\"vars.bulletDamage\" \"%1\"").arg(damage));
+        connection->sendCommand(QString("\"vars.bulletDamage\" \"%1\"").arg(damage));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsFriendlyFireCommand()
 {
-    m_connection->sendCommand("vars.friendlyFire");
+    connection->sendCommand("vars.friendlyFire");
 }
 
 void Frostbite2CommandHandler::sendVarsFriendlyFireCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsGameModeCounterCommand(int scale)
 {
     if (scale == -1) {
-        m_connection->sendCommand("vars.gameModeCounter");
+        connection->sendCommand("vars.gameModeCounter");
     } else {
-        m_connection->sendCommand(QString("\"vars.gameModeCounter\" \"%1\"").arg(scale));
+        connection->sendCommand(QString("\"vars.gameModeCounter\" \"%1\"").arg(scale));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsGamePasswordCommand(const QString &password)
 {
     if (password == 0) {
-        m_connection->sendCommand("vars.gamePassword");
+        connection->sendCommand("vars.gamePassword");
     } else {
-        m_connection->sendCommand(QString("\"vars.gamePassword\" \"%1\"").arg(password));
+        connection->sendCommand(QString("\"vars.gamePassword\" \"%1\"").arg(password));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsHudCommand()
 {
-    m_connection->sendCommand("vars.hud");
+    connection->sendCommand("vars.hud");
 }
 
 void Frostbite2CommandHandler::sendVarsHudCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.hud\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.hud\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsIdleBanRoundsCommand(int rounds)
 {
     if (rounds == -1) {
-        m_connection->sendCommand("vars.idleBanRounds");
+        connection->sendCommand("vars.idleBanRounds");
     } else {
-        m_connection->sendCommand(QString("\"vars.idleBanRounds\" \"%1\"").arg(rounds));
+        connection->sendCommand(QString("\"vars.idleBanRounds\" \"%1\"").arg(rounds));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsIdleTimeoutCommand(int seconds)
 {
     if (seconds == -1) {
-        m_connection->sendCommand("vars.idleTimeout");
+        connection->sendCommand("vars.idleTimeout");
     } else {
-        m_connection->sendCommand(QString("\"vars.idleTimeout\" \"%1\"").arg(seconds));
+        connection->sendCommand(QString("\"vars.idleTimeout\" \"%1\"").arg(seconds));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsKillCamCommand()
 {
-    m_connection->sendCommand("vars.killCam");
+    connection->sendCommand("vars.killCam");
 }
 
 void Frostbite2CommandHandler::sendVarsKillCamCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.killCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.killCam\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsMaxPlayersCommand(int players)
 {
     if (players == -1) {
-        m_connection->sendCommand("vars.maxPlayers");
+        connection->sendCommand("vars.maxPlayers");
     } else {
-        m_connection->sendCommand(QString("\"vars.maxPlayers\" \"%1\"").arg(players));
+        connection->sendCommand(QString("\"vars.maxPlayers\" \"%1\"").arg(players));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsMiniMapCommand()
 {
-    m_connection->sendCommand("vars.miniMap");
+    connection->sendCommand("vars.miniMap");
 }
 
 void Frostbite2CommandHandler::sendVarsMiniMapCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsMiniMapSpottingCommand()
 {
-    m_connection->sendCommand("vars.miniMapSpotting");
+    connection->sendCommand("vars.miniMapSpotting");
 }
 
 void Frostbite2CommandHandler::sendVarsMiniMapSpottingCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.miniMapSpotting\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.miniMapSpotting\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsNameTagCommand()
 {
-    m_connection->sendCommand("vars.nameTag");
+    connection->sendCommand("vars.nameTag");
 }
 
 void Frostbite2CommandHandler::sendVarsNameTagCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.nameTag\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.nameTag\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsOnlySquadLeaderSpawnCommand()
 {
-    m_connection->sendCommand("vars.onlySquadLeaderSpawn");
+    connection->sendCommand("vars.onlySquadLeaderSpawn");
 }
 
 void Frostbite2CommandHandler::sendVarsOnlySquadLeaderSpawnCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.onlySquadLeaderSpawn\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.onlySquadLeaderSpawn\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsPlayerRespawnTimeCommand(int respawnTime)
 {
     if (respawnTime == -1) {
-        m_connection->sendCommand("vars.playerRespawnTime");
+        connection->sendCommand("vars.playerRespawnTime");
     } else {
-        m_connection->sendCommand(QString("\"vars.playerRespawnTime\" \"%1\"").arg(respawnTime));
+        connection->sendCommand(QString("\"vars.playerRespawnTime\" \"%1\"").arg(respawnTime));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsRegenerateHealthCommand()
 {
-    m_connection->sendCommand("vars.regenerateHealth");
+    connection->sendCommand("vars.regenerateHealth");
 }
 
 void Frostbite2CommandHandler::sendVarsRegenerateHealthCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.regenerateHealth\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.regenerateHealth\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsRoundLockdownCountdownCommand(int seconds)
 {
     if (seconds == -1) {
-        m_connection->sendCommand("vars.roundLockdownCountdown");
+        connection->sendCommand("vars.roundLockdownCountdown");
     } else {
-        m_connection->sendCommand(QString("\"vars.roundLockdownCountdown\" \"%1\"").arg(seconds));
+        connection->sendCommand(QString("\"vars.roundLockdownCountdown\" \"%1\"").arg(seconds));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsRoundRestartPlayerCountCommand(int players)
 {
     if (players == -1) {
-        m_connection->sendCommand("vars.roundRestartPlayerCount");
+        connection->sendCommand("vars.roundRestartPlayerCount");
     } else {
-        m_connection->sendCommand(QString("\"vars.roundRestartPlayerCount\" \"%1\"").arg(players));
+        connection->sendCommand(QString("\"vars.roundRestartPlayerCount\" \"%1\"").arg(players));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsRoundStartPlayerCountCommand(int players)
 {
     if (players == -1) {
-        m_connection->sendCommand("vars.roundStartPlayerCount");
+        connection->sendCommand("vars.roundStartPlayerCount");
     } else {
-        m_connection->sendCommand(QString("\"vars.roundStartPlayerCount\" \"%1\"").arg(players));
+        connection->sendCommand(QString("\"vars.roundStartPlayerCount\" \"%1\"").arg(players));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsServerDescriptionCommand(const QString &description)
 {
     if (description == 0) {
-        m_connection->sendCommand("vars.serverDescription");
+        connection->sendCommand("vars.serverDescription");
     } else {
-        m_connection->sendCommand(QString("\"vars.serverDescription\" \"%1\"").arg(description));
+        connection->sendCommand(QString("\"vars.serverDescription\" \"%1\"").arg(description));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsServerMessageCommand(const QString &message)
 {
     if (message == 0) {
-        m_connection->sendCommand("vars.serverMessage");
+        connection->sendCommand("vars.serverMessage");
     } else {
-        m_connection->sendCommand(QString("\"vars.serverMessage\" \"%1\"").arg(message));
+        connection->sendCommand(QString("\"vars.serverMessage\" \"%1\"").arg(message));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsServerNameCommand(const QString &name)
 {
     if (name == 0) {
-        m_connection->sendCommand("vars.serverName");
+        connection->sendCommand("vars.serverName");
     } else {
-        m_connection->sendCommand(QString("\"vars.serverName\" \"%1\"").arg(name));
+        connection->sendCommand(QString("\"vars.serverName\" \"%1\"").arg(name));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsSoldierHealthCommand(int percent)
 {
     if (percent == -1) {
-        m_connection->sendCommand("vars.soldierHealth");
+        connection->sendCommand("vars.soldierHealth");
     } else {
-        m_connection->sendCommand(QString("\"vars.soldierHealth\" \"%1\"").arg(percent));
+        connection->sendCommand(QString("\"vars.soldierHealth\" \"%1\"").arg(percent));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsTeamKillCountForKickCommand(int count)
 {
     if (count == -1) {
-        m_connection->sendCommand("vars.teamKillCountForKick");
+        connection->sendCommand("vars.teamKillCountForKick");
     } else {
-        m_connection->sendCommand(QString("\"vars.teamKillCountForKick\" \"%1\"").arg(count));
+        connection->sendCommand(QString("\"vars.teamKillCountForKick\" \"%1\"").arg(count));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsTeamKillKickForBanCommand(int count)
 {
     if (count == -1) {
-        m_connection->sendCommand("vars.teamKillKickForBan");
+        connection->sendCommand("vars.teamKillKickForBan");
     } else {
-        m_connection->sendCommand(QString("\"vars.teamKillKickForBan\" \"%1\"").arg(count));
+        connection->sendCommand(QString("\"vars.teamKillKickForBan\" \"%1\"").arg(count));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsTeamKillValueDecreasePerSecondCommand(int count)
 {
     if (count == -1) {
-        m_connection->sendCommand("vars.teamKillValueDecreasePerSecond");
+        connection->sendCommand("vars.teamKillValueDecreasePerSecond");
     } else {
-        m_connection->sendCommand(QString("\"vars.teamKillValueDecreasePerSecond\" \"%1\"").arg(count));
+        connection->sendCommand(QString("\"vars.teamKillValueDecreasePerSecond\" \"%1\"").arg(count));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsTeamKillValueForKickCommand(int count)
 {
     if (count == -1) {
-        m_connection->sendCommand("vars.teamKillValueForKick");
+        connection->sendCommand("vars.teamKillValueForKick");
     } else {
-        m_connection->sendCommand(QString("\"vars.teamKillValueForKick\" \"%1\"").arg(count));
+        connection->sendCommand(QString("\"vars.teamKillValueForKick\" \"%1\"").arg(count));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsTeamKillValueIncreaseCommand(int count)
 {
     if (count == -1) {
-        m_connection->sendCommand("vars.teamKillValueIncrease");
+        connection->sendCommand("vars.teamKillValueIncrease");
     } else {
-        m_connection->sendCommand(QString("\"vars.teamKillValueIncrease\" \"%1\"").arg(count));
+        connection->sendCommand(QString("\"vars.teamKillValueIncrease\" \"%1\"").arg(count));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsUnlockModeCommand(const QString &type)
 {
     if (type == 0) {
-        m_connection->sendCommand("vars.unlockMode");
+        connection->sendCommand("vars.unlockMode");
     } else {
-        m_connection->sendCommand(QString("\"vars.unlockMode\" \"%1\"").arg(type));
+        connection->sendCommand(QString("\"vars.unlockMode\" \"%1\"").arg(type));
     }
 }
 
 void Frostbite2CommandHandler::sendVarsVehicleSpawnAllowedCommand()
 {
-    m_connection->sendCommand("vars.vehicleSpawnAllowed");
+    connection->sendCommand("vars.vehicleSpawnAllowed");
 }
 
 void Frostbite2CommandHandler::sendVarsVehicleSpawnAllowedCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void Frostbite2CommandHandler::sendVarsVehicleSpawnDelayCommand(int percent)
 {
     if (percent == -1) {
-        m_connection->sendCommand("vars.vehicleSpawnDelay");
+        connection->sendCommand("vars.vehicleSpawnDelay");
     } else {
-        m_connection->sendCommand(QString("\"vars.vehicleSpawnDelay\" \"%1\"").arg(percent));
+        connection->sendCommand(QString("\"vars.vehicleSpawnDelay\" \"%1\"").arg(percent));
     }
 }
 

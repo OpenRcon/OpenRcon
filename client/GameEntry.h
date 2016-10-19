@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,10 +20,10 @@
 #ifndef GAMEENTRY_H
 #define GAMEENTRY_H
 
-#include "GameType.h"
-
 class QString;
 class QIcon;
+
+enum class GameType;
 
 class GameEntry
 {

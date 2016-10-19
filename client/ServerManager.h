@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,6 +21,7 @@
 #define SERVERMANAGER_H
 
 #include <QObject>
+#include <QList>
 
 #include "Constants.h"
 
@@ -39,6 +40,8 @@ public:
     ServerManager(QObject *parent = nullptr);
     ~ServerManager();
 
+    static ServerManager *getInstance(QObject *parent = nullptr);
+
     ServerEntry *getServer(int index);
     ServerEntry *getServer(ServerEntry *serverEntry);
     void setServers(const QList<ServerEntry *> &list);
@@ -51,6 +54,8 @@ public:
     void removeServer(ServerEntry *serverEntry);
 
 private:
+    static ServerManager *instance;
+
     QSettings *settings;
     QList<ServerEntry *> serverList;
 

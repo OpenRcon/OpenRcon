@@ -58,7 +58,7 @@ public:
     void sendPunkBusterPbSvCommand(const QString &command);
 
 protected:
-    FrostbiteConnection *m_connection;
+    FrostbiteConnection *connection;
 
 private:
     /* Parse events */
@@ -78,6 +78,7 @@ private:
     void parseLogoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // BanList
 //    void parseBanListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,6 +21,9 @@
 #define SERVEREDITDIALOG_H
 
 #include <QDialog>
+
+class QWidget;
+class QString;
 
 enum class GameType;
 

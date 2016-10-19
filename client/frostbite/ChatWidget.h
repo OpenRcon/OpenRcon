@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,6 +21,8 @@
 #define CHATWIDGET_H
 
 #include <QWidget>
+
+class QString;
 
 class FrostbiteConnection;
 class Frostbite2CommandHandler;

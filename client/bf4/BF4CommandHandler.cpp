@@ -102,18 +102,18 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 // Misc
 void BF4CommandHandler::sendServerInfoCommand()
 {
-    m_connection->sendCommand("serverInfo");
+    connection->sendCommand("serverInfo");
 }
 
 void BF4CommandHandler::sendCurrentLevelCommand()
 {
-    m_connection->sendCommand("currentLevel");
+    connection->sendCommand("currentLevel");
 }
 
 void BF4CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
     if (playerSubsetType == PlayerSubsetType::All) {
-        m_connection->sendCommand("\"listPlayers\" \"all\"");
+        connection->sendCommand("\"listPlayers\" \"all\"");
     }
 }
 
@@ -121,212 +121,212 @@ void BF4CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSub
 void BF4CommandHandler::sendAdminListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
     if (playerSubsetType == PlayerSubsetType::All) {
-        m_connection->sendCommand(QString("\"admin.listPlayers\" \"all\""));
+        connection->sendCommand(QString("\"admin.listPlayers\" \"all\""));
     }
 }
 
 void BF4CommandHandler::sendAdminShutdownCommand()
 {
-    m_connection->sendCommand("admin.shutDown");
+    connection->sendCommand("admin.shutDown");
 }
 
 void BF4CommandHandler::sendAdminShutdownCommand(bool graceful)
 {
-    m_connection->sendCommand(QString("\"admin.shutDown\" \"%1\"").arg(FrostbiteUtils::toString(graceful)));
+    connection->sendCommand(QString("\"admin.shutDown\" \"%1\"").arg(FrostbiteUtils::toString(graceful)));
 }
 
 void BF4CommandHandler::sendAdminShutdownCommand(bool graceful, int seconds)
 {
-    m_connection->sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(FrostbiteUtils::toString(graceful)).arg(seconds));
+    connection->sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(FrostbiteUtils::toString(graceful)).arg(seconds));
 }
 
 // FairFight
 void BF4CommandHandler::sendFairFightActivateCommand()
 {
-    m_connection->sendCommand("fairFight.activate");
+    connection->sendCommand("fairFight.activate");
 }
 
 void BF4CommandHandler::sendFairFightDeactivateCommand()
 {
-    m_connection->sendCommand("fairfight.deactivate");
+    connection->sendCommand("fairfight.deactivate");
 }
 
 void BF4CommandHandler::sendFairFightIsActiveCommand()
 {
-    m_connection->sendCommand("fairFight.isActive");
+    connection->sendCommand("fairFight.isActive");
 }
 
 // Spectator list
 void BF4CommandHandler::sendSpectatorListAddCommand(const QString &player)
 {
-    m_connection->sendCommand(QString("\"spectatorList.add\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"spectatorList.add\" \"%1\"").arg(player));
     sendSpectatorListListCommand();
 }
 
 void BF4CommandHandler::sendSpectatorListClearCommand()
 {
-    m_connection->sendCommand("spectatorList.clear");
+    connection->sendCommand("spectatorList.clear");
     sendSpectatorListListCommand();
 }
 
 void BF4CommandHandler::sendSpectatorListListCommand(int index)
 {
     if (index == 0) {
-        m_connection->sendCommand("spectatorList.list");
+        connection->sendCommand("spectatorList.list");
     } else {
-        m_connection->sendCommand(QString("\"spectatorList.list\" \"%1\"").arg(index));
+        connection->sendCommand(QString("\"spectatorList.list\" \"%1\"").arg(index));
     }
 }
 
 void BF4CommandHandler::sendSpectatorListRemoveCommand(const QString &player)
 {
-    m_connection->sendCommand(QString("\"spectatorList.remove\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"spectatorList.remove\" \"%1\"").arg(player));
     sendSpectatorListListCommand();
 }
 
 void BF4CommandHandler::sendSpectatorListSaveCommand()
 {
-    m_connection->sendCommand("spectatorList.save");
+    connection->sendCommand("spectatorList.save");
     sendSpectatorListListCommand();
 }
 
 // Variables
 void BF4CommandHandler::sendVarsAlwaysAllowSpectatorsCommand()
 {
-    m_connection->sendCommand("vars.alwaysAllowSpectators");
+    connection->sendCommand("vars.alwaysAllowSpectators");
 }
 
 void BF4CommandHandler::sendVarsAlwaysAllowSpectatorsCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.alwaysAllowSpectators\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.alwaysAllowSpectators\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void BF4CommandHandler::sendVarsCommanderCommand()
 {
-    m_connection->sendCommand("vars.commander");
+    connection->sendCommand("vars.commander");
 }
 
 void BF4CommandHandler::sendVarsCommanderCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.commander\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.commander\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void BF4CommandHandler::sendVarsForceReloadWholeMagsCommand()
 {
-    m_connection->sendCommand("vars.forceReloadWholeMags");
+    connection->sendCommand("vars.forceReloadWholeMags");
 }
 
 void BF4CommandHandler::sendVarsForceReloadWholeMagsCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.forceReloadWholeMags\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.forceReloadWholeMags\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void BF4CommandHandler::sendVarsHitIndicatorsEnabledCommand()
 {
-    m_connection->sendCommand("vars.hitIndicatorsEnabled");
+    connection->sendCommand("vars.hitIndicatorsEnabled");
 }
 
 void BF4CommandHandler::sendVarsHitIndicatorsEnabledCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.hitIndicatorsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.hitIndicatorsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void BF4CommandHandler::sendVarsMaxSpectatorsCommand(int spectators)
 {
     if (spectators == -1) {
-        m_connection->sendCommand("vars.maxSpectators");
+        connection->sendCommand("vars.maxSpectators");
     } else {
-        m_connection->sendCommand(QString("\"vars.maxSpectators\" \"%1\"").arg(spectators));
+        connection->sendCommand(QString("\"vars.maxSpectators\" \"%1\"").arg(spectators));
     }
 }
 
 void BF4CommandHandler::sendVarsMpExperienceCommand(const QString &experience)
 {
     if (experience.isEmpty()) {
-        m_connection->sendCommand("vars.mpExperience");
+        connection->sendCommand("vars.mpExperience");
     } else {
-        m_connection->sendCommand(QString("\"vars.mpExperience\" \"%1\"").arg(experience));
+        connection->sendCommand(QString("\"vars.mpExperience\" \"%1\"").arg(experience));
     }
 }
 
 void BF4CommandHandler::sendVarsPresetCommand(const QString &serverPreset, bool lockPresetSetting)
 {
     if (serverPreset.isEmpty() && lockPresetSetting == 0) {
-        m_connection->sendCommand("vars.preset");
+        connection->sendCommand("vars.preset");
     } else {
-        m_connection->sendCommand(QString("\"vars.preset\" \"%1\" \"%2\"").arg(serverPreset, FrostbiteUtils::toString(lockPresetSetting)));
+        connection->sendCommand(QString("\"vars.preset\" \"%1\" \"%2\"").arg(serverPreset, FrostbiteUtils::toString(lockPresetSetting)));
     }
 }
 
 void BF4CommandHandler::sendVarsRoundTimeLimitCommand(int percent)
 {
     if (percent == -1) {
-        m_connection->sendCommand("vars.roundTimeLimit");
+        connection->sendCommand("vars.roundTimeLimit");
     } else {
-        m_connection->sendCommand(QString("\"vars.roundTimeLimit\" \"%1\"").arg(percent));
+        connection->sendCommand(QString("\"vars.roundTimeLimit\" \"%1\"").arg(percent));
     }
 }
 
 void BF4CommandHandler::sendVarsRoundWarmupTimeoutCommand(int timeout)
 {
     if (timeout == -1) {
-        m_connection->sendCommand("vars.roundWarmupTimeout");
+        connection->sendCommand("vars.roundWarmupTimeout");
     } else {
-        m_connection->sendCommand(QString("\"vars.roundWarmupTimeout\" \"%1\"").arg(timeout));
+        connection->sendCommand(QString("\"vars.roundWarmupTimeout\" \"%1\"").arg(timeout));
     }
 }
 
 void BF4CommandHandler::sendVarsServerTypeCommand(const QString &type)
 {
     if (type.isEmpty()) {
-        m_connection->sendCommand("vars.serverType");
+        connection->sendCommand("vars.serverType");
     } else {
-        m_connection->sendCommand(QString("\"vars.serverType\" \"%1\"").arg(type));
+        connection->sendCommand(QString("\"vars.serverType\" \"%1\"").arg(type));
     }
 }
 
 void BF4CommandHandler::sendVarsTeamFactionOverrideCommand(int teamId, int factionId)
 {
     if (teamId == -1 && factionId == -1) {
-        m_connection->sendCommand("vars.teamFactionOverride");
+        connection->sendCommand("vars.teamFactionOverride");
     } else {
-        m_connection->sendCommand(QString("\"vars.teamFactionOverride\" \"%1\" \"%1\"").arg(teamId, factionId));
+        connection->sendCommand(QString("\"vars.teamFactionOverride\" \"%1\" \"%1\"").arg(teamId, factionId));
     }
 }
 
 void BF4CommandHandler::sendVarsTicketBleedRateCommand(int percent)
 {
     if (percent == -1) {
-        m_connection->sendCommand("vars.ticketBleedRate");
+        connection->sendCommand("vars.ticketBleedRate");
     } else {
-        m_connection->sendCommand(QString("\"vars.ticketBleedRate\" \"%1\"").arg(percent));
+        connection->sendCommand(QString("\"vars.ticketBleedRate\" \"%1\"").arg(percent));
     }
 }
 
 void BF4CommandHandler::sendVarsRoundPlayersReadyBypassTimerCommand(int timer)
 {
     if (timer == -1) {
-        m_connection->sendCommand("vars.roundPlayersReadyBypassTimer");
+        connection->sendCommand("vars.roundPlayersReadyBypassTimer");
     } else {
-        m_connection->sendCommand(QString("\"vars.roundPlayersReadyBypassTimer\" \"%1\"").arg(timer));
+        connection->sendCommand(QString("\"vars.roundPlayersReadyBypassTimer\" \"%1\"").arg(timer));
     }
 }
 
 void BF4CommandHandler::sendVarsRoundPlayersReadyMinCountCommand(int count)
 {
     if (count == -1) {
-        m_connection->sendCommand("vars.roundPlayersReadyMinCount");
+        connection->sendCommand("vars.roundPlayersReadyMinCount");
     } else {
-        m_connection->sendCommand(QString("\"vars.roundPlayersReadyMinCount\" \"%1\"").arg(count));
+        connection->sendCommand(QString("\"vars.roundPlayersReadyMinCount\" \"%1\"").arg(count));
     }
 }
 
 void BF4CommandHandler::sendVarsRoundPlayersReadyPercentCommand(int percent)
 {
     if (percent == -1) {
-        m_connection->sendCommand("vars.roundPlayersReadyPercent");
+        connection->sendCommand("vars.roundPlayersReadyPercent");
     } else {
-        m_connection->sendCommand(QString("\"vars.roundPlayersReadyPercent\" \"%1\"").arg(percent));
+        connection->sendCommand(QString("\"vars.roundPlayersReadyPercent\" \"%1\"").arg(percent));
     }
 }
 

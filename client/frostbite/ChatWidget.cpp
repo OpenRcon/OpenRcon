@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,10 +17,16 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QComboBox>
+#include <QSpinBox>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QString>
 #include <QDateTime>
 
 #include "ChatWidget.h"
 #include "ui_ChatWidget.h"
+
 #include "FrostbiteConnection.h"
 #include "Frostbite2CommandHandler.h"
 #include "PlayerSubset.h"

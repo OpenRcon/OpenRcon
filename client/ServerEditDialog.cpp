@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,8 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QMessageBox>
+#include <QWidget>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QSpinBox>
+#include <QDialogButtonBox>
+#include <QString>
 #include <QPushButton>
+#include <QMessageBox>
 
 #include "ui_ServerEditDialog.h"
 #include "ServerEditDialog.h"

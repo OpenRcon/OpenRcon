@@ -30,6 +30,7 @@ class QSettings;
 class QComboBox;
 class QPushButton;
 
+class TabWidget;
 class ServerEntry;
 class ServerManager;
 class SessionManager;
@@ -45,10 +46,6 @@ class OpenRcon : public QMainWindow
 public:
     OpenRcon(QWidget *parent = nullptr);
     ~OpenRcon();
-
-    QTabWidget *getTabWidget();
-    ServerManager *getServerManager();
-    SessionManager *getSessionManager();
 
 private:
     ServerManager *serverManager;
@@ -89,7 +86,7 @@ private:
     QPushButton *pushButton_quickConnect_connect;
 
     // TabWidget
-    QTabWidget *tabWidget;
+    TabWidget *tabWidget;
 
     // Statusbar
     QStatusBar *statusBar;

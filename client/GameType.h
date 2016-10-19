@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -30,6 +30,6 @@ enum class GameType {
 };
 
 // For use with QVariant
-Q_DECLARE_METATYPE(GameType);
+Q_DECLARE_METATYPE(GameType)
 
 #endif // GAMETYPE_H

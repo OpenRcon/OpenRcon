@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,9 +21,10 @@
 #define SERVERENTRY_H
 
 #include <QMetaType>
-#include <QString>
 
 #include "GameType.h"
+
+class QString;
 
 class ServerEntry
 {
@@ -51,6 +52,6 @@ private:
 };
 
 // For use with QVariant
-Q_DECLARE_METATYPE(ServerEntry*);
+Q_DECLARE_METATYPE(ServerEntry*)
 
 #endif // SERVERENTRY_H

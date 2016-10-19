@@ -34,6 +34,7 @@
 #include "ServerEntry.h"
 #include "GameEntry.h"
 #include "GameManager.h"
+#include "TabWidget.h"
 
 #include "ServerListDialog.h"
 #include "OptionsDialog.h"
@@ -46,8 +47,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     settings = new QSettings(APP_NAME, APP_NAME, this);
 
     // Create ServerManager instances.
-    serverManager = new ServerManager(this);
-    sessionManager = new SessionManager(this);
+    serverManager = ServerManager::getInstance(this);
+    sessionManager = SessionManager::getInstance(this);
 
     // Create dialogs.
     serverListDialog = new ServerListDialog(this);
@@ -122,7 +123,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     addToolBar(toolBar_quickConnect);
 
     // TabWidget
-    tabWidget = new QTabWidget(this);
+    tabWidget = TabWidget::getInstance(this);
     tabWidget->setDocumentMode(true);
     tabWidget->setMovable(true);
     tabWidget->setTabsClosable(true);
@@ -174,21 +175,6 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
 OpenRcon::~OpenRcon()
 {
     writeSettings();
-}
-
-QTabWidget *OpenRcon::getTabWidget()
-{
-    return tabWidget;
-}
-
-ServerManager *OpenRcon::getServerManager()
-{
-    return serverManager;
-}
-
-SessionManager *OpenRcon::getSessionManager()
-{
-    return sessionManager;
 }
 
 void OpenRcon::readSettings()

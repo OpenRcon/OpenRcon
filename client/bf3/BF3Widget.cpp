@@ -133,22 +133,22 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry) : BF3(serverEntry), ui(new Ui::BF
         "vars.gunMasterWeaponsPreset"
     };
 
-    chatWidget = new ChatWidget(m_connection, this);
-    reservedSlotsWidget = new ReservedSlotsWidget(m_connection, this);
-    consoleWidget = new ConsoleWidget(m_connection, commandList, this);
+    chatWidget = new ChatWidget(connection, this);
+    reservedSlotsWidget = new ReservedSlotsWidget(connection, this);
+    consoleWidget = new ConsoleWidget(connection, commandList, this);
 
     ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
     ui->tabWidget->addTab(reservedSlotsWidget, QIcon(":/frostbite/icons/reserved.png"), tr("Reserved Slots"));
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
-    connect(m_connection, &Connection::onConnected,    this, &BF3Widget::onConnected);
-    connect(m_connection, &Connection::onDisconnected, this, &BF3Widget::onDisconnected);
+    connect(connection, &Connection::onConnected,    this, &BF3Widget::onConnected);
+    connect(connection, &Connection::onDisconnected, this, &BF3Widget::onDisconnected);
 
     /* Commands */
     // Misc
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
-    connect(m_commandHandler, &BF3CommandHandler::onServerInfoCommand, this, &BF3Widget::onServerInfoCommand);
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
+    connect(commandHandler, &BF3CommandHandler::onServerInfoCommand, this, &BF3Widget::onServerInfoCommand);
 
     /* User Interface */
 }
@@ -176,11 +176,11 @@ void BF3Widget::setAuthenticated(bool auth)
 void BF3Widget::startupCommands(bool authenticated)
 {
     // Misc
-    m_commandHandler->sendVersionCommand();
-    m_commandHandler->sendServerInfoCommand();
+    commandHandler->sendVersionCommand();
+    commandHandler->sendServerInfoCommand();
 
     if (authenticated) {
-        m_commandHandler->sendAdminEventsEnabledCommand(true);
+        commandHandler->sendAdminEventsEnabledCommand(true);
 
         // Admins
 
@@ -196,7 +196,7 @@ void BF3Widget::startupCommands(bool authenticated)
 
         // Variables
     } else {
-        m_commandHandler->sendListPlayersCommand(PlayerSubsetType::All);
+        commandHandler->sendListPlayersCommand(PlayerSubsetType::All);
     }
 }
 
@@ -227,7 +227,7 @@ void BF3Widget::onLoginHashedCommand(bool auth)
         int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
 
         if (ret) {
-            m_connection->hostDisconnect();
+            connection->hostDisconnect();
         }
     }
 }
@@ -279,7 +279,7 @@ void BF3Widget::updatePlayerList()
     if (isAuthenticated()) {
 //        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
     } else {
-        m_commandHandler->sendListPlayersCommand(PlayerSubsetType::All);
+        commandHandler->sendListPlayersCommand(PlayerSubsetType::All);
     }
 }
 

@@ -179,39 +179,39 @@ BFBC2Widget::BFBC2Widget(ServerEntry *serverEntry) : BFBC2(serverEntry), ui(new 
     };
 
     // Create tabs from widgets.
-    chatWidget = new ChatWidget(m_connection, this);
-    banListWidget = new BanListWidget(m_connection, this);
-    consoleWidget = new ConsoleWidget(m_connection, commandList, this);
+    chatWidget = new ChatWidget(connection, this);
+    banListWidget = new BanListWidget(connection, this);
+    consoleWidget = new ConsoleWidget(connection, commandList, this);
 
     ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
     ui->tabWidget->addTab(banListWidget, QIcon(":/frostbite/icons/ban.png"), tr("Banlist"));
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
-    connect(m_connection, &Connection::onConnected,    this, &BFBC2Widget::onConnected);
-    connect(m_connection, &Connection::onDisconnected, this, &BFBC2Widget::onDisconnected);
+    connect(connection, &Connection::onConnected,    this, &BFBC2Widget::onConnected);
+    connect(connection, &Connection::onDisconnected, this, &BFBC2Widget::onDisconnected);
 
     /* Events */
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerJoinEvent,  this, &BFBC2Widget::onPlayerJoinEvent);
-    connect(m_commandHandler, &BFBC2CommandHandler::onPlayerLeaveEvent, this, &BFBC2Widget::onPlayerLeaveEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerJoinEvent,  this, &BFBC2Widget::onPlayerJoinEvent);
+    connect(commandHandler, &BFBC2CommandHandler::onPlayerLeaveEvent, this, &BFBC2Widget::onPlayerLeaveEvent);
 
     /* Commands */
     // Misc
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BFBC2Widget::onLoginHashedCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onServerInfoCommand,                                                            this, &BFBC2Widget::onServerInfoCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onAdminListPlayersCommand,                                                      this, &BFBC2Widget::onAdminListPlayersCommand);
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BFBC2Widget::onLoginHashedCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onServerInfoCommand,                                                            this, &BFBC2Widget::onServerInfoCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onAdminListPlayersCommand,                                                      this, &BFBC2Widget::onAdminListPlayersCommand);
 
-    connect(m_commandHandler, &FrostbiteCommandHandler::onVarsServerNameCommand, this, &BFBC2Widget::onVarsServerNameCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onVarsServerDescriptionCommand, this, &BFBC2Widget::onVarsServerDescriptionCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onVarsBannerUrlCommand, this, &BFBC2Widget::onVarsBannerUrlCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onVarsTextChatModerationModeCommand, this, &BFBC2Widget::onVarsTextChatModerationModeCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamTriggerCountCommand, this, &BFBC2Widget::onVarsTextChatSpamTriggerCountCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamDetectionTimeCommand, this, &BFBC2Widget::onVarsTextChatSpamDetectionTimeCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamCoolDownTimeCommand, this, &BFBC2Widget::onVarsTextChatSpamCoolDownTimeCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onMapListListCommand, this, &BFBC2Widget::onMapListListCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onMapListNextLevelIndexCommand, this, &BFBC2Widget::onMapListNextLevelIndexCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onReservedSlotsListCommand, this, &BFBC2Widget::onReservedSlotsListCommand);
-    connect(m_commandHandler, &BFBC2CommandHandler::onVarsIdleTimeoutCommand, this, &BFBC2Widget::onVarsIdleTimeoutCommand);
+    connect(commandHandler, &FrostbiteCommandHandler::onVarsServerNameCommand, this, &BFBC2Widget::onVarsServerNameCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsServerDescriptionCommand, this, &BFBC2Widget::onVarsServerDescriptionCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsBannerUrlCommand, this, &BFBC2Widget::onVarsBannerUrlCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsTextChatModerationModeCommand, this, &BFBC2Widget::onVarsTextChatModerationModeCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamTriggerCountCommand, this, &BFBC2Widget::onVarsTextChatSpamTriggerCountCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamDetectionTimeCommand, this, &BFBC2Widget::onVarsTextChatSpamDetectionTimeCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsTextChatSpamCoolDownTimeCommand, this, &BFBC2Widget::onVarsTextChatSpamCoolDownTimeCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onMapListListCommand, this, &BFBC2Widget::onMapListListCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onMapListNextLevelIndexCommand, this, &BFBC2Widget::onMapListNextLevelIndexCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onReservedSlotsListCommand, this, &BFBC2Widget::onReservedSlotsListCommand);
+    connect(commandHandler, &BFBC2CommandHandler::onVarsIdleTimeoutCommand, this, &BFBC2Widget::onVarsIdleTimeoutCommand);
 
     /* User Interface */
 
@@ -280,16 +280,16 @@ void BFBC2Widget::setAuthenticated(bool authenticated)
 void BFBC2Widget::startupCommands(bool authenticated)
 {
     // Misc
-    m_connection->sendCommand("version");
-    m_connection->sendCommand("serverInfo");
+    connection->sendCommand("version");
+    connection->sendCommand("serverInfo");
 
     if (authenticated) {
-        m_connection->sendCommand("\"eventsEnabled\" \"true\"");
-        m_connection->sendCommand("\"admin.listPlayers\" \"all\"");
+        connection->sendCommand("\"eventsEnabled\" \"true\"");
+        connection->sendCommand("\"admin.listPlayers\" \"all\"");
 
-        m_connection->sendCommand("vars.serverName");
-        m_connection->sendCommand("vars.serverDescription");
-        m_connection->sendCommand("vars.bannerUrl");
+        connection->sendCommand("vars.serverName");
+        connection->sendCommand("vars.serverDescription");
+        connection->sendCommand("vars.bannerUrl");
 
     //    con->sendCommand("vars.idleTimeout");
 
@@ -298,10 +298,10 @@ void BFBC2Widget::startupCommands(bool authenticated)
     //    con->sendCommand("vars.textChatSpamDetectionTime");
     //    con->sendCommand("vars.textChatSpamCoolDownTime");
 
-        m_connection->sendCommand("mapList.list");
+        connection->sendCommand("mapList.list");
 
-        m_connection->sendCommand("banList.list");
-        m_connection->sendCommand("reservedSlots.list");
+        connection->sendCommand("banList.list");
+        connection->sendCommand("reservedSlots.list");
 
         // Admins
 
@@ -322,7 +322,7 @@ void BFBC2Widget::startupCommands(bool authenticated)
         // Variables
 
     } else {
-        m_connection->sendCommand("\"listPlayers\" \"all\"");
+        connection->sendCommand("\"listPlayers\" \"all\"");
     }
 }
 
@@ -354,7 +354,7 @@ void BFBC2Widget::onPlayerJoinEvent(const QString &player)
 {
     Q_UNUSED(player);
 
-    m_connection->sendCommand("\"admin.listPlayers\" \"all\"");
+    connection->sendCommand("\"admin.listPlayers\" \"all\"");
 }
 
 void BFBC2Widget::onPlayerLeaveEvent(const QString &player, const QString &info)
@@ -362,7 +362,7 @@ void BFBC2Widget::onPlayerLeaveEvent(const QString &player, const QString &info)
     Q_UNUSED(player);
     Q_UNUSED(info);
 
-    m_connection->sendCommand("\"admin.listPlayers\" \"all\"");
+    connection->sendCommand("\"admin.listPlayers\" \"all\"");
 }
 
 /* Commands */
@@ -376,7 +376,7 @@ void BFBC2Widget::onLoginHashedCommand(bool auth)
         int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
 
         if (ret) {
-            m_connection->hostDisconnect();
+            connection->hostDisconnect();
         }
     }
 }
@@ -613,28 +613,28 @@ void BFBC2Widget::action_pl_textchatmoderation_muted_triggered() // Get this wor
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(1);
 
-    m_connection->sendCommand(QString("\"textChatModerationList.addPlayer\" \"muted\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"textChatModerationList.addPlayer\" \"muted\" \"%1\"").arg(player));
 }
 
 void BFBC2Widget::action_pl_textchatmoderation_normal_triggered() // Get this work
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(1);
 
-    m_connection->sendCommand(QString("\"textChatModerationList.addPlayer\" \"normal\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"textChatModerationList.addPlayer\" \"normal\" \"%1\"").arg(player));
 }
 
 void BFBC2Widget::action_pl_textchatmoderation_voice_triggered() // Get this work
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(1);
 
-    m_connection->sendCommand(QString("\"textChatModerationList.addPlayer\" \"voice\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"textChatModerationList.addPlayer\" \"voice\" \"%1\"").arg(player));
 }
 
 void BFBC2Widget::action_pl_textchatmoderation_admin_triggered() // Get this work
 {
     QString player = ui->treeWidget_pl_players->currentItem()->text(1);
 
-    m_connection->sendCommand(QString("\"textChatModerationList.addPlayer\" \"admin\" \"%1\"").arg(player));
+    connection->sendCommand(QString("\"textChatModerationList.addPlayer\" \"admin\" \"%1\"").arg(player));
 }
 
 void BFBC2Widget::action_pl_kick_custom_triggered()
@@ -664,8 +664,8 @@ void BFBC2Widget::action_pl_reservedslots_triggered()
     QString player = ui->treeWidget_pl_players->currentItem()->text(1);
 
     if (!player.isEmpty()) {
-        m_connection->sendCommand(QString("\"reservedSlots.addPlayer\" \"%1\"").arg(player));
-        m_connection->sendCommand("reservedSlots.list");
+        connection->sendCommand(QString("\"reservedSlots.addPlayer\" \"%1\"").arg(player));
+        connection->sendCommand("reservedSlots.list");
     }
 }
 
@@ -675,7 +675,7 @@ void BFBC2Widget::lineEdit_op_so_serverName_editingFinished()
     QString serverName = ui->lineEdit_op_so_serverName->text();
 
     if (!serverName.isEmpty()) {
-        m_connection->sendCommand(QString("\"vars.serverName\" \"%1\"").arg(serverName));
+        connection->sendCommand(QString("\"vars.serverName\" \"%1\"").arg(serverName));
     }
 }
 
@@ -684,7 +684,7 @@ void BFBC2Widget::lineEdit_op_so_serverDescription_editingFinished()
     QString serverDescription = ui->lineEdit_op_so_serverDescription->text();
 
     if (!serverDescription.isEmpty()) {
-        m_connection->sendCommand(QString("\"vars.serverDescription\" \"%1\"").arg(serverDescription));
+        connection->sendCommand(QString("\"vars.serverDescription\" \"%1\"").arg(serverDescription));
     }
 }
 
@@ -695,7 +695,7 @@ void BFBC2Widget::lineEdit_op_so_bannerUrl_editingFinished()
     if (!bannerUrl.isEmpty()) {
         ui->label_op_so_bannerImage->setPixmap(QPixmap(bannerUrl));
         ui->label_op_so_bannerImage->show();
-        m_connection->sendCommand(QString("\"vars.bannerUrl\" \"%1\"").arg(bannerUrl));
+        connection->sendCommand(QString("\"vars.bannerUrl\" \"%1\"").arg(bannerUrl));
 
     }
 }
@@ -703,63 +703,63 @@ void BFBC2Widget::lineEdit_op_so_bannerUrl_editingFinished()
 /* Game Options */
 void BFBC2Widget::checkbox_op_go_3dSpotting_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(ui->checkBox_op_go_3dSpotting->isChecked()));
+    connection->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(ui->checkBox_op_go_3dSpotting->isChecked()));
 }
 
 void BFBC2Widget::checkbox_op_go_crossHair_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.crossHair\" \"%1\"").arg(ui->checkBox_op_go_crossHair->isChecked()));
+    connection->sendCommand(QString("\"vars.crossHair\" \"%1\"").arg(ui->checkBox_op_go_crossHair->isChecked()));
 }
 
 void BFBC2Widget::checkbox_op_go_friendlyFire_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(ui->checkBox_op_go_friendlyFire->isChecked()));
+    connection->sendCommand(QString("\"vars.friendlyFire\" \"%1\"").arg(ui->checkBox_op_go_friendlyFire->isChecked()));
 }
 
 void BFBC2Widget::checkbox_op_go_hardcore_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.hardCore\" \"%1\"").arg(ui->checkBox_op_go_hardcore->isChecked()));
+    connection->sendCommand(QString("\"vars.hardCore\" \"%1\"").arg(ui->checkBox_op_go_hardcore->isChecked()));
 }
 
 void BFBC2Widget::checkbox_op_go_killCam_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.killCam\" \"%1\"").arg(ui->checkBox_op_go_killCam->isChecked()));
+    connection->sendCommand(QString("\"vars.killCam\" \"%1\"").arg(ui->checkBox_op_go_killCam->isChecked()));
 }
 
 void BFBC2Widget::checkbox_op_go_miniMap_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(ui->checkBox_op_go_miniMap->isChecked()));
+    connection->sendCommand(QString("\"vars.miniMap\" \"%1\"").arg(ui->checkBox_op_go_miniMap->isChecked()));
 }
 
 void BFBC2Widget::checkbox_op_go_miniMapSpotting_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.miniMapSpotting\" \"%1\"").arg(ui->checkBox_op_go_miniMapSpotting->isChecked()));
+    connection->sendCommand(QString("\"vars.miniMapSpotting\" \"%1\"").arg(ui->checkBox_op_go_miniMapSpotting->isChecked()));
 }
 
 void BFBC2Widget::checkbox_op_go_teamBalance_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(ui->checkBox_op_go_teamBalance->isChecked()));
+    connection->sendCommand(QString("\"vars.3dSpotting\" \"%1\"").arg(ui->checkBox_op_go_teamBalance->isChecked()));
 }
 
 void BFBC2Widget::checkbox_op_go_thirdPersonVehicleCameras_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.thirdPersonVehicleCameras\" \"%1\"").arg(ui->checkBox_op_go_thirdPersonVehicleCameras->isChecked()));
+    connection->sendCommand(QString("\"vars.thirdPersonVehicleCameras\" \"%1\"").arg(ui->checkBox_op_go_thirdPersonVehicleCameras->isChecked()));
 }
 
 /* Text Chat Moderation */
 void BFBC2Widget::on_radioButton_op_tcm_free_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.textChatModerationMode\" \"free\""));
+    connection->sendCommand(QString("\"vars.textChatModerationMode\" \"free\""));
 }
 
 void BFBC2Widget::on_radioButton_op_tcm_moderated_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.textChatModerationMode\" \"moderated\""));
+    connection->sendCommand(QString("\"vars.textChatModerationMode\" \"moderated\""));
 }
 
 void BFBC2Widget::on_radioButton_op_tcm_muted_clicked()
 {
-    m_connection->sendCommand(QString("\"vars.textChatModerationMode\" \"muted\""));
+    connection->sendCommand(QString("\"vars.textChatModerationMode\" \"muted\""));
 }
 
 /* Gamplay Options */
@@ -767,7 +767,7 @@ void BFBC2Widget::on_spinBox_op_gpo_idleTimeout_editingFinished()
 {
     int timeout = ui->spinBox_op_gpo_idleTimeout->value();
 
-    m_connection->sendCommand(QString("\"vars.idleTimeout\" \"%1\"").arg(timeout));
+    connection->sendCommand(QString("\"vars.idleTimeout\" \"%1\"").arg(timeout));
 }
 
 // Maplist
@@ -838,8 +838,8 @@ void BFBC2Widget::on_pushButton_ml_add_clicked()
         ret = msgBox.exec();
 
         if (ret == QMessageBox::Yes) {
-            m_connection->sendCommand(QString("\"admin.setPlaylist\" \"%1\"").arg(gamemodes[gameModeIndex]));
-            m_connection->sendCommand("\"mapList.clear\"");
+            connection->sendCommand(QString("\"admin.setPlaylist\" \"%1\"").arg(gamemodes[gameModeIndex]));
+            connection->sendCommand("\"mapList.clear\"");
 
         } else {
             ui->listWidget_ml_currentmaps->takeItem(ui->listWidget_ml_currentmaps->count());
@@ -860,15 +860,15 @@ void BFBC2Widget::on_pushButton_ml_add_clicked()
     ui->listWidget_ml_currentmaps->addItem(item);
 
     // append the map to the server map list
-    m_connection->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.getEngineName()).arg(rounds));
+    connection->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.getEngineName()).arg(rounds));
 
     if (ret == QMessageBox::Yes) {
-       m_connection->sendCommand("\"mapList.save\"");
-       m_connection->sendCommand("\"mapList.nextLevelIndex\" \"0\"");
-       m_connection->sendCommand("\"admin.runNextLevel\"");
+       connection->sendCommand("\"mapList.save\"");
+       connection->sendCommand("\"mapList.nextLevelIndex\" \"0\"");
+       connection->sendCommand("\"admin.runNextLevel\"");
     }
 
-    m_connection->sendCommand("\"mapList.list\" \"rounds\"");
+    connection->sendCommand("\"mapList.list\" \"rounds\"");
 }
 
 void BFBC2Widget::on_pushButton_ml_remove_clicked()
@@ -877,7 +877,7 @@ void BFBC2Widget::on_pushButton_ml_remove_clicked()
     int removedMap = ui->listWidget_ml_currentmaps->currentRow();
 
     //remove map from server map list
-    m_connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(removedMap));
+    connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(removedMap));
 
     // stop the current item changed signal from being emitted
     ui->listWidget_ml_currentmaps->blockSignals(true);
@@ -887,17 +887,17 @@ void BFBC2Widget::on_pushButton_ml_remove_clicked()
 
 void BFBC2Widget::on_pushButton_ml_restart_clicked()
 {
-    m_connection->sendCommand("\"admin.restartRound\"");
+    connection->sendCommand("\"admin.restartRound\"");
 }
 
 void BFBC2Widget::on_pushButton_ml_run_clicked()
 {
-    m_connection->sendCommand("\"admin.runNextLevel\"");
+    connection->sendCommand("\"admin.runNextLevel\"");
 }
 
 void BFBC2Widget::on_pushButton_ml_clear_clicked()
 {
-    m_connection->sendCommand("\"mapList.clear\"");
+    connection->sendCommand("\"mapList.clear\"");
 }
 
 void BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem *current)
@@ -910,12 +910,12 @@ void BFBC2Widget::listWidget_ml_currentmaps_currentItemChanged(QListWidgetItem *
     LevelEntry level = BFBC2LevelDictionary::getLevel(index, gameModeIndex);
 
     ui->label_ml_previewmap_image->setPixmap(level.getImage());
-    m_connection->sendCommand("\"mapList.list\" \"rounds\"");
+    connection->sendCommand("\"mapList.list\" \"rounds\"");
 }
 
 void BFBC2Widget::on_pushButton_ml_save_clicked()
 {
-    m_connection->sendCommand("\"mapList.save\"");
+    connection->sendCommand("\"mapList.save\"");
 }
 
 // Reserved slots
@@ -931,8 +931,8 @@ void BFBC2Widget::action_rs_remove_triggered()
     QString player = ui->listWidget_rs->currentItem()->text();
 
     if (!player.isEmpty()) {
-        m_connection->sendCommand(QString("\"reservedSlots.removePlayer\" \"%1\"").arg(player));
-        m_connection->sendCommand("reservedSlots.list");
+        connection->sendCommand(QString("\"reservedSlots.removePlayer\" \"%1\"").arg(player));
+        connection->sendCommand("reservedSlots.list");
     }
 }
 
@@ -942,20 +942,20 @@ void BFBC2Widget::on_pushButton_rs_reserve_clicked()
 
     if (!player.isEmpty()) {
         ui->lineEdit_rs_player->clear();
-        m_connection->sendCommand(QString("\"reservedSlots.addPlayer\" \"%1\"").arg(player));
-        m_connection->sendCommand("reservedSlots.list");
+        connection->sendCommand(QString("\"reservedSlots.addPlayer\" \"%1\"").arg(player));
+        connection->sendCommand("reservedSlots.list");
     }
 }
 
 void BFBC2Widget::on_pushButton_rs_save_clicked()
 {
-    m_connection->sendCommand("reservedSlots.save");
+    connection->sendCommand("reservedSlots.save");
 }
 
 void BFBC2Widget::on_pushButton_rs_clear_clicked()
 {
-    m_connection->sendCommand("reservedSlots.clear");
-    m_connection->sendCommand("reservedSlots.list");
+    connection->sendCommand("reservedSlots.clear");
+    connection->sendCommand("reservedSlots.list");
 }
 
 void BFBC2Widget::slotChangePlayerTeam(const QString &player, const QString &altTeam)
@@ -965,7 +965,7 @@ void BFBC2Widget::slotChangePlayerTeam(const QString &player, const QString &alt
 
 void BFBC2Widget::refreshPlayerList()
 {
-    m_connection->sendCommand(QString("\"admin.listPlayers\" \"all\""));
+    connection->sendCommand(QString("\"admin.listPlayers\" \"all\""));
 //    connect(commandHandler, SIGNAL(onplayerListChange()), this, &BFBC2Widget::slotPlayerListChange())); // TODO: Change to adminListPlayersAll
 }
 
@@ -973,7 +973,7 @@ void BFBC2Widget::playerListUpdate(int oldRow)
 {
 
     QString rounds = mapListU[2*oldRow+1];
-    m_connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(oldRow));
+    connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(oldRow));
 
     int index = ui->listWidget_ml_currentmaps->currentRow();
     int gameModeIndex = ui->comboBox_ml_gamemode->currentIndex();
@@ -989,9 +989,9 @@ void BFBC2Widget::playerListUpdate(int oldRow)
 //    QString mapPath = mapPaths.at(avaliableMapIndex);
 
     // Append the map to the server map list
-    m_connection->sendCommand(QString("\"mapList.insert\" \"%1\" \"%2\" \"%3\"").arg(index).arg(level.getEngineName()).arg(rounds));
+    connection->sendCommand(QString("\"mapList.insert\" \"%1\" \"%2\" \"%3\"").arg(index).arg(level.getEngineName()).arg(rounds));
 
-    m_connection->sendCommand("\"mapList.list\" \"rounds\"");
+    connection->sendCommand("\"mapList.list\" \"rounds\"");
 }
 
 void BFBC2Widget::slotAddMapToServer(const QString &mapName)
@@ -1021,8 +1021,8 @@ void BFBC2Widget::slotAddMapToServer(const QString &mapName)
         ret = msgBox.exec();
 
         if (ret == QMessageBox::Yes) {
-            m_connection->sendCommand(QString("\"admin.setPlaylist\" \"%1\"").arg(gamemodes[gameModeIndex]));
-            m_connection->sendCommand("\"mapList.clear\"");
+            connection->sendCommand(QString("\"admin.setPlaylist\" \"%1\"").arg(gamemodes[gameModeIndex]));
+            connection->sendCommand("\"mapList.clear\"");
         } else {
             ui->listWidget_ml_currentmaps->takeItem(ui->listWidget_ml_currentmaps->count() - 1);
         }
@@ -1045,15 +1045,15 @@ void BFBC2Widget::slotAddMapToServer(const QString &mapName)
     int rounds = ui->spinBox_ml_rounds->value();
 
     // append the map to the server map list
-    m_connection->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.getEngineName()).arg(rounds));
+    connection->sendCommand(QString("\"mapList.append\" \"%1\" \"%2\"").arg(level.getEngineName()).arg(rounds));
 
     if (ret == QMessageBox::Yes) {
-        m_connection->sendCommand("\"mapList.save\"");
-        m_connection->sendCommand("\"mapList.nextLevelIndex\" \"0\"");
-        m_connection->sendCommand("\"admin.runNextLevel\"");
+        connection->sendCommand("\"mapList.save\"");
+        connection->sendCommand("\"mapList.nextLevelIndex\" \"0\"");
+        connection->sendCommand("\"admin.runNextLevel\"");
     }
 
-    m_connection->sendCommand("\"mapList.list\" \"rounds\"");
+    connection->sendCommand("\"mapList.list\" \"rounds\"");
 
 }
 
@@ -1065,7 +1065,7 @@ void BFBC2Widget::slotRemoveMapFromServer(const QString &mapName)
     int removedMap = ui->listWidget_ml_currentmaps->currentRow();
 
     //remove map from server map list
-    m_connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(removedMap));
+    connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(removedMap));
 
     // fix to stop the drag event from creating a duplicate map item in avaliable maps
     int cRemovedMap = ui->listWidget_ml_avaliablemaps->count();
@@ -1076,7 +1076,7 @@ void BFBC2Widget::slotRemoveMapFromServer(const QString &mapName)
     ui->listWidget_ml_currentmaps->blockSignals(true);
     delete ui->listWidget_ml_currentmaps->takeItem(removedMap);
     ui->listWidget_ml_currentmaps->blockSignals(false);
-    m_connection->sendCommand("\"mapList.list\" \"rounds\"");
+    connection->sendCommand("\"mapList.list\" \"rounds\"");
 }
 
 void BFBC2Widget::slotMovePlayerTeam()
@@ -1090,7 +1090,7 @@ void BFBC2Widget::slotMovePlayerTeam()
         }
 
         movePlayer(player->text(1), altTeam, "0", "true");
-        m_connection->sendCommand(QString("\"admin.listPlayers\" \"all\""));
+        connection->sendCommand(QString("\"admin.listPlayers\" \"all\""));
     }
 }
 
@@ -1108,6 +1108,6 @@ void BFBC2Widget::setMapList(const QString &gamemode)
 
 void BFBC2Widget::on_pushButton_rs_load_clicked()
 {
-    m_connection->sendCommand("reservedSlots.load");
-    m_connection->sendCommand("reservedSlots.list");
+    connection->sendCommand("reservedSlots.load");
+    connection->sendCommand("reservedSlots.list");
 }

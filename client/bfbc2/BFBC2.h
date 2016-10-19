@@ -33,7 +33,7 @@ public:
     ~BFBC2();
 
 protected:
-    BFBC2CommandHandler *m_commandHandler;
+    BFBC2CommandHandler *commandHandler;
 
     QString currentMod;
     QString currentGamemode;

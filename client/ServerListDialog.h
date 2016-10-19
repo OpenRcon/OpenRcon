@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,15 +21,18 @@
 #define SERVERLISTDIALOG_H
 
 #include <QDialog>
+#include <QList>
 
 #include "Constants.h"
 
 using namespace Constants;
 
+class QWidget;
 class QMenu;
+class QAction;
+class QPoint;
 class QTreeWidgetItem;
 
-class OpenRcon;
 class ServerManager;
 class SessionManager;
 class ServerEntry;
@@ -49,7 +52,6 @@ public:
 private:
     Ui::ServerListDialog *ui;
 
-    OpenRcon *openRcon;
     ServerManager *serverManager;
     SessionManager *sessionManager;
 

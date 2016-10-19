@@ -78,25 +78,25 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 // Misc
 void BF3CommandHandler::sendServerInfoCommand()
 {
-    m_connection->sendCommand("serverInfo");
+    connection->sendCommand("serverInfo");
 }
 
 void BF3CommandHandler::sendCurrentLevelCommand()
 {
-    m_connection->sendCommand("currentLevel");
+    connection->sendCommand("currentLevel");
 }
 
 void BF3CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
     if (playerSubsetType == PlayerSubsetType::All) {
-        m_connection->sendCommand("\"listPlayers\" \"all\"");
+        connection->sendCommand("\"listPlayers\" \"all\"");
     }
 }
 
 // Admin
 void BF3CommandHandler::sendAdminEffectiveMaxPlayersCommand()
 {
-    m_connection->sendCommand("admin.effectiveMaxPlayers");
+    connection->sendCommand("admin.effectiveMaxPlayers");
 }
 
 void BF3CommandHandler::sendAdminListPlayersCommand()
@@ -107,67 +107,67 @@ void BF3CommandHandler::sendAdminListPlayersCommand()
 // Variables
 void BF3CommandHandler::sendVarsRankedCommand()
 {
-    m_connection->sendCommand("vars.ranked");
+    connection->sendCommand("vars.ranked");
 }
 
 void BF3CommandHandler::sendVarsRankedCommand(bool ranked)
 {
-    m_connection->sendCommand(QString("\"vars.ranked\" \"%1\"").arg(FrostbiteUtils::toString(ranked)));
+    connection->sendCommand(QString("\"vars.ranked\" \"%1\"").arg(FrostbiteUtils::toString(ranked)));
 }
 
 void BF3CommandHandler::sendVarsCrossHairCommand()
 {
-    m_connection->sendCommand("vars.crossHair");
+    connection->sendCommand("vars.crossHair");
 }
 
 void BF3CommandHandler::sendVarsCrossHairCommand(bool enabled)
 {
-    m_connection->sendCommand(QString("\"vars.crossHair\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+    connection->sendCommand(QString("\"vars.crossHair\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void BF3CommandHandler::sendVarsPlayerManDownTimeCommand(int percent)
 {
     if (percent == -1) {
-        m_connection->sendCommand("vars.playerManDownTime");
+        connection->sendCommand("vars.playerManDownTime");
     } else {
-        m_connection->sendCommand(QString("\"vars.playerManDownTime\" \"%1\"").arg(percent));
+        connection->sendCommand(QString("\"vars.playerManDownTime\" \"%1\"").arg(percent));
     }
 }
 
 void BF3CommandHandler::sendVarsPremiumStatusCommand()
 {
-     m_connection->sendCommand("vars.premiumStatus");
+     connection->sendCommand("vars.premiumStatus");
 }
 
 void BF3CommandHandler::sendVarsPremiumStatusCommand(bool enabled)
 {
-     m_connection->sendCommand(QString("\"vars.premiumStatus\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+     connection->sendCommand(QString("\"vars.premiumStatus\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 void BF3CommandHandler::sendVarsBannerUrlCommand(const QString &bannerUrl)
 {
     if (bannerUrl.isEmpty()) {
-        m_connection->sendCommand("vars.bannerUrl");
+        connection->sendCommand("vars.bannerUrl");
     } else {
-        m_connection->sendCommand(QString("\"vars.bannerUrl\" \"%1\"").arg(bannerUrl));
+        connection->sendCommand(QString("\"vars.bannerUrl\" \"%1\"").arg(bannerUrl));
     }
 }
 
 void BF3CommandHandler::sendVarsRoundsPerMapCommand(int rounds)
 {
     if (rounds == -1) {
-        m_connection->sendCommand("vars.roundsPerMap");
+        connection->sendCommand("vars.roundsPerMap");
     } else {
-        m_connection->sendCommand(QString("\"vars.roundsPerMap\" \"%1\"").arg(rounds));
+        connection->sendCommand(QString("\"vars.roundsPerMap\" \"%1\"").arg(rounds));
     }
 }
 
 void BF3CommandHandler::sendVarsGunMasterWeaponsPresetCommand(int weaponPreset)
 {
     if (weaponPreset == -1) {
-        m_connection->sendCommand("vars.gunMasterWeaponsPreset");
+        connection->sendCommand("vars.gunMasterWeaponsPreset");
     } else {
-        m_connection->sendCommand(QString("\"vars.gunMasterWeaponsPreset\" \"%1\"").arg(weaponPreset));
+        connection->sendCommand(QString("\"vars.gunMasterWeaponsPreset\" \"%1\"").arg(weaponPreset));
     }
 }
 

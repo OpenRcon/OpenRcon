@@ -25,7 +25,7 @@
 #include "FrostbiteUtils.h"
 #include "BanListEntry.h"
 
-FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *parent) : CommandHandler(parent), m_connection(parent)
+FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *parent) : CommandHandler(parent), connection(parent)
 {
     if (parent) {
         parent->setCommandHandler(this);
@@ -104,37 +104,37 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
 // Misc
 void FrostbiteCommandHandler::sendLoginPlainTextCommand(const QString &password)
 {
-    m_connection->sendCommand(QString("\"login.plainText\" \"%1\"").arg(password));
+    connection->sendCommand(QString("\"login.plainText\" \"%1\"").arg(password));
 }
 
 void FrostbiteCommandHandler::sendLoginHashedCommand(const QByteArray &salt, const QString &password)
 {
     if (salt.isNull() && password == 0) {
-        m_connection->sendCommand("login.hashed");
+        connection->sendCommand("login.hashed");
     } else {
         if (!password.isEmpty() && password.length() <= 16) {
             QCryptographicHash hash(QCryptographicHash::Md5);
             hash.addData(salt);
             hash.addData(password.toLatin1().constData());
 
-            m_connection->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
+            connection->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
         }
     }
 }
 
 void FrostbiteCommandHandler::sendLogoutCommand()
 {
-    m_connection->sendCommand("logout");
+    connection->sendCommand("logout");
 }
 
 void FrostbiteCommandHandler::sendQuitCommand()
 {
-    m_connection->sendCommand("quit");
+    connection->sendCommand("quit");
 }
 
 void FrostbiteCommandHandler::sendVersionCommand()
 {
-    m_connection->sendCommand("version");
+    connection->sendCommand("version");
 }
 
 // BanList
@@ -142,7 +142,7 @@ void FrostbiteCommandHandler::sendBanListAddCommand(const QString &idType, const
 {
 //    banList.add <id-type: id-type> <id: string> <timeout: timeout> <reason: string>
 
-    m_connection->sendCommand(QString("banList.add %1 %2 perm %4").arg(idType, id, reason));
+    connection->sendCommand(QString("banList.add %1 %2 perm %4").arg(idType, id, reason));
     sendBanListListCommand();
 }
 
@@ -151,46 +151,46 @@ void FrostbiteCommandHandler::sendBanListAddCommand(const QString &idType, const
     QString timeoutString = useRounds ? "rounds" : "seconds";
     timeoutString += " " + QString::number(timeout);
 
-    m_connection->sendCommand(QString("banList.add %1 %2 %3 %4").arg(idType, id, timeoutString, reason));
+    connection->sendCommand(QString("banList.add %1 %2 %3 %4").arg(idType, id, timeoutString, reason));
     sendBanListListCommand();
 }
 
 void FrostbiteCommandHandler::sendBanListClearCommand()
 {
-    m_connection->sendCommand("banList.clear");
+    connection->sendCommand("banList.clear");
     sendBanListListCommand();
 }
 
 void FrostbiteCommandHandler::sendBanListListCommand(int index)
 {
     if (index == 0) {
-        m_connection->sendCommand("banList.list");
+        connection->sendCommand("banList.list");
     } else {
-        m_connection->sendCommand(QString("\"banList.list\" \"%1\"").arg(index));
+        connection->sendCommand(QString("\"banList.list\" \"%1\"").arg(index));
     }
 }
 
 void FrostbiteCommandHandler::sendBanListLoadCommand()
 {
-    m_connection->sendCommand("banList.load");
+    connection->sendCommand("banList.load");
     sendBanListListCommand();
 }
 
 void FrostbiteCommandHandler::sendBanListRemoveCommand(const QString &idType, const QString &id)
 {
-    m_connection->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, id));
+    connection->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, id));
     sendBanListListCommand();
 }
 
 void FrostbiteCommandHandler::sendBanListSaveCommand()
 {
-    m_connection->sendCommand("banList.save");
+    connection->sendCommand("banList.save");
 }
 
 // PunkBuster
 void FrostbiteCommandHandler::sendPunkBusterPbSvCommand(const QString &command)
 {
-    m_connection->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
+    connection->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
 }
 
 /* Parse events */

@@ -42,7 +42,7 @@ public:
     void sendCommand(const QString &command);
 
 private:
-    FrostbiteCommandHandler *m_commandHandler;
+    FrostbiteCommandHandler *commandHandler;
 
     int packetReadState;
     char lastHeader[MIN_PACKET_SIZE];

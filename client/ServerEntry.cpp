@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -16,6 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include <QString>
 
 #include "ServerEntry.h"
 
