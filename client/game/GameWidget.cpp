@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,26 +17,20 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAME_H
-#define GAME_H
+#include "GameWidget.h"
+#include "ServerEntry.h"
 
-#include "ConnectionTabWidget.h"
-
-class ServerEntry;
-
-class Game : public ConnectionTabWidget
+GameWidget::GameWidget(ServerEntry *serverEntry, QWidget *parent) : QWidget(parent), serverEntry(serverEntry)
 {
-    Q_OBJECT
 
-public:
-    Game(ServerEntry *serverEntry);
-    ~Game();
+}
 
-    ServerEntry *getServerEntry();
+GameWidget::~GameWidget()
+{
+    delete serverEntry;
+}
 
-protected:
-    ServerEntry *serverEntry;
-
-};
-
-#endif // GAME_H
+ServerEntry *GameWidget::getServerEntry()
+{
+    return serverEntry;
+}

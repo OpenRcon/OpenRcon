@@ -26,7 +26,7 @@
 #include "TabWidget.h"
 #include "GameEntry.h"
 #include "GameManager.h"
-#include "Game.h"
+#include "GameWidget.h"
 #include "ServerEntry.h"
 #include "Connection.h"
 
@@ -59,8 +59,8 @@ void SessionManager::open(ServerEntry *serverEntry)
 
         TabWidget *tabWidget = TabWidget::getInstance();
         GameEntry gameEntry = GameManager::getGame(serverEntry->getGameType());
-        Game *gameObject = GameManager::getGameObject(serverEntry);
-        int index = tabWidget->addTab(gameObject, QIcon(gameEntry.getIcon()), serverEntry->getName());
+        GameWidget *gameWidget = GameManager::getGameWidget(serverEntry);
+        int index = tabWidget->addTab(gameWidget, QIcon(gameEntry.getIcon()), serverEntry->getName());
 
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->getHost()).arg(serverEntry->getPort()));
         tabWidget->setCurrentIndex(index);
@@ -73,11 +73,11 @@ void SessionManager::open(ServerEntry *serverEntry)
  void SessionManager::close(int index)
 {
     TabWidget *tabWidget = TabWidget::getInstance();
-    Game *game = dynamic_cast<Game *>(tabWidget->widget(index));
-    ServerEntry *serverEntry = game->getServerEntry();
+    GameWidget *gameWidget = dynamic_cast<GameWidget *>(tabWidget->widget(index));
+    ServerEntry *serverEntry = gameWidget->getServerEntry();
 
     tabWidget->removeTab(index);
-    game->getConnection()->hostDisconnect();
+    gameWidget->getConnection()->hostDisconnect();
 
     // Remove the ServerEntry from the list.
     if (sessions.remove(serverEntry)) {

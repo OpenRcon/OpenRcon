@@ -1,15 +1,16 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += $$PWD/Game.h \
+HEADERS += \
     $$PWD/Connection.h \
-    $$PWD/ConnectionTabWidget.h \
     $$PWD/CommandHandler.h \
     $$PWD/DragDropTreeWidget.h \
-    $$PWD/HistoryLineEdit.h
+    $$PWD/HistoryLineEdit.h \
+    $$PWD/GameWidget.h
 
-SOURCES += $$PWD/Game.cpp \
+SOURCES += \
     $$PWD/Connection.cpp \
     $$PWD/CommandHandler.cpp \
     $$PWD/DragDropTreeWidget.cpp \
-    $$PWD/HistoryLineEdit.cpp
+    $$PWD/HistoryLineEdit.cpp \
+    $$PWD/GameWidget.cpp

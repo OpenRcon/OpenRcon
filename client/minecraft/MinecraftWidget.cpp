@@ -27,9 +27,9 @@ MinecraftWidget::MinecraftWidget(ServerEntry *serverEntry) : Minecraft(serverEnt
     ui->setupUi(this);
 
     /* Events */
-    connect(m_connection, &Connection::onDataSentEvent,          this, &MinecraftWidget::onDataSentEvent);
-    connect(m_connection, &Connection::onDataReceivedEvent,      this, &MinecraftWidget::onDataSentEvent);
-    connect(m_connection, &MinecraftConnection::onAuthenticated, this, &MinecraftWidget::onAuthenticated);
+    connect(connection, &Connection::onDataSent,          this, &MinecraftWidget::onDataSent);
+    connect(connection, &Connection::onDataReceived,      this, &MinecraftWidget::onDataSent);
+    connect(connection, &MinecraftConnection::onAuthenticated, this, &MinecraftWidget::onAuthenticated);
 
     /* User Interface */
     connect(ui->lineEdit_co_input, &QLineEdit::returnPressed, this, &MinecraftWidget::on_pushButton_co_send_clicked);
@@ -60,12 +60,12 @@ void MinecraftWidget::logMessage(int type, const QString &message)
 }
 
 /* Events */
-void MinecraftWidget::onDataSentEvent(const QString &request)
+void MinecraftWidget::onDataSent(const QString &request)
 {
     logMessage(2, request);
 }
 
-void MinecraftWidget::onDataReceivedEvent(const QString &response)
+void MinecraftWidget::onDataReceived(const QString &response)
 {
     logMessage(3, response);
 }
@@ -81,8 +81,6 @@ void MinecraftWidget::onAuthenticated(bool auth)
 
 void MinecraftWidget::on_pushButton_co_send_clicked()
 {
-    QString command = ui->lineEdit_co_input->text();
-
     ui->lineEdit_co_input->clear();
-    m_connection->sendCommand(command);
+    connection->sendCommand(ui->lineEdit_co_input->text());
 }

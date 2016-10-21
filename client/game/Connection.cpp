@@ -58,16 +58,16 @@ void Connection::hostDisconnect()
 
 void Connection::connected()
 {
-    qDebug() << tr("Connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
+    emit(onConnected(socket));
 
-    emit(onConnected());
+    qDebug() << tr("Connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
 }
 
 void Connection::disconnected()
 {
-    qDebug() << tr("Disconnected from %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
+    emit(onDisconnected(socket));
 
-    emit(onDisconnected());
+    qDebug() << tr("Disconnected from %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
 }
 
 void Connection::displayError(QAbstractSocket::SocketError socketError)
@@ -94,10 +94,10 @@ void Connection::displayError(QAbstractSocket::SocketError socketError)
 /* These events is triggered everytime the client sends or receives data. */
 void Connection::responseDataSentEvent(const QString &request)
 {
-    emit (onDataSentEvent(request));
+    emit (onDataSent(request));
 }
 
 void Connection::responseDataReceivedEvent(const QString &response)
 {
-    emit (onDataReceivedEvent(response));
+    emit (onDataReceived(response));
 }

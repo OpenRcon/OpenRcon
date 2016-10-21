@@ -37,7 +37,6 @@ class SessionManager;
 class ServerListDialog;
 class OptionsDialog;
 class AboutDialog;
-class Game;
 
 class OpenRcon : public QMainWindow
 {

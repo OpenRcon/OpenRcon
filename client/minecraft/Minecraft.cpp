@@ -22,12 +22,12 @@
 #include "MinecraftRconPacket.h"
 #include "MinecraftRconPacketType.h"
 
-Minecraft::Minecraft(ServerEntry *serverEntry) : Game(serverEntry)
+Minecraft::Minecraft(ServerEntry *serverEntry) : GameWidget(serverEntry)
 {
-    m_connection = new MinecraftConnection(this);
-    m_connection->hostConnect(serverEntry);
+    connection = new MinecraftConnection(this);
+    connection->hostConnect(serverEntry);
 
-    connect(m_connection, &Connection::onConnected, this, &Minecraft::onConnected);
+    connect(connection, &Connection::onConnected, this, &Minecraft::onConnected);
 }
 
 Minecraft::~Minecraft()
@@ -38,5 +38,5 @@ Minecraft::~Minecraft()
 void Minecraft::onConnected()
 {
     MinecraftRconPacket packet(1, MinecraftRconPacketType::Login, serverEntry->getPassword().toLatin1().data());
-    m_connection->sendPacket(packet);
+    connection->sendPacket(packet);
 }

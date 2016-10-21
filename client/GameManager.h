@@ -28,7 +28,7 @@ class QString;
 class GameEntry;
 
 enum class GameType;
-class Game;
+class GameWidget;
 class ServerEntry;
 
 class GameManager : public QObject
@@ -40,7 +40,7 @@ public:
     static GameEntry getGame(int index);
     static GameEntry getGame(const QString &gamePrefix);
     static QList<GameEntry> getGames();
-    static Game *getGameObject(ServerEntry *serverEntry);
+    static GameWidget *getGameWidget(ServerEntry *serverEntry);
 
     static int toInt(GameType gameType);
     static GameType toGameType(int gameType);

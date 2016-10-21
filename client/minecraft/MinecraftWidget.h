@@ -37,9 +37,8 @@ public:
     void logMessage(int type, const QString &message);
 
 private slots:
-    void onDataSentEvent(const QString &command);
-    void onDataReceivedEvent(const QString &response);
-
+    void onDataSent(const QString &command);
+    void onDataReceived(const QString &response);
     void onAuthenticated(bool auth);
 
     void on_pushButton_co_send_clicked();

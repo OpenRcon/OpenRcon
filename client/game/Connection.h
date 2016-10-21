@@ -35,8 +35,6 @@ public:
     Connection(QAbstractSocket *socket, QObject *parent = nullptr);
     virtual ~Connection();
 
-    QAbstractSocket *socket;
-
 public slots:
     virtual void hostConnect(ServerEntry *serverEntry);
     virtual void hostDisconnect();
@@ -46,16 +44,18 @@ protected:
     void responseDataReceivedEvent(const QString &response);
     void responseUnknownCommand();
 
+    QAbstractSocket *socket;
+
 private slots:
     void connected();
     void disconnected();
     void displayError(QAbstractSocket::SocketError socketError);
 
 signals:
-    void onConnected();
-    void onDisconnected();
-    void onDataSentEvent(const QString &request);
-    void onDataReceivedEvent(const QString &response);
+    void onConnected(QAbstractSocket *socket);
+    void onDisconnected( QAbstractSocket *socket);
+    void onDataSent(const QString &request);
+    void onDataReceived(const QString &response);
 
 };
 

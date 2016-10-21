@@ -17,20 +17,28 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONNECTIONTABWIDGET_H
-#define CONNECTIONTABWIDGET_H
+#ifndef GAME_H
+#define GAME_H
 
-#include <QTabWidget>
+#include <QWidget>
 
+class ServerEntry;
 class Connection;
 
-class ConnectionTabWidget : public QTabWidget
+class GameWidget : public QWidget
 {
     Q_OBJECT
 
 public:
+    GameWidget(ServerEntry *serverEntry, QWidget *parent = nullptr);
+    ~GameWidget();
+
+    ServerEntry *getServerEntry();
     virtual Connection *getConnection() = 0;
+
+protected:
+    ServerEntry *serverEntry;
 
 };
 
-#endif // CONNECTIONTABWIDGET_H
+#endif // GAME_H

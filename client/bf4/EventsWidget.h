@@ -22,6 +22,8 @@
 
 #include <QWidget>
 
+class QAbstractSocket;
+
 class FrostbiteConnection;
 class BF4CommandHandler;
 
@@ -39,15 +41,15 @@ public:
 
 private:
     Ui::EventsWidget *ui;
-    FrostbiteConnection *m_connection;
-    BF4CommandHandler *m_commandHandler;
+    FrostbiteConnection *connection;
+    BF4CommandHandler *commandHandler;
 
     void logEvent(const QString &event, const QString &message);
 
 private slots:
     /* Connection */
-    void onConnected();
-    void onDisconnected();
+    void onConnected(QAbstractSocket *socket);
+    void onDisconnected(QAbstractSocket *socket);
 
     /* Events */
     void onPlayerAuthenticatedEvent(const QString &player);

@@ -43,8 +43,8 @@ public:
 
 private:
     Ui::ConsoleWidget *ui;
-    FrostbiteConnection *m_connection;
-    FrostbiteCommandHandler *m_commandHandler;
+    FrostbiteConnection *connection;
+    FrostbiteCommandHandler *commandHandler;
 
     QStringList commandHistory;
     bool commandHistoryFirst;
@@ -54,8 +54,8 @@ private:
 
 private slots:
     /* Events */
-    void onDataSentEvent(const QString &request);
-    void onDataReceivedEvent(const QString &response);
+    void onDataSent(const QString &request);
+    void onDataReceived(const QString &response);
 
     void onPunkBusterMessageEvent(const QString &message);
 

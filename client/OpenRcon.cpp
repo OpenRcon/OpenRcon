@@ -39,7 +39,7 @@
 #include "ServerListDialog.h"
 #include "OptionsDialog.h"
 #include "AboutDialog.h"
-#include "Game.h"
+#include "GameWidget.h"
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
 {
@@ -342,15 +342,15 @@ void OpenRcon::actionAboutQt_triggered()
 // Tab menu
 void OpenRcon::actionTabReconnect_triggered()
 {
-    Game *game = dynamic_cast<Game *>(tabWidget->currentWidget());
-    Connection *connection = game->getConnection();
-    connection->hostConnect(game->getServerEntry());
+    GameWidget *gameWidget = dynamic_cast<GameWidget *>(tabWidget->currentWidget());
+    Connection *connection = gameWidget->getConnection();
+    connection->hostConnect(gameWidget->getServerEntry());
 }
 
 void OpenRcon::actionTabDisconnect_triggered()
 {
-    Game *game = dynamic_cast<Game *>(tabWidget->currentWidget());
-    Connection *connection = game->getConnection();
+    GameWidget *gameWidget = dynamic_cast<GameWidget *>(tabWidget->currentWidget());
+    Connection *connection = gameWidget->getConnection();
     connection->hostDisconnect();
 }
 

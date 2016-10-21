@@ -20,10 +20,10 @@
 #ifndef MINECRAFT_H
 #define MINECRAFT_H
 
-#include "Game.h"
+#include "GameWidget.h"
 #include "MinecraftConnection.h"
 
-class Minecraft : public Game
+class Minecraft : public GameWidget
 {
     Q_OBJECT
 
@@ -32,11 +32,11 @@ public:
     ~Minecraft();
 
     virtual Connection *getConnection() {
-        return m_connection;
+        return connection;
     }
 
 protected:
-    MinecraftConnection *m_connection;
+    MinecraftConnection *connection;
 
 private slots:
     void onConnected();

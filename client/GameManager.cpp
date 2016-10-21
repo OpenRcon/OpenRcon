@@ -64,26 +64,26 @@ QList<GameEntry> GameManager::getGames()
     return gameList;
 }
 
-Game *GameManager::getGameObject(ServerEntry *serverEntry)
+GameWidget *GameManager::getGameWidget(ServerEntry *serverEntry)
 {
     GameType gameType = serverEntry->getGameType();
-    Game *gameObject = nullptr;
+    GameWidget *gameWidget = nullptr;
 
     switch (gameType) {
     case GameType::BFBC2:
-        gameObject = new BFBC2Widget(serverEntry);
+        gameWidget = new BFBC2Widget(serverEntry);
         break;
 
     case GameType::BF3:
-        gameObject = new BF3Widget(serverEntry);
+        gameWidget = new BF3Widget(serverEntry);
         break;
 
     case GameType::BF4:
-        gameObject = new BF4Widget(serverEntry);
+        gameWidget = new BF4Widget(serverEntry);
         break;
 
     case GameType::Minecraft:
-        gameObject = new MinecraftWidget(serverEntry);
+        gameWidget = new MinecraftWidget(serverEntry);
         break;
 
     default:
@@ -91,7 +91,7 @@ Game *GameManager::getGameObject(ServerEntry *serverEntry)
         break;
     }
 
-    return gameObject;
+    return gameWidget;
 }
 
 int GameManager::toInt(GameType gameType)

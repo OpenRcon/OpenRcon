@@ -20,12 +20,12 @@
 #ifndef FROSTBITEGAME_H
 #define FROSTBITEGAME_H
 
-#include "Game.h"
+#include "GameWidget.h"
 #include "FrostbiteConnection.h"
 
 class FrostbiteCommandHandler;
 
-class FrostbiteGame : public Game
+class FrostbiteGame : public GameWidget
 {
     Q_OBJECT
 

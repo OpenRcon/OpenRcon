@@ -21,7 +21,7 @@
 
 #include "FrostbiteCommandHandler.h"
 
-FrostbiteGame::FrostbiteGame(ServerEntry *serverEntry) : Game(serverEntry), connection(new FrostbiteConnection(this))
+FrostbiteGame::FrostbiteGame(ServerEntry *serverEntry) : GameWidget(serverEntry), connection(new FrostbiteConnection(this))
 {
     connection->hostConnect(serverEntry);
 }

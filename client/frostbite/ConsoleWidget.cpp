@@ -32,17 +32,17 @@
 ConsoleWidget::ConsoleWidget(FrostbiteConnection *connection, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ConsoleWidget),
-    m_connection(connection),
-    m_commandHandler(connection->getCommandHandler())
+    connection(connection),
+    commandHandler(connection->getCommandHandler())
 {
     ui->setupUi(this);
 
     /* Events */
-    connect(m_connection, &Connection::onDataSentEvent,     this, &ConsoleWidget::onDataSentEvent);
-    connect(m_connection, &Connection::onDataReceivedEvent, this, &ConsoleWidget::onDataReceivedEvent);
+    connect(connection, &Connection::onDataSent,     this, &ConsoleWidget::onDataSent);
+    connect(connection, &Connection::onDataReceived, this, &ConsoleWidget::onDataReceived);
 
     /* Commands */
-    connect(m_commandHandler, &FrostbiteCommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
+    connect(commandHandler, &FrostbiteCommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
 
     /* User Interface */
     connect(ui->pushButton_co_co, &QPushButton::clicked,        this, &ConsoleWidget::pushButton_co_co_clicked);
@@ -86,12 +86,12 @@ void ConsoleWidget::logConsole(int type, const QString &message)
     }
 }
 
-void ConsoleWidget::onDataSentEvent(const QString &request)
+void ConsoleWidget::onDataSent(const QString &request)
 {
     logConsole(0, request);
 }
 
-void ConsoleWidget::onDataReceivedEvent(const QString &response)
+void ConsoleWidget::onDataReceived(const QString &response)
 {
     logConsole(1, response);
 }
@@ -103,16 +103,12 @@ void ConsoleWidget::onPunkBusterMessageEvent(const QString &message)
 
 void ConsoleWidget::pushButton_co_co_clicked()
 {
-    QString command = ui->lineEdit_co_co->text();
-
     ui->lineEdit_co_co->clear();
-    m_connection->sendCommand(command);
+    connection->sendCommand(ui->lineEdit_co_co->text());
 }
 
 void ConsoleWidget::pushButton_co_pb_clicked()
 {
-    QString command = ui->lineEdit_co_pb->text();
-
     ui->lineEdit_co_pb->clear();
-    m_commandHandler->sendPunkBusterPbSvCommand(command);
+    commandHandler->sendPunkBusterPbSvCommand(ui->lineEdit_co_pb->text());
 }
