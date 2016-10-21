@@ -310,7 +310,7 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 
     // Update the title of the this sessions tab.
     TabWidget *tabWidget = TabWidget::getInstance();
-    tabWidget->setTabText(0, serverInfo.getServerName());
+    tabWidget->setTabText(tabWidget->indexOf(this), serverInfo.getServerName());
 
     // Update the server information.
     ui->label_si_level->setPixmap(level.getIcon());
