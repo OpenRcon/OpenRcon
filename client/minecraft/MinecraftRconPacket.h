@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -25,8 +25,6 @@
 //Type 	int 	3 for login, 2 to run a command
 //Payload 	byte[] 	ASCII text
 //2-byte pad 	byte, byte 	Two null bytes
-
-#include <QVector>
 
 enum class MinecraftRconPacketType;
 

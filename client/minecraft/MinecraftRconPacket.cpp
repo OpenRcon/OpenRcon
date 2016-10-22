@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,6 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QString>
+
 #include "MinecraftRconPacket.h"
 #include "MinecraftRconPacketType.h"
 
@@ -30,19 +32,19 @@ MinecraftRconPacket::MinecraftRconPacket(int requestId,  MinecraftRconPacketType
 
 }
 
-MinecraftRconPacket::MinecraftRconPacket() : MinecraftRconPacket(0,  MinecraftRconPacketType::Unknown, nullptr)
+MinecraftRconPacket::MinecraftRconPacket() : MinecraftRconPacket(0,  MinecraftRconPacketType::CommandResponse, nullptr)
 {
 
 }
 
 MinecraftRconPacket::~MinecraftRconPacket()
 {
-    // delete[] content; TODO: Fix this, causes SIGABRT.
+
 }
 
 int MinecraftRconPacket::getLength()
 {
-    return 10 + getContentSize();
+    return 10 + strlen(content);
 }
 
 int MinecraftRconPacket::getRequestId()

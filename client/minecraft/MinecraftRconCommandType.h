@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 201 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,9 +17,13 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MinecraftRconPacketType.h"
+#ifndef MINECRAFTRCONCOMMANDTYPE_H
+#define MINECRAFTRCONCOMMANDTYPE_H
 
-MinecraftRconPacketType::MinecraftRconPacketType()
-{
+enum class MinecraftRconCommandType {
+    ListCommand = 8,
+    KillCommand = 9,
+    UnknownCommand = 255
+};
 
-}
+#endif // MINECRAFTRCONCOMMANDTYPE_H

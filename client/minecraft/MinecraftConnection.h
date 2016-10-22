@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -22,7 +22,9 @@
 
 #include "Connection.h"
 
+class MinecraftCommandHandler;
 class MinecraftRconPacket;
+enum class MinecraftRconCommandType;
 
 class MinecraftConnection : public Connection
 {
@@ -32,24 +34,18 @@ public:
     MinecraftConnection(QObject *parent = nullptr);
     ~MinecraftConnection();
 
+    MinecraftCommandHandler *getCommandHandler() const;
+    void setCommandHandler(MinecraftCommandHandler *commandHandler);
+
     void sendPacket(MinecraftRconPacket &packet);
     void sendCommand(const QString &command);
 
 private:
+    MinecraftCommandHandler *commandHandler;
     QVector<MinecraftRconPacket> packetSendQueue;
 
-    enum CommandType {
-        ListCommand = 8,
-        KillCommand = 9,
-        UnknownCommand = 255
-    };
-
+    MinecraftRconCommandType getCommandTypeFromCommand(const QString &command);
     int getRequestIdFromCommand(const QString &command);
-    void handlePacket(MinecraftRconPacket &packet);
-
-    void parse(MinecraftRconPacket &packet);
-
-    void responseListCommand(MinecraftRconPacket &packet);
 
 private slots:
     void readyRead();
@@ -57,9 +53,6 @@ private slots:
 signals:
     // Events
     void onAuthenticated(bool auth);
-
-    // Commands
-    void onListCommand(const QStringList &list);
 
 };
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,10 +21,10 @@
 #define MINECRAFTRCONPACKETTYPE_H
 
 enum class MinecraftRconPacketType {
-    Unknown = 0,
+    Auth = 3,
+    AuthResponse = 2,
     Command = 2,
-    Login = 3
-
+    CommandResponse = 0
 };
 
 #endif // MINECRAFTRCONPACKETTYPE_H

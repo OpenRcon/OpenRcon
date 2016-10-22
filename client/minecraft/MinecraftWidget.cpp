@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 201 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -81,6 +81,6 @@ void MinecraftWidget::onAuthenticated(bool auth)
 
 void MinecraftWidget::on_pushButton_co_send_clicked()
 {
-    ui->lineEdit_co_input->clear();
     connection->sendCommand(ui->lineEdit_co_input->text());
+    ui->lineEdit_co_input->clear();
 }

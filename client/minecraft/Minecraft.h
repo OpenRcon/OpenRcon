@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -37,9 +37,11 @@ public:
 
 protected:
     MinecraftConnection *connection;
+    MinecraftCommandHandler *commandHandler;
 
 private slots:
-    void onConnected();
+    void onConnected(QAbstractSocket *socket);
+    void onDisconnected(QAbstractSocket *socket);
 
 };
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 201 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,9 +17,35 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MinecraftRconPacketType.h"
+#ifndef MINECRAFTCOMMANDHANDLER_H
+#define MINECRAFTCOMMANDHANDLER_H
 
-MinecraftRconPacketType::MinecraftRconPacketType()
+#include "CommandHandler.h"
+
+class MinecraftConnection;
+enum class MinecraftRconCommandType;
+class MinecraftRconPacket;
+
+class MinecraftCommandHandler : public CommandHandler
 {
+    Q_OBJECT
 
-}
+public:
+    MinecraftCommandHandler(MinecraftConnection *parent = nullptr);
+    ~MinecraftCommandHandler();
+
+
+    virtual bool parse(const MinecraftRconPacket &packet);
+
+protected:
+    MinecraftConnection *connection;
+
+private:
+    void parseListCommand(MinecraftRconPacket &packet);
+
+signals:
+    void onListCommand(const QStringList &list);
+
+};
+
+#endif // MINECRAFTCOMMANDHANDLER_H

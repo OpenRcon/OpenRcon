@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 201 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -19,12 +19,12 @@
 
 #include "Minecraft.h"
 #include "ServerEntry.h"
+#include "MinecraftCommandHandler.h"
 #include "MinecraftRconPacket.h"
 #include "MinecraftRconPacketType.h"
 
-Minecraft::Minecraft(ServerEntry *serverEntry) : GameWidget(serverEntry)
+Minecraft::Minecraft(ServerEntry *serverEntry) : GameWidget(serverEntry), connection(new MinecraftConnection(this)), commandHandler(new MinecraftCommandHandler(connection))
 {
-    connection = new MinecraftConnection(this);
     connection->hostConnect(serverEntry);
 
     connect(connection, &Connection::onConnected, this, &Minecraft::onConnected);
@@ -35,8 +35,21 @@ Minecraft::~Minecraft()
 
 }
 
-void Minecraft::onConnected()
+void Minecraft::onConnected(QAbstractSocket *socket)
 {
-    MinecraftRconPacket packet(1, MinecraftRconPacketType::Login, serverEntry->getPassword().toLatin1().data());
+    Q_UNUSED(socket);
+
+    MinecraftRconPacket packet(1, MinecraftRconPacketType::Auth, serverEntry->getPassword().toUtf8().data());
     connection->sendPacket(packet);
+
+    qDebug() << "lololololololololololololo";
+}
+
+
+void Minecraft::onDisconnected(QAbstractSocket *socket)
+{
+    Q_UNUSED(socket);
+
+    //MinecraftRconPacket packet(1, MinecraftRconPacketType::Login, serverEntry->getPassword().toLatin1().data());
+    //connection->sendPacket(packet);
 }
