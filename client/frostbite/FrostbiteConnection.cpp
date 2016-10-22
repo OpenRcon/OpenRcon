@@ -176,7 +176,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messages += " ";
                         }
 
-                        responseDataSentEvent(messages);
+                        responseDataSent(messages);
                         qDebug() << messages;
 
                         QString messager;
@@ -187,7 +187,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                             messager += " ";
                         }
 
-                        responseDataReceivedEvent(messager);
+                        responseDataReceived(messager);
                         qDebug() << messager;
 
                         commandHandler->parse(request, packet, lastSentPacket);
@@ -212,7 +212,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
             message += " ";
         }
 
-        responseDataSentEvent(message);
+        responseDataSent(message);
         commandHandler->parse(request, packet, FrostbiteRconPacket());
     }
 }

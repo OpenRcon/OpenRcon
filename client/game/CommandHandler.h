@@ -31,6 +31,7 @@ class CommandHandler : public QObject
 public:
     CommandHandler(Connection *parent = nullptr);
     ~CommandHandler();
+
 };
 
 #endif // COMMANDHANDLER_H

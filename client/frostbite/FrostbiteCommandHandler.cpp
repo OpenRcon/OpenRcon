@@ -41,7 +41,7 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
 {
     typedef void (FrostbiteCommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
-    static QHash<QString, ResponseFunction> responses = {
+    static QHash<QString, ResponseFunction> responseList = {
         /* Events */
         { "player.onLeave",                      &FrostbiteCommandHandler::parsePlayerLeaveEvent },
         { "player.onChat",                       &FrostbiteCommandHandler::parsePlayerChatEvent },
@@ -87,11 +87,11 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
         { "vars.teamKillValueIncrease",          &FrostbiteCommandHandler::parseVarsTeamKillValueIncreaseCommand }
     };
 
-    if (responses.contains(request)) {
-        ResponseFunction res = responses[request];
+    if (responseList.contains(request)) {
+        ResponseFunction response = responseList[request];
 
-        if (res) {
-            (this->*res)(packet, lastSentPacket);
+        if (response) {
+            (this->*response)(packet, lastSentPacket);
         }
 
         return true;

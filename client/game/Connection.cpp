@@ -92,12 +92,16 @@ void Connection::displayError(QAbstractSocket::SocketError socketError)
 }
 
 /* These events is triggered everytime the client sends or receives data. */
-void Connection::responseDataSentEvent(const QString &request)
+void Connection::responseDataSent(const QString &request)
 {
-    emit (onDataSent(request));
+    if (!request.isEmpty()) {
+         emit (onDataSent(request));
+    }
 }
 
-void Connection::responseDataReceivedEvent(const QString &response)
+void Connection::responseDataReceived(const QString &response)
 {
-    emit (onDataReceived(response));
+    if (!response.isEmpty()) {
+        emit (onDataReceived(response));
+    }
 }

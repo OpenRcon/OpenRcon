@@ -103,12 +103,12 @@ void ConsoleWidget::onPunkBusterMessageEvent(const QString &message)
 
 void ConsoleWidget::pushButton_co_co_clicked()
 {
-    ui->lineEdit_co_co->clear();
     connection->sendCommand(ui->lineEdit_co_co->text());
+    ui->lineEdit_co_co->clear();
 }
 
 void ConsoleWidget::pushButton_co_pb_clicked()
 {
-    ui->lineEdit_co_pb->clear();
     commandHandler->sendPunkBusterPbSvCommand(ui->lineEdit_co_pb->text());
+    ui->lineEdit_co_pb->clear();
 }

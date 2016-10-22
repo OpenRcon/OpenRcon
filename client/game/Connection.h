@@ -40,8 +40,8 @@ public slots:
     virtual void hostDisconnect();
 
 protected:
-    void responseDataSentEvent(const QString &request);
-    void responseDataReceivedEvent(const QString &response);
+    void responseDataSent(const QString &request);
+    void responseDataReceived(const QString &response);
     void responseUnknownCommand();
 
     QAbstractSocket *socket;
