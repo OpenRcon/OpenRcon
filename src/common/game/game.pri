@@ -11,4 +11,5 @@ SOURCES += $$PWD/Connection.cpp \
 
 include(frostbite/frostbite.pri)
 include(frostbite2/frostbite2.pri)
+include(bf3/bf3.pri)
 include(bf4/bf4.pri)
