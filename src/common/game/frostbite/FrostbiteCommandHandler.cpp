@@ -25,11 +25,12 @@
 #include "FrostbiteUtils.h"
 #include "BanListEntry.h"
 
-FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *parent) : CommandHandler(parent), connection(parent)
+FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *connection, QObject *parent) : CommandHandler(parent), connection(connection)
 {
-    if (parent) {
-        parent->setCommandHandler(this);
+    if (connection) {
+        connection->setCommandHandler(this);
     }
+
 }
 
 FrostbiteCommandHandler::~FrostbiteCommandHandler()

@@ -19,9 +19,7 @@
 
 #include "CommandHandler.h"
 
-#include "Connection.h"
-
-CommandHandler::CommandHandler(Connection *parent) : QObject(parent)
+CommandHandler::CommandHandler(QObject *parent) : QObject(parent)
 {
 
 }

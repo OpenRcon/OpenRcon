@@ -29,7 +29,7 @@ class CommandHandler : public QObject
     Q_OBJECT
 
 public:
-    CommandHandler(Connection *parent = nullptr);
+    CommandHandler(QObject *parent = nullptr);
     ~CommandHandler();
 
 };

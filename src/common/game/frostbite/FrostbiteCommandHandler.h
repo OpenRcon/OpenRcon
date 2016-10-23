@@ -32,7 +32,7 @@ class FrostbiteCommandHandler : public CommandHandler
     Q_OBJECT
 
 public:
-    FrostbiteCommandHandler(FrostbiteConnection *parent = nullptr);
+    FrostbiteCommandHandler(FrostbiteConnection *connection, QObject *parent = nullptr);
     ~FrostbiteCommandHandler();
 
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
