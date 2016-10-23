@@ -88,8 +88,6 @@ void ConsoleWidget::logConsole(int type, const QString &message)
 void ConsoleWidget::onLoginHashedCommand(bool auth)
 {
     ui->tab_co_pb->setEnabled(auth);
-
-    qDebug() << "lolololololololololololololololololololololololololololololololol";
 }
 
 void ConsoleWidget::onPunkBusterMessageEvent(const QString &message)

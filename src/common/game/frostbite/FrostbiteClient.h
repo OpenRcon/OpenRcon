@@ -27,7 +27,6 @@
 #include "FrostbiteCommandHandler.h"
 
 class QString;
-class QStringList;
 class QByteArray;
 
 class ServerEntry;
@@ -57,9 +56,7 @@ protected:
 private:
     FrostbiteCommandHandler *commandHandler;
 
-    QStringList commandList;
-
-private slots:
+public slots:
     void onConnected();
     void onLoginHashedCommand(const QByteArray &salt);
     void onLoginHashedCommand(bool auth);

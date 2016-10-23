@@ -61,10 +61,12 @@ void SessionManager::open(ServerEntry *serverEntry)
         TabWidget *tabWidget = TabWidget::getInstance();
         GameEntry gameEntry = GameManager::getGame(serverEntry->getGameType());
         GameWidget *gameWidget = GameManager::getGameWidget(serverEntry);
+        Client *client = gameWidget->getClient();
         int index = tabWidget->addTab(gameWidget, QIcon(gameEntry.getIcon()), serverEntry->getName());
 
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->getHost()).arg(serverEntry->getPort()));
         tabWidget->setCurrentIndex(index);
+        //client->getConnection()->hostConnect(serverEntry);
 
         emit (onServerConnected());
     } else {
@@ -82,7 +84,7 @@ void SessionManager::open(ServerEntry *serverEntry)
 
     // Remove the ServerEntry from the list.
     if (sessions.remove(client->getServerEntry())) {
-        emit (onServerConnected());
+        emit (onServerDisconnected());
     }
 }
 
