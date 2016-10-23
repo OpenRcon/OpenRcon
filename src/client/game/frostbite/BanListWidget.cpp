@@ -34,16 +34,14 @@
 
 #include "BanListWidget.h"
 #include "ui_BanListWidget.h"
-#include "FrostbiteConnection.h"
-#include "FrostbiteCommandHandler.h"
+#include "FrostbiteClient.h"
 #include "BanListEntry.h"
 #include "FrostbiteUtils.h"
 
-BanListWidget::BanListWidget(FrostbiteConnection *connection, QWidget *parent) :
+BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::BanListWidget),
-    m_connection(connection),
-    m_commandHandler(dynamic_cast<FrostbiteCommandHandler *>(connection->getCommandHandler()))
+    client(client)
 {
     ui->setupUi(this);
 
@@ -71,7 +69,7 @@ BanListWidget::BanListWidget(FrostbiteConnection *connection, QWidget *parent) :
 
     /* Commands */
     // BanList
-    connect(m_commandHandler, &FrostbiteCommandHandler::onBanListListCommand, this, &BanListWidget::onBanListListCommand);
+    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onBanListListCommand, this, &BanListWidget::onBanListListCommand);
 
     /* User Interface */
     connect(ui->tableWidget_bl_banList, &QTableWidget::customContextMenuRequested,                              this, &BanListWidget::tableWidget_bl_banList_customContextMenuRequested);
@@ -117,7 +115,7 @@ void BanListWidget::action_bl_banList_remove_triggered()
     if (!idType.isEmpty() && !player.isEmpty()) {
         ui->tableWidget_bl_banList->removeRow(row);
 
-        m_commandHandler->sendBanListRemoveCommand(idType, player);
+        client->getCommandHandler()->sendBanListRemoveCommand(idType, player);
     }
 }
 
@@ -154,19 +152,19 @@ void BanListWidget::setBanlist(const QList<BanListEntry> &banList)
 
 void BanListWidget::pushButton_load_clicked()
 {
-    m_commandHandler->sendBanListLoadCommand();
+    client->getCommandHandler()->sendBanListLoadCommand();
 }
 
 void BanListWidget::pushButton_save_clicked()
 {
-    m_commandHandler->sendBanListSaveCommand();
+    client->getCommandHandler()->sendBanListSaveCommand();
 }
 
 void BanListWidget::pushButton_clear_clicked()
 {
     ui->tableWidget_bl_banList->clearContents();
     ui->pushButton_clear->setEnabled(ui->tableWidget_bl_banList->rowCount() < 0);
-    m_commandHandler->sendBanListClearCommand();
+    client->getCommandHandler()->sendBanListClearCommand();
 }
 
 void BanListWidget::validate()
@@ -207,7 +205,7 @@ void BanListWidget::pushButton_ban_clicked()
     QString reason = ui->lineEdit_reason->text();
 
     if (ui->radioButton_permanent->isChecked()) {
-        m_commandHandler->sendBanListAddCommand(idType, value, reason);
+        client->getCommandHandler()->sendBanListAddCommand(idType, value, reason);
     } else {
         bool useRounds = ui->comboBox_by->currentIndex() > 0;
         int timeout = ui->spinBox_timeout->value();
@@ -238,6 +236,6 @@ void BanListWidget::pushButton_ban_clicked()
             }
         }
 
-        m_commandHandler->sendBanListAddCommand(idType, value, timeout, useRounds, reason);
+        client->getCommandHandler()->sendBanListAddCommand(idType, value, timeout, useRounds, reason);
     }
 }

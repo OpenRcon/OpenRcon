@@ -27,8 +27,7 @@ class QAction;
 class QString;
 class QPoint;
 
-class FrostbiteConnection;
-class FrostbiteCommandHandler;
+class FrostbiteClient;
 struct BanListEntry;
 
 namespace Ui {
@@ -40,13 +39,12 @@ class BanListWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit BanListWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    explicit BanListWidget(FrostbiteClient *client, QWidget *parent = nullptr);
     ~BanListWidget();
 
 private:
     Ui::BanListWidget *ui;
-    FrostbiteConnection *m_connection;
-    FrostbiteCommandHandler *m_commandHandler;
+    FrostbiteClient *client;
 
     /* User Interface */
     QMenu *menu_bl_banList;

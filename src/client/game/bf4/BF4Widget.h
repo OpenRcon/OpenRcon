@@ -20,7 +20,8 @@
 #ifndef BF4WIDGET_H
 #define BF4WIDGET_H
 
-#include "BF4.h"
+#include "FrostbiteWidget.h"
+#include "BF4Client.h"
 
 class QTimer;
 
@@ -33,23 +34,28 @@ class BanListWidget;
 class ReservedSlotsWidget;
 class SpectatorSlotsWidget;
 class ConsoleWidget;
-
 class BF4ServerInfo;
+class ServerEntry;
 
 namespace Ui {
     class BF4Widget;
 }
 
-class BF4Widget : public BF4
+class BF4Widget : public FrostbiteWidget
 {
     Q_OBJECT
 
 public:    
-    BF4Widget(ServerEntry *serverEntry);
+    BF4Widget(ServerEntry *serverEntry, QWidget *parent = nullptr);
     ~BF4Widget();
+
+    virtual BF4Client *getClient() {
+        return client;
+    }
 
 private:
     Ui::BF4Widget *ui;
+    BF4Client *client;
 
     PlayerListWidget *playerListWidget;
     EventsWidget *eventsWidget;
@@ -74,7 +80,6 @@ private:
 private slots:
     /* Connection */
     void onConnected();
-    void onDisconnected();
 
     /* Events */
     void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);

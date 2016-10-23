@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,53 +17,55 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "FrostbiteGame.h"
+#include "FrostbiteClient.h"
 
+#include "FrostbiteConnection.h"
 #include "FrostbiteCommandHandler.h"
 #include "ServerEntry.h"
 
-FrostbiteGame::FrostbiteGame(ServerEntry *serverEntry) : GameWidget(serverEntry), connection(new FrostbiteConnection(this)), commandHandler(new FrostbiteCommandHandler(connection))
+FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, QObject *parent) :
+    Client(serverEntry, parent),
+    connection(new FrostbiteConnection(this)),
+    commandHandler(new FrostbiteCommandHandler(connection))
 {
     connection->hostConnect(serverEntry);
 
     // Connection
-    connect(connection,       &Connection::onConnected,                         this, &FrostbiteGame::onConnected);
+    connect(connection,       &Connection::onConnected, this, &FrostbiteClient::onConnected);
 
     // Commands
     connect(commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this,             static_cast<void (FrostbiteGame::*)(const QByteArray&)>(&FrostbiteGame::onLoginHashedCommand));
+            this,             static_cast<void (FrostbiteClient::*)(const QByteArray&)>(&FrostbiteClient::onLoginHashedCommand));
     connect(commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this,             static_cast<void (FrostbiteGame::*)(bool)>(&FrostbiteGame::onLoginHashedCommand));
-    connect(commandHandler,   &FrostbiteCommandHandler::onVersionCommand,   this, &FrostbiteGame::onVersionCommand);
+            this,             static_cast<void (FrostbiteClient::*)(bool)>(&FrostbiteClient::onLoginHashedCommand));
+    connect(commandHandler,   &FrostbiteCommandHandler::onVersionCommand,   this, &FrostbiteClient::onVersionCommand);
 }
 
-FrostbiteGame::~FrostbiteGame()
+FrostbiteClient::~FrostbiteClient()
 {
 
 }
 
-void FrostbiteGame::onConnected()
+void FrostbiteClient::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
         commandHandler->sendLoginHashedCommand();
     }
 }
 
-void FrostbiteGame::onLoginHashedCommand(const QByteArray &salt)
+void FrostbiteClient::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
         commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
     }
 }
 
-void FrostbiteGame::onLoginHashedCommand(bool auth)
+void FrostbiteClient::onLoginHashedCommand(bool auth)
 {
-    this->authenticated = auth;
-
-    commandHandler->sendVersionCommand();
+    setAuthenticated(auth);
 }
 
-void FrostbiteGame::onVersionCommand(const QString &type, int build)
+void FrostbiteClient::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(build);
 
@@ -75,17 +77,8 @@ void FrostbiteGame::onVersionCommand(const QString &type, int build)
         qDebug() << tr("Wrong server type, disconnecting...");
     }
 }
-bool FrostbiteGame::isAuthenticated()
-{
-    return authenticated;
-}
 
-void FrostbiteGame::setAuthenticated(bool authenticated)
-{
-    this->authenticated = authenticated;
-}
-
-QString FrostbiteGame::getVersionFromBuild(int build)
+QString FrostbiteClient::getVersionFromBuild(int build)
 {
     return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);
 }

@@ -20,10 +20,11 @@
 #include <QTimer>
 #include <QMessageBox>
 
-#include "TabWidget.h"
-
 #include "BF4Widget.h"
 #include "ui_BF4Widget.h"
+#include "BF4Client.h"
+
+#include "TabWidget.h"
 #include "BF4CommandHandler.h"
 #include "BF4LevelDictionary.h"
 #include "BF4ServerInfo.h"
@@ -42,7 +43,7 @@
 #include "SpectatorSlotsWidget.h"
 #include "ConsoleWidget.h"
 
-BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF4Widget)
+BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : FrostbiteWidget(parent), ui(new Ui::BF4Widget), client(new BF4Client(serverEntry, this))
 {
     ui->setupUi(this);
 
@@ -169,15 +170,15 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     };
 
     // Create tabs from widgets.
-    playerListWidget = new PlayerListWidget(connection, this);
-    eventsWidget = new EventsWidget(connection, this);
-    chatWidget = new ChatWidget(connection, this);
-    optionsWidget = new BF4OptionsWidget(connection, this);
-    mapListWidget = new MapListWidget(connection, this);
-    banListWidget = new BanListWidget(connection, this);
-    reservedSlotsWidget = new ReservedSlotsWidget(connection, this);
-    spectatorSlotsWidget = new SpectatorSlotsWidget(connection, this);
-    consoleWidget = new ConsoleWidget(connection, commandList, this);
+    playerListWidget = new PlayerListWidget(client, this);
+    eventsWidget = new EventsWidget(client, this);
+    chatWidget = new ChatWidget(client, this);
+    optionsWidget = new BF4OptionsWidget(client, this);
+    mapListWidget = new MapListWidget(client, this);
+    banListWidget = new BanListWidget(client, this);
+    reservedSlotsWidget = new ReservedSlotsWidget(client, this);
+    spectatorSlotsWidget = new SpectatorSlotsWidget(client, this);
+    consoleWidget = new ConsoleWidget(client, commandList, this);
 
     ui->tabWidget->addTab(playerListWidget, QIcon(":/frostbite/icons/players.png"), tr("Players"));
     ui->tabWidget->addTab(eventsWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
@@ -190,17 +191,16 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
-    connect(connection, &Connection::onConnected,    this, &BF4Widget::onConnected);
-    connect(connection, &Connection::onDisconnected, this, &BF4Widget::onDisconnected);
+    connect(client->getConnection(), &Connection::onConnected,    this, &BF4Widget::onConnected);
 
     /* Events */ 
-    connect(commandHandler, &BF4CommandHandler::onServerLevelLoadedEvent, this, &BF4Widget::onServerLevelLoadedEvent);
+    connect(client->getCommandHandler(), &BF4CommandHandler::onServerLevelLoadedEvent, this, &BF4Widget::onServerLevelLoadedEvent);
 
     /* Commands */
     // Misc
-    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF4Widget::onLoginHashedCommand);
-    connect(commandHandler, &FrostbiteCommandHandler::onVersionCommand,                                                           this, &BF4Widget::onVersionCommand);
-    connect(commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &BF4Widget::onServerInfoCommand);
+    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF4Widget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onVersionCommand,                                                           this, &BF4Widget::onVersionCommand);
+    connect(client->getCommandHandler(), &BF4CommandHandler::onServerInfoCommand,                                                              this, &BF4Widget::onServerInfoCommand);
 
     // Admin
 
@@ -213,7 +213,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry) : BF4(serverEntry), ui(new Ui::BF
     // Squad
 
     // Variables  
-    connect(commandHandler, &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &BF4Widget::onVarsAlwaysAllowSpectatorsCommand);
+    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &BF4Widget::onVarsAlwaysAllowSpectatorsCommand);
 
     /* User Interface */
     // Server Information
@@ -228,7 +228,7 @@ BF4Widget::~BF4Widget()
 
 void BF4Widget::setAuthenticated(bool auth)
 {
-    authenticated = auth;
+    client->setAuthenticated(auth);
 
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(optionsWidget), auth);
@@ -247,21 +247,16 @@ void BF4Widget::setAuthenticated(bool auth)
 void BF4Widget::startupCommands(bool auth)
 {
     // Misc
-    commandHandler->sendVersionCommand();
-    commandHandler->sendServerInfoCommand();
+    client->getCommandHandler()->sendVersionCommand();
+    client->getCommandHandler()->sendServerInfoCommand();
 
     if (auth) {
-        commandHandler->sendAdminEventsEnabledCommand(true);
+        client->getCommandHandler()->sendAdminEventsEnabledCommand(true);
     }
 }
 
 /* Connection */
 void BF4Widget::onConnected()
-{
-    setAuthenticated(false);
-}
-
-void BF4Widget::onDisconnected()
 {
     setAuthenticated(false);
 }
@@ -274,7 +269,7 @@ void BF4Widget::onServerLevelLoadedEvent(const QString &levelName, const QString
     Q_UNUSED(roundsPlayed);
     Q_UNUSED(roundsTotal);
 
-    commandHandler->sendServerInfoCommand();
+    client->getCommandHandler()->sendServerInfoCommand();
 }
 
 /* Commands */
@@ -288,7 +283,7 @@ void BF4Widget::onLoginHashedCommand(bool auth)
         int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
 
         if (ret) {
-            connection->hostDisconnect();
+            client->getConnection()->hostDisconnect();
         }
     }
 }
@@ -297,7 +292,7 @@ void BF4Widget::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(type);
 
-    ui->label_si_version->setText(tr("<b>Version</b>: %1").arg(getVersionFromBuild(build)));
+    ui->label_si_version->setText(tr("<b>Version</b>: %1").arg(client->getVersionFromBuild(build)));
     ui->label_si_version->setToolTip(QString::number(build));
 }
 
@@ -395,7 +390,7 @@ void BF4Widget::pushButton_si_restartRound_clicked()
     int ret = QMessageBox::question(this, tr("Restart round"), tr("Are you sure you want to restart the round?"));
 
     if (ret == QMessageBox::Yes) {
-        commandHandler->sendMapListRestartRoundCommand();
+        client->getCommandHandler()->sendMapListRestartRoundCommand();
     }
 }
 
@@ -404,7 +399,7 @@ void BF4Widget::pushButton_si_runNextRound_clicked()
     int ret = QMessageBox::question(this, tr("Run next round"), tr("Are you sure you want to run the next round?"));
 
     if (ret == QMessageBox::Yes) {
-        commandHandler->sendMapListRunNextRoundCommand();
+        client->getCommandHandler()->sendMapListRunNextRoundCommand();
     }
 }
 

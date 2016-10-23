@@ -17,26 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4_H
-#define BF4_H
+#include "Frostbite2Client.h"
 
-#include "FrostbiteGame.h"
-
-class QString;
-
-class BF4CommandHandler;
-
-class BF4 : public FrostbiteGame
+Frostbite2Client::Frostbite2Client(ServerEntry *serverEntry, QObject *parent) : FrostbiteClient(serverEntry, parent)
 {
-    Q_OBJECT
 
-public:
-    BF4(ServerEntry *serverEntry);
-    ~BF4();
+}
 
-protected:
-    BF4CommandHandler *commandHandler;
+Frostbite2Client::~Frostbite2Client()
+{
 
-};
-
-#endif // BF4_H
+}

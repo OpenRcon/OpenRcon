@@ -24,8 +24,7 @@
 
 class QString;
 
-class FrostbiteConnection;
-class Frostbite2CommandHandler;
+class BF4Client;
 
 namespace Ui {
     class ChatWidget;
@@ -36,13 +35,12 @@ class ChatWidget : public QWidget
     Q_OBJECT
 
 public:
-    ChatWidget(FrostbiteConnection *connection, QWidget *parent = 0);
+    ChatWidget(BF4Client *client, QWidget *parent = 0);
     ~ChatWidget();
 
 private:
     Ui::ChatWidget *ui;
-    FrostbiteConnection *m_connection;
-    Frostbite2CommandHandler *m_commandHandler;
+    BF4Client *client;
 
     void logChat(const QString &sender, const QString &message, const QString &target);
 

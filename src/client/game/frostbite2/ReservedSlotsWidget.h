@@ -25,8 +25,7 @@
 class QMenu;
 class QAction;
 
-class FrostbiteConnection;
-class Frostbite2CommandHandler;
+class Frostbite2Client;
 
 namespace Ui {
     class ReservedSlotsWidget;
@@ -37,13 +36,12 @@ class ReservedSlotsWidget : public QWidget
     Q_OBJECT
 
 public:
-    ReservedSlotsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    ReservedSlotsWidget(Frostbite2Client *client, QWidget *parent = nullptr);
     ~ReservedSlotsWidget();
 
 private:
     Ui::ReservedSlotsWidget *ui;
-    FrostbiteConnection *m_connection;
-    Frostbite2CommandHandler *m_commandHandler;
+    Frostbite2Client *client;
 
     QMenu *menu_rs_reservedSlotsList;
     QAction *action_rs_reservedSlotsList_remove;

@@ -2,10 +2,12 @@ INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
 HEADERS += $$PWD/Connection.h \
-    $$PWD/CommandHandler.h
+    $$PWD/CommandHandler.h \
+    $$PWD/Client.h
 
 SOURCES += $$PWD/Connection.cpp \
-    $$PWD/CommandHandler.cpp
+    $$PWD/CommandHandler.cpp \
+    $$PWD/Client.cpp
 
 include(frostbite/frostbite.pri)
 include(frostbite2/frostbite2.pri)

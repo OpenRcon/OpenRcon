@@ -26,24 +26,21 @@
 
 #include "ChatWidget.h"
 #include "ui_ChatWidget.h"
-
-#include "FrostbiteConnection.h"
-#include "Frostbite2CommandHandler.h"
+#include "BF4Client.h"
 #include "PlayerSubset.h"
 
-ChatWidget::ChatWidget(FrostbiteConnection *connection, QWidget *parent) :
+ChatWidget::ChatWidget(BF4Client *client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ChatWidget),
-    m_connection(connection),
-    m_commandHandler(dynamic_cast<Frostbite2CommandHandler *>(connection->getCommandHandler()))
+    client(client)
 {
     ui->setupUi(this);
 
     /* Events */
-    connect(m_commandHandler, &FrostbiteCommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
+    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
 
     /* Commands */
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
 
     /* User Interface */
     connect(ui->comboBox_mode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ChatWidget::comboBox_mode_currentIndexChanged);
@@ -72,7 +69,7 @@ void ChatWidget::onPlayerChatEvent(const QString &sender, const QString &message
 void ChatWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        m_commandHandler->sendAdminEventsEnabledCommand(true);
+        client->getCommandHandler()->sendAdminEventsEnabledCommand(true);
     }
 }
 
@@ -117,17 +114,17 @@ void ChatWidget::pushButton_send_clicked()
         switch (type) {
         case 0:
             if (parameter) {
-                m_commandHandler->sendAdminSayCommand(message, playerSubsetType, parameter);
+                client->getCommandHandler()->sendAdminSayCommand(message, playerSubsetType, parameter);
             } else {
-                m_commandHandler->sendAdminSayCommand(message, playerSubsetType);
+                client->getCommandHandler()->sendAdminSayCommand(message, playerSubsetType);
             }
             break;
 
         case 1:
             if (parameter) {
-                m_commandHandler->sendAdminYellCommand(message, duration, playerSubsetType, parameter);
+                client->getCommandHandler()->sendAdminYellCommand(message, duration, playerSubsetType, parameter);
             } else {
-                m_commandHandler->sendAdminYellCommand(message, duration, playerSubsetType);
+                client->getCommandHandler()->sendAdminYellCommand(message, duration, playerSubsetType);
             }
             break;
         }

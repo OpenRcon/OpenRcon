@@ -1,16 +1,14 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += $$PWD/BF4.h \
-    $$PWD/BF4Widget.h \
+HEADERS += $$PWD/BF4Widget.h \
     $$PWD/PlayerListWidget.h \
     $$PWD/MapListWidget.h \
     $$PWD/SpectatorSlotsWidget.h \
     $$PWD/EventsWidget.h \
     $$PWD/BF4OptionsWidget.h
 
-SOURCES += $$PWD/BF4.cpp \
-    $$PWD/BF4Widget.cpp \
+SOURCES += $$PWD/BF4Widget.cpp \
     $$PWD/PlayerListWidget.cpp \
     $$PWD/EventsWidget.cpp \
     $$PWD/MapListWidget.cpp \

@@ -17,13 +17,11 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QString>
-
-#include "BF4.h"
+#include "BF4Client.h"
 #include "BF4CommandHandler.h"
 
-BF4::BF4(ServerEntry *serverEntry) :
-    FrostbiteGame(serverEntry),
+BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
+    Frostbite2Client(serverEntry, parent),
     commandHandler(new BF4CommandHandler(connection))
 {
     versionMap = {
@@ -84,7 +82,7 @@ BF4::BF4(ServerEntry *serverEntry) :
     };
 }
 
-BF4::~BF4()
+BF4Client::~BF4Client()
 {
 
 }

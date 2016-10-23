@@ -17,15 +17,33 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "GameWidget.h"
 #include "Client.h"
+#include "ServerEntry.h"
+#include "Connection.h"
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
+Client::Client(ServerEntry *serverEntry, QObject *parent) :
+    QObject(parent),
+    serverEntry(serverEntry)
 {
 
 }
 
-GameWidget::~GameWidget()
+Client::~Client()
 {
 
+}
+
+ServerEntry *Client::getServerEntry()
+{
+    return serverEntry;
+}
+
+bool Client::isAuthenticated()
+{
+    return authenticated;
+}
+
+void Client::setAuthenticated(bool authenticated)
+{
+    this->authenticated = authenticated;
 }

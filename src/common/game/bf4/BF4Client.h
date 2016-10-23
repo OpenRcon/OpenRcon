@@ -12,20 +12,32 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "GameWidget.h"
-#include "Client.h"
+#ifndef BF4CLIENT_H
+#define BF4CLIENT_H
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
+#include "Frostbite2Client.h"
+#include "BF4CommandHandler.h"
+
+class BF4Client : public Frostbite2Client
 {
+    Q_OBJECT
 
-}
+public:
+    BF4Client(ServerEntry *serverEntry, QObject *parent = nullptr);
+    ~BF4Client();
 
-GameWidget::~GameWidget()
-{
+    virtual BF4CommandHandler *getCommandHandler() {
+        return commandHandler;
+    }
 
-}
+private:
+    BF4CommandHandler *commandHandler;
+
+};
+
+#endif // BF4CLIENT_H

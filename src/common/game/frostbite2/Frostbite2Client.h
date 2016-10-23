@@ -12,20 +12,32 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "GameWidget.h"
-#include "Client.h"
+#ifndef FROSTBITE2CLIENT_H
+#define FROSTBITE2CLIENT_H
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
+#include "FrostbiteClient.h"
+#include "Frostbite2CommandHandler.h"
+
+class Frostbite2Client : public FrostbiteClient
 {
+    Q_OBJECT
 
-}
+public:
+    Frostbite2Client(ServerEntry *serverEntry, QObject *parent = nullptr);
+    ~Frostbite2Client();
 
-GameWidget::~GameWidget()
-{
+    virtual Frostbite2CommandHandler *getCommandHandler() {
+        return commandHandler;
+    }
 
-}
+private:
+    Frostbite2CommandHandler *commandHandler;
+
+};
+
+#endif // FROSTBITE2CLIENT_H

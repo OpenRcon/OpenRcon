@@ -22,14 +22,12 @@
 
 #include "SpectatorSlotsWidget.h"
 #include "ui_SpectatorSlotsWidget.h"
-#include "FrostbiteConnection.h"
-#include "BF4CommandHandler.h"
+#include "BF4Client.h"
 
-SpectatorSlotsWidget::SpectatorSlotsWidget(FrostbiteConnection *connection, QWidget *parent) :
+SpectatorSlotsWidget::SpectatorSlotsWidget(BF4Client *client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SpectatorSlotsWidget),
-    m_connection(connection),
-    m_commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
+    client(client)
 {
     ui->setupUi(this);
 
@@ -39,8 +37,8 @@ SpectatorSlotsWidget::SpectatorSlotsWidget(FrostbiteConnection *connection, QWid
     menu_spectatorList->addAction(action_spectatorList_remove);
 
     /* Commands */
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &SpectatorSlotsWidget::onLoginHashedCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onSpectatorListListCommand,                                                       this, &SpectatorSlotsWidget::onSpectatorListListCommand);
+    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &SpectatorSlotsWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), &BF4CommandHandler::onSpectatorListListCommand,                                                       this, &SpectatorSlotsWidget::onSpectatorListListCommand);
 
     /* User Interface */
     connect(ui->listWidget_spectatorList, &QListWidget::customContextMenuRequested, this, &SpectatorSlotsWidget::listWidget_spectatorList_customContextMenuRequested);
@@ -59,7 +57,7 @@ SpectatorSlotsWidget::~SpectatorSlotsWidget()
 void SpectatorSlotsWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        m_commandHandler->sendSpectatorListListCommand();
+        client->getCommandHandler()->sendSpectatorListListCommand();
     }
 }
 
@@ -87,7 +85,7 @@ void SpectatorSlotsWidget::action_spectatorList_remove_triggered()
 
         ui->listWidget_spectatorList->takeItem(row);
         ui->pushButton_clear->setEnabled(ui->listWidget_spectatorList->count() > 0);
-        m_commandHandler->sendSpectatorListRemoveCommand(player);
+        client->getCommandHandler()->sendSpectatorListRemoveCommand(player);
     }
 }
 
@@ -100,16 +98,16 @@ void SpectatorSlotsWidget::pushButton_add_clicked()
         ui->pushButton_clear->setEnabled(true);
         ui->lineEdit_nickname->clear();
 
-        m_commandHandler->sendSpectatorListAddCommand(player);
+        client->getCommandHandler()->sendSpectatorListAddCommand(player);
     }
 }
 
 void SpectatorSlotsWidget::pushButton_save_clicked()
 {
-    m_commandHandler->sendSpectatorListSaveCommand();
+    client->getCommandHandler()->sendSpectatorListSaveCommand();
 }
 
 void SpectatorSlotsWidget::pushButton_clear_clicked()
 {
-    m_commandHandler->sendSpectatorListClearCommand();
+    client->getCommandHandler()->sendSpectatorListClearCommand();
 }

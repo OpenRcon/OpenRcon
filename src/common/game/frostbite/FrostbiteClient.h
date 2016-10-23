@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,38 +17,47 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FROSTBITEGAME_H
-#define FROSTBITEGAME_H
+#ifndef FROSTBITECLIENT_H
+#define FROSTBITECLIENT_H
 
-#include "../client/game/GameWidget.h"
+#include <QMap>
+
+#include "Client.h"
 #include "FrostbiteConnection.h"
+#include "FrostbiteCommandHandler.h"
 
-class FrostbiteCommandHandler;
+class QString;
+class QStringList;
+class QByteArray;
 
-class FrostbiteGame : public GameWidget
+class ServerEntry;
+
+class FrostbiteClient : public Client
 {
     Q_OBJECT
 
 public:
-    FrostbiteGame(ServerEntry *serverEntry);
-    ~FrostbiteGame();    
+    FrostbiteClient(ServerEntry *serverEntry, QObject *parent = nullptr);
+    ~FrostbiteClient();
 
-    virtual Connection *getConnection() {
+    virtual FrostbiteConnection *getConnection() {
         return connection;
     }
 
-    bool isAuthenticated();
-    void setAuthenticated(bool authenticated);
+    virtual FrostbiteCommandHandler *getCommandHandler() {
+        return commandHandler;
+    }
+
+    QString getVersionFromBuild(int build);
 
 protected:
     FrostbiteConnection *connection;
+    QMap<int, QString> versionMap;
+
+private:
     FrostbiteCommandHandler *commandHandler;
 
-    bool authenticated;
-    QMap<int, QString> versionMap;
     QStringList commandList;
-
-    QString getVersionFromBuild(int build);
 
 private slots:
     void onConnected();
@@ -58,4 +67,4 @@ private slots:
 
 };
 
-#endif // FROSTBITEGAME_H
+#endif // FROSTBITECLIENT_H

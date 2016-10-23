@@ -22,18 +22,16 @@
 
 #include "MapListWidget.h"
 #include "ui_MapListWidget.h"
-#include "FrostbiteConnection.h"
-#include "BF4CommandHandler.h"
+#include "BF4Client.h"
 #include "LevelEntry.h"
 #include "BF4LevelDictionary.h"
 #include "BF4ServerInfo.h"
 #include "BF4GameModeEntry.h"
 
-MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
+MapListWidget::MapListWidget(BF4Client *client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MapListWidget),
-    m_connection(connection),
-    m_commandHandler(dynamic_cast<BF4CommandHandler *>(connection->getCommandHandler()))
+    client(client)
 {
     ui->setupUi(this);
 
@@ -53,11 +51,11 @@ MapListWidget::MapListWidget(FrostbiteConnection *connection, QWidget *parent) :
 
     /* Commands */
     // Misc
-    connect(m_commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &MapListWidget::onLoginHashedCommand);
-    connect(m_commandHandler, &BF4CommandHandler::onServerInfoCommand,                                                              this, &MapListWidget::onServerInfoCommand);
+    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &MapListWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), &BF4CommandHandler::onServerInfoCommand,                                                              this, &MapListWidget::onServerInfoCommand);
 
     // MapList
-    connect(m_commandHandler, &BF4CommandHandler::onMapListListCommand,                                                             this, &MapListWidget::onMapListListCommand);
+    connect(client->getCommandHandler(), &BF4CommandHandler::onMapListListCommand,                                                             this, &MapListWidget::onMapListListCommand);
 
     /* User Interface */
     connect(ui->comboBox_gameMode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &MapListWidget::comboBox_gameMode_currentIndexChanged);
@@ -85,8 +83,8 @@ MapListWidget::~MapListWidget()
 void MapListWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        m_commandHandler->sendServerInfoCommand();
-        m_commandHandler->sendMapListListCommand();
+        client->getCommandHandler()->sendServerInfoCommand();
+        client->getCommandHandler()->sendMapListListCommand();
     }
 }
 
@@ -133,17 +131,17 @@ void MapListWidget::treeWidget_available_customContextMenuRequested(const QPoint
 
 void MapListWidget::pushButton_load_clicked()
 {
-    m_commandHandler->sendMapListLoadCommand();
+    client->getCommandHandler()->sendMapListLoadCommand();
 }
 
 void MapListWidget::pushButton_save_clicked()
 {
-    m_commandHandler->sendMapListSaveCommand();
+    client->getCommandHandler()->sendMapListSaveCommand();
 }
 
 void MapListWidget::pushButton_clear_clicked()
 {
-    m_commandHandler->sendMapListClearCommand();
+    client->getCommandHandler()->sendMapListClearCommand();
 }
 
 void MapListWidget::pushButton_add_clicked()
@@ -266,7 +264,7 @@ void MapListWidget::addLevel(const QString &name, const QString &gameMode, int r
 
         ui->label_currentSelectedMapImage->setPixmap(levelEntry.getImage());
         addCurrentMapListItem(name, gameMode, rounds);
-        m_commandHandler->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getEngineName(), rounds);
+        client->getCommandHandler()->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getEngineName(), rounds);
     }
 }
 
@@ -277,5 +275,5 @@ void MapListWidget::removeLevel(int index)
     }
 
     ui->treeWidget_current->takeTopLevelItem(index);
-    m_commandHandler->sendMapListRemoveCommand(index);
+    client->getCommandHandler()->sendMapListRemoveCommand(index);
 }

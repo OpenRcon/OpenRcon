@@ -1,10 +1,11 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += $$PWD/FrostbiteConnection.h \
+HEADERS += $$PWD/FrostbiteClient.h \
+    $$PWD/FrostbiteConnection.h \
+    $$PWD/FrostbiteCommandHandler.h \
     $$PWD/FrostbiteRconPacket.h \
     $$PWD/FrostbiteRconWord.h \
-    $$PWD/FrostbiteCommandHandler.h \
     $$PWD/FrostbiteUtils.h \
     $$PWD/TeamEntry.h \
     $$PWD/LevelEntry.h \
@@ -21,10 +22,11 @@ HEADERS += $$PWD/FrostbiteConnection.h \
     $$PWD/WeaponEntry.h \
     $$PWD/WeaponDictionary.h
 
-SOURCES += $$PWD/FrostbiteConnection.cpp \
+SOURCES += $$PWD/FrostbiteClient.cpp \
+    $$PWD/FrostbiteConnection.cpp \
+    $$PWD/FrostbiteCommandHandler.cpp \
     $$PWD/FrostbiteRconPacket.cpp \
     $$PWD/FrostbiteRconWord.cpp \
-    $$PWD/FrostbiteCommandHandler.cpp \
     $$PWD/FrostbiteUtils.cpp \
     $$PWD/TeamEntry.cpp \
     $$PWD/LevelEntry.cpp \

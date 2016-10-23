@@ -12,20 +12,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef FROSTBITEWIDGET_H
+#define FROSTBITEWIDGET_H
+
 #include "GameWidget.h"
-#include "Client.h"
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
+class FrostbiteWidget : public GameWidget
 {
+    Q_OBJECT
 
-}
+public:
+    FrostbiteWidget(QWidget *parent = nullptr);
+    ~FrostbiteWidget();
 
-GameWidget::~GameWidget()
-{
+};
 
-}
+#endif // FROSTBITEWIDGET_H

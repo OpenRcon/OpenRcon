@@ -22,8 +22,7 @@
 
 #include <QWidget>
 
-class FrostbiteConnection;
-class BF4CommandHandler;
+class BF4Client;
 enum class BF4PresetType;
 
 namespace Ui {
@@ -35,13 +34,12 @@ class BF4OptionsWidget : public QWidget
     Q_OBJECT
 
 public:
-    BF4OptionsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    BF4OptionsWidget(BF4Client *client, QWidget *parent = nullptr);
     ~BF4OptionsWidget();
 
 private:
     Ui::BF4OptionsWidget *ui;
-    FrostbiteConnection *m_connection;
-    BF4CommandHandler *m_commandHandler;
+    BF4Client *client;
 
 private slots:
     /* Commands */

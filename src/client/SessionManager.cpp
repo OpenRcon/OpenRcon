@@ -29,6 +29,7 @@
 #include "GameWidget.h"
 #include "ServerEntry.h"
 #include "Connection.h"
+#include "Client.h"
 
 SessionManager *SessionManager::instance = nullptr;
 
@@ -74,13 +75,13 @@ void SessionManager::open(ServerEntry *serverEntry)
 {
     TabWidget *tabWidget = TabWidget::getInstance();
     GameWidget *gameWidget = dynamic_cast<GameWidget *>(tabWidget->widget(index));
-    ServerEntry *serverEntry = gameWidget->getServerEntry();
+    Client *client = gameWidget->getClient();
 
     tabWidget->removeTab(index);
-    gameWidget->getConnection()->hostDisconnect();
+    client->getConnection()->hostDisconnect();
 
     // Remove the ServerEntry from the list.
-    if (sessions.remove(serverEntry)) {
+    if (sessions.remove(client->getServerEntry())) {
         emit (onServerConnected());
     }
 }

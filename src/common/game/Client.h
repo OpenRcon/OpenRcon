@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -12,50 +12,42 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FROSTBITEGAME_H
-#define FROSTBITEGAME_H
+#ifndef CLIENT_H
+#define CLIENT_H
 
-#include "GameWidget.h"
-#include "FrostbiteConnection.h"
+#include <QObject>
 
-class FrostbiteCommandHandler;
+class ServerEntry;
+class Connection;
+class CommandHandler;
 
-class FrostbiteGame : public GameWidget
+class Client : public QObject
 {
     Q_OBJECT
 
 public:
-    FrostbiteGame(ServerEntry *serverEntry);
-    ~FrostbiteGame();    
+    Client(ServerEntry *serverEntry, QObject *parent = nullptr);
+    ~Client();
 
-    virtual Connection *getConnection() {
-        return connection;
-    }
+    ServerEntry *getServerEntry();
+
+    virtual Connection *getConnection() = 0;
+    virtual CommandHandler *getCommandHandler() = 0;
 
     bool isAuthenticated();
     void setAuthenticated(bool authenticated);
 
 protected:
-    FrostbiteConnection *connection;
-    FrostbiteCommandHandler *commandHandler;
+    ServerEntry *serverEntry;
 
+private:
     bool authenticated;
-    QMap<int, QString> versionMap;
-    QStringList commandList;
-
-    QString getVersionFromBuild(int build);
-
-private slots:
-    void onConnected();
-    void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand(bool auth);
-    void onVersionCommand(const QString &type, int build);
 
 };
 
-#endif // FROSTBITEGAME_H
+#endif // CLIENT_H

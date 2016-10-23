@@ -26,10 +26,7 @@
 
 class QClipboard;
 
-class FrostbiteGame;
-class FrostbiteConnection;
-class BF4CommandHandler;
-
+class BF4Client;
 class BF4ServerInfo;
 class PlayerInfo;
 enum class PlayerSubsetType;
@@ -39,13 +36,11 @@ class PlayerListWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    PlayerListWidget(FrostbiteConnection *connection, QWidget *game = 0);
+    PlayerListWidget(BF4Client *client, QWidget *game = 0);
     ~PlayerListWidget();
 
 private:
-    FrostbiteGame *m_game;
-    FrostbiteConnection *m_connection;
-    BF4CommandHandler *m_commandHandler;
+    BF4Client *client;
 
     // Players
     QClipboard *clipboard;

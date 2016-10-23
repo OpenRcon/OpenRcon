@@ -22,22 +22,17 @@
 
 #include <QWidget>
 
-class ServerEntry;
-class Connection;
+class Client;
 
 class GameWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    GameWidget(ServerEntry *serverEntry, QWidget *parent = nullptr);
+    GameWidget(QWidget *parent = nullptr);
     ~GameWidget();
 
-    ServerEntry *getServerEntry();
-    virtual Connection *getConnection() = 0;
-
-protected:
-    ServerEntry *serverEntry;
+    virtual Client *getClient() = 0;
 
 };
 

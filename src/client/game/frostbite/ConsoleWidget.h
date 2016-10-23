@@ -25,8 +25,7 @@
 class QStringList;
 class QString;
 
-class FrostbiteConnection;
-class FrostbiteCommandHandler;
+class FrostbiteClient;
 
 namespace Ui {
     class ConsoleWidget;
@@ -37,14 +36,13 @@ class ConsoleWidget : public QWidget
     Q_OBJECT
 
 public:
-    ConsoleWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
-    ConsoleWidget(FrostbiteConnection *connection, const QStringList &commandList, QWidget *parent = nullptr);
+    ConsoleWidget(FrostbiteClient *client, QWidget *parent = nullptr);
+    ConsoleWidget(FrostbiteClient *client, const QStringList &commandList, QWidget *parent = nullptr);
     ~ConsoleWidget();
 
 private:
     Ui::ConsoleWidget *ui;
-    FrostbiteConnection *connection;
-    FrostbiteCommandHandler *commandHandler;
+    FrostbiteClient *client;
 
     QStringList commandHistory;
     bool commandHistoryFirst;
@@ -53,11 +51,13 @@ private:
     void logConsole(int type, const QString &message);
 
 private slots:
+    /* Commands */
+    void onLoginHashedCommand(bool auth);
+    void onPunkBusterMessageEvent(const QString &message);
+
     /* Events */
     void onDataSent(const QString &request);
     void onDataReceived(const QString &response);
-
-    void onPunkBusterMessageEvent(const QString &message);
 
     /* User Interface */
     void pushButton_co_co_clicked();

@@ -25,8 +25,7 @@
 class QMenu;
 class QAction;
 
-class FrostbiteConnection;
-class BF4CommandHandler;
+class BF4Client;
 
 namespace Ui {
     class SpectatorSlotsWidget;
@@ -37,13 +36,12 @@ class SpectatorSlotsWidget : public QWidget
     Q_OBJECT
 
 public:
-    SpectatorSlotsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    SpectatorSlotsWidget(BF4Client *client, QWidget *parent = nullptr);
     ~SpectatorSlotsWidget();
 
 private:
     Ui::SpectatorSlotsWidget *ui;
-    FrostbiteConnection *m_connection;
-    BF4CommandHandler *m_commandHandler;
+    BF4Client *client;
 
     QMenu *menu_spectatorList;
     QAction *action_spectatorList_remove;

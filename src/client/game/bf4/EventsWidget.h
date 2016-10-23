@@ -24,8 +24,7 @@
 
 class QAbstractSocket;
 
-class FrostbiteConnection;
-class BF4CommandHandler;
+class BF4Client;
 
 namespace Ui {
     class EventsWidget;
@@ -36,13 +35,12 @@ class EventsWidget : public QWidget
     Q_OBJECT
 
 public:
-    EventsWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    EventsWidget(BF4Client *client, QWidget *parent = nullptr);
     ~EventsWidget();
 
 private:
     Ui::EventsWidget *ui;
-    FrostbiteConnection *connection;
-    BF4CommandHandler *commandHandler;
+    BF4Client *client;
 
     void logEvent(const QString &event, const QString &message);
 

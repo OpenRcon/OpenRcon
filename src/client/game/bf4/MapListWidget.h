@@ -26,9 +26,7 @@ class QMenu;
 class QAction;
 class QTreeWidgetItem;
 
-class FrostbiteConnection;
-class BF4CommandHandler;
-
+class BF4Client;
 class BF4ServerInfo;
 class MapListEntry;
 
@@ -41,13 +39,12 @@ class MapListWidget : public QWidget
     Q_OBJECT
 
 public:
-    MapListWidget(FrostbiteConnection *connection, QWidget *parent = nullptr);
+    MapListWidget(BF4Client *client, QWidget *parent = nullptr);
     ~MapListWidget();
 
 private:
     Ui::MapListWidget *ui;
-    FrostbiteConnection *m_connection;
-    BF4CommandHandler *m_commandHandler;
+    BF4Client *client;
 
     // Maplist
     QMenu *menu_available;

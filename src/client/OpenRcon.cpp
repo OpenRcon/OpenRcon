@@ -28,7 +28,6 @@
 #include <QMessageBox>
 
 #include "OpenRcon.h"
-#include "Connection.h"
 #include "ServerManager.h"
 #include "SessionManager.h"
 #include "ServerEntry.h"
@@ -40,6 +39,9 @@
 #include "OptionsDialog.h"
 #include "AboutDialog.h"
 #include "GameWidget.h"
+
+#include "Client.h"
+#include "Connection.h"
 
 OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
 {
@@ -343,14 +345,15 @@ void OpenRcon::actionAboutQt_triggered()
 void OpenRcon::actionTabReconnect_triggered()
 {
     GameWidget *gameWidget = dynamic_cast<GameWidget *>(tabWidget->currentWidget());
-    Connection *connection = gameWidget->getConnection();
-    connection->hostConnect(gameWidget->getServerEntry());
+    Connection *connection = gameWidget->getClient()->getConnection();
+    // TODO: Check if a connection already exists, if so disconnect first.
+    connection->hostConnect(gameWidget->getClient()->getServerEntry());
 }
 
 void OpenRcon::actionTabDisconnect_triggered()
 {
     GameWidget *gameWidget = dynamic_cast<GameWidget *>(tabWidget->currentWidget());
-    Connection *connection = gameWidget->getConnection();
+    Connection *connection = gameWidget->getClient()->getConnection();
     connection->hostDisconnect();
 }
 
