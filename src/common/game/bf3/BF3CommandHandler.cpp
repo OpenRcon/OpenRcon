@@ -37,7 +37,7 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 {
     typedef void (BF3CommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
-    static QHash<QString, ResponseFunction> responses = {
+    static QHash<QString, ResponseFunction> responseList = {
         /* Events */
         { "server.onMaxPlayerCountChange", &BF3CommandHandler::parseServerMaxPlayerCountChangeEvent },
 
@@ -61,11 +61,11 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "vars.gunMasterWeaponsPreset",   &BF3CommandHandler::parseVarsGunMasterWeaponsPresetCommand }
     };
 
-    if (responses.contains(request)) {
-        ResponseFunction res = responses[request];
+    if (responseList.contains(request)) {
+        ResponseFunction response = responseList[request];
 
-        if (res) {
-            (this->*res)(packet, lastSentPacket);
+        if (response) {
+            (this->*response)(packet, lastSentPacket);
         }
 
         return true;

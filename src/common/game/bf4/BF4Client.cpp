@@ -20,6 +20,9 @@
 #include "BF4Client.h"
 #include "BF4CommandHandler.h"
 
+#include "GameType.h"
+#include "ServerEntry.h"
+
 BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
     Frostbite2Client(serverEntry, parent),
     commandHandler(new BF4CommandHandler(connection))

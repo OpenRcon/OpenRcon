@@ -36,7 +36,7 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
 {
     typedef void (Frostbite2CommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
-    static QHash<QString, ResponseFunction> responses = {
+    static QHash<QString, ResponseFunction> responseList = {
         /* Events */
         { "player.onAuthenticated",           &Frostbite2CommandHandler::parsePlayerAuthenticatedEvent },
         { "player.onJoin",                    &Frostbite2CommandHandler::parsePlayerJoinEvent },
@@ -117,11 +117,11 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         { "vars.vehicleSpawnDelay",           &Frostbite2CommandHandler::parseVarsVehicleSpawnDelayCommand }
     };
 
-    if (responses.contains(request)) {
-        ResponseFunction res = responses[request];
+    if (responseList.contains(request)) {
+        ResponseFunction response = responseList[request];
 
-        if (res) {
-            (this->*res)(packet, lastSentPacket);
+        if (response) {
+            (this->*response)(packet, lastSentPacket);
         }
 
         return true;
