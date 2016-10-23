@@ -26,10 +26,10 @@
 
 #include "ChatWidget.h"
 #include "ui_ChatWidget.h"
-#include "BF4Client.h"
+#include "Frostbite2Client.h"
 #include "PlayerSubset.h"
 
-ChatWidget::ChatWidget(BF4Client *client, QWidget *parent) :
+ChatWidget::ChatWidget(Frostbite2Client *client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ChatWidget),
     client(client)

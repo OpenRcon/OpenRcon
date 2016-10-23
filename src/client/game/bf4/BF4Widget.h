@@ -20,7 +20,7 @@
 #ifndef BF4WIDGET_H
 #define BF4WIDGET_H
 
-#include "FrostbiteWidget.h"
+#include "Frostbite2Widget.h"
 #include "BF4Client.h"
 
 class QTimer;
@@ -41,7 +41,7 @@ namespace Ui {
     class BF4Widget;
 }
 
-class BF4Widget : public FrostbiteWidget
+class BF4Widget : public Frostbite2Widget
 {
     Q_OBJECT
 

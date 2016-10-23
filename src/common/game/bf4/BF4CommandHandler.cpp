@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,11 +21,12 @@
 #include "FrostbiteConnection.h"
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteUtils.h"
-#include "TeamScores.h"
-#include "OnlineState.h"
-#include "BF4ServerInfo.h"
-#include "PlayerInfo.h"
+#include "PlayerSubset.h"
 #include "BF4Preset.h"
+#include "BF4ServerType.h"
+#include "BF4ServerInfo.h"
+#include "TeamScores.h"
+#include "PlayerInfo.h"
 
 BF4CommandHandler::BF4CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)
 {
@@ -41,7 +42,7 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 {
     typedef void (BF4CommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
-    static QHash<QString, ResponseFunction> responses = {
+    static QHash<QString, ResponseFunction> responseList = {
         /* Events */
         { "player.onDisconnect",               &BF4CommandHandler::parsePlayerDisconnectEvent },
 
@@ -85,11 +86,11 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "vars.roundPlayersReadyPercent",     &BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand }
     };
 
-    if (responses.contains(request)) {
-        ResponseFunction res = responses[request];
+    if (responseList.contains(request)) {
+        ResponseFunction response = responseList[request];
 
-        if (res) {
-            (this->*res)(packet, lastSentPacket);
+        if (response) {
+            (this->*response)(packet, lastSentPacket);
         }
 
         return true;
@@ -112,17 +113,13 @@ void BF4CommandHandler::sendCurrentLevelCommand()
 
 void BF4CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
-    if (playerSubsetType == PlayerSubsetType::All) {
-        connection->sendCommand("\"listPlayers\" \"all\"");
-    }
+    connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubsetType).toLower()));
 }
 
 // Admin
 void BF4CommandHandler::sendAdminListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
-    if (playerSubsetType == PlayerSubsetType::All) {
-        connection->sendCommand(QString("\"admin.listPlayers\" \"all\""));
-    }
+    connection->sendCommand(QString("\"admin.listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubsetType).toLower()));
 }
 
 void BF4CommandHandler::sendAdminShutdownCommand()
@@ -233,7 +230,7 @@ void BF4CommandHandler::sendVarsHitIndicatorsEnabledCommand(bool enabled)
 
 void BF4CommandHandler::sendVarsMaxSpectatorsCommand(int spectators)
 {
-    if (spectators == -1) {
+    if (spectators < 0) {
         connection->sendCommand("vars.maxSpectators");
     } else {
         connection->sendCommand(QString("\"vars.maxSpectators\" \"%1\"").arg(spectators));
@@ -249,18 +246,19 @@ void BF4CommandHandler::sendVarsMpExperienceCommand(const QString &experience)
     }
 }
 
-void BF4CommandHandler::sendVarsPresetCommand(const QString &serverPreset, bool lockPresetSetting)
+void BF4CommandHandler::sendVarsPresetCommand()
 {
-    if (serverPreset.isEmpty() && lockPresetSetting == 0) {
-        connection->sendCommand("vars.preset");
-    } else {
-        connection->sendCommand(QString("\"vars.preset\" \"%1\" \"%2\"").arg(serverPreset, FrostbiteUtils::toString(lockPresetSetting)));
-    }
+    connection->sendCommand("vars.preset");
+}
+
+void BF4CommandHandler::sendVarsPresetCommand(const BF4PresetType &presetType, bool lockPresetSetting)
+{
+    connection->sendCommand(QString("\"vars.preset\" \"%1\" \"%2\"").arg(BF4Preset::toString(presetType).toLower(), FrostbiteUtils::toString(lockPresetSetting)));
 }
 
 void BF4CommandHandler::sendVarsRoundTimeLimitCommand(int percent)
 {
-    if (percent == -1) {
+    if (percent < 0) {
         connection->sendCommand("vars.roundTimeLimit");
     } else {
         connection->sendCommand(QString("\"vars.roundTimeLimit\" \"%1\"").arg(percent));
@@ -269,25 +267,26 @@ void BF4CommandHandler::sendVarsRoundTimeLimitCommand(int percent)
 
 void BF4CommandHandler::sendVarsRoundWarmupTimeoutCommand(int timeout)
 {
-    if (timeout == -1) {
+    if (timeout < 0) {
         connection->sendCommand("vars.roundWarmupTimeout");
     } else {
         connection->sendCommand(QString("\"vars.roundWarmupTimeout\" \"%1\"").arg(timeout));
     }
 }
 
-void BF4CommandHandler::sendVarsServerTypeCommand(const QString &type)
+void BF4CommandHandler::sendVarsServerTypeCommand()
 {
-    if (type.isEmpty()) {
-        connection->sendCommand("vars.serverType");
-    } else {
-        connection->sendCommand(QString("\"vars.serverType\" \"%1\"").arg(type));
-    }
+    connection->sendCommand("vars.serverType");
+}
+
+void BF4CommandHandler::sendVarsServerTypeCommand(const BF4ServerType &type)
+{
+    connection->sendCommand(QString("\"vars.serverType\" \"%1\"").arg(BF4Server::toString(type)));
 }
 
 void BF4CommandHandler::sendVarsTeamFactionOverrideCommand(int teamId, int factionId)
 {
-    if (teamId == -1 && factionId == -1) {
+    if (teamId < 0 && factionId < 0) {
         connection->sendCommand("vars.teamFactionOverride");
     } else {
         connection->sendCommand(QString("\"vars.teamFactionOverride\" \"%1\" \"%1\"").arg(teamId, factionId));
@@ -296,25 +295,35 @@ void BF4CommandHandler::sendVarsTeamFactionOverrideCommand(int teamId, int facti
 
 void BF4CommandHandler::sendVarsTicketBleedRateCommand(int percent)
 {
-    if (percent == -1) {
+    if (percent < 0) {
         connection->sendCommand("vars.ticketBleedRate");
     } else {
         connection->sendCommand(QString("\"vars.ticketBleedRate\" \"%1\"").arg(percent));
     }
 }
 
-void BF4CommandHandler::sendVarsRoundPlayersReadyBypassTimerCommand(int timer)
+void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand()
 {
-    if (timer == -1) {
+    connection->sendCommand("vars.vehicleSpawnAllowed");
+}
+
+void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand(bool enabled)
+{
+    connection->sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
+void BF4CommandHandler::sendVarsRoundPlayersReadyBypassTimerCommand(int time)
+{
+    if (time < 0) {
         connection->sendCommand("vars.roundPlayersReadyBypassTimer");
     } else {
-        connection->sendCommand(QString("\"vars.roundPlayersReadyBypassTimer\" \"%1\"").arg(timer));
+        connection->sendCommand(QString("\"vars.roundPlayersReadyBypassTimer\" \"%1\"").arg(time));
     }
 }
 
 void BF4CommandHandler::sendVarsRoundPlayersReadyMinCountCommand(int count)
 {
-    if (count == -1) {
+    if (count < 0) {
         connection->sendCommand("vars.roundPlayersReadyMinCount");
     } else {
         connection->sendCommand(QString("\"vars.roundPlayersReadyMinCount\" \"%1\"").arg(count));
@@ -323,11 +332,21 @@ void BF4CommandHandler::sendVarsRoundPlayersReadyMinCountCommand(int count)
 
 void BF4CommandHandler::sendVarsRoundPlayersReadyPercentCommand(int percent)
 {
-    if (percent == -1) {
+    if (percent < 0) {
         connection->sendCommand("vars.roundPlayersReadyPercent");
     } else {
         connection->sendCommand(QString("\"vars.roundPlayersReadyPercent\" \"%1\"").arg(percent));
     }
+}
+
+void BF4CommandHandler::sendVarsIsNoobOnlyJoinCommand()
+{
+    connection->sendCommand("vars.isNoobOnlyJoin");
+}
+
+void BF4CommandHandler::sendVarsIsNoobOnlyJoinCommand(bool enabled)
+{
+    connection->sendCommand(QString("\"vars.isNoobOnlyJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
 
 /* Parse events */

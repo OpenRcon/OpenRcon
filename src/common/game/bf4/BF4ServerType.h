@@ -17,14 +17,30 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "FrostbiteWidget.h"
+#ifndef SERVERTYPE_H
+#define SERVERTYPE_H
 
-FrostbiteWidget::FrostbiteWidget(QWidget *parent) : GameWidget(parent)
+class QString;
+class QStringList;
+
+enum class BF4ServerType {
+    Official,
+    Ranked,
+    Unranked,
+    Private
+};
+
+class BF4Server
 {
+public:
+    static BF4ServerType fromString(const QString &server);
+    static QString toString(const BF4ServerType &serverType);
+    static int toInt(const BF4ServerType &serverType);
+    static QStringList asList();
 
-}
+private:
+    static QStringList list;
 
-FrostbiteWidget::~FrostbiteWidget()
-{
+};
 
-}
+#endif // SERVERTYPE_H

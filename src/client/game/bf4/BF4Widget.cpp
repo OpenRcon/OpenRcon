@@ -43,7 +43,7 @@
 #include "SpectatorSlotsWidget.h"
 #include "ConsoleWidget.h"
 
-BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : FrostbiteWidget(parent), ui(new Ui::BF4Widget), client(new BF4Client(serverEntry, this))
+BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widget(parent), ui(new Ui::BF4Widget), client(new BF4Client(serverEntry, this))
 {
     ui->setupUi(this);
 

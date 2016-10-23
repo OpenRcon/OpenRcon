@@ -738,14 +738,16 @@ void BF4OptionsWidget::comboBox_gameplay_preset_currentIndexChanged(const QStrin
 {
     bool presetLockPresetSetting = ui->checkBox_gameplay_presetLockPresetSetting->isChecked();
 
-    client->getCommandHandler()->sendVarsPresetCommand(text, presetLockPresetSetting);
+    // TODO: Do this more elegantly, using the enum.
+    client->getCommandHandler()->sendVarsPresetCommand(BF4Preset::fromString(text), presetLockPresetSetting);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_presetLockPresetSetting_toggled(bool checked)
 {
-    QString preset = ui->comboBox_gameplay_preset->currentText().toLower();
+    QString preset = ui->comboBox_gameplay_preset->currentText();
 
-    client->getCommandHandler()->sendVarsPresetCommand(preset, checked);
+    // TODO: Do this more elegantly, using the enum.
+    client->getCommandHandler()->sendVarsPresetCommand(BF4Preset::fromString(preset), checked);
 }
 
 void BF4OptionsWidget::comboBox_gameplay_unlockMode_currentIndexChanged(int index)

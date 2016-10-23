@@ -17,14 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "FrostbiteWidget.h"
+#include "Frostbite2Widget.h"
 
-FrostbiteWidget::FrostbiteWidget(QWidget *parent) : GameWidget(parent)
+Frostbite2Widget::Frostbite2Widget(QWidget *parent) : FrostbiteWidget(parent)
 {
 
 }
 
-FrostbiteWidget::~FrostbiteWidget()
+Frostbite2Widget::~Frostbite2Widget()
 {
 
 }
