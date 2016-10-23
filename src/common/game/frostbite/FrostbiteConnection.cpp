@@ -27,7 +27,7 @@
 #include "FrostbiteUtils.h"
 
 FrostbiteConnection::FrostbiteConnection(QObject *parent) :
-    Connection(new QTcpSocket(parent), parent),
+    Connection(parent),
     packetReadState(PacketReadingHeader),
     nextPacketSequence(0)
 {

@@ -20,12 +20,12 @@
 #include <QAbstractSocket>
 #include <QString>
 #include <QHostAddress>
+#include <QTcpSocket>
 
 #include "Connection.h"
+#include "ServerEntry.h"
 
-#include "../client/ServerEntry.h"
-
-Connection::Connection(QAbstractSocket *socket, QObject *parent) : QObject(parent), socket(socket)
+Connection::Connection(QObject *parent) : QObject(parent), socket(new QTcpSocket(this))
 {
     connect(socket, &QAbstractSocket::connected,                                                                   this, &Connection::connected);
     connect(socket, &QAbstractSocket::disconnected,                                                                this, &Connection::disconnected);

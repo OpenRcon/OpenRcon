@@ -61,7 +61,7 @@ void SessionManager::open(ServerEntry *serverEntry)
         TabWidget *tabWidget = TabWidget::getInstance();
         GameEntry gameEntry = GameManager::getGame(serverEntry->getGameType());
         GameWidget *gameWidget = GameManager::getGameWidget(serverEntry);
-        Client *client = gameWidget->getClient();
+        //Client *client = gameWidget->getClient();
         int index = tabWidget->addTab(gameWidget, QIcon(gameEntry.getIcon()), serverEntry->getName());
 
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->getHost()).arg(serverEntry->getPort()));

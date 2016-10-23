@@ -32,7 +32,7 @@ class Connection : public QObject
     Q_OBJECT
 
 public:
-    Connection(QAbstractSocket *socket, QObject *parent = nullptr);
+    Connection(QObject *parent = nullptr);
     virtual ~Connection();
 
 public slots:
@@ -42,7 +42,6 @@ public slots:
 protected:
     void responseDataSent(const QString &request);
     void responseDataReceived(const QString &response);
-    void responseUnknownCommand();
 
     QAbstractSocket *socket;
 
