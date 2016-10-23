@@ -23,23 +23,20 @@
 #include <QString>
 #include <QIcon>
 
-struct LanguageEntry
+class LanguageEntry
 {
-    LanguageEntry()
-    {
-
-    }
-
+public:
     LanguageEntry(const QString &name,
                   const QString &code,
-                  const QString &icon) :
-        name(name),
-        code(code),
-        icon(QIcon(icon))
-    {
+                  const QString &icon);
+    LanguageEntry();
+    ~LanguageEntry();
 
-    }
+    QString getName();
+    QString getCode();
+    QIcon getIcon();
 
+private:
     QString name;
     QString code;
     QIcon icon;

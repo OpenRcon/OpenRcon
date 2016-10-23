@@ -14,7 +14,8 @@ SOURCES += $$PWD/Main.cpp \
     $$PWD/ServerEntry.cpp \
     $$PWD/ServerManager.cpp \
     $$PWD/LanguageManager.cpp \
-    $$PWD/SessionManager.cpp
+    $$PWD/SessionManager.cpp \
+    $$PWD/LanguageEntry.cpp
 
 RESOURCES += $$PWD/OpenRcon.qrc
 

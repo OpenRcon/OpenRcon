@@ -17,34 +17,39 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAMETYPE_H
-#define GAMETYPE_H
+#include "LanguageEntry.h"
 
-#include <QMetaType>
-
-class QString;
-class QStringList;
-
-enum class GameType {
-    BFBC2,
-    BF3,
-    BF4
-};
-
-class GameTypeUtils
+LanguageEntry::LanguageEntry(const QString &name,
+                             const QString &code,
+                             const QString &icon) :
+    name(name),
+    code(code),
+    icon(QIcon(icon))
 {
-public:
-    static GameType fromString(const QString &game);
-    static QString toString(const GameType &gameType);
-    static int toInt(const GameType &gameType);
-    static QStringList asList();
 
-private:
-    static QStringList list;
+}
 
-};
+LanguageEntry::LanguageEntry()
+{
 
-// For use with QVariant
-Q_DECLARE_METATYPE(GameType)
+}
 
-#endif // GAMETYPE_H
+LanguageEntry::~LanguageEntry()
+{
+
+}
+
+QString LanguageEntry::getName()
+{
+    return name;
+}
+
+QString LanguageEntry::getCode()
+{
+    return code;
+}
+
+QIcon LanguageEntry::getIcon()
+{
+    return icon;
+}

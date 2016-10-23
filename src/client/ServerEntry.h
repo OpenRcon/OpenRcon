@@ -21,10 +21,9 @@
 #define SERVERENTRY_H
 
 #include <QMetaType>
+#include <QString>
 
 #include "GameType.h"
-
-class QString;
 
 class ServerEntry
 {

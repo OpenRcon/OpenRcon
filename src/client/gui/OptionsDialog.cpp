@@ -59,7 +59,7 @@ void OptionsDialog::loadSettings()
     languageList.insert(0, LanguageEntry(tr("Detect automatically"), QLocale::system().name(), nullptr));
 
     for (LanguageEntry language : languageList) {
-        ui->comboBox_be_language->addItem(language.icon, language.name, qVariantFromValue(language));
+        ui->comboBox_be_language->addItem(language.getIcon(), language.getName(), qVariantFromValue(language));
     }
 
     // Set index of combobox to selected language.
@@ -76,8 +76,8 @@ void OptionsDialog::saveSettings()
     LanguageEntry previousLanguage = languageManager->getLanguage(settings->value("Settings/General/Locale").toString());
     LanguageEntry language = ui->comboBox_be_language->currentData().value<LanguageEntry>();
 
-    if (previousLanguage.code != language.code) {
-        settings->setValue("Settings/General/Locale", language.code);
+    if (previousLanguage.getCode() != language.getCode()) {
+        settings->setValue("Settings/General/Locale", language.getCode());
 
         int answer = QMessageBox::question(this, tr("Language changed"), tr("In order for language to change on user interface, you'll have to restart %1. Do you want to restart it now?").arg(Constants::APP_NAME));
 

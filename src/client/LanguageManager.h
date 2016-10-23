@@ -25,7 +25,7 @@
 
 class QString;
 
-struct LanguageEntry;
+class LanguageEntry;
 
 class LanguageManager : public QObject
 {

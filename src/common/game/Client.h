@@ -34,10 +34,10 @@ public:
     Client(ServerEntry *serverEntry, QObject *parent = nullptr);
     ~Client();
 
-    ServerEntry *getServerEntry();
-
     virtual Connection *getConnection() = 0;
     virtual CommandHandler *getCommandHandler() = 0;
+
+    ServerEntry *getServerEntry();
 
     bool isAuthenticated();
     void setAuthenticated(bool authenticated);

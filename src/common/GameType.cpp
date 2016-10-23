@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014 The OpenRcon Project.
+* Copyright (C) 2016 The OpenRcon Project.
 *
 * This file is part of OpenRcon.
 *
@@ -26,7 +26,6 @@ QStringList GameTypeUtils::list = {
     "BFBC2",
     "BF3",
     "BF4",
-    "Minecraft"
 };
 
 GameType GameTypeUtils::fromString(const QString &game)
@@ -39,8 +38,6 @@ GameType GameTypeUtils::fromString(const QString &game)
         gameType = GameType::BF3;
     } else if (game == "BF4") {
         gameType = GameType::BF4;
-    } else if (game == "Minecraft") {
-        gameType = GameType::Minecraft;
     }
 
     return gameType;

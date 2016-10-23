@@ -25,14 +25,14 @@
 #include "ServerEntry.h"
 #include "GameType.h"
 
+#include "BF3Widget.h"
 #include "BF4Widget.h"
 
 QList<GameEntry> GameManager::gameList = {
     // Adds all games to the list.
     GameEntry(GameType::BFBC2,     "BFBC2",     "Battlefield: Bad Company 2", ":/bfbc2/icons/bfbc2.png",         48888),
     GameEntry(GameType::BF3,       "BF3",       "Battlefield 3",              ":/bf3/icons/bf3.png",             47300),
-    GameEntry(GameType::BF4,       "BF4",       "Battlefield 4",              ":/bf4/icons/bf4.png",             47200),
-    GameEntry(GameType::Minecraft, "Minecraft", "Minecraft",                  ":/minecraft/icons/minecraft.png", 25575)
+    GameEntry(GameType::BF4,       "BF4",       "Battlefield 4",              ":/bf4/icons/bf4.png",             47200)
 };
 
 GameEntry GameManager::getGame(GameType gameType)
@@ -72,15 +72,11 @@ GameWidget *GameManager::getGameWidget(ServerEntry *serverEntry)
         break;
 
     case GameType::BF3:
-        //gameWidget = new BF3Widget(serverEntry);
+        gameWidget = new BF3Widget(serverEntry);
         break;
 
     case GameType::BF4:
         gameWidget = new BF4Widget(serverEntry);
-        break;
-
-    case GameType::Minecraft:
-        //gameWidget = new MinecraftWidget(serverEntry);
         break;
 
     default:
