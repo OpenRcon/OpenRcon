@@ -58,7 +58,7 @@ EventsWidget::EventsWidget(BF4Client *client, QWidget *parent) :
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &EventsWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &EventsWidget::onLoginHashedCommand);
 }
 
 EventsWidget::~EventsWidget()

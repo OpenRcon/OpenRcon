@@ -25,7 +25,7 @@
 class QStringList;
 class QString;
 
-class FrostbiteClient;
+class Frostbite2Client;
 
 namespace Ui {
     class ConsoleWidget;
@@ -36,13 +36,13 @@ class ConsoleWidget : public QWidget
     Q_OBJECT
 
 public:
-    ConsoleWidget(FrostbiteClient *client, QWidget *parent = nullptr);
-    ConsoleWidget(FrostbiteClient *client, const QStringList &commandList, QWidget *parent = nullptr);
+    ConsoleWidget(Frostbite2Client *client, QWidget *parent = nullptr);
+    ConsoleWidget(Frostbite2Client *client, const QStringList &commandList, QWidget *parent = nullptr);
     ~ConsoleWidget();
 
 private:
     Ui::ConsoleWidget *ui;
-    FrostbiteClient *client;
+    Frostbite2Client *client;
 
     QStringList commandHistory;
     bool commandHistoryFirst;

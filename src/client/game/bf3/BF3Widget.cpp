@@ -147,7 +147,7 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
     connect(client->getCommandHandler(), &BF3CommandHandler::onServerInfoCommand, this, &BF3Widget::onServerInfoCommand);
 
     /* User Interface */

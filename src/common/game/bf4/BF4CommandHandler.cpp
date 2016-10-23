@@ -54,19 +54,12 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
         // Admin
         { "admin.listPlayers",                 &BF4CommandHandler::parseAdminListPlayersCommand },
-        { "admin.shutDown",                    nullptr /*&BF4CommandHandler::parseAdminShutDownCommand*/ },
 
         // FairFight
-        { "fairFight.activate",                nullptr /*&BF4CommandHandler::parseFairFightActivateCommand*/ },
-        { "fairFight.deactivate",              nullptr /*&BF4CommandHandler::parseFairFightDeactivateCommand*/ },
         { "fairFight.isActive",                &BF4CommandHandler::parseFairFightIsActiveCommand },
 
         // Spectator List
-        { "spectatorList.add",                 nullptr /*&BF4CommandHandler::parseSpectatorListAddCommand*/ },
-        { "spectatorList.clear",               nullptr /*&BF4CommandHandler::parseSpectatorListClearCommand*/ },
         { "spectatorList.list",                &BF4CommandHandler::parseSpectatorListListCommand },
-        { "spectatorList.remove",              nullptr /*&BF4CommandHandler::parseSpectatorListRemoveCommand*/ },
-        { "spectatorList.save",                nullptr /*&BF4CommandHandler::parseSpectatorListSaveCommand*/ },
 
         // Variables
         { "vars.alwaysAllowSpectators",        &BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand },
@@ -127,14 +120,13 @@ void BF4CommandHandler::sendAdminShutdownCommand()
     connection->sendCommand("admin.shutDown");
 }
 
-void BF4CommandHandler::sendAdminShutdownCommand(bool graceful)
-{
-    connection->sendCommand(QString("\"admin.shutDown\" \"%1\"").arg(FrostbiteUtils::toString(graceful)));
-}
-
 void BF4CommandHandler::sendAdminShutdownCommand(bool graceful, int seconds)
 {
-    connection->sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(FrostbiteUtils::toString(graceful)).arg(seconds));
+    if (seconds < 0) {
+        connection->sendCommand(QString("\"admin.shutDown\" \"%1\"").arg(FrostbiteUtils::toString(graceful)));
+    } else {
+        connection->sendCommand(QString("\"admin.shutDown\" \"%1\" \"%2\"").arg(FrostbiteUtils::toString(graceful)).arg(seconds));
+    }
 }
 
 // FairFight
@@ -168,7 +160,7 @@ void BF4CommandHandler::sendSpectatorListClearCommand()
 
 void BF4CommandHandler::sendSpectatorListListCommand(int index)
 {
-    if (index == 0) {
+    if (index < 0) {
         connection->sendCommand("spectatorList.list");
     } else {
         connection->sendCommand(QString("\"spectatorList.list\" \"%1\"").arg(index));
@@ -188,6 +180,16 @@ void BF4CommandHandler::sendSpectatorListSaveCommand()
 }
 
 // Variables
+void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand()
+{
+    connection->sendCommand("vars.vehicleSpawnAllowed");
+}
+
+void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand(bool enabled)
+{
+    connection->sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
+}
+
 void BF4CommandHandler::sendVarsAlwaysAllowSpectatorsCommand()
 {
     connection->sendCommand("vars.alwaysAllowSpectators");
@@ -302,16 +304,6 @@ void BF4CommandHandler::sendVarsTicketBleedRateCommand(int percent)
     }
 }
 
-void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand()
-{
-    connection->sendCommand("vars.vehicleSpawnAllowed");
-}
-
-void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand(bool enabled)
-{
-    connection->sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
-}
-
 void BF4CommandHandler::sendVarsRoundPlayersReadyBypassTimerCommand(int time)
 {
     if (time < 0) {
@@ -348,6 +340,7 @@ void BF4CommandHandler::sendVarsIsNoobOnlyJoinCommand(bool enabled)
 {
     connection->sendCommand(QString("\"vars.isNoobOnlyJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
+
 
 /* Parse events */
 void BF4CommandHandler::parsePlayerDisconnectEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -467,6 +460,7 @@ void BF4CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packe
     emit (onListPlayersCommand(playerList, playerSubsetType));
 }
 
+// Admin
 void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
@@ -475,25 +469,7 @@ void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &
     emit (onAdminListPlayersCommand(playerList, playerSubsetType));
 }
 
-//void BF4CommandHandler::parseAdminShutDownCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//    Q_UNUSED(lastSentPacket);
-//}
-
 // FairFight
-//void BF4CommandHandler::parseFairFightActivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//    Q_UNUSED(lastSentPacket);
-//}
-
-//void BF4CommandHandler::parseFairFightDeactivateCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//    Q_UNUSED(lastSentPacket);
-//}
-
 void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
@@ -508,18 +484,6 @@ void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket 
 }
 
 // Spectator List
-//void BF4CommandHandler::parseSpectatorListAddCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//    Q_UNUSED(lastSentPacket);
-//}
-
-//void BF4CommandHandler::parseSpectatorListClearCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//    Q_UNUSED(lastSentPacket);
-//}
-
 void BF4CommandHandler::parseSpectatorListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
@@ -536,18 +500,6 @@ void BF4CommandHandler::parseSpectatorListListCommand(const FrostbiteRconPacket 
         emit (onSpectatorListListCommand(spectatorList));
     }
 }
-
-//void BF4CommandHandler::parseSpectatorListRemoveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//    Q_UNUSED(lastSentPacket);
-//}
-
-//void BF4CommandHandler::parseSpectatorListSaveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//    Q_UNUSED(lastSentPacket);
-//}
 
 // Variables
 void BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -749,37 +701,4 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand(const Frostbite
 
         emit (onVarsRoundPlayersReadyPercentCommand(percent));
     }
-}
-
-QList<PlayerInfo> BF4CommandHandler::parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    QString response = packet.getWord(0).getContent();
-    QList<PlayerInfo> playerList;
-
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
-        int parameters = QString(packet.getWord(1).getContent()).toInt();
-        int players = QString(packet.getWord(2 + parameters).getContent()).toInt();
-
-        for (int i = 0; i < players; i++) {
-            QStringList list;
-
-            for (int j = 0; j < parameters; j++) {
-                list.append(packet.getWord(2 + parameters + 1 + i * parameters + j).getContent());
-            }
-
-            QString name = list.at(0);
-            QString guid = list.at(1);
-            int teamId = FrostbiteUtils::toInt(list.at(2));
-            int squadId = FrostbiteUtils::toInt(list.at(3));
-            int kills = FrostbiteUtils::toInt(list.at(4));
-            int deaths = FrostbiteUtils::toInt(list.at(5));
-            int score = FrostbiteUtils::toInt(list.at(6));
-            int rank = FrostbiteUtils::toInt(list.at(7));
-            int ping = FrostbiteUtils::toInt(list.at(8));
-
-            playerList.append(PlayerInfo(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
-        }
-    }
-
-    return playerList;
 }

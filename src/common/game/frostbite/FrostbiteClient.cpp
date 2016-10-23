@@ -29,23 +29,22 @@ FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, QObject *parent) :
     Client(serverEntry, parent),
     connection(new FrostbiteConnection(this))
 {
+    qDebug() << "FrostbiteClient created.";
+}
+
+void FrostbiteClient::connectToHost(Frostbite2CommandHandler *commandHandler)
+{
     connection->hostConnect(serverEntry);
 
-    if (commandHandler) {
-        qDebug() << "Commandhandler is not null.";
-    } else {
-        qDebug() << "Commandhandler is null. :-(";
-    }
-
     // Connection
-    connect(connection,       &Connection::onConnected, this, &FrostbiteClient::onConnected);
+    connect(connection,     &Connection::onConnected, this, &FrostbiteClient::onConnected);
 
     // Commands
-    connect(commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this,             static_cast<void (FrostbiteClient::*)(const QByteArray&)>(&FrostbiteClient::onLoginHashedCommand));
-    connect(commandHandler,   static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this,             static_cast<void (FrostbiteClient::*)(bool)>(&FrostbiteClient::onLoginHashedCommand));
-    connect(commandHandler,   &FrostbiteCommandHandler::onVersionCommand,   this, &FrostbiteClient::onVersionCommand);
+    connect(commandHandler, static_cast<void (Frostbite2CommandHandler::*)(const QByteArray&)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+            this,           static_cast<void (FrostbiteClient::*)(const QByteArray&)>(&FrostbiteClient::onLoginHashedCommand));
+    connect(commandHandler, static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+            this,           static_cast<void (FrostbiteClient::*)(bool)>(&FrostbiteClient::onLoginHashedCommand));
+    connect(commandHandler, &Frostbite2CommandHandler::onVersionCommand,   this, &FrostbiteClient::onVersionCommand);
 }
 
 FrostbiteClient::~FrostbiteClient()
@@ -69,12 +68,14 @@ void FrostbiteClient::onLoginHashedCommand(const QByteArray &salt)
 
 void FrostbiteClient::onLoginHashedCommand(bool auth)
 {
+    qDebug() << "lolololololololololololololololololololol";
+
     setAuthenticated(auth);
 }
 
 void FrostbiteClient::onVersionCommand(const QString &type, int build)
 {
-     qDebug() << "lolololololololololololololololololololol";
+    qDebug() << "lolololololololololololololololololololol";
 
     Q_UNUSED(build);
 

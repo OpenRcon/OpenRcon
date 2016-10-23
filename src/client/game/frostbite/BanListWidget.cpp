@@ -34,11 +34,11 @@
 
 #include "BanListWidget.h"
 #include "ui_BanListWidget.h"
-#include "FrostbiteClient.h"
+#include "Frostbite2Client.h"
 #include "BanListEntry.h"
 #include "FrostbiteUtils.h"
 
-BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
+BanListWidget::BanListWidget(Frostbite2Client *client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::BanListWidget),
     client(client)
@@ -69,7 +69,7 @@ BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
 
     /* Commands */
     // BanList
-    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onBanListListCommand, this, &BanListWidget::onBanListListCommand);
+    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onBanListListCommand, this, &BanListWidget::onBanListListCommand);
 
     /* User Interface */
     connect(ui->tableWidget_bl_banList, &QTableWidget::customContextMenuRequested,                              this, &BanListWidget::tableWidget_bl_banList_customContextMenuRequested);

@@ -198,8 +198,8 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &BF4Widget::onLoginHashedCommand);
-    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onVersionCommand,                                                           this, &BF4Widget::onVersionCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &BF4Widget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,                                                           this, &BF4Widget::onVersionCommand);
     connect(client->getCommandHandler(), &BF4CommandHandler::onServerInfoCommand,                                                              this, &BF4Widget::onServerInfoCommand);
 
     // Admin

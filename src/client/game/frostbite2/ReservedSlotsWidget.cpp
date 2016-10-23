@@ -39,8 +39,8 @@ ReservedSlotsWidget::ReservedSlotsWidget(Frostbite2Client *client, QWidget *pare
     menu_rs_reservedSlotsList->addAction(action_rs_reservedSlotsList_remove);
 
     /* Commands */
-    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ReservedSlotsWidget::onLoginHashedCommand);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onReservedSlotsListListCommand,                                            this, &ReservedSlotsWidget::onReservedSlotsListListCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &ReservedSlotsWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onReservedSlotsListListCommand,                                              this, &ReservedSlotsWidget::onReservedSlotsListListCommand);
 
     /* User Interface */
     connect(ui->listWidget_rs_reservedSlotsList, &QListWidget::customContextMenuRequested, this, &ReservedSlotsWidget::listWidget_rs_reservedSlotsList_customContextMenuRequested);

@@ -87,7 +87,7 @@ PlayerListWidget::PlayerListWidget(BF4Client *client, QWidget *game) :
     connect(client->getCommandHandler(),           &Frostbite2CommandHandler::onPlayerTeamChangeEvent,     this, &PlayerListWidget::updatePlayerList);
 
     /* Commands */
-    connect(client->getCommandHandler(),           static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+    connect(client->getCommandHandler(),           static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
             this, &PlayerListWidget::onLoginHashedCommand);
     connect(client->getCommandHandler(),           &BF4CommandHandler::onServerInfoCommand,                this, &PlayerListWidget::onServerInfoCommand);
     connect(client->getCommandHandler(),           &BF4CommandHandler::onListPlayersCommand,               this, &PlayerListWidget::listPlayers);

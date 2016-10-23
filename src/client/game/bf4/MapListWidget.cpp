@@ -51,7 +51,7 @@ MapListWidget::MapListWidget(BF4Client *client, QWidget *parent) :
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &MapListWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &MapListWidget::onLoginHashedCommand);
     connect(client->getCommandHandler(), &BF4CommandHandler::onServerInfoCommand,                                                              this, &MapListWidget::onServerInfoCommand);
 
     // MapList

@@ -37,7 +37,7 @@ SpectatorSlotsWidget::SpectatorSlotsWidget(BF4Client *client, QWidget *parent) :
     menu_spectatorList->addAction(action_spectatorList_remove);
 
     /* Commands */
-    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &SpectatorSlotsWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &SpectatorSlotsWidget::onLoginHashedCommand);
     connect(client->getCommandHandler(), &BF4CommandHandler::onSpectatorListListCommand,                                                       this, &SpectatorSlotsWidget::onSpectatorListListCommand);
 
     /* User Interface */

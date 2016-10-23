@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,7 +21,9 @@
 #include "FrostbiteConnection.h"
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteUtils.h"
+#include "PlayerSubset.h"
 #include "Frostbite2ServerInfo.h"
+#include "PlayerInfo.h"
 
 BF3CommandHandler::BF3CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)
 {
@@ -39,17 +41,12 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
     static QHash<QString, ResponseFunction> responseList = {
         /* Events */
-        { "server.onMaxPlayerCountChange", &BF3CommandHandler::parseServerMaxPlayerCountChangeEvent },
 
         /* Commands */
         // Misc
-        { "serverInfo",                    &BF3CommandHandler::parseServerInfoCommand },
-        { "currentLevel",                  &BF3CommandHandler::parseCurrentLevelCommand },
-        { "listPlayers",                   nullptr /*&BF3CommandHandler::parseListPlayersCommand*/ },
 
         // Admin
         { "admin.effectiveMaxPlayers",     &BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand },
-        { "admin.listPlayers",             nullptr /*&BF3CommandHandler::parseAdminListPlayersCommand*/ },
 
         // Vars
         { "vars.ranked",                   &BF3CommandHandler::parseVarsRankedCommand },
@@ -57,8 +54,8 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "vars.playerManDownTime",        &BF3CommandHandler::parseVarsPlayerManDownTimeCommand },
         { "vars.premiumStatus",            &BF3CommandHandler::parseVarsPremiumStatusCommand },
         { "vars.bannerUrl",                &BF3CommandHandler::parseVarsBannerUrlCommand },
-        { "vars.roundsPerMap",             &BF3CommandHandler::parseVarsRoundsPerMapCommand },
-        { "vars.gunMasterWeaponsPreset",   &BF3CommandHandler::parseVarsGunMasterWeaponsPresetCommand }
+        { "vars.roundsPerMap",             &BF3CommandHandler::parseVarsRoundsPerMapCommand }
+
     };
 
     if (responseList.contains(request)) {
@@ -88,23 +85,30 @@ void BF3CommandHandler::sendCurrentLevelCommand()
 
 void BF3CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
-    if (playerSubsetType == PlayerSubsetType::All) {
-        connection->sendCommand("\"listPlayers\" \"all\"");
-    }
+    connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubsetType).toLower()));
 }
 
 // Admin
+void BF3CommandHandler::sendAdminListPlayersCommand(const PlayerSubsetType &playerSubsetType)
+{
+    connection->sendCommand(QString("\"admin.listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubsetType).toLower()));
+}
+
 void BF3CommandHandler::sendAdminEffectiveMaxPlayersCommand()
 {
     connection->sendCommand("admin.effectiveMaxPlayers");
 }
 
-void BF3CommandHandler::sendAdminListPlayersCommand()
+// Variables
+void BF3CommandHandler::sendVarsGunMasterWeaponsPresetCommand(int weaponPreset)
 {
-
+    if (weaponPreset == -1) {
+        connection->sendCommand("vars.gunMasterWeaponsPreset");
+    } else {
+        connection->sendCommand(QString("\"vars.gunMasterWeaponsPreset\" \"%1\"").arg(weaponPreset));
+    }
 }
 
-// Variables
 void BF3CommandHandler::sendVarsRankedCommand()
 {
     connection->sendCommand("vars.ranked");
@@ -162,24 +166,7 @@ void BF3CommandHandler::sendVarsRoundsPerMapCommand(int rounds)
     }
 }
 
-void BF3CommandHandler::sendVarsGunMasterWeaponsPresetCommand(int weaponPreset)
-{
-    if (weaponPreset == -1) {
-        connection->sendCommand("vars.gunMasterWeaponsPreset");
-    } else {
-        connection->sendCommand(QString("\"vars.gunMasterWeaponsPreset\" \"%1\"").arg(weaponPreset));
-    }
-}
-
 /* Parse events */
-void BF3CommandHandler::parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
-
-    emit (onServerMaxPlayerCountChangeEvent(count));
-}
 
 /* Parse commands */
 // Misc
@@ -278,16 +265,30 @@ void BF3CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket &pack
     }
 }
 
-//void BF3CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//    Q_UNUSED(lastSentPacket);
-//}
+void BF3CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
+    PlayerSubsetType playerSubsetType = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
+
+    emit (onListPlayersCommand(playerList, playerSubsetType));
+}
 
 // Admin
+void BF3CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
+    PlayerSubsetType playerSubsetType = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
+
+    emit (onListPlayersCommand(playerList, playerSubsetType));
+}
+
 void BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    Q_UNUSED(lastSentPacket)
+    Q_UNUSED(lastSentPacket);
 
     QString response = packet.getWord(0).getContent();
 
@@ -298,13 +299,20 @@ void BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand(const FrostbiteRcon
     }
 }
 
-//void BF3CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-//{
-//    Q_UNUSED(packet);
-//    Q_UNUSED(lastSentPacket)
-//}
+// Variables
+void BF3CommandHandler::parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
 
-// Vars
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+        int weaponPreset = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+
+        emit (onVarsGunMasterWeaponsPresetCommand(weaponPreset));
+    }
+}
+
 void BF3CommandHandler::parseVarsRankedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
@@ -380,18 +388,5 @@ void BF3CommandHandler::parseVarsRoundsPerMapCommand(const FrostbiteRconPacket &
         int rounds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundsPerMapCommand(rounds));
-    }
-}
-
-void BF3CommandHandler::parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
-        int weaponPreset = FrostbiteUtils::toInt(packet.getWord(1).getContent());
-
-        emit (onVarsGunMasterWeaponsPresetCommand(weaponPreset));
     }
 }

@@ -65,6 +65,8 @@ BF3Client::BF3Client(ServerEntry *serverEntry, QObject *parent) :
         { 1139617, "R37" },
         { 1149977, "R38" }
     };
+
+    connectToHost(commandHandler);
 }
 
 BF3Client::~BF3Client()

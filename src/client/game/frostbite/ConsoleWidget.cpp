@@ -25,9 +25,9 @@
 
 #include "ConsoleWidget.h"
 #include "ui_ConsoleWidget.h"
-#include "FrostbiteClient.h"
+#include "Frostbite2Client.h"
 
-ConsoleWidget::ConsoleWidget(FrostbiteClient *client, QWidget *parent) :
+ConsoleWidget::ConsoleWidget(Frostbite2Client *client, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ConsoleWidget),
     client(client)
@@ -35,8 +35,8 @@ ConsoleWidget::ConsoleWidget(FrostbiteClient *client, QWidget *parent) :
     ui->setupUi(this);
 
     /* Commands */
-    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ConsoleWidget::onLoginHashedCommand);
-    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &ConsoleWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
 
     /* Events */
     connect(client->getConnection(), &Connection::onDataSent,     this, &ConsoleWidget::onDataSent);
@@ -49,7 +49,7 @@ ConsoleWidget::ConsoleWidget(FrostbiteClient *client, QWidget *parent) :
     connect(ui->lineEdit_co_pb,   &QLineEdit::editingFinished,  this, &ConsoleWidget::pushButton_co_pb_clicked);
 }
 
-ConsoleWidget::ConsoleWidget(FrostbiteClient *client, const QStringList &commandList, QWidget *parent) :
+ConsoleWidget::ConsoleWidget(Frostbite2Client *client, const QStringList &commandList, QWidget *parent) :
     ConsoleWidget(client, parent)
 {
     // Create completer and set commandList.

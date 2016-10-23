@@ -19,7 +19,7 @@ SOURCES += $$PWD/Main.cpp \
 
 RESOURCES += $$PWD/OpenRcon.qrc
 
-RC_ICONS = client/images/icons/openrcon.ico
+RC_ICONS = $$PWD/images/icons/openrcon.ico
 
 include(translations/translations.pri)
 include(gui/gui.pri)

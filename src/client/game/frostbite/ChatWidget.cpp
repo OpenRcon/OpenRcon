@@ -37,10 +37,10 @@ ChatWidget::ChatWidget(Frostbite2Client *client, QWidget *parent) :
     ui->setupUi(this);
 
     /* Events */
-    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
+    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
 
     /* Commands */
-    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
 
     /* User Interface */
     connect(ui->comboBox_mode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ChatWidget::comboBox_mode_currentIndexChanged);

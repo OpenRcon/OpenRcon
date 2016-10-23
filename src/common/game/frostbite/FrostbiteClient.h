@@ -24,7 +24,7 @@
 
 #include "Client.h"
 #include "FrostbiteConnection.h"
-#include "FrostbiteCommandHandler.h"
+#include "Frostbite2CommandHandler.h"
 
 class QString;
 class QByteArray;
@@ -43,18 +43,17 @@ public:
         return connection;
     }
 
-    virtual FrostbiteCommandHandler *getCommandHandler() {
+    virtual Frostbite2CommandHandler *getCommandHandler() {
         return commandHandler;
     }
 
+    void connectToHost(Frostbite2CommandHandler *commandHandler);
     QString getVersionFromBuild(int build);
 
 protected:
     FrostbiteConnection *connection;
+    Frostbite2CommandHandler *commandHandler;
     QMap<int, QString> versionMap;
-
-private:
-    FrostbiteCommandHandler *commandHandler;
 
 public slots:
     void onConnected();
