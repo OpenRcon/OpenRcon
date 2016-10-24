@@ -48,7 +48,7 @@ public:
     //logout
     //quit
     //version
-    void sendCurrentLevelCommand();
+    //currentLevel
     void sendListPlayersCommand(const PlayerSubsetType &playerSubsetType);
 
     // Admin
@@ -187,7 +187,7 @@ private:
     //logout
     //quit
     //version
-    void parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    //currentLevel
     void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Admin
@@ -323,7 +323,7 @@ signals:
     //logout
     //quit
     //version
-    void onCurrentLevelCommand(const QString &level);
+    //currentLevel
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 
     // Admin

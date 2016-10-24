@@ -50,11 +50,8 @@ public:
     //logout
     //quit
     //version
-    void sendCurrentLevelCommand();
+    //currentLevel
     void sendListPlayersCommand(const PlayerSubsetType &playerSubsetType);
-
-    /// BF4 Only.
-    //vars.serverTickTime
 
     // Admin
     //admin.eventsEnabled <enabled>
@@ -197,6 +194,7 @@ public:
     void sendVarsRoundPlayersReadyPercentCommand(int percent = -1);
     void sendVarsIsNoobOnlyJoinCommand();
     void sendVarsIsNoobOnlyJoinCommand(bool enabled);
+    //vars.serverTickTime
 
 private:
     /* Parse events */
@@ -226,11 +224,8 @@ private:
     //logout
     //quit
     //version
-    void parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    //currentLevel
     void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-
-    /// BF4 Only.
-    //vars.serverTickTime
 
     // Admin
     //admin.eventsEnabled <enabled>
@@ -364,6 +359,7 @@ private:
     void parseVarsRoundPlayersReadyMinCountCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsRoundPlayersReadyPercentCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     //vars.isNoobOnlyJoin <enabled>
+    //vars.serverTickTime
 
 signals:
     /* Event signals */
@@ -393,11 +389,8 @@ signals:
     void onLogoutCommand();
     //quit
     //version
-    void onCurrentLevelCommand(const QString &level);
+    //currentLevel
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
-
-    /// BF4 Only.
-    //vars.serverTickTime
 
     // Admin
     //admin.eventsEnabled <enabled>
@@ -530,6 +523,7 @@ signals:
     void onVarsRoundPlayersReadyMinCountCommand(int count);
     void onVarsRoundPlayersReadyPercentCommand(int percent);
     //vars.isNoobOnlyJoin <enabled>
+    //vars.serverTickTime
 
 };
 

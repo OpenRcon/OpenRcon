@@ -206,6 +206,11 @@ void Frostbite2CommandHandler::sendVersionCommand()
     connection->sendCommand("version");
 }
 
+void Frostbite2CommandHandler::sendCurrentLevelCommand()
+{
+    connection->sendCommand("currentLevel");
+}
+
 // Admin
 void Frostbite2CommandHandler::sendAdminEventsEnabledCommand(bool enabled)
 {
@@ -1039,6 +1044,19 @@ void Frostbite2CommandHandler::parseVersionCommand(const FrostbiteRconPacket &pa
         int build = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
         emit (onVersionCommand(type, build));
+    }
+}
+
+void Frostbite2CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString level = packet.getWord(1).getContent();
+
+        emit (onCurrentLevelCommand(level));
     }
 }
 

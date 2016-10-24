@@ -44,39 +44,39 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
     static QHash<QString, ResponseFunction> responseList = {
         /* Events */
-        { "player.onDisconnect",               &BF4CommandHandler::parsePlayerDisconnectEvent },
+        { "player.onDisconnect",                &BF4CommandHandler::parsePlayerDisconnectEvent },
 
         /* Commands */
         // Misc
-        { "serverInfo",                        &BF4CommandHandler::parseServerInfoCommand },
-        { "currentLevel",                      &BF4CommandHandler::parseCurrentLevelCommand },
-        { "listPlayers",                       &BF4CommandHandler::parseListPlayersCommand },
+        { "serverInfo",                         &BF4CommandHandler::parseServerInfoCommand },
+        { "listPlayers",                        &BF4CommandHandler::parseListPlayersCommand },
 
         // Admin
-        { "admin.listPlayers",                 &BF4CommandHandler::parseAdminListPlayersCommand },
+        { "admin.listPlayers",                  &BF4CommandHandler::parseAdminListPlayersCommand },
+        { "admin.shutdown",                     nullptr /*&BF4CommandHandler::parseAdminShutdownCommand*/ },
 
         // FairFight
-        { "fairFight.isActive",                &BF4CommandHandler::parseFairFightIsActiveCommand },
+        { "fairFight.isActive",                 &BF4CommandHandler::parseFairFightIsActiveCommand },
 
         // Spectator List
-        { "spectatorList.list",                &BF4CommandHandler::parseSpectatorListListCommand },
+        { "spectatorList.list",                 &BF4CommandHandler::parseSpectatorListListCommand },
 
         // Variables
-        { "vars.alwaysAllowSpectators",        &BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand },
-        { "vars.commander",                    &BF4CommandHandler::parseVarsCommanderCommand },
-        { "vars.forceReloadWholeMags",         &BF4CommandHandler::parseVarsForceReloadWholeMagsCommand },
-        { "vars.hitIndicatorsEnabled",         &BF4CommandHandler::parseVarsHitIndicatorsEnabledCommand },
-        { "vars.maxSpectators",                &BF4CommandHandler::parseVarsMaxSpectatorsCommand },
-        { "vars.mpExperience",                 &BF4CommandHandler::parseVarsMpExperienceCommand },
-        { "vars.preset",                       &BF4CommandHandler::parseVarsPresetCommand },
-        { "vars.roundTimeLimit",               &BF4CommandHandler::parseVarsRoundTimeLimitCommand },
-        { "vars.roundWarmupTimeout",           &BF4CommandHandler::parseVarsRoundWarmupTimeoutCommand },
-        { "vars.serverType",                   &BF4CommandHandler::parseVarsServerTypeCommand },
-        { "vars.teamFactionOverride",          &BF4CommandHandler::parseVarsTeamFactionOverrideCommand },
-        { "vars.ticketBleedRate",              &BF4CommandHandler::parseVarsTicketBleedRateCommand },
-        { "vars.roundPlayersReadyBypassTimer", &BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimerCommand },
-        { "vars.roundPlayersReadyMinCount",    &BF4CommandHandler::parseVarsRoundPlayersReadyMinCountCommand },
-        { "vars.roundPlayersReadyPercent",     &BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand }
+        { "vars.alwaysAllowSpectators",         &BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand },
+        { "vars.commander",                     &BF4CommandHandler::parseVarsCommanderCommand },
+        { "vars.forceReloadWholeMags",          &BF4CommandHandler::parseVarsForceReloadWholeMagsCommand },
+        { "vars.hitIndicatorsEnabled",          &BF4CommandHandler::parseVarsHitIndicatorsEnabledCommand },
+        { "vars.maxSpectators",                 &BF4CommandHandler::parseVarsMaxSpectatorsCommand },
+        { "vars.mpExperience",                  &BF4CommandHandler::parseVarsMpExperienceCommand },
+        { "vars.preset",                        &BF4CommandHandler::parseVarsPresetCommand },
+        { "vars.roundTimeLimit",                &BF4CommandHandler::parseVarsRoundTimeLimitCommand },
+        { "vars.roundWarmupTimeout",            &BF4CommandHandler::parseVarsRoundWarmupTimeoutCommand },
+        { "vars.serverType",                    &BF4CommandHandler::parseVarsServerTypeCommand },
+        { "vars.teamFactionOverride",           &BF4CommandHandler::parseVarsTeamFactionOverrideCommand },
+        { "vars.ticketBleedRate",               &BF4CommandHandler::parseVarsTicketBleedRateCommand },
+        { "vars.roundPlayersReadyBypassTimer",  &BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimerCommand },
+        { "vars.roundPlayersReadyMinCount",     &BF4CommandHandler::parseVarsRoundPlayersReadyMinCountCommand },
+        { "vars.roundPlayersReadyPercent",      &BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand }
     };
 
     if (responseList.contains(request)) {
@@ -97,11 +97,6 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 void BF4CommandHandler::sendServerInfoCommand()
 {
     connection->sendCommand("serverInfo");
-}
-
-void BF4CommandHandler::sendCurrentLevelCommand()
-{
-    connection->sendCommand("currentLevel");
 }
 
 void BF4CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
@@ -436,19 +431,6 @@ void BF4CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &packet
         );
 
         emit (onServerInfoCommand(serverInfo));
-    }
-}
-
-void BF4CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QString level = packet.getWord(1).getContent();
-
-        emit (onCurrentLevelCommand(level));
     }
 }
 

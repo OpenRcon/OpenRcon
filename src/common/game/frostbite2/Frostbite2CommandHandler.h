@@ -48,7 +48,7 @@ public:
     void sendLogoutCommand();
     void sendQuitCommand();
     void sendVersionCommand();
-    //currentLevel
+    void sendCurrentLevelCommand();
     //listPlayers <players>
 
     // Admin
@@ -190,7 +190,7 @@ private:
     void parseLogoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    //currentLevel
+    void parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     //listPlayers <players>
 
     // Admin
@@ -315,7 +315,7 @@ signals:
     void onLogoutCommand();
     void onQuitCommand();
     void onVersionCommand(const QString &type, int build);
-    //currentLevel
+    void onCurrentLevelCommand(const QString &level);
     //listPlayers <players>
 
     // Admin

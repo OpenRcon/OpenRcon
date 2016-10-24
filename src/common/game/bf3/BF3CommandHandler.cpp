@@ -78,11 +78,6 @@ void BF3CommandHandler::sendServerInfoCommand()
     connection->sendCommand("serverInfo");
 }
 
-void BF3CommandHandler::sendCurrentLevelCommand()
-{
-    connection->sendCommand("currentLevel");
-}
-
 void BF3CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
     connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubsetType).toLower()));
@@ -249,19 +244,6 @@ void BF3CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &packet
         );
 
         emit (onServerInfoCommand(serverInfo));
-    }
-}
-
-void BF3CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QString currentLevel = packet.getWord(1).getContent();
-
-        emit (onCurrentLevelCommand(currentLevel));
     }
 }
 
