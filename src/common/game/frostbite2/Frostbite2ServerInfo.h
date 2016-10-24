@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,37 +20,35 @@
 #ifndef FROSTBITE2SERVERINFO_H
 #define FROSTBITE2SERVERINFO_H
 
-#include "ServerInfo.h"
+#include "FrostbiteServerInfo.h"
 
-class QString;
-
-class Frostbite2ServerInfo : public ServerInfo
+class Frostbite2ServerInfo : public FrostbiteServerInfo
 {
 public:
     Frostbite2ServerInfo(const QString &serverName,
-               int playerCount,
-               int maxPlayerCount,
-               const QString &gameMode,
-               const QString &currentMap,
-               int roundsPlayed,
-               int roundsTotal,
-               const TeamScores &scores,
-               bool ranked,
-               bool punkBuster,
-               bool hasGamePassword,
-               int serverUpTime,
-               int roundTime,
-               const QString &gameIpAndPort,
-               const QString &punkBusterVersion,
-               bool joinQueueEnabled,
-               const QString &region,
-               const QString &closestPingSite,
-               const QString &country);
+                         int playerCount,
+                         int maxPlayerCount,
+                         const QString &gameMode,
+                         const QString &currentMap,
+                         int roundsPlayed,
+                         int roundsTotal,
+                         const TeamScores &scores,
+                         bool ranked,
+                         bool punkBuster,
+                         bool hasGamePassword,
+                         int serverUpTime,
+                         int roundTime,
+                         const QString &gameIpAndPort,
+                         const QString &punkBusterVersion,
+                         bool joinQueueEnabled,
+                         const QString &region,
+                         const QString &closestPingSite,
+                         const QString &country);
     ~Frostbite2ServerInfo();
 
     QString getGameIpAndPort() const;
     QString getPunkBusterVersion() const;
-    bool getJoinQueueEnabled() const;
+    bool isJoinQueueEnabled() const;
     QString getRegion() const;
     QString getClosestPingSite() const;
     QString getCountry() const;

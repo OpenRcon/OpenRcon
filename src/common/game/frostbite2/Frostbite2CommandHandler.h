@@ -24,7 +24,6 @@
 #include "PlayerSubset.h"
 #include "MapListEntry.h"
 
-class QString;
 class QStringList;
 
 enum class PlayerSubsetType;

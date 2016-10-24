@@ -63,14 +63,6 @@ BF3ServerInfo::BF3ServerInfo(const QString &serverName,
 
 }
 
-BF3ServerInfo::BF3ServerInfo(const Frostbite2ServerInfo &serverInfo,
-                             bool matchMakingEnabled) :
-    Frostbite2ServerInfo(serverInfo),
-    matchMakingEnabled(matchMakingEnabled)
-{
-
-}
-
 BF3ServerInfo::~BF3ServerInfo()
 {
 

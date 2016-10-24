@@ -1087,7 +1087,25 @@ void Frostbite2CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket 
         if (dynamic_cast<BF3CommandHandler*>(this)) {
             bool matchMakingEnabled = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 13).getContent());
 
-            BF3ServerInfo serverInfo(serverInfo,
+            BF3ServerInfo serverInfo(serverName,
+                                     playerCount,
+                                     maxPlayerCount,
+                                     gamemode,
+                                     currentMap,
+                                     roundsPlayed,
+                                     roundsTotal,
+                                     scores,
+                                     ranked,
+                                     punkBuster,
+                                     hasGamePassword,
+                                     serverUpTime,
+                                     roundTime,
+                                     gameIpAndPort,
+                                     punkBusterVersion,
+                                     joinQueueEnabled,
+                                     region,
+                                     closestPingSite,
+                                     country,
                                      matchMakingEnabled);
 
             emit (onServerInfoCommand(serverInfo));
@@ -1097,7 +1115,25 @@ void Frostbite2CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket 
             int blazePlayerCount = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 13).getContent());
             QString blazeGameState = packet.getWord(entriesIndex + 14).getContent();
 
-            BF4ServerInfo serverInfo(serverInfo,
+            BF4ServerInfo serverInfo(serverName,
+                                     playerCount,
+                                     maxPlayerCount,
+                                     gamemode,
+                                     currentMap,
+                                     roundsPlayed,
+                                     roundsTotal,
+                                     scores,
+                                     ranked,
+                                     punkBuster,
+                                     hasGamePassword,
+                                     serverUpTime,
+                                     roundTime,
+                                     gameIpAndPort,
+                                     punkBusterVersion,
+                                     joinQueueEnabled,
+                                     region,
+                                     closestPingSite,
+                                     country,
                                      blazePlayerCount,
                                      blazeGameState);
 

@@ -23,8 +23,6 @@
 #include "FrostbiteCommandHandler.h"
 #include "ServerEntry.h"
 
-#include "BF4Client.h"
-
 FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, QObject *parent) :
     Client(serverEntry, parent),
     connection(new FrostbiteConnection(this))
@@ -68,15 +66,11 @@ void FrostbiteClient::onLoginHashedCommand(const QByteArray &salt)
 
 void FrostbiteClient::onLoginHashedCommand(bool auth)
 {
-    qDebug() << "lolololololololololololololololololololol";
-
     setAuthenticated(auth);
 }
 
 void FrostbiteClient::onVersionCommand(const QString &type, int build)
 {
-    qDebug() << "lolololololololololololololololololololol";
-
     Q_UNUSED(build);
 
     qDebug() << "Server type is: " << type << " should be: " << GameTypeUtils::toString(serverEntry->getGameType());

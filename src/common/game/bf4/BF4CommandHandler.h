@@ -22,13 +22,11 @@
 
 #include "Frostbite2CommandHandler.h"
 
-class QString;
 class QStringList;
 
 enum class PlayerSubsetType;
 enum class BF4PresetType;
 enum class BF4ServerType;
-class BF4ServerInfo;
 class PlayerInfo;
 
 class BF4CommandHandler : public Frostbite2CommandHandler

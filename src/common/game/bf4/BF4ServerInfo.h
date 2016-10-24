@@ -46,9 +46,6 @@ public:
                   const QString &country,
                   int blazePlayerCount,
                   const QString &blazeGameState);
-    BF4ServerInfo(const Frostbite2ServerInfo &serverName,
-                  int blazePlayerCount,
-                  const QString &blazeGameState);
     ~BF4ServerInfo();
 
     int getBlazePlayerCount() const;

@@ -65,16 +65,6 @@ BF4ServerInfo::BF4ServerInfo(const QString &serverName,
 
 }
 
-BF4ServerInfo::BF4ServerInfo(const Frostbite2ServerInfo &serverInfo,
-                             int blazePlayerCount,
-                             const QString &blazeGameState) :
-    Frostbite2ServerInfo(serverInfo),
-    blazePlayerCount(blazePlayerCount),
-    blazeGameState(blazeGameState)
-{
-
-}
-
 BF4ServerInfo::~BF4ServerInfo()
 {
 

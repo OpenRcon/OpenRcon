@@ -24,8 +24,6 @@
 #include "PlayerSubset.h"
 #include "BF4Preset.h"
 #include "BF4ServerType.h"
-#include "BF4ServerInfo.h"
-#include "TeamScores.h"
 #include "PlayerInfo.h"
 
 BF4CommandHandler::BF4CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)
@@ -55,10 +53,16 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "admin.shutdown",                     nullptr /*&BF4CommandHandler::parseAdminShutdownCommand*/ },
 
         // FairFight
+        { "fairFight.activate",                 nullptr /*&BF4CommandHandler::parseFairFightActivateCommand*/ },
+        { "fairFight.deactivate",               nullptr /*&BF4CommandHandler::parseFairFightDeactivateCommand*/ },
         { "fairFight.isActive",                 &BF4CommandHandler::parseFairFightIsActiveCommand },
 
         // Spectator List
+        { "spectatorList.add",                  nullptr /*&BF4CommandHandler::parseSpectatorListAddCommand*/ },
+        { "spectatorList.clear",                nullptr /*&BF4CommandHandler::parseSpectatorListClearCommand*/ },
         { "spectatorList.list",                 &BF4CommandHandler::parseSpectatorListListCommand },
+        { "spectatorList.remove",               nullptr /*&BF4CommandHandler::parseSpectatorListRemoveCommand*/ },
+        { "spectatorList.save",                 nullptr /*&BF4CommandHandler::parseSpectatorListSaveCommand*/ },
 
         // Variables
         { "vars.alwaysAllowSpectators",         &BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand },
@@ -75,7 +79,9 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "vars.ticketBleedRate",               &BF4CommandHandler::parseVarsTicketBleedRateCommand },
         { "vars.roundPlayersReadyBypassTimer",  &BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimerCommand },
         { "vars.roundPlayersReadyMinCount",     &BF4CommandHandler::parseVarsRoundPlayersReadyMinCountCommand },
-        { "vars.roundPlayersReadyPercent",      &BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand }
+        { "vars.roundPlayersReadyPercent",      &BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand },
+        { "vars.isNoobOnlyJoin",                nullptr /*&BF4CommandHandler::parseVarsIsNoobOnlyJoinCommand*/ },
+        { "vars.serverTickTime",                nullptr /*&BF4CommandHandler::parseVarsServerTickTimeCommand*/ }
     };
 
     if (responseList.contains(request)) {

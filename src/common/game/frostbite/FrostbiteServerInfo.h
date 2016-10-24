@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,30 +17,30 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SERVERINFO_H
-#define SERVERINFO_H
-
-#include <QString>
+#ifndef FROSTBITESERVERINFO_H
+#define FROSTBITESERVERINFO_H
 
 #include "TeamScores.h"
 
-class ServerInfo
+class QString;
+
+class FrostbiteServerInfo
 {
 public:
-    ServerInfo(const QString &serverName,
-               int playerCount,
-               int maxPlayerCount,
-               const QString &gameMode,
-               const QString &currentMap,
-               int roundsPlayed,
-               int roundsTotal,
-               const TeamScores &scores,
-               bool ranked,
-               bool punkBuster,
-               bool hasGamePassword,
-               int serverUpTime,
-               int roundTime);
-    ~ServerInfo();
+    FrostbiteServerInfo(const QString &serverName,
+                        int playerCount,
+                        int maxPlayerCount,
+                        const QString &gameMode,
+                        const QString &currentMap,
+                        int roundsPlayed,
+                        int roundsTotal,
+                        const TeamScores &scores,
+                        bool ranked,
+                        bool punkBuster,
+                        bool gamePassword,
+                        int serverUpTime,
+                        int roundTime);
+    ~FrostbiteServerInfo();
 
     QString getServerName() const;
     int getPlayerCount() const;
@@ -50,9 +50,9 @@ public:
     int getRoundsPlayed() const;
     int getRoundsTotal() const;
     TeamScores getScores() const;
-    bool getRanked() const;
-    bool getPunkBuster() const;
-    bool getHasGamePassword() const;
+    bool isRanked() const;
+    bool hasPunkBuster() const;
+    bool hasGamePassword() const;
     int getServerUpTime() const;
     int getRoundTime() const;
 
@@ -67,10 +67,10 @@ private:
     TeamScores scores;
     bool ranked;
     bool punkBuster;
-    bool hasGamePassword;
+    bool gamePassword;
     int serverUpTime;
     int roundTime;
 
 };
 
-#endif // SERVERINFO_H
+#endif // FROSTBITESERVERINFO_H

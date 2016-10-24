@@ -22,7 +22,6 @@
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteUtils.h"
 #include "PlayerSubset.h"
-#include "BF3ServerInfo.h"
 #include "PlayerInfo.h"
 
 BF3CommandHandler::BF3CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)

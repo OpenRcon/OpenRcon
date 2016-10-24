@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014 The OpenRcon Project.
+* Copyright (C) 2016 The OpenRcon Project.
 *
 * This file is part of OpenRcon.
 *
@@ -16,8 +16,6 @@
 * You should have received a copy of the GNU General Public License
 * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#include <QString>
 
 #include "Frostbite2ServerInfo.h"
 
@@ -40,19 +38,19 @@ Frostbite2ServerInfo::Frostbite2ServerInfo(const QString &serverName,
                                            const QString &region,
                                            const QString &closestPingSite,
                                            const QString &country) :
-    ServerInfo(serverName,
-               playerCount,
-               maxPlayerCount,
-               gameMode,
-               currentMap,
-               roundsPlayed,
-               roundsTotal,
-               scores,
-               ranked,
-               punkBuster,
-               hasGamePassword,
-               serverUpTime,
-               roundTime),
+    FrostbiteServerInfo(serverName,
+                        playerCount,
+                        maxPlayerCount,
+                        gameMode,
+                        currentMap,
+                        roundsPlayed,
+                        roundsTotal,
+                        scores,
+                        ranked,
+                        punkBuster,
+                        hasGamePassword,
+                        serverUpTime,
+                        roundTime),
     gameIpAndPort(gameIpAndPort),
     punkBusterVersion(punkBusterVersion),
     joinQueueEnabled(joinQueueEnabled),
@@ -78,7 +76,7 @@ QString Frostbite2ServerInfo::getPunkBusterVersion() const
     return punkBusterVersion;
 }
 
-bool Frostbite2ServerInfo::getJoinQueueEnabled() const
+bool Frostbite2ServerInfo::isJoinQueueEnabled() const
 {
     return joinQueueEnabled;
 }
