@@ -27,7 +27,7 @@
 class QClipboard;
 
 class BF4Client;
-class BF4ServerInfo;
+class Frostbite2ServerInfo;
 class PlayerInfo;
 enum class PlayerSubsetType;
 
@@ -66,7 +66,7 @@ private slots:
 
     /* Commands */
     void onLoginHashedCommand(bool auth);
-    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
+    void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
 
     /* User Interface */
     void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);

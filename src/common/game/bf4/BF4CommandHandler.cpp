@@ -48,7 +48,6 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
         /* Commands */
         // Misc
-        { "serverInfo",                         &BF4CommandHandler::parseServerInfoCommand },
         { "listPlayers",                        &BF4CommandHandler::parseListPlayersCommand },
 
         // Admin
@@ -94,11 +93,6 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
 /* Send commands */
 // Misc
-void BF4CommandHandler::sendServerInfoCommand()
-{
-    connection->sendCommand("serverInfo");
-}
-
 void BF4CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
     connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubsetType).toLower()));
@@ -348,94 +342,10 @@ void BF4CommandHandler::parsePlayerDisconnectEvent(const FrostbiteRconPacket &pa
 }
 
 /* Parse commands */
-void BF4CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+void BF4CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QString serverName = packet.getWord(1).getContent();
-        int playerCount = FrostbiteUtils::toInt(packet.getWord(2).getContent());
-        int maxPlayerCount = FrostbiteUtils::toInt(packet.getWord(3).getContent());
-        QString gamemode = packet.getWord(4).getContent();
-        QString currentMap = packet.getWord(5).getContent();
-        int roundsPlayed = FrostbiteUtils::toInt(packet.getWord(6).getContent());
-        int roundsTotal = FrostbiteUtils::toInt(packet.getWord(7).getContent());
-
-        // Parsing team scores.
-        int entries = FrostbiteUtils::toInt(packet.getWord(8).getContent());
-        int entriesIndex = 9 + entries;
-        QList<int> scoreList;
-
-        for (int i = 9; i <= entriesIndex; i++) {
-            scoreList.append(FrostbiteUtils::toInt(packet.getWord(i).getContent()));
-        }
-
-        int targetScore = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 1).getContent());
-        TeamScores scores(scoreList, targetScore);
-
-        /*
-        // Parsing online state.
-        QString onlineStateString = packet.getWord(12).getContent();
-        OnlineState onlineState;
-
-        if (onlineStateString == "NotConnected") {
-            onlineState = OnlineState::NotConnected;
-        } else if (onlineStateString == "ConnectedToBackend") {
-            onlineState = OnlineState::ConnectedToBackend;
-        } else if (onlineStateString == "AcceptingPlayers") {
-            onlineState = OnlineState::AcceptingPlayers;
-        }
-        */
-
-        bool ranked = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 2).getContent());
-        bool punkBuster = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 3).getContent());
-        bool hasGamePassword = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 4).getContent());
-        int serverUpTime = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 5).getContent());
-        int roundTime = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 6).getContent());
-        QString gameIpAndPort = packet.getWord(entriesIndex + 7).getContent();
-        QString punkBusterVersion = packet.getWord(entriesIndex + 8).getContent();
-        bool joinQueueEnabled = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 9).getContent());
-        QString region = packet.getWord(entriesIndex + 10).getContent();
-        QString closestPingSite = packet.getWord(entriesIndex + 11).getContent();
-        QString country = packet.getWord(entriesIndex + 12).getContent();
-
-        int blazePlayerCount = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 13).getContent());
-        QString blazeGameState = packet.getWord(entriesIndex + 14).getContent();
-
-        BF4ServerInfo serverInfo(
-                    serverName,
-                    playerCount,
-                    maxPlayerCount,
-                    gamemode,
-                    currentMap,
-                    roundsPlayed,
-                    roundsTotal,
-                    scores,
-                    //onlineState,
-                    ranked,
-                    punkBuster,
-                    hasGamePassword,
-                    serverUpTime,
-                    roundTime,
-                    gameIpAndPort,
-                    punkBusterVersion,
-                    joinQueueEnabled,
-                    region,
-                    closestPingSite,
-                    country,
-                    //matchMakingEnabled,
-                    blazePlayerCount,
-                    blazeGameState
-        );
-
-        emit (onServerInfoCommand(serverInfo));
-    }
-}
-
-void BF4CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
     QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
     PlayerSubsetType playerSubsetType = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
 
@@ -445,6 +355,8 @@ void BF4CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packe
 // Admin
 void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
+    Q_UNUSED(lastSentPacket);
+
     QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
     PlayerSubsetType playerSubsetType = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
 

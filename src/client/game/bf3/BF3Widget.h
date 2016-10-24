@@ -27,7 +27,7 @@ class ChatWidget;
 class ReservedSlotsWidget;
 class ConsoleWidget;
 
-class Frostbite2ServerInfo;
+class BF3ServerInfo;
 class PlayerInfo;
 enum class PlayerSubsetType;
 class ServerEntry;
@@ -81,7 +81,7 @@ private slots:
 
     // Misc
     void onLoginHashedCommand(bool auth);
-    void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
+    void onServerInfoCommand(const BF3ServerInfo &serverInfo);
     void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
 
     // Admin

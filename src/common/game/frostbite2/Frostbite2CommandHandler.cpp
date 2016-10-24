@@ -23,7 +23,13 @@
 #include "FrostbiteConnection.h"
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteUtils.h"
+#include "BF3CommandHandler.h"
+#include "BF4CommandHandler.h"
 #include "PlayerSubset.h"
+#include "TeamScores.h"
+#include "Frostbite2ServerInfo.h"
+#include "BF3ServerInfo.h"
+#include "BF4ServerInfo.h"
 #include "PlayerInfo.h"
 #include "BanListEntry.h"
 
@@ -53,11 +59,11 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         // Misc
         { "login.plainText",                        &Frostbite2CommandHandler::parseLoginPlainTextCommand },
         { "login.hashed",                           &Frostbite2CommandHandler::parseLoginHashedCommand },
-        //{ "serverInfo",                             &Frostbite2CommandHandler::parseServerInfoCommand },
+        { "serverInfo",                             &Frostbite2CommandHandler::parseServerInfoCommand },
         { "logout",                                 &Frostbite2CommandHandler::parseLogoutCommand },
         { "quit",                                   &Frostbite2CommandHandler::parseQuitCommand },
         { "version",                                &Frostbite2CommandHandler::parseVersionCommand },
-        { "currentLevel",                           nullptr /*&Frostbite2CommandHandler::parseCurrentLevelCommand*/ },
+        { "currentLevel",                           &Frostbite2CommandHandler::parseCurrentLevelCommand },
         { "listPlayers",                            nullptr /*&Frostbite2CommandHandler::parseListPlayersCommand*/ },
 
         // Admin
@@ -189,6 +195,11 @@ void Frostbite2CommandHandler::sendLoginHashedCommand(const QByteArray &salt, co
             connection->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
         }
     }
+}
+
+void Frostbite2CommandHandler::sendServerInfoCommand()
+{
+    connection->sendCommand("serverInfo");
 }
 
 void Frostbite2CommandHandler::sendLogoutCommand()
@@ -1007,6 +1018,90 @@ void Frostbite2CommandHandler::parseLoginHashedCommand(const FrostbiteRconPacket
             emit (onLoginHashedCommand(true));
         } else { // if (response == "InvalidPasswordHash")
             emit (onLoginHashedCommand(false));
+        }
+    }
+}
+
+void Frostbite2CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString serverName = packet.getWord(1).getContent();
+        int playerCount = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+        int maxPlayerCount = FrostbiteUtils::toInt(packet.getWord(3).getContent());
+        QString gamemode = packet.getWord(4).getContent();
+        QString currentMap = packet.getWord(5).getContent();
+        int roundsPlayed = FrostbiteUtils::toInt(packet.getWord(6).getContent());
+        int roundsTotal = FrostbiteUtils::toInt(packet.getWord(7).getContent());
+
+        // Parsing team scores.
+        int entries = FrostbiteUtils::toInt(packet.getWord(8).getContent());
+        int entriesIndex = 9 + entries;
+        QList<int> scoreList;
+
+        for (int i = 9; i <= entriesIndex; i++) {
+            scoreList.append(FrostbiteUtils::toInt(packet.getWord(i).getContent()));
+        }
+
+        int targetScore = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 1).getContent());
+        TeamScores scores(scoreList, targetScore);
+
+        bool ranked = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 2).getContent());
+        bool punkBuster = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 3).getContent());
+        bool hasGamePassword = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 4).getContent());
+        int serverUpTime = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 5).getContent());
+        int roundTime = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 6).getContent());
+        QString gameIpAndPort = packet.getWord(entriesIndex + 7).getContent();
+        QString punkBusterVersion = packet.getWord(entriesIndex + 8).getContent();
+        bool joinQueueEnabled = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 9).getContent());
+        QString region = packet.getWord(entriesIndex + 10).getContent();
+        QString closestPingSite = packet.getWord(entriesIndex + 11).getContent();
+        QString country = packet.getWord(entriesIndex + 12).getContent();
+
+        Frostbite2ServerInfo serverInfo(serverName,
+                                        playerCount,
+                                        maxPlayerCount,
+                                        gamemode,
+                                        currentMap,
+                                        roundsPlayed,
+                                        roundsTotal,
+                                        scores,
+                                        ranked,
+                                        punkBuster,
+                                        hasGamePassword,
+                                        serverUpTime,
+                                        roundTime,
+                                        gameIpAndPort,
+                                        punkBusterVersion,
+                                        joinQueueEnabled,
+                                        region,
+                                        closestPingSite,
+                                        country);
+
+        emit (onServerInfoCommand(serverInfo));
+
+        // BF3 Only.
+        if (dynamic_cast<BF3CommandHandler*>(this)) {
+            bool matchMakingEnabled = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 13).getContent());
+
+            BF3ServerInfo serverInfo(serverInfo,
+                                     matchMakingEnabled);
+
+            emit (onServerInfoCommand(serverInfo));
+
+        // BF4 Only.
+        } else if (dynamic_cast<BF4CommandHandler*>(this)) {
+            int blazePlayerCount = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 13).getContent());
+            QString blazeGameState = packet.getWord(entriesIndex + 14).getContent();
+
+            BF4ServerInfo serverInfo(serverInfo,
+                                     blazePlayerCount,
+                                     blazeGameState);
+
+            emit (onServerInfoCommand(serverInfo));
         }
     }
 }

@@ -17,15 +17,15 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4SERVERINFO_H
-#define BF4SERVERINFO_H
+#ifndef BF3SERVERINFO_H
+#define BF3SERVERINFO_H
 
 #include "Frostbite2ServerInfo.h"
 
-class BF4ServerInfo : public Frostbite2ServerInfo
+class BF3ServerInfo : public Frostbite2ServerInfo
 {
 public:
-    BF4ServerInfo(const QString &serverName,
+    BF3ServerInfo(const QString &serverName,
                   int playerCount,
                   int maxPlayerCount,
                   const QString &gameMode,
@@ -44,20 +44,16 @@ public:
                   const QString &region,
                   const QString &closestPingSite,
                   const QString &country,
-                  int blazePlayerCount,
-                  const QString &blazeGameState);
-    BF4ServerInfo(const Frostbite2ServerInfo &serverName,
-                  int blazePlayerCount,
-                  const QString &blazeGameState);
-    ~BF4ServerInfo();
+                  bool matchMakingEnabled);
+    BF3ServerInfo(const Frostbite2ServerInfo &serverInfo,
+                  bool matchMakingEnabled);
+    ~BF3ServerInfo();
 
-    int getBlazePlayerCount() const;
-    QString getBlazeGameState() const;
+    bool isMatchMakingEnabled() const;
 
 private:
-    int blazePlayerCount;
-    QString blazeGameState;
+    bool matchMakingEnabled;
 
 };
 
-#endif // BF4SERVERINFO_H
+#endif // BF3SERVERINFO_H

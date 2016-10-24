@@ -28,6 +28,9 @@ class QString;
 class QStringList;
 
 enum class PlayerSubsetType;
+class Frostbite2ServerInfo;
+class BF3ServerInfo;
+class BF4ServerInfo;
 class PlayerInfo;
 
 class Frostbite2CommandHandler : public FrostbiteCommandHandler
@@ -44,7 +47,7 @@ public:
     // Misc
     void sendLoginPlainTextCommand(const QString &password);
     void sendLoginHashedCommand(const QByteArray &salt = QByteArray(), const QString &password = QString());
-    //serverInfo
+    void sendServerInfoCommand();
     void sendLogoutCommand();
     void sendQuitCommand();
     void sendVersionCommand();
@@ -186,7 +189,7 @@ private:
     // Misc
     void parseLoginPlainTextCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseLoginHashedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    //void parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseLogoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -311,7 +314,9 @@ signals:
     void onLoginPlainTextCommand(bool auth);
     void onLoginHashedCommand(const QByteArray &salt);
     void onLoginHashedCommand(bool auth);
-    //serverInfo
+    void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
+    void onServerInfoCommand(const BF3ServerInfo &serverInfo);
+    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
     void onLogoutCommand();
     void onQuitCommand();
     void onVersionCommand(const QString &type, int build);

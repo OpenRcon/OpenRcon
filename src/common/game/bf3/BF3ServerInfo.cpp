@@ -17,9 +17,9 @@
 * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "BF4ServerInfo.h"
+#include "BF3ServerInfo.h"
 
-BF4ServerInfo::BF4ServerInfo(const QString &serverName,
+BF3ServerInfo::BF3ServerInfo(const QString &serverName,
                              int playerCount,
                              int maxPlayerCount,
                              const QString &gameMode,
@@ -38,54 +38,45 @@ BF4ServerInfo::BF4ServerInfo(const QString &serverName,
                              const QString &region,
                              const QString &closestPingSite,
                              const QString &country,
-                             int blazePlayerCount,
-                             const QString &blazeGameState) :
-    Frostbite2ServerInfo(serverName,
-                         playerCount,
-                         maxPlayerCount,
-                         gameMode,
-                         currentMap,
-                         roundsPlayed,
-                         roundsTotal,
-                         scores,
-                         ranked,
-                         punkBuster,
-                         gamePassword,
-                         serverUpTime,
-                         roundTime,
-                         gameIpAndPort,
-                         punkBusterVersion,
-                         joinQueueEnabled,
-                         region,
-                         closestPingSite,
-                         country),
-                   blazePlayerCount(blazePlayerCount),
-                   blazeGameState(blazeGameState)
+                             bool matchMakingEnabled) :
+                   Frostbite2ServerInfo(serverName,
+                                        playerCount,
+                                        maxPlayerCount,
+                                        gameMode,
+                                        currentMap,
+                                        roundsPlayed,
+                                        roundsTotal,
+                                        scores,
+                                        ranked,
+                                        punkBuster,
+                                        gamePassword,
+                                        serverUpTime,
+                                        roundTime,
+                                        gameIpAndPort,
+                                        punkBusterVersion,
+                                        joinQueueEnabled,
+                                        region,
+                                        closestPingSite,
+                                        country),
+                   matchMakingEnabled(matchMakingEnabled)
 {
 
 }
 
-BF4ServerInfo::BF4ServerInfo(const Frostbite2ServerInfo &serverInfo,
-                             int blazePlayerCount,
-                             const QString &blazeGameState) :
+BF3ServerInfo::BF3ServerInfo(const Frostbite2ServerInfo &serverInfo,
+                             bool matchMakingEnabled) :
     Frostbite2ServerInfo(serverInfo),
-    blazePlayerCount(blazePlayerCount),
-    blazeGameState(blazeGameState)
+    matchMakingEnabled(matchMakingEnabled)
 {
 
 }
 
-BF4ServerInfo::~BF4ServerInfo()
+BF3ServerInfo::~BF3ServerInfo()
 {
 
 }
 
-int BF4ServerInfo::getBlazePlayerCount() const
+bool BF3ServerInfo::isMatchMakingEnabled() const
 {
-    return blazePlayerCount;
-}
-
-QString BF4ServerInfo::getBlazeGameState() const
-{
-    return blazeGameState;
+    return matchMakingEnabled;
 }

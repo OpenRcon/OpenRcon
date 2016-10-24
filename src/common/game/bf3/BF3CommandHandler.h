@@ -26,7 +26,7 @@ class QString;
 class QStringList;
 
 enum class PlayerSubsetType;
-class Frostbite2ServerInfo;
+class BF3ServerInfo;
 class PlayerInfo;
 
 class BF3CommandHandler : public Frostbite2CommandHandler
@@ -44,7 +44,7 @@ public:
     //login.plainText <password>
     //login.hashed
     //login.hashed <passwordHard>
-    void sendServerInfoCommand();
+    //serverInfo
     //logout
     //quit
     //version
@@ -183,7 +183,7 @@ private:
     //login.plainText <password>
     //login.hashed
     //login.hashed <passwordHard>
-    void parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    //serverInfo
     //logout
     //quit
     //version
@@ -319,7 +319,7 @@ signals:
     //login.plainText <password>
     //login.hashed
     //login.hashed <passwordHard>
-    void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
+    //serverInfo
     //logout
     //quit
     //version

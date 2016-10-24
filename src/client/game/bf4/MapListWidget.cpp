@@ -25,7 +25,7 @@
 #include "BF4Client.h"
 #include "LevelEntry.h"
 #include "BF4LevelDictionary.h"
-#include "BF4ServerInfo.h"
+#include "Frostbite2ServerInfo.h"
 #include "BF4GameModeEntry.h"
 
 MapListWidget::MapListWidget(BF4Client *client, QWidget *parent) :
@@ -51,11 +51,13 @@ MapListWidget::MapListWidget(BF4Client *client, QWidget *parent) :
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &MapListWidget::onLoginHashedCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onServerInfoCommand,                                                              this, &MapListWidget::onServerInfoCommand);
+    connect(client->getCommandHandler(),    static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+            this,   &MapListWidget::onLoginHashedCommand);
+    connect(client->getCommandHandler(),    static_cast<void (Frostbite2CommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
+            this,   &MapListWidget::onServerInfoCommand);
 
     // MapList
-    connect(client->getCommandHandler(), &BF4CommandHandler::onMapListListCommand,                                                             this, &MapListWidget::onMapListListCommand);
+    connect(client->getCommandHandler(),    &BF4CommandHandler::onMapListListCommand,                                                             this, &MapListWidget::onMapListListCommand);
 
     /* User Interface */
     connect(ui->comboBox_gameMode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &MapListWidget::comboBox_gameMode_currentIndexChanged);
@@ -88,7 +90,7 @@ void MapListWidget::onLoginHashedCommand(bool auth)
     }
 }
 
-void MapListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
+void MapListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
 {
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.getGameMode());

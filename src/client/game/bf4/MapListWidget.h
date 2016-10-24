@@ -27,7 +27,7 @@ class QAction;
 class QTreeWidgetItem;
 
 class BF4Client;
-class BF4ServerInfo;
+class Frostbite2ServerInfo;
 class MapListEntry;
 
 namespace Ui {
@@ -55,7 +55,7 @@ private:
 private slots:
     /* Commands */
     void onLoginHashedCommand(bool auth);
-    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
+    void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
     void onMapListListCommand(const QList<MapListEntry> &mapList);
 
     /* User Interface */

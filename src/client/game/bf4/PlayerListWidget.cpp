@@ -27,7 +27,7 @@
 
 #include "BF4Client.h"
 #include "FrostbiteUtils.h"
-#include "BF4ServerInfo.h"
+#include "Frostbite2ServerInfo.h"
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
 
@@ -77,21 +77,22 @@ PlayerListWidget::PlayerListWidget(BF4Client *client, QWidget *game) :
     menu_player_copyTo->addAction(action_player_copyTo_guid);
 
     /* Events */
-    connect(client->getCommandHandler(),           &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,  this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),           &BF4CommandHandler::onPlayerDisconnectEvent,            this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),           &Frostbite2CommandHandler::onPlayerJoinEvent,           this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),           &Frostbite2CommandHandler::onPlayerLeaveEvent,          this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),           &Frostbite2CommandHandler::onPlayerSpawnEvent,          this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),           &Frostbite2CommandHandler::onPlayerKillEvent,           this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),           &Frostbite2CommandHandler::onPlayerSquadChangeEvent,    this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),           &Frostbite2CommandHandler::onPlayerTeamChangeEvent,     this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,  this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &BF4CommandHandler::onPlayerDisconnectEvent,            this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onPlayerJoinEvent,           this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onPlayerLeaveEvent,          this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onPlayerSpawnEvent,          this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onPlayerKillEvent,           this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onPlayerSquadChangeEvent,    this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onPlayerTeamChangeEvent,     this, &PlayerListWidget::updatePlayerList);
 
     /* Commands */
-    connect(client->getCommandHandler(),           static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+    connect(client->getCommandHandler(),            static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
             this, &PlayerListWidget::onLoginHashedCommand);
-    connect(client->getCommandHandler(),           &BF4CommandHandler::onServerInfoCommand,                this, &PlayerListWidget::onServerInfoCommand);
-    connect(client->getCommandHandler(),           &BF4CommandHandler::onListPlayersCommand,               this, &PlayerListWidget::listPlayers);
-    connect(client->getCommandHandler(),           &BF4CommandHandler::onAdminListPlayersCommand,          this, &PlayerListWidget::listPlayers);
+    connect(client->getCommandHandler(),            static_cast<void (Frostbite2CommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
+            this, &PlayerListWidget::onServerInfoCommand);
+    connect(client->getCommandHandler(),            &BF4CommandHandler::onListPlayersCommand,               this, &PlayerListWidget::listPlayers);
+    connect(client->getCommandHandler(),            &BF4CommandHandler::onAdminListPlayersCommand,          this, &PlayerListWidget::listPlayers);
 
     /* User Interface */
     connect(this,                       &QTreeWidget::customContextMenuRequested,               this, &PlayerListWidget::customContextMenuRequested);
@@ -119,7 +120,7 @@ void PlayerListWidget::onLoginHashedCommand(bool auth)
     }
 }
 
-void PlayerListWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
+void PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
 {
     currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
 }

@@ -14,13 +14,12 @@ HEADERS += $$PWD/FrostbiteClient.h \
     $$PWD/PlayerSubset.h \
     $$PWD/MapListEntry.h \
     $$PWD/BanListEntry.h \
-    $$PWD/ServerInfo.h \
-    $$PWD/OnlineState.h \
     $$PWD/TeamScores.h \
     $$PWD/Time.h \
     $$PWD/Squad.h \
     $$PWD/WeaponEntry.h \
-    $$PWD/WeaponDictionary.h
+    $$PWD/WeaponDictionary.h \
+    $$PWD/FrostbiteServerInfo.h
 
 SOURCES += $$PWD/FrostbiteClient.cpp \
     $$PWD/FrostbiteConnection.cpp \
@@ -33,5 +32,5 @@ SOURCES += $$PWD/FrostbiteClient.cpp \
     $$PWD/GameModeEntry.cpp \
     $$PWD/PlayerSubset.cpp \
     $$PWD/MapListEntry.cpp \
-    $$PWD/ServerInfo.cpp \
-    $$PWD/WeaponEntry.cpp
+    $$PWD/WeaponEntry.cpp \
+    $$PWD/FrostbiteServerInfo.cpp

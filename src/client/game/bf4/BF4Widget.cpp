@@ -198,9 +198,10 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &BF4Widget::onLoginHashedCommand);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,                                                           this, &BF4Widget::onVersionCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onServerInfoCommand,                                                              this, &BF4Widget::onServerInfoCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),                this, &BF4Widget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,                                                                           this, &BF4Widget::onVersionCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const BF4ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand), this, &BF4Widget::onServerInfoCommand);
+
 
     // Admin
 
@@ -315,11 +316,6 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
                                               "<td>External IP address and port:</td>"
                                               "<td>%1</td>"
                                           "</tr>"
-                                          "<tr>"
-                                              "<td>Join queue enabled:</td>"
-                                              "<td>%2</td>"
-                                          "</tr>"
-                                          "<tr>"
 
                                           "<tr>"
                                               "<td></td>"
@@ -355,8 +351,7 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
                                               "<td>%9</td>"
                                           "</tr>"
                                       "</table>").arg(serverInfo.getGameIpAndPort())
-                                                 .arg(FrostbiteUtils::toString(serverInfo.getJoinQueueEnabled()),
-                                                      serverInfo.getRegion(),
+                                                 .arg(serverInfo.getRegion(),
                                                       serverInfo.getCountry(),
                                                       serverInfo.getClosestPingSite())
                                                  .arg(serverInfo.getBlazePlayerCount())

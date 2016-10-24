@@ -22,7 +22,7 @@
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteUtils.h"
 #include "PlayerSubset.h"
-#include "Frostbite2ServerInfo.h"
+#include "BF3ServerInfo.h"
 #include "PlayerInfo.h"
 
 BF3CommandHandler::BF3CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)
@@ -73,11 +73,6 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
 /* Send commands */
 // Misc
-void BF3CommandHandler::sendServerInfoCommand()
-{
-    connection->sendCommand("serverInfo");
-}
-
 void BF3CommandHandler::sendListPlayersCommand(const PlayerSubsetType &playerSubsetType)
 {
     connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubsetType).toLower()));
@@ -165,88 +160,6 @@ void BF3CommandHandler::sendVarsRoundsPerMapCommand(int rounds)
 
 /* Parse commands */
 // Misc
-void BF3CommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QString serverName = packet.getWord(1).getContent();
-        int playerCount = FrostbiteUtils::toInt(packet.getWord(2).getContent());
-        int maxPlayerCount = FrostbiteUtils::toInt(packet.getWord(3).getContent());
-        QString gamemode = packet.getWord(4).getContent();
-        QString currentMap = packet.getWord(5).getContent();
-        int roundsPlayed = FrostbiteUtils::toInt(packet.getWord(6).getContent());
-        int roundsTotal = FrostbiteUtils::toInt(packet.getWord(7).getContent());
-
-        // Parsing team scores.
-        int entries = FrostbiteUtils::toInt(packet.getWord(8).getContent());
-        QList<int> scoreList;
-        int targetScore;
-
-        for (int i = 9; i < entries; i++) {
-            scoreList.append(FrostbiteUtils::toInt(packet.getWord(i).getContent()));
-
-            if (i == entries) {
-                targetScore = FrostbiteUtils::toInt(packet.getWord(i + 1).getContent());
-            }
-        }
-
-        TeamScores scores(scoreList, targetScore);
-
-        /*
-        // Parsing online state.
-        QString onlineStateString = packet.getWord(12).getContent();
-        OnlineState onlineState;
-
-        if (onlineStateString == "NotConnected") {
-            onlineState = OnlineState::NotConnected;
-        } else if (onlineStateString == "ConnectedToBackend") {
-            onlineState = OnlineState::ConnectedToBackend;
-        } else if (onlineStateString == "AcceptingPlayers") {
-            onlineState = OnlineState::AcceptingPlayers;
-        }
-        */
-
-        bool ranked = FrostbiteUtils::toBool(packet.getWord(13).getContent());
-        bool punkBuster = FrostbiteUtils::toBool(packet.getWord(14).getContent());
-        bool hasGamePassword = FrostbiteUtils::toBool(packet.getWord(15).getContent());
-        int serverUpTime = FrostbiteUtils::toInt(packet.getWord(16).getContent());
-        int roundTime = FrostbiteUtils::toInt(packet.getWord(17).getContent());
-        QString gameIpAndPort = packet.getWord(18).getContent();
-        QString punkBusterVersion = packet.getWord(19).getContent();
-        bool joinQueueEnabled = FrostbiteUtils::toBool(packet.getWord(20).getContent());
-        QString region = packet.getWord(21).getContent();
-        QString closestPingSite = packet.getWord(22).getContent();
-        QString country = packet.getWord(23).getContent();
-
-        Frostbite2ServerInfo serverInfo(
-                    serverName,
-                    playerCount,
-                    maxPlayerCount,
-                    gamemode,
-                    currentMap,
-                    roundsPlayed,
-                    roundsTotal,
-                    scores,
-                    ranked,
-                    punkBuster,
-                    hasGamePassword,
-                    serverUpTime,
-                    roundTime,
-                    gameIpAndPort,
-                    punkBusterVersion,
-                    joinQueueEnabled,
-                    region,
-                    closestPingSite,
-                    country
-        );
-
-        emit (onServerInfoCommand(serverInfo));
-    }
-}
-
 void BF3CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);

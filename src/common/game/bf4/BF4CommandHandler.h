@@ -46,7 +46,7 @@ public:
     //login.plainText <password>
     //login.hashed
     //login.hashed <passwordHard>
-    void sendServerInfoCommand();
+    //serverInfo
     //logout
     //quit
     //version
@@ -220,7 +220,7 @@ private:
     // Misc
     //login.plainText
     //login.hashed
-    void parseServerInfoCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    //serverInfo
     //logout
     //quit
     //version
@@ -385,8 +385,8 @@ signals:
     // Misc
     //login.plainText
     //login.hashed
-    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
-    void onLogoutCommand();
+    //serverInfo
+    //logout
     //quit
     //version
     //currentLevel
