@@ -24,6 +24,7 @@
 
 class QStringList;
 class QString;
+class QAbstractSocket;
 
 class Frostbite2Client;
 
@@ -48,19 +49,23 @@ private:
     bool commandHistoryFirst;
     int commandHistoryIndex;
 
+    void clear();
     void logConsole(int type, const QString &message);
 
 private slots:
+    /* Events */
+    void onDisconnected(QAbstractSocket *socket);
+    void onDataSent(const QString &request);
+    void onDataReceived(const QString &response);
+
     /* Commands */
     void onLoginHashedCommand(bool auth);
     void onPunkBusterMessageEvent(const QString &message);
 
-    /* Events */
-    void onDataSent(const QString &request);
-    void onDataReceived(const QString &response);
-
     /* User Interface */
+    void lineEdit_co_co_textChanged(const QString &text);
     void pushButton_co_co_clicked();
+    void lineEdit_co_pb_textChanged(const QString &text);
     void pushButton_co_pb_clicked();
 
 };

@@ -34,17 +34,20 @@ ConsoleWidget::ConsoleWidget(Frostbite2Client *client, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    /* Events */
+    connect(client->getConnection(), &Connection::onDisconnected, this, &ConsoleWidget::onDisconnected);
+    connect(client->getConnection(), &Connection::onDataSent,     this, &ConsoleWidget::onDataSent);
+    connect(client->getConnection(), &Connection::onDataReceived, this, &ConsoleWidget::onDataReceived);
+
     /* Commands */
     connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &ConsoleWidget::onLoginHashedCommand);
     connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
 
-    /* Events */
-    connect(client->getConnection(), &Connection::onDataSent,     this, &ConsoleWidget::onDataSent);
-    connect(client->getConnection(), &Connection::onDataReceived, this, &ConsoleWidget::onDataReceived);
-
     /* User Interface */
+    connect(ui->lineEdit_co_co,   &QLineEdit::textChanged,      this, &ConsoleWidget::lineEdit_co_co_textChanged);
     connect(ui->pushButton_co_co, &QPushButton::clicked,        this, &ConsoleWidget::pushButton_co_co_clicked);
     connect(ui->lineEdit_co_co,   &QLineEdit::editingFinished,  this, &ConsoleWidget::pushButton_co_co_clicked);
+    connect(ui->lineEdit_co_pb,   &QLineEdit::textChanged,      this, &ConsoleWidget::lineEdit_co_pb_textChanged);
     connect(ui->pushButton_co_pb, &QPushButton::clicked,        this, &ConsoleWidget::pushButton_co_pb_clicked);
     connect(ui->lineEdit_co_pb,   &QLineEdit::editingFinished,  this, &ConsoleWidget::pushButton_co_pb_clicked);
 }
@@ -59,6 +62,12 @@ ConsoleWidget::ConsoleWidget(Frostbite2Client *client, const QStringList &comman
 ConsoleWidget::~ConsoleWidget()
 {
     delete ui;
+}
+
+void ConsoleWidget::clear()
+{
+    ui->textEdit_co_co->clear();
+    ui->textEdit_co_pb->clear();
 }
 
 void ConsoleWidget::logConsole(int type, const QString &message)
@@ -84,6 +93,24 @@ void ConsoleWidget::logConsole(int type, const QString &message)
     }
 }
 
+/* Event */
+void ConsoleWidget::onDisconnected(QAbstractSocket *socket)
+{
+    Q_UNUSED(socket);
+
+    clear();
+}
+
+void ConsoleWidget::onDataSent(const QString &request)
+{
+    logConsole(0, request);
+}
+
+void ConsoleWidget::onDataReceived(const QString &response)
+{
+    logConsole(1, response);
+}
+
 /* Commands */
 void ConsoleWidget::onLoginHashedCommand(bool auth)
 {
@@ -95,21 +122,21 @@ void ConsoleWidget::onPunkBusterMessageEvent(const QString &message)
     logConsole(2, message);
 }
 
-/* Event */
-void ConsoleWidget::onDataSent(const QString &request)
+/* User Interface */
+void ConsoleWidget::lineEdit_co_co_textChanged(const QString &text)
 {
-    logConsole(0, request);
-}
-
-void ConsoleWidget::onDataReceived(const QString &response)
-{
-    logConsole(1, response);
+    ui->pushButton_co_co->setEnabled(!text.isEmpty());
 }
 
 void ConsoleWidget::pushButton_co_co_clicked()
 {
     client->getConnection()->sendCommand(ui->lineEdit_co_co->text());
     ui->lineEdit_co_co->clear();
+}
+
+void ConsoleWidget::lineEdit_co_pb_textChanged(const QString &text)
+{
+    ui->pushButton_co_pb->setEnabled(!text.isEmpty());
 }
 
 void ConsoleWidget::pushButton_co_pb_clicked()

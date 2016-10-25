@@ -14,7 +14,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget_co">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -40,6 +40,9 @@
        </item>
        <item row="1" column="1">
         <widget class="QPushButton" name="pushButton_co_co">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Send</string>
          </property>
@@ -88,6 +91,9 @@
        </item>
        <item row="1" column="1">
         <widget class="QPushButton" name="pushButton_co_pb">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Send</string>
          </property>
