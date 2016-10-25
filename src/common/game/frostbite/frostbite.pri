@@ -33,4 +33,5 @@ SOURCES += $$PWD/FrostbiteClient.cpp \
     $$PWD/PlayerSubset.cpp \
     $$PWD/MapListEntry.cpp \
     $$PWD/WeaponEntry.cpp \
-    $$PWD/FrostbiteServerInfo.cpp
+    $$PWD/FrostbiteServerInfo.cpp \
+    $$PWD/Squad.cpp

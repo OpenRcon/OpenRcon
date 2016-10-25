@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,8 +20,8 @@
 #ifndef PLAYERSUBSET_H
 #define PLAYERSUBSET_H
 
-#include <QString>
-#include <QStringList>
+class QString;
+class QStringList;
 
 enum class PlayerSubsetType {
     Unknown,

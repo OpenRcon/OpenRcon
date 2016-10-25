@@ -20,7 +20,10 @@
 #ifndef SQUAD_H
 #define SQUAD_H
 
-enum class Squad {
+class QString;
+class QStringList;
+
+enum class EnumSquad {
     None,
     Alpha,
     Bravo,
@@ -54,6 +57,19 @@ enum class Squad {
     Redford,
     Faith,
     Celeste
+};
+
+class Squad
+{
+public:
+    static EnumSquad fromString(const QString &squadName);
+    static QString toString(const EnumSquad &squad);
+    static int toInt(const EnumSquad &squad);
+    static QStringList asList();
+
+private:
+    static QStringList list;
+
 };
 
 #endif // SQUAD_H

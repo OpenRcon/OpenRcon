@@ -20,7 +20,7 @@
 #ifndef WEAPONENTRY_H
 #define WEAPONENTRY_H
 
-#include <QString>
+class QString;
 
 class WeaponEntry
 {

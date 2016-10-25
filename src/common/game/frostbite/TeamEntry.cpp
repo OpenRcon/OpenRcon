@@ -17,6 +17,9 @@
 * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QString>
+#include <QPixmap>
+
 #include "TeamEntry.h"
 
 TeamEntry::TeamEntry(const QString &name, const QString &image) :

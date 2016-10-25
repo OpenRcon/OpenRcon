@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,8 +20,10 @@
 #ifndef LEVELENTRY_H
 #define LEVELENTRY_H
 
-#include <QString>
-#include <QPixmap>
+#include <QList>
+
+class QString;
+class QPixmap;
 
 class LevelEntry
 {

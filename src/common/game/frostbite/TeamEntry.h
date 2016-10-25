@@ -20,8 +20,8 @@
 #ifndef TEAMENTRY_H
 #define TEAMENTRY_H
 
-#include <QString>
-#include <QPixmap>
+class QString;
+class QPixmap;
 
 class TeamEntry
 {

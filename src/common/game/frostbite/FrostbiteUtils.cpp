@@ -119,7 +119,7 @@ QString FrostbiteUtils::toString(Time time)
     return timeString;
 }
 
-QString FrostbiteUtils::getSquadName(Squad squad)
+QString FrostbiteUtils::getSquadName(EnumSquad squad)
 {
     return getSquadName(static_cast<int>(squad));
 }
