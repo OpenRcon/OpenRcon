@@ -24,6 +24,7 @@
 #include <QSet>
 
 class ServerEntry;
+class GameWidget;
 
 class SessionManager : public QObject
 {
@@ -35,18 +36,20 @@ public:
 
     static SessionManager *getInstance(QObject *parent = nullptr);
 
-    void open(ServerEntry *serverEntry);
-    void close(int index);
-    bool isConnected(ServerEntry *serverEntry);
+    void openSession(ServerEntry *serverEntry);
+    void closeSession(GameWidget *gameWidget);
+    void closeSession(int index);
+    void closeSession(GameWidget *gameWidget, int index);
+    bool isSessionConnected(ServerEntry *serverEntry);
 
 private:
     static SessionManager *instance;
 
-    QSet<ServerEntry *> sessions;
+    QSet<ServerEntry*> sessions;
 
 signals:
-    void onServerConnected();
-    void onServerDisconnected();
+    void onSessionOpened();
+    void onSessionClosed();
 
 };
 

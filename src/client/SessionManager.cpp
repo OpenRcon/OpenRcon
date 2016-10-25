@@ -52,7 +52,7 @@ SessionManager *SessionManager::getInstance(QObject *parent)
     return instance;
 }
 
-void SessionManager::open(ServerEntry *serverEntry)
+void SessionManager::openSession(ServerEntry *serverEntry)
 {
     // Add ServerEntry to the list.
     if (!sessions.contains(serverEntry)) {
@@ -61,34 +61,54 @@ void SessionManager::open(ServerEntry *serverEntry)
         TabWidget *tabWidget = TabWidget::getInstance();
         GameEntry gameEntry = GameManager::getGame(serverEntry->getGameType());
         GameWidget *gameWidget = GameManager::getGameWidget(serverEntry);
-        //Client *client = gameWidget->getClient();
-        int index = tabWidget->addTab(gameWidget, QIcon(gameEntry.getIcon()), serverEntry->getName());
 
+        int index = tabWidget->addTab(gameWidget, QIcon(gameEntry.getIcon()), serverEntry->getName());
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->getHost()).arg(serverEntry->getPort()));
         tabWidget->setCurrentIndex(index);
+
+        //Client *client = gameWidget->getClient();
         //client->getConnection()->hostConnect(serverEntry);
 
-        emit (onServerConnected());
+        emit (onSessionOpened());
     } else {
-        qDebug() << "Already connected to this server.";
+        qDebug() << tr("Already connected to this server.");
     }
 }
- void SessionManager::close(int index)
+
+void SessionManager::closeSession(GameWidget *gameWidget)
+{
+    int index = TabWidget::getInstance()->indexOf(gameWidget);
+
+    this->closeSession(gameWidget, index);
+}
+
+void SessionManager::closeSession(int index)
+{
+    GameWidget *gameWidget = dynamic_cast<GameWidget*>(TabWidget::getInstance()->widget(index));
+
+    this->closeSession(gameWidget, index);
+}
+
+void SessionManager::closeSession(GameWidget *gameWidget, int index)
 {
     TabWidget *tabWidget = TabWidget::getInstance();
-    GameWidget *gameWidget = dynamic_cast<GameWidget *>(tabWidget->widget(index));
     Client *client = gameWidget->getClient();
+    ServerEntry *serverEntry = client->getServerEntry();
 
     tabWidget->removeTab(index);
     client->getConnection()->hostDisconnect();
 
     // Remove the ServerEntry from the list.
-    if (sessions.remove(client->getServerEntry())) {
-        emit (onServerDisconnected());
+    if (sessions.remove(serverEntry)) {
+        emit (onSessionClosed());
+    } else {
+        qDebug() << tr("This session does not exist.");
     }
+
+    delete gameWidget;
 }
 
-bool SessionManager::isConnected(ServerEntry *serverEntry)
+bool SessionManager::isSessionConnected(ServerEntry *serverEntry)
 {
     return sessions.contains(serverEntry);
 }

@@ -35,9 +35,9 @@ public:
     Connection(QObject *parent = nullptr);
     virtual ~Connection();
 
-public slots:
-    virtual void hostConnect(ServerEntry *serverEntry);
+    virtual void hostConnect(ServerEntry *serverEntry) = 0;
     virtual void hostDisconnect();
+    bool isConnected();
 
 protected:
     void responseDataSent(const QString &request);

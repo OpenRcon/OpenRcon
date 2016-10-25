@@ -59,12 +59,12 @@ void OptionsDialog::loadSettings()
     languageList.insert(0, LanguageEntry(tr("Detect automatically"), QLocale::system().name(), nullptr));
 
     for (LanguageEntry language : languageList) {
-        ui->comboBox_be_language->addItem(language.getIcon(), language.getName(), qVariantFromValue(language));
+        ui->comboBox_be_language->addItem(language.getIcon(), language.getName(), QVariant::fromValue(language));
     }
 
     // Set index of combobox to selected language.
     LanguageEntry language = languageManager->getLanguage(settings->value("Settings/General/Locale").toString());
-    int index = ui->comboBox_be_language->findData(qVariantFromValue(language));
+    int index = ui->comboBox_be_language->findData(QVariant::fromValue(language));
 
     if (index >= 0) {
         ui->comboBox_be_language->setCurrentIndex(index);

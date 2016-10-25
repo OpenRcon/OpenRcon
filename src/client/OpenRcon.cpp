@@ -167,7 +167,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     // Toolbars
     connect(pushButton_quickConnect_connect, &QPushButton::clicked,              this, &OpenRcon::pushButton_quickConnect_connect_clicked);
     connect(serverManager,                   &ServerManager::onServerUpdated,    this, &OpenRcon::updateServerList);
-    connect(sessionManager,                  &SessionManager::onServerConnected, this, &OpenRcon::updateServerList);
+    connect(sessionManager,                  &SessionManager::onSessionOpened,   this, &OpenRcon::updateServerList);
 
     // TabWidget
     connect(tabWidget, &QTabWidget::tabCloseRequested,          this, &OpenRcon::tabWidget_tabCloseRequested);
@@ -218,11 +218,11 @@ void OpenRcon::writeSettings()
 
 void OpenRcon::autoConnect()
 {
-    QList<ServerEntry *> serverList = serverManager->getServers();
+    QList<ServerEntry*> serverList = serverManager->getServers();
 
     for (ServerEntry *entry : serverList) {
         if (entry->getAutoConnect()) {
-            sessionManager->open(entry);
+            sessionManager->openSession(entry);
         }
     }
 }
@@ -232,22 +232,22 @@ void OpenRcon::updateServerList()
     comboBox_quickConnect_server->clear();
 
     // Add the server to the comboBox only if it's not empty, otherwise disable it.
-    QList<ServerEntry *> serverList = serverManager->getServers();
+    QList<ServerEntry*> serverList = serverManager->getServers();
 
     if (!serverList.isEmpty()) {
-        comboBox_quickConnect_server->setEnabled(true);
-        pushButton_quickConnect_connect->setEnabled(true);
-
         for (ServerEntry *serverEntry : serverList) {
-            if (!sessionManager->isConnected(serverEntry)) {
+            if (!sessionManager->isSessionConnected(serverEntry)) {
                 GameEntry game = GameManager::getGame(serverEntry->getGameType());
 
-                comboBox_quickConnect_server->addItem(game.getIcon(), serverEntry->getName(), qVariantFromValue(serverEntry));
+                comboBox_quickConnect_server->addItem(game.getIcon(), serverEntry->getName(), QVariant::fromValue(serverEntry));
             }
         }
 
-        // Show an message in the disabled combobox that all the servers is connected.
-        if (comboBox_quickConnect_server->count() < 1) {
+        // Enable quickConnect if servers are available or show an message in the disabled combobox that all the servers is connected if not.
+        if (comboBox_quickConnect_server->count() >= 1) {
+            comboBox_quickConnect_server->setEnabled(true);
+            pushButton_quickConnect_connect->setEnabled(true);
+        } else {
             comboBox_quickConnect_server->setEnabled(false);
             pushButton_quickConnect_connect->setEnabled(false);
             comboBox_quickConnect_server->addItem(tr("All servers connected."));
@@ -262,7 +262,7 @@ void OpenRcon::updateServerList()
 
 void OpenRcon::tabWidget_tabCloseRequested(int index)
 {
-    sessionManager->close(index);
+    sessionManager->closeSession(index);
 }
 
 void OpenRcon::tabWidget_customContextMenuRequested(const QPoint &pos)
@@ -344,15 +344,20 @@ void OpenRcon::actionAboutQt_triggered()
 // Tab menu
 void OpenRcon::actionTabReconnect_triggered()
 {
-    GameWidget *gameWidget = dynamic_cast<GameWidget *>(tabWidget->currentWidget());
+    GameWidget *gameWidget = dynamic_cast<GameWidget*>(tabWidget->currentWidget());
     Connection *connection = gameWidget->getClient()->getConnection();
     // TODO: Check if a connection already exists, if so disconnect first.
+
+    if (connection->isConnected()) {
+        connection->hostDisconnect();
+    }
+
     connection->hostConnect(gameWidget->getClient()->getServerEntry());
 }
 
 void OpenRcon::actionTabDisconnect_triggered()
 {
-    GameWidget *gameWidget = dynamic_cast<GameWidget *>(tabWidget->currentWidget());
+    GameWidget *gameWidget = dynamic_cast<GameWidget*>(tabWidget->currentWidget());
     Connection *connection = gameWidget->getClient()->getConnection();
     connection->hostDisconnect();
 }
@@ -360,7 +365,7 @@ void OpenRcon::actionTabDisconnect_triggered()
 // QuickConnect toolbar
 void OpenRcon::pushButton_quickConnect_connect_clicked()
 {
-    ServerEntry *serverEntry = comboBox_quickConnect_server->currentData(Qt::UserRole).value<ServerEntry *>();
+    ServerEntry *serverEntry = comboBox_quickConnect_server->currentData(Qt::UserRole).value<ServerEntry*>();
 
-    sessionManager->open(serverEntry);
+    sessionManager->openSession(serverEntry);
 }

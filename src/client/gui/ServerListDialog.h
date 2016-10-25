@@ -67,11 +67,11 @@ private:
     void createTreeData();
 
 private slots:
+    void onSessionOpened();
     void treeWidget_customContextMenuRequested(const QPoint &pos);
     void treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void treeWidget_itemClicked(QTreeWidgetItem *item, int column);
     void action_gameEntry_add_triggered();
-    void onServerConnected();
 
     void addItem(int index = -1);
     void editItem();

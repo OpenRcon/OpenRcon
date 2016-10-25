@@ -34,7 +34,7 @@ Connection::Connection(QObject *parent) : QObject(parent), socket(new QTcpSocket
 
 Connection::~Connection()
 {
-
+    delete socket;
 }
 
 void Connection::hostConnect(ServerEntry *serverEntry)
@@ -53,6 +53,11 @@ void Connection::hostDisconnect()
     } else {
         qDebug() << tr("Could not disconnect, there is no open socket to disconnect.");
     }
+}
+
+bool Connection::isConnected()
+{
+    return socket->state() == QAbstractSocket::ConnectedState;
 }
 
 void Connection::connected()
