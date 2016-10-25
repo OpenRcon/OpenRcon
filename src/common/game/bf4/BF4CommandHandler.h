@@ -35,9 +35,9 @@ class BF4CommandHandler : public Frostbite2CommandHandler
 
 public:
     BF4CommandHandler(FrostbiteConnection *parent = nullptr);
-    ~BF4CommandHandler();
+    virtual ~BF4CommandHandler();
 
-    virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) override;
+    virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) final;
 
     /* Send commands */
     // Misc

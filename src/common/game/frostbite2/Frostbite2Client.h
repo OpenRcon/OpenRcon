@@ -21,7 +21,6 @@
 #define FROSTBITE2CLIENT_H
 
 #include "FrostbiteClient.h"
-#include "Frostbite2CommandHandler.h"
 
 class Frostbite2Client : public FrostbiteClient
 {
@@ -29,14 +28,7 @@ class Frostbite2Client : public FrostbiteClient
 
 public:
     Frostbite2Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    ~Frostbite2Client();
-
-    virtual Frostbite2CommandHandler *getCommandHandler() {
-        return commandHandler;
-    }
-
-private:
-    Frostbite2CommandHandler *commandHandler;
+    virtual ~Frostbite2Client();
 
 };
 

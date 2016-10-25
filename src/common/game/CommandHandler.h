@@ -30,7 +30,7 @@ class CommandHandler : public QObject
 
 public:
     CommandHandler(QObject *parent = nullptr);
-    ~CommandHandler();
+    virtual ~CommandHandler();
 
 };
 

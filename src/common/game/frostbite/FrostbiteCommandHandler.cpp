@@ -30,6 +30,8 @@ FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *connection
     qDebug() << "FrostbiteCommandHandler created.";
 
     if (connection) {
+        qDebug() << "FrostbiteCommandHandler, connection exists.";
+
         connection->setCommandHandler(this);
     }
 

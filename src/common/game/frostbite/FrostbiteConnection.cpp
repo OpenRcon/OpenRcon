@@ -28,8 +28,8 @@
 
 FrostbiteConnection::FrostbiteConnection(QObject *parent) :
     Connection(parent),
-    packetReadState(PacketReadingHeader),
-    nextPacketSequence(0)
+    packetReadState(PacketReadingHeader)
+    //nextPacketSequence(0)
 {
     qDebug() << "FrostbiteConnection created.";
 
@@ -39,6 +39,11 @@ FrostbiteConnection::FrostbiteConnection(QObject *parent) :
 FrostbiteConnection::~FrostbiteConnection()
 {
 
+}
+
+QString FrostbiteConnection::test()
+{
+    return "hahahahaah";
 }
 
 FrostbiteCommandHandler *FrostbiteConnection::getCommandHandler() const

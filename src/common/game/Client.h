@@ -32,7 +32,7 @@ class Client : public QObject
 
 public:
     Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    ~Client();
+    virtual ~Client();
 
     virtual Connection *getConnection() = 0;
     virtual CommandHandler *getCommandHandler() = 0;

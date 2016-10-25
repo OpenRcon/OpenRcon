@@ -199,6 +199,7 @@ void Frostbite2CommandHandler::sendLoginHashedCommand(const QByteArray &salt, co
 
 void Frostbite2CommandHandler::sendServerInfoCommand()
 {
+    qDebug() << connection->test();
     connection->sendCommand("serverInfo");
 }
 
@@ -214,7 +215,7 @@ void Frostbite2CommandHandler::sendQuitCommand()
 
 void Frostbite2CommandHandler::sendVersionCommand()
 {
-    connection->sendCommand("version");
+    //connection->sendCommand("version");
 }
 
 void Frostbite2CommandHandler::sendCurrentLevelCommand()

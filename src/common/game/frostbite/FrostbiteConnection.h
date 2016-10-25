@@ -33,16 +33,20 @@ class FrostbiteConnection : public Connection
 
 public:
     FrostbiteConnection(QObject *parent = nullptr);
-    ~FrostbiteConnection();
+    virtual ~FrostbiteConnection();
 
     FrostbiteCommandHandler *getCommandHandler() const;
     void setCommandHandler(FrostbiteCommandHandler *commandHandler);
 
-    void hostConnect(ServerEntry *serverEntry);
+    void hostConnect(ServerEntry *serverEntry) override;
     void sendCommand(const QString &command);
+
+    QString test();
 
 private:
     FrostbiteCommandHandler *commandHandler;
+
+    QString name;
 
     int packetReadState;
     char lastHeader[MIN_PACKET_SIZE];

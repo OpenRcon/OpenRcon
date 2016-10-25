@@ -47,6 +47,8 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
 {
     ui->setupUi(this);
 
+    client->getConnection()->hostConnect(serverEntry);
+
     /* User Inferface */
     // ServerInfo
     timerServerInfoRoundTime = new QTimer(this);
@@ -195,7 +197,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
     connect(client->getConnection(), &Connection::onDisconnected,                       this, &BF4Widget::onDisconnected);
 
     /* Events */ 
-    connect(client->getCommandHandler(), &BF4CommandHandler::onServerLevelLoadedEvent,  this, &BF4Widget::onServerLevelLoadedEvent);
+    connect(dynamic_cast<BF4CommandHandler*>(client->getCommandHandler()), &BF4CommandHandler::onServerLevelLoadedEvent,  this, &BF4Widget::onServerLevelLoadedEvent);
 
     /* Commands */
     // Misc
@@ -216,7 +218,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
     // Squad
 
     // Variables  
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &BF4Widget::onVarsAlwaysAllowSpectatorsCommand);
+    connect(dynamic_cast<BF4CommandHandler*>(client->getCommandHandler()), &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &BF4Widget::onVarsAlwaysAllowSpectatorsCommand);
 
     /* User Interface */
     // Server Information

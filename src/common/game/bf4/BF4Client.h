@@ -21,7 +21,6 @@
 #define BF4CLIENT_H
 
 #include "Frostbite2Client.h"
-#include "BF4CommandHandler.h"
 
 class BF4Client : public Frostbite2Client
 {
@@ -29,14 +28,7 @@ class BF4Client : public Frostbite2Client
 
 public:
     BF4Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    ~BF4Client();
-
-    virtual BF4CommandHandler *getCommandHandler() {
-        return commandHandler;
-    }
-
-private:
-    BF4CommandHandler *commandHandler;
+    virtual ~BF4Client();
 
 };
 

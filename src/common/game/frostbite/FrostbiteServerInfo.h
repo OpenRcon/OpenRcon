@@ -40,7 +40,7 @@ public:
                         bool gamePassword,
                         int serverUpTime,
                         int roundTime);
-    ~FrostbiteServerInfo();
+    virtual ~FrostbiteServerInfo();
 
     QString getServerName() const;
     int getPlayerCount() const;

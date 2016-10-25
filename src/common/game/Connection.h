@@ -35,15 +35,15 @@ public:
     Connection(QObject *parent = nullptr);
     virtual ~Connection();
 
-    virtual void hostConnect(ServerEntry *serverEntry) = 0;
+    virtual void hostConnect(ServerEntry *serverEntry);
     virtual void hostDisconnect();
     bool isConnected();
 
 protected:
+    QAbstractSocket *socket;
+
     void responseDataSent(const QString &request);
     void responseDataReceived(const QString &response);
-
-    QAbstractSocket *socket;
 
 private slots:
     void connected();

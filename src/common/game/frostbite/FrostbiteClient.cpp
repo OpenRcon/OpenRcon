@@ -25,18 +25,17 @@
 
 FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, QObject *parent) :
     Client(serverEntry, parent),
-    connection(new FrostbiteConnection(this))
+    connection(new FrostbiteConnection(this)),
+    commandHandler(new BF4CommandHandler(connection))
 {
     qDebug() << "FrostbiteClient created.";
-}
-
-void FrostbiteClient::connectToHost(Frostbite2CommandHandler *commandHandler)
-{
-    connection->hostConnect(serverEntry);
 
     // Connection
     connect(connection,     &Connection::onConnected, this, &FrostbiteClient::onConnected);
+}
 
+void FrostbiteClient::initialize()
+{
     // Commands
     connect(commandHandler, static_cast<void (Frostbite2CommandHandler::*)(const QByteArray&)>(&Frostbite2CommandHandler::onLoginHashedCommand),
             this,           static_cast<void (FrostbiteClient::*)(const QByteArray&)>(&FrostbiteClient::onLoginHashedCommand));

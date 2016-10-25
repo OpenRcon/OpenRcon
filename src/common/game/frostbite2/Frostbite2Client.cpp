@@ -19,7 +19,8 @@
 
 #include "Frostbite2Client.h"
 
-Frostbite2Client::Frostbite2Client(ServerEntry *serverEntry, QObject *parent) : FrostbiteClient(serverEntry, parent)
+Frostbite2Client::Frostbite2Client(ServerEntry *serverEntry, QObject *parent) :
+    FrostbiteClient(serverEntry, parent)
 {
     qDebug() << "Frostbite2Client created.";
 }

@@ -197,7 +197,7 @@ void BF3Widget::startupCommands(bool authenticated)
 
         // Variables
     } else {
-        client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetType::All);
+        //client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetType::All);
     }
 }
 
@@ -280,7 +280,7 @@ void BF3Widget::updatePlayerList()
     if (client->isAuthenticated()) {
 //        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
     } else {
-        client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetType::All);
+        //client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetType::All);
     }
 }
 

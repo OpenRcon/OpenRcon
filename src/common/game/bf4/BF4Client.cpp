@@ -24,10 +24,11 @@
 #include "ServerEntry.h"
 
 BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
-    Frostbite2Client(serverEntry, parent),
-    commandHandler(new BF4CommandHandler(connection))
+    Frostbite2Client(serverEntry, parent)
 {
     qDebug() << "BF4Client created.";
+
+    //initialize();
 
     versionMap = {
         { 70517,  "OB-R2" },
@@ -85,11 +86,9 @@ BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
         { 176744, "R55" },
         { 177035, "R56" }
     };
-
-    connectToHost(commandHandler);
 }
 
 BF4Client::~BF4Client()
 {
-    delete commandHandler;
+    //delete commandHandler;
 }
