@@ -156,6 +156,7 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
 BF3Widget::~BF3Widget()
 {
     delete ui;
+    delete client;
 }
 
 void BF3Widget::setAuthenticated(bool auth)

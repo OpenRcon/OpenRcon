@@ -225,6 +225,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
 BF4Widget::~BF4Widget()
 {
     delete ui;
+    delete client;
 }
 
 void BF4Widget::setAuthenticated(bool auth)
@@ -303,6 +304,8 @@ void BF4Widget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.getGameMode());
     roundTime = serverInfo.getRoundTime();
     upTime = serverInfo.getServerUpTime();
+    updateRoundTime();
+    updateUpTime();
 
     // Update the title of the this sessions tab.
     TabWidget *tabWidget = TabWidget::getInstance();
