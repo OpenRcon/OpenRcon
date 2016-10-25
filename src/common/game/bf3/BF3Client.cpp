@@ -18,9 +18,10 @@
  */
 
 #include "BF3Client.h"
+#include "BF3CommandHandler.h"
 
 BF3Client::BF3Client(ServerEntry *serverEntry, QObject *parent) :
-    Frostbite2Client(serverEntry, parent)
+    Frostbite2Client(serverEntry, new BF3CommandHandler(connection), parent)
 {
     versionMap = {
         { 872601,  "OB-E" },

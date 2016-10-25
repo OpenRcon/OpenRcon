@@ -37,7 +37,7 @@ class FrostbiteClient : public Client
     Q_OBJECT
 
 public:
-    FrostbiteClient(ServerEntry *serverEntry, QObject *parent = nullptr);
+    FrostbiteClient(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent = nullptr);
     virtual ~FrostbiteClient();
 
     FrostbiteConnection *getConnection() final {
@@ -45,8 +45,7 @@ public:
     }
 
     BF4CommandHandler *getCommandHandler() final {
-        return commandHandler;
-        //dynamic_cast<BF4CommandHandler*>(commandHandler);
+        return dynamic_cast<BF4CommandHandler*>(commandHandler);
     }
 
     QString getVersionFromBuild(int build);
@@ -54,7 +53,7 @@ public:
 
 protected:
     FrostbiteConnection *connection;
-    BF4CommandHandler *commandHandler;
+    Frostbite2CommandHandler *commandHandler;
 
     QMap<int, QString> versionMap;
 

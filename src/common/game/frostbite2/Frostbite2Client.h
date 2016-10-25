@@ -27,7 +27,7 @@ class Frostbite2Client : public FrostbiteClient
     Q_OBJECT
 
 public:
-    Frostbite2Client(ServerEntry *serverEntry, QObject *parent = nullptr);
+    Frostbite2Client(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent = nullptr);
     virtual ~Frostbite2Client();
 
 };

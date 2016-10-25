@@ -24,7 +24,7 @@
 #include "ServerEntry.h"
 
 BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
-    Frostbite2Client(serverEntry, parent)
+    Frostbite2Client(serverEntry, new BF4CommandHandler(connection), parent)
 {
     qDebug() << "BF4Client created.";
 

@@ -23,10 +23,10 @@
 #include "FrostbiteCommandHandler.h"
 #include "ServerEntry.h"
 
-FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, QObject *parent) :
+FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent) :
     Client(serverEntry, parent),
     connection(new FrostbiteConnection(this)),
-    commandHandler(new BF4CommandHandler(connection))
+    commandHandler(commandHandler)
 {
     qDebug() << "FrostbiteClient created.";
 
