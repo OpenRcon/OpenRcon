@@ -433,7 +433,9 @@ void Frostbite2CommandHandler::sendPunkBusterIsActiveCommand()
 
 void Frostbite2CommandHandler::sendPunkBusterPbSvCommand(const QString &command)
 {
-    connection->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
+    if (!command.isEmpty()) {
+        connection->sendCommand(QString("\"punkBuster.pb_sv_command\" \"%1\"").arg(command));
+    }
 }
 
 // Reserved Slots
