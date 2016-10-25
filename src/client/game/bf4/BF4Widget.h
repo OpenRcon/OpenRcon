@@ -24,6 +24,7 @@
 #include "BF4Client.h"
 
 class QTimer;
+class QString;
 
 class PlayerListWidget;
 class EventsWidget;
@@ -79,7 +80,8 @@ private:
 
 private slots:
     /* Connection */
-    void onConnected();
+    void onConnected(QAbstractSocket *socket);
+    void onDisconnected(QAbstractSocket *socket);
 
     /* Events */
     void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);

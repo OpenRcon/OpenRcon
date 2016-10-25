@@ -191,17 +191,19 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
-    connect(client->getConnection(), &Connection::onConnected,    this, &BF4Widget::onConnected);
+    connect(client->getConnection(), &Connection::onConnected,                          this, &BF4Widget::onConnected);
+    connect(client->getConnection(), &Connection::onDisconnected,                       this, &BF4Widget::onDisconnected);
 
     /* Events */ 
-    connect(client->getCommandHandler(), &BF4CommandHandler::onServerLevelLoadedEvent, this, &BF4Widget::onServerLevelLoadedEvent);
+    connect(client->getCommandHandler(), &BF4CommandHandler::onServerLevelLoadedEvent,  this, &BF4Widget::onServerLevelLoadedEvent);
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),                this, &BF4Widget::onLoginHashedCommand);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,                                                                           this, &BF4Widget::onVersionCommand);
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const BF4ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand), this, &BF4Widget::onServerInfoCommand);
-
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+            this, &BF4Widget::onLoginHashedCommand);
+    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,   this, &BF4Widget::onVersionCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const BF4ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
+            this, &BF4Widget::onServerInfoCommand);
 
     // Admin
 
@@ -230,18 +232,13 @@ BF4Widget::~BF4Widget()
 
 void BF4Widget::setAuthenticated(bool auth)
 {
-    client->setAuthenticated(auth);
-
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(optionsWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), auth);
-
-    if (auth) {
-        ui->tabWidget->setCurrentIndex(0);
-    }
+    ui->tabWidget->setCurrentIndex(0);
 
     startupCommands(auth);
 }
@@ -258,8 +255,25 @@ void BF4Widget::startupCommands(bool auth)
 }
 
 /* Connection */
-void BF4Widget::onConnected()
+void BF4Widget::onConnected(QAbstractSocket *socket)
 {
+    Q_UNUSED(socket);
+
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), true);
+
+    setAuthenticated(false);
+}
+
+void BF4Widget::onDisconnected(QAbstractSocket *socket)
+{
+    Q_UNUSED(socket);
+
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
+
     setAuthenticated(false);
 }
 
