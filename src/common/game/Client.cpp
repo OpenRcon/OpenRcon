@@ -25,7 +25,7 @@ Client::Client(ServerEntry *serverEntry, QObject *parent) :
     QObject(parent),
     serverEntry(serverEntry)
 {
-
+    qDebug() << "Client created.";
 }
 
 Client::~Client()

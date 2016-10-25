@@ -17,11 +17,13 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDebug>
+
 #include "CommandHandler.h"
 
 CommandHandler::CommandHandler(QObject *parent) : QObject(parent)
 {
-
+    qDebug() << "CommandHandler created.";
 }
 
 CommandHandler::~CommandHandler()

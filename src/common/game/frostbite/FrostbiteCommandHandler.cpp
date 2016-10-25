@@ -27,6 +27,8 @@
 
 FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *connection, QObject *parent) : CommandHandler(parent), connection(connection)
 {
+    qDebug() << "FrostbiteCommandHandler created.";
+
     if (connection) {
         connection->setCommandHandler(this);
     }

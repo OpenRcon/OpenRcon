@@ -31,6 +31,8 @@ FrostbiteConnection::FrostbiteConnection(QObject *parent) :
     packetReadState(PacketReadingHeader),
     nextPacketSequence(0)
 {
+    qDebug() << "FrostbiteConnection created.";
+
     connect(socket, &QAbstractSocket::readyRead, this, &FrostbiteConnection::readyRead);
 }
 
