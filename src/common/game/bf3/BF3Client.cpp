@@ -71,5 +71,5 @@ BF3Client::BF3Client(ServerEntry *serverEntry, QObject *parent) :
 
 BF3Client::~BF3Client()
 {
-
+    delete commandHandler;
 }

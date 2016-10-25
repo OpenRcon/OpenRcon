@@ -30,7 +30,7 @@ Client::Client(ServerEntry *serverEntry, QObject *parent) :
 
 Client::~Client()
 {
-
+    delete serverEntry;
 }
 
 ServerEntry *Client::getServerEntry()

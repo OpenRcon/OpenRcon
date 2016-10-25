@@ -89,5 +89,5 @@ BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
 
 BF4Client::~BF4Client()
 {
-
+    delete commandHandler;
 }

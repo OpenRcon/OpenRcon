@@ -47,7 +47,7 @@ void FrostbiteClient::connectToHost(Frostbite2CommandHandler *commandHandler)
 
 FrostbiteClient::~FrostbiteClient()
 {
-
+    delete connection;
 }
 
 void FrostbiteClient::onConnected()

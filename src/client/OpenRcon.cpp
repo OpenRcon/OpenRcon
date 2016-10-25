@@ -177,6 +177,42 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
 OpenRcon::~OpenRcon()
 {
     writeSettings();
+
+    delete settings;
+
+    delete actionServerManager;
+    delete actionQuit;
+    delete actionQuickConnect;
+    delete actionStatusBar;
+    delete actionOptions;
+    delete actionDocumentation;
+    delete actionVisitWebsite;
+    delete actionReportBug;
+    delete actionAbout;
+    delete actionAboutQt;
+    delete actionTabReconnect;
+    delete actionTabDisconnect;
+
+    delete menuApplication;
+    delete menuToolbars;
+    delete menuView;
+    delete menuTools;
+    delete menuHelp;
+    delete menuTab;
+
+    delete comboBox_quickConnect_server;
+    delete pushButton_quickConnect_connect;
+    delete toolBar_quickConnect;
+
+    delete menuBar;
+    delete tabWidget;
+    delete statusBar;
+
+    delete serverManager;
+    delete sessionManager;
+    delete serverListDialog;
+    delete optionsDialog;
+    delete aboutDialog;
 }
 
 void OpenRcon::readSettings()
