@@ -14,7 +14,7 @@
    <string>Options</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="OpenRcon.qrc">
+   <iconset resource="../OpenRcon.qrc">
     <normaloff>:/icons/openrcon.png</normaloff>:/icons/openrcon.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
@@ -45,7 +45,7 @@
         <string>Behavior</string>
        </property>
        <property name="icon">
-        <iconset resource="OpenRcon.qrc">
+        <iconset resource="../OpenRcon.qrc">
          <normaloff>:/icons/options-behavior</normaloff>:/icons/options-behavior</iconset>
        </property>
       </item>
@@ -54,7 +54,7 @@
         <string>Connection</string>
        </property>
        <property name="icon">
-        <iconset resource="OpenRcon.qrc">
+        <iconset resource="../OpenRcon.qrc">
          <normaloff>:/icons/connection.png</normaloff>:/icons/connection.png</iconset>
        </property>
       </item>
@@ -121,7 +121,7 @@
   <tabstop>comboBox_be_language</tabstop>
  </tabstops>
  <resources>
-  <include location="OpenRcon.qrc"/>
+  <include location="../OpenRcon.qrc"/>
  </resources>
  <connections/>
 </ui>

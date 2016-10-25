@@ -62,12 +62,13 @@ private:
     QAction *action_serverEntry_edit;
     QAction *action_serverEntry_remove;
 
-    QList<ServerEntry *> serverEntries;
+    QList<ServerEntry*> serverEntries;
 
     void createTreeData();
 
 private slots:
     void onSessionOpened();
+    void onSessionClosed();
     void treeWidget_customContextMenuRequested(const QPoint &pos);
     void treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void treeWidget_itemClicked(QTreeWidgetItem *item, int column);

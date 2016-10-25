@@ -23,10 +23,12 @@
 #include <QDialogButtonBox>
 #include <QList>
 #include <QLocale>
+#include <QVariant>
 #include <QMessageBox>
 #include <QProcess>
 #include <QApplication>
 #include <QListWidgetItem>
+
 
 #include "ui_OptionsDialog.h"
 #include "OptionsDialog.h"
@@ -49,7 +51,11 @@ OptionsDialog::OptionsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Opti
 
 OptionsDialog::~OptionsDialog()
 {
+    saveSettings();
+
     delete ui;
+    delete settings;
+    delete languageManager;
 }
 
 void OptionsDialog::loadSettings()

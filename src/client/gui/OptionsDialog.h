@@ -26,7 +26,6 @@
 
 class QWidget;
 class QSettings;
-class QPushButton;
 class QListWidgetItem;
 
 class LanguageManager;
@@ -47,14 +46,9 @@ public:
 
 private:
     Ui::OptionsDialog *ui;
-
-    QSettings *settings;
-
     LanguageManager *languageManager;
 
-    QPushButton *pushButton_ok;
-    QPushButton *pushButton_cancel;
-    QPushButton *pushButton_apply;
+    QSettings *settings;
 
     void loadSettings();
     void saveSettings();

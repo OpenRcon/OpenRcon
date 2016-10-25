@@ -73,21 +73,22 @@ ServerListDialog::ServerListDialog(QWidget *parent) : QDialog(parent), ui(new Ui
     // Load GameEnrties and ServerEntries from ServerManager and add them to the QTreeWidget.
     createTreeData();
 
-    connect(sessionManager, &SessionManager::onSessionOpened,           this, &ServerListDialog::onSessionOpened);
+    connect(sessionManager,             &SessionManager::onSessionOpened,           this, &ServerListDialog::onSessionOpened);
+    connect(sessionManager,             &SessionManager::onSessionClosed,           this, &ServerListDialog::onSessionClosed);
 
-    connect(ui->treeWidget, &QTreeWidget::customContextMenuRequested,   this, &ServerListDialog::treeWidget_customContextMenuRequested);
-    connect(ui->treeWidget, &QTreeWidget::currentItemChanged,           this, &ServerListDialog::treeWidget_currentItemChanged);
-    connect(ui->treeWidget, &QTreeWidget::itemClicked,                  this, &ServerListDialog::treeWidget_itemClicked);
-    connect(ui->treeWidget, &QTreeWidget::itemDoubleClicked,            this, &ServerListDialog::connectToItem);
+    connect(ui->treeWidget,             &QTreeWidget::customContextMenuRequested,   this, &ServerListDialog::treeWidget_customContextMenuRequested);
+    connect(ui->treeWidget,             &QTreeWidget::currentItemChanged,           this, &ServerListDialog::treeWidget_currentItemChanged);
+    connect(ui->treeWidget,             &QTreeWidget::itemClicked,                  this, &ServerListDialog::treeWidget_itemClicked);
+    connect(ui->treeWidget,             &QTreeWidget::itemDoubleClicked,            this, &ServerListDialog::connectToItem);
 
-    connect(action_gameEntry_add,      &QAction::triggered,             this, &ServerListDialog::action_gameEntry_add_triggered);
-    connect(action_serverEntry_edit,   &QAction::triggered,             this, &ServerListDialog::editItem);
-    connect(action_serverEntry_remove, &QAction::triggered,             this, &ServerListDialog::removeItem);
+    connect(action_gameEntry_add,       &QAction::triggered,                        this, &ServerListDialog::action_gameEntry_add_triggered);
+    connect(action_serverEntry_edit,    &QAction::triggered,                        this, &ServerListDialog::editItem);
+    connect(action_serverEntry_remove,  &QAction::triggered,                        this, &ServerListDialog::removeItem);
 
-    connect(ui->pushButton_sld_add,     &QPushButton::clicked,          this, &ServerListDialog::addItem);
-    connect(ui->pushButton_sld_connect, &QPushButton::clicked,          this, &ServerListDialog::connectToItem);
-    connect(ui->buttonBox,              &QDialogButtonBox::accepted,    this, &ServerListDialog::accept);
-    connect(ui->buttonBox,              &QDialogButtonBox::rejected,    this, &ServerListDialog::reject);
+    connect(ui->pushButton_sld_add,     &QPushButton::clicked,                      this, &ServerListDialog::addItem);
+    connect(ui->pushButton_sld_connect, &QPushButton::clicked,                      this, &ServerListDialog::connectToItem);
+    connect(ui->buttonBox,              &QDialogButtonBox::accepted,                this, &ServerListDialog::accept);
+    connect(ui->buttonBox,              &QDialogButtonBox::rejected,                this, &ServerListDialog::reject);
 }
 
 ServerListDialog::~ServerListDialog()
@@ -96,11 +97,25 @@ ServerListDialog::~ServerListDialog()
     serverEntries.clear();
 
     delete ui;
+    delete menu_gameEntry;
+    delete action_gameEntry_add;
+    delete menu_serverEntry;
+    delete action_serverEntry_edit;
+    delete action_serverEntry_remove;
 }
 
 void ServerListDialog::onSessionOpened()
 {
+    createTreeData();
+
     ui->pushButton_sld_connect->setEnabled(false);
+}
+
+void ServerListDialog::onSessionClosed()
+{
+    createTreeData();
+
+    ui->pushButton_sld_connect->setEnabled(true);
 }
 
 void ServerListDialog::treeWidget_customContextMenuRequested(const QPoint &pos)
@@ -122,9 +137,9 @@ void ServerListDialog::treeWidget_currentItemChanged(QTreeWidgetItem *current, Q
 
     if (current) {
         QVariant variant = current->data(0, Qt::UserRole);
-        ServerEntry *entry = variant.value<ServerEntry*>();
+        ServerEntry *serverEntry = variant.value<ServerEntry*>();
 
-        ui->pushButton_sld_connect->setEnabled(current->parent() && !sessionManager->isSessionConnected(entry));
+        ui->pushButton_sld_connect->setEnabled(current->parent() && !sessionManager->isSessionConnected(serverEntry));
     }
 }
 
@@ -158,9 +173,9 @@ void ServerListDialog::createTreeData()
     for (GameEntry gameEntry : GameManager::getGames()) {
         QList<ServerEntry*> list;
 
-        for (ServerEntry *entry : serverEntries) {
-            if (entry->getGameType() == gameEntry.getGameType()) {
-                list.append(entry);
+        for (ServerEntry *serverEntry : serverEntries) {
+            if (serverEntry->getGameType() == gameEntry.getGameType()) {
+                list.append(serverEntry);
             }
         }
 
@@ -170,6 +185,10 @@ void ServerListDialog::createTreeData()
             parentItem->setIcon(0, QIcon(gameEntry.getIcon()));
             parentItem->setText(0, gameEntry.getName());
 
+            QFont font;
+            font.setBold(true);
+            parentItem->setFont(0, font);
+
             for (ServerEntry *serverEntry : list) {
                 QTreeWidgetItem *childItem = new QTreeWidgetItem(parentItem);
                 childItem->setData(0, Qt::UserRole, QVariant::fromValue(serverEntry));
@@ -178,6 +197,7 @@ void ServerListDialog::createTreeData()
                 childItem->setText(2, QString::number(serverEntry->getPort()));
                 childItem->setFlags(childItem->flags() | Qt::ItemIsUserCheckable);
                 childItem->setCheckState(3, serverEntry->getAutoConnect() ? Qt::Checked : Qt::Unchecked);
+                childItem->setDisabled(sessionManager->isSessionConnected(serverEntry));
             }
         }
     }
@@ -217,33 +237,36 @@ void ServerListDialog::editItem()
 
     if (items.count() == 1) {
         QTreeWidgetItem *item = items.at(0);
-        QVariant variant = item->data(0, Qt::UserRole);
-        ServerEntry *entry = variant.value<ServerEntry*>();
 
-        ServerEditDialog *sed = new ServerEditDialog(GameManager::toInt(entry->getGameType()),
-                                                     entry->getName(),
-                                                     entry->getHost(),
-                                                     entry->getPort(),
-                                                     entry->getPassword(),
-                                                     entry->getAutoConnect(),
-                                                     this);
+        if (!item->isDisabled()) {
+            QVariant variant = item->data(0, Qt::UserRole);
+            ServerEntry *entry = variant.value<ServerEntry*>();
 
-        if (sed->exec() == QDialog::Accepted) {
-            ServerEntry editEntry = ServerEntry(
-                sed->getGameType(),
-                sed->getName(),
-                sed->getHost(),
-                sed->getPort(),
-                sed->getPassword().replace(" ", ""),
-                sed->getAutoConnect()
-            );
+            ServerEditDialog *sed = new ServerEditDialog(GameManager::toInt(entry->getGameType()),
+                                                         entry->getName(),
+                                                         entry->getHost(),
+                                                         entry->getPort(),
+                                                         entry->getPassword(),
+                                                         entry->getAutoConnect(),
+                                                         this);
 
-            // Set the server to the new values obtained by ServerEditDialog.
-            *entry = editEntry;
-            createTreeData();
+            if (sed->exec() == QDialog::Accepted) {
+                ServerEntry editEntry = ServerEntry(
+                    sed->getGameType(),
+                    sed->getName(),
+                    sed->getHost(),
+                    sed->getPort(),
+                    sed->getPassword().replace(" ", ""),
+                    sed->getAutoConnect()
+                );
+
+                // Set the server to the new values obtained by ServerEditDialog.
+                *entry = editEntry;
+                createTreeData();
+            }
+
+            delete sed;
         }
-
-        delete sed;
     }
 }
 
@@ -258,7 +281,7 @@ void ServerListDialog::removeItem()
         if (answer == QMessageBox::Yes) {
             QTreeWidgetItem *item = items.at(0);
             QVariant variant = item->data(0, Qt::UserRole);
-            ServerEntry *entry = variant.value<ServerEntry *>();
+            ServerEntry *entry = variant.value<ServerEntry*>();
 
             serverEntries.removeAt(serverEntries.indexOf(entry));
             createTreeData();
@@ -274,7 +297,7 @@ void ServerListDialog::connectToItem()
     if (items.count() == 1 && ui->treeWidget->currentItem()->parent()) {
         QTreeWidgetItem *item = items.at(0);
         QVariant variant = item->data(0, Qt::UserRole);
-        ServerEntry *entry = variant.value<ServerEntry *>();
+        ServerEntry *entry = variant.value<ServerEntry*>();
 
         if (!sessionManager->isSessionConnected(entry)) {
             // Connect to the ServerEntry and add the tab to OpenRcon's QTabWidget.

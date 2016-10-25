@@ -168,6 +168,7 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
     connect(pushButton_quickConnect_connect, &QPushButton::clicked,              this, &OpenRcon::pushButton_quickConnect_connect_clicked);
     connect(serverManager,                   &ServerManager::onServerUpdated,    this, &OpenRcon::updateServerList);
     connect(sessionManager,                  &SessionManager::onSessionOpened,   this, &OpenRcon::updateServerList);
+    connect(sessionManager,                  &SessionManager::onSessionClosed,   this, &OpenRcon::updateServerList);
 
     // TabWidget
     connect(tabWidget, &QTabWidget::tabCloseRequested,          this, &OpenRcon::tabWidget_tabCloseRequested);
@@ -176,6 +177,8 @@ OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
 
 OpenRcon::~OpenRcon()
 {
+    tabWidget->clear();
+
     writeSettings();
 
     delete settings;
