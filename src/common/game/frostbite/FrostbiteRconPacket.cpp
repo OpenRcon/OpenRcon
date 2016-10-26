@@ -20,6 +20,7 @@
 #include <QDebug>
 
 #include "FrostbiteRconPacket.h"
+#include "FrostbiteRconWord.h"
 
 FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent), packetSequence(0), packetSize(0), packetWordCount(0)
 {

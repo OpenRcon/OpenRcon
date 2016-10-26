@@ -18,14 +18,11 @@
  */
 
 #include "FrostbiteClient.h"
-
-#include "FrostbiteConnection.h"
-#include "FrostbiteCommandHandler.h"
 #include "ServerEntry.h"
 
-FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent) :
+FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandler *commandHandler, QObject *parent) :
     Client(serverEntry, parent),
-    connection(new FrostbiteConnection(this)),
+    connection(new FrostbiteConnection()),
     commandHandler(commandHandler)
 {
     qDebug() << "FrostbiteClient created.";
@@ -36,30 +33,34 @@ FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, Frostbite2CommandHand
 
 void FrostbiteClient::initialize()
 {
+    /*
     // Commands
     connect(commandHandler, static_cast<void (Frostbite2CommandHandler::*)(const QByteArray&)>(&Frostbite2CommandHandler::onLoginHashedCommand),
             this,           static_cast<void (FrostbiteClient::*)(const QByteArray&)>(&FrostbiteClient::onLoginHashedCommand));
     connect(commandHandler, static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
             this,           static_cast<void (FrostbiteClient::*)(bool)>(&FrostbiteClient::onLoginHashedCommand));
     connect(commandHandler, &Frostbite2CommandHandler::onVersionCommand,   this, &FrostbiteClient::onVersionCommand);
+    */
 }
 
+/*
 FrostbiteClient::~FrostbiteClient()
 {
     delete connection;
 }
+*/
 
 void FrostbiteClient::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
-        commandHandler->sendLoginHashedCommand();
+        //commandHandler->sendLoginHashedCommand();
     }
 }
 
 void FrostbiteClient::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
-        commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
+        //commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
     }
 }
 

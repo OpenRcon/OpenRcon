@@ -32,8 +32,8 @@ class Connection : public QObject
     Q_OBJECT
 
 public:
-    Connection(QObject *parent = nullptr);
-    virtual ~Connection();
+    Connection(QObject *parent);
+    //virtual ~Connection();
 
     virtual void hostConnect(ServerEntry *serverEntry);
     virtual void hostDisconnect();

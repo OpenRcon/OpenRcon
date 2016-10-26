@@ -66,9 +66,6 @@ void SessionManager::openSession(ServerEntry *serverEntry)
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->getHost()).arg(serverEntry->getPort()));
         tabWidget->setCurrentIndex(index);
 
-        //Client *client = gameWidget->getClient();
-        //client->getConnection()->hostConnect(serverEntry);
-
         emit (onSessionOpened());
     } else {
         qDebug() << tr("Already connected to this server.");

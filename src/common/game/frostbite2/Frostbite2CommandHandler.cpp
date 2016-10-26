@@ -33,15 +33,18 @@
 #include "PlayerInfo.h"
 #include "BanListEntry.h"
 
-Frostbite2CommandHandler::Frostbite2CommandHandler(FrostbiteConnection *parent) : FrostbiteCommandHandler(parent)
+Frostbite2CommandHandler::Frostbite2CommandHandler(FrostbiteConnection *connection, QObject *parent) :
+    FrostbiteCommandHandler(connection, parent)
 {
     qDebug() << "Frostbite2CommandHandler created.";
 }
 
+/*
 Frostbite2CommandHandler::~Frostbite2CommandHandler()
 {
 
 }
+*/
 
 bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
@@ -170,9 +173,9 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         }
 
         return true;
-    } else {
-        return FrostbiteCommandHandler::parse(request, packet, lastSentPacket);
     }
+
+    return false;
 }
 
 /* Send commands */
@@ -199,7 +202,6 @@ void Frostbite2CommandHandler::sendLoginHashedCommand(const QByteArray &salt, co
 
 void Frostbite2CommandHandler::sendServerInfoCommand()
 {
-    qDebug() << connection->test();
     connection->sendCommand("serverInfo");
 }
 

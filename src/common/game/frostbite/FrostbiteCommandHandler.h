@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -25,17 +25,15 @@
 class FrostbiteConnection;
 class FrostbiteRconPacket;
 
-struct BanListEntry;
-
 class FrostbiteCommandHandler : public CommandHandler
 {
     Q_OBJECT
 
 public:
     FrostbiteCommandHandler(FrostbiteConnection *connection, QObject *parent = nullptr);
-    virtual ~FrostbiteCommandHandler();
+    //virtual ~FrostbiteCommandHandler();
 
-    virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) = 0;
 
 protected:
     FrostbiteConnection *connection;

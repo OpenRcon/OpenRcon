@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF3_H
-#define BF3_H
+#ifndef BF3CLIENT_H
+#define BF3CLIENT_H
 
 #include "Frostbite2Client.h"
 
@@ -28,8 +28,8 @@ class BF3Client : public Frostbite2Client
 
 public:
     BF3Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    virtual ~BF3Client();
+    //virtual ~BF3Client();
 
 };
 
-#endif // BF3_H
+#endif // BF3CLIENT_H

@@ -21,6 +21,9 @@
 #define BF4CLIENT_H
 
 #include "Frostbite2Client.h"
+#include "BF4CommandHandler.h"
+
+class ServerEntry;
 
 class BF4Client : public Frostbite2Client
 {
@@ -28,8 +31,11 @@ class BF4Client : public Frostbite2Client
 
 public:
     BF4Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    virtual ~BF4Client();
+    //virtual ~BF4Client();
 
+    BF4CommandHandler *getCommandHandler() final {
+        return dynamic_cast<BF4CommandHandler*>(commandHandler);
+    }
 };
 
 #endif // BF4CLIENT_H

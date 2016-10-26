@@ -24,8 +24,9 @@
 
 #define MIN_PACKET_SIZE 12
 
+#include "FrostbiteRconPacket.h"
+
 class FrostbiteCommandHandler;
-class FrostbiteRconPacket;
 
 class FrostbiteConnection : public Connection
 {
@@ -33,15 +34,12 @@ class FrostbiteConnection : public Connection
 
 public:
     FrostbiteConnection(QObject *parent = nullptr);
-    virtual ~FrostbiteConnection();
+    //virtual ~FrostbiteConnection();
 
-    FrostbiteCommandHandler *getCommandHandler() const;
     void setCommandHandler(FrostbiteCommandHandler *commandHandler);
 
     void hostConnect(ServerEntry *serverEntry) override;
     void sendCommand(const QString &command);
-
-    QString test();
 
 private:
     FrostbiteCommandHandler *commandHandler;

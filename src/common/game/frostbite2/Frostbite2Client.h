@@ -21,6 +21,7 @@
 #define FROSTBITE2CLIENT_H
 
 #include "FrostbiteClient.h"
+#include "Frostbite2CommandHandler.h"
 
 class Frostbite2Client : public FrostbiteClient
 {
@@ -28,8 +29,11 @@ class Frostbite2Client : public FrostbiteClient
 
 public:
     Frostbite2Client(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent = nullptr);
-    virtual ~Frostbite2Client();
+    //virtual ~Frostbite2Client();
 
+    virtual Frostbite2CommandHandler *getCommandHandler() override {
+        return dynamic_cast<Frostbite2CommandHandler*>(commandHandler);
+    }
 };
 
 #endif // FROSTBITE2CLIENT_H

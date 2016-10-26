@@ -22,34 +22,24 @@
 #include <QRegularExpression>
 
 #include "FrostbiteConnection.h"
-#include "FrostbiteRconPacket.h"
 #include "FrostbiteCommandHandler.h"
-#include "FrostbiteUtils.h"
 
 FrostbiteConnection::FrostbiteConnection(QObject *parent) :
     Connection(parent),
-    packetReadState(PacketReadingHeader)
-    //nextPacketSequence(0)
+    packetReadState(PacketReadingHeader),
+    nextPacketSequence(0)
 {
     qDebug() << "FrostbiteConnection created.";
 
     connect(socket, &QAbstractSocket::readyRead, this, &FrostbiteConnection::readyRead);
 }
 
+/*
 FrostbiteConnection::~FrostbiteConnection()
 {
 
 }
-
-QString FrostbiteConnection::test()
-{
-    return "hahahahaah";
-}
-
-FrostbiteCommandHandler *FrostbiteConnection::getCommandHandler() const
-{
-    return commandHandler;
-}
+*/
 
 void FrostbiteConnection::setCommandHandler(FrostbiteCommandHandler *commandHandler)
 {

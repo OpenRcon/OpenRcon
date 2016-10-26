@@ -25,7 +25,9 @@
 #include "Connection.h"
 #include "ServerEntry.h"
 
-Connection::Connection(QObject *parent) : QObject(parent), socket(new QTcpSocket(this))
+Connection::Connection(QObject *parent) :
+    QObject(parent),
+    socket(new QTcpSocket(this))
 {
     qDebug() << "Connection created.";
 
@@ -34,10 +36,12 @@ Connection::Connection(QObject *parent) : QObject(parent), socket(new QTcpSocket
     connect(socket, static_cast<void (QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error), this, &Connection::displayError);
 }
 
+/*
 Connection::~Connection()
 {
     delete socket;
 }
+*/
 
 void Connection::hostConnect(ServerEntry *serverEntry)
 {

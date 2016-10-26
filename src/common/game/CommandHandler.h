@@ -22,15 +22,13 @@
 
 #include <QObject>
 
-class Connection;
-
 class CommandHandler : public QObject
 {
     Q_OBJECT
 
 public:
     CommandHandler(QObject *parent = nullptr);
-    virtual ~CommandHandler();
+    //virtual ~CommandHandler();
 
 };
 

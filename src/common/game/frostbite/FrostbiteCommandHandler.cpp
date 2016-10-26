@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,15 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QCryptographicHash>
+#include <QDebug>
 
-#include "FrostbiteConnection.h"
-#include "FrostbiteRconPacket.h"
 #include "FrostbiteCommandHandler.h"
-#include "FrostbiteUtils.h"
-#include "BanListEntry.h"
+#include "FrostbiteConnection.h"
 
-FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *connection, QObject *parent) : CommandHandler(parent), connection(connection)
+FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *connection, QObject *parent) :
+    CommandHandler(parent),
+    connection(connection)
 {
     qDebug() << "FrostbiteCommandHandler created.";
 
@@ -34,94 +33,11 @@ FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *connection
 
         connection->setCommandHandler(this);
     }
-
 }
 
+/*
 FrostbiteCommandHandler::~FrostbiteCommandHandler()
 {
 
 }
-
-bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    typedef void (FrostbiteCommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
-
-    static QHash<QString, ResponseFunction> responseList = {
-        /* Events */
-
-        /* Commands */
-        // Misc
-
-        // Admin
-
-        // Banning
-
-        // Maplist
-
-        // Player
-
-        // Punkbuster
-
-        // Reserved Slots
-
-        // Squad
-
-        // Variables
-
-        // PunkBuster
-
-        // Variables
-    };
-
-    if (responseList.contains(request)) {
-        ResponseFunction response = responseList[request];
-
-        if (response) {
-            (this->*response)(packet, lastSentPacket);
-        }
-
-        return true;
-    }
-
-    return false;
-}
-
-/* Send commands */
-// Misc
-
-// Admin
-
-// Banning
-
-// Maplist
-
-// Player
-
-// Punkbuster
-
-// Reserved Slots
-
-// Squad
-
-// Variables
-
-/* Parse events */
-
-/* Parse commands */
-// Misc
-
-// Admin
-
-// Banning
-
-// Maplist
-
-// Player
-
-// Punkbuster
-
-// Reserved Slots
-
-// Squad
-
-// Variables
+*/

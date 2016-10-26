@@ -26,13 +26,14 @@ class ServerEntry;
 class Connection;
 class CommandHandler;
 
-class Client : public QObject
+class Client: public QObject
 {
     Q_OBJECT
 
 public:
     Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    virtual ~Client();
+    //virtual ~Client();
+
 
     virtual Connection *getConnection() = 0;
     virtual CommandHandler *getCommandHandler() = 0;
@@ -45,7 +46,6 @@ public:
 protected:
     ServerEntry *serverEntry;
 
-private:
     bool authenticated;
 
 };

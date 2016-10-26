@@ -24,15 +24,17 @@
 #include "PlayerSubset.h"
 #include "PlayerInfo.h"
 
-BF3CommandHandler::BF3CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)
+BF3CommandHandler::BF3CommandHandler(FrostbiteConnection *connection, QObject *parent) : Frostbite2CommandHandler(connection, parent)
 {
 
 }
 
+/*
 BF3CommandHandler::~BF3CommandHandler()
 {
 
 }
+*/
 
 bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {

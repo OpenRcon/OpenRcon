@@ -26,15 +26,18 @@
 #include "BF4ServerType.h"
 #include "PlayerInfo.h"
 
-BF4CommandHandler::BF4CommandHandler(FrostbiteConnection *parent) : Frostbite2CommandHandler(parent)
+BF4CommandHandler::BF4CommandHandler(FrostbiteConnection *connection, QObject *parent) :
+    Frostbite2CommandHandler(connection, parent)
 {
     qDebug() << "BF4CommandHandler created.";
 }
 
+/*
 BF4CommandHandler::~BF4CommandHandler()
 {
 
 }
+*/
 
 bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
