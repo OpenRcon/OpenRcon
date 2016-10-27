@@ -22,6 +22,7 @@
 
 #include <QWidget>
 
+class QString;
 class QAbstractSocket;
 
 class BF4Client;

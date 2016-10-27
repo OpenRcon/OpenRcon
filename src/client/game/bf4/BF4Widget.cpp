@@ -18,6 +18,7 @@
  */
 
 #include <QTimer>
+
 #include <QMessageBox>
 
 #include "BF4Widget.h"
@@ -61,7 +62,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) :
     connect(timerServerInfoUpTime, &QTimer::timeout, this, &BF4Widget::updateUpTime);
     timerServerInfoUpTime->start(1000);
 
-    QStringList commandList = {
+    commandList += {
         "login.plainText",
         "login.hashed",
         "serverInfo",

@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAMEWIDGET_H
+#define GAMEWIDGET_H
 
 #include <QWidget>
 
@@ -34,6 +34,9 @@ public:
 
     virtual Client *getClient() = 0;
 
+protected:
+    QStringList commandList;
+
 };
 
-#endif // GAME_H
+#endif // GAMEWIDGET_H

@@ -33,13 +33,15 @@
 #include "ReservedSlotsWidget.h"
 #include "ConsoleWidget.h"
 
-BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widget(parent), ui(new Ui::BF3Widget), client(new BF3Client(serverEntry, this))
+BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) :
+    Frostbite2Widget(parent),
+    ui(new Ui::BF3Widget),
+    client(new BF3Client(serverEntry, this))
 {
     ui->setupUi(this);
-
     client->connectToHost();
 
-    QStringList commandList = {
+    commandList += {
         "login.plainText",
         "login.hashed",
         "serverInfo",
