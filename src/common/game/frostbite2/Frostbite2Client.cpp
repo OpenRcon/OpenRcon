@@ -22,7 +22,7 @@
 Frostbite2Client::Frostbite2Client(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent) :
     FrostbiteClient(serverEntry, commandHandler, parent)
 {
-    qDebug() << "Frostbite2Client created.";
+
 }
 
 Frostbite2Client::~Frostbite2Client()

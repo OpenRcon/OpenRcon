@@ -30,12 +30,10 @@ BF3CommandHandler::BF3CommandHandler(QObject *parent) :
 
 }
 
-/*
 BF3CommandHandler::~BF3CommandHandler()
 {
 
 }
-*/
 
 bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {

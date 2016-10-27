@@ -17,8 +17,6 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QDebug>
-
 #include "Client.h"
 #include "ServerEntry.h"
 
@@ -26,7 +24,7 @@ Client::Client(ServerEntry *serverEntry, QObject *parent) :
     QObject(parent),
     serverEntry(serverEntry)
 {
-    qDebug() << "Client created.";
+
 }
 
 Client::~Client()

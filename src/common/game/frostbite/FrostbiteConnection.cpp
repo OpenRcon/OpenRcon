@@ -30,9 +30,9 @@ FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler
     packetReadState(PacketReadingHeader),
     nextPacketSequence(0)
 {
-    qDebug() << "FrostbiteConnection created.";
-
-    commandHandler->setConnection(this);
+    if (commandHandler) {
+        commandHandler->setConnection(this);
+    }
 
     connect(socket, &QAbstractSocket::readyRead, this, &FrostbiteConnection::readyRead);
 }

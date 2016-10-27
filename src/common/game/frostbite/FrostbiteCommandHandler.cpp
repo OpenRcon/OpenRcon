@@ -17,15 +17,12 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QDebug>
-
 #include "FrostbiteCommandHandler.h"
 #include "FrostbiteConnection.h"
 
 FrostbiteCommandHandler::FrostbiteCommandHandler(QObject *parent) :
     CommandHandler(parent)
 {
-    qDebug() << "FrostbiteCommandHandler created.";
 
 }
 

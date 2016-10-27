@@ -36,7 +36,7 @@
 Frostbite2CommandHandler::Frostbite2CommandHandler(QObject *parent) :
     FrostbiteCommandHandler(parent)
 {
-    qDebug() << "Frostbite2CommandHandler created.";
+
 }
 
 Frostbite2CommandHandler::~Frostbite2CommandHandler()

@@ -20,27 +20,20 @@
 #include "FrostbiteClient.h"
 #include "ServerEntry.h"
 
-FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandler *commandHandler, QObject *parent) :
+FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent) :
     Client(serverEntry, parent),
-    connection(new FrostbiteConnection(commandHandler)),
+    connection(new FrostbiteConnection(commandHandler, this)),
     commandHandler(commandHandler)
 {
-    qDebug() << "FrostbiteClient created.";
-
     // Connection
-    connect(connection,     &Connection::onConnected, this, &FrostbiteClient::onConnected);
-}
+    connect(connection,     &Connection::onConnected,                       this, &FrostbiteClient::onConnected);
 
-void FrostbiteClient::initialize()
-{
-    /*
     // Commands
     connect(commandHandler, static_cast<void (Frostbite2CommandHandler::*)(const QByteArray&)>(&Frostbite2CommandHandler::onLoginHashedCommand),
             this,           static_cast<void (FrostbiteClient::*)(const QByteArray&)>(&FrostbiteClient::onLoginHashedCommand));
     connect(commandHandler, static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
             this,           static_cast<void (FrostbiteClient::*)(bool)>(&FrostbiteClient::onLoginHashedCommand));
-    connect(commandHandler, &Frostbite2CommandHandler::onVersionCommand,   this, &FrostbiteClient::onVersionCommand);
-    */
+    connect(commandHandler, &Frostbite2CommandHandler::onVersionCommand,    this, &FrostbiteClient::onVersionCommand);
 }
 
 FrostbiteClient::~FrostbiteClient()
@@ -48,17 +41,27 @@ FrostbiteClient::~FrostbiteClient()
 
 }
 
+void FrostbiteClient::connectToHost()
+{
+    connection->hostConnect(serverEntry);
+}
+
+void FrostbiteClient::disconnectFromHost()
+{
+    connection->hostDisconnect();
+}
+
 void FrostbiteClient::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
-        //commandHandler->sendLoginHashedCommand();
+        commandHandler->sendLoginHashedCommand();
     }
 }
 
 void FrostbiteClient::onLoginHashedCommand(const QByteArray &salt)
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
-        //commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
+        commandHandler->sendLoginHashedCommand(salt, serverEntry->getPassword());
     }
 }
 
@@ -71,10 +74,8 @@ void FrostbiteClient::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(build);
 
-    qDebug() << "Server type is: " << type << " should be: " << GameTypeUtils::toString(serverEntry->getGameType());
-
     if (GameTypeUtils::fromString(type) != serverEntry->getGameType()) {
-        connection->hostDisconnect();
+        disconnectFromHost();
 
         qDebug() << tr("Wrong server type, disconnecting...");
     }

@@ -23,11 +23,8 @@
 #include <QObject>
 
 class ServerEntry;
-//class Connection;
-//class CommandHandler;
-
-#include "Connection.h"
-#include "CommandHandler.h"
+class Connection;
+class CommandHandler;
 
 class Client: public QObject
 {

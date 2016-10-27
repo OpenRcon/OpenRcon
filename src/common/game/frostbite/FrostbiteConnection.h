@@ -21,10 +21,9 @@
 #define FROSTBITECONNECTION_H
 
 #include "Connection.h"
+#include "FrostbiteRconPacket.h"
 
 #define MIN_PACKET_SIZE 12
-
-#include "FrostbiteRconPacket.h"
 
 class FrostbiteCommandHandler;
 
@@ -43,8 +42,6 @@ protected:
     FrostbiteCommandHandler *commandHandler;
 
 private:
-    QString name;
-
     int packetReadState;
     char lastHeader[MIN_PACKET_SIZE];
     QVector<FrostbiteRconPacket> packetSendQueue;

@@ -34,7 +34,7 @@ public:
     virtual ~BF4Client();
 
     BF4CommandHandler *getCommandHandler() final {
-        return qobject_cast<BF4CommandHandler*>(commandHandler);
+        return dynamic_cast<BF4CommandHandler*>(commandHandler);
     }
 };
 

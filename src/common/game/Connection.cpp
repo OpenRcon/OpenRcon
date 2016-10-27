@@ -29,8 +29,6 @@ Connection::Connection(QObject *parent) :
     QObject(parent),
     socket(new QTcpSocket(this))
 {
-    qDebug() << "Connection created.";
-
     connect(socket, &QAbstractSocket::connected,                                                                   this, &Connection::connected);
     connect(socket, &QAbstractSocket::disconnected,                                                                this, &Connection::disconnected);
     connect(socket, static_cast<void (QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error), this, &Connection::displayError);

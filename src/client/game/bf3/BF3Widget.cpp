@@ -37,6 +37,8 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) : Frostbite2Widg
 {
     ui->setupUi(this);
 
+    client->connectToHost();
+
     QStringList commandList = {
         "login.plainText",
         "login.hashed",

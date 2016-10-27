@@ -25,12 +25,6 @@
 BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
     Frostbite2Client(serverEntry, new BF4CommandHandler(), parent)
 {
-    qDebug() << "BF4Client created.";
-
-    connection->hostConnect(serverEntry);
-
-    //initialize();
-
     versionMap = {
         { 70517,  "OB-R2" },
         { 72879,  "OB-R3" },

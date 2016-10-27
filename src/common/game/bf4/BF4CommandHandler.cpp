@@ -29,7 +29,7 @@
 BF4CommandHandler::BF4CommandHandler(QObject *parent) :
     Frostbite2CommandHandler(parent)
 {
-    qDebug() << "BF4CommandHandler created.";
+
 }
 
 BF4CommandHandler::~BF4CommandHandler()

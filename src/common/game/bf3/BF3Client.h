@@ -21,6 +21,7 @@
 #define BF3CLIENT_H
 
 #include "Frostbite2Client.h"
+#include "BF3CommandHandler.h"
 
 class BF3Client : public Frostbite2Client
 {
@@ -28,7 +29,11 @@ class BF3Client : public Frostbite2Client
 
 public:
     BF3Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    //virtual ~BF3Client();
+    virtual ~BF3Client();
+
+    BF3CommandHandler *getCommandHandler() final {
+        return dynamic_cast<BF3CommandHandler*>(commandHandler);
+    }
 
 };
 
