@@ -33,7 +33,7 @@ class Connection : public QObject
 
 public:
     Connection(QObject *parent);
-    //virtual ~Connection();
+    virtual ~Connection();
 
     virtual void hostConnect(ServerEntry *serverEntry);
     virtual void hostDisconnect();

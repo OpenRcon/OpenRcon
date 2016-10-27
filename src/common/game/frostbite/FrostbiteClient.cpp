@@ -22,7 +22,7 @@
 
 FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandler *commandHandler, QObject *parent) :
     Client(serverEntry, parent),
-    connection(new FrostbiteConnection()),
+    connection(new FrostbiteConnection(commandHandler)),
     commandHandler(commandHandler)
 {
     qDebug() << "FrostbiteClient created.";
@@ -43,12 +43,10 @@ void FrostbiteClient::initialize()
     */
 }
 
-/*
 FrostbiteClient::~FrostbiteClient()
 {
-    delete connection;
+
 }
-*/
 
 void FrostbiteClient::onConnected()
 {

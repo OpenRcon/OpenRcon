@@ -36,12 +36,10 @@ Connection::Connection(QObject *parent) :
     connect(socket, static_cast<void (QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error), this, &Connection::displayError);
 }
 
-/*
 Connection::~Connection()
 {
-    delete socket;
+
 }
-*/
 
 void Connection::hostConnect(ServerEntry *serverEntry)
 {

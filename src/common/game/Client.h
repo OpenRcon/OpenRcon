@@ -23,8 +23,11 @@
 #include <QObject>
 
 class ServerEntry;
-class Connection;
-class CommandHandler;
+//class Connection;
+//class CommandHandler;
+
+#include "Connection.h"
+#include "CommandHandler.h"
 
 class Client: public QObject
 {
@@ -32,8 +35,7 @@ class Client: public QObject
 
 public:
     Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    //virtual ~Client();
-
+    virtual ~Client();
 
     virtual Connection *getConnection() = 0;
     virtual CommandHandler *getCommandHandler() = 0;

@@ -24,26 +24,22 @@
 #include "FrostbiteConnection.h"
 #include "FrostbiteCommandHandler.h"
 
-FrostbiteConnection::FrostbiteConnection(QObject *parent) :
+FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent) :
     Connection(parent),
+    commandHandler(commandHandler),
     packetReadState(PacketReadingHeader),
     nextPacketSequence(0)
 {
     qDebug() << "FrostbiteConnection created.";
 
+    commandHandler->setConnection(this);
+
     connect(socket, &QAbstractSocket::readyRead, this, &FrostbiteConnection::readyRead);
 }
 
-/*
 FrostbiteConnection::~FrostbiteConnection()
 {
 
-}
-*/
-
-void FrostbiteConnection::setCommandHandler(FrostbiteCommandHandler *commandHandler)
-{
-    this->commandHandler = commandHandler;
 }
 
 void FrostbiteConnection::hostConnect(ServerEntry *serverEntry)

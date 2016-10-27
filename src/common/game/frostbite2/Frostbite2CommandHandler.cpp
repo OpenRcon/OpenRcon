@@ -33,18 +33,16 @@
 #include "PlayerInfo.h"
 #include "BanListEntry.h"
 
-Frostbite2CommandHandler::Frostbite2CommandHandler(FrostbiteConnection *connection, QObject *parent) :
-    FrostbiteCommandHandler(connection, parent)
+Frostbite2CommandHandler::Frostbite2CommandHandler(QObject *parent) :
+    FrostbiteCommandHandler(parent)
 {
     qDebug() << "Frostbite2CommandHandler created.";
 }
 
-/*
 Frostbite2CommandHandler::~Frostbite2CommandHandler()
 {
 
 }
-*/
 
 bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {

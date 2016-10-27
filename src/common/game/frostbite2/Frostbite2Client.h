@@ -29,10 +29,10 @@ class Frostbite2Client : public FrostbiteClient
 
 public:
     Frostbite2Client(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent = nullptr);
-    //virtual ~Frostbite2Client();
+    virtual ~Frostbite2Client();
 
     virtual Frostbite2CommandHandler *getCommandHandler() override {
-        return dynamic_cast<Frostbite2CommandHandler*>(commandHandler);
+        return qobject_cast<Frostbite2CommandHandler*>(commandHandler);
     }
 };
 

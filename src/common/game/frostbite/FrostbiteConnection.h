@@ -33,17 +33,16 @@ class FrostbiteConnection : public Connection
     Q_OBJECT
 
 public:
-    FrostbiteConnection(QObject *parent = nullptr);
-    //virtual ~FrostbiteConnection();
+    FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent = nullptr);
+    virtual ~FrostbiteConnection();
 
-    void setCommandHandler(FrostbiteCommandHandler *commandHandler);
-
-    void hostConnect(ServerEntry *serverEntry) override;
+    void hostConnect(ServerEntry *serverEntry) final;
     void sendCommand(const QString &command);
 
-private:
+protected:
     FrostbiteCommandHandler *commandHandler;
 
+private:
     QString name;
 
     int packetReadState;

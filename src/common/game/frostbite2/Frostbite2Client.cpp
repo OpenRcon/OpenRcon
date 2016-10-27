@@ -25,9 +25,7 @@ Frostbite2Client::Frostbite2Client(ServerEntry *serverEntry, Frostbite2CommandHa
     qDebug() << "Frostbite2Client created.";
 }
 
-/*
 Frostbite2Client::~Frostbite2Client()
 {
 
 }
-*/

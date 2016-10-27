@@ -25,9 +25,7 @@ CommandHandler::CommandHandler(QObject *parent) :
 
 }
 
-/*
 CommandHandler::~CommandHandler()
 {
 
 }
-*/

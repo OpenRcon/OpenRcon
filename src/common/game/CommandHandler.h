@@ -28,7 +28,7 @@ class CommandHandler : public QObject
 
 public:
     CommandHandler(QObject *parent = nullptr);
-    //virtual ~CommandHandler();
+    virtual ~CommandHandler();
 
 };
 

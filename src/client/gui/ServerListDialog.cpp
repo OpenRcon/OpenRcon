@@ -97,11 +97,6 @@ ServerListDialog::~ServerListDialog()
     serverEntries.clear();
 
     delete ui;
-    delete menu_gameEntry;
-    delete action_gameEntry_add;
-    delete menu_serverEntry;
-    delete action_serverEntry_edit;
-    delete action_serverEntry_remove;
 }
 
 void ServerListDialog::onSessionOpened()

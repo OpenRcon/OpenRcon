@@ -22,22 +22,19 @@
 #include "FrostbiteCommandHandler.h"
 #include "FrostbiteConnection.h"
 
-FrostbiteCommandHandler::FrostbiteCommandHandler(FrostbiteConnection *connection, QObject *parent) :
-    CommandHandler(parent),
-    connection(connection)
+FrostbiteCommandHandler::FrostbiteCommandHandler(QObject *parent) :
+    CommandHandler(parent)
 {
     qDebug() << "FrostbiteCommandHandler created.";
 
-    if (connection) {
-        qDebug() << "FrostbiteCommandHandler, connection exists.";
-
-        connection->setCommandHandler(this);
-    }
 }
 
-/*
 FrostbiteCommandHandler::~FrostbiteCommandHandler()
 {
 
 }
-*/
+
+void FrostbiteCommandHandler::setConnection(FrostbiteConnection *connection)
+{
+    this->connection = connection;
+}

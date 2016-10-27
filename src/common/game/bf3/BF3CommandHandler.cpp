@@ -24,7 +24,8 @@
 #include "PlayerSubset.h"
 #include "PlayerInfo.h"
 
-BF3CommandHandler::BF3CommandHandler(FrostbiteConnection *connection, QObject *parent) : Frostbite2CommandHandler(connection, parent)
+BF3CommandHandler::BF3CommandHandler(QObject *parent) :
+    Frostbite2CommandHandler(parent)
 {
 
 }
