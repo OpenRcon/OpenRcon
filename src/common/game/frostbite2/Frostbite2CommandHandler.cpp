@@ -52,9 +52,18 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         /* Events */
         { "player.onAuthenticated",                 &Frostbite2CommandHandler::parsePlayerAuthenticatedEvent },
         { "player.onJoin",                          &Frostbite2CommandHandler::parsePlayerJoinEvent },
+        { "player.onLeave",                         &Frostbite2CommandHandler::parsePlayerLeaveEvent },
         { "player.onSpawn",                         &Frostbite2CommandHandler::parsePlayerSpawnEvent },
         { "player.onKill",                          &Frostbite2CommandHandler::parsePlayerKillEvent },
+        { "player.onChat",                          &Frostbite2CommandHandler::parsePlayerChatEvent },
+        { "player.onSquadChange",                   &Frostbite2CommandHandler::parsePlayerSquadChangeEvent },
+        { "player.onTeamChange",                    &Frostbite2CommandHandler::parsePlayerTeamChangeEvent },
+        { "punkBuster.onMessage",                   &Frostbite2CommandHandler::parsePunkBusterMessageEvent },
+        { "server.onMaxPlayerCountChange",          &Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent },
         { "server.onLevelLoaded",                   &Frostbite2CommandHandler::parseServerLevelLoadedEvent },
+        { "server.onRoundOver",                     &Frostbite2CommandHandler::parseServerRoundOverEvent },
+        { "server.onRoundOverPlayers",              &Frostbite2CommandHandler::parseServerRoundOverPlayersEvent },
+        { "server.onRoundOverTeamScores",           &Frostbite2CommandHandler::parseServerRoundOverTeamScoresEvent },
 
         /* Commands */
         // Misc
