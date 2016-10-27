@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,25 +17,44 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4GAMEMODEENTRY_H
-#define BF4GAMEMODEENTRY_H
+#include "Time.h"
 
-#include "GameModeEntry.h"
-
-class BF4GameModeEntry : public GameModeEntry
+Time::Time(int weeks, int days, int hours, int minutes, int seconds) :
+    weeks(weeks),
+    days(days),
+    hours(hours),
+    minutes(minutes),
+    seconds(seconds)
 {
-public:
-    BF4GameModeEntry(const QString &engineName, const QString &name, int players, int commanders, int spectators);
-    BF4GameModeEntry();
-    ~BF4GameModeEntry() final;
 
-    int getCommanders();
-    int getSpectators();
+}
 
-private:
-    int commanders;
-    int spectators;
+Time::~Time()
+{
 
-};
+}
 
-#endif // BF4GAMEMODEENTRY_H
+int Time::getWeeks()
+{
+    return weeks;
+}
+
+int Time::getDays()
+{
+    return days;
+}
+
+int Time::getHours()
+{
+    return hours;
+}
+
+int Time::getMinutes()
+{
+    return minutes;
+}
+
+int Time::getSeconds()
+{
+    return seconds;
+}

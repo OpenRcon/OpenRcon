@@ -258,27 +258,27 @@ void Frostbite2CommandHandler::sendAdminPasswordCommand(const QString &password)
     }
 }
 
-void Frostbite2CommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetType &playerSubsetType, int parameter)
+void Frostbite2CommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter)
 {
-    if (playerSubsetType == PlayerSubsetType::All) {
-        connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubsetType)));
+    if (playerSubset == PlayerSubsetEnum::All) {
+        connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubset)));
     } else {
-        connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubsetType)).arg(parameter));
+        connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubset)).arg(parameter));
     }
 }
 
-void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetType &playerSubsetType, int parameter)
+void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter)
 {
-    sendAdminYellCommand(message, 10, playerSubsetType, parameter);
+    sendAdminYellCommand(message, 10, playerSubset, parameter);
 }
 
-void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetType &playerSubsetType, int parameter)
+void Frostbite2CommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetEnum &playerSubset, int parameter)
 {
     if (message.length() <= 256) {
-        if (playerSubsetType == PlayerSubsetType::All) {
-            connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubsetType)));
+        if (playerSubset == PlayerSubsetEnum::All) {
+            connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset)));
         } else {
-            connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubsetType)).arg(parameter));
+            connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset)).arg(parameter));
         }
     }
 }

@@ -35,6 +35,9 @@ public:
     int getRounds();
 
 private:
+    QString engineName;
+
+private:
     QString level;
     QString gameMode;
     int rounds;

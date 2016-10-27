@@ -58,82 +58,82 @@ QStringList Squad::list = {
     "Celeste"
 };
 
-EnumSquad Squad::fromString(const QString &squadName)
+SquadEnum Squad::fromString(const QString &squadName)
 {
-    EnumSquad squad = EnumSquad::None;
+    SquadEnum squad = SquadEnum::None;
 
     if (squadName == "None") {
-        squad = EnumSquad::None;
+        squad = SquadEnum::None;
     } else if (squadName == "Alpha") {
-        squad = EnumSquad::Alpha;
+        squad = SquadEnum::Alpha;
     } else if (squadName == "Bravo") {
-        squad = EnumSquad::Bravo;
+        squad = SquadEnum::Bravo;
     } else if (squadName == "Charlie") {
-        squad = EnumSquad::Charlie;
+        squad = SquadEnum::Charlie;
     } else if (squadName == "Delta") {
-        squad = EnumSquad::Delta;
+        squad = SquadEnum::Delta;
     } else if (squadName == "Echo") {
-        squad = EnumSquad::Echo;
+        squad = SquadEnum::Echo;
     } else if (squadName == "Foxtrot") {
-        squad = EnumSquad::Foxtrot;
+        squad = SquadEnum::Foxtrot;
     } else if (squadName == "Golf") {
-        squad = EnumSquad::Golf;
+        squad = SquadEnum::Golf;
     } else if (squadName == "Hotel") {
-        squad = EnumSquad::Hotel;
+        squad = SquadEnum::Hotel;
     } else if (squadName == "India") {
-        squad = EnumSquad::India;
+        squad = SquadEnum::India;
     } else if (squadName == "Juliet") {
-        squad = EnumSquad::Juliet;
+        squad = SquadEnum::Juliet;
     } else if (squadName == "Kilo") {
-        squad = EnumSquad::Kilo;
+        squad = SquadEnum::Kilo;
     } else if (squadName == "Lima") {
-        squad = EnumSquad::Lima;
+        squad = SquadEnum::Lima;
     } else if (squadName == "Mike") {
-        squad = EnumSquad::Mike;
+        squad = SquadEnum::Mike;
     } else if (squadName == "November") {
-        squad = EnumSquad::November;
+        squad = SquadEnum::November;
     } else if (squadName == "Oscar") {
-        squad = EnumSquad::Oscar;
+        squad = SquadEnum::Oscar;
     } else if (squadName == "Papa") {
-        squad = EnumSquad::Papa;
+        squad = SquadEnum::Papa;
     } else if (squadName == "Quebec") {
-        squad = EnumSquad::Quebec;
+        squad = SquadEnum::Quebec;
     } else if (squadName == "Romeo") {
-        squad = EnumSquad::Romeo;
+        squad = SquadEnum::Romeo;
     } else if (squadName == "Sierra") {
-        squad = EnumSquad::Sierra;
+        squad = SquadEnum::Sierra;
     } else if (squadName == "Tango") {
-        squad = EnumSquad::Tango;
+        squad = SquadEnum::Tango;
     } else if (squadName == "Uniform") {
-        squad = EnumSquad::Uniform;
+        squad = SquadEnum::Uniform;
     } else if (squadName == "Victor") {
-        squad = EnumSquad::Victor;
+        squad = SquadEnum::Victor;
     } else if (squadName == "Whiskey") {
-        squad = EnumSquad::Whiskey;
+        squad = SquadEnum::Whiskey;
     } else if (squadName == "Xray") {
-        squad = EnumSquad::Xray;
+        squad = SquadEnum::Xray;
     } else if (squadName == "Yankee") {
-        squad = EnumSquad::Yankee;
+        squad = SquadEnum::Yankee;
     } else if (squadName == "Zulu") {
-        squad = EnumSquad::Zulu;
+        squad = SquadEnum::Zulu;
     } else if (squadName == "Haggard") {
-        squad = EnumSquad::Haggard;
+        squad = SquadEnum::Haggard;
     } else if (squadName == "Sweetwater") {
-        squad = EnumSquad::Sweetwater;
+        squad = SquadEnum::Sweetwater;
     } else if (squadName == "Preston") {
-        squad = EnumSquad::Preston;
+        squad = SquadEnum::Preston;
     } else if (squadName == "Redford") {
-        squad = EnumSquad::Redford;
+        squad = SquadEnum::Redford;
     } else if (squadName == "Faith") {
-        squad = EnumSquad::Faith;
+        squad = SquadEnum::Faith;
     } else if (squadName == "Celeste") {
-        squad = EnumSquad::Celeste;
+        squad = SquadEnum::Celeste;
     }
 
     return squad;
 }
 
-QString Squad::toString(const EnumSquad &squad)
+QString Squad::toString(const SquadEnum &squad)
 {
     return list.at(static_cast<int>(squad));
 }

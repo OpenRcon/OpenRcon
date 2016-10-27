@@ -20,6 +20,7 @@
 #include <QString>
 
 #include "FrostbiteServerInfo.h"
+#include "TeamScores.h"
 
 FrostbiteServerInfo::FrostbiteServerInfo(const QString &serverName,
                                          int playerCount,

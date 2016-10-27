@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,19 +20,19 @@
 #ifndef TIME_H
 #define TIME_H
 
-struct Time
+class Time
 {
-    Time(int weeks,
-         int days,
-         int hours,
-         int minutes,
-         int seconds) :
-        weeks(weeks),
-        days(days),
-        hours(hours),
-        minutes(minutes),
-        seconds(seconds) {}
+public:
+    Time(int weeks, int days, int hours, int minutes, int seconds);
+    ~Time();
 
+    int getWeeks();
+    int getDays();
+    int getHours();
+    int getMinutes();
+    int getSeconds();
+
+private:
     int weeks;
     int days;
     int hours;

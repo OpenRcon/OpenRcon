@@ -27,7 +27,7 @@ class GameModeEntry
 public:
     GameModeEntry(const QString &engineName, const QString &name, int players);
     GameModeEntry();
-    ~GameModeEntry();
+    virtual ~GameModeEntry();
 
     QString getEngineName();
     QString getName();

@@ -29,7 +29,7 @@ class QClipboard;
 class BF4Client;
 class Frostbite2ServerInfo;
 class PlayerInfo;
-enum class PlayerSubsetType;
+enum class PlayerSubsetEnum;
 
 class PlayerListWidget : public QTreeWidget
 {
@@ -69,7 +69,7 @@ private slots:
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
 
     /* User Interface */
-    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
+    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
     void updatePlayerList();
     void customContextMenuRequested(const QPoint &pos);
     void action_player_kill_triggered();

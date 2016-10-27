@@ -96,24 +96,24 @@ QString FrostbiteUtils::toString(Time time)
 {
     QString timeString;
 
-    if (time.weeks != 0) {
-        timeString += " " + QObject::tr("%1w").arg(time.weeks);
+    if (time.getWeeks() != 0) {
+        timeString += " " + QObject::tr("%1w").arg(time.getWeeks());
     }
 
-    if (time.days != 0) {
-        timeString += " " + QObject::tr("%1d").arg(time.days);
+    if (time.getDays() != 0) {
+        timeString += " " + QObject::tr("%1d").arg(time.getDays());
     }
 
-    if (time.hours != 0) {
-        timeString += " " + QObject::tr("%1h").arg(time.hours);
+    if (time.getHours() != 0) {
+        timeString += " " + QObject::tr("%1h").arg(time.getHours());
     }
 
-    if (time.minutes != 0) {
-        timeString += " " + QObject::tr("%1m").arg(time.minutes);
+    if (time.getMinutes() != 0) {
+        timeString += " " + QObject::tr("%1m").arg(time.getMinutes());
     }
 
-    if (time.seconds != 0) {
-        timeString += " " + QObject::tr("%1s").arg(time.seconds);
+    if (time.getSeconds() != 0) {
+        timeString += " " + QObject::tr("%1s").arg(time.getSeconds());
     }
 
     return timeString;

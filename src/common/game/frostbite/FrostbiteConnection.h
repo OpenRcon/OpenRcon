@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -21,10 +21,10 @@
 #define FROSTBITECONNECTION_H
 
 #include "Connection.h"
-#include "FrostbiteRconPacket.h"
 
 #define MIN_PACKET_SIZE 12
 
+class FrostbiteRconPacket;
 class FrostbiteCommandHandler;
 
 class FrostbiteConnection : public Connection

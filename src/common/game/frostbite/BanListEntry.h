@@ -20,26 +20,21 @@
 #ifndef BANLISTENTRY_H
 #define BANLISTENTRY_H
 
-#include <QString>
+class QString;
 
-struct BanListEntry
+class BanListEntry
 {
+public:
     BanListEntry(const QString &idType,
                  const QString &id,
                  const QString &banType,
                  int seconds,
                  int rounds,
-                 const QString &reason) :
-        idType(idType),
-        id(id),
-        banType(banType),
-        seconds(seconds),
-        rounds(rounds),
-        reason(reason)
-    {
+                 const QString &reason);
+    ~BanListEntry();
 
-    }
 
+private:
     QString idType;
     QString id;
     QString banType;

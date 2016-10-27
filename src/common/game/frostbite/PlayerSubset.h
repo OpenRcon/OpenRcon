@@ -23,7 +23,7 @@
 class QString;
 class QStringList;
 
-enum class PlayerSubsetType {
+enum class PlayerSubsetEnum {
     Unknown,
     All,
     Team,
@@ -34,9 +34,9 @@ enum class PlayerSubsetType {
 class PlayerSubset
 {
 public:
-    static PlayerSubsetType fromString(const QString &playerSubset);
-    static QString toString(const PlayerSubsetType &playerSubsetType);
-    static int toInt(const PlayerSubsetType &playerSubsetType);
+    static PlayerSubsetEnum fromString(const QString &playerSubsetName);
+    static QString toString(const PlayerSubsetEnum &playerSubset);
+    static int toInt(const PlayerSubsetEnum &playerSubset);
     static QStringList asList();
 
 private:

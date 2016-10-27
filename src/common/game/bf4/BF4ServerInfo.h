@@ -46,7 +46,7 @@ public:
                   const QString &country,
                   int blazePlayerCount,
                   const QString &blazeGameState);
-    ~BF4ServerInfo();
+    virtual ~BF4ServerInfo() final;
 
     int getBlazePlayerCount() const;
     QString getBlazeGameState() const;

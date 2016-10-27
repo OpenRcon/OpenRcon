@@ -242,15 +242,15 @@ void BF3Widget::onServerInfoCommand(const BF3ServerInfo &serverInfo)
     Q_UNUSED(serverInfo);
 }
 
-void BF3Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
+void BF3Widget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset)
 {
-    listPlayers(playerList, playerSubsetType);
+    listPlayers(playerList, playerSubset);
 }
 
 // Admin
-void BF3Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
+void BF3Widget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset)
 {
-    listPlayers(playerList, playerSubsetType);
+    listPlayers(playerList, playerSubset);
 }
 
 // Banning
@@ -288,9 +288,9 @@ void BF3Widget::updatePlayerList()
     }
 }
 
-void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
+void BF3Widget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset)
 {
-    if (playerSubsetType == PlayerSubsetType::All) {
+    if (playerSubset == PlayerSubsetEnum::All) {
         ui->treeWidget_pl_players->clear();
 
         QList<QTreeWidgetItem *> playerItems;

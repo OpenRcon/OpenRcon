@@ -23,7 +23,7 @@
 class QString;
 class QStringList;
 
-enum class EnumSquad {
+enum class SquadEnum {
     None,
     Alpha,
     Bravo,
@@ -62,9 +62,9 @@ enum class EnumSquad {
 class Squad
 {
 public:
-    static EnumSquad fromString(const QString &squadName);
-    static QString toString(const EnumSquad &squad);
-    static int toInt(const EnumSquad &squad);
+    static SquadEnum fromString(const QString &squadName);
+    static QString toString(const SquadEnum &squad);
+    static int toInt(const SquadEnum &squad);
     static QStringList asList();
 
 private:

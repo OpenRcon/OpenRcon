@@ -32,6 +32,9 @@ SOURCES += $$PWD/FrostbiteClient.cpp \
     $$PWD/GameModeEntry.cpp \
     $$PWD/PlayerSubset.cpp \
     $$PWD/MapListEntry.cpp \
+    $$PWD/BanListEntry.cpp \
     $$PWD/WeaponEntry.cpp \
     $$PWD/FrostbiteServerInfo.cpp \
-    $$PWD/Squad.cpp
+    $$PWD/Squad.cpp \
+    $$PWD/TeamScores.cpp \
+    $$PWD/Time.cpp

@@ -116,7 +116,7 @@ PlayerListWidget::~PlayerListWidget()
 void PlayerListWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        client->getCommandHandler()->sendAdminListPlayersCommand(PlayerSubsetType::All);
+        client->getCommandHandler()->sendAdminListPlayersCommand(PlayerSubsetEnum::All);
     }
 }
 
@@ -131,9 +131,9 @@ QIcon PlayerListWidget::getRankIcon(int rank)
 }
 
 /* User Interface */
-void PlayerListWidget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType)
+void PlayerListWidget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset)
 {
-    if (playerSubsetType == PlayerSubsetType::All) {
+    if (playerSubset == PlayerSubsetEnum::All) {
         // Clear the QTreeWidget and item.
         clear();
         menu_player_move->clear();
@@ -208,7 +208,7 @@ void PlayerListWidget::listPlayers(const QList<PlayerInfo> &playerList, const Pl
 
 void PlayerListWidget::updatePlayerList()
 {
-    client->getCommandHandler()->sendAdminListPlayersCommand(PlayerSubsetType::All);
+    client->getCommandHandler()->sendAdminListPlayersCommand(PlayerSubsetEnum::All);
 }
 
 void PlayerListWidget::customContextMenuRequested(const QPoint &pos)

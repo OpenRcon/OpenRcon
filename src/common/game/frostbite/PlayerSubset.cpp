@@ -30,28 +30,28 @@ QStringList PlayerSubset::list = {
     "Player"
 };
 
-PlayerSubsetType PlayerSubset::fromString(const QString &playerSubset)
+PlayerSubsetEnum PlayerSubset::fromString(const QString &playerSubsetName)
 {
-    PlayerSubsetType playerSubsetType = PlayerSubsetType::All;
+    PlayerSubsetEnum playerSubset = PlayerSubsetEnum::Unknown;
 
-    if (playerSubset == "Unknown") {
-        playerSubsetType = PlayerSubsetType::Unknown;
-    } else if (playerSubset == "All") {
-        playerSubsetType = PlayerSubsetType::All;
-    } else if (playerSubset == "Team") {
-        playerSubsetType = PlayerSubsetType::Team;
-    } else if (playerSubset == "Squad") {
-        playerSubsetType = PlayerSubsetType::Squad;
-    } else if (playerSubset == "Player") {
-        playerSubsetType = PlayerSubsetType::Player;
+    if (playerSubsetName == "Unknown") {
+        playerSubset = PlayerSubsetEnum::Unknown;
+    } else if (playerSubsetName == "All") {
+        playerSubset = PlayerSubsetEnum::All;
+    } else if (playerSubsetName == "Team") {
+        playerSubset = PlayerSubsetEnum::Team;
+    } else if (playerSubsetName == "Squad") {
+        playerSubset = PlayerSubsetEnum::Squad;
+    } else if (playerSubsetName == "Player") {
+        playerSubset = PlayerSubsetEnum::Player;
     }
 
-    return playerSubsetType;
+    return playerSubset;
 }
 
-QString PlayerSubset::toString(const PlayerSubsetType &playerSubsetType)
+QString PlayerSubset::toString(const PlayerSubsetEnum &playerSubset)
 {
-    return list.at(static_cast<int>(playerSubsetType));
+    return list.at(static_cast<int>(playerSubset));
 }
 
 QStringList PlayerSubset::asList()

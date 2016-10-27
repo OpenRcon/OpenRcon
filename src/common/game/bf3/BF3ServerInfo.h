@@ -45,7 +45,7 @@ public:
                   const QString &closestPingSite,
                   const QString &country,
                   bool matchMakingEnabled);
-    ~BF3ServerInfo();
+    ~BF3ServerInfo() final;
 
     bool isMatchMakingEnabled() const;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,12 +17,12 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QTcpSocket>
-#include <QHostAddress>
 #include <QRegularExpression>
 
 #include "FrostbiteConnection.h"
+#include "FrostbiteRconPacket.h"
 #include "FrostbiteCommandHandler.h"
+#include "ServerEntry.h"
 
 FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent) :
     Connection(parent),

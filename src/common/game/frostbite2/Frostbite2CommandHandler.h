@@ -62,9 +62,9 @@ public:
     //admin.listPlayers <players>
     void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
     void sendAdminPasswordCommand(const QString &password = QString());
-    void sendAdminSayCommand(const QString &message, const PlayerSubsetType &playerSubsetType, int parameter = -1);
-    void sendAdminYellCommand(const QString &message, const PlayerSubsetType &playerSubsetType, int parameter = -1);
-    void sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetType &playerSubsetType, int parameter = -1);
+    void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter = -1);
+    void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter = -1);
+    void sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetEnum &playerSubset, int parameter = -1);
 
     // Banning
     void sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason);

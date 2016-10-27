@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,25 +17,27 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4GAMEMODEENTRY_H
-#define BF4GAMEMODEENTRY_H
+#include <QString>
 
-#include "GameModeEntry.h"
+#include "BanListEntry.h"
 
-class BF4GameModeEntry : public GameModeEntry
+BanListEntry::BanListEntry(const QString &idType,
+                           const QString &id,
+                           const QString &banType,
+                           int seconds,
+                           int rounds,
+                           const QString &reason) :
+    idType(idType),
+    id(id),
+    banType(banType),
+    seconds(seconds),
+    rounds(rounds),
+    reason(reason)
 {
-public:
-    BF4GameModeEntry(const QString &engineName, const QString &name, int players, int commanders, int spectators);
-    BF4GameModeEntry();
-    ~BF4GameModeEntry() final;
 
-    int getCommanders();
-    int getSpectators();
+}
 
-private:
-    int commanders;
-    int spectators;
+BanListEntry::~BanListEntry()
+{
 
-};
-
-#endif // BF4GAMEMODEENTRY_H
+}

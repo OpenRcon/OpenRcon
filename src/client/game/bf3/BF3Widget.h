@@ -82,10 +82,10 @@ private slots:
     // Misc
     void onLoginHashedCommand(bool auth);
     void onServerInfoCommand(const BF3ServerInfo &serverInfo);
-    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
+    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
 
     // Admin
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
+    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
 
     // Banning
 
@@ -107,7 +107,7 @@ private slots:
 
     // Players
     void updatePlayerList();
-    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetType &playerSubsetType);
+    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
 
     // Maplist
 

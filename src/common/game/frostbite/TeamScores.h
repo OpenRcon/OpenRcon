@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -22,16 +22,16 @@
 
 #include <QList>
 
-struct TeamScores
+class TeamScores
 {
-    TeamScores(const QList<int> &scores,
-               int targetScore) :
-        scores(scores),
-        targetScore(targetScore = 0)
-    {
+public:
+    TeamScores(const QList<int> &scores, int targetScore = 0);
+    ~TeamScores();
 
-    }
+    QList<int> getScores();
+    int getTargetScore();
 
+private:
     QList<int> scores;
     int targetScore;
 
