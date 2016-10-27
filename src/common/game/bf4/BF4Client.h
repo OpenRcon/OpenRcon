@@ -31,7 +31,7 @@ class BF4Client : public Frostbite2Client
 
 public:
     BF4Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    virtual ~BF4Client();
+    ~BF4Client() final;
 
     BF4CommandHandler *getCommandHandler() final {
         return dynamic_cast<BF4CommandHandler*>(commandHandler);

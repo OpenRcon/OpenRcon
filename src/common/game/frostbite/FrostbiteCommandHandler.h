@@ -31,7 +31,7 @@ class FrostbiteCommandHandler : public CommandHandler
 
 public:
     FrostbiteCommandHandler(QObject *parent = nullptr);
-    virtual ~FrostbiteCommandHandler();
+    virtual ~FrostbiteCommandHandler() override;
 
     void setConnection(FrostbiteConnection *connection);
 

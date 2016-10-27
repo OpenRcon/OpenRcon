@@ -25,8 +25,8 @@
 class QStringList;
 
 enum class PlayerSubsetEnum;
-enum class BF4PresetType;
-enum class BF4ServerType;
+enum class BF4PresetEnum;
+enum class BF4ServerTypeEnum;
 class PlayerInfo;
 
 class BF4CommandHandler : public Frostbite2CommandHandler
@@ -35,7 +35,7 @@ class BF4CommandHandler : public Frostbite2CommandHandler
 
 public:
     BF4CommandHandler(QObject *parent = nullptr);
-    virtual ~BF4CommandHandler();
+    ~BF4CommandHandler() final;
 
     bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) final;
 
@@ -180,11 +180,11 @@ public:
     void sendVarsMaxSpectatorsCommand(int spectators = -1);
     void sendVarsMpExperienceCommand(const QString &experience = QString());
     void sendVarsPresetCommand();
-    void sendVarsPresetCommand(const BF4PresetType &presetType, bool lockPresetSetting = false);
+    void sendVarsPresetCommand(const BF4PresetEnum &preset, bool lockPresetSetting = false);
     void sendVarsRoundTimeLimitCommand(int percent = -1);
     void sendVarsRoundWarmupTimeoutCommand(int timeout = -1);
     void sendVarsServerTypeCommand();
-    void sendVarsServerTypeCommand(const BF4ServerType &type);
+    void sendVarsServerTypeCommand(const BF4ServerTypeEnum &serverType);
     void sendVarsTeamFactionOverrideCommand(int teamId = -1, int factionId = -1);
     void sendVarsTicketBleedRateCommand(int percent = -1);
     void sendVarsRoundPlayersReadyBypassTimerCommand(int time = -1);
@@ -511,7 +511,7 @@ signals:
     void onVarsHitIndicatorsEnabledCommand(bool enabled);
     void onVarsMaxSpectatorsCommand(int spectatorCount);
     void onVarsMpExperienceCommand(const QString &experience);
-    void onVarsPresetCommand(const BF4PresetType &presetType, bool lockPresetSetting);
+    void onVarsPresetCommand(const BF4PresetEnum &preset, bool lockPresetSetting);
     void onVarsRoundTimeLimitCommand(int percentage);
     void onVarsRoundWarmupTimeoutCommand(int timeout);
     void onVarsServerTypeCommand(const QString &type);

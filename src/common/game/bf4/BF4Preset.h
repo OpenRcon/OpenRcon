@@ -20,10 +20,10 @@
 #ifndef BF4PRESET_H
 #define BF4PRESET_H
 
-#include <QString>
-#include <QStringList>
+class QString;
+class QStringList;
 
-enum class BF4PresetType {
+enum class BF4PresetEnum {
     Normal,
     Classic,
     Hardcore,
@@ -34,9 +34,9 @@ enum class BF4PresetType {
 class BF4Preset
 {
 public:
-    static BF4PresetType fromString(const QString &preset);
-    static QString toString(const BF4PresetType &presetType);
-    static int toInt(const BF4PresetType &presetType);
+    static BF4PresetEnum fromString(const QString &presetName);
+    static QString toString(const BF4PresetEnum &preset);
+    static int toInt(const BF4PresetEnum &preset);
     static QStringList asList();
 
 private:

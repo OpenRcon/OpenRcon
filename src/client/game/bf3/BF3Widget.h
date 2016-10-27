@@ -42,9 +42,9 @@ class BF3Widget : public Frostbite2Widget
 
 public:
     BF3Widget(ServerEntry *serverEntry, QWidget *parent = nullptr);
-    ~BF3Widget();
+    ~BF3Widget() final;
 
-    virtual BF3Client *getClient() {
+    BF3Client *getClient() final {
         return client;
     }
 

@@ -30,7 +30,7 @@ class GameWidget : public QWidget
 
 public:
     GameWidget(QWidget *parent = nullptr);
-    ~GameWidget();
+    virtual ~GameWidget();
 
     virtual Client *getClient() = 0;
 

@@ -371,9 +371,9 @@ void BF4OptionsWidget::onVarsPlayerRespawnTimeCommand(int respawnTime)
     ui->spinBox_gameplay_playerRespawnTime->setValue(respawnTime);
 }
 
-void BF4OptionsWidget::onVarsPresetCommand(const BF4PresetType &presetType, bool lockPresetSetting)
+void BF4OptionsWidget::onVarsPresetCommand(const BF4PresetEnum &preset, bool lockPresetSetting)
 {
-    ui->comboBox_gameplay_preset->setCurrentIndex(BF4Preset::toInt(presetType));
+    ui->comboBox_gameplay_preset->setCurrentIndex(BF4Preset::toInt(preset));
     ui->checkBox_gameplay_presetLockPresetSetting->setChecked(lockPresetSetting);
 }
 
@@ -744,10 +744,10 @@ void BF4OptionsWidget::comboBox_gameplay_preset_currentIndexChanged(const QStrin
 
 void BF4OptionsWidget::checkBox_gameplay_presetLockPresetSetting_toggled(bool checked)
 {
-    QString preset = ui->comboBox_gameplay_preset->currentText();
+    QString presetName = ui->comboBox_gameplay_preset->currentText();
 
     // TODO: Do this more elegantly, using the enum.
-    client->getCommandHandler()->sendVarsPresetCommand(BF4Preset::fromString(preset), checked);
+    client->getCommandHandler()->sendVarsPresetCommand(BF4Preset::fromString(presetName), checked);
 }
 
 void BF4OptionsWidget::comboBox_gameplay_unlockMode_currentIndexChanged(int index)

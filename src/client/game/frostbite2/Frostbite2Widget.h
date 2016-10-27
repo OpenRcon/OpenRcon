@@ -30,7 +30,7 @@ class Frostbite2Widget : public FrostbiteWidget
 
 public:
     Frostbite2Widget(QWidget *parent = nullptr);
-    ~Frostbite2Widget();
+    virtual ~Frostbite2Widget() override;
 
 };
 

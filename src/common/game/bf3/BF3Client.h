@@ -29,7 +29,7 @@ class BF3Client : public Frostbite2Client
 
 public:
     BF3Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    virtual ~BF3Client();
+    ~BF3Client() final;
 
     BF3CommandHandler *getCommandHandler() final {
         return dynamic_cast<BF3CommandHandler*>(commandHandler);

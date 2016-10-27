@@ -23,7 +23,7 @@
 #include <QWidget>
 
 class BF4Client;
-enum class BF4PresetType;
+enum class BF4PresetEnum;
 
 namespace Ui {
     class BF4OptionsWidget;
@@ -81,7 +81,7 @@ private slots:
     void onVarsNameTagCommand(bool enabled);
     void onVarsOnlySquadLeaderSpawnCommand(bool enabled);
     void onVarsPlayerRespawnTimeCommand(int respawnTime);
-    void onVarsPresetCommand(const BF4PresetType &presetType, bool lockPresetSetting);
+    void onVarsPresetCommand(const BF4PresetEnum &preset, bool lockPresetSetting);
     void onVarsRegenerateHealthCommand(bool enabled);
     void onVarsRoundLockdownCountdownCommand(int seconds);
     void onVarsRoundRestartPlayerCountCommand(int players);

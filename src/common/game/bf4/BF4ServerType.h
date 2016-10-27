@@ -23,19 +23,19 @@
 class QString;
 class QStringList;
 
-enum class BF4ServerType {
+enum class BF4ServerTypeEnum {
     Official,
     Ranked,
     Unranked,
     Private
 };
 
-class BF4Server
+class BF4ServerType
 {
 public:
-    static BF4ServerType fromString(const QString &server);
-    static QString toString(const BF4ServerType &serverType);
-    static int toInt(const BF4ServerType &serverType);
+    static BF4ServerTypeEnum fromString(const QString &serverTypeName);
+    static QString toString(const BF4ServerTypeEnum &serverType);
+    static int toInt(const BF4ServerTypeEnum &serverType);
     static QStringList asList();
 
 private:

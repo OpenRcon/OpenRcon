@@ -36,7 +36,7 @@ public:
     virtual ~Connection();
 
     virtual void hostConnect(ServerEntry *serverEntry);
-    virtual void hostDisconnect();
+    void hostDisconnect();
     bool isConnected();
 
 protected:

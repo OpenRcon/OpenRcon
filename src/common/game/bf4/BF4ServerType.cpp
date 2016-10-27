@@ -22,41 +22,41 @@
 
 #include "BF4ServerType.h"
 
-QStringList BF4Server::list = {
+QStringList BF4ServerType::list = {
     "Official",
     "Ranked",
     "Unranked",
     "Private"
 };
 
-BF4ServerType BF4Server::fromString(const QString &server)
+BF4ServerTypeEnum BF4ServerType::fromString(const QString &serverTypeName)
 {
-    BF4ServerType serverType = BF4ServerType::Official;
+    BF4ServerTypeEnum serverType = BF4ServerTypeEnum::Official;
 
-    if (server == "Official") {
-        serverType = BF4ServerType::Official;
-    } else if (server == "Ranked") {
-        serverType = BF4ServerType::Ranked;
-    } else if (server == "Unranked") {
-        serverType = BF4ServerType::Unranked;
-    } else if (server == "Private") {
-        serverType = BF4ServerType::Private;
+    if (serverTypeName == "Official") {
+        serverType = BF4ServerTypeEnum::Official;
+    } else if (serverTypeName == "Ranked") {
+        serverType = BF4ServerTypeEnum::Ranked;
+    } else if (serverTypeName == "Unranked") {
+        serverType = BF4ServerTypeEnum::Unranked;
+    } else if (serverTypeName == "Private") {
+        serverType = BF4ServerTypeEnum::Private;
     }
 
     return serverType;
 }
 
-QString BF4Server::toString(const BF4ServerType &serverType)
+QString BF4ServerType::toString(const BF4ServerTypeEnum &serverType)
 {
     return list.at(static_cast<int>(serverType));
 }
 
-int BF4Server::toInt(const BF4ServerType &serverType)
+int BF4ServerType::toInt(const BF4ServerTypeEnum &serverType)
 {
     return static_cast<int>(serverType);
 }
 
-QStringList BF4Server::asList()
+QStringList BF4ServerType::asList()
 {
     return list;
 }

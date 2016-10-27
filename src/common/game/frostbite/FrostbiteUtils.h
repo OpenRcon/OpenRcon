@@ -23,8 +23,8 @@
 class QString;
 class QStringList;
 
-struct Time;
-enum class EnumSquad;
+class Time;
+enum class SquadEnum;
 
 class FrostbiteUtils
 {
@@ -36,7 +36,7 @@ public:
     static QString toString(Time time);
 
     static Time getTimeFromSeconds(int elapsedSeconds);
-    static QString getSquadName(EnumSquad squad);
+    static QString getSquadName(SquadEnum squad);
     static QString getSquadName(int squadId);
 
 private:

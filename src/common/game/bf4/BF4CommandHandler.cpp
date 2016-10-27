@@ -249,9 +249,9 @@ void BF4CommandHandler::sendVarsPresetCommand()
     connection->sendCommand("vars.preset");
 }
 
-void BF4CommandHandler::sendVarsPresetCommand(const BF4PresetType &presetType, bool lockPresetSetting)
+void BF4CommandHandler::sendVarsPresetCommand(const BF4PresetEnum &preset, bool lockPresetSetting)
 {
-    connection->sendCommand(QString("\"vars.preset\" \"%1\" \"%2\"").arg(BF4Preset::toString(presetType).toLower(), FrostbiteUtils::toString(lockPresetSetting)));
+    connection->sendCommand(QString("\"vars.preset\" \"%1\" \"%2\"").arg(BF4Preset::toString(preset).toLower(), FrostbiteUtils::toString(lockPresetSetting)));
 }
 
 void BF4CommandHandler::sendVarsRoundTimeLimitCommand(int percent)
@@ -277,9 +277,9 @@ void BF4CommandHandler::sendVarsServerTypeCommand()
     connection->sendCommand("vars.serverType");
 }
 
-void BF4CommandHandler::sendVarsServerTypeCommand(const BF4ServerType &type)
+void BF4CommandHandler::sendVarsServerTypeCommand(const BF4ServerTypeEnum &serverType)
 {
-    connection->sendCommand(QString("\"vars.serverType\" \"%1\"").arg(BF4Server::toString(type)));
+    connection->sendCommand(QString("\"vars.serverType\" \"%1\"").arg(BF4ServerType::toString(serverType)));
 }
 
 void BF4CommandHandler::sendVarsTeamFactionOverrideCommand(int teamId, int factionId)

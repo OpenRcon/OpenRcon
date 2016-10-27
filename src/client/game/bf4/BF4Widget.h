@@ -48,9 +48,9 @@ class BF4Widget : public Frostbite2Widget
 
 public:    
     BF4Widget(ServerEntry *serverEntry, QWidget *parent = nullptr);
-    ~BF4Widget();
+    ~BF4Widget() final;
 
-    virtual BF4Client *getClient() {
+    BF4Client *getClient() final {
         return client;
     }
 

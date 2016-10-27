@@ -28,7 +28,7 @@ class FrostbiteWidget : public GameWidget
 
 public:
     FrostbiteWidget(QWidget *parent = nullptr);
-    ~FrostbiteWidget();
+    virtual ~FrostbiteWidget() override;
 
 };
 

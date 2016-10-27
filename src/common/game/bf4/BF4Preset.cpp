@@ -17,6 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QString>
+#include <QStringList>
+
 #include "BF4Preset.h"
 
 QStringList BF4Preset::list = {
@@ -27,33 +30,33 @@ QStringList BF4Preset::list = {
     "Custom"
 };
 
-BF4PresetType BF4Preset::fromString(const QString &preset)
+BF4PresetEnum BF4Preset::fromString(const QString &presetName)
 {
-    BF4PresetType presetType = BF4PresetType::Normal;
+    BF4PresetEnum preset = BF4PresetEnum::Normal;
 
-    if (preset == "Normal") {
-        presetType = BF4PresetType::Normal;
-    } else if (preset == "Classic") {
-        presetType = BF4PresetType::Classic;
-    } else if (preset == "Hardcore") {
-        presetType = BF4PresetType::Hardcore;
-    } else if (preset == "Infantry") {
-        presetType = BF4PresetType::Infantry;
-    } else if (preset == "Custom") {
-        presetType = BF4PresetType::Custom;
+    if (presetName == "Normal") {
+        preset = BF4PresetEnum::Normal;
+    } else if (presetName == "Classic") {
+        preset = BF4PresetEnum::Classic;
+    } else if (presetName == "Hardcore") {
+        preset = BF4PresetEnum::Hardcore;
+    } else if (presetName == "Infantry") {
+        preset = BF4PresetEnum::Infantry;
+    } else if (presetName == "Custom") {
+        preset = BF4PresetEnum::Custom;
     }
 
-    return presetType;
+    return preset;
 }
 
-QString BF4Preset::toString(const BF4PresetType &presetType)
+QString BF4Preset::toString(const BF4PresetEnum &preset)
 {
-    return list.at(static_cast<int>(presetType));
+    return list.at(static_cast<int>(preset));
 }
 
-int BF4Preset::toInt(const BF4PresetType &presetType)
+int BF4Preset::toInt(const BF4PresetEnum &preset)
 {
-    return static_cast<int>(presetType);
+    return static_cast<int>(preset);
 }
 
 QStringList BF4Preset::asList()

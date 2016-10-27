@@ -33,7 +33,7 @@ class FrostbiteConnection : public Connection
 
 public:
     FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent = nullptr);
-    virtual ~FrostbiteConnection();
+    ~FrostbiteConnection() final;
 
     void hostConnect(ServerEntry *serverEntry) final;
     void sendCommand(const QString &command);

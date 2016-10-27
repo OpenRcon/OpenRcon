@@ -37,7 +37,7 @@ class FrostbiteClient : public Client
 
 public:
     FrostbiteClient(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent = nullptr);
-    virtual ~FrostbiteClient();
+    virtual ~FrostbiteClient() override;
 
     FrostbiteConnection *getConnection() final {
         return connection;
