@@ -1,8 +1,17 @@
 sudo: required
 dist: trusty
 
-matrixinclu
-ubuntutoæubuntutoouire
+language: cpp
+selection
+compiler:
+  - clang
+  - gcc
+# Build steps
+script:language: cpp
+# Compilerelection
+compiler:
+  - clanggscri
+
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo apt-get -qq update
