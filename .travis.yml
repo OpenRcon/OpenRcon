@@ -1,23 +1,6 @@
 sudo: required
 dist: trusty      
-language: cpp
-
-compiler:
-  - gcc-4.8
-  - clang-3.4
-
-install:
-- if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.8
-    - g++-4.8
-    - clang
-
-
+matrix: include: - os: linux addons: apt: sources: - ubuntu-toolchain-r-test packages: - g++-4.9 env: - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9" - os: linux addons: apt: sources: - ubuntu-toolchain-r-test packages: - g++-5 env: - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5" - os: linux addons: apt: sources: - ubuntu-toolchain-r-test packages: - g++-6 env: - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" before_install: - eval "${MATRIX_EVAL}"language: cpp
 
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
