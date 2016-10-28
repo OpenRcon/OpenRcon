@@ -8,4 +8,5 @@ before_install:
 
 script:
  - qmake -project
+ - qmake openrcon.pro
  - make
