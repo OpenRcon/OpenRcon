@@ -1,15 +1,9 @@
 sudo: required
 dist: trusty
-language: cpp
-
-matrix:
-  include:
- - compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.7
+language: cppmatrix
+        
+test
+            - ll-toolchain-precise-3.7
           packages:
             - clang-3.7
       env: COMPILER=clang++-3.7
@@ -18,9 +12,8 @@ before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo apt-get -qq update
  - sudo apt-get install -y qt5-default qttools5-dev-tools
- - sudo apt-get install -y libopencv-dev
 
 script:
  - qmake -project
  - qmake openrcon.pro
- - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
+ - make
