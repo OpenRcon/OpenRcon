@@ -7,11 +7,7 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env: COMPILER=g++-4.9
-
+            - ubuntu-toouire
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo apt-get -qq update
