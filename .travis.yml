@@ -1,6 +1,6 @@
 sudo: required
-dist: trusty
-language: cppmatrix      
+dist: trusty      
+language: cpp
 
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
@@ -11,3 +11,4 @@ script:
  - qmake -project
  - qmake openrcon.pro
  - make
+
