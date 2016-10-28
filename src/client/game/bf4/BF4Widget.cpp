@@ -49,7 +49,6 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) :
     ui(new Ui::BF4Widget)
 {
     ui->setupUi(this);
-    //client->connectToHost();
 
     /* User Inferface */
     // ServerInfo

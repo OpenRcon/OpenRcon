@@ -25,6 +25,8 @@ FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandl
     connection(new FrostbiteConnection(commandHandler, this)),
     commandHandler(commandHandler)
 {
+    connectToHost();
+
     // Connection
     connect(connection,     &Connection::onConnected,                       this, &FrostbiteClient::onConnected);
 

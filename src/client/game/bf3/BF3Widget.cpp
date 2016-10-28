@@ -38,7 +38,6 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) :
     ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);
-    //client->connectToHost();
 
     commandList += {
         "login.plainText",
