@@ -24,4 +24,4 @@ before_install:
 script:
  - qmake -project
  - qmake openrcon.pro
- - make
+ - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
