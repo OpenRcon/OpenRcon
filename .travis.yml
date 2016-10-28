@@ -1,13 +1,8 @@
 sudo: required
 dist: trusty
 
-matrix:
-  include:
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toouire
+matrixinclu
+ubuntutoæubuntutoouire
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo apt-get -qq update
