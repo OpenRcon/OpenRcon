@@ -22,6 +22,8 @@
 
 #include <QWidget>
 
+class QStringList;
+
 class Client;
 
 class GameWidget : public QWidget
@@ -29,12 +31,16 @@ class GameWidget : public QWidget
     Q_OBJECT
 
 public:
-    GameWidget(QWidget *parent = nullptr);
+    GameWidget(Client *client, QWidget *parent = nullptr);
     virtual ~GameWidget();
 
-    virtual Client *getClient() = 0;
+    virtual Client *getClient() {
+        return client;
+    }
 
 protected:
+    Client *client;
+
     QStringList commandList;
 
 };

@@ -21,15 +21,19 @@
 #define FROSTBITEWIDGET_H
 
 #include "GameWidget.h"
+#include "FrostbiteClient.h"
 
 class FrostbiteWidget : public GameWidget
 {
     Q_OBJECT
 
 public:
-    FrostbiteWidget(QWidget *parent = nullptr);
+    FrostbiteWidget(FrostbiteClient *client, QWidget *parent = nullptr);
     virtual ~FrostbiteWidget() override;
 
+    virtual FrostbiteClient *getClient() override {
+        return dynamic_cast<FrostbiteClient*>(client);
+    }
 };
 
 #endif // FROSTBITEWIDGET_H

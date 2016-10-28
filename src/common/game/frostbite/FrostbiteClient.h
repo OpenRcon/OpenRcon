@@ -47,8 +47,8 @@ public:
         return commandHandler;
     }
 
-    void connectToHost();
-    void disconnectFromHost();
+    void connectToHost() final;
+    void disconnectFromHost() final;
     QString getVersionFromBuild(int build);
 
 protected:

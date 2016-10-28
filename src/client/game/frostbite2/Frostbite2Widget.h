@@ -23,15 +23,19 @@
 #include <QWidget>
 
 #include "FrostbiteWidget.h"
+#include "Frostbite2Client.h"
 
 class Frostbite2Widget : public FrostbiteWidget
 {
     Q_OBJECT
 
 public:
-    Frostbite2Widget(QWidget *parent = nullptr);
+    Frostbite2Widget(Frostbite2Client *client, QWidget *parent = nullptr);
     virtual ~Frostbite2Widget() override;
 
+    virtual Frostbite2Client *getClient() override {
+        return dynamic_cast<Frostbite2Client*>(client);
+    }
 };
 
 #endif // FROSTBITE2WIDGET_H

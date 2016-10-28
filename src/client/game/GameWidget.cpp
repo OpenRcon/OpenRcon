@@ -20,7 +20,9 @@
 #include "GameWidget.h"
 #include "Client.h"
 
-GameWidget::GameWidget(QWidget *parent) : QWidget(parent)
+GameWidget::GameWidget(Client *client, QWidget *parent) :
+    QWidget(parent),
+    client(client)
 {
 
 }

@@ -45,12 +45,11 @@ public:
     ~BF3Widget() final;
 
     BF3Client *getClient() final {
-        return client;
+        return dynamic_cast<BF3Client*>(client);
     }
 
 private:
     Ui::BF3Widget *ui;
-    BF3Client *client;
 
     ChatWidget *chatWidget;
     ReservedSlotsWidget *reservedSlotsWidget;

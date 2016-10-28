@@ -34,12 +34,11 @@
 #include "ConsoleWidget.h"
 
 BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) :
-    Frostbite2Widget(parent),
-    ui(new Ui::BF3Widget),
-    client(new BF3Client(serverEntry, this))
+    Frostbite2Widget(new BF3Client(serverEntry, this), parent),
+    ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);
-    client->connectToHost();
+    //client->connectToHost();
 
     commandList += {
         "login.plainText",
@@ -137,9 +136,9 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) :
         "vars.gunMasterWeaponsPreset"
     };
 
-    chatWidget = new ChatWidget(client, this);
-    reservedSlotsWidget = new ReservedSlotsWidget(client, this);
-    consoleWidget = new ConsoleWidget(client, commandList, this);
+    chatWidget = new ChatWidget(getClient(), this);
+    reservedSlotsWidget = new ReservedSlotsWidget(getClient(), this);
+    consoleWidget = new ConsoleWidget(getClient(), commandList, this);
 
     ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
     ui->tabWidget->addTab(reservedSlotsWidget, QIcon(":/frostbite/icons/reserved.png"), tr("Reserved Slots"));
@@ -151,8 +150,8 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) :
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const BF3ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand), this, &BF3Widget::onServerInfoCommand);
+    connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &BF3Widget::onLoginHashedCommand);
+    connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const BF3ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand), this, &BF3Widget::onServerInfoCommand);
 
     /* User Interface */
 }
@@ -160,7 +159,6 @@ BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) :
 BF3Widget::~BF3Widget()
 {
     delete ui;
-    delete client;
 }
 
 void BF3Widget::setAuthenticated(bool auth)
@@ -181,11 +179,11 @@ void BF3Widget::setAuthenticated(bool auth)
 void BF3Widget::startupCommands(bool authenticated)
 {
     // Misc
-    client->getCommandHandler()->sendVersionCommand();
-    client->getCommandHandler()->sendServerInfoCommand();
+    getClient()->getCommandHandler()->sendVersionCommand();
+    getClient()->getCommandHandler()->sendServerInfoCommand();
 
     if (authenticated) {
-        client->getCommandHandler()->sendAdminEventsEnabledCommand(true);
+        getClient()->getCommandHandler()->sendAdminEventsEnabledCommand(true);
 
         // Admins
 

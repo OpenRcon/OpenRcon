@@ -39,6 +39,9 @@ public:
 
     ServerEntry *getServerEntry();
 
+    virtual void connectToHost() = 0;
+    virtual void disconnectFromHost() = 0;
+
     bool isAuthenticated();
     void setAuthenticated(bool authenticated);
 
