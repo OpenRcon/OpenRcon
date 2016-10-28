@@ -200,14 +200,14 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) :
     connect(client->getConnection(), &Connection::onDisconnected,                       this, &BF4Widget::onDisconnected);
 
     /* Events */ 
-    connect(dynamic_cast<BF4CommandHandler*>(client->getCommandHandler()), &BF4CommandHandler::onServerLevelLoadedEvent,  this, &BF4Widget::onServerLevelLoadedEvent);
+    connect(client->getCommandHandler(), &BF4CommandHandler::onServerLevelLoadedEvent,  this, &BF4Widget::onServerLevelLoadedEvent);
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this, &BF4Widget::onLoginHashedCommand);
     connect(client->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,   this, &BF4Widget::onVersionCommand);
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const BF4ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
+    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const BF4ServerInfo&)>(&FrostbiteCommandHandler::onServerInfoCommand),
             this, &BF4Widget::onServerInfoCommand);
 
     // Admin
@@ -221,7 +221,7 @@ BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) :
     // Squad
 
     // Variables  
-    connect(dynamic_cast<BF4CommandHandler*>(client->getCommandHandler()), &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &BF4Widget::onVarsAlwaysAllowSpectatorsCommand);
+    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &BF4Widget::onVarsAlwaysAllowSpectatorsCommand);
 
     /* User Interface */
     // Server Information

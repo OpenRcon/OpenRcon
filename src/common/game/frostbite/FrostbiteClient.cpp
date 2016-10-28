@@ -20,7 +20,7 @@
 #include "FrostbiteClient.h"
 #include "ServerEntry.h"
 
-FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent) :
+FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandler *commandHandler, QObject *parent) :
     Client(serverEntry, parent),
     connection(new FrostbiteConnection(commandHandler, this)),
     commandHandler(commandHandler)
@@ -29,11 +29,11 @@ FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, Frostbite2CommandHand
     connect(connection,     &Connection::onConnected,                       this, &FrostbiteClient::onConnected);
 
     // Commands
-    connect(commandHandler, static_cast<void (Frostbite2CommandHandler::*)(const QByteArray&)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,           static_cast<void (FrostbiteClient::*)(const QByteArray&)>(&FrostbiteClient::onLoginHashedCommand));
-    connect(commandHandler, static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+    connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,           static_cast<void (FrostbiteClient::*)(bool)>(&FrostbiteClient::onLoginHashedCommand));
-    connect(commandHandler, &Frostbite2CommandHandler::onVersionCommand,    this, &FrostbiteClient::onVersionCommand);
+    connect(commandHandler, &FrostbiteCommandHandler::onVersionCommand,    this, &FrostbiteClient::onVersionCommand);
 }
 
 FrostbiteClient::~FrostbiteClient()

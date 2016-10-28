@@ -44,7 +44,7 @@ public:
                          const QString &region,
                          const QString &closestPingSite,
                          const QString &country);
-    virtual ~Frostbite2ServerInfo() override;
+    ~Frostbite2ServerInfo();
 
     QString getGameIpAndPort() const;
     QString getPunkBusterVersion() const;

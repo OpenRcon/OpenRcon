@@ -39,48 +39,44 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
 
     static QHash<QString, ResponseFunction> responseList = {
         /* Events */
-        { "player.onAuthenticated",                 nullptr /*&BFBC2CommandHandler::parsePlayerAuthenticatedEvent*/ },
-        { "player.onJoin",                          nullptr /*&BFBC2CommandHandler::parsePlayerJoinEvent*/ },
-        { "player.onLeave",                         nullptr /*&BFBC2CommandHandler::parsePlayerLeaveEvent*/ },
-        { "player.onSpawn",                         nullptr /*&BFBC2CommandHandler::parsePlayerSpawnEvent*/ },
-        { "player.onKill",                          nullptr /*&BFBC2CommandHandler::parsePlayerKillEvent*/ },
-        { "player.onChat",                          nullptr /*&BFBC2CommandHandler::parsePlayerChatEvent*/ },
-        { "player.onKicked",                        nullptr /*&BFBC2CommandHandler::parsePlayerKickedEvent*/ },
-        { "player.onSquadChange",                   nullptr /*&BFBC2CommandHandler::parsePlayerSquadChangeEvent*/ },
-        { "player.onTeamChange",                    nullptr /*&BFBC2CommandHandler::parsePlayerTeamChangeEvent*/ },
-        { "punkBuster.onMessage",                   nullptr /*&BFBC2CommandHandler::parsePunkBusterMessageEvent*/ },
-        { "punkBuster.onVersion",                   nullptr /*&BFBC2CommandHandler::parsePunkBusterVersionEvent*/ },
-        { "server.onLoadingLevel",                  nullptr /*&BFBC2CommandHandler::parseServerLoadingLevelEvent*/ },
-        { "server.onLevelStarted",                  nullptr /*&BFBC2CommandHandler::parseServerLevelStartedEvent*/ },
-        { "server.onRoundOver",                     nullptr /*&BFBC2CommandHandler::parseServerRoundOverEvent*/ },
-        { "server.onRoundOverPlayers",              nullptr /*&BFBC2CommandHandler::parseServerRoundOverPlayersEvent*/ },
-        { "server.onRoundOverTeamScores",           nullptr /*&BFBC2CommandHandler::parseServerRoundOverTeamScoresEvent*/ },
+        /*{ "player.onAuthenticated",                 &FrostbiteCommandHandler::parsePlayerAuthenticatedEvent },*/
+        /*{ "player.onJoin",                          &FrostbiteCommandHandler::parsePlayerJoinEvent },*/
+        /*{ "player.onLeave",                         &FrostbiteCommandHandler::parsePlayerLeaveEvent },*/
+        /*{ "player.onSpawn",                         &FrostbiteCommandHandler::parsePlayerSpawnEvent },*/
+        /*{ "player.onKill",                          &FrostbiteCommandHandler::parsePlayerKillEvent },*/
+        /*{ "player.onChat",                          &FrostbiteCommandHandler::parsePlayerChatEvent },*/
+        { "player.onKicked",                        &BFBC2CommandHandler::parsePlayerKickedEvent },
+        /*{ "player.onSquadChange",                   &FrostbiteCommandHandler::parsePlayerSquadChangeEvent },*/
+        /*{ "player.onTeamChange",                    &FrostbiteCommandHandler::parsePlayerTeamChangeEvent },*/
+        /*{ "punkBuster.onMessage",                   &FrostbiteCommandHandler::parsePunkBusterMessageEvent },*/
+        { "punkBuster.onVersion",                   &BFBC2CommandHandler::parsePunkBusterVersionEvent },
+        { "server.onLoadingLevel",                  &BFBC2CommandHandler::parseServerLoadingLevelEvent },
+        { "server.onLevelStarted",                  &BFBC2CommandHandler::parseServerLevelStartedEvent },
+        /*{ "server.onRoundOver",                     &FrostbiteCommandHandler::parseServerRoundOverEvent },*/
+        /*{ "server.onRoundOverPlayers",              &FrostbiteCommandHandler::parseServerRoundOverPlayersEvent },*/
+        /*{ "server.onRoundOverTeamScores",           &FrostbiteCommandHandler::parseServerRoundOverTeamScoresEvent },*/
 
         /* Commands */
         // Misc
-        { "login.plainText",                        &Frostbite2CommandHandler::parseLoginPlainTextCommand },
-        { "login.hashed",                           &Frostbite2CommandHandler::parseLoginHashedCommand },
-        { "serverInfo",                             &Frostbite2CommandHandler::parseServerInfoCommand },
-        { "logout",                                 &Frostbite2CommandHandler::parseLogoutCommand },
-        { "quit",                                   &Frostbite2CommandHandler::parseQuitCommand },
-        { "version",                                &Frostbite2CommandHandler::parseVersionCommand },
-        ///--{ "currentLevel",                           &Frostbite2CommandHandler::parseCurrentLevelCommand },
-        { "listPlayers",                            nullptr /*&Frostbite2CommandHandler::parseListPlayersCommand*/ },
+        /*{ "login.plainText",                        &FrostbiteCommandHandler::parseLoginPlainTextCommand },*/
+        /*{ "login.hashed",                           &FrostbiteCommandHandler::parseLoginHashedCommand },*/
+        /*{ "serverInfo",                             &FrostbiteCommandHandler::parseServerInfoCommand },*/
+        /*{ "logout",                                 &FrostbiteCommandHandler::parseLogoutCommand },*/
+        /*{ "quit",                                   &FrostbiteCommandHandler::parseQuitCommand },*/
+        /*{ "version",                                &FrostbiteCommandHandler::parseVersionCommand },*/
+        /*{ "listPlayers",                            &FrostbiteCommandHandler::parseListPlayersCommand },*/
 
         /// BFBC2 Only.
         //eventsEnabled
         //help
 
         // Admin
-        ///--{ "admin.eventsEnabled",                    &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
-        ///--{ "admin.help",                             &Frostbite2CommandHandler::parseAdminHelpCommand },
-        { "admin.kickPlayer",                       nullptr /*&Frostbite2CommandHandler::parseAdminKickPlayerCommand*/ },
-        { "admin.killPlayer",                       nullptr /*&Frostbite2CommandHandler::parseAdminKillPlayerCommand*/ },
-        { "admin.listPlayers",                      nullptr /*&Frostbite2CommandHandler::parseAdminListPlayersCommand*/ },
-        { "admin.movePlayer",                       nullptr /*&Frostbite2CommandHandler::parseAdminMovePlayerCommand*/ },
-        ///--{ "admin.password",                         &Frostbite2CommandHandler::parseAdminPasswordCommand },
-        { "admin.say",                              nullptr /*&Frostbite2CommandHandler::parseAdminSayCommand*/ },
-        { "admin.yell",                             nullptr /*&Frostbite2CommandHandler::parseAdminYellCommand*/ },
+        /*{ "admin.kickPlayer",                       &FrostbiteCommandHandler::parseAdminKickPlayerCommand },*/
+        /*{ "admin.killPlayer",                       &FrostbiteCommandHandler::parseAdminKillPlayerCommand },*/
+        /*{ "admin.listPlayers",                      &FrostbiteCommandHandler::parseAdminListPlayersCommand },*/
+        /*{ "admin.movePlayer",                       &FrostbiteCommandHandler::parseAdminMovePlayerCommand },*/
+        /*{ "admin.say",                              &FrostbiteCommandHandler::parseAdminSayCommand },*/
+        /*{ "admin.yell",                             &FrostbiteCommandHandler::parseAdminYellCommand },*/
 
         /// BFBC2 Only.
         //admin.runscript <filename>
@@ -94,52 +90,29 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         //admin.getPlaylists
 
         // Banning
-        { "banList.add",                            nullptr /*&Frostbite2CommandHandler::parseBanListAddCommand*/ },
-        { "banList.clear",                          nullptr /*&Frostbite2CommandHandler::parseBanListClearCommand*/ },
-        { "banList.list",                           &Frostbite2CommandHandler::parseBanListListCommand },
-        { "banList.load",                           nullptr /*&Frostbite2CommandHandler::parseBanListLoadCommand*/ },
-        { "banList.remove",                         nullptr /*&Frostbite2CommandHandler::parseBanListRemoveCommand*/ },
-        { "banList.save",                           nullptr /*&Frostbite2CommandHandler::parseBanListSaveCommand*/ },
+        /*{ "banList.add",                            &FrostbiteCommandHandler::parseBanListAddCommand },*/
+        /*{ "banList.clear",                          &FrostbiteCommandHandler::parseBanListClearCommand },*/
+        /*{ "banList.list",                           &FrostbiteCommandHandler::parseBanListListCommand },*/
+        /*{ "banList.load",                           &FrostbiteCommandHandler::parseBanListLoadCommand },*/
+        /*{ "banList.remove",                         &FrostbiteCommandHandler::parseBanListRemoveCommand },*/
+        /*{ "banList.save",                           &FrostbiteCommandHandler::parseBanListSaveCommand },*/
 
         // Maplist
-        ///--{ "mapList.add",                            nullptr /*&Frostbite2CommandHandler::parseMapListAddCommand*/ },
-        ///--{ "mapList.availableMaps",                  &Frostbite2CommandHandler::parseMapListAvailableMapsCommand },
-        { "mapList.clear",                          nullptr /*&Frostbite2CommandHandler::parseMapListClearCommand*/ },
-        ///--{ "mapList.endRound",                       nullptr /*&Frostbite2CommandHandler::parseMapListEndRoundCommand*/ },
-        ///--{ "mapList.getMapIndices",                  &Frostbite2CommandHandler::parseMapListGetMapIndicesCommand },
-        ///--{ "mapList.getRounds",                      &Frostbite2CommandHandler::parseMapListGetRoundsCommand },
-        { "mapList.list",                           &Frostbite2CommandHandler::parseMapListListCommand },
-        { "mapList.load",                           nullptr /*&Frostbite2CommandHandler::parseMapListLoadCommand*/ },
-        { "mapList.remove",                         nullptr /*&Frostbite2CommandHandler::parseMapListRemoveCommand*/ },
-        ///--{ "mapList.restartRound",                   nullptr /*&Frostbite2CommandHandler::parseMapListRestartRoundCommand*/ },
-        ///--{ "mapList.runNextRound",                   nullptr /*&Frostbite2CommandHandler::parseMapListRunNextRoundCommand*/ },
-        { "mapList.save",                           nullptr /*&Frostbite2CommandHandler::parseMapListSaveCommand*/ },
-        ///--{ "mapList.setNextMapIndex",                nullptr /*&Frostbite2CommandHandler::parseMapListSetNextMapIndexCommand*/ },
+        /*{ "mapList.clear",                          &FrostbiteCommandHandler::parseMapListClearCommand },*/
+        /*{ "mapList.list",                           &FrostbiteCommandHandler::parseMapListListCommand },*/
+        /*{ "mapList.load",                           &FrostbiteCommandHandler::parseMapListLoadCommand },*/
+        /*{ "mapList.remove",                         &FrostbiteCommandHandler::parseMapListRemoveCommand },*/
+        /*{ "mapList.save",                           &FrostbiteCommandHandler::parseMapListSaveCommand },*/
 
         /// BFBC2 Only.
         //mapList.append <name, rounds>
         //mapList.insert <index, name, rounds>
         //mapList.nextLevelIndex [index: integer]
 
-        // Player
-        ///--{ "player.idleDuration",                    &Frostbite2CommandHandler::parsePlayerIdleDurationCommand },
-        ///--{ "player.isAlive",                         &Frostbite2CommandHandler::parsePlayerIsAliveCommand },
-        ///--{ "player.ping",                            &Frostbite2CommandHandler::parsePlayerPingCommand },
-
         // Punkbuster
-        ///--{ "punkBuster.activate",                    nullptr /*&Frostbite2CommandHandler::parsePunkBusterActivateCommand*/ },
-        ///--{ "punkBuster.isActive",                    &Frostbite2CommandHandler::parsePunkBusterIsActiveCommand },
-        { "punkBuster.pb_sv_command",               nullptr /*&Frostbite2CommandHandler::parsePunkBusterPbSvCommand*/ },
+        /*{ "punkBuster.pb_sv_command",               &FrostbiteCommandHandler::parsePunkBusterPbSvCommand },*/
 
         // Reserved Slots
-        ///--{ "reservedSlotsList.add",                  nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListAddCommand*/ },
-        ///--{ "reservedSlotsList.aggressiveJoin",       &Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand },
-        ///--{ "reservedSlotsList.clear",                nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListClearCommand*/ },
-        ///--{ "reservedSlotsList.list",                 &Frostbite2CommandHandler::parseReservedSlotsListListCommand },
-        ///--{ "reservedSlotsList.load",                 nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListLoadCommand*/ },
-        ///--{ "reservedSlotsList.remove",               nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListRemoveCommand*/ },
-        ///--{ "reservedSlotsList.save",                 nullptr /*&Frostbite2CommandHandler::parseReservedSlotsListSaveCommand*/ },
-
         /// BFBC2 Only.
         //reservedSlots.load
         //reservedSlots.save
@@ -148,62 +121,20 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         //reservedSlots.clear
         //reservedSlots.list
 
-        // Squad
-        ///--{ "squad.leader",                           &Frostbite2CommandHandler::parseSquadLeaderCommand },
-        ///--{ "squad.listActive",                       nullptr /*&Frostbite2CommandHandler::parseSquadListActiveCommand*/ },
-        ///--{ "squad.listPlayers",                      &Frostbite2CommandHandler::parseSquadListPlayersCommand },
-        ///--{ "squad.private",                          &Frostbite2CommandHandler::parseSquadPrivateCommand },
-
-        // Text Chat Moderation
-        //textChatModerationList.load
-        //textChatModerationList.save
-        //textChatModerationList.add <moderationlevel> <name>
-        //textChatModerationList.remove <name>
-        //textChatModerationList.clear
-        //textChatModerationList.list [startOffset]
-
-        // Level Variables
-        //levelVars.set <context> <var name> <value>
-        //levelVars.get <context> <var name>
-        //levelVars.evaluate <var name>
-        //levelVars.clear <context> [var name]
-        //levelVars.list <context> [var name]
-
         // Variables
-        { "vars.3dSpotting",                        &Frostbite2CommandHandler::parseVars3dSpottingCommand },
-        ///--{ "vars.3pCam",                             &Frostbite2CommandHandler::parseVars3pCamCommand },
-        ///--{ "vars.autoBalance",                       &Frostbite2CommandHandler::parseVarsAutoBalanceCommand },
-        ///--{ "vars.bulletDamage",                      &Frostbite2CommandHandler::parseVarsBulletDamageCommand },
-        { "vars.friendlyFire",                      &Frostbite2CommandHandler::parseVarsFriendlyFireCommand },
-        ///--{ "vars.gameModeCounter",                   &Frostbite2CommandHandler::parseVarsGameModeCounterCommand },
-        { "vars.gamePassword",                      &Frostbite2CommandHandler::parseVarsGamePasswordCommand },
-        ///--{ "vars.hud",                               &Frostbite2CommandHandler::parseVarsHudCommand },
-        ///--{ "vars.idleBanRounds",                     &Frostbite2CommandHandler::parseVarsIdleBanRoundsCommand },
-        { "vars.idleTimeout",                       &Frostbite2CommandHandler::parseVarsIdleTimeoutCommand },
-        { "vars.killCam",                           &Frostbite2CommandHandler::parseVarsKillCamCommand },
-        ///--{ "vars.maxPlayers",                        &Frostbite2CommandHandler::parseVarsMaxPlayersCommand },
-        { "vars.miniMap",                           &Frostbite2CommandHandler::parseVarsMiniMapCommand },
-        { "vars.miniMapSpotting",                   &Frostbite2CommandHandler::parseVarsMiniMapSpottingCommand },
-        ///--{ "vars.nameTag",                           &Frostbite2CommandHandler::parseVarsNameTagCommand },
-        ///--{ "vars.onlySquadLeaderSpawn",              &Frostbite2CommandHandler::parseVarsOnlySquadLeaderSpawnCommand },
-        ///--{ "vars.playerRespawnTime",                 &Frostbite2CommandHandler::parseVarsPlayerRespawnTimeCommand },
-        ///--{ "vars.regenerateHealth",                  &Frostbite2CommandHandler::parseVarsRegenerateHealthCommand },
-        ///--{ "vars.roundLockdownCountdown",            &Frostbite2CommandHandler::parseVarsRoundLockdownCountdownCommand },
-        ///--{ "vars.roundRestartPlayerCount",           &Frostbite2CommandHandler::parseVarsRoundRestartPlayerCountCommand },
-        ///--{ "vars.roundStartPlayerCount",             &Frostbite2CommandHandler::parseVarsRoundStartPlayerCountCommand },
-        { "vars.serverDescription",                 &Frostbite2CommandHandler::parseVarsServerDescriptionCommand },
-        ///--{ "vars.serverMessage",                     &Frostbite2CommandHandler::parseVarsServerMessageCommand },
-        { "vars.serverName",                        &Frostbite2CommandHandler::parseVarsServerNameCommand },
-        ///--{ "vars.soldierHealth",                     &Frostbite2CommandHandler::parseVarsSoldierHealthCommand },
-        { "vars.teamKillCountForKick",              &Frostbite2CommandHandler::parseVarsTeamKillCountForKickCommand },
-        ///--{ "vars.teamKillKickForBan",                &Frostbite2CommandHandler::parseVarsTeamKillKickForBanCommand },
-        { "vars.teamKillValueDecreasePerSecond",    &Frostbite2CommandHandler::parseVarsTeamKillValueDecreasePerSecondCommand },
-        { "vars.teamKillValueForKick",              &Frostbite2CommandHandler::parseVarsTeamKillValueForKickCommand },
-        { "vars.teamKillValueIncrease",             &Frostbite2CommandHandler::parseVarsTeamKillValueIncreaseCommand },
-        ///--{ "vars.unlockMode",                        &Frostbite2CommandHandler::parseVarsUnlockModeCommand },
-        ///--{ "vars.vehicleSpawnAllowed",               &Frostbite2CommandHandler::parseVarsVehicleSpawnAllowedCommand },
-        ///--{ "vars.vehicleSpawnDelay",                 &Frostbite2CommandHandler::parseVarsVehicleSpawnDelayCommand },
-        ///--{ "vars.gunMasterWeaponsPreset",            nullptr /*&Frostbite2CommandHandler::parseGunMasterWeaponsPresetCommand*/ }
+        /*{ "vars.3dSpotting",                        &FrostbiteCommandHandler::parseVars3dSpottingCommand },*/
+        /*{ "vars.friendlyFire",                      &FrostbiteCommandHandler::parseVarsFriendlyFireCommand },*/
+        /*{ "vars.gamePassword",                      &FrostbiteCommandHandler::parseVarsGamePasswordCommand },*/
+        /*{ "vars.idleTimeout",                       &FrostbiteCommandHandler::parseVarsIdleTimeoutCommand },*/
+        /*{ "vars.killCam",                           &FrostbiteCommandHandler::parseVarsKillCamCommand },*/
+        /*{ "vars.miniMap",                           &FrostbiteCommandHandler::parseVarsMiniMapCommand },*/
+        /*{ "vars.miniMapSpotting",                   &FrostbiteCommandHandler::parseVarsMiniMapSpottingCommand },*/
+        /*{ "vars.serverDescription",                 &FrostbiteCommandHandler::parseVarsServerDescriptionCommand },*/
+        /*{ "vars.serverName",                        &FrostbiteCommandHandler::parseVarsServerNameCommand },*/
+        /*{ "vars.teamKillCountForKick",              &FrostbiteCommandHandler::parseVarsTeamKillCountForKickCommand },*/
+        /*{ "vars.teamKillValueDecreasePerSecond",    &FrostbiteCommandHandler::parseVarsTeamKillValueDecreasePerSecondCommand },*/
+        /*{ "vars.teamKillValueForKick",              &FrostbiteCommandHandler::parseVarsTeamKillValueForKickCommand },*/
+        /*{ "vars.teamKillValueIncrease",             &FrostbiteCommandHandler::parseVarsTeamKillValueIncreaseCommand }*/
 
         /// BFBC2 Only.
         //vars.adminPassword [password]
@@ -223,6 +154,21 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         //vars.textChatSpamTriggerCount [count]
         //vars.textChatSpamDetectionTime [time]
         //vars.textChatSpamCoolDownTime [time]
+
+        // Text Chat Moderation
+        //textChatModerationList.load
+        //textChatModerationList.save
+        //textChatModerationList.add <moderationlevel> <name>
+        //textChatModerationList.remove <name>
+        //textChatModerationList.clear
+        //textChatModerationList.list [startOffset]
+
+        // Level Variables
+        //levelVars.set <context> <var name> <value>
+        //levelVars.get <context> <var name>
+        //levelVars.evaluate <var name>
+        //levelVars.clear <context> [var name]
+        //levelVars.list <context> [var name]
     };
 
     if (responseList.contains(request)) {
@@ -233,7 +179,90 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         }
 
         return true;
-    } else {
-        return FrostbiteCommandHandler::parse(request, packet, lastSentPacket);
     }
+
+    return FrostbiteCommandHandler::parse(request, packet, lastSentPacket);
 }
+
+/* Send commands */
+// Misc
+void BFBC2CommandHandler::sendEventsEnabledCommand()
+{
+    connection->sendCommand("eventsEnabled");
+}
+
+void BFBC2CommandHandler::sendEventsEnabledCommand(bool enabled)
+{
+    connection->sendCommand(QString("\"eventsEnabled\" \"%1\"").arg(enabled));
+}
+
+void BFBC2CommandHandler::sendHelpCommand()
+{
+    connection->sendCommand("help");
+}
+
+// Admin
+
+// Banning
+
+// Maplist
+
+// Punkbuster
+
+// Reserved Slots
+
+// Variables
+
+/* Parse events */
+void BFBC2CommandHandler::parsePlayerKickedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString player = packet.getWord(1).getContent();
+    QString reason = packet.getWord(2).getContent();
+
+    emit (onPlayerKickedEvent(player, reason));
+}
+
+void BFBC2CommandHandler::parsePunkBusterVersionEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString version = packet.getWord(1).getContent();
+
+    emit (onPunkBusterVersionEvent(version));
+}
+
+void BFBC2CommandHandler::parseServerLoadingLevelEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString levelName = packet.getWord(1).getContent();
+    int roundsPlayed = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+    int roundsTotal = FrostbiteUtils::toInt(packet.getWord(3).getContent());
+
+    emit (onServerLoadingLevelEvent(levelName, roundsPlayed, roundsTotal));
+}
+
+void BFBC2CommandHandler::parseServerLevelStartedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(packet);
+    Q_UNUSED(lastSentPacket);
+
+    emit (onServerLevelStartedEvent());
+}
+
+/* Parse commands */
+// Misc
+
+// Admin
+
+// Banning
+
+// Maplist
+
+// Punkbuster
+
+// Reserved Slots
+
+// Variables

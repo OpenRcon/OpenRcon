@@ -92,7 +92,7 @@ public:
     //player.isAlive
     //player.ping
 
-    // PunkBuster
+    // Punkbuster
     //punkBuster.activate
     //punkBuster.isActive
     //punkBuster.pb_sv_command <command>

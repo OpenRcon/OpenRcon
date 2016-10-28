@@ -66,9 +66,9 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         }
 
         return true;
-    } else {
-        return Frostbite2CommandHandler::parse(request, packet, lastSentPacket);
     }
+
+    return Frostbite2CommandHandler::parse(request, packet, lastSentPacket);
 }
 
 /* Send commands */

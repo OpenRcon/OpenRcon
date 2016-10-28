@@ -24,7 +24,7 @@
 
 #include "Client.h"
 #include "FrostbiteConnection.h"
-#include "Frostbite2CommandHandler.h"
+#include "FrostbiteCommandHandler.h"
 
 class QString;
 class QByteArray;
@@ -36,14 +36,14 @@ class FrostbiteClient : public Client
     Q_OBJECT
 
 public:
-    FrostbiteClient(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent = nullptr);
+    FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandler *commandHandler, QObject *parent = nullptr);
     virtual ~FrostbiteClient() override;
 
     FrostbiteConnection *getConnection() final {
         return connection;
     }
 
-    virtual Frostbite2CommandHandler *getCommandHandler() override {
+    virtual FrostbiteCommandHandler *getCommandHandler() override {
         return commandHandler;
     }
 
@@ -53,7 +53,7 @@ public:
 
 protected:
     FrostbiteConnection *connection;
-    Frostbite2CommandHandler *commandHandler;
+    FrostbiteCommandHandler *commandHandler;
 
     QMap<int, QString> versionMap;
 

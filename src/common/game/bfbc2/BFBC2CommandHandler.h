@@ -35,409 +35,240 @@ public:
     bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) final;
 
     /* Send commands */
-
-
-
-
-
-
-
-
-
-
-    /* Send commands */
     // Misc
-    //login.plainText <password>
-    //login.hashed
-    //login.hashed <passwordHard>
-    //serverInfo
-    //logout
-    //quit
-    //version
-    //currentLevel
-    void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset);
+    /// BFBC2 Only.
+    void sendEventsEnabledCommand();
+    void sendEventsEnabledCommand(bool enabled);
+    void sendHelpCommand();
 
     // Admin
-    //admin.eventsEnabled <enabled>
-    //admin.help
-    //admin.kickPlayer <soldier name, reason>
-    //admin.killPlayer <name>
-    void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset);
-    //admin.movePlayer <name, teamID, squadID, forceKill>
-    //admin.password [password]
-    //admin.say <message, players>
-    //admin.yell <message, duration, players>
-
-    /// BF3 Only.
-    void sendAdminEffectiveMaxPlayersCommand();
+    /// BFBC2 Only.
+    //admin.runscript <filename>
+    //admin.runNextRound
+    //admin.restartRound
+    //admin.endRound <teamID>
+    //admin.currentLevel
+    //admin.supportedMaps <play list>
+    //admin.setPlaylist <name>
+    //admin.getPlaylist
+    //admin.getPlaylists
 
     // Banning
-    //banList.add <id-type, id, timeout, reason>
-    //banList.clear
-    //banList.list [startIndex]
-    //banList.load
-    //banList.remove <id-type, id>
-    //banList.save
 
     // Maplist
-    //mapList.add <map> <gamemode> <rounds> <offset>
-    //mapList.availableMaps
-    //mapList.clear
-    //mapList.endRound <teamID>
-    //mapList.getMapIndices
-    //mapList.getRounds
-    //mapList.list [startIndex]
-    //mapList.load
-    //mapList.remove <index>
-    //mapList.restartRound
-    //mapList.runNextRound
-    //mapList.save
-    //mapList.setNextMapIndex <index>
+    /// BFBC2 Only.
+    //mapList.append <name, rounds>
+    //mapList.insert <index, name, rounds>
+    //mapList.nextLevelIndex [index: integer]
 
-    // Player
-    /// Differ from BF4?
-    //player.idleDuration
-    //player.isAlive
-    //player.ping
-
-    // PunkBuster
-    //punkBuster.activate
-    //punkBuster.isActive
-    //punkBuster.pb_sv_command <command>
+    // Punkbuster
 
     // Reserved Slots
-    //reservedSlotsList.add <name> Add <name>
-    //reservedSlotsList.aggressiveJoin [enabled]
-    //reservedSlotsList.clear
-    //reservedSlotsList.list
-    //reservedSlotsList.load
-    //reservedSlotsList.remove <name>
-    //reservedSlotsList.save
-
-    // Squad
-    //squad.leader <team id, squad id, [soldier name]>
-    //squad.listActive <team id>
-    //squad.listPlayers <team id, squad id>
-    //squad.private <team id, squad id, [private]>
+    /// BFBC2 Only.
+    //reservedSlots.load
+    //reservedSlots.save
+    //reservedSlots.addPlayer <name>
+    //reservedSlots.removePlayer <name>
+    //reservedSlots.clear
+    //reservedSlots.list
 
     // Variables
-    //vars.3dSpotting [enabled]
-    //vars.3pCam [enabled]
-    //vars.autoBalance [enabled]
-    //vars.bulletDamage [modifier: percent]
-    //vars.friendlyFire [enabled]
-    //vars.gameModeCounter [modifier: integer]
-    //vars.gamePassword [password]
-    //vars.hud [enabled]
-    //vars.idleBanRounds [enabled]
-    //vars.idleTimeout [time]
-    //vars.killCam [enabled]
-    //vars.maxPlayers [nr of players]
-    //vars.miniMap [enabled]
-    //vars.miniMapSpotting [enabled]
-    //vars.nameTag [enabled]
-    //vars.onlySquadLeaderSpawn [enabled]
-    //vars.playerRespawnTime [modifier: percent]
-    //vars.regenerateHealth [enabled]
-    //vars.roundLockdownCountdown [time]
-    //vars.roundRestartPlayerCount [numPlayers]
-    //vars.roundStartPlayerCount [numPlayers]
-    //vars.serverDescription [description]
-    //vars.serverMessage [message]
-    //vars.serverName [name]
-    //vars.soldierHealth [modifier: percent]
-    //vars.teamKillCountForKick [count]
-    //vars.teamKillKickForBan [count]
-    //vars.teamKillValueDecreasePerSecond [count]
-    //vars.teamKillValueForKick [count]
-    //vars.teamKillValueIncrease [count]
-    //vars.unlockMode [mode]
-    //vars.vehicleSpawnAllowed [enabled]
-    //vars.vehicleSpawnDelay [modifier: percent]
-    void sendVarsGunMasterWeaponsPresetCommand(int weaponPreset = -1);
+    /// BFBC2 Only.
+    //vars.adminPassword [password]
+    //vars.punkBuster [enabled]
+    //vars.hardCore
+    //vars.ranked
+    //vars.rankLimit [rank]
+    //vars.teamBalance [enabled]
+    //vars.currentPlayerLimit
+    //vars.maxPlayerLimit
+    //vars.playerLimit [nr of players]
+    //vars.bannerUrl [url]
+    //vars.crossHair [enabled]
+    //vars.thirdPersonVehicleCameras [enabled]
+    //vars.profanityFilter [enabled]
+    //vars.textChatModerationMode [moderation mode]
+    //vars.textChatSpamTriggerCount [count]
+    //vars.textChatSpamDetectionTime [time]
+    //vars.textChatSpamCoolDownTime [time]
 
-    /// BF3 Only.
-    void sendVarsRankedCommand();
-    void sendVarsRankedCommand(bool ranked);
-    void sendVarsCrossHairCommand();
-    void sendVarsCrossHairCommand(bool enabled);
-    void sendVarsPlayerManDownTimeCommand(int percent = -1);
-    void sendVarsPremiumStatusCommand();
-    void sendVarsPremiumStatusCommand(bool enabled);
-    void sendVarsBannerUrlCommand(const QString &bannerUrl = QString());
-    void sendVarsRoundsPerMapCommand(int rounds = -1);
+    // Text Chat Moderation
+    //textChatModerationList.load
+    //textChatModerationList.save
+    //textChatModerationList.add <moderationlevel> <name>
+    //textChatModerationList.remove <name>
+    //textChatModerationList.clear
+    //textChatModerationList.list [startOffset]
+
+    // Level Variables
+    //levelVars.set <context> <var name> <value>
+    //levelVars.get <context> <var name>
+    //levelVars.evaluate <var name>
+    //levelVars.clear <context> [var name]
+    //levelVars.list <context> [var name]
 
 private:
     /* Parse events */
-    //player.onAuthenticated
-    //player.onJoin
-    //player.onLeave
-    //player.onSpawn
-    //player.onKill
-    //player.onChat
-    //player.onSquadChange
-    //player.onTeamChange
-    //punkBuster.onMessage
-    //server.onMaxPlayerCountChange
-    //server.onLevelLoaded
-    //server.onRoundOver
-    //server.onRoundOverPlayers
-    //server.onRoundOverTeamScores
+    void parsePlayerKickedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parsePunkBusterVersionEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerLoadingLevelEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseServerLevelStartedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
+    //player.onKicked
+    //punkBuster.onVersion
+    //server.onLoadingLevel
+    //server.onLevelStarted
 
     /* Parse commands */
     // Misc
-    //login.plainText <password>
-    //login.hashed
-    //login.hashed <passwordHard>
-    //serverInfo
-    //logout
-    //quit
-    //version
-    //currentLevel
-    void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    /// BFBC2 Only.
+    //eventsEnabled
+    //help
 
     // Admin
-    //admin.eventsEnabled <enabled>
-    //admin.help
-    //admin.kickPlayer <soldier name, reason>
-    //admin.killPlayer <name>
-    void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    //admin.movePlayer <name, teamID, squadID, forceKill>
-    //admin.password [password]
-    //admin.say <message, players>
-    //admin.yell <message, duration, players>
-
-    /// BF3 Only.
-    void parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    /// BFBC2 Only.
+    //admin.runscript <filename>
+    //admin.runNextRound
+    //admin.restartRound
+    //admin.endRound <teamID>
+    //admin.currentLevel
+    //admin.supportedMaps <play list>
+    //admin.setPlaylist <name>
+    //admin.getPlaylist
+    //admin.getPlaylists
 
     // Banning
-    //banList.add <id-type, id, timeout, reason>
-    //banList.clear
-    //banList.list [startIndex]
-    //banList.load
-    //banList.remove <id-type, id>
-    //banList.save
 
     // Maplist
-    //mapList.add <map> <gamemode> <rounds> <offset>
-    //mapList.availableMaps
-    //mapList.clear
-    //mapList.endRound <teamID>
-    //mapList.getMapIndices
-    //mapList.getRounds
-    //mapList.list [startIndex]
-    //mapList.load
-    //mapList.remove <index>
-    //mapList.restartRound
-    //mapList.runNextRound
-    //mapList.save
-    //mapList.setNextMapIndex <index>
+    /// BFBC2 Only.
+    //mapList.append <name, rounds>
+    //mapList.insert <index, name, rounds>
+    //mapList.nextLevelIndex [index: integer]
 
-    // Player
-    /// Differ from BF4?
-    //player.idleDuration
-    //player.isAlive
-    //player.ping
-
-    // PunkBuster
-    //punkBuster.activate
-    //punkBuster.isActive
-    //punkBuster.pb_sv_command <command>
+    // Punkbuster
 
     // Reserved Slots
-    //reservedSlotsList.add <name> Add <name>
-    //reservedSlotsList.aggressiveJoin [enabled]
-    //reservedSlotsList.clear
-    //reservedSlotsList.list
-    //reservedSlotsList.load
-    //reservedSlotsList.remove <name>
-    //reservedSlotsList.save
-
-    // Squad
-    //squad.leader <team id, squad id, [soldier name]>
-    //squad.listActive <team id>
-    //squad.listPlayers <team id, squad id>
-    //squad.private <team id, squad id, [private]>
+    /// BFBC2 Only.
+    //reservedSlots.load
+    //reservedSlots.save
+    //reservedSlots.addPlayer <name>
+    //reservedSlots.removePlayer <name>
+    //reservedSlots.clear
+    //reservedSlots.list
 
     // Variables
-    //vars.3dSpotting [enabled]
-    //vars.3pCam [enabled]
-    //vars.autoBalance [enabled]
-    //vars.bulletDamage [modifier: percent]
-    //vars.friendlyFire [enabled]
-    //vars.gameModeCounter [modifier: integer]
-    //vars.gamePassword [password]
-    //vars.hud [enabled]
-    //vars.idleBanRounds [enabled]
-    //vars.idleTimeout [time]
-    //vars.killCam [enabled]
-    //vars.maxPlayers [nr of players]
-    //vars.miniMap [enabled]
-    //vars.miniMapSpotting [enabled]
-    //vars.nameTag [enabled]
-    //vars.onlySquadLeaderSpawn [enabled]
-    //vars.playerRespawnTime [modifier: percent]
-    //vars.regenerateHealth [enabled]
-    //vars.roundLockdownCountdown [time]
-    //vars.roundRestartPlayerCount [numPlayers]
-    //vars.roundStartPlayerCount [numPlayers]
-    //vars.serverDescription [description]
-    //vars.serverMessage [message]
-    //vars.serverName [name]
-    //vars.soldierHealth [modifier: percent]
-    //vars.teamKillCountForKick [count]
-    //vars.teamKillKickForBan [count]
-    //vars.teamKillValueDecreasePerSecond [count]
-    //vars.teamKillValueForKick [count]
-    //vars.teamKillValueIncrease [count]
-    //vars.unlockMode [mode]
-    //vars.vehicleSpawnAllowed [enabled]
-    //vars.vehicleSpawnDelay [modifier: percent]
-    void parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    /// BFBC2 Only.
+    //vars.adminPassword [password]
+    //vars.punkBuster [enabled]
+    //vars.hardCore
+    //vars.ranked
+    //vars.rankLimit [rank]
+    //vars.teamBalance [enabled]
+    //vars.currentPlayerLimit
+    //vars.maxPlayerLimit
+    //vars.playerLimit [nr of players]
+    //vars.bannerUrl [url]
+    //vars.crossHair [enabled]
+    //vars.thirdPersonVehicleCameras [enabled]
+    //vars.profanityFilter [enabled]
+    //vars.textChatModerationMode [moderation mode]
+    //vars.textChatSpamTriggerCount [count]
+    //vars.textChatSpamDetectionTime [time]
+    //vars.textChatSpamCoolDownTime [time]
 
-    /// BF3 Only.
-    void parseVarsRankedCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsCrossHairCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsPlayerManDownTimeCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsPremiumStatusCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsBannerUrlCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    void parseVarsRoundsPerMapCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    // Text Chat Moderation
+    //textChatModerationList.load
+    //textChatModerationList.save
+    //textChatModerationList.add <moderationlevel> <name>
+    //textChatModerationList.remove <name>
+    //textChatModerationList.clear
+    //textChatModerationList.list [startOffset]
+
+    // Level Variables
+    //levelVars.set <context> <var name> <value>
+    //levelVars.get <context> <var name>
+    //levelVars.evaluate <var name>
+    //levelVars.clear <context> [var name]
+    //levelVars.list <context> [var name]
 
 signals:
     /* Event signals */
-    //player.onAuthenticated
-    //player.onJoin
-    //player.onLeave
-    //player.onSpawn
-    //player.onKill
-    //player.onChat
-    //player.onSquadChange
-    //player.onTeamChange
-    //punkBuster.onMessage
-    //server.onMaxPlayerCountChange
-    //server.onLevelLoaded
-    //server.onRoundOver
-    //server.onRoundOverPlayers
-    //server.onRoundOverTeamScores
+    void onPlayerKickedEvent(const QString &player, const QString &reason);
+    void onPunkBusterVersionEvent(const QString &version);
+    void onServerLoadingLevelEvent(const QString &levelName, int roundsPlayed, int roundsTotal);
+    void onServerLevelStartedEvent();
 
     /* Command signals */
     // Misc
-    //login.plainText <password>
-    //login.hashed
-    //login.hashed <passwordHard>
-    //serverInfo
-    //logout
-    //quit
-    //version
-    //currentLevel
-    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
+    /// BFBC2 Only.
+    //eventsEnabled
+    //help
 
     // Admin
-    //admin.eventsEnabled <enabled>
-    //admin.help
-    //admin.kickPlayer <soldier name, reason>
-    //admin.killPlayer <name>
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
-    //admin.movePlayer <name, teamID, squadID, forceKill>
-    //admin.password [password]
-    //admin.say <message, players>
-    //admin.yell <message, duration, players>
-
-    /// BF3 Only.
-    void onAdminEffectiveMaxPlayersCommand(int effectiveMaxPlayers);
+    /// BFBC2 Only.
+    //admin.runscript <filename>
+    //admin.runNextRound
+    //admin.restartRound
+    //admin.endRound <teamID>
+    //admin.currentLevel
+    //admin.supportedMaps <play list>
+    //admin.setPlaylist <name>
+    //admin.getPlaylist
+    //admin.getPlaylists
 
     // Banning
-    //banList.add <id-type, id, timeout, reason>
-    //banList.clear
-    //banList.list [startIndex]
-    //banList.load
-    //banList.remove <id-type, id>
-    //banList.save
 
     // Maplist
-    //mapList.add <map> <gamemode> <rounds> <offset>
-    //mapList.availableMaps
-    //mapList.clear
-    //mapList.endRound <teamID>
-    //mapList.getMapIndices
-    //mapList.getRounds
-    //mapList.list [startIndex]
-    //mapList.load
-    //mapList.remove <index>
-    //mapList.restartRound
-    //mapList.runNextRound
-    //mapList.save
-    //mapList.setNextMapIndex <index>
+    /// BFBC2 Only.
+    //mapList.append <name, rounds>
+    //mapList.insert <index, name, rounds>
+    //mapList.nextLevelIndex [index: integer]
 
-    // Player
-    /// Differ from BF4?
-    //player.idleDuration
-    //player.isAlive
-    //player.ping
-
-    // PunkBuster
-    //punkBuster.activate
-    //punkBuster.isActive
-    //punkBuster.pb_sv_command <command>
+    // Punkbuster
 
     // Reserved Slots
-    //reservedSlotsList.add <name> Add <name>
-    //reservedSlotsList.aggressiveJoin [enabled]
-    //reservedSlotsList.clear
-    //reservedSlotsList.list
-    //reservedSlotsList.load
-    //reservedSlotsList.remove <name>
-    //reservedSlotsList.save
-
-    // Squad
-    //squad.leader <team id, squad id, [soldier name]>
-    //squad.listActive <team id>
-    //squad.listPlayers <team id, squad id>
-    //squad.private <team id, squad id, [private]>
+    /// BFBC2 Only.
+    //reservedSlots.load
+    //reservedSlots.save
+    //reservedSlots.addPlayer <name>
+    //reservedSlots.removePlayer <name>
+    //reservedSlots.clear
+    //reservedSlots.list
 
     // Variables
-    //vars.3dSpotting [enabled]
-    //vars.3pCam [enabled]
-    //vars.autoBalance [enabled]
-    //vars.bulletDamage [modifier: percent]
-    //vars.friendlyFire [enabled]
-    //vars.gameModeCounter [modifier: integer]
-    //vars.gamePassword [password]
-    //vars.hud [enabled]
-    //vars.idleBanRounds [enabled]
-    //vars.idleTimeout [time]
-    //vars.killCam [enabled]
-    //vars.maxPlayers [nr of players]
-    //vars.miniMap [enabled]
-    //vars.miniMapSpotting [enabled]
-    //vars.nameTag [enabled]
-    //vars.onlySquadLeaderSpawn [enabled]
-    //vars.playerRespawnTime [modifier: percent]
-    //vars.regenerateHealth [enabled]
-    //vars.roundLockdownCountdown [time]
-    //vars.roundRestartPlayerCount [numPlayers]
-    //vars.roundStartPlayerCount [numPlayers]
-    //vars.serverDescription [description]
-    //vars.serverMessage [message]
-    //vars.serverName [name]
-    //vars.soldierHealth [modifier: percent]
-    //vars.teamKillCountForKick [count]
-    //vars.teamKillKickForBan [count]
-    //vars.teamKillValueDecreasePerSecond [count]
-    //vars.teamKillValueForKick [count]
-    //vars.teamKillValueIncrease [count]
-    //vars.unlockMode [mode]
-    //vars.vehicleSpawnAllowed [enabled]
-    //vars.vehicleSpawnDelay [modifier: percent]
-    void onVarsGunMasterWeaponsPresetCommand(int weaponPreset);
+    /// BFBC2 Only.
+    //vars.adminPassword [password]
+    //vars.punkBuster [enabled]
+    //vars.hardCore
+    //vars.ranked
+    //vars.rankLimit [rank]
+    //vars.teamBalance [enabled]
+    //vars.currentPlayerLimit
+    //vars.maxPlayerLimit
+    //vars.playerLimit [nr of players]
+    //vars.bannerUrl [url]
+    //vars.crossHair [enabled]
+    //vars.thirdPersonVehicleCameras [enabled]
+    //vars.profanityFilter [enabled]
+    //vars.textChatModerationMode [moderation mode]
+    //vars.textChatSpamTriggerCount [count]
+    //vars.textChatSpamDetectionTime [time]
+    //vars.textChatSpamCoolDownTime [time]
 
-    /// BF3 Only.
-    void onVarsRankedCommand(bool ranked);
-    void onVarsCrossHairCommand(bool enabled);
-    void onVarsPlayerManDownTimeCommand(int percent);
-    void onVarsPremiumStatusCommand(bool enabled);
-    void onVarsBannerUrlCommand(const QString &bannerUrl);
-    void onVarsRoundsPerMapCommand(int rounds);
+    // Text Chat Moderation
+    //textChatModerationList.load
+    //textChatModerationList.save
+    //textChatModerationList.add <moderationlevel> <name>
+    //textChatModerationList.remove <name>
+    //textChatModerationList.clear
+    //textChatModerationList.list [startOffset]
+
+    // Level Variables
+    //levelVars.set <context> <var name> <value>
+    //levelVars.get <context> <var name>
+    //levelVars.evaluate <var name>
+    //levelVars.clear <context> [var name]
+    //levelVars.list <context> [var name]
 
 };
 

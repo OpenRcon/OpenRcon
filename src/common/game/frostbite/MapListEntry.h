@@ -44,6 +44,4 @@ private:
 
 };
 
-typedef QList<MapListEntry> MapList;
-
 #endif // MAPLISTENTRY_H
