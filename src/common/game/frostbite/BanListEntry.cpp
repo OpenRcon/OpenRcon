@@ -41,3 +41,33 @@ BanListEntry::~BanListEntry()
 {
 
 }
+
+QString BanListEntry::getIdType()
+{
+    return idType;
+}
+
+QString BanListEntry::getId()
+{
+    return id;
+}
+
+QString BanListEntry::getBanType()
+{
+    return banType;
+}
+
+int BanListEntry::getSeconds()
+{
+    return seconds;
+}
+
+int BanListEntry::getRounds()
+{
+    return rounds;
+}
+
+QString BanListEntry::getReason()
+{
+    return reason;
+}

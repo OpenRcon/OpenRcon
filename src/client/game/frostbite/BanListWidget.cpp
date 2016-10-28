@@ -145,8 +145,8 @@ void BanListWidget::setBanlist(const QList<BanListEntry> &banList)
     ui->tableWidget_bl_banList->clearContents();
     ui->tableWidget_bl_banList->setRowCount(0);
 
-    for (BanListEntry entry : banList) {
-        addBanListItem(entry.idType, entry.id, entry.banType, entry.seconds, entry.rounds, entry.reason);
+    for (BanListEntry banListEntry : banList) {
+        addBanListItem(banListEntry.getBanType(), banListEntry.getId(), banListEntry.getBanType(), banListEntry.getSeconds(), banListEntry.getRounds(), banListEntry.getReason());
     }
 }
 

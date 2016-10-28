@@ -22,24 +22,25 @@
 
 #include <QString>
 
-struct BanListEntry
+class BanListEntry
 {
+public:
     BanListEntry(const QString &idType,
                  const QString &id,
                  const QString &banType,
                  int seconds,
                  int rounds,
-                 const QString &reason) :
-        idType(idType),
-        id(id),
-        banType(banType),
-        seconds(seconds),
-        rounds(rounds),
-        reason(reason)
-    {
+                 const QString &reason);
+    ~BanListEntry();
 
-    }
+    QString getIdType();
+    QString getId();
+    QString getBanType();
+    int getSeconds();
+    int getRounds();
+    QString getReason();
 
+private:
     QString idType;
     QString id;
     QString banType;

@@ -33,6 +33,12 @@ public:
                  const QString &reason);
     ~BanListEntry();
 
+    QString getIdType();
+    QString getId();
+    QString getBanType();
+    int getSeconds();
+    int getRounds();
+    QString getReason();
 
 private:
     QString idType;
