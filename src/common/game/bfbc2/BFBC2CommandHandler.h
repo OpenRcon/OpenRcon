@@ -17,25 +17,33 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF3COMMANDHANDLER_H
-#define BF3COMMANDHANDLER_H
+#ifndef BFBC2COMMANDHANDLER_H
+#define BFBC2COMMANDHANDLER_H
 
-#include "Frostbite2CommandHandler.h"
+#include "FrostbiteCommandHandler.h"
 
 class QStringList;
 
-enum class PlayerSubsetEnum;
-class PlayerInfo;
-
-class BF3CommandHandler : public Frostbite2CommandHandler
+class BFBC2CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT
 
 public:
-    BF3CommandHandler(QObject *parent = nullptr);
-    ~BF3CommandHandler() final;
+    BFBC2CommandHandler(QObject *parent = nullptr);
+    ~BFBC2CommandHandler() final;
 
     bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) final;
+
+    /* Send commands */
+
+
+
+
+
+
+
+
+
 
     /* Send commands */
     // Misc
@@ -433,4 +441,4 @@ signals:
 
 };
 
-#endif // BF3COMMANDHANDLER_H
+#endif // BFBC2COMMANDHANDLER_H

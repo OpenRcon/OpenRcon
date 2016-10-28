@@ -10,6 +10,7 @@ SOURCES += $$PWD/Connection.cpp \
     $$PWD/Client.cpp
 
 include(frostbite/frostbite.pri)
+include(bfbc2/bfbc2.pri)
 include(frostbite2/frostbite2.pri)
 include(bf3/bf3.pri)
 include(bf4/bf4.pri)

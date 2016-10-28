@@ -17,10 +17,10 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BF3Client.h"
+#include "BFBC2Client.h"
 
-BF3Client::BF3Client(ServerEntry *serverEntry, QObject *parent) :
-    Frostbite2Client(serverEntry, new BF3CommandHandler(), parent)
+BFBC2Client::BFBC2Client(ServerEntry *serverEntry, QObject *parent) :
+    FrostbiteClient(serverEntry, new BFBC2CommandHandler(), parent)
 {
     versionMap = {
         { 872601,  "OB-E" },
@@ -65,7 +65,7 @@ BF3Client::BF3Client(ServerEntry *serverEntry, QObject *parent) :
     };
 }
 
-BF3Client::~BF3Client()
+BFBC2Client::~BFBC2Client()
 {
 
 }

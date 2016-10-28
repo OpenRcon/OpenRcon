@@ -17,23 +17,24 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4CLIENT_H
-#define BF4CLIENT_H
+#ifndef BFBC2CLIENT_H
+#define BFBC2CLIENT_H
 
-#include "Frostbite2Client.h"
-#include "BF4CommandHandler.h"
+#include "FrostbiteClient.h"
+#include "BFBC2CommandHandler.h"
 
-class BF4Client : public Frostbite2Client
+class BFBC2Client : public FrostbiteClient
 {
     Q_OBJECT
 
 public:
-    BF4Client(ServerEntry *serverEntry, QObject *parent = nullptr);
-    ~BF4Client() final;
+    BFBC2Client(ServerEntry *serverEntry, QObject *parent = nullptr);
+    ~BFBC2Client() final;
 
-    BF4CommandHandler *getCommandHandler() final {
-        return dynamic_cast<BF4CommandHandler*>(commandHandler);
+    BFBC2CommandHandler *getCommandHandler() final {
+        return dynamic_cast<BFBC2CommandHandler*>(commandHandler);
     }
+
 };
 
-#endif // BF4CLIENT_H
+#endif // BFBC2CLIENT_H

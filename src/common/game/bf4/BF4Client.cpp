@@ -18,8 +18,6 @@
  */
 
 #include "BF4Client.h"
-
-#include "GameType.h"
 #include "ServerEntry.h"
 
 BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
