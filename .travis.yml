@@ -16,9 +16,6 @@ addons:
      - qttools5-dev-tools
 
 before_install:
- - sudo add-apt-repository --yes /ppa
- - sudo apt-get -qq update
- - sudo apt-get install -y qt5-default qttools5-dev-tools
 
 script:
  - qmake -project
