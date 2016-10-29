@@ -1,8 +1,19 @@
 sudo: required
 dist: trusty      
-matrix: include: - os: linux addons: apt: sources: - ubuntu-toolchain-r-test packages: - g++-4.9 env: - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9" - os: linux addons: apt: sources: - ubuntu-toolchain-r-test packages: - g++-5 env: - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5" - os: linux addons: apt: sources: - ubuntu-toolchain-r-test packages: - g++-6 env: - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6" before_install: - eval "${MATRIX_EVAL}"language: cpp
+language: cpp
 
-before_install:
+matrix:
+	include:
+		- os: linux 
+			addons: 
+				apt: 
+					sources: - ubuntu-toolchain-r-test
+					packages: - g++-4.9
+			env: - MATRIX_EVAL="CC=gcc-4"
+
+before_install: 
+ - eval "${MATRIX_EVAL}"
+
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo apt-get -qq update
  - sudo apt-get install -y qt5-default qttools5-dev-tools
