@@ -4,17 +4,17 @@ language: cpp
 
 matrix:
   include:
-    - os: linux 
-      addons: 
-	apt: 
-	  sources:
+    - os: linux
+      addons:
+        apt:
+          sources:
             - ubuntu-toolchain-r-test
-	  packages: 
+          packages:
             - g++-4.9
       env:
-	- MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
 
-before_install: 
+before_install:
  - eval "${MATRIX_EVAL}"
 
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
@@ -25,4 +25,3 @@ script:
  - qmake -project
  - qmake openrcon.pro
  - make
-
