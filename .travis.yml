@@ -5,9 +5,6 @@ language: cpp
 compiler:
   - gcc-4.9
 
-matrix:
-  include:
-    - os: linux
       addons:
         apt:
           sources:
