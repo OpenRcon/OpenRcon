@@ -3,8 +3,11 @@ dist: trusty
 language: cpp
 
 compiler:
-  - gcc-6
+  - gcc
 
+install:
+- if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
+  
 addons:
   apt:
     sources:
@@ -12,12 +15,9 @@ addons:
      - ubuntu-sdk-team
     packages:
      - g++-6
+     - gcc-6
      - qt5-default
      - qttools5-dev-tools
-
-before_install:
- - export CXX=g++-6
- - export CC=gcc-6
 
 script:
  - qmake -project
