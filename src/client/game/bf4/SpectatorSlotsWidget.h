@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,33 +20,33 @@
 #ifndef SPECTATORSLOTSWIDGET_H
 #define SPECTATORSLOTSWIDGET_H
 
-#include <QWidget>
+#include "BF4Widget.h"
 
 class QMenu;
 class QAction;
-
-class BF4Client;
 
 namespace Ui {
     class SpectatorSlotsWidget;
 }
 
-class SpectatorSlotsWidget : public QWidget
+class SpectatorSlotsWidget : public BF4Widget
 {
     Q_OBJECT
 
 public:
     SpectatorSlotsWidget(BF4Client *client, QWidget *parent = nullptr);
-    ~SpectatorSlotsWidget();
+    ~SpectatorSlotsWidget() final;
 
 private:
     Ui::SpectatorSlotsWidget *ui;
-    BF4Client *client;
 
+    /* User Interface */
     QMenu *menu_spectatorList;
     QAction *action_spectatorList_remove;
 
 private slots:
+    /* Events */
+
     /* Commands */
     void onLoginHashedCommand(bool auth);
     void onSpectatorListListCommand(const QStringList &spectatorList);

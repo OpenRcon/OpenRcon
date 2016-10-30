@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -22,12 +22,10 @@
 
 #include "SpectatorSlotsWidget.h"
 #include "ui_SpectatorSlotsWidget.h"
-#include "BF4Client.h"
 
 SpectatorSlotsWidget::SpectatorSlotsWidget(BF4Client *client, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::SpectatorSlotsWidget),
-    client(client)
+    BF4Widget(client, parent),
+    ui(new Ui::SpectatorSlotsWidget)
 {
     ui->setupUi(this);
 
@@ -37,8 +35,8 @@ SpectatorSlotsWidget::SpectatorSlotsWidget(BF4Client *client, QWidget *parent) :
     menu_spectatorList->addAction(action_spectatorList_remove);
 
     /* Commands */
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &SpectatorSlotsWidget::onLoginHashedCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onSpectatorListListCommand,                                                       this, &SpectatorSlotsWidget::onSpectatorListListCommand);
+    connect(getClient()->getCommandHandler(),   static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),    this,   &SpectatorSlotsWidget::onLoginHashedCommand);
+    connect(getClient()->getCommandHandler(),   &BF4CommandHandler::onSpectatorListListCommand,                                                           this,   &SpectatorSlotsWidget::onSpectatorListListCommand);
 
     /* User Interface */
     connect(ui->listWidget_spectatorList, &QListWidget::customContextMenuRequested, this, &SpectatorSlotsWidget::listWidget_spectatorList_customContextMenuRequested);
@@ -57,7 +55,7 @@ SpectatorSlotsWidget::~SpectatorSlotsWidget()
 void SpectatorSlotsWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        client->getCommandHandler()->sendSpectatorListListCommand();
+        getClient()->getCommandHandler()->sendSpectatorListListCommand();
     }
 }
 
@@ -85,7 +83,7 @@ void SpectatorSlotsWidget::action_spectatorList_remove_triggered()
 
         ui->listWidget_spectatorList->takeItem(row);
         ui->pushButton_clear->setEnabled(ui->listWidget_spectatorList->count() > 0);
-        client->getCommandHandler()->sendSpectatorListRemoveCommand(player);
+        getClient()->getCommandHandler()->sendSpectatorListRemoveCommand(player);
     }
 }
 
@@ -98,16 +96,16 @@ void SpectatorSlotsWidget::pushButton_add_clicked()
         ui->pushButton_clear->setEnabled(true);
         ui->lineEdit_nickname->clear();
 
-        client->getCommandHandler()->sendSpectatorListAddCommand(player);
+        getClient()->getCommandHandler()->sendSpectatorListAddCommand(player);
     }
 }
 
 void SpectatorSlotsWidget::pushButton_save_clicked()
 {
-    client->getCommandHandler()->sendSpectatorListSaveCommand();
+    getClient()->getCommandHandler()->sendSpectatorListSaveCommand();
 }
 
 void SpectatorSlotsWidget::pushButton_clear_clicked()
 {
-    client->getCommandHandler()->sendSpectatorListClearCommand();
+    getClient()->getCommandHandler()->sendSpectatorListClearCommand();
 }

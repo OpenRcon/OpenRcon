@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,13 +20,12 @@
 #ifndef MAPLISTWIDGET_H
 #define MAPLISTWIDGET_H
 
-#include <QWidget>
+#include "BF4Widget.h"
 
 class QMenu;
 class QAction;
 class QTreeWidgetItem;
 
-class BF4Client;
 class Frostbite2ServerInfo;
 class MapListEntry;
 
@@ -34,18 +33,18 @@ namespace Ui {
     class MapListWidget;
 }
 
-class MapListWidget : public QWidget
+class MapListWidget : public BF4Widget
 {
     Q_OBJECT
 
 public:
     MapListWidget(BF4Client *client, QWidget *parent = nullptr);
-    ~MapListWidget();
+    ~MapListWidget() final;
 
 private:
     Ui::MapListWidget *ui;
-    BF4Client *client;
 
+    /* User Interface */
     // Maplist
     QMenu *menu_available;
     QAction *action_available_add;

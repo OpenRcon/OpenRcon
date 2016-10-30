@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -22,16 +22,14 @@
 
 #include "MapListWidget.h"
 #include "ui_MapListWidget.h"
-#include "BF4Client.h"
 #include "LevelEntry.h"
 #include "BF4LevelDictionary.h"
 #include "Frostbite2ServerInfo.h"
 #include "BF4GameModeEntry.h"
 
 MapListWidget::MapListWidget(BF4Client *client, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::MapListWidget),
-    client(client)
+    BF4Widget(client, parent),
+    ui(new Ui::MapListWidget)
 {
     ui->setupUi(this);
 
@@ -51,30 +49,30 @@ MapListWidget::MapListWidget(BF4Client *client, QWidget *parent) :
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(),    static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+    connect(getClient()->getCommandHandler(),   static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
             this,   &MapListWidget::onLoginHashedCommand);
-    connect(client->getCommandHandler(),    static_cast<void (Frostbite2CommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
+    connect(getClient()->getCommandHandler(),   static_cast<void (Frostbite2CommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
             this,   &MapListWidget::onServerInfoCommand);
 
     // MapList
-    connect(client->getCommandHandler(),    &BF4CommandHandler::onMapListListCommand,                                                             this, &MapListWidget::onMapListListCommand);
+    connect(getClient()->getCommandHandler(),   &BF4CommandHandler::onMapListListCommand,                                                   this, &MapListWidget::onMapListListCommand);
 
     /* User Interface */
-    connect(ui->comboBox_gameMode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &MapListWidget::comboBox_gameMode_currentIndexChanged);
-    connect(ui->treeWidget_available, &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_available_itemSelectionChanged);
-    connect(ui->treeWidget_available, &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_available_customContextMenuRequested);
-    connect(action_available_add,     &QAction::triggered,                                                    this, &MapListWidget::pushButton_add_clicked);
-    connect(ui->pushButton_load,      &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_load_clicked);
-    connect(ui->pushButton_save,      &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_save_clicked);
-    connect(ui->pushButton_clear,     &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_clear_clicked);
-    connect(ui->pushButton_add,       &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_add_clicked);
-    connect(ui->pushButton_remove,    &QPushButton::clicked,                                                  this, &MapListWidget::pushButton_remove_clicked);
-    connect(ui->treeWidget_current,   &QTreeWidget::itemSelectionChanged,                                     this, &MapListWidget::treeWidget_current_itemSelectionChanged);
-    connect(ui->treeWidget_current,   &QTreeWidget::customContextMenuRequested,                               this, &MapListWidget::treeWidget_current_customContextMenuRequested);
-    connect(action_current_remove,    &QAction::triggered,                                                    this, &MapListWidget::pushButton_remove_clicked);
+    connect(ui->comboBox_gameMode,              static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),                     this, &MapListWidget::comboBox_gameMode_currentIndexChanged);
+    connect(ui->treeWidget_available,           &QTreeWidget::itemSelectionChanged,                                                         this, &MapListWidget::treeWidget_available_itemSelectionChanged);
+    connect(ui->treeWidget_available,           &QTreeWidget::customContextMenuRequested,                                                   this, &MapListWidget::treeWidget_available_customContextMenuRequested);
+    connect(action_available_add,               &QAction::triggered,                                                                        this, &MapListWidget::pushButton_add_clicked);
+    connect(ui->pushButton_load,                &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_load_clicked);
+    connect(ui->pushButton_save,                &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_save_clicked);
+    connect(ui->pushButton_clear,               &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_clear_clicked);
+    connect(ui->pushButton_add,                 &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_add_clicked);
+    connect(ui->pushButton_remove,              &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_remove_clicked);
+    connect(ui->treeWidget_current,             &QTreeWidget::itemSelectionChanged,                                                         this, &MapListWidget::treeWidget_current_itemSelectionChanged);
+    connect(ui->treeWidget_current,             &QTreeWidget::customContextMenuRequested,                                                   this, &MapListWidget::treeWidget_current_customContextMenuRequested);
+    connect(action_current_remove,              &QAction::triggered,                                                                        this, &MapListWidget::pushButton_remove_clicked);
 
-    connect(ui->treeWidget_available, static_cast<void (DragDropTreeWidget::*)(int)>(&DragDropTreeWidget::itemDrop),              this, &MapListWidget::treeWidget_available_itemDrop);
-    connect(ui->treeWidget_current,   static_cast<void (DragDropTreeWidget::*)(QTreeWidgetItem*)>(&DragDropTreeWidget::itemDrop), this, &MapListWidget::treeWidget_current_itemDrop);
+    connect(ui->treeWidget_available,           static_cast<void (DragDropTreeWidget::*)(int)>(&DragDropTreeWidget::itemDrop),              this, &MapListWidget::treeWidget_available_itemDrop);
+    connect(ui->treeWidget_current,             static_cast<void (DragDropTreeWidget::*)(QTreeWidgetItem*)>(&DragDropTreeWidget::itemDrop), this, &MapListWidget::treeWidget_current_itemDrop);
 }
 
 MapListWidget::~MapListWidget()
@@ -85,8 +83,8 @@ MapListWidget::~MapListWidget()
 void MapListWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        client->getCommandHandler()->sendServerInfoCommand();
-        client->getCommandHandler()->sendMapListListCommand();
+        getClient()->getCommandHandler()->sendServerInfoCommand();
+        getClient()->getCommandHandler()->sendMapListListCommand();
     }
 }
 
@@ -133,17 +131,17 @@ void MapListWidget::treeWidget_available_customContextMenuRequested(const QPoint
 
 void MapListWidget::pushButton_load_clicked()
 {
-    client->getCommandHandler()->sendMapListLoadCommand();
+    getClient()->getCommandHandler()->sendMapListLoadCommand();
 }
 
 void MapListWidget::pushButton_save_clicked()
 {
-    client->getCommandHandler()->sendMapListSaveCommand();
+    getClient()->getCommandHandler()->sendMapListSaveCommand();
 }
 
 void MapListWidget::pushButton_clear_clicked()
 {
-    client->getCommandHandler()->sendMapListClearCommand();
+    getClient()->getCommandHandler()->sendMapListClearCommand();
 }
 
 void MapListWidget::pushButton_add_clicked()
@@ -266,7 +264,7 @@ void MapListWidget::addLevel(const QString &name, const QString &gameMode, int r
 
         ui->label_currentSelectedMapImage->setPixmap(levelEntry.getImage());
         addCurrentMapListItem(name, gameMode, rounds);
-        client->getCommandHandler()->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getEngineName(), rounds);
+        getClient()->getCommandHandler()->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getEngineName(), rounds);
     }
 }
 
@@ -277,5 +275,5 @@ void MapListWidget::removeLevel(int index)
     }
 
     ui->treeWidget_current->takeTopLevelItem(index);
-    client->getCommandHandler()->sendMapListRemoveCommand(index);
+    getClient()->getCommandHandler()->sendMapListRemoveCommand(index);
 }

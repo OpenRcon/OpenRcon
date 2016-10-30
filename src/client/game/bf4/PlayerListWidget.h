@@ -36,12 +36,13 @@ class PlayerListWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    PlayerListWidget(BF4Client *client, QWidget *game = 0);
+    PlayerListWidget(BF4Client *client, QWidget *game = nullptr);
     ~PlayerListWidget();
 
 private:
     BF4Client *client;
 
+    /* User Interface */
     // Players
     QClipboard *clipboard;
     QMenu *menu_player;

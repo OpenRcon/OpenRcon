@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -23,94 +23,17 @@
 #include "Frostbite2Widget.h"
 #include "BF4Client.h"
 
-class QTimer;
-class QAbstractSocket;
-class QString;
-
-class ServerEntry;
-class PlayerListWidget;
-class EventsWidget;
-class ChatWidget;
-class BF4OptionsWidget;
-class MapListWidget;
-class BanListWidget;
-class ReservedSlotsWidget;
-class SpectatorSlotsWidget;
-class ConsoleWidget;
-class BF4ServerInfo;
-
-
-namespace Ui {
-    class BF4Widget;
-}
-
 class BF4Widget : public Frostbite2Widget
 {
     Q_OBJECT
 
 public:    
-    BF4Widget(ServerEntry *serverEntry, QWidget *parent = nullptr);
-    ~BF4Widget() final;
+    BF4Widget(BF4Client *client, QWidget *parent = nullptr);
+    virtual ~BF4Widget() override;
 
     BF4Client *getClient() final {
         return dynamic_cast<BF4Client*>(client);
     }
-
-private:
-    Ui::BF4Widget *ui;
-
-    PlayerListWidget *playerListWidget;
-    EventsWidget *eventsWidget;
-    ChatWidget *chatWidget;
-    BF4OptionsWidget *optionsWidget;
-    MapListWidget *mapListWidget;
-    BanListWidget *banListWidget;
-    ReservedSlotsWidget *reservedSlotsWidget;
-    SpectatorSlotsWidget *spectatorSlotsWidget;
-    ConsoleWidget *consoleWidget;
-
-    /* User Interface */
-    // ServerInfo
-    QTimer *timerServerInfoRoundTime;
-    QTimer *timerServerInfoUpTime;
-    int roundTime;
-    int upTime;
-
-    void setAuthenticated(bool auth);
-    void startupCommands(bool auth);
-
-private slots:
-    /* Events */
-    void onConnected(QAbstractSocket *socket);
-    void onDisconnected(QAbstractSocket *socket);
-    void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
-
-    /* Commands */
-    // Misc
-    void onLoginHashedCommand(bool auth);
-    void onVersionCommand(const QString &type, int build);
-    void onServerInfoCommand(const BF4ServerInfo &serverInfo);
-
-    // Admin
-
-    // FairFight
-
-    // Player
-
-    // Punkbuster
-
-    // Squad
-
-    // Variables
-    void onVarsAlwaysAllowSpectatorsCommand(bool enabled);
-
-    /* User Interface */
-    // Server Information
-    void pushButton_si_restartRound_clicked();
-    void pushButton_si_runNextRound_clicked();
-    void updateRoundTime();
-    void updateUpTime();
-
 };
 
 #endif // BF4WIDGET_H

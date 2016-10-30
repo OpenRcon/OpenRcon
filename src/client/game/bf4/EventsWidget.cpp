@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -22,7 +22,6 @@
 
 #include "EventsWidget.h"
 #include "ui_EventsWidget.h"
-#include "BF4Client.h"
 #include "TeamEntry.h"
 #include "LevelEntry.h"
 #include "BF4LevelDictionary.h"
@@ -30,35 +29,35 @@
 #include "FrostbiteUtils.h"
 
 EventsWidget::EventsWidget(BF4Client *client, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::EventsWidget),
-    client(client)
+    BF4Widget(client, parent),
+    ui(new Ui::EventsWidget)
 {
     ui->setupUi(this);
 
     /* Connection */
-    connect(client->getConnection(), &FrostbiteConnection::onConnected, this, &EventsWidget::onConnected);
-    connect(client->getConnection(), &FrostbiteConnection::onDisconnected, this, &EventsWidget::onDisconnected);
+    connect(getClient()->getConnection(), &FrostbiteConnection::onConnected,    this, &EventsWidget::onConnected);
+    connect(getClient()->getConnection(), &FrostbiteConnection::onDisconnected, this, &EventsWidget::onDisconnected);
 
     /* Events */
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,       this, &EventsWidget::onPlayerAuthenticatedEvent);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onPlayerDisconnectEvent,                 this, &EventsWidget::onPlayerDisconnectEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,                this, &EventsWidget::onPlayerJoinEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,               this, &EventsWidget::onPlayerLeaveEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSpawnEvent,               this, &EventsWidget::onPlayerSpawnEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerKillEvent,                this, &EventsWidget::onPlayerKillEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerChatEvent,                this, &EventsWidget::onPlayerChatEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSquadChangeEvent,         this, &EventsWidget::onPlayerSquadChangeEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerTeamChangeEvent,          this, &EventsWidget::onPlayerTeamChangeEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onServerMaxPlayerCountChangeEvent,       this, &EventsWidget::onServerMaxPlayerCountChangeEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onServerLevelLoadedEvent,                this, &EventsWidget::onServerLevelLoadedEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverEvent,           this, &EventsWidget::onServerRoundOverEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverPlayersEvent,    this, &EventsWidget::onServerRoundOverPlayersEvent);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverTeamScoresEvent, this, &EventsWidget::onServerRoundOverTeamScoresEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,        this, &EventsWidget::onPlayerAuthenticatedEvent);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onPlayerDisconnectEvent,                  this, &EventsWidget::onPlayerDisconnectEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,                 this, &EventsWidget::onPlayerJoinEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,                this, &EventsWidget::onPlayerLeaveEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSpawnEvent,                this, &EventsWidget::onPlayerSpawnEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerKillEvent,                 this, &EventsWidget::onPlayerKillEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerChatEvent,                 this, &EventsWidget::onPlayerChatEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSquadChangeEvent,          this, &EventsWidget::onPlayerSquadChangeEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerTeamChangeEvent,           this, &EventsWidget::onPlayerTeamChangeEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerMaxPlayerCountChangeEvent, this, &EventsWidget::onServerMaxPlayerCountChangeEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerLevelLoadedEvent,          this, &EventsWidget::onServerLevelLoadedEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverEvent,            this, &EventsWidget::onServerRoundOverEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverPlayersEvent,     this, &EventsWidget::onServerRoundOverPlayersEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverTeamScoresEvent,  this, &EventsWidget::onServerRoundOverTeamScoresEvent);
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &EventsWidget::onLoginHashedCommand);
+    connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+            this, &EventsWidget::onLoginHashedCommand);
 }
 
 EventsWidget::~EventsWidget()
@@ -193,6 +192,6 @@ void EventsWidget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
 void EventsWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        client->getCommandHandler()->sendAdminEventsEnabledCommand(true);
+        getClient()->getCommandHandler()->sendAdminEventsEnabledCommand(true);
     }
 }

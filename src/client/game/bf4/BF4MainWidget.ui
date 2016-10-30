@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BF4Widget</class>
- <widget class="QWidget" name="BF4Widget">
+ <class>BF4MainWidget</class>
+ <widget class="QWidget" name="BF4MainWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -19,13 +19,11 @@
 
 #include "BF4OptionsWidget.h"
 #include "ui_BF4OptionsWidget.h"
-#include "BF4Client.h"
 #include "BF4Preset.h"
 
 BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::BF4OptionsWidget),
-    client(client)
+    BF4Widget(client, parent),
+    ui(new Ui::BF4OptionsWidget)
 {
     ui->setupUi(this);
 
@@ -34,68 +32,68 @@ BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
 
     /* Commands */
     // Misc
-    connect(client->getCommandHandler(), static_cast<void (BF4CommandHandler::*)(bool)>(&BF4CommandHandler::onLoginHashedCommand),
+    connect(getClient()->getCommandHandler(), static_cast<void (BF4CommandHandler::*)(bool)>(&BF4CommandHandler::onLoginHashedCommand),
             this, &BF4OptionsWidget::onLoginHashedCommand);
 
     // Admin
-    connect(client->getCommandHandler(), &BF4CommandHandler::onAdminPasswordCommand,                    this, &BF4OptionsWidget::onAdminPasswordCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onAdminPasswordCommand,                    this, &BF4OptionsWidget::onAdminPasswordCommand);
 
     // FairFight
-    connect(client->getCommandHandler(), &BF4CommandHandler::onFairFightIsActiveCommand,                this, &BF4OptionsWidget::onFairFightIsActiveCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onFairFightIsActiveCommand,                this, &BF4OptionsWidget::onFairFightIsActiveCommand);
 
     // Player
 
     // Punkbuster
-    connect(client->getCommandHandler(), &BF4CommandHandler::onPunkBusterIsActiveCommand,               this, &BF4OptionsWidget::onPunkBusterIsActiveCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onPunkBusterIsActiveCommand,               this, &BF4OptionsWidget::onPunkBusterIsActiveCommand);
 
     // Variables
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVars3dSpottingCommand,                   this, &BF4OptionsWidget::onVars3dSpottingCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVars3pCamCommand,                        this, &BF4OptionsWidget::onVars3pCamCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,        this, &BF4OptionsWidget::onVarsAlwaysAllowSpectatorsCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsAutoBalanceCommand,                  this, &BF4OptionsWidget::onVarsAutoBalanceCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsBulletDamageCommand,                 this, &BF4OptionsWidget::onVarsBulletDamageCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsCommanderCommand,                    this, &BF4OptionsWidget::onVarsCommanderCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsForceReloadWholeMagsCommand,         this, &BF4OptionsWidget::onVarsForceReloadWholeMagsCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsFriendlyFireCommand,                 this, &BF4OptionsWidget::onVarsFriendlyFireCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsGameModeCounterCommand,              this, &BF4OptionsWidget::onVarsGameModeCounterCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsGamePasswordCommand,                 this, &BF4OptionsWidget::onVarsGamePasswordCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsHitIndicatorsEnabledCommand,         this, &BF4OptionsWidget::onVarsHitIndicatorsEnabledCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsHudCommand,                          this, &BF4OptionsWidget::onVarsHudCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsIdleBanRoundsCommand,                this, &BF4OptionsWidget::onVarsIdleBanRoundsCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsIdleTimeoutCommand,                  this, &BF4OptionsWidget::onVarsIdleTimeoutCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsKillCamCommand,                      this, &BF4OptionsWidget::onVarsKillCamCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsMaxPlayersCommand,                   this, &BF4OptionsWidget::onVarsMaxPlayersCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsMaxSpectatorsCommand,                this, &BF4OptionsWidget::onVarsMaxSpectatorsCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsMiniMapCommand,                      this, &BF4OptionsWidget::onVarsMiniMapCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsMiniMapSpottingCommand,              this, &BF4OptionsWidget::onVarsMiniMapSpottingCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsNameTagCommand,                      this, &BF4OptionsWidget::onVarsNameTagCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsOnlySquadLeaderSpawnCommand,         this, &BF4OptionsWidget::onVarsOnlySquadLeaderSpawnCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsPlayerRespawnTimeCommand,            this, &BF4OptionsWidget::onVarsPlayerRespawnTimeCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsPresetCommand,                       this, &BF4OptionsWidget::onVarsPresetCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsRegenerateHealthCommand,             this, &BF4OptionsWidget::onVarsRegenerateHealthCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsRoundLockdownCountdownCommand,       this, &BF4OptionsWidget::onVarsRoundLockdownCountdownCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsRoundRestartPlayerCountCommand,      this, &BF4OptionsWidget::onVarsRoundRestartPlayerCountCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsRoundStartPlayerCountCommand,        this, &BF4OptionsWidget::onVarsRoundStartPlayerCountCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsRoundTimeLimitCommand,               this, &BF4OptionsWidget::onVarsRoundTimeLimitCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsRoundWarmupTimeoutCommand,           this, &BF4OptionsWidget::onVarsRoundWarmupTimeoutCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsServerNameCommand,                   this, &BF4OptionsWidget::onVarsServerNameCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsServerDescriptionCommand,            this, &BF4OptionsWidget::onVarsServerDescriptionCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsServerMessageCommand,                this, &BF4OptionsWidget::onVarsServerMessageCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsServerTypeCommand,                   this, &BF4OptionsWidget::onVarsServerTypeCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsSoldierHealthCommand,                this, &BF4OptionsWidget::onVarsSoldierHealthCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsTicketBleedRateCommand,              this, &BF4OptionsWidget::onVarsTicketBleedRateCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsUnlockModeCommand,                   this, &BF4OptionsWidget::onVarsUnlockModeCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsVehicleSpawnAllowedCommand,          this, &BF4OptionsWidget::onVarsVehicleSpawnAllowedCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsVehicleSpawnDelayCommand,            this, &BF4OptionsWidget::onVarsVehicleSpawnDelayCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsRoundPlayersReadyBypassTimerCommand, this, &BF4OptionsWidget::onVarsRoundPlayersReadyBypassTimerCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsRoundPlayersReadyMinCountCommand,    this, &BF4OptionsWidget::onVarsRoundPlayersReadyMinCountCommand);
-    connect(client->getCommandHandler(), &BF4CommandHandler::onVarsRoundPlayersReadyPercentCommand,     this, &BF4OptionsWidget::onVarsRoundPlayersReadyPercentCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVars3dSpottingCommand,                   this, &BF4OptionsWidget::onVars3dSpottingCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVars3pCamCommand,                        this, &BF4OptionsWidget::onVars3pCamCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,        this, &BF4OptionsWidget::onVarsAlwaysAllowSpectatorsCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsAutoBalanceCommand,                  this, &BF4OptionsWidget::onVarsAutoBalanceCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsBulletDamageCommand,                 this, &BF4OptionsWidget::onVarsBulletDamageCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsCommanderCommand,                    this, &BF4OptionsWidget::onVarsCommanderCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsForceReloadWholeMagsCommand,         this, &BF4OptionsWidget::onVarsForceReloadWholeMagsCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsFriendlyFireCommand,                 this, &BF4OptionsWidget::onVarsFriendlyFireCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsGameModeCounterCommand,              this, &BF4OptionsWidget::onVarsGameModeCounterCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsGamePasswordCommand,                 this, &BF4OptionsWidget::onVarsGamePasswordCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsHitIndicatorsEnabledCommand,         this, &BF4OptionsWidget::onVarsHitIndicatorsEnabledCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsHudCommand,                          this, &BF4OptionsWidget::onVarsHudCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsIdleBanRoundsCommand,                this, &BF4OptionsWidget::onVarsIdleBanRoundsCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsIdleTimeoutCommand,                  this, &BF4OptionsWidget::onVarsIdleTimeoutCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsKillCamCommand,                      this, &BF4OptionsWidget::onVarsKillCamCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsMaxPlayersCommand,                   this, &BF4OptionsWidget::onVarsMaxPlayersCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsMaxSpectatorsCommand,                this, &BF4OptionsWidget::onVarsMaxSpectatorsCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsMiniMapCommand,                      this, &BF4OptionsWidget::onVarsMiniMapCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsMiniMapSpottingCommand,              this, &BF4OptionsWidget::onVarsMiniMapSpottingCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsNameTagCommand,                      this, &BF4OptionsWidget::onVarsNameTagCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsOnlySquadLeaderSpawnCommand,         this, &BF4OptionsWidget::onVarsOnlySquadLeaderSpawnCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsPlayerRespawnTimeCommand,            this, &BF4OptionsWidget::onVarsPlayerRespawnTimeCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsPresetCommand,                       this, &BF4OptionsWidget::onVarsPresetCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsRegenerateHealthCommand,             this, &BF4OptionsWidget::onVarsRegenerateHealthCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsRoundLockdownCountdownCommand,       this, &BF4OptionsWidget::onVarsRoundLockdownCountdownCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsRoundRestartPlayerCountCommand,      this, &BF4OptionsWidget::onVarsRoundRestartPlayerCountCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsRoundStartPlayerCountCommand,        this, &BF4OptionsWidget::onVarsRoundStartPlayerCountCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsRoundTimeLimitCommand,               this, &BF4OptionsWidget::onVarsRoundTimeLimitCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsRoundWarmupTimeoutCommand,           this, &BF4OptionsWidget::onVarsRoundWarmupTimeoutCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsServerNameCommand,                   this, &BF4OptionsWidget::onVarsServerNameCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsServerDescriptionCommand,            this, &BF4OptionsWidget::onVarsServerDescriptionCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsServerMessageCommand,                this, &BF4OptionsWidget::onVarsServerMessageCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsServerTypeCommand,                   this, &BF4OptionsWidget::onVarsServerTypeCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsSoldierHealthCommand,                this, &BF4OptionsWidget::onVarsSoldierHealthCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsTicketBleedRateCommand,              this, &BF4OptionsWidget::onVarsTicketBleedRateCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsUnlockModeCommand,                   this, &BF4OptionsWidget::onVarsUnlockModeCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsVehicleSpawnAllowedCommand,          this, &BF4OptionsWidget::onVarsVehicleSpawnAllowedCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsVehicleSpawnDelayCommand,            this, &BF4OptionsWidget::onVarsVehicleSpawnDelayCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsRoundPlayersReadyBypassTimerCommand, this, &BF4OptionsWidget::onVarsRoundPlayersReadyBypassTimerCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsRoundPlayersReadyMinCountCommand,    this, &BF4OptionsWidget::onVarsRoundPlayersReadyMinCountCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsRoundPlayersReadyPercentCommand,     this, &BF4OptionsWidget::onVarsRoundPlayersReadyPercentCommand);
 
     /* User Interface */
     // Options -> Details
-    connect(ui->lineEdit_details_serverName,                  &QLineEdit::editingFinished,                                                      this, &BF4OptionsWidget::lineEdit_details_serverName_editingFinished);
-    connect(ui->textEdit_details_serverDescription,           &QTextEdit::textChanged,                                                          this, &BF4OptionsWidget::textEdit_details_serverDescription_textChanged);
-    connect(ui->lineEdit_details_serverMessage,               &QLineEdit::editingFinished,                                                      this, &BF4OptionsWidget::lineEdit_details_serverMessage_editingFinished);
+    connect(ui->lineEdit_details_serverName,        &QLineEdit::editingFinished, this, &BF4OptionsWidget::lineEdit_details_serverName_editingFinished);
+    connect(ui->textEdit_details_serverDescription, &QTextEdit::textChanged,     this, &BF4OptionsWidget::textEdit_details_serverDescription_textChanged);
+    connect(ui->lineEdit_details_serverMessage,     &QLineEdit::editingFinished, this, &BF4OptionsWidget::lineEdit_details_serverMessage_editingFinished);
 
     // Options -> Configuration
     connect(ui->checkBox_configuration_punkBuster,                  &QCheckBox::toggled,                                                              this, &BF4OptionsWidget::checkBox_configuration_punkBuster_toggled);
@@ -156,60 +154,60 @@ void BF4OptionsWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
         // Admins
-        client->getCommandHandler()->sendAdminPasswordCommand();
+        getClient()->getCommandHandler()->sendAdminPasswordCommand();
 
         // Banning
-        client->getCommandHandler()->sendBanListListCommand();
+        getClient()->getCommandHandler()->sendBanListListCommand();
 
         // FairFight
-        client->getCommandHandler()->sendFairFightIsActiveCommand();
+        getClient()->getCommandHandler()->sendFairFightIsActiveCommand();
 
         // Punkbuster
-        client->getCommandHandler()->sendPunkBusterIsActiveCommand();
-        client->getCommandHandler()->sendPunkBusterPbSvCommand("pb_sv_plist");
+        getClient()->getCommandHandler()->sendPunkBusterIsActiveCommand();
+        getClient()->getCommandHandler()->sendPunkBusterPbSvCommand("pb_sv_plist");
 
         // Variables
-        client->getCommandHandler()->sendVars3dSpottingCommand();
-        client->getCommandHandler()->sendVars3pCamCommand();
-        client->getCommandHandler()->sendVarsAlwaysAllowSpectatorsCommand();
-        client->getCommandHandler()->sendVarsAutoBalanceCommand();
-        client->getCommandHandler()->sendVarsBulletDamageCommand();
-        client->getCommandHandler()->sendVarsCommanderCommand();
-        client->getCommandHandler()->sendVarsForceReloadWholeMagsCommand();
-        client->getCommandHandler()->sendVarsFriendlyFireCommand();
-        client->getCommandHandler()->sendVarsGameModeCounterCommand();
-        client->getCommandHandler()->sendVarsGamePasswordCommand();
-        client->getCommandHandler()->sendVarsHitIndicatorsEnabledCommand();
-        client->getCommandHandler()->sendVarsHudCommand();
-        client->getCommandHandler()->sendVarsIdleBanRoundsCommand();
-        client->getCommandHandler()->sendVarsIdleTimeoutCommand();
-        client->getCommandHandler()->sendVarsKillCamCommand();
-        client->getCommandHandler()->sendVarsMaxPlayersCommand();
-        client->getCommandHandler()->sendVarsMaxSpectatorsCommand();
-        client->getCommandHandler()->sendVarsMiniMapCommand();
-        client->getCommandHandler()->sendVarsMiniMapSpottingCommand();
-        client->getCommandHandler()->sendVarsNameTagCommand();
-        client->getCommandHandler()->sendVarsOnlySquadLeaderSpawnCommand();
-        client->getCommandHandler()->sendVarsPlayerRespawnTimeCommand();
-        client->getCommandHandler()->sendVarsPresetCommand();
-        client->getCommandHandler()->sendVarsRegenerateHealthCommand();
-        client->getCommandHandler()->sendVarsRoundLockdownCountdownCommand();
-        client->getCommandHandler()->sendVarsRoundRestartPlayerCountCommand();
-        client->getCommandHandler()->sendVarsRoundStartPlayerCountCommand();
-        client->getCommandHandler()->sendVarsRoundTimeLimitCommand();
-        client->getCommandHandler()->sendVarsRoundWarmupTimeoutCommand();
-        client->getCommandHandler()->sendVarsServerNameCommand();
-        client->getCommandHandler()->sendVarsServerDescriptionCommand();
-        client->getCommandHandler()->sendVarsServerMessageCommand();
-        client->getCommandHandler()->sendVarsServerTypeCommand();
-        client->getCommandHandler()->sendVarsSoldierHealthCommand();
-        client->getCommandHandler()->sendVarsTicketBleedRateCommand();
-        client->getCommandHandler()->sendVarsUnlockModeCommand();
-        client->getCommandHandler()->sendVarsVehicleSpawnAllowedCommand();
-        client->getCommandHandler()->sendVarsVehicleSpawnDelayCommand();
-        client->getCommandHandler()->sendVarsRoundPlayersReadyBypassTimerCommand();
-        client->getCommandHandler()->sendVarsRoundPlayersReadyMinCountCommand();
-        client->getCommandHandler()->sendVarsRoundPlayersReadyPercentCommand();
+        getClient()->getCommandHandler()->sendVars3dSpottingCommand();
+        getClient()->getCommandHandler()->sendVars3pCamCommand();
+        getClient()->getCommandHandler()->sendVarsAlwaysAllowSpectatorsCommand();
+        getClient()->getCommandHandler()->sendVarsAutoBalanceCommand();
+        getClient()->getCommandHandler()->sendVarsBulletDamageCommand();
+        getClient()->getCommandHandler()->sendVarsCommanderCommand();
+        getClient()->getCommandHandler()->sendVarsForceReloadWholeMagsCommand();
+        getClient()->getCommandHandler()->sendVarsFriendlyFireCommand();
+        getClient()->getCommandHandler()->sendVarsGameModeCounterCommand();
+        getClient()->getCommandHandler()->sendVarsGamePasswordCommand();
+        getClient()->getCommandHandler()->sendVarsHitIndicatorsEnabledCommand();
+        getClient()->getCommandHandler()->sendVarsHudCommand();
+        getClient()->getCommandHandler()->sendVarsIdleBanRoundsCommand();
+        getClient()->getCommandHandler()->sendVarsIdleTimeoutCommand();
+        getClient()->getCommandHandler()->sendVarsKillCamCommand();
+        getClient()->getCommandHandler()->sendVarsMaxPlayersCommand();
+        getClient()->getCommandHandler()->sendVarsMaxSpectatorsCommand();
+        getClient()->getCommandHandler()->sendVarsMiniMapCommand();
+        getClient()->getCommandHandler()->sendVarsMiniMapSpottingCommand();
+        getClient()->getCommandHandler()->sendVarsNameTagCommand();
+        getClient()->getCommandHandler()->sendVarsOnlySquadLeaderSpawnCommand();
+        getClient()->getCommandHandler()->sendVarsPlayerRespawnTimeCommand();
+        getClient()->getCommandHandler()->sendVarsPresetCommand();
+        getClient()->getCommandHandler()->sendVarsRegenerateHealthCommand();
+        getClient()->getCommandHandler()->sendVarsRoundLockdownCountdownCommand();
+        getClient()->getCommandHandler()->sendVarsRoundRestartPlayerCountCommand();
+        getClient()->getCommandHandler()->sendVarsRoundStartPlayerCountCommand();
+        getClient()->getCommandHandler()->sendVarsRoundTimeLimitCommand();
+        getClient()->getCommandHandler()->sendVarsRoundWarmupTimeoutCommand();
+        getClient()->getCommandHandler()->sendVarsServerNameCommand();
+        getClient()->getCommandHandler()->sendVarsServerDescriptionCommand();
+        getClient()->getCommandHandler()->sendVarsServerMessageCommand();
+        getClient()->getCommandHandler()->sendVarsServerTypeCommand();
+        getClient()->getCommandHandler()->sendVarsSoldierHealthCommand();
+        getClient()->getCommandHandler()->sendVarsTicketBleedRateCommand();
+        getClient()->getCommandHandler()->sendVarsUnlockModeCommand();
+        getClient()->getCommandHandler()->sendVarsVehicleSpawnAllowedCommand();
+        getClient()->getCommandHandler()->sendVarsVehicleSpawnDelayCommand();
+        getClient()->getCommandHandler()->sendVarsRoundPlayersReadyBypassTimerCommand();
+        getClient()->getCommandHandler()->sendVarsRoundPlayersReadyMinCountCommand();
+        getClient()->getCommandHandler()->sendVarsRoundPlayersReadyPercentCommand();
     }
 }
 
@@ -490,7 +488,7 @@ void BF4OptionsWidget::lineEdit_details_serverName_editingFinished()
     QString serverName = ui->lineEdit_details_serverName->text();
 
     if (!serverName.isEmpty()) {
-        client->getCommandHandler()->sendVarsServerNameCommand(serverName);
+        getClient()->getCommandHandler()->sendVarsServerNameCommand(serverName);
     }
 }
 
@@ -499,7 +497,7 @@ void BF4OptionsWidget::textEdit_details_serverDescription_textChanged()
     QString serverDescription = ui->textEdit_details_serverDescription->toPlainText();
 
     if (!serverDescription.isEmpty()) {
-        client->getCommandHandler()->sendVarsServerDescriptionCommand(serverDescription);
+        getClient()->getCommandHandler()->sendVarsServerDescriptionCommand(serverDescription);
     }
 }
 
@@ -508,7 +506,7 @@ void BF4OptionsWidget::lineEdit_details_serverMessage_editingFinished()
     QString serverMessage = ui->lineEdit_details_serverMessage->text();
 
     if (!serverMessage.isEmpty()) {
-        client->getCommandHandler()->sendVarsServerMessageCommand(serverMessage);
+        getClient()->getCommandHandler()->sendVarsServerMessageCommand(serverMessage);
     }
 }
 
@@ -516,19 +514,19 @@ void BF4OptionsWidget::lineEdit_details_serverMessage_editingFinished()
 void BF4OptionsWidget::checkBox_configuration_punkBuster_toggled(bool checked)
 {
     if (checked) {
-        client->getCommandHandler()->sendPunkBusterActivateCommand();
+        getClient()->getCommandHandler()->sendPunkBusterActivateCommand();
     }
 }
 
 void BF4OptionsWidget::checkBox_configuration_fairFight_toggled(bool checked)
 {
     if (checked) {
-        client->getCommandHandler()->sendFairFightActivateCommand();
+        getClient()->getCommandHandler()->sendFairFightActivateCommand();
     } else {
-        client->getCommandHandler()->sendFairFightDeactivateCommand();
+        getClient()->getCommandHandler()->sendFairFightDeactivateCommand();
     }
 
-    client->getCommandHandler()->sendFairFightIsActiveCommand();
+    getClient()->getCommandHandler()->sendFairFightIsActiveCommand();
 }
 
 void BF4OptionsWidget::checkBox_configuration_idleTimeout_toggled(bool checked)
@@ -541,13 +539,13 @@ void BF4OptionsWidget::checkBox_configuration_idleTimeout_toggled(bool checked)
     ui->checkBox_configuration_idleBanRounds->setChecked(checked);
     checkBox_configuration_idleBanRounds_toggled(checked);
 
-    client->getCommandHandler()->sendVarsIdleTimeoutCommand(timeout);
+    getClient()->getCommandHandler()->sendVarsIdleTimeoutCommand(timeout);
 }
 
 void BF4OptionsWidget::spinBox_configuration_idleTimeout_valueChanged(int value)
 {
     if (value >= 225) {
-        client->getCommandHandler()->sendVarsIdleTimeoutCommand(value);
+        getClient()->getCommandHandler()->sendVarsIdleTimeoutCommand(value);
     }
 }
 
@@ -558,180 +556,180 @@ void BF4OptionsWidget::checkBox_configuration_idleBanRounds_toggled(bool checked
     ui->spinBox_configuration_idleBanRounds->setEnabled(!checked);
     ui->spinBox_configuration_idleBanRounds->setValue(rounds);
 
-    client->getCommandHandler()->sendVarsIdleBanRoundsCommand(rounds);
+    getClient()->getCommandHandler()->sendVarsIdleBanRoundsCommand(rounds);
 }
 
 void BF4OptionsWidget::spinBox_configuration_idleBanRounds_valueChanged(int value)
 {
     if (value > 0) {
-        client->getCommandHandler()->sendVarsIdleTimeoutCommand(value);
+        getClient()->getCommandHandler()->sendVarsIdleTimeoutCommand(value);
     }
 }
 
 void BF4OptionsWidget::checkBox_configuration_aggressiveJoin_toggled(bool checked)
 {
-    client->getCommandHandler()->sendReservedSlotsListAggressiveJoinCommand(checked);
+    getClient()->getCommandHandler()->sendReservedSlotsListAggressiveJoinCommand(checked);
 }
 
 void BF4OptionsWidget::spinBox_configuration_maxPlayers_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsMaxPlayersCommand(value);
+    getClient()->getCommandHandler()->sendVarsMaxPlayersCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_configuration_maxSpectators_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsMaxSpectatorsCommand(value);
+    getClient()->getCommandHandler()->sendVarsMaxSpectatorsCommand(value);
 }
 
 void BF4OptionsWidget::checkBox_configuration_alwaysAllowSpectators_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsAlwaysAllowSpectatorsCommand(checked);
+    getClient()->getCommandHandler()->sendVarsAlwaysAllowSpectatorsCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_configuration_commander_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsCommanderCommand(checked);
+    getClient()->getCommandHandler()->sendVarsCommanderCommand(checked);
 }
 
 // Options -> Gameplay
 void BF4OptionsWidget::checkBox_gameplay_friendlyFire_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsFriendlyFireCommand(checked);
+    getClient()->getCommandHandler()->sendVarsFriendlyFireCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_autoBalance_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsAutoBalanceCommand(checked);
+    getClient()->getCommandHandler()->sendVarsAutoBalanceCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_killCam_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsKillCamCommand(checked);
+    getClient()->getCommandHandler()->sendVarsKillCamCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_miniMap_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsMiniMapCommand(checked);
+    getClient()->getCommandHandler()->sendVarsMiniMapCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_miniMapSpotting_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsMiniMapSpottingCommand(checked);
+    getClient()->getCommandHandler()->sendVarsMiniMapSpottingCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_3dSpotting_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVars3dSpottingCommand(checked);
+    getClient()->getCommandHandler()->sendVars3dSpottingCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_nameTag_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsNameTagCommand(checked);
+    getClient()->getCommandHandler()->sendVarsNameTagCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_regenerateHealth_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsRegenerateHealthCommand(checked);
+    getClient()->getCommandHandler()->sendVarsRegenerateHealthCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_hud_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsHudCommand(checked);
+    getClient()->getCommandHandler()->sendVarsHudCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_onlySquadLeaderSpawn_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsOnlySquadLeaderSpawnCommand(checked);
+    getClient()->getCommandHandler()->sendVarsOnlySquadLeaderSpawnCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_vehicleSpawnAllowed_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsVehicleSpawnAllowedCommand(checked);
+    getClient()->getCommandHandler()->sendVarsVehicleSpawnAllowedCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_hitIndicatorsEnabled_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsHitIndicatorsEnabledCommand(checked);
+    getClient()->getCommandHandler()->sendVarsHitIndicatorsEnabledCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_thirdPersonVehicleCameras_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVars3pCamCommand(checked);
+    getClient()->getCommandHandler()->sendVars3pCamCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_forceReloadWholeMags_toggled(bool checked)
 {
-    client->getCommandHandler()->sendVarsForceReloadWholeMagsCommand(checked);
+    getClient()->getCommandHandler()->sendVarsForceReloadWholeMagsCommand(checked);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_bulletDamage_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsBulletDamageCommand(value);
+    getClient()->getCommandHandler()->sendVarsBulletDamageCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_soldierHealth_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsSoldierHealthCommand(value);
+    getClient()->getCommandHandler()->sendVarsSoldierHealthCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_vehicleSpawnDelay_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsVehicleSpawnDelayCommand(value);
+    getClient()->getCommandHandler()->sendVarsVehicleSpawnDelayCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_playerRespawnTime_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsPlayerRespawnTimeCommand(value);
+    getClient()->getCommandHandler()->sendVarsPlayerRespawnTimeCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_ticketBleedRate_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsTicketBleedRateCommand(value);
+    getClient()->getCommandHandler()->sendVarsTicketBleedRateCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_gameModeCounter_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsGameModeCounterCommand(value);
+    getClient()->getCommandHandler()->sendVarsGameModeCounterCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_roundTimeLimit_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsRoundTimeLimitCommand(value);
+    getClient()->getCommandHandler()->sendVarsRoundTimeLimitCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_roundLockdownCountdown_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsRoundLockdownCountdownCommand(value);
+    getClient()->getCommandHandler()->sendVarsRoundLockdownCountdownCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_roundWarmupTimeout_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsRoundWarmupTimeoutCommand(value);
+    getClient()->getCommandHandler()->sendVarsRoundWarmupTimeoutCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_roundRestartPlayerCount_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsRoundRestartPlayerCountCommand(value);
+    getClient()->getCommandHandler()->sendVarsRoundRestartPlayerCountCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_roundStartPlayerCount_valueChanged(int value)
 {
-    client->getCommandHandler()->sendVarsRoundStartPlayerCountCommand(value);
+    getClient()->getCommandHandler()->sendVarsRoundStartPlayerCountCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_roundPlayersReadyBypassTimer(int value)
 {
-    client->getCommandHandler()->sendVarsRoundPlayersReadyBypassTimerCommand(value);
+    getClient()->getCommandHandler()->sendVarsRoundPlayersReadyBypassTimerCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_roundPlayersReadyMinCount(int value)
 {
-    client->getCommandHandler()->sendVarsRoundPlayersReadyMinCountCommand(value);
+    getClient()->getCommandHandler()->sendVarsRoundPlayersReadyMinCountCommand(value);
 }
 
 void BF4OptionsWidget::spinBox_gameplay_roundPlayersReadyPercent(int value)
 {
-    client->getCommandHandler()->sendVarsRoundPlayersReadyPercentCommand(value);
+    getClient()->getCommandHandler()->sendVarsRoundPlayersReadyPercentCommand(value);
 }
 
 void BF4OptionsWidget::comboBox_gameplay_preset_currentIndexChanged(const QString &text)
@@ -739,7 +737,7 @@ void BF4OptionsWidget::comboBox_gameplay_preset_currentIndexChanged(const QStrin
     bool presetLockPresetSetting = ui->checkBox_gameplay_presetLockPresetSetting->isChecked();
 
     // TODO: Do this more elegantly, using the enum.
-    client->getCommandHandler()->sendVarsPresetCommand(BF4Preset::fromString(text), presetLockPresetSetting);
+    getClient()->getCommandHandler()->sendVarsPresetCommand(BF4Preset::fromString(text), presetLockPresetSetting);
 }
 
 void BF4OptionsWidget::checkBox_gameplay_presetLockPresetSetting_toggled(bool checked)
@@ -747,7 +745,7 @@ void BF4OptionsWidget::checkBox_gameplay_presetLockPresetSetting_toggled(bool ch
     QString presetName = ui->comboBox_gameplay_preset->currentText();
 
     // TODO: Do this more elegantly, using the enum.
-    client->getCommandHandler()->sendVarsPresetCommand(BF4Preset::fromString(presetName), checked);
+    getClient()->getCommandHandler()->sendVarsPresetCommand(BF4Preset::fromString(presetName), checked);
 }
 
 void BF4OptionsWidget::comboBox_gameplay_unlockMode_currentIndexChanged(int index)
@@ -772,5 +770,5 @@ void BF4OptionsWidget::comboBox_gameplay_unlockMode_currentIndexChanged(int inde
         break;
     }
 
-    client->getCommandHandler()->sendVarsUnlockModeCommand(unlockMode);
+    getClient()->getCommandHandler()->sendVarsUnlockModeCommand(unlockMode);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,28 +20,25 @@
 #ifndef EVENTSWIDGET_H
 #define EVENTSWIDGET_H
 
-#include <QWidget>
+#include "BF4Widget.h"
 
 class QString;
 class QAbstractSocket;
-
-class BF4Client;
 
 namespace Ui {
     class EventsWidget;
 }
 
-class EventsWidget : public QWidget
+class EventsWidget : public BF4Widget
 {
     Q_OBJECT
 
 public:
     EventsWidget(BF4Client *client, QWidget *parent = nullptr);
-    ~EventsWidget();
+    ~EventsWidget() final;
 
 private:
     Ui::EventsWidget *ui;
-    BF4Client *client;
 
     void logEvent(const QString &event, const QString &message);
 

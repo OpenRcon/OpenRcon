@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,26 +20,24 @@
 #ifndef BF4OPTIONSWIDGET_H
 #define BF4OPTIONSWIDGET_H
 
-#include <QWidget>
+#include "BF4Widget.h"
 
-class BF4Client;
 enum class BF4PresetEnum;
 
 namespace Ui {
     class BF4OptionsWidget;
 }
 
-class BF4OptionsWidget : public QWidget
+class BF4OptionsWidget : public BF4Widget
 {
     Q_OBJECT
 
 public:
     BF4OptionsWidget(BF4Client *client, QWidget *parent = nullptr);
-    ~BF4OptionsWidget();
+    ~BF4OptionsWidget() final;
 
 private:
     Ui::BF4OptionsWidget *ui;
-    BF4Client *client;
 
 private slots:
     /* Commands */
