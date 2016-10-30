@@ -20,8 +20,6 @@
 #ifndef FROSTBITE2WIDGET_H
 #define FROSTBITE2WIDGET_H
 
-#include <QWidget>
-
 #include "FrostbiteWidget.h"
 #include "Frostbite2Client.h"
 

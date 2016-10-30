@@ -19,7 +19,8 @@
 
 #include "Frostbite2Widget.h"
 
-Frostbite2Widget::Frostbite2Widget(Frostbite2Client *client, QWidget *parent) : FrostbiteWidget(client, parent)
+Frostbite2Widget::Frostbite2Widget(Frostbite2Client *client, QWidget *parent) :
+    FrostbiteWidget(client, parent)
 {
 
 }

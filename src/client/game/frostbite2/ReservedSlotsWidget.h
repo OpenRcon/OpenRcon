@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,10 +20,11 @@
 #ifndef RESERVEDSLOTSWIDGET_H
 #define RESERVEDSLOTSWIDGET_H
 
-#include <QWidget>
+#include "Frostbite2Widget.h"
 
 class QMenu;
 class QAction;
+class QStringList;
 
 class Frostbite2Client;
 
@@ -31,7 +32,7 @@ namespace Ui {
     class ReservedSlotsWidget;
 }
 
-class ReservedSlotsWidget : public QWidget
+class ReservedSlotsWidget : public Frostbite2Widget
 {
     Q_OBJECT
 
