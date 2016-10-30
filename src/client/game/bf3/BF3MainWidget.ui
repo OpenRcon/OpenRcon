@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BF3Widget</class>
- <widget class="QWidget" name="BF3Widget">
+ <class>BF3MainWidget</class>
+ <widget class="QWidget" name="BF3MainWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

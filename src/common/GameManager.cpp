@@ -25,8 +25,8 @@
 #include "ServerEntry.h"
 #include "GameType.h"
 
-#include "BF3Widget.h"
-#include "BF4Widget.h"
+#include "BF3MainWidget.h"
+#include "BF4MainWidget.h"
 
 QList<GameEntry> GameManager::gameList = {
     // Adds all games to the list.
@@ -72,11 +72,11 @@ GameWidget *GameManager::getGameWidget(ServerEntry *serverEntry)
         break;
 
     case GameType::BF3:
-        gameWidget = new BF3Widget(serverEntry);
+        gameWidget = new BF3MainWidget(serverEntry);
         break;
 
     case GameType::BF4:
-        gameWidget = new BF4Widget(serverEntry);
+        gameWidget = new BF4MainWidget(serverEntry);
         break;
 
     default:

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -23,97 +23,17 @@
 #include "Frostbite2Widget.h"
 #include "BF3Client.h"
 
-class ChatWidget;
-class ReservedSlotsWidget;
-class ConsoleWidget;
-
-class BF3ServerInfo;
-class PlayerInfo;
-enum class PlayerSubsetType;
-class ServerEntry;
-
-namespace Ui {
-    class BF3Widget;
-}
-
 class BF3Widget : public Frostbite2Widget
 {
     Q_OBJECT
 
 public:
-    BF3Widget(ServerEntry *serverEntry, QWidget *parent = nullptr);
-    ~BF3Widget() final;
+    BF3Widget(BF3Client *client, QWidget *parent = nullptr);
+    virtual ~BF3Widget() override;
 
     BF3Client *getClient() final {
         return dynamic_cast<BF3Client*>(client);
     }
-
-private:
-    Ui::BF3Widget *ui;
-
-    ChatWidget *chatWidget;
-    ReservedSlotsWidget *reservedSlotsWidget;
-    ConsoleWidget *consoleWidget;
-
-    /* User Interface */
-    // ServerInfo
-
-    // Players
-    QTimer *timerPlayerList;
-
-    // Banlist
-
-    void setAuthenticated(bool auth);
-    void startupCommands(bool authenticated);
-//    void logEvent(const QString &event, const QString &message);
-
-    QIcon getRankIcon(int rank);
-
-private slots:
-    /* Connection */
-    void onConnected();
-    void onDisconnected();
-
-    /* Events */
-
-    /* Commands */
-
-    // Misc
-    void onLoginHashedCommand(bool auth);
-    void onServerInfoCommand(const BF3ServerInfo &serverInfo);
-    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
-
-    // Admin
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
-
-    // Banning
-
-    // FairFight
-
-    // Maplist
-
-    // Player
-
-    // Punkbuster
-
-    // Squad
-
-    // Variables
-
-    /* User Interface */
-
-    // ServerInfo
-
-    // Players
-    void updatePlayerList();
-    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
-
-    // Maplist
-
-    // BanList
-
-    // Options
-
 };
 
 #endif // BF3WIDGET_H
