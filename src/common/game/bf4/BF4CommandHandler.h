@@ -35,7 +35,7 @@ class BF4CommandHandler : public Frostbite2CommandHandler
 
 public:
     BF4CommandHandler(QObject *parent = nullptr);
-    ~BF4CommandHandler();
+    ~BF4CommandHandler() final;
 
     bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) final;
 

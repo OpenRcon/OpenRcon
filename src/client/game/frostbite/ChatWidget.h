@@ -36,7 +36,7 @@ class ChatWidget : public FrostbiteWidget
 
 public:
     ChatWidget(FrostbiteClient *client, QWidget *parent = 0);
-    ~ChatWidget();
+    ~ChatWidget() final;
 
 private:
     Ui::ChatWidget *ui;

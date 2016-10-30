@@ -40,7 +40,7 @@ class BanListWidget : public FrostbiteWidget
 
 public:
     explicit BanListWidget(FrostbiteClient *client, QWidget *parent = nullptr);
-    ~BanListWidget();
+    ~BanListWidget() final;
 
 private:
     Ui::BanListWidget *ui;

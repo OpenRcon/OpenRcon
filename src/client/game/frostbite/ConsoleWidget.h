@@ -39,7 +39,7 @@ class ConsoleWidget : public FrostbiteWidget
 public:
     ConsoleWidget(FrostbiteClient *client, QWidget *parent = nullptr);
     ConsoleWidget(FrostbiteClient *client, const QStringList &commandList, QWidget *parent = nullptr);
-    ~ConsoleWidget();
+    ~ConsoleWidget() final;
 
 private:
     Ui::ConsoleWidget *ui;

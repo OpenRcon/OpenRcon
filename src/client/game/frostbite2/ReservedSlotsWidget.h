@@ -38,7 +38,7 @@ class ReservedSlotsWidget : public Frostbite2Widget
 
 public:
     ReservedSlotsWidget(Frostbite2Client *client, QWidget *parent = nullptr);
-    ~ReservedSlotsWidget();
+    ~ReservedSlotsWidget() final;
 
 private:
     Ui::ReservedSlotsWidget *ui;
