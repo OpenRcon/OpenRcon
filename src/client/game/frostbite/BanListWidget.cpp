@@ -17,31 +17,18 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QStringList>
 #include <QCompleter>
 #include <QMenu>
 #include <QAction>
-#include <QTableWidget>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QRadioButton>
-#include <QComboBox>
-#include <QList>
-#include <QPoint>
-#include <QCursor>
-#include <QString>
-#include <QTableWidgetItem>
 
 #include "BanListWidget.h"
 #include "ui_BanListWidget.h"
-#include "Frostbite2Client.h"
 #include "BanListEntry.h"
 #include "FrostbiteUtils.h"
 
-BanListWidget::BanListWidget(Frostbite2Client *client, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::BanListWidget),
-    client(client)
+BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
+    FrostbiteWidget(client, parent),
+    ui(new Ui::BanListWidget)
 {
     ui->setupUi(this);
 
@@ -69,20 +56,20 @@ BanListWidget::BanListWidget(Frostbite2Client *client, QWidget *parent) :
 
     /* Commands */
     // BanList
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onBanListListCommand, this, &BanListWidget::onBanListListCommand);
+    connect(getClient()->getCommandHandler(),    &FrostbiteCommandHandler::onBanListListCommand,                         this, &BanListWidget::onBanListListCommand);
 
     /* User Interface */
-    connect(ui->tableWidget_bl_banList, &QTableWidget::customContextMenuRequested,                              this, &BanListWidget::tableWidget_bl_banList_customContextMenuRequested);
-    connect(action_bl_banList_remove,   &QAction::triggered,                                                    this, &BanListWidget::action_bl_banList_remove_triggered);
-    connect(ui->pushButton_load,        &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_load_clicked);
-    connect(ui->pushButton_save,        &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_save_clicked);
-    connect(ui->pushButton_clear,       &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_clear_clicked);
-    connect(ui->lineEdit_value,         &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
-    connect(ui->lineEdit_reason,        &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
-    connect(ui->radioButton_permanent,  &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_permanent_clicked);
-    connect(ui->radioButton_temporary,  &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_temporary_clicked);
-    connect(ui->comboBox_by,            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BanListWidget::comboBox_by_currentIndexChanged);
-    connect(ui->pushButton_ban,         &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_ban_clicked);
+    connect(ui->tableWidget_bl_banList,     &QTableWidget::customContextMenuRequested,                              this, &BanListWidget::tableWidget_bl_banList_customContextMenuRequested);
+    connect(action_bl_banList_remove,       &QAction::triggered,                                                    this, &BanListWidget::action_bl_banList_remove_triggered);
+    connect(ui->pushButton_load,            &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_load_clicked);
+    connect(ui->pushButton_save,            &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_save_clicked);
+    connect(ui->pushButton_clear,           &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_clear_clicked);
+    connect(ui->lineEdit_value,             &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
+    connect(ui->lineEdit_reason,            &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
+    connect(ui->radioButton_permanent,      &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_permanent_clicked);
+    connect(ui->radioButton_temporary,      &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_temporary_clicked);
+    connect(ui->comboBox_by,                static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BanListWidget::comboBox_by_currentIndexChanged);
+    connect(ui->pushButton_ban,             &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_ban_clicked);
 }
 
 BanListWidget::~BanListWidget()
@@ -115,7 +102,7 @@ void BanListWidget::action_bl_banList_remove_triggered()
     if (!idType.isEmpty() && !player.isEmpty()) {
         ui->tableWidget_bl_banList->removeRow(row);
 
-        client->getCommandHandler()->sendBanListRemoveCommand(idType, player);
+        getClient()->getCommandHandler()->sendBanListRemoveCommand(idType, player);
     }
 }
 
@@ -152,19 +139,19 @@ void BanListWidget::setBanlist(const QList<BanListEntry> &banList)
 
 void BanListWidget::pushButton_load_clicked()
 {
-    client->getCommandHandler()->sendBanListLoadCommand();
+    getClient()->getCommandHandler()->sendBanListLoadCommand();
 }
 
 void BanListWidget::pushButton_save_clicked()
 {
-    client->getCommandHandler()->sendBanListSaveCommand();
+    getClient()->getCommandHandler()->sendBanListSaveCommand();
 }
 
 void BanListWidget::pushButton_clear_clicked()
 {
     ui->tableWidget_bl_banList->clearContents();
     ui->pushButton_clear->setEnabled(ui->tableWidget_bl_banList->rowCount() < 0);
-    client->getCommandHandler()->sendBanListClearCommand();
+    getClient()->getCommandHandler()->sendBanListClearCommand();
 }
 
 void BanListWidget::validate()
@@ -205,7 +192,7 @@ void BanListWidget::pushButton_ban_clicked()
     QString reason = ui->lineEdit_reason->text();
 
     if (ui->radioButton_permanent->isChecked()) {
-        client->getCommandHandler()->sendBanListAddCommand(idType, value, reason);
+        getClient()->getCommandHandler()->sendBanListAddCommand(idType, value, reason);
     } else {
         bool useRounds = ui->comboBox_by->currentIndex() > 0;
         int timeout = ui->spinBox_timeout->value();
@@ -236,6 +223,6 @@ void BanListWidget::pushButton_ban_clicked()
             }
         }
 
-        client->getCommandHandler()->sendBanListAddCommand(idType, value, timeout, useRounds, reason);
+        getClient()->getCommandHandler()->sendBanListAddCommand(idType, value, timeout, useRounds, reason);
     }
 }

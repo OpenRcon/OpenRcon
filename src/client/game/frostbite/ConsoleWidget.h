@@ -20,30 +20,29 @@
 #ifndef CONSOLEWIDGET_H
 #define CONSOLEWIDGET_H
 
-#include <QWidget>
+#include "FrostbiteWidget.h"
 
 class QStringList;
 class QString;
 class QAbstractSocket;
 
-class Frostbite2Client;
+class FrostbiteClient;
 
 namespace Ui {
     class ConsoleWidget;
 }
 
-class ConsoleWidget : public QWidget
+class ConsoleWidget : public FrostbiteWidget
 {
     Q_OBJECT
 
 public:
-    ConsoleWidget(Frostbite2Client *client, QWidget *parent = nullptr);
-    ConsoleWidget(Frostbite2Client *client, const QStringList &commandList, QWidget *parent = nullptr);
+    ConsoleWidget(FrostbiteClient *client, QWidget *parent = nullptr);
+    ConsoleWidget(FrostbiteClient *client, const QStringList &commandList, QWidget *parent = nullptr);
     ~ConsoleWidget();
 
 private:
     Ui::ConsoleWidget *ui;
-    Frostbite2Client *client;
 
     QStringList commandHistory;
     bool commandHistoryFirst;

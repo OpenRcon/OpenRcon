@@ -20,27 +20,26 @@
 #ifndef CHATWIDGET_H
 #define CHATWIDGET_H
 
-#include <QWidget>
+#include "FrostbiteWidget.h"
 
 class QString;
 
-class Frostbite2Client;
+class FrostbiteClient;
 
 namespace Ui {
     class ChatWidget;
 }
 
-class ChatWidget : public QWidget
+class ChatWidget : public FrostbiteWidget
 {
     Q_OBJECT
 
 public:
-    ChatWidget(Frostbite2Client *client, QWidget *parent = 0);
+    ChatWidget(FrostbiteClient *client, QWidget *parent = 0);
     ~ChatWidget();
 
 private:
     Ui::ChatWidget *ui;
-    Frostbite2Client *client;
 
     void logChat(const QString &sender, const QString &message, const QString &target);
 

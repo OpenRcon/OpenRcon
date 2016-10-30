@@ -17,30 +17,25 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QComboBox>
-#include <QSpinBox>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QString>
 #include <QDateTime>
 
 #include "ChatWidget.h"
 #include "ui_ChatWidget.h"
-#include "Frostbite2Client.h"
+#include "BFBC2CommandHandler.h"
+#include "Frostbite2CommandHandler.h"
 #include "PlayerSubset.h"
 
-ChatWidget::ChatWidget(Frostbite2Client *client, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::ChatWidget),
-    client(client)
+ChatWidget::ChatWidget(FrostbiteClient *client, QWidget *parent) :
+    FrostbiteWidget(client, parent),
+    ui(new Ui::ChatWidget)
 {
     ui->setupUi(this);
 
     /* Events */
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
 
     /* Commands */
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
+    connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
 
     /* User Interface */
     connect(ui->comboBox_mode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ChatWidget::comboBox_mode_currentIndexChanged);
@@ -69,7 +64,13 @@ void ChatWidget::onPlayerChatEvent(const QString &sender, const QString &message
 void ChatWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
-        client->getCommandHandler()->sendAdminEventsEnabledCommand(true);
+        if (dynamic_cast<BFBC2CommandHandler*>(this)) {
+            BFBC2CommandHandler *commandHandler = dynamic_cast<BFBC2CommandHandler*>(getClient()->getCommandHandler());
+            commandHandler->sendEventsEnabledCommand(true);
+        } else if (dynamic_cast<Frostbite2CommandHandler*>(this)) {
+            Frostbite2CommandHandler *commandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
+            commandHandler->sendAdminEventsEnabledCommand(true);
+        }
     }
 }
 
@@ -114,17 +115,17 @@ void ChatWidget::pushButton_send_clicked()
         switch (type) {
         case 0:
             if (parameter) {
-                client->getCommandHandler()->sendAdminSayCommand(message, playerSubset, parameter);
+                getClient()->getCommandHandler()->sendAdminSayCommand(message, playerSubset, parameter);
             } else {
-                client->getCommandHandler()->sendAdminSayCommand(message, playerSubset);
+                getClient()->getCommandHandler()->sendAdminSayCommand(message, playerSubset);
             }
             break;
 
         case 1:
             if (parameter) {
-                client->getCommandHandler()->sendAdminYellCommand(message, duration, playerSubset, parameter);
+                getClient()->getCommandHandler()->sendAdminYellCommand(message, duration, playerSubset, parameter);
             } else {
-                client->getCommandHandler()->sendAdminYellCommand(message, duration, playerSubset);
+                getClient()->getCommandHandler()->sendAdminYellCommand(message, duration, playerSubset);
             }
             break;
         }

@@ -17,31 +17,27 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QPushButton>
-#include <QLineEdit>
 #include <QCompleter>
-#include <QString>
 #include <QDateTime>
 
 #include "ConsoleWidget.h"
 #include "ui_ConsoleWidget.h"
-#include "Frostbite2Client.h"
+#include "FrostbiteClient.h"
 
-ConsoleWidget::ConsoleWidget(Frostbite2Client *client, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::ConsoleWidget),
-    client(client)
+ConsoleWidget::ConsoleWidget(FrostbiteClient *client, QWidget *parent) :
+    FrostbiteWidget(client, parent),
+    ui(new Ui::ConsoleWidget)
 {
     ui->setupUi(this);
 
     /* Events */
-    connect(client->getConnection(), &Connection::onDisconnected, this, &ConsoleWidget::onDisconnected);
-    connect(client->getConnection(), &Connection::onDataSent,     this, &ConsoleWidget::onDataSent);
-    connect(client->getConnection(), &Connection::onDataReceived, this, &ConsoleWidget::onDataReceived);
+    connect(getClient()->getConnection(), &Connection::onDisconnected, this, &ConsoleWidget::onDisconnected);
+    connect(getClient()->getConnection(), &Connection::onDataSent,     this, &ConsoleWidget::onDataSent);
+    connect(getClient()->getConnection(), &Connection::onDataReceived, this, &ConsoleWidget::onDataReceived);
 
     /* Commands */
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &ConsoleWidget::onLoginHashedCommand);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
+    connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ConsoleWidget::onLoginHashedCommand);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPunkBusterMessageEvent, this, &ConsoleWidget::onPunkBusterMessageEvent);
 
     /* User Interface */
     connect(ui->lineEdit_co_co,   &QLineEdit::textChanged,      this, &ConsoleWidget::lineEdit_co_co_textChanged);
@@ -52,7 +48,7 @@ ConsoleWidget::ConsoleWidget(Frostbite2Client *client, QWidget *parent) :
     connect(ui->lineEdit_co_pb,   &QLineEdit::editingFinished,  this, &ConsoleWidget::pushButton_co_pb_clicked);
 }
 
-ConsoleWidget::ConsoleWidget(Frostbite2Client *client, const QStringList &commandList, QWidget *parent) :
+ConsoleWidget::ConsoleWidget(FrostbiteClient *client, const QStringList &commandList, QWidget *parent) :
     ConsoleWidget(client, parent)
 {
     // Create completer and set commandList.
@@ -130,7 +126,7 @@ void ConsoleWidget::lineEdit_co_co_textChanged(const QString &text)
 
 void ConsoleWidget::pushButton_co_co_clicked()
 {
-    client->getConnection()->sendCommand(ui->lineEdit_co_co->text());
+    getClient()->getConnection()->sendCommand(ui->lineEdit_co_co->text());
     ui->lineEdit_co_co->clear();
 }
 
@@ -141,6 +137,6 @@ void ConsoleWidget::lineEdit_co_pb_textChanged(const QString &text)
 
 void ConsoleWidget::pushButton_co_pb_clicked()
 {
-    client->getCommandHandler()->sendPunkBusterPbSvCommand(ui->lineEdit_co_pb->text());
+    getClient()->getCommandHandler()->sendPunkBusterPbSvCommand(ui->lineEdit_co_pb->text());
     ui->lineEdit_co_pb->clear();
 }

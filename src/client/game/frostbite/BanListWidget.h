@@ -20,31 +20,30 @@
 #ifndef BANLISTWIDGET_H
 #define BANLISTWIDGET_H
 
-#include <QWidget>
+#include "FrostbiteWidget.h"
 
 class QMenu;
 class QAction;
 class QString;
 class QPoint;
 
-class Frostbite2Client;
+class FrostbiteClient;
 struct BanListEntry;
 
 namespace Ui {
     class BanListWidget;
 }
 
-class BanListWidget : public QWidget
+class BanListWidget : public FrostbiteWidget
 {
     Q_OBJECT
 
 public:
-    explicit BanListWidget(Frostbite2Client *client, QWidget *parent = nullptr);
+    explicit BanListWidget(FrostbiteClient *client, QWidget *parent = nullptr);
     ~BanListWidget();
 
 private:
     Ui::BanListWidget *ui;
-    Frostbite2Client *client;
 
     /* User Interface */
     QMenu *menu_bl_banList;
