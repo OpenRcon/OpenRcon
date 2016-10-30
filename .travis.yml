@@ -1,0 +1,25 @@
+sudo: required
+dist: trusty      
+language: cpp
+
+compiler:
+  - gcc-6
+
+addons:
+  apt:
+    sources:
+     - ubuntu-toolchain-r-test
+     - ubuntu-sdk-team
+    packages:
+     - g++-6
+     - qt5-default
+     - qttools5-dev-tools
+
+before_install:
+ - update-alternatives --set gcc "/usr/bin/gcc-6"
+ - update-alternatives --set g++ "/usr/bin/g++-6"
+
+script:
+ - qmake -project
+ - qmake openrcon.pro
+ - make
