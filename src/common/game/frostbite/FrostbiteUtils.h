@@ -20,14 +20,18 @@
 #ifndef FROSTBITEUTILS_H
 #define FROSTBITEUTILS_H
 
+#include <QObject>
+
 class QString;
 class QStringList;
 
 class Time;
 enum class SquadEnum;
 
-class FrostbiteUtils
+class FrostbiteUtils : public QObject
 {
+    Q_OBJECT
+
 public:
     static int toInt(const QString &value);
     static float toFloat(const QString &value);
