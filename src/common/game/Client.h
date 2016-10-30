@@ -41,6 +41,7 @@ public:
 
     virtual void connectToHost() = 0;
     virtual void disconnectFromHost() = 0;
+    virtual void reconnectToHost() = 0;
 
     bool isAuthenticated();
     void setAuthenticated(bool authenticated);

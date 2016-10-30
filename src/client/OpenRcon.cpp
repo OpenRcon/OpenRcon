@@ -384,21 +384,15 @@ void OpenRcon::actionAboutQt_triggered()
 void OpenRcon::actionTabReconnect_triggered()
 {
     GameWidget *gameWidget = dynamic_cast<GameWidget*>(tabWidget->currentWidget());
-    Connection *connection = gameWidget->getClient()->getConnection();
-    // TODO: Check if a connection already exists, if so disconnect first.
-
-    if (connection->isConnected()) {
-        connection->hostDisconnect();
-    }
-
-    connection->hostConnect(gameWidget->getClient()->getServerEntry());
+    Client *client = gameWidget->getClient();
+    client->reconnectToHost();
 }
 
 void OpenRcon::actionTabDisconnect_triggered()
 {
     GameWidget *gameWidget = dynamic_cast<GameWidget*>(tabWidget->currentWidget());
-    Connection *connection = gameWidget->getClient()->getConnection();
-    connection->hostDisconnect();
+    Client *client = gameWidget->getClient();
+    client->disconnectFromHost();
 }
 
 // QuickConnect toolbar
