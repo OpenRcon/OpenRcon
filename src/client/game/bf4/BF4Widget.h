@@ -24,8 +24,10 @@
 #include "BF4Client.h"
 
 class QTimer;
+class QAbstractSocket;
 class QString;
 
+class ServerEntry;
 class PlayerListWidget;
 class EventsWidget;
 class ChatWidget;
@@ -36,7 +38,7 @@ class ReservedSlotsWidget;
 class SpectatorSlotsWidget;
 class ConsoleWidget;
 class BF4ServerInfo;
-class ServerEntry;
+
 
 namespace Ui {
     class BF4Widget;
@@ -78,11 +80,9 @@ private:
     void startupCommands(bool auth);
 
 private slots:
-    /* Connection */
+    /* Events */
     void onConnected(QAbstractSocket *socket);
     void onDisconnected(QAbstractSocket *socket);
-
-    /* Events */
     void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
 
     /* Commands */

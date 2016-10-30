@@ -34,7 +34,7 @@
 #include "ConsoleWidget.h"
 
 BF3Widget::BF3Widget(ServerEntry *serverEntry, QWidget *parent) :
-    Frostbite2Widget(new BF3Client(serverEntry, this), parent),
+    Frostbite2Widget(new BF3Client(serverEntry, parent), parent),
     ui(new Ui::BF3Widget)
 {
     ui->setupUi(this);

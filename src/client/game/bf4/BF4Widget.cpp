@@ -25,15 +25,6 @@
 #include "ui_BF4Widget.h"
 #include "BF4Client.h"
 
-#include "TabWidget.h"
-#include "BF4CommandHandler.h"
-#include "BF4LevelDictionary.h"
-#include "BF4ServerInfo.h"
-#include "BF4GameModeEntry.h"
-#include "FrostbiteUtils.h"
-#include "LevelEntry.h"
-#include "Time.h"
-
 #include "PlayerListWidget.h"
 #include "EventsWidget.h"
 #include "ChatWidget.h"
@@ -43,9 +34,15 @@
 #include "ReservedSlotsWidget.h"
 #include "SpectatorSlotsWidget.h"
 #include "ConsoleWidget.h"
+#include "BF4LevelDictionary.h"
+#include "BF4ServerInfo.h"
+#include "BF4GameModeEntry.h"
+#include "TabWidget.h"
+#include "FrostbiteUtils.h"
+#include "Time.h"
 
 BF4Widget::BF4Widget(ServerEntry *serverEntry, QWidget *parent) :
-    Frostbite2Widget(new BF4Client(serverEntry, this), parent),
+    Frostbite2Widget(new BF4Client(serverEntry, parent), parent),
     ui(new Ui::BF4Widget)
 {
     ui->setupUi(this);
