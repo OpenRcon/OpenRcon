@@ -5,9 +5,6 @@ language: cpp
 compiler:
   - gcc
 
-install:
-- if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
-  
 addons:
   apt:
     sources:
@@ -22,4 +19,4 @@ addons:
 script:
  - qmake -project
  - qmake openrcon.pro
- - make
+ - make CXX=g++-6
