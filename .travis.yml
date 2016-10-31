@@ -20,13 +20,13 @@ matrix:
       addons:
         apt:
           sources:
-           - llvm-toolchain-3.6
+           - llvm-toolchain-3.7
            - ubuntu-sdk-team
           packages: 
-           - clang-3.6
+           - clang-3.7
            - qt5-default
            - qttools5-dev-tools
-      env: COMPILER=clang++-3.6
+      env: COMPILER=clang++-3.7
       
 script:
  - qmake -project
