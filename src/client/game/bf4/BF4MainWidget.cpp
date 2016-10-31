@@ -308,7 +308,7 @@ void BF4MainWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 // Variables
 void BF4MainWidget::onVarsAlwaysAllowSpectatorsCommand(bool enabled)
 {
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), !enabled);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), enabled);
 }
 
 /* User Interface */
