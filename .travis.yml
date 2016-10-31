@@ -6,31 +6,11 @@ matrix:
   include:
     - os: linux
       compiler: gcc
-        addons:
-          apt:
-            sources:
-             - ubuntu-toolchain-r-test
-             - ubuntu-sdk-team
-            packages: 
-             - g++-6
-             - qt5-default
-             - qttools5-dev-tools
-      
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test, 'ubuntu-sdk-team']
+          packages: ['g++-6', 'qt5-default, 'qttools5-dev-tools']
       env: COMPILER=g++-6
-
-    - os: linux  
-      compiler: clang
-        addons:
-          apt:
-            sources:
-             - llvm-toolchain-3.6
-             - ubuntu-sdk-team
-             - qt5-default
-             - qttools5-dev-tools
-            packages: 
-             - clang-3.6
-      
-      env: COMPILER=clang++-3.6
 
 script:
  - qmake -project
