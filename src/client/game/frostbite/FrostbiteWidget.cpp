@@ -22,7 +22,46 @@
 FrostbiteWidget::FrostbiteWidget(FrostbiteClient *client, QWidget *parent) :
     GameWidget(client, parent)
 {
-
+    commandList += {
+        "login.plainText",
+        "login.hashed",
+        "serverInfo",
+        "logout",
+        "quit",
+        "version",
+        "listPlayers",
+        "admin.kickPlayer",
+        "admin.killPlayer",
+        "admin.listPlayers",
+        "admin.movePlayer",
+        "admin.say",
+        "admin.yell",
+        "banList.add",
+        "banList.clear",
+        "banList.list",
+        "banList.load",
+        "banList.remove",
+        "banList.save",
+        "mapList.clear",
+        "mapList.list",
+        "mapList.load",
+        "mapList.remove",
+        "mapList.save",
+        "punkBuster.pb_sv_command",
+        "vars.3dSpotting",
+        "vars.friendlyFire",
+        "vars.gamePassword",
+        "vars.idleTimeout",
+        "vars.killCam",
+        "vars.miniMap",
+        "vars.miniMapSpotting",
+        "vars.serverDescription",
+        "vars.serverName",
+        "vars.teamKillCountForKick",
+        "vars.teamKillValueDecreasePerSecond",
+        "vars.teamKillValueForKick",
+        "vars.teamKillValueIncrease"
+    };
 }
 
 FrostbiteWidget::~FrostbiteWidget()
