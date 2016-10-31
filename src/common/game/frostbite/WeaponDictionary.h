@@ -22,6 +22,8 @@
 
 #include <QList>
 
+class QString;
+
 class WeaponEntry;
 
 template<int gameId, typename WeaponEntryType>
