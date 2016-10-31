@@ -38,7 +38,7 @@ private:
     QStringList historyList;
     QStringList::Iterator it;
 
-    void keyPressEvent(QKeyEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) final;
 
 };
 

@@ -37,9 +37,9 @@ public:
     ~DragDropTreeWidget();
 
 private:
-    void dragEnterEvent(QDragEnterEvent *event) override;
-    void dragMoveEvent(QDragMoveEvent *event) override;
-    void dropEvent(QDropEvent *event) override;
+    void dragEnterEvent(QDragEnterEvent *event) final;
+    void dragMoveEvent(QDragMoveEvent *event) final;
+    void dropEvent(QDropEvent *event) final;
 
 signals:
     void itemDrop(int index);
