@@ -44,8 +44,10 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 
         /* Commands */
         // Misc
+        { "listPlayers",                   nullptr /*&BF3CommandHandler::parseListPlayersCommand*/ },
 
         // Admin
+        { "admin.listPlayers",             nullptr /*&BF3CommandHandler::parseAdminListPlayersCommand*/ },
         { "admin.effectiveMaxPlayers",     &BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand },
 
         // Vars
