@@ -16,6 +16,18 @@ matrix:
           - qttools5-dev-tools
       env: COMPILER=g++-6
 
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+           - llvm-toolchain-3.6
+           - ubuntu-sdk-team
+          packages: 
+           - clang-3.6
+           - qt5-default
+           - qttools5-dev-tools
+      env: COMPILER=clang++-3.6
+      
 script:
  - qmake -project
  - qmake openrcon.pro

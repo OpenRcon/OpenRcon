@@ -30,7 +30,7 @@ QStringList GameTypeUtils::list = {
 
 GameType GameTypeUtils::fromString(const QString &game)
 {
-    GameType gameType = GameType::BFBC2;
+    GameType gameType = GameType::Unsupported;
 
     if (game == "BFBC2") {
         gameType = GameType::BFBC2;

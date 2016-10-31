@@ -28,7 +28,8 @@ class QStringList;
 enum class GameType {
     BFBC2,
     BF3,
-    BF4
+    BF4,
+    Unsupported
 };
 
 class GameTypeUtils
