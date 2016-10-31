@@ -108,14 +108,16 @@ private slots:
     // Options -> Configuration
     void checkBox_configuration_punkBuster_toggled(bool checked);
     void checkBox_configuration_fairFight_toggled(bool checked);
+    void spinBox_configuration_maxPlayers_valueChanged(int value);
+    void spinBox_configuration_maxSpectators_valueChanged(int value);
+    void checkBox_configuration_alwaysAllowSpectators_toggled(bool checked);
+    void lineEdit_configuration_gamePassword_editingFinished();
+    void lineEdit_configuration_adminPassword_editingFinished();
     void checkBox_configuration_idleTimeout_toggled(bool checked);
     void spinBox_configuration_idleTimeout_valueChanged(int value);
     void checkBox_configuration_idleBanRounds_toggled(bool checked);
     void spinBox_configuration_idleBanRounds_valueChanged(int value);
     void checkBox_configuration_aggressiveJoin_toggled(bool checked);
-    void spinBox_configuration_maxPlayers_valueChanged(int value);
-    void spinBox_configuration_maxSpectators_valueChanged(int value);
-    void checkBox_configuration_alwaysAllowSpectators_toggled(bool checked);
     void checkBox_configuration_commander_toggled(bool checked);
 
     // Options -> Gameplay
@@ -150,7 +152,6 @@ private slots:
     void comboBox_gameplay_preset_currentIndexChanged(const QString &text);
     void checkBox_gameplay_presetLockPresetSetting_toggled(bool checked);
     void comboBox_gameplay_unlockMode_currentIndexChanged(int index);
-
 };
 
 #endif // BF4OPTIONSWIDGET_H

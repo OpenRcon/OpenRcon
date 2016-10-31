@@ -37,15 +37,15 @@ BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
             this, &BF4OptionsWidget::onLoginHashedCommand);
 
     // Admin
-    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onAdminPasswordCommand,                    this, &BF4OptionsWidget::onAdminPasswordCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onAdminPasswordCommand, this, &BF4OptionsWidget::onAdminPasswordCommand);
 
     // FairFight
-    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onFairFightIsActiveCommand,                this, &BF4OptionsWidget::onFairFightIsActiveCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onFairFightIsActiveCommand, this, &BF4OptionsWidget::onFairFightIsActiveCommand);
 
     // Player
 
     // Punkbuster
-    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onPunkBusterIsActiveCommand,               this, &BF4OptionsWidget::onPunkBusterIsActiveCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onPunkBusterIsActiveCommand, this, &BF4OptionsWidget::onPunkBusterIsActiveCommand);
 
     // Variables
     connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVars3dSpottingCommand,                   this, &BF4OptionsWidget::onVars3dSpottingCommand);
@@ -96,18 +96,21 @@ BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
     connect(ui->textEdit_details_serverDescription, &QTextEdit::textChanged,     this, &BF4OptionsWidget::textEdit_details_serverDescription_textChanged);
     connect(ui->lineEdit_details_serverMessage,     &QLineEdit::editingFinished, this, &BF4OptionsWidget::lineEdit_details_serverMessage_editingFinished);
 
+
     // Options -> Configuration
-    connect(ui->checkBox_configuration_punkBuster,                  &QCheckBox::toggled,                                                              this, &BF4OptionsWidget::checkBox_configuration_punkBuster_toggled);
-    connect(ui->checkBox_configuration_fairFight,                   &QCheckBox::toggled,                                                              this, &BF4OptionsWidget::checkBox_configuration_fairFight_toggled);
-    connect(ui->checkBox_configuration_idleTimeout,                 &QCheckBox::toggled,                                                              this, &BF4OptionsWidget::checkBox_configuration_idleTimeout_toggled);
-    connect(ui->spinBox_configuration_idleTimeout,                  static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &BF4OptionsWidget::spinBox_configuration_idleTimeout_valueChanged);
-    connect(ui->checkBox_configuration_idleBanRounds,               &QCheckBox::toggled,                                                              this, &BF4OptionsWidget::checkBox_configuration_idleBanRounds_toggled);
-    connect(ui->spinBox_configuration_idleBanRounds,                static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &BF4OptionsWidget::spinBox_configuration_idleBanRounds_valueChanged);
-    connect(ui->checkBox_configuration_aggressiveJoin,              &QCheckBox::toggled,                                                              this, &BF4OptionsWidget::checkBox_configuration_aggressiveJoin_toggled);
-    connect(ui->spinBox_configuration_maxPlayers,                   static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &BF4OptionsWidget::spinBox_configuration_maxPlayers_valueChanged);
-    connect(ui->spinBox_configuration_maxSpectators,                static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),                    this, &BF4OptionsWidget::spinBox_configuration_maxSpectators_valueChanged);
-    connect(ui->checkBox_configuration_alwaysAllowSpectators,       &QCheckBox::toggled,                                                              this, &BF4OptionsWidget::checkBox_configuration_alwaysAllowSpectators_toggled);
-    connect(ui->checkBox_configuration_commander,                   &QCheckBox::toggled,                                                              this, &BF4OptionsWidget::checkBox_configuration_commander_toggled);
+    connect(ui->checkBox_configuration_punkBuster,            &QCheckBox::toggled,                                           this, &BF4OptionsWidget::checkBox_configuration_punkBuster_toggled);
+    connect(ui->checkBox_configuration_fairFight,             &QCheckBox::toggled,                                           this, &BF4OptionsWidget::checkBox_configuration_fairFight_toggled);
+    connect(ui->spinBox_configuration_maxPlayers,             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4OptionsWidget::spinBox_configuration_maxPlayers_valueChanged);
+    connect(ui->spinBox_configuration_maxSpectators,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4OptionsWidget::spinBox_configuration_maxSpectators_valueChanged);
+    connect(ui->checkBox_configuration_alwaysAllowSpectators, &QCheckBox::toggled,                                           this, &BF4OptionsWidget::checkBox_configuration_alwaysAllowSpectators_toggled);
+    connect(ui->lineEdit_configuration_gamePassword,          &QLineEdit::editingFinished,                                   this, &BF4OptionsWidget::lineEdit_configuration_gamePassword_editingFinished);
+    connect(ui->lineEdit_configuration_adminPassword,         &QLineEdit::editingFinished,                                   this, &BF4OptionsWidget::lineEdit_configuration_adminPassword_editingFinished);
+    connect(ui->checkBox_configuration_idleTimeout,           &QCheckBox::toggled,                                           this, &BF4OptionsWidget::checkBox_configuration_idleTimeout_toggled);
+    connect(ui->spinBox_configuration_idleTimeout,            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4OptionsWidget::spinBox_configuration_idleTimeout_valueChanged);
+    connect(ui->checkBox_configuration_idleBanRounds,         &QCheckBox::toggled,                                           this, &BF4OptionsWidget::checkBox_configuration_idleBanRounds_toggled);
+    connect(ui->spinBox_configuration_idleBanRounds,          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &BF4OptionsWidget::spinBox_configuration_idleBanRounds_valueChanged);
+    connect(ui->checkBox_configuration_aggressiveJoin,        &QCheckBox::toggled,                                           this, &BF4OptionsWidget::checkBox_configuration_aggressiveJoin_toggled);
+    connect(ui->checkBox_configuration_commander,             &QCheckBox::toggled,                                           this, &BF4OptionsWidget::checkBox_configuration_commander_toggled);
 
     // Options -> Gameplay
     connect(ui->checkBox_gameplay_friendlyFire,                &QCheckBox::toggled,                                                              this, &BF4OptionsWidget::checkBox_gameplay_friendlyFire_toggled);
@@ -531,6 +534,39 @@ void BF4OptionsWidget::checkBox_configuration_fairFight_toggled(bool checked)
     getClient()->getCommandHandler()->sendFairFightIsActiveCommand();
 }
 
+void BF4OptionsWidget::spinBox_configuration_maxPlayers_valueChanged(int value)
+{
+    getClient()->getCommandHandler()->sendVarsMaxPlayersCommand(value);
+}
+
+void BF4OptionsWidget::spinBox_configuration_maxSpectators_valueChanged(int value)
+{
+    getClient()->getCommandHandler()->sendVarsMaxSpectatorsCommand(value);
+}
+
+void BF4OptionsWidget::checkBox_configuration_alwaysAllowSpectators_toggled(bool checked)
+{
+    getClient()->getCommandHandler()->sendVarsAlwaysAllowSpectatorsCommand(checked);
+}
+
+void BF4OptionsWidget::lineEdit_configuration_gamePassword_editingFinished()
+{
+    QString password = ui->lineEdit_configuration_gamePassword->text();
+
+    if (!password.isEmpty()) {
+        getClient()->getCommandHandler()->sendVarsGamePasswordCommand(password);
+    }
+}
+
+void BF4OptionsWidget::lineEdit_configuration_adminPassword_editingFinished()
+{
+    QString password = ui->lineEdit_configuration_adminPassword->text();
+
+    if (!password.isEmpty()) {
+        getClient()->getCommandHandler()->sendAdminPasswordCommand(password);
+    }
+}
+
 void BF4OptionsWidget::checkBox_configuration_idleTimeout_toggled(bool checked)
 {
     int timeout = checked ? 86400 : 225;
@@ -571,21 +607,6 @@ void BF4OptionsWidget::spinBox_configuration_idleBanRounds_valueChanged(int valu
 void BF4OptionsWidget::checkBox_configuration_aggressiveJoin_toggled(bool checked)
 {
     getClient()->getCommandHandler()->sendReservedSlotsListAggressiveJoinCommand(checked);
-}
-
-void BF4OptionsWidget::spinBox_configuration_maxPlayers_valueChanged(int value)
-{
-    getClient()->getCommandHandler()->sendVarsMaxPlayersCommand(value);
-}
-
-void BF4OptionsWidget::spinBox_configuration_maxSpectators_valueChanged(int value)
-{
-    getClient()->getCommandHandler()->sendVarsMaxSpectatorsCommand(value);
-}
-
-void BF4OptionsWidget::checkBox_configuration_alwaysAllowSpectators_toggled(bool checked)
-{
-    getClient()->getCommandHandler()->sendVarsAlwaysAllowSpectatorsCommand(checked);
 }
 
 void BF4OptionsWidget::checkBox_configuration_commander_toggled(bool checked)
