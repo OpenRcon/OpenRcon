@@ -76,14 +76,14 @@ void SessionManager::closeSession(GameWidget *gameWidget)
 {
     int index = TabWidget::getInstance()->indexOf(gameWidget);
 
-    this->closeSession(gameWidget, index);
+    closeSession(gameWidget, index);
 }
 
 void SessionManager::closeSession(int index)
 {
     GameWidget *gameWidget = dynamic_cast<GameWidget*>(TabWidget::getInstance()->widget(index));
 
-    this->closeSession(gameWidget, index);
+    closeSession(gameWidget, index);
 }
 
 void SessionManager::closeSession(GameWidget *gameWidget, int index)

@@ -69,6 +69,7 @@ GameWidget *GameManager::getGameWidget(ServerEntry *serverEntry)
     switch (gameType) {
     case GameType::BFBC2:
         //gameWidget = new BFBC2Widget(serverEntry);
+        gameWidget = nullptr;
         break;
 
     case GameType::BF3:
@@ -80,7 +81,7 @@ GameWidget *GameManager::getGameWidget(ServerEntry *serverEntry)
         break;
 
     default:
-        qDebug() << tr("Unknown game requested, the id was: %1.").arg(toInt(gameType));
+        qDebug() << tr("Unknown game requested, id was: %1.").arg(toInt(gameType));
         break;
     }
 

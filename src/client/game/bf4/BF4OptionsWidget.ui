@@ -17,7 +17,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_details">
       <attribute name="title">
@@ -29,7 +29,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_details_serverName">
            <property name="text">
-            <string>Name</string>
+            <string>Name:</string>
            </property>
           </widget>
          </item>
@@ -46,7 +46,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label_details_serverDescription">
            <property name="text">
-            <string>Description</string>
+            <string>Description:</string>
            </property>
           </widget>
          </item>
@@ -60,7 +60,7 @@
          <item row="2" column="0">
           <widget class="QLabel" name="label_details_serverMessage">
            <property name="text">
-            <string>Message</string>
+            <string>Message:</string>
            </property>
           </widget>
          </item>
@@ -114,7 +114,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_configuration_gamePassword">
            <property name="text">
-            <string>Game password</string>
+            <string>Game password:</string>
            </property>
           </widget>
          </item>
@@ -131,7 +131,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label_configuration_adminPassword">
            <property name="text">
-            <string>Admin password</string>
+            <string>Admin password:</string>
            </property>
           </widget>
          </item>
@@ -165,7 +165,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_configuration_serverTypeText">
            <property name="text">
-            <string>Servertype</string>
+            <string>Server type:</string>
            </property>
           </widget>
          </item>
@@ -195,7 +195,7 @@
            <item>
             <widget class="QLabel" name="label_configuration_maxSpectators">
              <property name="text">
-              <string>Spectator limit</string>
+              <string>Spectator limit:</string>
              </property>
             </widget>
            </item>
@@ -216,7 +216,7 @@
            <item>
             <widget class="QLabel" name="label_configuration_maxPlayers">
              <property name="text">
-              <string>Player limit</string>
+              <string>Player limit:</string>
              </property>
             </widget>
            </item>
