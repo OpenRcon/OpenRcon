@@ -20,6 +20,7 @@
 #include "BF4OptionsWidget.h"
 #include "ui_BF4OptionsWidget.h"
 #include "BF4Preset.h"
+#include "BF4ServerType.h"
 
 BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
     BF4Widget(client, parent),
@@ -420,11 +421,12 @@ void BF4OptionsWidget::onVarsServerMessageCommand(const QString &serverMessage)
     ui->lineEdit_details_serverMessage->setText(serverMessage);
 }
 
-void BF4OptionsWidget::onVarsServerTypeCommand(const QString &type)
+void BF4OptionsWidget::onVarsServerTypeCommand(const BF4ServerTypeEnum &serverType)
 {
-    ui->label_configuration_serverType->setText(type);
+    ui->label_configuration_serverType->setText(BF4ServerType::toString(serverType));
 
-    if (type == "RANKED") {
+    if (serverType == BF4ServerTypeEnum::Ranked) {
+        ui->checkBox_configuration_fairFight->setEnabled(false);
         ui->lineEdit_configuration_gamePassword->setEnabled(false);
     }
 }

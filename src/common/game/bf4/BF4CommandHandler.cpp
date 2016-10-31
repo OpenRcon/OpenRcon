@@ -530,9 +530,10 @@ void BF4CommandHandler::parseVarsServerTypeCommand(const FrostbiteRconPacket &pa
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        QString type = packet.getWord(1).getContent();
+        QString serverTypeName = FrostbiteUtils::toCamelCase(packet.getWord(1).getContent());
+        BF4ServerTypeEnum serverType = BF4ServerType::fromString(serverTypeName);
 
-        emit (onVarsServerTypeCommand(type));
+        emit (onVarsServerTypeCommand(serverType));
     }
 }
 

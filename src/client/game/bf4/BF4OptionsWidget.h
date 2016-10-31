@@ -89,7 +89,7 @@ private slots:
     void onVarsServerNameCommand(const QString &serverName);
     void onVarsServerDescriptionCommand(const QString &serverDescription);
     void onVarsServerMessageCommand(const QString &serverMessage);
-    void onVarsServerTypeCommand(const QString &type);
+    void onVarsServerTypeCommand(const BF4ServerTypeEnum &serverType);
     void onVarsSoldierHealthCommand(int health);
     void onVarsTicketBleedRateCommand(int percent);
     void onVarsUnlockModeCommand(const QString &type);

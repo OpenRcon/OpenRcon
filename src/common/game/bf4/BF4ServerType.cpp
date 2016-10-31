@@ -20,18 +20,21 @@
 #include <QStringList>
 #include <QString>
 
+#include <QDebug>
+
 #include "BF4ServerType.h"
 
 QStringList BF4ServerType::list = {
     "Official",
     "Ranked",
     "Unranked",
-    "Private"
+    "Private",
+    "Unknown"
 };
 
 BF4ServerTypeEnum BF4ServerType::fromString(const QString &serverTypeName)
 {
-    BF4ServerTypeEnum serverType = BF4ServerTypeEnum::Official;
+    BF4ServerTypeEnum serverType = BF4ServerTypeEnum::Unknown;
 
     if (serverTypeName == "Official") {
         serverType = BF4ServerTypeEnum::Official;

@@ -514,7 +514,7 @@ signals:
     void onVarsPresetCommand(const BF4PresetEnum &preset, bool lockPresetSetting);
     void onVarsRoundTimeLimitCommand(int percentage);
     void onVarsRoundWarmupTimeoutCommand(int timeout);
-    void onVarsServerTypeCommand(const QString &type);
+    void onVarsServerTypeCommand(const BF4ServerTypeEnum &serverType);
     void onVarsTeamFactionOverrideCommand(int team1, int team2, int team3, int team4);
     void onVarsTicketBleedRateCommand(int percent);
     void onVarsRoundPlayersReadyBypassTimerCommand(int timer);

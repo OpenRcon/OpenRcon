@@ -27,7 +27,8 @@ enum class BF4ServerTypeEnum {
     Official,
     Ranked,
     Unranked,
-    Private
+    Private,
+    Unknown
 };
 
 class BF4ServerType
