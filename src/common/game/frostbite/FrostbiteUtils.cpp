@@ -81,17 +81,6 @@ QString FrostbiteUtils::toString(bool value)
     return value ? "true" : "false";
 }
 
-Time FrostbiteUtils::getTimeFromSeconds(int elapsedSeconds)
-{
-    int weeks = elapsedSeconds / 60 / 60 / 24 / 7;
-    int days = (elapsedSeconds / 60 / 60 / 24) % 7;
-    int hours = (elapsedSeconds / 60 / 60) % 24;
-    int minutes = (elapsedSeconds / 60) % 60;
-    int seconds =  elapsedSeconds % 60;
-
-    return Time(weeks, days, hours, minutes, seconds);
-}
-
 QString FrostbiteUtils::toString(Time time)
 {
     QString timeString;
@@ -117,6 +106,26 @@ QString FrostbiteUtils::toString(Time time)
     }
 
     return timeString;
+}
+
+QString FrostbiteUtils::toCamelCase(const QString &value)
+{
+    QString camelCaseValue = value.toLower();
+    camelCaseValue.remove(0, 1);
+    camelCaseValue.insert(0, value.at(0).toUpper());
+
+    return camelCaseValue;
+}
+
+Time FrostbiteUtils::getTimeFromSeconds(int elapsedSeconds)
+{
+    int weeks = elapsedSeconds / 60 / 60 / 24 / 7;
+    int days = (elapsedSeconds / 60 / 60 / 24) % 7;
+    int hours = (elapsedSeconds / 60 / 60) % 24;
+    int minutes = (elapsedSeconds / 60) % 60;
+    int seconds =  elapsedSeconds % 60;
+
+    return Time(weeks, days, hours, minutes, seconds);
 }
 
 QString FrostbiteUtils::getSquadName(SquadEnum squad)
