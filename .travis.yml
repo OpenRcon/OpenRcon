@@ -4,12 +4,16 @@ language: cpp
 
 matrix:
   include:
-    - os: linux
-      compiler: gcc
+    - compiler: gcc
       addons:
         apt:
-          sources: ['ubuntu-toolchain-r-test, 'ubuntu-sdk-team']
-          packages: ['g++-6', 'qt5-default, 'qttools5-dev-tools']
+          sources: 
+           - ubuntu-toolchain-r-test
+           - ubuntu-sdk-team
+          packages: 
+          - g++-6
+          - qt5-default
+          - qttools5-dev-tools
       env: COMPILER=g++-6
 
 script:
