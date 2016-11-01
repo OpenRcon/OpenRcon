@@ -24,26 +24,24 @@
 
 #include "LevelEntry.h"
 
-class QClipboard;
-
-class BF4Client;
+class Frostbite2Client;
 class Frostbite2ServerInfo;
 class PlayerInfo;
-enum class PlayerSubsetEnum;
 
 class PlayerListWidget : public QTreeWidget
 {
     Q_OBJECT
 
 public:
-    PlayerListWidget(BF4Client *client, QWidget *game = nullptr);
+    PlayerListWidget(Frostbite2Client *client, QWidget *parent = nullptr);
     ~PlayerListWidget();
 
 private:
-    BF4Client *client;
+    Frostbite2Client *client;
 
     /* User Interface */
     // Players
+    QTimer *timer;
     QClipboard *clipboard;
     QMenu *menu_player;
     QAction *action_player_kill;
@@ -60,17 +58,18 @@ private:
     LevelEntry currentLevel;
 
     QIcon getRankIcon(int rank);
-    QString getSquadName(int squadId);
+    void resizeColumnsToContents();
+    void dragEnterEvent(QDragEnterEvent *event) final;
+    void dropEvent(QDropEvent *event) final;
 
 private slots:
     /* Events */
 
     /* Commands */
-    void onLoginHashedCommand(bool auth);
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
 
     /* User Interface */
-    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
+    void listPlayers(const QList<PlayerInfo> &playerList);
     void updatePlayerList();
     void customContextMenuRequested(const QPoint &pos);
     void action_player_kill_triggered();
@@ -80,8 +79,6 @@ private slots:
     void action_player_copyTo_name_triggered();
     void action_player_copyTo_guid_triggered();
     void menu_player_move_triggered(QAction *action);
-    void dragEnterEvent(QDragEnterEvent *event) override;
-    void dropEvent(QDropEvent *event) override;
 
 };
 
