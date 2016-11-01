@@ -124,7 +124,7 @@ PlayerListWidget::PlayerListWidget(Frostbite2Client *client, QWidget *parent) :
 
 PlayerListWidget::~PlayerListWidget()
 {
-
+    delete client;
 }
 
 /* Events */
