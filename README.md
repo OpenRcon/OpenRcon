@@ -1,4 +1,4 @@
-OpenRcon
+OpenRcon [![Build Status](https://travis-ci.org/OpenRcon/OpenRcon.svg?branch=master)](https://travis-ci.org/OpenRcon/OpenRcon)
 ========
 
 #### Description:
