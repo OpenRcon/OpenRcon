@@ -12,41 +12,40 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAMETYPE_H
-#define GAMETYPE_H
+#ifndef MINECRAFTCOMMANDHANDLER_H
+#define MINECRAFTCOMMANDHANDLER_H
 
-#include <QMetaType>
+#include "CommandHandler.h"
 
-class QString;
-class QStringList;
+class MinecraftConnection;
+class MinecraftRconPacket;
 
-enum class GameType {
-    BFBC2,
-    BF3,
-    BF4,
-    Minecraft,
-    Unsupported
-};
-
-class GameTypeUtils
+class MinecraftCommandHandler : public CommandHandler
 {
+    Q_OBJECT
+
 public:
-    static GameType fromString(const QString &game);
-    static QString toString(const GameType &gameType);
-    static int toInt(const GameType &gameType);
-    static QStringList asList();
+    MinecraftCommandHandler(QObject *parent = nullptr);
+    ~MinecraftCommandHandler() final;
+
+    void setConnection(MinecraftConnection *connection);
+
+    bool parse(const MinecraftRconPacket &packet);
+
+protected:
+    MinecraftConnection *connection;
 
 private:
-    static QStringList list;
+    void parseListCommand(MinecraftRconPacket &packet);
+
+signals:
+    void onListCommand(const QStringList &list);
 
 };
 
-// For use with QVariant
-Q_DECLARE_METATYPE(GameType)
-
-#endif // GAMETYPE_H
+#endif // MINECRAFTCOMMANDHANDLER_H

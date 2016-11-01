@@ -28,14 +28,14 @@ FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandl
     connectToHost();
 
     // Connection
-    connect(connection,     &Connection::onConnected,                       this, &FrostbiteClient::onConnected);
+    connect(connection,     &Connection::onConnected,                   this, &FrostbiteClient::onConnected);
 
     // Commands
     connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,           static_cast<void (FrostbiteClient::*)(const QByteArray&)>(&FrostbiteClient::onLoginHashedCommand));
     connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this,           static_cast<void (FrostbiteClient::*)(bool)>(&FrostbiteClient::onLoginHashedCommand));
-    connect(commandHandler, &FrostbiteCommandHandler::onVersionCommand,    this, &FrostbiteClient::onVersionCommand);
+    connect(commandHandler, &FrostbiteCommandHandler::onVersionCommand, this, &FrostbiteClient::onVersionCommand);
 }
 
 FrostbiteClient::~FrostbiteClient()

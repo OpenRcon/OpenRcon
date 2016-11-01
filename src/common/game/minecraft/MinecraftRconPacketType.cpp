@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The OpenRcon Project.
+ * Copyright (C) 201 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -12,41 +12,14 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAMETYPE_H
-#define GAMETYPE_H
+#include "MinecraftRconPacketType.h"
 
-#include <QMetaType>
-
-class QString;
-class QStringList;
-
-enum class GameType {
-    BFBC2,
-    BF3,
-    BF4,
-    Minecraft,
-    Unsupported
-};
-
-class GameTypeUtils
+MinecraftRconPacketType::MinecraftRconPacketType()
 {
-public:
-    static GameType fromString(const QString &game);
-    static QString toString(const GameType &gameType);
-    static int toInt(const GameType &gameType);
-    static QStringList asList();
 
-private:
-    static QStringList list;
-
-};
-
-// For use with QVariant
-Q_DECLARE_METATYPE(GameType)
-
-#endif // GAMETYPE_H
+}

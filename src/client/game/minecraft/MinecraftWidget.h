@@ -12,41 +12,45 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAMETYPE_H
-#define GAMETYPE_H
+#ifndef MINECRAFTWIDGET_H
+#define MINECRAFTWIDGET_H
 
-#include <QMetaType>
+#include "GameWidget.h"
+#include "MinecraftClient.h"
 
-class QString;
-class QStringList;
+namespace Ui {
+    class MinecraftWidget;
+}
 
-enum class GameType {
-    BFBC2,
-    BF3,
-    BF4,
-    Minecraft,
-    Unsupported
-};
-
-class GameTypeUtils
+class MinecraftWidget : public GameWidget
 {
+    Q_OBJECT
+
 public:
-    static GameType fromString(const QString &game);
-    static QString toString(const GameType &gameType);
-    static int toInt(const GameType &gameType);
-    static QStringList asList();
+    MinecraftWidget(ServerEntry *serverEntry, QWidget *parent = nullptr);
+    ~MinecraftWidget() final;
+
+    MinecraftClient *getClient() final {
+        return dynamic_cast<MinecraftClient*>(client);
+    }
+
+    void logMessage(int type, const QString &message);
 
 private:
-    static QStringList list;
+    Ui::MinecraftWidget *ui;
+
+private slots:
+    void onDataSent(const QString &command);
+    void onDataReceived(const QString &response);
+    void onAuthenticated(bool auth);
+
+    void on_pushButton_co_send_clicked();
 
 };
 
-// For use with QVariant
-Q_DECLARE_METATYPE(GameType)
-
-#endif // GAMETYPE_H
+#endif // MINECRAFTWIDGET_H

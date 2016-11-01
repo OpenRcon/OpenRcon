@@ -12,41 +12,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GAMETYPE_H
-#define GAMETYPE_H
+#ifndef MINECRAFTCOMMANDTYPE_H
+#define MINECRAFTCOMMANDTYPE_H
 
-#include <QMetaType>
-
-class QString;
-class QStringList;
-
-enum class GameType {
-    BFBC2,
-    BF3,
-    BF4,
-    Minecraft,
-    Unsupported
+enum class MinecraftCommandType {
+    ListCommand = 8,
+    KillCommand = 9,
+    UnknownCommand = 255
 };
 
-class GameTypeUtils
-{
-public:
-    static GameType fromString(const QString &game);
-    static QString toString(const GameType &gameType);
-    static int toInt(const GameType &gameType);
-    static QStringList asList();
-
-private:
-    static QStringList list;
-
-};
-
-// For use with QVariant
-Q_DECLARE_METATYPE(GameType)
-
-#endif // GAMETYPE_H
+#endif // MINECRAFTCOMMANDTYPE_H

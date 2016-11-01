@@ -17,48 +17,42 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FROSTBITECONNECTION_H
-#define FROSTBITECONNECTION_H
+#ifndef MINECRAFTCONNECTION_H
+#define MINECRAFTCONNECTION_H
 
 #include "Connection.h"
 
-#define MIN_PACKET_SIZE 12
+class MinecraftRconPacket;
+class MinecraftCommandHandler;
+enum class MinecraftCommandType;
 
-class FrostbiteRconPacket;
-class FrostbiteCommandHandler;
-
-class FrostbiteConnection : public Connection
+class MinecraftConnection : public Connection
 {
     Q_OBJECT
 
 public:
-    FrostbiteConnection(FrostbiteCommandHandler *commandHandler, QObject *parent = nullptr);
-    ~FrostbiteConnection() final;
+    MinecraftConnection(MinecraftCommandHandler *commandHandler, QObject *parent = nullptr);
+    ~MinecraftConnection() final;
 
-    void hostConnect(ServerEntry *serverEntry) final;
     void sendCommand(const QString &command);
-
-protected:
-    FrostbiteCommandHandler *commandHandler;
+    void sendPacket(const MinecraftRconPacket &packet);
 
 private:
-    enum PacketReading {
-        PacketReadingHeader,
-        PacketReadingData
-    };
+    MinecraftCommandHandler *commandHandler;
+    QVector<MinecraftRconPacket> packetSendQueue;
 
-    int packetReadState;
-    char lastHeader[MIN_PACKET_SIZE];
-    QVector<FrostbiteRconPacket> packetSendQueue;
-    unsigned int nextPacketSequence;
+    void handlePacket(const MinecraftRconPacket &packet);
 
-    void clear();
-    void sendPacket(const FrostbiteRconPacket &packet, bool response = false);
-    void handlePacket(const FrostbiteRconPacket &packet);
+    MinecraftCommandType getCommandTypeFromCommand(const QString &command);
+    int getRequestIdFromCommand(const QString &command);
 
 private slots:
     void readyRead();
 
+signals:
+    // Events
+    void onAuthenticated(bool auth);
+
 };
 
-#endif // FROSTBITECONNECTION_H
+#endif // BFBC2CONNECTION_H
