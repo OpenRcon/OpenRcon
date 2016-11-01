@@ -20,9 +20,9 @@
 #ifndef FROSTBITESERVERINFO_H
 #define FROSTBITESERVERINFO_H
 
-#include "TeamScores.h"
+#include <QString>
 
-class QString;
+#include "TeamScores.h"
 
 class FrostbiteServerInfo
 {
