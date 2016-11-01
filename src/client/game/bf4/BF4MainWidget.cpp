@@ -50,12 +50,13 @@ BF4MainWidget::BF4MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     /* User Inferface */
     // ServerInfo
     timerServerInfoRoundTime = new QTimer(this);
-    connect(timerServerInfoRoundTime, &QTimer::timeout, this, &BF4MainWidget::updateRoundTime);
     timerServerInfoRoundTime->start(1000);
 
     timerServerInfoUpTime = new QTimer(this);
-    connect(timerServerInfoUpTime, &QTimer::timeout, this, &BF4MainWidget::updateUpTime);
     timerServerInfoUpTime->start(1000);
+
+    connect(timerServerInfoRoundTime, &QTimer::timeout, this, &BF4MainWidget::updateRoundTime);
+    connect(timerServerInfoUpTime,    &QTimer::timeout, this, &BF4MainWidget::updateUpTime);
 
     commandList += {
         "admin.shutdown",
