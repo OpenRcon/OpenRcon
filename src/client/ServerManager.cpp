@@ -17,6 +17,7 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDebug>
 #include <QSettings>
 
 #include "ServerManager.h"
@@ -58,16 +59,22 @@ void ServerManager::readSettings()
         for (int i = 0; i < size; i++) {
             settings->setArrayIndex(i);
 
-            ServerEntry *entry = new ServerEntry(
-                GameManager::toGameType(settings->value("game").toInt()),
-                settings->value("name").toString(),
-                settings->value("host").toString(),
-                settings->value("port").toInt(),
-                settings->value("password").toString(),
-                settings->value("autoconnect").toBool()
-            );
+            int gameIndex = settings->value("game").toInt();
 
-            serverList.append(entry);
+            if (GameManager::isGameSupported(gameIndex)) {
+                ServerEntry *entry = new ServerEntry(
+                    GameManager::toGameType(gameIndex),
+                    settings->value("name").toString(),
+                    settings->value("host").toString(),
+                    settings->value("port").toInt(),
+                    settings->value("password").toString(),
+                    settings->value("autoconnect").toBool()
+                );
+
+                serverList.append(entry);
+            } else {
+                qDebug() << tr("Tried to load server belonging to unsupported game type, removing...");
+            }
         }
 
         settings->endArray();

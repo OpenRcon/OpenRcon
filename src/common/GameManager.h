@@ -35,12 +35,12 @@ class GameManager : public QObject
     Q_OBJECT
 
 public:
+    static bool isGameSupported(int index);
     static GameEntry getGame(GameType gameType);
     static GameEntry getGame(int index);
     static GameEntry getGame(const QString &gamePrefix);
     static QList<GameEntry> getGames();
     static GameWidget *getGameWidget(ServerEntry *serverEntry);
-
     static int toInt(GameType gameType);
     static GameType toGameType(int gameType);
     static GameType toGameType(const QString &gameType);
