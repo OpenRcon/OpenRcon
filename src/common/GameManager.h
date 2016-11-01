@@ -21,9 +21,10 @@
 #define GAMEMANAGER_H
 
 #include <QObject>
-#include <QList>
 
 class QString;
+template<class T>
+class QList;
 
 class GameEntry;
 enum class GameType;

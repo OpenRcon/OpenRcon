@@ -21,12 +21,13 @@
 #define SERVERLISTDIALOG_H
 
 #include <QDialog>
-#include <QList>
 
 #include "Constants.h"
 
 using namespace Constants;
 
+template<class T>
+class QList;
 class QMenu;
 class QAction;
 class QPoint;

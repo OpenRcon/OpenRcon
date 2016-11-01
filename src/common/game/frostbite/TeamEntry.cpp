@@ -22,6 +22,11 @@
 
 #include "TeamEntry.h"
 
+TeamEntry::TeamEntry()
+{
+
+}
+
 TeamEntry::TeamEntry(const QString &name, const QString &image) :
     name(name),
     image(image)

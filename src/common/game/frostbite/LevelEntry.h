@@ -28,8 +28,8 @@ class QPixmap;
 class LevelEntry
 {
 public:
-    LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile);
     LevelEntry();
+    LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile);
     ~LevelEntry();
 
     QString getEngineName() const;

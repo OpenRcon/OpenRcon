@@ -20,6 +20,8 @@
 #include <QDebug>
 
 #include "FrostbiteRconPacket.h"
+#include "FrostbiteRconPacketOrigin.h"
+#include "FrostbiteRconPacketType.h"
 #include "FrostbiteRconWord.h"
 
 FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent),
@@ -40,16 +42,16 @@ FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObj
     }
 }
 
-FrostbiteRconPacket::FrostbiteRconPacket(const PacketOrigin &packetOrigin, const PacketType &type, unsigned int initSequence, QObject *parent) :
+FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacketOrigin &packetOrigin, const FrostbiteRconPacketType &packetType, unsigned int initSequence, QObject *parent) :
     FrostbiteRconPacket(parent)
 {
     packetSequence = initSequence & 0x3FFFFFFF;
 
-    if (packetOrigin == ClientOrigin) {
+    if (packetOrigin == FrostbiteRconPacketOrigin::ClientOrigin) {
         packetSequence |= 0x80000000;
     }
 
-    if (type == Response) {
+    if (packetType == FrostbiteRconPacketType::Response) {
         packetSequence |= 0x40000000;
     }
 }

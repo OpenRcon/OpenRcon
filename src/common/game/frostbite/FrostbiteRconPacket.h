@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -27,24 +27,17 @@
 
 #define MAX_PACKET_SIZE 16384
 
+enum class FrostbiteRconPacketOrigin;
+enum class FrostbiteRconPacketType;
+
 class FrostbiteRconPacket : public QObject
 {
     Q_OBJECT
 
 public:
-    enum PacketOrigin {
-        ServerOrigin,
-        ClientOrigin
-    };
-
-    enum PacketType {
-        Request,
-        Response
-    };
-
     FrostbiteRconPacket(QObject *parent = nullptr);
     FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent = nullptr);
-    FrostbiteRconPacket(const PacketOrigin &packetOrigin, const PacketType &packetType, unsigned int initSequence = 0, QObject *parent = nullptr);
+    FrostbiteRconPacket(const FrostbiteRconPacketOrigin &packetOrigin, const FrostbiteRconPacketType &packetType, unsigned int initSequence = 0, QObject *parent = nullptr);
     ~FrostbiteRconPacket();
     FrostbiteRconPacket &operator=(const FrostbiteRconPacket &packet);
 

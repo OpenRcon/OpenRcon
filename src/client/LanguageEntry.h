@@ -20,16 +20,17 @@
 #ifndef LANGUAGEENTRY_H
 #define LANGUAGEENTRY_H
 
-#include <QString>
 #include <QIcon>
+
+class QString;
 
 class LanguageEntry
 {
 public:
+    LanguageEntry();
     LanguageEntry(const QString &name,
                   const QString &code,
                   const QString &icon);
-    LanguageEntry();
     ~LanguageEntry();
 
     QString getName() const;

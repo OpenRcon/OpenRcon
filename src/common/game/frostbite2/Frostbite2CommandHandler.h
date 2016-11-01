@@ -21,16 +21,7 @@
 #define FROSTBITE2COMMANDHANDLER_H
 
 #include "FrostbiteCommandHandler.h"
-#include "PlayerSubset.h"
-#include "BanListEntry.h"
-#include "MapListEntry.h"
 
-class QStringList;
-
-enum class PlayerSubsetType;
-class Frostbite2ServerInfo;
-class BF3ServerInfo;
-class BF4ServerInfo;
 class PlayerInfo;
 
 class Frostbite2CommandHandler : public FrostbiteCommandHandler

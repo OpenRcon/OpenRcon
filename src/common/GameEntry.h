@@ -28,12 +28,12 @@ enum class GameType;
 class GameEntry
 {
 public:
+    GameEntry();
     GameEntry(GameType gameType,
               const QString &prefix,
               const QString &name,
               const QString &icon,
               int defaultPort);
-    GameEntry();
     ~GameEntry();
 
     GameType getGameType() const;

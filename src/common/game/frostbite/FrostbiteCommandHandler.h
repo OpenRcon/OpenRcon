@@ -22,6 +22,9 @@
 
 #include "CommandHandler.h"
 
+class QString;
+class QByteArray;
+
 class FrostbiteConnection;
 class FrostbiteRconPacket;
 enum class PlayerSubsetEnum;

@@ -28,7 +28,7 @@ FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandl
     connectToHost();
 
     // Connection
-    connect(connection,     &Connection::onConnected,                       this, &FrostbiteClient::onConnected);
+    connect(connection,     &Connection::onConnected,                      this, &FrostbiteClient::onConnected);
 
     // Commands
     connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),

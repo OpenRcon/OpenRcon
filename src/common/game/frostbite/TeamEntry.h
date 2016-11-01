@@ -26,6 +26,7 @@ class QPixmap;
 class TeamEntry
 {
 public:
+    TeamEntry();
     TeamEntry(const QString &name, const QString &image = QString());
     ~TeamEntry();
 

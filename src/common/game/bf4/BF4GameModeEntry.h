@@ -25,8 +25,8 @@
 class BF4GameModeEntry : public GameModeEntry
 {
 public:
-    BF4GameModeEntry(const QString &engineName, const QString &name, int players, int commanders, int spectators);
     BF4GameModeEntry();
+    BF4GameModeEntry(const QString &engineName, const QString &name, int players, int commanders, int spectators);
     ~BF4GameModeEntry() final;
 
     int getCommanders() const;

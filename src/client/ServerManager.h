@@ -21,13 +21,14 @@
 #define SERVERMANAGER_H
 
 #include <QObject>
-#include <QList>
 
 #include "Constants.h"
 
 using namespace Constants;
 
 class QSettings;
+template<class T>
+class QList;
 
 class ServerEntry;
 enum class GameType;

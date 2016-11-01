@@ -30,6 +30,8 @@
 #include "BF4ServerInfo.h"
 #include "BF3CommandHandler.h"
 #include "BF4CommandHandler.h"
+#include "BanListEntry.h"
+#include "MapListEntry.h"
 
 FrostbiteCommandHandler::FrostbiteCommandHandler(QObject *parent) :
     CommandHandler(parent)

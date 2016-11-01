@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,45 +17,12 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QString>
+#ifndef FROSTBITERCONPACKETORIGIN_H
+#define FROSTBITERCONPACKETORIGIN_H
 
-#include "WeaponEntry.h"
+enum class FrostbiteRconPacketOrigin {
+    ServerOrigin,
+    ClientOrigin
+};
 
-WeaponEntry::WeaponEntry()
-{
-
-}
-
-WeaponEntry::WeaponEntry(const QString &className, const QString &name, const QString &priority, const QString &type) :
-    className(className),
-    name(name),
-    priority(priority),
-    type(type)
-{
-
-}
-
-WeaponEntry::~WeaponEntry()
-{
-
-}
-
-QString WeaponEntry::getClassName() const
-{
-    return className;
-}
-
-QString WeaponEntry::getName() const
-{
-    return name;
-}
-
-QString WeaponEntry::getPriority() const
-{
-    return priority;
-}
-
-QString WeaponEntry::getType() const
-{
-    return type;
-}
+#endif // FROSTBITERCONPACKETORIGIN_H

@@ -28,7 +28,7 @@ class TeamEntry;
 class LevelEntry;
 class GameModeEntry;
 
-template<int gameId, typename TeamEntryType, typename LevelEntryType, typename GameModeEntryType>
+template<int gameId, class TeamEntryType, class LevelEntryType, class GameModeEntryType>
 class LevelDictionary
 {
 public:
@@ -61,7 +61,11 @@ public:
 
     static const LevelEntryType &getLevel(int index, int gameModeIndex)
     {
-        return getLevels(gameModeIndex).at(index);
+        if (index < getLevels(gameModeIndex).length()) {
+            return getLevels(gameModeIndex).at(index);
+        }
+
+        return LevelEntryType();
     }
 
     static const QList<LevelEntryType> &getLevels()
@@ -104,7 +108,13 @@ public:
 
     static const GameModeEntryType &getGameMode(int index)
     {
-        return getGameModes().at(index);
+        static const GameModeEntryType empty;
+
+        if (index < gameModeList.length()) {
+            return gameModeList.at(index);
+        }
+
+        return empty;
     }
 
     static const GameModeEntryType &getGameMode(const QString &level)
@@ -138,7 +148,11 @@ public:
 
     static TeamEntryType getTeam(int index)
     {
-        return teamList.at(index);
+        if (index < teamList.length()) {
+            return teamList.at(index);
+        }
+
+        return TeamEntryType();
     }
 
     static QList<TeamEntryType> getTeams()

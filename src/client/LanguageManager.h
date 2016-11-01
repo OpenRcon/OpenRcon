@@ -21,9 +21,10 @@
 #define LANGUAGEMANAGER_H
 
 #include <QObject>
-#include <QList>
 
 class QString;
+template<class T>
+class QList;
 
 class LanguageEntry;
 
