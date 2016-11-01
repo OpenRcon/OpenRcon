@@ -36,7 +36,7 @@ public:
     ~FrostbiteConnection() final;
 
     void hostConnect(ServerEntry *serverEntry) final;
-    void sendCommand(const QString &command);
+    void sendCommand(const QString &command) final;
 
 protected:
     FrostbiteCommandHandler *commandHandler;
