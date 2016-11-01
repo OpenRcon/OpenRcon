@@ -22,7 +22,8 @@
 
 Client::Client(ServerEntry *serverEntry, QObject *parent) :
     QObject(parent),
-    serverEntry(serverEntry)
+    serverEntry(serverEntry),
+    authenticated(false)
 {
 
 }

@@ -37,11 +37,11 @@ public:
     virtual Connection *getConnection() = 0;
     virtual CommandHandler *getCommandHandler() = 0;
 
-    ServerEntry *getServerEntry();
-
     virtual void connectToHost() = 0;
     virtual void disconnectFromHost() = 0;
     virtual void reconnectToHost() = 0;
+
+    ServerEntry *getServerEntry();
 
     bool isAuthenticated();
     void setAuthenticated(bool authenticated);
