@@ -29,16 +29,16 @@ class FrostbiteRconWord : public QObject
 
 public:
     FrostbiteRconWord(QObject *parent = nullptr);
-    FrostbiteRconWord(const char *str, QObject *parent = nullptr);
+    FrostbiteRconWord(const char *word, QObject *parent = nullptr);
     FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent = nullptr);
-    FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
     ~FrostbiteRconWord();
+    FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
 
     void clear();
-    void loadData(const char* data, unsigned int size);
+    void loadData(const char *data, unsigned int size);
     unsigned int getSize() const;
     unsigned int getFullSize() const;
-    const char* getContent() const;
+    const char *getContent() const;
     char getTerminator() const;
 
 private:
@@ -48,12 +48,9 @@ private:
 
 };
 
-inline QDataStream &operator >> (QDataStream &in, FrostbiteRconWord &word)
+inline QDataStream &operator>> (QDataStream &in, FrostbiteRconWord &word)
 {
-    QDataStream::ByteOrder oldbo;
-    oldbo = in.byteOrder();
-
-    if (oldbo != QDataStream::LittleEndian) {
+    if (in.byteOrder() != QDataStream::LittleEndian) {
         in.setByteOrder(QDataStream::LittleEndian);
     }
 
@@ -70,25 +67,18 @@ inline QDataStream &operator >> (QDataStream &in, FrostbiteRconWord &word)
 
     word.loadData(data, size);
 
-    if (data) {
-        delete[] data;
-    }
-
     in >> terminator;
 
-    if (oldbo != QDataStream::LittleEndian) {
-        in.setByteOrder(oldbo);
+    if (data) {
+        delete[] data;
     }
 
     return in;
 }
 
-inline QDataStream &operator << (QDataStream &out, const FrostbiteRconWord &word)
+inline QDataStream &operator<< (QDataStream &out, const FrostbiteRconWord &word)
 {
-    QDataStream::ByteOrder oldbo;
-    oldbo = out.byteOrder();
-
-    if (oldbo != QDataStream::LittleEndian) {
+    if (out.byteOrder() != QDataStream::LittleEndian) {
         out.setByteOrder(QDataStream::LittleEndian);
     }
 
@@ -101,10 +91,6 @@ inline QDataStream &operator << (QDataStream &out, const FrostbiteRconWord &word
     }
 
     out << (signed char) word.getTerminator();
-
-    if (oldbo != QDataStream::LittleEndian) {
-        out.setByteOrder(oldbo);
-    }
 
     return out;
 }

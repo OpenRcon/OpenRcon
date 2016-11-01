@@ -22,23 +22,16 @@
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteRconWord.h"
 
-FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent), packetSequence(0), packetSize(0), packetWordCount(0)
+FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent),
+    packetSequence(0),
+    packetSize(0),
+    packetWordCount(0)
 {
 
 }
 
-FrostbiteRconPacket::FrostbiteRconPacket(int origin, int type, unsigned int initseq, QObject *parent) : QObject(parent), packetSequence(initseq & 0x3FFFFFFF), packetSize(0), packetWordCount(0)
-{
-    if (origin == ClientOrigin) {
-        packetSequence |= 0x80000000;
-    }
-
-    if (type == Response) {
-        packetSequence |= 0x40000000;
-    }
-}
-
-FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent) : QObject(parent), packetSequence(0), packetSize(0), packetWordCount(0)
+FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent) :
+    FrostbiteRconPacket(parent)
 {
     packetSequence = packet.getSequence();
 
@@ -47,87 +40,23 @@ FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObj
     }
 }
 
+FrostbiteRconPacket::FrostbiteRconPacket(const PacketOrigin &packetOrigin, const PacketType &type, unsigned int initSequence, QObject *parent) :
+    FrostbiteRconPacket(parent)
+{
+    packetSequence = initSequence & 0x3FFFFFFF;
+
+    if (packetOrigin == ClientOrigin) {
+        packetSequence |= 0x80000000;
+    }
+
+    if (type == Response) {
+        packetSequence |= 0x40000000;
+    }
+}
+
 FrostbiteRconPacket::~FrostbiteRconPacket()
 {
     clear();
-}
-
-bool FrostbiteRconPacket::isResponse() const
-{
-    if (packetSequence & 0x40000000) {
-        return true;
-    }
-
-    return false;
-}
-
-bool FrostbiteRconPacket::isRequest() const
-{
-    return !isResponse();
-}
-
-unsigned int FrostbiteRconPacket::getSequenceNum() const
-{
-    return packetSequence & 0x3FFFFFFF;
-}
-
-void FrostbiteRconPacket::packWord(const FrostbiteRconWord &word)
-{
-    packetSize += word.getFullSize();
-    packetWords.push_back(word);
-    packetWordCount++;
-}
-
-unsigned int FrostbiteRconPacket::getSequence() const
-{
-    return packetSequence;
-}
-
-unsigned int FrostbiteRconPacket::getSize() const
-{
-    return packetSize;
-}
-
-unsigned int FrostbiteRconPacket::getFullSize() const
-{
-    return 4 + 4 + 4 + packetSize;
-}
-
-unsigned int FrostbiteRconPacket::getWordCount() const
-{
-    return packetWordCount;
-}
-
-const FrostbiteRconWord& FrostbiteRconPacket::getWord(unsigned int index) const
-{
-    static FrostbiteRconWord emptyWord("");
-
-    // TODO: Use Q_ASSERT here?
-    if (index < packetWordCount) {
-        return packetWords[index];
-    } else {
-        qDebug() << tr("Wrong word index %1.").arg(index);
-    }
-
-    return emptyWord;
-}
-
-void FrostbiteRconPacket::setSequence(int sequence)
-{
-    packetSequence = sequence;
-}
-
-void FrostbiteRconPacket::setSequenceNum(int sequence)
-{
-    packetSequence = (packetSequence & 0xC0000000) | (sequence & 0x3FFFFFFF);
-}
-
-void FrostbiteRconPacket::clear()
-{
-    packetSequence = 0;
-    packetSize = 0;
-    packetWordCount = 0;
-    packetWords.clear();
 }
 
 FrostbiteRconPacket &FrostbiteRconPacket::operator= (const FrostbiteRconPacket &packet)
@@ -142,4 +71,78 @@ FrostbiteRconPacket &FrostbiteRconPacket::operator= (const FrostbiteRconPacket &
     }
 
     return *this;
+}
+
+void FrostbiteRconPacket::clear()
+{
+    packetSequence = 0;
+    packetSize = 0;
+    packetWordCount = 0;
+    packetWords.clear();
+}
+
+const FrostbiteRconWord& FrostbiteRconPacket::getWord(unsigned int index) const
+{
+    static FrostbiteRconWord emptyWord;
+
+    // TODO: Use Q_ASSERT here?
+    if (index < packetWordCount) {
+        return packetWords[index];
+    } else {
+        qDebug() << tr("Wrong word index %1.").arg(index);
+    }
+
+    return emptyWord;
+}
+
+void FrostbiteRconPacket::packWord(const FrostbiteRconWord &word)
+{
+    packetSize += word.getFullSize();
+    packetWords.push_back(word);
+    packetWordCount++;
+}
+
+unsigned int FrostbiteRconPacket::getSequence() const
+{
+    return packetSequence;
+}
+
+void FrostbiteRconPacket::setSequence(int sequence)
+{
+    packetSequence = sequence;
+}
+
+unsigned int FrostbiteRconPacket::getSequenceNum() const
+{
+    return packetSequence & 0x3FFFFFFF;
+}
+
+void FrostbiteRconPacket::setSequenceNum(int sequence)
+{
+    packetSequence = (packetSequence & 0xC0000000) | (sequence & 0x3FFFFFFF);
+}
+
+unsigned int FrostbiteRconPacket::getSize() const
+{
+    return packetSize;
+}
+
+unsigned int FrostbiteRconPacket::getFullSize() const
+{
+    return 12 + packetSize;
+}
+
+unsigned int FrostbiteRconPacket::getWordCount() const
+{
+    return packetWordCount;
+}
+
+bool FrostbiteRconPacket::isResponse() const
+{
+    return packetSequence & 0x40000000;
+}
+
+bool FrostbiteRconPacket::isRequest() const
+{
+    return !isResponse();
 }

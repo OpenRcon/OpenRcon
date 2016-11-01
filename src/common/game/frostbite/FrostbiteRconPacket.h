@@ -21,23 +21,17 @@
 #define FROSTBITERCONPACKET_H
 
 #include <QVector>
+#include <QDataStream>
 
 #include "FrostbiteRconWord.h"
 
 #define MAX_PACKET_SIZE 16384
-//#define MAX_WORDS 100 // TODO: Think this right.
 
 class FrostbiteRconPacket : public QObject
 {
     Q_OBJECT
 
 public:
-    FrostbiteRconPacket(QObject *parent = nullptr);
-    FrostbiteRconPacket(int origin, int type, unsigned int initseq = 0, QObject *parent = nullptr);
-    FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent = nullptr);
-    FrostbiteRconPacket &operator= (const FrostbiteRconPacket &packet);
-    ~FrostbiteRconPacket();
-
     enum PacketOrigin {
         ServerOrigin,
         ClientOrigin
@@ -48,18 +42,24 @@ public:
         Response
     };
 
+    FrostbiteRconPacket(QObject *parent = nullptr);
+    FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent = nullptr);
+    FrostbiteRconPacket(const PacketOrigin &packetOrigin, const PacketType &packetType, unsigned int initSequence = 0, QObject *parent = nullptr);
+    ~FrostbiteRconPacket();
+    FrostbiteRconPacket &operator=(const FrostbiteRconPacket &packet);
+
+    void clear();
+    const FrostbiteRconWord &getWord(unsigned int index) const;
     void packWord(const FrostbiteRconWord &word);
     unsigned int getSequence() const;
+    void setSequence(int sequence);
     unsigned int getSequenceNum() const;
+    void setSequenceNum(int sequence);
     unsigned int getSize() const;
     unsigned int getFullSize() const;
     unsigned int getWordCount() const;
     bool isResponse() const;
     bool isRequest() const;
-    const FrostbiteRconWord& getWord(unsigned int index) const;
-    void setSequence(int sequence);
-    void setSequenceNum(int sequence);
-    void clear();
 
 private:
     unsigned int packetSequence;
@@ -69,45 +69,35 @@ private:
 
 };
 
-inline QDataStream &operator >> (QDataStream &in, FrostbiteRconPacket &packet)
+inline QDataStream &operator>> (QDataStream &in, FrostbiteRconPacket &packet)
 {
-    QDataStream::ByteOrder oldbo;
-    oldbo = in.byteOrder();
-
-    if (oldbo != QDataStream::LittleEndian) {
+    if (in.byteOrder() != QDataStream::LittleEndian) {
         in.setByteOrder(QDataStream::LittleEndian);
     }
 
     packet.clear();
 
-    unsigned int seq, fsize, words;
+    unsigned int sequence, fullSize, wordCount;
+    in >> sequence;
+    in >> fullSize;
+    in >> wordCount;
 
-    in >> seq;
-    in >> fsize;
-    in >> words;
+    packet.setSequence(sequence);
+
     FrostbiteRconWord word;
 
-    packet.setSequence(seq);
-
-    for (unsigned int i = 0; i < words; i++) {
+    for (unsigned int i = 0; i < wordCount; i++) {
         in >> word;
         packet.packWord(word);
-    }
-
-    if (oldbo != QDataStream::LittleEndian) {
-        in.setByteOrder(oldbo);
     }
 
     return in;
 }
 
-inline QDataStream &operator << (QDataStream &out, const FrostbiteRconPacket &packet)
+inline QDataStream &operator<< (QDataStream &out, const FrostbiteRconPacket &packet)
 {
     if (packet.getFullSize() <= MAX_PACKET_SIZE) {
-        QDataStream::ByteOrder oldbo;
-        oldbo = out.byteOrder();
-
-        if (oldbo != QDataStream::LittleEndian) {
+        if (out.byteOrder() != QDataStream::LittleEndian) {
             out.setByteOrder(QDataStream::LittleEndian);
         }
 
@@ -117,10 +107,6 @@ inline QDataStream &operator << (QDataStream &out, const FrostbiteRconPacket &pa
 
         for (unsigned int i = 0; i < packet.getWordCount(); i++) {
             out << packet.getWord(i);
-        }
-
-        if (oldbo != QDataStream::LittleEndian) {
-            out.setByteOrder(oldbo);
         }
     }
 

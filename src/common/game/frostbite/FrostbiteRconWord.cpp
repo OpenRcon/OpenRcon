@@ -24,15 +24,15 @@ FrostbiteRconWord::FrostbiteRconWord(QObject *parent) : QObject(parent), wordSiz
 
 }
 
-FrostbiteRconWord::FrostbiteRconWord(const char* str, QObject *parent) : QObject(parent), wordSize(0), wordContent(0), wordTerminator(0)
+FrostbiteRconWord::FrostbiteRconWord(const char *word, QObject *parent) : QObject(parent), wordSize(0), wordContent(0), wordTerminator(0)
 {
     clear();
     wordTerminator = 0;
-    wordSize = strlen(str);
+    wordSize = strlen(word);
 
     if (wordSize) {
         wordContent = new char[wordSize + 1];
-        strcpy(wordContent, str);
+        strcpy(wordContent, word);
         wordContent[wordSize] = 0; // Include the null terminator.
     }
 }
