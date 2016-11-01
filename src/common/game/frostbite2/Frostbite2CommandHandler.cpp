@@ -74,14 +74,14 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         /*{ "quit",                                 &FrostbiteCommandHandler::parseQuitCommand },*/
         /*{ "version",                              &FrostbiteCommandHandler::parseVersionCommand },*/
         { "currentLevel",                           &Frostbite2CommandHandler::parseCurrentLevelCommand },
-        /*{ "listPlayers",                          &FrostbiteCommandHandler::parseListPlayersCommand },*/
+        { "listPlayers",                            &Frostbite2CommandHandler::parseListPlayersCommand },
 
         // Admin
         { "admin.eventsEnabled",                    &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
         { "admin.help",                             &Frostbite2CommandHandler::parseAdminHelpCommand },
         /*{ "admin.kickPlayer",                     &FrostbiteCommandHandler::parseAdminKickPlayerCommand },*/
         /*{ "admin.killPlayer",                     &FrostbiteCommandHandler::parseAdminKillPlayerCommand },*/
-        /*{ "admin.listPlayers",                    &FrostbiteCommandHandler::parseAdminListPlayersCommand },*/
+        { "admin.listPlayers",                      &Frostbite2CommandHandler::parseAdminListPlayersCommand },
         /*{ "admin.movePlayer",                     &FrostbiteCommandHandler::parseAdminMovePlayerCommand },*/
         { "admin.password",                         &Frostbite2CommandHandler::parseAdminPasswordCommand },
         /*{ "admin.say",                            &FrostbiteCommandHandler::parseAdminSayCommand },*/
@@ -192,6 +192,11 @@ void Frostbite2CommandHandler::sendCurrentLevelCommand()
     connection->sendCommand("currentLevel");
 }
 
+void Frostbite2CommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &playerSubset)
+{
+    connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
+}
+
 // Admin
 void Frostbite2CommandHandler::sendAdminEventsEnabledCommand()
 {
@@ -206,6 +211,11 @@ void Frostbite2CommandHandler::sendAdminEventsEnabledCommand(bool enabled)
 void Frostbite2CommandHandler::sendAdminHelpCommand()
 {
     connection->sendCommand("admin.help");
+}
+
+void Frostbite2CommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset)
+{
+    connection->sendCommand(QString("\"admin.listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
 }
 
 void Frostbite2CommandHandler::sendAdminPasswordCommand(const QString &password)
@@ -617,10 +627,19 @@ void Frostbite2CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacke
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        QString level = packet.getWord(1).getContent();
+        QString levelName = packet.getWord(1).getContent();
 
-        emit (onCurrentLevelCommand(level));
+        emit (onCurrentLevelCommand(levelName));
     }
+}
+
+void Frostbite2CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
+
+    emit (onListPlayersCommand(playerList));
 }
 
 // Admin
@@ -652,6 +671,15 @@ void Frostbite2CommandHandler::parseAdminHelpCommand(const FrostbiteRconPacket &
 
         emit (onAdminHelpCommand(commandList));
     }
+}
+
+void Frostbite2CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
+
+    emit (onAdminListPlayersCommand(playerList));
 }
 
 void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

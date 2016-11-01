@@ -46,11 +46,13 @@ public:
     /* Send commands */
     // Misc
     void sendCurrentLevelCommand();
+    void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset);
 
     // Admin
     void sendAdminEventsEnabledCommand();
     void sendAdminEventsEnabledCommand(bool enabled);
     void sendAdminHelpCommand();
+    void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset);
     void sendAdminPasswordCommand(const QString &password = QString());
 
     // Banning
@@ -136,10 +138,12 @@ private:
     /* Parse commands */
     // Misc
     void parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Admin
     void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Banning
@@ -209,11 +213,13 @@ signals:
 
     /* Command signals */
     // Misc
-    void onCurrentLevelCommand(const QString &level);
+    void onCurrentLevelCommand(const QString &levelName);
+    void onListPlayersCommand(const QList<PlayerInfo> &playerList);
 
     // Admin
     void onAdminEventsEnabledCommand(bool enabled);
     void onAdminHelpCommand(const QStringList &commandList);
+    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList);
     void onAdminPasswordCommand(const QString &password);
 
     // Banning

@@ -43,11 +43,7 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         /* Events */
 
         /* Commands */
-        // Misc
-        { "listPlayers",                   nullptr /*&BF3CommandHandler::parseListPlayersCommand*/ },
-
         // Admin
-        { "admin.listPlayers",             nullptr /*&BF3CommandHandler::parseAdminListPlayersCommand*/ },
         { "admin.effectiveMaxPlayers",     &BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand },
 
         // Vars
@@ -74,18 +70,7 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 }
 
 /* Send commands */
-// Misc
-void BF3CommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &playerSubset)
-{
-    connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
-}
-
 // Admin
-void BF3CommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset)
-{
-    connection->sendCommand(QString("\"admin.listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
-}
-
 void BF3CommandHandler::sendAdminEffectiveMaxPlayersCommand()
 {
     connection->sendCommand("admin.effectiveMaxPlayers");
@@ -161,28 +146,7 @@ void BF3CommandHandler::sendVarsRoundsPerMapCommand(int rounds)
 /* Parse events */
 
 /* Parse commands */
-// Misc
-void BF3CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
-    PlayerSubsetEnum playerSubset = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
-
-    emit (onListPlayersCommand(playerList, playerSubset));
-}
-
 // Admin
-void BF3CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
-    PlayerSubsetEnum playerSubset = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
-
-    emit (onListPlayersCommand(playerList, playerSubset));
-}
-
 void BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);

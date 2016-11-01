@@ -49,14 +49,14 @@ public:
     //quit
     //version
     //currentLevel
-    void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset);
+    //listPlayers
 
     // Admin
     //admin.eventsEnabled <enabled>
     //admin.help
     //admin.kickPlayer <player name> <reason>
-    //admin.killplayer <player name>
-    void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset);
+    //admin.killPlayer <player name>
+    //admin.listPlauers
     //admin.movePlayer <name> <teamId> <squadId> <forceKill>
     //admin.password <password>
     //admin.say <message> <players>
@@ -223,14 +223,14 @@ private:
     //quit
     //version
     //currentLevel
-    void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    //listPlayers
 
     // Admin
     //admin.eventsEnabled <enabled>
     //admin.help
     //admin.kickPlayer <player name> <reason>
     //admin.killPlayer <player name>
-    void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    //admin.listPlayers
     //admin.movePlayer <name> <teamId> <squadId> <forceKill>
     //admin.password <password>
     //admin.say <message> <players>
@@ -388,14 +388,14 @@ signals:
     //quit
     //version
     //currentLevel
-    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
+    //listPlayers
 
     // Admin
     //admin.eventsEnabled <enabled>
     //admin.help
     //admin.kickPlayer <player name> <reason>
     //admin.killPlayer <player name>
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
+    //admin.listPlayers
     //admin.movePlayer <name> <teamId> <squadId> <forceKill>
     //admin.password <password>
     //admin.say <message> <players>

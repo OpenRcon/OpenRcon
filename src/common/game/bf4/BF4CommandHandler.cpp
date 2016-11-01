@@ -46,11 +46,7 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
         { "player.onDisconnect",                &BF4CommandHandler::parsePlayerDisconnectEvent },
 
         /* Commands */
-        // Misc
-        { "listPlayers",                        &BF4CommandHandler::parseListPlayersCommand },
-
         // Admin
-        { "admin.listPlayers",                  &BF4CommandHandler::parseAdminListPlayersCommand },
         { "admin.shutdown",                     nullptr /*&BF4CommandHandler::parseAdminShutdownCommand*/ },
 
         // FairFight
@@ -99,18 +95,7 @@ bool BF4CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
 }
 
 /* Send commands */
-// Misc
-void BF4CommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &playerSubset)
-{
-    connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
-}
-
 // Admin
-void BF4CommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset)
-{
-    connection->sendCommand(QString("\"admin.listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
-}
-
 void BF4CommandHandler::sendAdminShutdownCommand()
 {
     connection->sendCommand("admin.shutDown");
@@ -349,27 +334,6 @@ void BF4CommandHandler::parsePlayerDisconnectEvent(const FrostbiteRconPacket &pa
 }
 
 /* Parse commands */
-void BF4CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
-    PlayerSubsetEnum playerSubset = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
-
-    emit (onListPlayersCommand(playerList, playerSubset));
-}
-
-// Admin
-void BF4CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
-    PlayerSubsetEnum playerSubset = PlayerSubset::fromString(lastSentPacket.getWord(1).getContent());
-
-    emit (onAdminListPlayersCommand(playerList, playerSubset));
-}
-
 // FairFight
 void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {

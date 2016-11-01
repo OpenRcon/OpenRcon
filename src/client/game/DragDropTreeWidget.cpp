@@ -63,8 +63,9 @@ void DragDropTreeWidget::dropEvent(QDropEvent *event)
         int index = source->currentIndex().row();
         QTreeWidgetItem *item = source->currentItem();
 
+        event->accept();
+
         emit (itemDrop(index));
         emit (itemDrop(item));
-        event->accept();
     }
 }
