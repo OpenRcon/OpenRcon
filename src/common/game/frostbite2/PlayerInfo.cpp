@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -48,47 +48,47 @@ PlayerInfo::~PlayerInfo()
 
 }
 
-QString PlayerInfo::getName()
+QString PlayerInfo::getName() const
 {
     return name;
 }
 
-QString PlayerInfo::getGuid()
+QString PlayerInfo::getGuid() const
 {
     return guid;
 }
 
-int PlayerInfo::getTeamId()
+int PlayerInfo::getTeamId() const
 {
     return teamId;
 }
 
-int PlayerInfo::getSquadId()
+int PlayerInfo::getSquadId() const
 {
     return squadId;
 }
 
-int PlayerInfo::getKills()
+int PlayerInfo::getKills() const
 {
     return kills;
 }
 
-int PlayerInfo::getDeaths()
+int PlayerInfo::getDeaths() const
 {
     return deaths;
 }
 
-int PlayerInfo::getScore()
+int PlayerInfo::getScore() const
 {
     return score;
 }
 
-int PlayerInfo::getRank()
+int PlayerInfo::getRank() const
 {
     return rank;
 }
 
-int PlayerInfo::getPing()
+int PlayerInfo::getPing() const
 {
     return ping;
 }

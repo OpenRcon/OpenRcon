@@ -42,32 +42,32 @@ ServerEntry::~ServerEntry()
 
 }
 
-GameType ServerEntry::getGameType()
+GameType ServerEntry::getGameType() const
 {
     return gameType;
 }
 
-QString ServerEntry::getName()
+QString ServerEntry::getName() const
 {
     return name;
 }
 
-QString ServerEntry::getHost()
+QString ServerEntry::getHost() const
 {
     return host;
 }
 
-int ServerEntry::getPort()
+int ServerEntry::getPort() const
 {
     return port;
 }
 
-QString ServerEntry::getPassword()
+QString ServerEntry::getPassword() const
 {
     return password;
 }
 
-bool ServerEntry::getAutoConnect()
+bool ServerEntry::getAutoConnect() const
 {
     return autoConnect;
 }

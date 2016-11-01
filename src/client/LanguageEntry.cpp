@@ -39,17 +39,17 @@ LanguageEntry::~LanguageEntry()
 
 }
 
-QString LanguageEntry::getName()
+QString LanguageEntry::getName() const
 {
     return name;
 }
 
-QString LanguageEntry::getCode()
+QString LanguageEntry::getCode() const
 {
     return code;
 }
 
-QIcon LanguageEntry::getIcon()
+QIcon LanguageEntry::getIcon() const
 {
     return icon;
 }

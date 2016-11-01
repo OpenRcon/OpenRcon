@@ -29,9 +29,9 @@ public:
     GameModeEntry();
     virtual ~GameModeEntry();
 
-    QString getEngineName();
-    QString getName();
-    int getPlayers();
+    QString getEngineName() const;
+    QString getName() const;
+    int getPlayers() const;
 
 private:
     QString engineName;

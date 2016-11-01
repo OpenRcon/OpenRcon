@@ -29,8 +29,8 @@ public:
     TeamEntry(const QString &name, const QString &image = QString());
     ~TeamEntry();
 
-    QString getName();
-    QPixmap getImage();
+    QString getName() const;
+    QPixmap getImage() const;
 
 private:
     QString name;

@@ -43,7 +43,8 @@
 #include "Client.h"
 #include "Connection.h"
 
-OpenRcon::OpenRcon(QWidget *parent) : QMainWindow(parent)
+OpenRcon::OpenRcon(QWidget *parent) :
+    QMainWindow(parent)
 {
     // Initialize the QSettings object.
     settings = new QSettings(APP_NAME, APP_NAME, this);

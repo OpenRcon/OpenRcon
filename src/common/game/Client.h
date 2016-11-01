@@ -41,14 +41,13 @@ public:
     virtual void disconnectFromHost() = 0;
     virtual void reconnectToHost() = 0;
 
-    ServerEntry *getServerEntry();
+    ServerEntry *getServerEntry() const;
 
-    bool isAuthenticated();
+    bool isAuthenticated() const;
     void setAuthenticated(bool authenticated);
 
 protected:
     ServerEntry *serverEntry;
-
     bool authenticated;
 
 };

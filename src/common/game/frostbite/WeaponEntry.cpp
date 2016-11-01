@@ -40,22 +40,22 @@ WeaponEntry::~WeaponEntry()
 
 }
 
-QString WeaponEntry::getClassName()
+QString WeaponEntry::getClassName() const
 {
     return className;
 }
 
-QString WeaponEntry::getName()
+QString WeaponEntry::getName() const
 {
     return name;
 }
 
-QString WeaponEntry::getPriority()
+QString WeaponEntry::getPriority() const
 {
     return priority;
 }
 
-QString WeaponEntry::getType()
+QString WeaponEntry::getType() const
 {
     return type;
 }

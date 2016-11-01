@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 201 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -36,15 +36,15 @@ public:
                int ping);
     ~PlayerInfo();
 
-    QString getName();
-    QString getGuid();
-    int getTeamId();
-    int getSquadId();
-    int getKills();
-    int getDeaths();
-    int getScore();
-    int getRank();
-    int getPing();
+    QString getName() const;
+    QString getGuid() const;
+    int getTeamId() const;
+    int getSquadId() const;
+    int getKills() const;
+    int getDeaths() const;
+    int getScore() const;
+    int getRank() const;
+    int getPing() const;
 
 private:
     QString name;

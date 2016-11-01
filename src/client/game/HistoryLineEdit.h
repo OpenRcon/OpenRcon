@@ -22,7 +22,6 @@
 
 #include <QLineEdit>
 
-class QWidget;
 class QStringList;
 class QKeyEvent;
 

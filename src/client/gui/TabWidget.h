@@ -22,14 +22,12 @@
 
 #include <QTabWidget>
 
-class QWidget;
-
 class TabWidget : public QTabWidget
 {
     Q_OBJECT
 
 public:
-    explicit TabWidget(QWidget *parent = nullptr);
+    TabWidget(QWidget *parent = nullptr);
     ~TabWidget();
 
     static TabWidget *getInstance(QWidget *parent = nullptr);

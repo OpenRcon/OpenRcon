@@ -32,12 +32,12 @@ public:
     ServerEntry();
     ~ServerEntry();
 
-    GameType getGameType();
-    QString getName();
-    QString getHost();
-    int getPort();
-    QString getPassword();
-    bool getAutoConnect();
+    GameType getGameType() const;
+    QString getName() const;
+    QString getHost() const;
+    int getPort() const;
+    QString getPassword() const;
+    bool getAutoConnect() const;
     void setAutoConnect(bool autoConnect);
 
 private:

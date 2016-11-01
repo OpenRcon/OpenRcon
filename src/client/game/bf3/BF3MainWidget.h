@@ -62,7 +62,7 @@ private:
     void startupCommands(bool authenticated);
 //    void logEvent(const QString &event, const QString &message);
 
-    QIcon getRankIcon(int rank);
+    QIcon getRankIcon(int rank) const;
 
 private slots:
     /* Connection */

@@ -21,7 +21,10 @@
 
 #include "MapListEntry.h"
 
-MapListEntry::MapListEntry(const QString &level, const QString &gameMode, int rounds) : level(level), gameMode(gameMode), rounds(rounds)
+MapListEntry::MapListEntry(const QString &level, const QString &gameMode, int rounds) :
+    level(level),
+    gameMode(gameMode),
+    rounds(rounds)
 {
 
 }
@@ -31,17 +34,17 @@ MapListEntry::~MapListEntry()
 
 }
 
-QString MapListEntry::getLevel()
+QString MapListEntry::getLevel() const
 {
     return level;
 }
 
-QString MapListEntry::getGameMode()
+QString MapListEntry::getGameMode() const
 {
     return gameMode;
 }
 
-int MapListEntry::getRounds()
+int MapListEntry::getRounds() const
 {
     return rounds;
 }

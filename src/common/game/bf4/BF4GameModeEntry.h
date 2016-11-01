@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -29,8 +29,8 @@ public:
     BF4GameModeEntry();
     ~BF4GameModeEntry() final;
 
-    int getCommanders();
-    int getSpectators();
+    int getCommanders() const;
+    int getSpectators() const;
 
 private:
     int commanders;

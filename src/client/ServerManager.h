@@ -42,12 +42,12 @@ public:
 
     static ServerManager *getInstance(QObject *parent = nullptr);
 
-    ServerEntry *getServer(int index);
-    ServerEntry *getServer(ServerEntry *serverEntry);
+    ServerEntry *getServer(int index) const;
+    ServerEntry *getServer(ServerEntry *serverEntry) const;
     void setServers(const QList<ServerEntry *> &list);
 
-    QList<ServerEntry *> getServers();
-    QList<ServerEntry *> getServers(GameType gameType);
+    QList<ServerEntry*> getServers() const;
+    QList<ServerEntry*> getServers(GameType gameType) const;
 
     void addServer(ServerEntry *serverEntry);
     void removeServer(int index);
@@ -57,7 +57,7 @@ private:
     static ServerManager *instance;
 
     QSettings *settings;
-    QList<ServerEntry *> serverList;
+    QList<ServerEntry*> serverList;
 
     void readSettings();
     void writeSettings();

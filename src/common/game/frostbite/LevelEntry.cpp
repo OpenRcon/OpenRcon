@@ -42,27 +42,27 @@ LevelEntry::~LevelEntry()
 
 }
 
-QString LevelEntry::getEngineName()
+QString LevelEntry::getEngineName() const
 {
     return engineName;
 }
 
-QString LevelEntry::getName()
+QString LevelEntry::getName() const
 {
     return name;
 }
 
-QList<int> LevelEntry::getTeamList()
+QList<int> LevelEntry::getTeamList() const
 {
     return teamList;
 }
 
-QPixmap LevelEntry::getImage()
+QPixmap LevelEntry::getImage() const
 {
     return QPixmap(imagePath + "/" + imageFile).scaled(QSize(335, 160), Qt::KeepAspectRatio);
 }
 
-QPixmap LevelEntry::getIcon()
+QPixmap LevelEntry::getIcon() const
 {
     return QPixmap(imagePath + "/thumbnails/" + imageFile).scaled(QSize(62, 42), Qt::KeepAspectRatio);
 }

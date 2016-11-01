@@ -32,9 +32,9 @@ public:
     LanguageEntry();
     ~LanguageEntry();
 
-    QString getName();
-    QString getCode();
-    QIcon getIcon();
+    QString getName() const;
+    QString getCode() const;
+    QIcon getIcon() const;
 
 private:
     QString name;

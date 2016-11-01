@@ -58,7 +58,7 @@ AboutDialog::~AboutDialog()
     delete ui;
 }
 
-QString AboutDialog::getFile(const QString &fileName)
+QString AboutDialog::getFile(const QString &fileName) const
 {   
     QFile file(fileName);
 

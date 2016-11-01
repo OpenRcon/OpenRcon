@@ -28,8 +28,8 @@ public:
     TeamScores(const QList<int> &scores, int targetScore = 0);
     ~TeamScores();
 
-    QList<int> getScores();
-    int getTargetScore();
+    QList<int> getScores() const;
+    int getTargetScore() const;
 
 private:
     QList<int> scores;

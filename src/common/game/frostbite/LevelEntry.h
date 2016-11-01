@@ -32,11 +32,11 @@ public:
     LevelEntry();
     ~LevelEntry();
 
-    QString getEngineName();
-    QString getName();
-    QList<int> getTeamList();
-    QPixmap getImage();
-    QPixmap getIcon();
+    QString getEngineName() const;
+    QString getName() const;
+    QList<int> getTeamList() const;
+    QPixmap getImage() const;
+    QPixmap getIcon() const;
 
 private:
     QString engineName;

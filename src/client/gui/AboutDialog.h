@@ -24,7 +24,6 @@
 
 #include "Constants.h"
 
-class QWidget;
 class QString;
 
 using namespace Constants;
@@ -44,7 +43,7 @@ public:
 private:
     Ui::AboutDialog *ui;
 
-    QString getFile(const QString &fileName);
+    QString getFile(const QString &fileName) const;
 
 };
 

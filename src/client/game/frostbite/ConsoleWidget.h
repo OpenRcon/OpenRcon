@@ -26,8 +26,6 @@ class QStringList;
 class QString;
 class QAbstractSocket;
 
-class FrostbiteClient;
-
 namespace Ui {
     class ConsoleWidget;
 }

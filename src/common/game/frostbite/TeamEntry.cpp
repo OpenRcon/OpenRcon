@@ -34,12 +34,12 @@ TeamEntry::~TeamEntry()
 
 }
 
-QString TeamEntry::getName()
+QString TeamEntry::getName() const
 {
     return name;
 }
 
-QPixmap TeamEntry::getImage()
+QPixmap TeamEntry::getImage() const
 {
     return QPixmap(image);
 }

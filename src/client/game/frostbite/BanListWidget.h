@@ -27,7 +27,6 @@ class QAction;
 class QString;
 class QPoint;
 
-class FrostbiteClient;
 struct BanListEntry;
 
 namespace Ui {
@@ -39,7 +38,7 @@ class BanListWidget : public FrostbiteWidget
     Q_OBJECT
 
 public:
-    explicit BanListWidget(FrostbiteClient *client, QWidget *parent = nullptr);
+    BanListWidget(FrostbiteClient *client, QWidget *parent = nullptr);
     ~BanListWidget() final;
 
 private:

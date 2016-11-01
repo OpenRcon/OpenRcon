@@ -17,8 +17,6 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QString>
-
 #include "GameModeEntry.h"
 
 GameModeEntry::GameModeEntry(const QString &engineName, const QString &name, int players) :
@@ -39,17 +37,17 @@ GameModeEntry::~GameModeEntry()
 
 }
 
-QString GameModeEntry::getEngineName()
+QString GameModeEntry::getEngineName() const
 {
     return engineName;
 }
 
-QString GameModeEntry::getName()
+QString GameModeEntry::getName() const
 {
     return name;
 }
 
-int GameModeEntry::getPlayers()
+int GameModeEntry::getPlayers() const
 {
     return players;
 }

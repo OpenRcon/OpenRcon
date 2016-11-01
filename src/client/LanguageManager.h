@@ -35,9 +35,9 @@ public:
     LanguageManager(QObject *parent = nullptr);
     ~LanguageManager();
 
-    LanguageEntry getLanguage(int index);
-    LanguageEntry getLanguage(const QString &code);
-    QList<LanguageEntry> getLanguages();
+    LanguageEntry getLanguage(int index) const;
+    LanguageEntry getLanguage(const QString &code) const;
+    QList<LanguageEntry> getLanguages() const;
 
 private:
     QList<LanguageEntry> languageList;

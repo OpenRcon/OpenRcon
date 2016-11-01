@@ -26,7 +26,6 @@
 class QString;
 
 class GameEntry;
-
 enum class GameType;
 class GameWidget;
 class ServerEntry;

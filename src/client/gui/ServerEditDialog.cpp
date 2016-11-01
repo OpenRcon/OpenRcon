@@ -128,32 +128,32 @@ void ServerEditDialog::accept()
     QDialog::accept();
 }
 
-GameType ServerEditDialog::getGameType()
+GameType ServerEditDialog::getGameType() const
 {
     return GameManager::toGameType(ui->comboBox_game->currentIndex());
 }
 
-QString ServerEditDialog::getName()
+QString ServerEditDialog::getName() const
 {
     return ui->lineEdit_name->text();
 }
 
-QString ServerEditDialog::getHost()
+QString ServerEditDialog::getHost() const
 {
     return ui->lineEdit_host->text();
 }
 
-int ServerEditDialog::getPort()
+int ServerEditDialog::getPort() const
 {
     return ui->spinBox_port->value();
 }
 
-QString ServerEditDialog::getPassword()
+QString ServerEditDialog::getPassword() const
 {
     return ui->lineEdit_password->text();
 }
 
-bool ServerEditDialog::getAutoConnect()
+bool ServerEditDialog::getAutoConnect() const
 {
     return ui->checkBox_autoConnect->isChecked();
 }

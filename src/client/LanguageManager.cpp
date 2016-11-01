@@ -23,7 +23,8 @@
 #include "LanguageManager.h"
 #include "LanguageEntry.h"
 
-LanguageManager::LanguageManager(QObject *parent) : QObject(parent)
+LanguageManager::LanguageManager(QObject *parent) :
+    QObject(parent)
 {
     languageList.append(LanguageEntry(tr("English"), "en_US", ":/flags/united_kingdom.png"));
     languageList.append(LanguageEntry(tr("Norwegian"), "nb_NO", ":/flags/norway.png"));
@@ -34,12 +35,12 @@ LanguageManager::~LanguageManager()
 
 }
 
-LanguageEntry LanguageManager::getLanguage(int index)
+LanguageEntry LanguageManager::getLanguage(int index) const
 {
     return languageList.at(index);
 }
 
-LanguageEntry LanguageManager::getLanguage(const QString &code)
+LanguageEntry LanguageManager::getLanguage(const QString &code) const
 {
     for (LanguageEntry language : languageList) {
         if (language.getCode() == code) {
@@ -50,7 +51,7 @@ LanguageEntry LanguageManager::getLanguage(const QString &code)
     return LanguageEntry();
 }
 
-QList<LanguageEntry> LanguageManager::getLanguages()
+QList<LanguageEntry> LanguageManager::getLanguages() const
 {
     return languageList;
 }

@@ -63,10 +63,9 @@ QList<GameEntry> GameManager::getGames()
 
 GameWidget *GameManager::getGameWidget(ServerEntry *serverEntry)
 {
-    GameType gameType = serverEntry->getGameType();
     GameWidget *gameWidget = nullptr;
 
-    switch (gameType) {
+    switch (serverEntry->getGameType()) {
     case GameType::BFBC2:
         //gameWidget = new BFBC2Widget(serverEntry);
         gameWidget = nullptr;
@@ -81,7 +80,7 @@ GameWidget *GameManager::getGameWidget(ServerEntry *serverEntry)
         break;
 
     default:
-        qDebug() << tr("Unknown game requested, id was: %1.").arg(toInt(gameType));
+        qDebug() << tr("Unknown game requested.");
         break;
     }
 

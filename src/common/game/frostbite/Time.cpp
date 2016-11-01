@@ -34,27 +34,27 @@ Time::~Time()
 
 }
 
-int Time::getWeeks()
+int Time::getWeeks() const
 {
     return weeks;
 }
 
-int Time::getDays()
+int Time::getDays() const
 {
     return days;
 }
 
-int Time::getHours()
+int Time::getHours() const
 {
     return hours;
 }
 
-int Time::getMinutes()
+int Time::getMinutes() const
 {
     return minutes;
 }
 
-int Time::getSeconds()
+int Time::getSeconds() const
 {
     return seconds;
 }

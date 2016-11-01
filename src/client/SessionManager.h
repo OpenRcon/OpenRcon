@@ -40,7 +40,7 @@ public:
     void closeSession(GameWidget *gameWidget);
     void closeSession(int index);
     void closeSession(GameWidget *gameWidget, int index);
-    bool isSessionConnected(ServerEntry *serverEntry);
+    bool isSessionConnected(ServerEntry *serverEntry) const;
 
 private:
     static SessionManager *instance;

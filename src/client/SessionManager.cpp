@@ -33,7 +33,8 @@
 
 SessionManager *SessionManager::instance = nullptr;
 
-SessionManager::SessionManager(QObject *parent) : QObject(parent)
+SessionManager::SessionManager(QObject *parent) :
+    QObject(parent)
 {
 
 }
@@ -105,7 +106,7 @@ void SessionManager::closeSession(GameWidget *gameWidget, int index)
     delete gameWidget;
 }
 
-bool SessionManager::isSessionConnected(ServerEntry *serverEntry)
+bool SessionManager::isSessionConnected(ServerEntry *serverEntry) const
 {
     return sessions.contains(serverEntry);
 }

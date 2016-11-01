@@ -22,8 +22,6 @@
 
 #include "FrostbiteCommandHandler.h"
 
-class QStringList;
-
 class BFBC2CommandHandler : public FrostbiteCommandHandler
 {
     Q_OBJECT

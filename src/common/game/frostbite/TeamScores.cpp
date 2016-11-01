@@ -31,12 +31,12 @@ TeamScores::~TeamScores()
 
 }
 
-QList<int> TeamScores::getScores()
+QList<int> TeamScores::getScores() const
 {
     return scores;
 }
 
-int TeamScores::getTargetScore()
+int TeamScores::getTargetScore() const
 {
     return targetScore;
 }

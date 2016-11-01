@@ -29,10 +29,10 @@ public:
     WeaponEntry();
     ~WeaponEntry();
 
-    QString getClassName();
-    QString getName();
-    QString getPriority();
-    QString getType();
+    QString getClassName() const;
+    QString getName() const;
+    QString getPriority() const;
+    QString getType() const;
 
 private:
     QString className;

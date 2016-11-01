@@ -30,14 +30,12 @@ public:
     MapListEntry(const QString &level, const QString &gameMode, int rounds = 0);
     ~MapListEntry();
 
-    QString getLevel();
-    QString getGameMode();
-    int getRounds();
+    QString getLevel() const;
+    QString getGameMode() const;
+    int getRounds() const;
 
 private:
     QString engineName;
-
-private:
     QString level;
     QString gameMode;
     int rounds;

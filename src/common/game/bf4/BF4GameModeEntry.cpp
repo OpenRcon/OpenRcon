@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014 The OpenRcon Project.
+* Copyright (C) 2016 The OpenRcon Project.
 *
 * This file is part of OpenRcon.
 *
@@ -27,7 +27,8 @@ BF4GameModeEntry::BF4GameModeEntry(const QString &engineName, const QString &nam
 
 }
 
-BF4GameModeEntry::BF4GameModeEntry()
+BF4GameModeEntry::BF4GameModeEntry() :
+    GameModeEntry()
 {
 
 }
@@ -37,12 +38,12 @@ BF4GameModeEntry::~BF4GameModeEntry()
 
 }
 
-int BF4GameModeEntry::getCommanders()
+int BF4GameModeEntry::getCommanders() const
 {
    return commanders;
 }
 
-int BF4GameModeEntry::getSpectators()
+int BF4GameModeEntry::getSpectators() const
 {
    return spectators;
 }

@@ -37,11 +37,11 @@ public:
     static float toFloat(const QString &value);
     static bool toBool(const QString &value);
     static QString toString(bool value);
-    static QString toString(Time time);
+    static QString toString(const Time &time);
     static QString toCamelCase(const QString &value);
 
     static Time getTimeFromSeconds(int elapsedSeconds);
-    static QString getSquadName(SquadEnum squad);
+    static QString getSquadName(const SquadEnum &squad);
     static QString getSquadName(int squadId);
 
 private:

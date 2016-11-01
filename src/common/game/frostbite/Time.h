@@ -26,11 +26,11 @@ public:
     Time(int weeks, int days, int hours, int minutes, int seconds);
     ~Time();
 
-    int getWeeks();
-    int getDays();
-    int getHours();
-    int getMinutes();
-    int getSeconds();
+    int getWeeks() const;
+    int getDays() const;
+    int getHours() const;
+    int getMinutes() const;
+    int getSeconds() const;
 
 private:
     int weeks;

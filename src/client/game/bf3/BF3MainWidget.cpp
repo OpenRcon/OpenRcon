@@ -183,7 +183,7 @@ void BF3MainWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerLis
 
 // Variables
 
-QIcon BF3MainWidget::getRankIcon(int rank)
+QIcon BF3MainWidget::getRankIcon(int rank) const
 {
     return QIcon(QString(":/bf3/ranks/rank_%1.png").arg(rank));
 }

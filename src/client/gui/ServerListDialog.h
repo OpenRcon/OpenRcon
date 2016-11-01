@@ -27,7 +27,6 @@
 
 using namespace Constants;
 
-class QWidget;
 class QMenu;
 class QAction;
 class QPoint;

@@ -22,7 +22,6 @@
 
 #include <QDialog>
 
-class QWidget;
 class QString;
 
 enum class GameType;
@@ -41,12 +40,12 @@ public:
     ServerEditDialog(int index, const QString &name = 0, const QString &host = 0, int port = 0, const QString &password = 0, bool autoConnect = false, QWidget *parent = nullptr);
     ~ServerEditDialog();
 
-    GameType getGameType();
-    QString getName();
-    QString getHost();
-    int getPort();
-    QString getPassword();
-    bool getAutoConnect();
+    GameType getGameType() const;
+    QString getName() const;
+    QString getHost() const;
+    int getPort() const;
+    QString getPassword() const;
+    bool getAutoConnect() const;
 
 private:
     Ui::ServerEditDialog *ui;

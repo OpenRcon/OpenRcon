@@ -24,8 +24,6 @@
 
 class QString;
 
-class FrostbiteClient;
-
 namespace Ui {
     class ChatWidget;
 }
@@ -35,7 +33,7 @@ class ChatWidget : public FrostbiteWidget
     Q_OBJECT
 
 public:
-    ChatWidget(FrostbiteClient *client, QWidget *parent = 0);
+    ChatWidget(FrostbiteClient *client, QWidget *parent = nullptr);
     ~ChatWidget() final;
 
 private:

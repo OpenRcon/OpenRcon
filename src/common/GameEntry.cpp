@@ -47,27 +47,27 @@ GameEntry::~GameEntry()
 
 }
 
-GameType GameEntry::getGameType()
+GameType GameEntry::getGameType() const
 {
     return gameType;
 }
 
-QString GameEntry::getPrefix()
+QString GameEntry::getPrefix() const
 {
     return prefix;
 }
 
-QString GameEntry::getName()
+QString GameEntry::getName() const
 {
     return name;
 }
 
-QIcon GameEntry::getIcon()
+QIcon GameEntry::getIcon() const
 {
     return QIcon(icon);
 }
 
-int GameEntry::getDefaultPort()
+int GameEntry::getDefaultPort() const
 {
     return defaultPort;
 }

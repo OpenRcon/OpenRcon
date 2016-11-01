@@ -81,11 +81,11 @@ QString FrostbiteUtils::toString(bool value)
     return value ? "true" : "false";
 }
 
-QString FrostbiteUtils::toString(Time time)
+QString FrostbiteUtils::toString(const Time &time)
 {
     QString timeString;
 
-    if (time.getWeeks() != 0) {
+    if (time.getHours() != 0) {
         timeString += " " + tr("%1w").arg(time.getWeeks());
     }
 
@@ -128,7 +128,7 @@ Time FrostbiteUtils::getTimeFromSeconds(int elapsedSeconds)
     return Time(weeks, days, hours, minutes, seconds);
 }
 
-QString FrostbiteUtils::getSquadName(SquadEnum squad)
+QString FrostbiteUtils::getSquadName(const SquadEnum &squad)
 {
     return getSquadName(static_cast<int>(squad));
 }

@@ -22,7 +22,11 @@
 BFBC2Client::BFBC2Client(ServerEntry *serverEntry, QObject *parent) :
     FrostbiteClient(serverEntry, new BFBC2CommandHandler(), parent)
 {
-    versionMap = { };
+    /*
+    versionMap += {
+        ""
+    };
+    */
 }
 
 BFBC2Client::~BFBC2Client()

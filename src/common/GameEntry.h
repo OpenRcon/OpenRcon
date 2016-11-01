@@ -36,11 +36,11 @@ public:
     GameEntry();
     ~GameEntry();
 
-    GameType getGameType();
-    QString getPrefix();
-    QString getName();
-    QIcon getIcon();
-    int getDefaultPort();
+    GameType getGameType() const;
+    QString getPrefix() const;
+    QString getName() const;
+    QIcon getIcon() const;
+    int getDefaultPort() const;
 
 private:
     GameType gameType;

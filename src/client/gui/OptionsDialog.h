@@ -24,7 +24,6 @@
 
 #include "Constants.h"
 
-class QWidget;
 class QSettings;
 class QListWidgetItem;
 

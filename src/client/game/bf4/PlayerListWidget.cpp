@@ -135,7 +135,7 @@ void PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInf
     this->currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
 }
 
-QIcon PlayerListWidget::getRankIcon(int rank)
+QIcon PlayerListWidget::getRankIcon(int rank) const
 {
     return QIcon(QString(":/bf4/ranks/rank_%1.png").arg(rank));
 }

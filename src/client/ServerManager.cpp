@@ -25,7 +25,8 @@
 
 ServerManager *ServerManager::instance = nullptr;
 
-ServerManager::ServerManager(QObject *parent) : QObject(parent)
+ServerManager::ServerManager(QObject *parent) :
+    QObject(parent)
 {
     settings = new QSettings(APP_NAME, APP_NAME, this);
 
@@ -95,17 +96,17 @@ void ServerManager::writeSettings()
     settings->endGroup();
 }
 
-ServerEntry* ServerManager::getServer(int index)
+ServerEntry *ServerManager::getServer(int index) const
 {
     return serverList.at(index);
 }
 
-ServerEntry* ServerManager::getServer(ServerEntry *serverEntry)
+ServerEntry *ServerManager::getServer(ServerEntry *serverEntry) const
 {
     return getServer(serverList.indexOf(serverEntry));
 }
 
-void ServerManager::setServers(const QList<ServerEntry *> &list)
+void ServerManager::setServers(const QList<ServerEntry*> &list)
 {
     serverList.clear();
     serverList = list;
@@ -114,12 +115,12 @@ void ServerManager::setServers(const QList<ServerEntry *> &list)
     emit (onServerUpdated());
 }
 
-QList<ServerEntry *> ServerManager::getServers()
+QList<ServerEntry*> ServerManager::getServers() const
 {
     return serverList;
 }
 
-QList<ServerEntry *> ServerManager::getServers(GameType gameType)
+QList<ServerEntry*> ServerManager::getServers(GameType gameType) const
 {
     QList<ServerEntry *> list;
 

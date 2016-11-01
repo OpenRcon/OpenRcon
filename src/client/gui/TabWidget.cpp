@@ -17,8 +17,6 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QWidget>
-
 #include "TabWidget.h"
 
 TabWidget *TabWidget::instance = nullptr;

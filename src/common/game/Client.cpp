@@ -33,12 +33,12 @@ Client::~Client()
 
 }
 
-ServerEntry *Client::getServerEntry()
+ServerEntry *Client::getServerEntry() const
 {
     return serverEntry;
 }
 
-bool Client::isAuthenticated()
+bool Client::isAuthenticated() const
 {
     return authenticated;
 }
