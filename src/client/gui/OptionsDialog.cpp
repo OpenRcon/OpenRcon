@@ -96,10 +96,10 @@ void OptionsDialog::saveSettings()
 
 void OptionsDialog::listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
+    Q_UNUSED(previous);
+
     if (current) {
         ui->stackedWidget->setCurrentIndex(ui->listWidget->row(current));
-    } else {
-        current = previous;
     }
 }
 
