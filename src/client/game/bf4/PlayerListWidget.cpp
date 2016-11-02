@@ -64,6 +64,7 @@ PlayerListWidget::PlayerListWidget(Frostbite2Client *client, QWidget *parent) :
     }
 
     headerItem->setText(6, tr("GUID"));
+    headerItem->setText(7, tr("K/D"));
 
     // Players
     clipboard = QApplication::clipboard();
@@ -212,6 +213,7 @@ void PlayerListWidget::listPlayers(const QList<PlayerInfo> &playerList)
         playerItem->setText(4, QString::number(player.getScore()));
         playerItem->setText(5, QString::number(player.getPing()));
         playerItem->setText(6, player.getGuid());
+        playerItem->setText(7, QString::number(player.getDeaths() <= 0 ? player.getKills() : player.getKills() / player.getDeaths()));
 
         // Add player item and team id to lists.
         playerItemList.insert(playerItem);
