@@ -39,8 +39,8 @@ public:
     FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent = nullptr);
     FrostbiteRconPacket(const FrostbiteRconPacketOrigin &packetOrigin, const FrostbiteRconPacketType &packetType, unsigned int initSequence = 0, QObject *parent = nullptr);
     ~FrostbiteRconPacket();
-    FrostbiteRconPacket &operator=(const FrostbiteRconPacket &packet);
 
+    FrostbiteRconPacket &operator=(const FrostbiteRconPacket &packet);
     void clear();
     const FrostbiteRconWord &getWord(unsigned int index) const;
     void packWord(const FrostbiteRconWord &word);
@@ -62,48 +62,7 @@ private:
 
 };
 
-inline QDataStream &operator>> (QDataStream &in, FrostbiteRconPacket &packet)
-{
-    if (in.byteOrder() != QDataStream::LittleEndian) {
-        in.setByteOrder(QDataStream::LittleEndian);
-    }
-
-    packet.clear();
-
-    unsigned int sequence, fullSize, wordCount;
-    in >> sequence;
-    in >> fullSize;
-    in >> wordCount;
-
-    packet.setSequence(sequence);
-
-    FrostbiteRconWord word;
-
-    for (unsigned int i = 0; i < wordCount; i++) {
-        in >> word;
-        packet.packWord(word);
-    }
-
-    return in;
-}
-
-inline QDataStream &operator<< (QDataStream &out, const FrostbiteRconPacket &packet)
-{
-    if (packet.getFullSize() <= MAX_PACKET_SIZE) {
-        if (out.byteOrder() != QDataStream::LittleEndian) {
-            out.setByteOrder(QDataStream::LittleEndian);
-        }
-
-        out << packet.getSequence();
-        out << packet.getFullSize();
-        out << packet.getWordCount();
-
-        for (unsigned int i = 0; i < packet.getWordCount(); i++) {
-            out << packet.getWord(i);
-        }
-    }
-
-    return out;
-}
+QDataStream &operator<<(QDataStream &out, const FrostbiteRconPacket &packet);
+QDataStream &operator>>(QDataStream &in, FrostbiteRconPacket &packet);
 
 #endif // FROSTBITERCONPACKET_H

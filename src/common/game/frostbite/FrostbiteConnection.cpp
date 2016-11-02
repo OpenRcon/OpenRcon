@@ -36,7 +36,7 @@ FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler
         commandHandler->setConnection(this);
     }
 
-    connect(socket, &QAbstractSocket::readyRead, this, &FrostbiteConnection::readyRead);
+    connect(socket, &QIODevice::readyRead, this, &FrostbiteConnection::readyRead);
 }
 
 FrostbiteConnection::~FrostbiteConnection()

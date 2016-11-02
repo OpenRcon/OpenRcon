@@ -71,6 +71,30 @@ FrostbiteRconWord &FrostbiteRconWord::operator = (const FrostbiteRconWord &word)
     return *this;
 }
 
+void FrostbiteRconWord::clear()
+{
+    if (wordContent) {
+        delete[] wordContent;
+        wordContent = nullptr;
+    }
+
+    wordSize = 0;
+    wordTerminator = 0;
+}
+
+void FrostbiteRconWord::loadData(const char *data, unsigned int size)
+{
+    clear();
+    wordTerminator = 0;
+    wordSize = size;
+
+    if (wordSize) {
+        wordContent = new char[wordSize + 1];
+        memcpy(wordContent, data, wordSize);
+        wordContent[wordSize] = 0; // Include the null terminator.
+    }
+}
+
 unsigned int FrostbiteRconWord::getSize() const
 {
     return wordSize;
@@ -91,26 +115,49 @@ char FrostbiteRconWord::getTerminator() const
     return wordTerminator;
 }
 
-void FrostbiteRconWord::loadData(const char* data, unsigned int size)
+QDataStream &operator<<(QDataStream &out, const FrostbiteRconWord &word)
 {
-    clear();
-    wordTerminator = 0;
-    wordSize = size;
-
-    if (wordSize) {
-        wordContent = new char[wordSize + 1];
-        memcpy(wordContent, data, wordSize);
-        wordContent[wordSize] = 0; // Include the null terminator.
+    if (out.byteOrder() != QDataStream::LittleEndian) {
+        out.setByteOrder(QDataStream::LittleEndian);
     }
+
+    out << word.getSize();
+
+    const char *wordContent = word.getContent();
+
+    for (unsigned int i = 0; i < word.getSize(); i++) {
+        out << (signed char) wordContent[i];
+    }
+
+    out << (signed char) word.getTerminator();
+
+    return out;
 }
 
-void FrostbiteRconWord::clear()
+QDataStream &operator>>(QDataStream &in, FrostbiteRconWord &word)
 {
-    if (wordContent) {
-        delete[] wordContent;
-        wordContent = nullptr;
+    if (in.byteOrder() != QDataStream::LittleEndian) {
+        in.setByteOrder(QDataStream::LittleEndian);
     }
 
-    wordSize = 0;
-    wordTerminator = 0;
+    unsigned int size;
+    char *data = nullptr;
+    signed char terminator;
+
+    in >> size;
+
+    if (size) {
+        data = new char[size];
+        in.readRawData(data, size);
+    }
+
+    word.loadData(data, size);
+
+    in >> terminator;
+
+    if (data) {
+        delete[] data;
+    }
+
+    return in;
 }
