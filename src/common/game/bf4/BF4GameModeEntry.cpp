@@ -19,16 +19,16 @@
 
 #include "BF4GameModeEntry.h"
 
-BF4GameModeEntry::BF4GameModeEntry(const QString &engineName, const QString &name, int players, int commanders, int spectators) :
-    GameModeEntry(engineName, name, players),
-    commanders(commanders),
-    spectators(spectators)
+BF4GameModeEntry::BF4GameModeEntry() :
+    GameModeEntry()
 {
 
 }
 
-BF4GameModeEntry::BF4GameModeEntry() :
-    GameModeEntry()
+BF4GameModeEntry::BF4GameModeEntry(const QString &engineName, const QString &name, int players, int commanders, int spectators) :
+    GameModeEntry(engineName, name, players),
+    commanders(commanders),
+    spectators(spectators)
 {
 
 }

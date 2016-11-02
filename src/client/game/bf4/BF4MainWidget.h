@@ -77,13 +77,13 @@ private slots:
     /* Events */
     void onConnected(QAbstractSocket *socket);
     void onDisconnected(QAbstractSocket *socket);
-    void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
 
     /* Commands */
     // Misc
     void onLoginHashedCommand(bool auth);
     void onVersionCommand(const QString &type, int build);
     void onServerInfoCommand(const BF4ServerInfo &serverInfo);
+
 
     // Admin
 

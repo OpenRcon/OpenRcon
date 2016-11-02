@@ -109,11 +109,13 @@ BF4MainWidget::BF4MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
-    connect(client->getConnection(), &Connection::onConnected,                          this, &BF4MainWidget::onConnected);
-    connect(client->getConnection(), &Connection::onDisconnected,                       this, &BF4MainWidget::onDisconnected);
+    connect(client->getConnection(), &Connection::onConnected,                                     this, &BF4MainWidget::onConnected);
+    connect(client->getConnection(), &Connection::onDisconnected,                                  this, &BF4MainWidget::onDisconnected);
 
     /* Events */
-    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onServerLevelLoadedEvent,  this, &BF4MainWidget::onServerLevelLoadedEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,        &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,       &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerLevelLoadedEvent, &Frostbite2CommandHandler::sendServerInfoCommand);
 
     /* Commands */
     // Misc
@@ -195,15 +197,6 @@ void BF4MainWidget::onDisconnected(QAbstractSocket *socket)
 }
 
 /* Events */
-void BF4MainWidget::onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal)
-{
-    Q_UNUSED(levelName);
-    Q_UNUSED(gameModeName);
-    Q_UNUSED(roundsPlayed);
-    Q_UNUSED(roundsTotal);
-
-    getClient()->getCommandHandler()->sendServerInfoCommand();
-}
 
 /* Commands */
 // Misc
@@ -334,10 +327,10 @@ void BF4MainWidget::pushButton_si_runNextRound_clicked()
 
 void BF4MainWidget::updateRoundTime()
 {
-    ui->label_si_round->setToolTip(FrostbiteUtils::toString(FrostbiteUtils::getTimeFromSeconds(roundTime++)));
+    ui->label_si_round->setToolTip(Time::fromSeconds(roundTime++).toString());
 }
 
 void BF4MainWidget::updateUpTime()
 {
-    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(FrostbiteUtils::toString(FrostbiteUtils::getTimeFromSeconds(upTime++))));
+    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(Time::fromSeconds(upTime++).toString()));
 }

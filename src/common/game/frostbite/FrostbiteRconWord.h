@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -32,8 +32,8 @@ public:
     FrostbiteRconWord(const char *word, QObject *parent = nullptr);
     FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent = nullptr);
     ~FrostbiteRconWord();
-    FrostbiteRconWord &operator= (const FrostbiteRconWord &word);
 
+    FrostbiteRconWord &operator=(const FrostbiteRconWord &word);
     void clear();
     void loadData(const char *data, unsigned int size);
     unsigned int getSize() const;
@@ -48,51 +48,7 @@ private:
 
 };
 
-inline QDataStream &operator>> (QDataStream &in, FrostbiteRconWord &word)
-{
-    if (in.byteOrder() != QDataStream::LittleEndian) {
-        in.setByteOrder(QDataStream::LittleEndian);
-    }
-
-    unsigned int size;
-    char *data = nullptr;
-    signed char terminator;
-
-    in >> size;
-
-    if (size) {
-        data = new char[size];
-        in.readRawData(data, size);
-    }
-
-    word.loadData(data, size);
-
-    in >> terminator;
-
-    if (data) {
-        delete[] data;
-    }
-
-    return in;
-}
-
-inline QDataStream &operator<< (QDataStream &out, const FrostbiteRconWord &word)
-{
-    if (out.byteOrder() != QDataStream::LittleEndian) {
-        out.setByteOrder(QDataStream::LittleEndian);
-    }
-
-    out << word.getSize();
-
-    const char *wordContent = word.getContent();
-
-    for (unsigned int i = 0; i < word.getSize(); i++) {
-        out << (signed char) wordContent[i];
-    }
-
-    out << (signed char) word.getTerminator();
-
-    return out;
-}
+QDataStream &operator<<(QDataStream &out, const FrostbiteRconWord &word);
+QDataStream &operator>>(QDataStream &in, FrostbiteRconWord &word);
 
 #endif // FROSTBITERCONWORD_H

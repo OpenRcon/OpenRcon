@@ -22,25 +22,34 @@
 
 #include "EventsWidget.h"
 #include "ui_EventsWidget.h"
+#include "BF4CommandHandler.h"
 #include "TeamEntry.h"
 #include "LevelEntry.h"
+#include "BF3LevelDictionary.h"
 #include "BF4LevelDictionary.h"
 #include "BF4GameModeEntry.h"
 #include "FrostbiteUtils.h"
+#include "ServerEntry.h"
 
-EventsWidget::EventsWidget(BF4Client *client, QWidget *parent) :
-    BF4Widget(client, parent),
+EventsWidget::EventsWidget(Frostbite2Client *client, QWidget *parent) :
+    Frostbite2Widget(client, parent),
     ui(new Ui::EventsWidget)
 {
     ui->setupUi(this);
 
     /* Connection */
-    connect(getClient()->getConnection(), &FrostbiteConnection::onConnected,    this, &EventsWidget::onConnected);
-    connect(getClient()->getConnection(), &FrostbiteConnection::onDisconnected, this, &EventsWidget::onDisconnected);
+    connect(getClient()->getConnection(),     &FrostbiteConnection::onConnected,                            this, &EventsWidget::onConnected);
+    connect(getClient()->getConnection(),     &FrostbiteConnection::onDisconnected,                         this, &EventsWidget::onDisconnected);
 
     /* Events */
     connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,        this, &EventsWidget::onPlayerAuthenticatedEvent);
-    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onPlayerDisconnectEvent,                  this, &EventsWidget::onPlayerDisconnectEvent);
+
+    BF4CommandHandler *commandHandler = dynamic_cast<BF4CommandHandler*>(getClient()->getCommandHandler());
+
+    if (commandHandler) {
+        connect(commandHandler,               &BF4CommandHandler::onPlayerDisconnectEvent,                  this, &EventsWidget::onPlayerDisconnectEvent);
+    }
+
     connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,                 this, &EventsWidget::onPlayerJoinEvent);
     connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,                this, &EventsWidget::onPlayerLeaveEvent);
     connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSpawnEvent,                this, &EventsWidget::onPlayerSpawnEvent);
@@ -167,8 +176,17 @@ void EventsWidget::onServerLevelLoadedEvent(const QString &levelName, const QStr
     Q_UNUSED(roundsPlayed);
     Q_UNUSED(roundsTotal);
 
-    LevelEntry level = BF4LevelDictionary::getLevel(levelName);
-    GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeName);
+    ServerEntry serverEntry = *getClient()->getServerEntry();
+    LevelEntry level;
+    GameModeEntry gameMode;
+
+    if (serverEntry.getGameType() == GameType::BF3) {
+        level = BF3LevelDictionary::getLevel(levelName);
+        gameMode = BF3LevelDictionary::getGameMode(gameModeName);
+    } else if (serverEntry.getGameType() == GameType::BF4) {
+        level = BF4LevelDictionary::getLevel(levelName);
+        gameMode = BF4LevelDictionary::getGameMode(gameModeName);
+    }
 
     logEvent("ServerLevelLoaded", tr("Loading level %1 with gamemode %2.").arg(level.getName()).arg(gameMode.getName()));
 }

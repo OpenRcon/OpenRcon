@@ -22,17 +22,17 @@
 
 #include "LevelEntry.h"
 
+LevelEntry::LevelEntry()
+{
+
+}
+
 LevelEntry::LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile) :
     engineName(engineName),
     name(name),
     teamList(teamList),
     imagePath(imagePath),
     imageFile(imageFile)
-{
-
-}
-
-LevelEntry::LevelEntry()
 {
 
 }

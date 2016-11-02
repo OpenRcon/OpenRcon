@@ -21,6 +21,8 @@
 
 #include "FrostbiteConnection.h"
 #include "FrostbiteRconPacket.h"
+#include "FrostbiteRconPacketOrigin.h"
+#include "FrostbiteRconPacketType.h"
 #include "FrostbiteCommandHandler.h"
 #include "ServerEntry.h"
 
@@ -34,7 +36,7 @@ FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler
         commandHandler->setConnection(this);
     }
 
-    connect(socket, &QAbstractSocket::readyRead, this, &FrostbiteConnection::readyRead);
+    connect(socket, &QIODevice::readyRead, this, &FrostbiteConnection::readyRead);
 }
 
 FrostbiteConnection::~FrostbiteConnection()
@@ -54,7 +56,7 @@ void FrostbiteConnection::hostConnect(ServerEntry *serverEntry)
 void FrostbiteConnection::sendCommand(const QString &command)
 {
     if (!command.isEmpty()) {
-        FrostbiteRconPacket packet(FrostbiteRconPacket::ServerOrigin, FrostbiteRconPacket::Request, nextPacketSequence);
+        FrostbiteRconPacket packet(FrostbiteRconPacketOrigin::ServerOrigin, FrostbiteRconPacketType::Request, nextPacketSequence);
         QStringList wordList;
         wordList = command.split(QRegularExpression(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
         wordList.replaceInStrings("\"", "", Qt::CaseSensitive);

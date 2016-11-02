@@ -21,9 +21,10 @@
 #define GAMEMANAGER_H
 
 #include <QObject>
-#include <QList>
 
 class QString;
+template<class T>
+class QList;
 
 class GameEntry;
 enum class GameType;
@@ -35,12 +36,12 @@ class GameManager : public QObject
     Q_OBJECT
 
 public:
+    static bool isGameSupported(int index);
     static GameEntry getGame(GameType gameType);
     static GameEntry getGame(int index);
     static GameEntry getGame(const QString &gamePrefix);
     static QList<GameEntry> getGames();
     static GameWidget *getGameWidget(ServerEntry *serverEntry);
-
     static int toInt(GameType gameType);
     static GameType toGameType(int gameType);
     static GameType toGameType(const QString &gameType);

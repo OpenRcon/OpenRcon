@@ -21,16 +21,16 @@
 
 #include "WeaponEntry.h"
 
+WeaponEntry::WeaponEntry()
+{
+
+}
+
 WeaponEntry::WeaponEntry(const QString &className, const QString &name, const QString &priority, const QString &type) :
     className(className),
     name(name),
     priority(priority),
     type(type)
-{
-
-}
-
-WeaponEntry::WeaponEntry()
 {
 
 }

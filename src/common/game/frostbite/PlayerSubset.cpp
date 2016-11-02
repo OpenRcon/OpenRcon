@@ -23,11 +23,11 @@
 #include "PlayerSubset.h"
 
 QStringList PlayerSubset::list = {
-    "Unknown",
     "All",
     "Team",
     "Squad",
-    "Player"
+    "Player",
+    "Unknown"
 };
 
 PlayerSubsetEnum PlayerSubset::fromString(const QString &playerSubsetName)

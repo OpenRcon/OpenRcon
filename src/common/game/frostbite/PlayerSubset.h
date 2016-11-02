@@ -24,11 +24,11 @@ class QString;
 class QStringList;
 
 enum class PlayerSubsetEnum {
-    Unknown,
     All,
     Team,
     Squad,
-    Player
+    Player,
+    Unknown
 };
 
 class PlayerSubset

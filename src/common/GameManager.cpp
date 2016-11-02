@@ -37,6 +37,11 @@ QList<GameEntry> GameManager::gameList = {
     GameEntry(GameType::Minecraft, "Minecraft", "Minecraft",                  ":/minecraft/icons/minecraft.png", 25575),
 };
 
+bool GameManager::isGameSupported(int index)
+{
+    return index < gameList.length();
+}
+
 GameEntry GameManager::getGame(GameType gameType)
 {
     return getGame(toInt(gameType));
@@ -44,7 +49,11 @@ GameEntry GameManager::getGame(GameType gameType)
 
 GameEntry GameManager::getGame(int index)
 {
-    return gameList.at(index);
+    if (index < gameList.length()) {
+        return gameList.at(index);
+    }
+
+    return GameEntry();
 }
 
 GameEntry GameManager::getGame(const QString &gamePrefix)

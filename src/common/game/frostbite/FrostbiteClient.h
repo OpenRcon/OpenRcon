@@ -20,14 +20,14 @@
 #ifndef FROSTBITECLIENT_H
 #define FROSTBITECLIENT_H
 
-#include <QMap>
-
 #include "Client.h"
 #include "FrostbiteConnection.h"
 #include "FrostbiteCommandHandler.h"
 
 class QString;
 class QByteArray;
+template<class Key, class T>
+class QMap;
 
 class ServerEntry;
 
@@ -50,7 +50,8 @@ public:
     void connectToHost() final;
     void disconnectFromHost() final;
     void reconnectToHost() final;
-    QString getVersionFromBuild(int build);
+
+    QString getVersionFromBuild(int build) const;
 
 protected:
     FrostbiteConnection *connection;

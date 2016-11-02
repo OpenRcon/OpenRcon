@@ -23,6 +23,11 @@
 #include "GameEntry.h"
 #include "GameType.h"
 
+GameEntry::GameEntry()
+{
+
+}
+
 GameEntry::GameEntry(GameType gameType,
           const QString &prefix,
           const QString &name,
@@ -33,11 +38,6 @@ GameEntry::GameEntry(GameType gameType,
     name(name),
     icon(icon),
     defaultPort(defaultPort)
-{
-
-}
-
-GameEntry::GameEntry()
 {
 
 }

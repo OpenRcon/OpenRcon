@@ -39,6 +39,7 @@ public:
 
     bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) final;
 
+public slots:
     /* Send commands */
     // Misc
     //login.plainText <password>

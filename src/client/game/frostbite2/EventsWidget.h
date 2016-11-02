@@ -20,7 +20,7 @@
 #ifndef EVENTSWIDGET_H
 #define EVENTSWIDGET_H
 
-#include "BF4Widget.h"
+#include "Frostbite2Widget.h"
 
 class QString;
 class QAbstractSocket;
@@ -29,12 +29,12 @@ namespace Ui {
     class EventsWidget;
 }
 
-class EventsWidget : public BF4Widget
+class EventsWidget : public Frostbite2Widget
 {
     Q_OBJECT
 
 public:
-    EventsWidget(BF4Client *client, QWidget *parent = nullptr);
+    EventsWidget(Frostbite2Client *client, QWidget *parent = nullptr);
     ~EventsWidget() final;
 
 private:

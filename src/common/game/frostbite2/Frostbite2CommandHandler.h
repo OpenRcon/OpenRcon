@@ -21,16 +21,7 @@
 #define FROSTBITE2COMMANDHANDLER_H
 
 #include "FrostbiteCommandHandler.h"
-#include "PlayerSubset.h"
-#include "BanListEntry.h"
-#include "MapListEntry.h"
 
-class QStringList;
-
-enum class PlayerSubsetType;
-class Frostbite2ServerInfo;
-class BF3ServerInfo;
-class BF4ServerInfo;
 class PlayerInfo;
 
 class Frostbite2CommandHandler : public FrostbiteCommandHandler
@@ -43,6 +34,7 @@ public:
 
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) override;
 
+public slots:
     /* Send commands */
     // Misc
     void sendCurrentLevelCommand();

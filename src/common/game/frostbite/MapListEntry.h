@@ -20,9 +20,9 @@
 #ifndef MAPLISTENTRY_H
 #define MAPLISTENTRY_H
 
-#include <QList>
-
 class QString;
+template<class T>
+class QList;
 
 class MapListEntry
 {

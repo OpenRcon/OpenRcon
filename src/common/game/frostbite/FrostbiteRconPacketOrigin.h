@@ -17,33 +17,12 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TIME_H
-#define TIME_H
+#ifndef FROSTBITERCONPACKETORIGIN_H
+#define FROSTBITERCONPACKETORIGIN_H
 
-class QString;
-
-class Time
-{
-public:
-    Time(int weeks, int days, int hours, int minutes, int seconds);
-    ~Time();
-
-    static Time fromSeconds(int elapsedSeconds);
-
-    int getWeeks() const;
-    int getDays() const;
-    int getHours() const;
-    int getMinutes() const;
-    int getSeconds() const;
-    QString toString() const;
-
-private:
-    int weeks;
-    int days;
-    int hours;
-    int minutes;
-    int seconds;
-
+enum class FrostbiteRconPacketOrigin {
+    ServerOrigin,
+    ClientOrigin
 };
 
-#endif // TIME_H
+#endif // FROSTBITERCONPACKETORIGIN_H

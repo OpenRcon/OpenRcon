@@ -38,6 +38,7 @@ public:
     virtual void hostConnect(ServerEntry *serverEntry);
     void hostDisconnect();
     bool isConnected();
+    virtual void sendCommand(const QString &command) = 0;
 
 protected:
     QAbstractSocket *socket;

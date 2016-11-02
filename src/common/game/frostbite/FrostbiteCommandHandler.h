@@ -22,6 +22,9 @@
 
 #include "CommandHandler.h"
 
+class QString;
+class QByteArray;
+
 class FrostbiteConnection;
 class FrostbiteRconPacket;
 enum class PlayerSubsetEnum;
@@ -43,6 +46,7 @@ public:
 
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
+public slots:
     /* Send commands */
     // Misc
     void sendLoginPlainTextCommand(const QString &password);

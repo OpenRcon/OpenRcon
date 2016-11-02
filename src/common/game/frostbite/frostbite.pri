@@ -19,7 +19,9 @@ HEADERS += $$PWD/FrostbiteClient.h \
     $$PWD/Squad.h \
     $$PWD/WeaponEntry.h \
     $$PWD/WeaponDictionary.h \
-    $$PWD/FrostbiteServerInfo.h
+    $$PWD/FrostbiteServerInfo.h \
+    $$PWD/FrostbiteRconPacketOrigin.h \
+    $$PWD/FrostbiteRconPacketType.h
 
 SOURCES += $$PWD/FrostbiteClient.cpp \
     $$PWD/FrostbiteConnection.cpp \

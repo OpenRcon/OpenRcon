@@ -26,6 +26,7 @@
 #include "BF4LevelDictionary.h"
 #include "Frostbite2ServerInfo.h"
 #include "BF4GameModeEntry.h"
+#include "MapListEntry.h"
 
 MapListWidget::MapListWidget(BF4Client *client, QWidget *parent) :
     BF4Widget(client, parent),
