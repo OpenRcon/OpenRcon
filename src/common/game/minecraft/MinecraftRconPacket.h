@@ -26,27 +26,34 @@
 //Payload 	byte[] 	ASCII text
 //2-byte pad 	byte, byte 	Two null bytes
 
+#include <QDataStream>
+
 enum class MinecraftRconPacketType;
 
 class MinecraftRconPacket
 {
 public:
-    MinecraftRconPacket(int requestId, MinecraftRconPacketType type, char *content);
-    MinecraftRconPacket(int requestId, MinecraftRconPacketType type);
     MinecraftRconPacket();
+    MinecraftRconPacket(int requestId, MinecraftRconPacketType type, const char *content);
     ~MinecraftRconPacket();
 
-    int getLength() const;
-    int getRequestId() const;
+    unsigned int getLength() const;
+    unsigned int getRequestId() const;
+    void setRequestId(int requestId);
     MinecraftRconPacketType getType() const;
+    void setType(const MinecraftRconPacketType &type);
     const char *getContent() const;
-    int getContentSize() const;
+    void setContent(char *content);
+    unsigned int getContentSize() const;
 
 private:
-    int requestId;
+    unsigned int requestId;
     MinecraftRconPacketType type;
-    char *content;
+    const char *content;
 
 };
+
+QDataStream &operator <<(QDataStream &out, const MinecraftRconPacket &packet);
+QDataStream &operator >>(QDataStream &in, MinecraftRconPacket &packet);
 
 #endif // MINECRAFTRCONPACKET_H

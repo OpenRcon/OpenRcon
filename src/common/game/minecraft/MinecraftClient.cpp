@@ -61,7 +61,7 @@ void MinecraftClient::onConnected(QAbstractSocket *socket)
 {
     Q_UNUSED(socket);
 
-    MinecraftRconPacket packet(1, MinecraftRconPacketType::Auth, "julebrus");//sserverEntry->getPassword().toLatin1().data());
+    MinecraftRconPacket packet(1, MinecraftRconPacketType::Auth, serverEntry->getPassword().toLatin1().constData());
     connection->sendPacket(packet);
 
     qDebug() << "lololololololololololololo";
