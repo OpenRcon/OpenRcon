@@ -46,6 +46,7 @@ public:
 
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
+public slots:
     /* Send commands */
     // Misc
     void sendLoginPlainTextCommand(const QString &password);

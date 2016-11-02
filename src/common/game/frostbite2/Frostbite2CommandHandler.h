@@ -34,6 +34,7 @@ public:
 
     virtual bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) override;
 
+public slots:
     /* Send commands */
     // Misc
     void sendCurrentLevelCommand();

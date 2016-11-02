@@ -32,6 +32,7 @@ public:
 
     bool parse(const QString &request, const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket) final;
 
+public slots:
     /* Send commands */
     // Misc
     /// BFBC2 Only.
