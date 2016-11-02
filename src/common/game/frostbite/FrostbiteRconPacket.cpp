@@ -25,9 +25,9 @@
 #include "FrostbiteRconWord.h"
 
 FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent),
-    packetSequence(0),
-    packetSize(0),
-    packetWordCount(0)
+    sequence(0),
+    size(0),
+    wordCount(0)
 {
 
 }
@@ -35,7 +35,7 @@ FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent),
 FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent) :
     FrostbiteRconPacket(parent)
 {
-    packetSequence = packet.getSequence();
+    sequence = packet.getSequence();
 
     for (unsigned int i = 0; i < packet.getWordCount(); i++) {
         packWord(packet.getWord(i));
@@ -45,14 +45,14 @@ FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObj
 FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacketOrigin &packetOrigin, const FrostbiteRconPacketType &packetType, unsigned int initSequence, QObject *parent) :
     FrostbiteRconPacket(parent)
 {
-    packetSequence = initSequence & 0x3FFFFFFF;
+    sequence = initSequence & 0x3FFFFFFF;
 
     if (packetOrigin == FrostbiteRconPacketOrigin::ClientOrigin) {
-        packetSequence |= 0x80000000;
+        sequence |= 0x80000000;
     }
 
     if (packetType == FrostbiteRconPacketType::Response) {
-        packetSequence |= 0x40000000;
+        sequence |= 0x40000000;
     }
 }
 
@@ -65,7 +65,7 @@ FrostbiteRconPacket &FrostbiteRconPacket::operator=(const FrostbiteRconPacket &p
 {
     if (&packet != this) {
         clear();
-        packetSequence = packet.getSequence();
+        sequence = packet.getSequence();
 
         for (unsigned int i = 0; i < packet.getWordCount(); i++) {
             packWord(packet.getWord(i));
@@ -77,10 +77,10 @@ FrostbiteRconPacket &FrostbiteRconPacket::operator=(const FrostbiteRconPacket &p
 
 void FrostbiteRconPacket::clear()
 {
-    packetSequence = 0;
-    packetSize = 0;
-    packetWordCount = 0;
-    packetWords.clear();
+    sequence = 0;
+    size = 0;
+    wordCount = 0;
+    words.clear();
 }
 
 const FrostbiteRconWord &FrostbiteRconPacket::getWord(unsigned int index) const
@@ -88,8 +88,8 @@ const FrostbiteRconWord &FrostbiteRconPacket::getWord(unsigned int index) const
     static FrostbiteRconWord emptyWord;
 
     // TODO: Use Q_ASSERT here?
-    if (index < packetWordCount) {
-        return packetWords[index];
+    if (index < wordCount) {
+        return words[index];
     } else {
         qDebug() << tr("Wrong word index %1.").arg(index);
     }
@@ -99,54 +99,54 @@ const FrostbiteRconWord &FrostbiteRconPacket::getWord(unsigned int index) const
 
 void FrostbiteRconPacket::packWord(const FrostbiteRconWord &word)
 {
-    packetSize += word.getFullSize();
-    packetWords.push_back(word);
-    packetWordCount++;
+    size += word.getFullSize();
+    words.push_back(word);
+    wordCount++;
 }
 
 unsigned int FrostbiteRconPacket::getSequence() const
 {
-    return packetSequence;
+    return sequence;
 }
 
 void FrostbiteRconPacket::setSequence(int sequence)
 {
-    packetSequence = sequence;
+    this->sequence = sequence;
 }
 
 unsigned int FrostbiteRconPacket::getSequenceNum() const
 {
-    return packetSequence & 0x3FFFFFFF;
+    return sequence & 0x3FFFFFFF;
 }
 
-void FrostbiteRconPacket::setSequenceNum(int sequence)
+void FrostbiteRconPacket::setSequenceNum(int sequenceNum)
 {
-    packetSequence = (packetSequence & 0xC0000000) | (sequence & 0x3FFFFFFF);
+    this->sequence = (sequence & 0xC0000000) | (sequenceNum & 0x3FFFFFFF);
 }
 
 unsigned int FrostbiteRconPacket::getSize() const
 {
-    return packetSize;
+    return size;
 }
 
 unsigned int FrostbiteRconPacket::getFullSize() const
 {
-    return 12 + packetSize;
+    return 12 + size;
 }
 
 unsigned int FrostbiteRconPacket::getWordCount() const
 {
-    return packetWordCount;
+    return wordCount;
 }
 
 bool FrostbiteRconPacket::isResponse() const
 {
-    return packetSequence & 0x40000000;
+    return sequence & 0x40000000;
 }
 
 bool FrostbiteRconPacket::isRequest() const
 {
-    return !isResponse();
+    return sequence & 0x80000000;
 }
 
 QDataStream &operator<<(QDataStream &out, const FrostbiteRconPacket &packet)
@@ -188,6 +188,7 @@ QDataStream &operator>>(QDataStream &in, FrostbiteRconPacket &packet)
     for (unsigned int i = 0; i < wordCount; i++) {
         in >> word;
         packet.packWord(word);
+        word.clear();
     }
 
     return in;

@@ -47,7 +47,7 @@ public:
     unsigned int getSequence() const;
     void setSequence(int sequence);
     unsigned int getSequenceNum() const;
-    void setSequenceNum(int sequence);
+    void setSequenceNum(int sequenceNum);
     unsigned int getSize() const;
     unsigned int getFullSize() const;
     unsigned int getWordCount() const;
@@ -55,10 +55,10 @@ public:
     bool isRequest() const;
 
 private:
-    unsigned int packetSequence;
-    unsigned int packetSize; // Total size of packet, in bytes
-    unsigned int packetWordCount; // Number of words following the packet header
-    QVector<FrostbiteRconWord> packetWords; // RconWord packetWords[MAX_WORDS];
+    unsigned int sequence;
+    unsigned int size; // Total size of packet, in bytes
+    unsigned int wordCount; // Number of words following the packet header
+    QVector<FrostbiteRconWord> words; // RconWord packetWords[MAX_WORDS];
 
 };
 
