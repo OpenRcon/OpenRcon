@@ -116,26 +116,20 @@ char FrostbiteRconWord::getTerminator() const
     return wordTerminator;
 }
 
-QDataStream &operator<<(QDataStream &out, const FrostbiteRconWord &word)
+QDataStream &operator <<(QDataStream &out, const FrostbiteRconWord &word)
 {
     if (out.byteOrder() != QDataStream::LittleEndian) {
         out.setByteOrder(QDataStream::LittleEndian);
     }
 
     out << word.getSize();
-
-    const char *wordContent = word.getContent();
-
-    for (unsigned int i = 0; i < word.getSize(); i++) {
-        out << (signed char) wordContent[i];
-    }
-
+    out.writeRawData(word.getContent(), word.getSize());
     out << (signed char) word.getTerminator();
 
     return out;
 }
 
-QDataStream &operator>>(QDataStream &in, FrostbiteRconWord &word)
+QDataStream &operator >>(QDataStream &in, FrostbiteRconWord &word)
 {
     if (in.byteOrder() != QDataStream::LittleEndian) {
         in.setByteOrder(QDataStream::LittleEndian);
