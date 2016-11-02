@@ -6,7 +6,7 @@ HEADERS += $$PWD/Frostbite2Widget.h \
     $$PWD/ReservedSlotsWidget.h
 
 SOURCES += $$PWD/Frostbite2Widget.cpp \
-    $$PWD/EventsWidget.h \
+    $$PWD/EventsWidget.cpp \
     $$PWD/ReservedSlotsWidget.cpp
 
 FORMS += $$PWD/EventsWidget.ui \
