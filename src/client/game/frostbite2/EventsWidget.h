@@ -25,8 +25,6 @@
 class QString;
 class QAbstractSocket;
 
-class LevelEntry;
-
 namespace Ui {
     class EventsWidget;
 }
@@ -41,8 +39,6 @@ public:
 
 private:
     Ui::EventsWidget *ui;
-
-    LevelEntry levelEntry;
 
     void logEvent(const QString &event, const QString &message);
 

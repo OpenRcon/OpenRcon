@@ -1,10 +1,13 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += $$PWD/ReservedSlotsWidget.h \
-    $$PWD/Frostbite2Widget.h
+HEADERS += $$PWD/Frostbite2Widget.h \
+    $$PWD/EventsWidget.h \
+    $$PWD/ReservedSlotsWidget.h
 
-SOURCES += $$PWD/ReservedSlotsWidget.cpp \
-    $$PWD/Frostbite2Widget.cpp
+SOURCES += $$PWD/Frostbite2Widget.cpp \
+    $$PWD/EventsWidget.h \
+    $$PWD/ReservedSlotsWidget.cpp
 
-FORMS += $$PWD/ReservedSlotsWidget.ui
+FORMS += $$PWD/EventsWidget.ui \
+    $$PWD/ReservedSlotsWidget.ui

@@ -92,7 +92,7 @@ void FrostbiteClient::onVersionCommand(const QString &type, int build)
     }
 }
 
-QString FrostbiteClient::getVersionFromBuild(int build)
+QString FrostbiteClient::getVersionFromBuild(int build) const
 {
     return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);
 }

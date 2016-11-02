@@ -163,16 +163,7 @@ void EventsWidget::onPlayerTeamChangeEvent(const QString &player, int teamId, in
 {
     Q_UNUSED(squadId);
 
-    ServerEntry serverEntry = *getClient()->getServerEntry();
-    TeamEntry teamEntry;
-
-    if (serverEntry.getGameType() == GameType::BF3) {
-        teamEntry = BF3LevelDictionary::getTeam(teamId); // TODO: Make this correct.
-    } else if (serverEntry.getGameType() == GameType::BF4) {
-        teamEntry = BF4LevelDictionary::getTeam(teamId); // TODO: Make this correct.
-    }
-
-    logEvent("PlayerTeamChange", tr("Player %1 changed team to %2.").arg(player).arg(teamEntry.getName()));
+    logEvent("PlayerTeamChange", tr("Player %1 changed team to %2.").arg(player).arg(teamId));
 }
 
 void EventsWidget::onServerMaxPlayerCountChangeEvent()
