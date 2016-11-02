@@ -20,17 +20,22 @@
 #ifndef TIME_H
 #define TIME_H
 
+class QString;
+
 class Time
 {
 public:
     Time(int weeks, int days, int hours, int minutes, int seconds);
     ~Time();
 
+    static Time fromSeconds(int elapsedSeconds);
+
     int getWeeks() const;
     int getDays() const;
     int getHours() const;
     int getMinutes() const;
     int getSeconds() const;
+    QString toString() const;
 
 private:
     int weeks;

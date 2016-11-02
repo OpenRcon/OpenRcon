@@ -327,10 +327,10 @@ void BF4MainWidget::pushButton_si_runNextRound_clicked()
 
 void BF4MainWidget::updateRoundTime()
 {
-    ui->label_si_round->setToolTip(FrostbiteUtils::toString(FrostbiteUtils::getTimeFromSeconds(roundTime++)));
+    ui->label_si_round->setToolTip(Time::fromSeconds(roundTime++).toString());
 }
 
 void BF4MainWidget::updateUpTime()
 {
-    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(FrostbiteUtils::toString(FrostbiteUtils::getTimeFromSeconds(upTime++))));
+    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(Time::fromSeconds(upTime++).toString()));
 }

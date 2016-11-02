@@ -17,6 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QObject>
+#include <QString>
+
 #include "Time.h"
 
 Time::Time(int weeks, int days, int hours, int minutes, int seconds) :
@@ -57,4 +60,42 @@ int Time::getMinutes() const
 int Time::getSeconds() const
 {
     return seconds;
+}
+
+Time Time::fromSeconds(int elapsedSeconds)
+{
+    int weeks = elapsedSeconds / 60 / 60 / 24 / 7;
+    int days = (elapsedSeconds / 60 / 60 / 24) % 7;
+    int hours = (elapsedSeconds / 60 / 60) % 24;
+    int minutes = (elapsedSeconds / 60) % 60;
+    int seconds =  elapsedSeconds % 60;
+
+    return Time(weeks, days, hours, minutes, seconds);
+}
+
+QString Time::toString() const
+{
+    QString timeString;
+
+    if (weeks != 0) {
+        timeString += " " + QObject::tr("%1w").arg(weeks);
+    }
+
+    if (days != 0) {
+        timeString += " " + QObject::tr("%1d").arg(days);
+    }
+
+    if (hours != 0) {
+        timeString += " " + QObject::tr("%1h").arg(hours);
+    }
+
+    if (minutes != 0) {
+        timeString += " " + QObject::tr("%1m").arg(minutes);
+    }
+
+    if (seconds != 0) {
+        timeString += " " + QObject::tr("%1s").arg(seconds);
+    }
+
+    return timeString;
 }
