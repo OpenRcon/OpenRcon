@@ -49,7 +49,6 @@ public:
 
     void connectToHost() final;
     void disconnectFromHost() final;
-    void reconnectToHost() final;
 
     QString getVersionFromBuild(int build) const;
 

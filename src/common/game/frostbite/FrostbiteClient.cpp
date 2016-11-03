@@ -53,15 +53,6 @@ void FrostbiteClient::disconnectFromHost()
     connection->hostDisconnect();
 }
 
-void FrostbiteClient::reconnectToHost()
-{
-    if (connection->isConnected()) {
-        disconnectFromHost();
-    }
-
-    connectToHost();
-}
-
 void FrostbiteClient::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {

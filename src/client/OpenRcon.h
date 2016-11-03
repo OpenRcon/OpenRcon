@@ -67,9 +67,6 @@ private:
     QAction *actionAbout;
     QAction *actionAboutQt;
 
-    QAction *actionTabReconnect;
-    QAction *actionTabDisconnect;
-
     // Menubar
     QMenuBar *menuBar;
     QMenu *menuApplication;
@@ -77,7 +74,6 @@ private:
     QMenu *menuToolbars;
     QMenu *menuTools;
     QMenu *menuHelp;
-    QMenu *menuTab;
 
     // Toolbar
     QToolBar *toolBar_quickConnect;
@@ -96,8 +92,6 @@ private:
 
 private slots:
     void updateServerList();
-    void tabWidget_tabCloseRequested(int index);
-    void tabWidget_customContextMenuRequested(const QPoint &pos);
 
     // Application menu
     void actionServerManager_triggered();
@@ -115,10 +109,6 @@ private slots:
     void actionReportBug_triggered();
     void actionAbout_triggered();
     void actionAboutQt_triggered();
-
-    // Tab menu
-    void actionTabReconnect_triggered();
-    void actionTabDisconnect_triggered();
 
     // ServerManager
     void pushButton_quickConnect_connect_clicked();

@@ -22,6 +22,9 @@
 
 #include <QTabWidget>
 
+class QAction;
+class QMenu;
+
 class TabWidget : public QTabWidget
 {
     Q_OBJECT
@@ -34,6 +37,16 @@ public:
 
 private:
     static TabWidget *instance;
+
+    QAction *actionTabConnect;
+    QAction *actionTabDisconnect;
+    QMenu *menuTab;
+
+private slots:
+    void tabCloseRequested(int index);
+    void customContextMenuRequested(const QPoint &pos);
+    void actionTabConnect_triggered();
+    void actionTabDisconnect_triggered();
 
 };
 
