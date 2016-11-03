@@ -99,7 +99,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
         }
 
         if (it != packetSendQueue.end()) {
-            const FrostbiteRconPacket& lastSentPacket = *it;
+            const FrostbiteRconPacket &lastSentPacket = *it;
 
             if (lastSentPacket.getSequenceNum() == packet.getSequenceNum()) {
                 if (lastSentPacket.getWordCount() > 0) {
@@ -117,9 +117,8 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                         qDebug() << messages;
 
                         QString messager;
-                        unsigned int packetWordCount = packet.getWordCount();
 
-                        for (unsigned int i = 0; i < packetWordCount; i++) {
+                        for (unsigned int i = 0; i < packet.getWordCount(); i++) {
                             messager += packet.getWord(i).getContent();
                             messager += " ";
                         }
@@ -183,7 +182,7 @@ void FrostbiteConnection::readyRead()
 
             if (socket->bytesAvailable() >= length - MIN_PACKET_SIZE) {
                 if (length >= MIN_PACKET_SIZE) {
-                    char* data = new char[length];
+                    char *data = new char[length];
                     memcpy(data, lastHeader, MIN_PACKET_SIZE);
 
                     if (socket->read(data + MIN_PACKET_SIZE, length - MIN_PACKET_SIZE) == length - MIN_PACKET_SIZE) {

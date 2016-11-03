@@ -33,7 +33,7 @@ public:
     FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent = nullptr);
     ~FrostbiteRconWord();
 
-    FrostbiteRconWord &operator=(const FrostbiteRconWord &word);
+    FrostbiteRconWord &operator =(const FrostbiteRconWord &word);
     void clear();
     void loadData(const char *data, unsigned int size);
     unsigned int getSize() const;
@@ -48,7 +48,7 @@ private:
 
 };
 
-QDataStream &operator<<(QDataStream &out, const FrostbiteRconWord &word);
-QDataStream &operator>>(QDataStream &in, FrostbiteRconWord &word);
+QDataStream &operator <<(QDataStream &out, const FrostbiteRconWord &word);
+QDataStream &operator >>(QDataStream &in, FrostbiteRconWord &word);
 
 #endif // FROSTBITERCONWORD_H
