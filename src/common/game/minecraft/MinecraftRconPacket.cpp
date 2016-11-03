@@ -87,7 +87,7 @@ QDataStream &operator <<(QDataStream &out, const MinecraftRconPacket &packet)
         out.setByteOrder(QDataStream::LittleEndian);
     }
 
-    if (packet.getLength() < 1460 - 10) {
+    //if (packet.getLength() < 1460 - 10) {
         out << packet.getLength();
         out << packet.getRequestId();
         out << static_cast<std::underlying_type<MinecraftRconPacketType>::type>(packet.getType());
@@ -111,7 +111,7 @@ QDataStream &operator <<(QDataStream &out, const MinecraftRconPacket &packet)
             qDebug() << "Payload:" << packet.getContent();
             qDebug() << "Hex data:" << QByteArray(packet.getContent()).toHex();
         }
-    }
+    //}
 
     return out;
 }
@@ -129,8 +129,8 @@ QDataStream &operator >>(QDataStream &in, MinecraftRconPacket &packet)
     in >> type;
 
     // Read the data.
-    char *content = new char[length - 10];
-    in.readRawData(content, length - 10);
+    char *content = new char[length - 8];
+    in.readRawData(content, length - 8);
 
     // Terminate the packet with 2 bytes of zeroes.
     signed char terminator1 = 0;
@@ -153,9 +153,11 @@ QDataStream &operator >>(QDataStream &in, MinecraftRconPacket &packet)
     packet.setType(static_cast<MinecraftRconPacketType>(type));
     packet.setContent(content);
 
+    /*
     if (content) {
         delete[] content;
     }
+    */
 
     return in;
 }
