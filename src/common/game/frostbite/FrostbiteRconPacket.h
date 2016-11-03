@@ -40,7 +40,7 @@ public:
     FrostbiteRconPacket(const FrostbiteRconPacketOrigin &packetOrigin, const FrostbiteRconPacketType &packetType, unsigned int initSequence = 0, QObject *parent = nullptr);
     ~FrostbiteRconPacket();
 
-    FrostbiteRconPacket &operator=(const FrostbiteRconPacket &packet);
+    FrostbiteRconPacket &operator =(const FrostbiteRconPacket &packet);
     void clear();
     const FrostbiteRconWord &getWord(unsigned int index) const;
     void packWord(const FrostbiteRconWord &word);
@@ -62,7 +62,7 @@ private:
 
 };
 
-QDataStream &operator<<(QDataStream &out, const FrostbiteRconPacket &packet);
-QDataStream &operator>>(QDataStream &in, FrostbiteRconPacket &packet);
+QDataStream &operator <<(QDataStream &out, const FrostbiteRconPacket &packet);
+QDataStream &operator >>(QDataStream &in, FrostbiteRconPacket &packet);
 
 #endif // FROSTBITERCONPACKET_H

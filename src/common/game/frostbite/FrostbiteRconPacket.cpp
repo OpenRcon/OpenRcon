@@ -149,7 +149,7 @@ bool FrostbiteRconPacket::isRequest() const
     return sequence & 0x80000000;
 }
 
-QDataStream &operator<<(QDataStream &out, const FrostbiteRconPacket &packet)
+QDataStream &operator <<(QDataStream &out, const FrostbiteRconPacket &packet)
 {
     if (packet.getFullSize() <= MAX_PACKET_SIZE) {
         if (out.byteOrder() != QDataStream::LittleEndian) {
@@ -168,7 +168,7 @@ QDataStream &operator<<(QDataStream &out, const FrostbiteRconPacket &packet)
     return out;
 }
 
-QDataStream &operator>>(QDataStream &in, FrostbiteRconPacket &packet)
+QDataStream &operator >>(QDataStream &in, FrostbiteRconPacket &packet)
 {
     if (in.byteOrder() != QDataStream::LittleEndian) {
         in.setByteOrder(QDataStream::LittleEndian);
