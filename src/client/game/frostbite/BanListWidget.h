@@ -27,7 +27,9 @@ class QAction;
 class QString;
 class QPoint;
 
-struct BanListEntry;
+class BanListEntry;
+enum class BanIdTypeEnum;
+enum class BanTypeEnum;
 
 namespace Ui {
     class BanListWidget;
@@ -48,9 +50,9 @@ private:
     QMenu *menu_bl_banList;
     QAction *action_bl_banList_remove;
 
-    void addBanListItem(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason);
     void setBanlist(const QList<BanListEntry> &banList);
     void setTemporaryEnabled(bool enabled);
+    void addBanListItem(const BanIdTypeEnum &idType, const QString &id, const BanTypeEnum &banType, int seconds, int rounds, const QString &reason);
 
 private slots:
     /* Commands */

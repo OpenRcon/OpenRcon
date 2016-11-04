@@ -25,6 +25,8 @@
 #include "FrostbiteUtils.h"
 #include "PlayerSubset.h"
 #include "TeamScores.h"
+#include "BanIdType.h"
+#include "BanType.h"
 #include "Frostbite2ServerInfo.h"
 #include "BF3ServerInfo.h"
 #include "BF4ServerInfo.h"
@@ -144,17 +146,21 @@ void FrostbiteCommandHandler::sendLoginPlainTextCommand(const QString &password)
 
 void FrostbiteCommandHandler::sendLoginHashedCommand(const QByteArray &salt, const QString &password)
 {
-    if (salt.isNull() && password == 0) {
-        connection->sendCommand("login.hashed");
+    QString command;
+
+    if (salt.isNull() && password.isEmpty()) {
+        command = "login.hashed";
     } else {
         if (!password.isEmpty() && password.length() <= 16) {
             QCryptographicHash hash(QCryptographicHash::Md5);
             hash.addData(salt);
             hash.addData(password.toLatin1().constData());
 
-            connection->sendCommand(QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData()));
+            command = QString("\"login.hashed\" \"%1\"").arg(hash.result().toHex().toUpper().constData());
         }
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendServerInfoCommand()
@@ -180,7 +186,15 @@ void FrostbiteCommandHandler::sendVersionCommand()
 // Admin
 void FrostbiteCommandHandler::sendAdminKickPlayerCommand(const QString &player, const QString &reason)
 {
-    connection->sendCommand(QString("\"admin.kickPlayer\" \"%1\" \"%2\"").arg(player, reason));
+    QString command;
+
+    if (reason.isEmpty()) {
+        command = QString("\"admin.kickPlayer\" \"%1\"").arg(player);
+    } else {
+        command = QString("\"admin.kickPlayer\" \"%1\" \"%2\"").arg(player, reason);
+    }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendAdminKillPlayerCommand(const QString &player)
@@ -196,11 +210,15 @@ void FrostbiteCommandHandler::sendAdminMovePlayerCommand(const QString &player, 
 void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter)
 {
     if (message.length() < 128) {
+        QString command;
+
         if (parameter < 0) {
-            connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubset).toLower()));
+            command = QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubset).toLower());
         } else {
-            connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubset).toLower()).arg(parameter));
+            command = QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubset).toLower()).arg(parameter);
         }
+
+        connection->sendCommand(command);
     }
 }
 
@@ -212,27 +230,41 @@ void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const
 void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetEnum &playerSubset, int parameter)
 {
     if (message.length() < 256) {
+        QString command;
+
         if (parameter < 0) {
-            connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower()));
+            command = QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower());
         } else {
-            connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower()).arg(parameter));
+            command = QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower()).arg(parameter);
         }
+
+        connection->sendCommand(command);
     }
 }
 
 // Banning
-void FrostbiteCommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason)
+void FrostbiteCommandHandler::sendBanListAddCommand(const BanIdTypeEnum &banIdType, const QString &banId, const BanTypeEnum &banType, const QString &reason, int timeout)
 {
-    connection->sendCommand(QString("\"banList.add\" \"%1\" \"%2\" \"perm\" \"%4\"").arg(idType, id, reason));
-    sendBanListListCommand();
-}
+    QString command;
+    QString banTypeString;
 
-void FrostbiteCommandHandler::sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason)
-{
-    QString timeoutString = useRounds ? "rounds" : "seconds";
-    timeoutString += " " + QString::number(timeout);
+    switch (banType) {
+    case BanTypeEnum::Rounds:
+    case BanTypeEnum::Seconds:
+        banTypeString = QString("\"%1\" \"%2\"").arg(BanType::toString(banType).toLower(), QString::number(timeout));
+        break;
+    default:
+        banTypeString = BanType::toString(banType).toLower();
+        break;
+    }
 
-    connection->sendCommand(QString("\"banList.add\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(idType, id, timeoutString, reason));
+    if (reason.isEmpty()) {
+        command = QString("\"banList.add\" \"%1\" \"%2\" %3").arg(BanIdType::toString(banIdType).toLower(), banId, banTypeString);
+    } else {
+        command = QString("\"banList.add\" \"%1\" \"%2\" %3 \"%4\"").arg(BanIdType::toString(banIdType).toLower(), banId, banTypeString, reason);
+    }
+
+    connection->sendCommand(command);
     sendBanListListCommand();
 }
 
@@ -244,11 +276,15 @@ void FrostbiteCommandHandler::sendBanListClearCommand()
 
 void FrostbiteCommandHandler::sendBanListListCommand(int index)
 {
+    QString command;
+
     if (index < 0) {
-        connection->sendCommand("banList.list");
+        command = "banList.list";
     } else {
-        connection->sendCommand(QString("\"banList.list\" \"%1\"").arg(index));
+        command = QString("\"banList.list\" \"%1\"").arg(index);
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendBanListLoadCommand()
@@ -277,11 +313,15 @@ void FrostbiteCommandHandler::sendMapListClearCommand()
 
 void FrostbiteCommandHandler::sendMapListListCommand(int index)
 {
+    QString command;
+
     if (index < 0) {
-        connection->sendCommand("mapList.list");
+        command = "mapList.list";
     } else {
-        connection->sendCommand(QString("\"mapList.list\" \"%1\"").arg(index));
+        command = QString("\"mapList.list\" \"%1\"").arg(index);
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendMapListLoadCommand()
@@ -334,20 +374,28 @@ void FrostbiteCommandHandler::sendVarsFriendlyFireCommand(bool enabled)
 
 void FrostbiteCommandHandler::sendVarsGamePasswordCommand(const QString &password)
 {
-    if (password == 0) {
-        connection->sendCommand("vars.gamePassword");
+    QString command;
+
+    if (password.isEmpty()) {
+        command = "vars.gamePassword";
     } else {
-        connection->sendCommand(QString("\"vars.gamePassword\" \"%1\"").arg(password));
+        command = QString("\"vars.gamePassword\" \"%1\"").arg(password);
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendVarsIdleTimeoutCommand(int seconds)
 {
-    if (seconds == -1) {
-        connection->sendCommand("vars.idleTimeout");
+    QString command;
+
+    if (seconds < 0) {
+        command = "vars.idleTimeout";
     } else {
-        connection->sendCommand(QString("\"vars.idleTimeout\" \"%1\"").arg(seconds));
+        command = QString("\"vars.idleTimeout\" \"%1\"").arg(seconds);
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendVarsKillCamCommand()
@@ -382,56 +430,80 @@ void FrostbiteCommandHandler::sendVarsMiniMapSpottingCommand(bool enabled)
 
 void FrostbiteCommandHandler::sendVarsServerDescriptionCommand(const QString &description)
 {
-    if (description == 0) {
-        connection->sendCommand("vars.serverDescription");
+    QString command;
+
+    if (description.isEmpty()) {
+        command = "vars.serverDescription";
     } else {
-        connection->sendCommand(QString("\"vars.serverDescription\" \"%1\"").arg(description));
+        command = QString("\"vars.serverDescription\" \"%1\"").arg(description);
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendVarsServerNameCommand(const QString &name)
 {
-    if (name == 0) {
-        connection->sendCommand("vars.serverName");
+    QString command;
+
+    if (name.isEmpty()) {
+        command = "vars.serverName";
     } else {
-        connection->sendCommand(QString("\"vars.serverName\" \"%1\"").arg(name));
+        command = QString("\"vars.serverName\" \"%1\"").arg(name);
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendVarsTeamKillCountForKickCommand(int count)
 {
-    if (count == -1) {
-        connection->sendCommand("vars.teamKillCountForKick");
+    QString command;
+
+    if (count < 0) {
+        command = "vars.teamKillCountForKick";
     } else {
-        connection->sendCommand(QString("\"vars.teamKillCountForKick\" \"%1\"").arg(count));
+        command = QString("\"vars.teamKillCountForKick\" \"%1\"").arg(count);
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendVarsTeamKillValueDecreasePerSecondCommand(int count)
 {
-    if (count == -1) {
-        connection->sendCommand("vars.teamKillValueDecreasePerSecond");
+    QString command;
+
+    if (count < 0) {
+        command = "vars.teamKillValueDecreasePerSecond";
     } else {
-        connection->sendCommand(QString("\"vars.teamKillValueDecreasePerSecond\" \"%1\"").arg(count));
+        command = QString("\"vars.teamKillValueDecreasePerSecond\" \"%1\"").arg(count);
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendVarsTeamKillValueForKickCommand(int count)
 {
-    if (count == -1) {
-        connection->sendCommand("vars.teamKillValueForKick");
+    QString command;
+
+    if (count < 0) {
+        command = "vars.teamKillValueForKick";
     } else {
-        connection->sendCommand(QString("\"vars.teamKillValueForKick\" \"%1\"").arg(count));
+        command = QString("\"vars.teamKillValueForKick\" \"%1\"").arg(count);
     }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendVarsTeamKillValueIncreaseCommand(int count)
 {
-    if (count == -1) {
-        connection->sendCommand("vars.teamKillValueIncrease");
+    QString command;
+
+    if (count < 0) {
+        command = "vars.teamKillValueIncrease";
     } else {
-        connection->sendCommand(QString("\"vars.teamKillValueIncrease\" \"%1\"").arg(count));
+        command = QString("\"vars.teamKillValueIncrease\" \"%1\"").arg(count);
     }
+
+    connection->sendCommand(command);
 }
 
 /* Parse events */
@@ -439,120 +511,144 @@ void FrostbiteCommandHandler::parsePlayerAuthenticatedEvent(const FrostbiteRconP
 {
     Q_UNUSED(lastSentPacket);
 
-    QString player = packet.getWord(1).getContent();
+    if (packet.getWordCount() > 0) {
+        QString player = packet.getWord(1).getContent();
 
-    emit(onPlayerAuthenticatedEvent(player));
+        emit(onPlayerAuthenticatedEvent(player));
+    }
 }
 
 void FrostbiteCommandHandler::parsePlayerJoinEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString player = packet.getWord(1).getContent();
-    QString guid = packet.getWord(2).getContent();
+    if (packet.getWordCount() > 0) {
+        QString player = packet.getWord(1).getContent();
+        QString guid = packet.getWord(2).getContent();
 
-    emit(onPlayerJoinEvent(player, guid));
+        emit(onPlayerJoinEvent(player, guid));
+    }
 }
 
 void FrostbiteCommandHandler::parsePlayerLeaveEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString player = packet.getWord(1).getContent();
-    QString info = packet.getWord(2).getContent();
+    if (packet.getWordCount() > 0) {
+        QString player = packet.getWord(1).getContent();
+        QString info = packet.getWord(2).getContent();
 
-    emit(onPlayerLeaveEvent(player, info));
+        emit(onPlayerLeaveEvent(player, info));
+    }
 }
 
 void FrostbiteCommandHandler::parsePlayerSpawnEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString player = packet.getWord(1).getContent();
-    int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+    if (packet.getWordCount() > 0) {
+        QString player = packet.getWord(1).getContent();
+        int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
-    emit(onPlayerSpawnEvent(player, teamId));
+        emit(onPlayerSpawnEvent(player, teamId));
+    }
 }
 
 void FrostbiteCommandHandler::parsePlayerKillEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString killer = packet.getWord(1).getContent();
-    QString victim = packet.getWord(2).getContent();
-    QString weapon = packet.getWord(3).getContent();
-    bool headshot = packet.getWord(4).getContent();
+    if (packet.getWordCount() > 0) {
+        QString killer = packet.getWord(1).getContent();
+        QString victim = packet.getWord(2).getContent();
+        QString weapon = packet.getWord(3).getContent();
+        bool headshot = packet.getWord(4).getContent();
 
-    emit(onPlayerKillEvent(killer, victim, weapon, headshot));
+        emit(onPlayerKillEvent(killer, victim, weapon, headshot));
+    }
 }
 
 void FrostbiteCommandHandler::parsePlayerChatEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString player = packet.getWord(1).getContent();
-    QString message = packet.getWord(2).getContent();
-    QString target = packet.getWord(3).getContent();
+    if (packet.getWordCount() > 0) {
+        QString player = packet.getWord(1).getContent();
+        QString message = packet.getWord(2).getContent();
+        QString target = packet.getWord(3).getContent();
 
-    emit(onPlayerChatEvent(player, message, target));
+        emit(onPlayerChatEvent(player, message, target));
+    }
 }
 
 void FrostbiteCommandHandler::parsePlayerSquadChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString player = packet.getWord(1).getContent();
-    int teamId = QString(packet.getWord(2).getContent()).toInt();
-    int squadId = QString(packet.getWord(3).getContent()).toInt();
+    if (packet.getWordCount() > 0) {
+        QString player = packet.getWord(1).getContent();
+        int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+        int squadId = FrostbiteUtils::toInt(packet.getWord(3).getContent());
 
-    emit(onPlayerSquadChangeEvent(player, teamId, squadId));
+        emit(onPlayerSquadChangeEvent(player, teamId, squadId));
+    }
 }
 
 void FrostbiteCommandHandler::parsePlayerTeamChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString player = packet.getWord(1).getContent();
-    int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
-    int squadId = FrostbiteUtils::toInt(packet.getWord(3).getContent());
+    if (packet.getWordCount() > 0) {
+        QString player = packet.getWord(1).getContent();
+        int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+        int squadId = FrostbiteUtils::toInt(packet.getWord(3).getContent());
 
-    emit(onPlayerTeamChangeEvent(player, teamId, squadId));
+        emit(onPlayerTeamChangeEvent(player, teamId, squadId));
+    }
 }
 
 void FrostbiteCommandHandler::parsePunkBusterMessageEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString message = packet.getWord(1).getContent();
+    if (packet.getWordCount() > 0) {
+        QString message = packet.getWord(1).getContent();
 
-    emit(onPunkBusterMessageEvent(message));
+        emit(onPunkBusterMessageEvent(message));
+    }
 }
 
 void FrostbiteCommandHandler::parseServerRoundOverEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    int winningTeamId = QString(packet.getWord(1).getContent()).toInt();
+    if (packet.getWordCount() > 0) {
+        int winningTeamId = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-    emit(onServerRoundOverEvent(winningTeamId));
+        emit(onServerRoundOverEvent(winningTeamId));
+    }
 }
 
 void FrostbiteCommandHandler::parseServerRoundOverPlayersEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString playerInfo = packet.getWord(1).getContent();
+    if (packet.getWordCount() > 0)  {
+        QString playerInfo = packet.getWord(1).getContent();
 
-    emit(onServerRoundOverPlayersEvent(playerInfo));
+        emit(onServerRoundOverPlayersEvent(playerInfo));
+    }
 }
 
 void FrostbiteCommandHandler::parseServerRoundOverTeamScoresEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    QString teamScores = packet.getWord(1).getContent();
+    if (packet.getWordCount() > 0) {
+        QString teamScores = packet.getWord(1).getContent();
 
-    emit(onServerRoundOverTeamScoresEvent(teamScores));
+        emit(onServerRoundOverTeamScoresEvent(teamScores));
+    }
 }
 
 /* Parse commands */
@@ -754,13 +850,13 @@ void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK") {
+    if (response == "OK" && packet.getWordCount() > 1) {
         QList<BanListEntry> banList;
 
-        for (int i = 1; i < packet.getWordCount(); i += 6) {
-            QString banIdType = packet.getWord(i).getContent();
+        for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
+            BanIdTypeEnum banIdType = BanIdType::fromString(packet.getWord(i).getContent());
             QString id = packet.getWord(i + 1).getContent();
-            QString banType = packet.getWord(i + 2).getContent();
+            BanTypeEnum banType = BanType::fromString(packet.getWord(i + 2).getContent());
             int seconds = FrostbiteUtils::toInt(packet.getWord(i + 3).getContent());
             int rounds = FrostbiteUtils::toInt(packet.getWord(i + 4).getContent());
             QString reason = packet.getWord(i + 5).getContent();
@@ -779,7 +875,7 @@ void FrostbiteCommandHandler::parseMapListListCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK") {
+    if (response == "OK" && packet.getWordCount() > 1) {
         QList<MapListEntry> mapList;
         int maps = QString(packet.getWord(1).getContent()).toInt();
         int parameters = QString(packet.getWord(2).getContent()).toInt();

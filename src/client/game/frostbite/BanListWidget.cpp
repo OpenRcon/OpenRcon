@@ -24,6 +24,8 @@
 #include "BanListWidget.h"
 #include "ui_BanListWidget.h"
 #include "BanListEntry.h"
+#include "BanType.h"
+#include "BanIdType.h"
 #include "FrostbiteUtils.h"
 
 BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
@@ -31,6 +33,8 @@ BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
     ui(new Ui::BanListWidget)
 {
     ui->setupUi(this);
+
+    ui->comboBox_type->addItems(BanIdType::asList());
 
     QStringList reasonList = {
         tr("Hacking/Cheating"),
@@ -54,22 +58,25 @@ BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
 
     menu_bl_banList->addAction(action_bl_banList_remove);
 
+    /* Events */
+    // TODO: Connect event here so that list is update when runnig next round.
+
     /* Commands */
     // BanList
-    connect(getClient()->getCommandHandler(),    &FrostbiteCommandHandler::onBanListListCommand,                         this, &BanListWidget::onBanListListCommand);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onBanListListCommand,                         this, &BanListWidget::onBanListListCommand);
 
     /* User Interface */
-    connect(ui->tableWidget_bl_banList,     &QTableWidget::customContextMenuRequested,                              this, &BanListWidget::tableWidget_bl_banList_customContextMenuRequested);
-    connect(action_bl_banList_remove,       &QAction::triggered,                                                    this, &BanListWidget::action_bl_banList_remove_triggered);
-    connect(ui->pushButton_load,            &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_load_clicked);
-    connect(ui->pushButton_save,            &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_save_clicked);
-    connect(ui->pushButton_clear,           &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_clear_clicked);
-    connect(ui->lineEdit_value,             &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
-    connect(ui->lineEdit_reason,            &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
-    connect(ui->radioButton_permanent,      &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_permanent_clicked);
-    connect(ui->radioButton_temporary,      &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_temporary_clicked);
-    connect(ui->comboBox_by,                static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BanListWidget::comboBox_by_currentIndexChanged);
-    connect(ui->pushButton_ban,             &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_ban_clicked);
+    connect(ui->tableWidget_bl_banList,       &QTableWidget::customContextMenuRequested,                              this, &BanListWidget::tableWidget_bl_banList_customContextMenuRequested);
+    connect(action_bl_banList_remove,         &QAction::triggered,                                                    this, &BanListWidget::action_bl_banList_remove_triggered);
+    connect(ui->pushButton_load,              &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_load_clicked);
+    connect(ui->pushButton_save,              &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_save_clicked);
+    connect(ui->pushButton_clear,             &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_clear_clicked);
+    connect(ui->lineEdit_value,               &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
+    connect(ui->lineEdit_reason,              &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
+    connect(ui->radioButton_permanent,        &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_permanent_clicked);
+    connect(ui->radioButton_temporary,        &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_temporary_clicked);
+    connect(ui->comboBox_by,                  static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BanListWidget::comboBox_by_currentIndexChanged);
+    connect(ui->pushButton_ban,               &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_ban_clicked);
 }
 
 BanListWidget::~BanListWidget()
@@ -106,35 +113,48 @@ void BanListWidget::action_bl_banList_remove_triggered()
     }
 }
 
-void BanListWidget::addBanListItem(const QString &idType, const QString &id, const QString &banType, int seconds, int rounds, const QString &reason)
-{
-    int row = ui->tableWidget_bl_banList->rowCount();
-
-    ui->tableWidget_bl_banList->insertRow(row);
-    ui->tableWidget_bl_banList->setItem(row, 0, new QTableWidgetItem(idType));
-    ui->tableWidget_bl_banList->setItem(row, 1, new QTableWidgetItem(id));
-    QString remaining;
-
-    if (banType == "perm") {
-        remaining = tr("Permanent");
-    } else if (banType == "rounds") {
-        remaining = tr("%1 Rounds").arg(QString::number(rounds));
-    } else if (banType == "seconds") {
-        remaining = tr("%1 Seconds").arg(QString::number(seconds));
-    }
-
-    ui->tableWidget_bl_banList->setItem(row, 2, new QTableWidgetItem(remaining));
-    ui->tableWidget_bl_banList->setItem(row, 3, new QTableWidgetItem(reason));
-}
-
 void BanListWidget::setBanlist(const QList<BanListEntry> &banList)
 {
     ui->tableWidget_bl_banList->clearContents();
     ui->tableWidget_bl_banList->setRowCount(0);
 
     for (BanListEntry banListEntry : banList) {
-        addBanListItem(banListEntry.getBanType(), banListEntry.getId(), banListEntry.getBanType(), banListEntry.getSeconds(), banListEntry.getRounds(), banListEntry.getReason());
+        addBanListItem(banListEntry.getIdType(), banListEntry.getId(), banListEntry.getType(), banListEntry.getSeconds(), banListEntry.getRounds(), banListEntry.getReason());
     }
+}
+
+void BanListWidget::setTemporaryEnabled(bool enabled)
+{
+    ui->comboBox_by->setEnabled(enabled);
+    ui->spinBox_timeout->setEnabled(enabled);
+    ui->comboBox_timeUnit->setEnabled(enabled);
+}
+
+void BanListWidget::addBanListItem(const BanIdTypeEnum &idType, const QString &id, const BanTypeEnum &banType, int seconds, int rounds, const QString &reason)
+{
+    int row = ui->tableWidget_bl_banList->rowCount();
+
+    ui->tableWidget_bl_banList->insertRow(row);
+    ui->tableWidget_bl_banList->setItem(row, 0, new QTableWidgetItem(BanIdType::toString(idType)));
+    ui->tableWidget_bl_banList->setItem(row, 1, new QTableWidgetItem(id));
+    QString remaining;
+
+    switch (banType) {
+    case BanTypeEnum::Perm:
+        remaining = tr("Permanent");
+        break;
+
+    case BanTypeEnum::Rounds:
+        remaining = tr("%1 Rounds").arg(QString::number(rounds));
+        break;
+
+    case BanTypeEnum::Seconds:
+        remaining = tr("%1 Seconds").arg(QString::number(seconds));
+        break;
+    }
+
+    ui->tableWidget_bl_banList->setItem(row, 2, new QTableWidgetItem(remaining));
+    ui->tableWidget_bl_banList->setItem(row, 3, new QTableWidgetItem(reason));
 }
 
 void BanListWidget::pushButton_load_clicked()
@@ -149,14 +169,14 @@ void BanListWidget::pushButton_save_clicked()
 
 void BanListWidget::pushButton_clear_clicked()
 {
-    ui->tableWidget_bl_banList->clearContents();
+    ui->tableWidget_bl_banList->setRowCount(0);
     ui->pushButton_clear->setEnabled(ui->tableWidget_bl_banList->rowCount() < 0);
     getClient()->getCommandHandler()->sendBanListClearCommand();
 }
 
 void BanListWidget::validate()
 {
-    bool enabled = !ui->lineEdit_value->text().isEmpty() && !ui->lineEdit_reason->text().isEmpty();
+    bool enabled = !ui->lineEdit_value->text().isEmpty();
 
     ui->radioButton_permanent->setEnabled(enabled);
     ui->radioButton_temporary->setEnabled(enabled);
@@ -173,13 +193,6 @@ void BanListWidget::radioButton_temporary_clicked()
     setTemporaryEnabled(true);
 }
 
-void BanListWidget::setTemporaryEnabled(bool enabled)
-{
-    ui->comboBox_by->setEnabled(enabled);
-    ui->spinBox_timeout->setEnabled(enabled);
-    ui->comboBox_timeUnit->setEnabled(enabled);
-}
-
 void BanListWidget::comboBox_by_currentIndexChanged(int index)
 {
     ui->comboBox_timeUnit->setEnabled(index == 0);
@@ -187,14 +200,14 @@ void BanListWidget::comboBox_by_currentIndexChanged(int index)
 
 void BanListWidget::pushButton_ban_clicked()
 {
-    QString idType = ui->comboBox_type->currentText().toLower();
+    BanIdTypeEnum banIdType = BanIdType::fromString(ui->comboBox_type->currentText());
     QString value = ui->lineEdit_value->text();
     QString reason = ui->lineEdit_reason->text();
 
     if (ui->radioButton_permanent->isChecked()) {
-        getClient()->getCommandHandler()->sendBanListAddCommand(idType, value, reason);
+        getClient()->getCommandHandler()->sendBanListAddCommand(banIdType, value, BanTypeEnum::Perm, reason);
     } else {
-        bool useRounds = ui->comboBox_by->currentIndex() > 0;
+        BanTypeEnum banType = ui->comboBox_by->currentIndex() > 0 ? BanTypeEnum::Rounds : BanTypeEnum::Seconds;
         int timeout = ui->spinBox_timeout->value();
 
         if (ui->comboBox_timeUnit->isEnabled()) {
@@ -223,6 +236,6 @@ void BanListWidget::pushButton_ban_clicked()
             }
         }
 
-        getClient()->getCommandHandler()->sendBanListAddCommand(idType, value, timeout, useRounds, reason);
+        getClient()->getCommandHandler()->sendBanListAddCommand(banIdType, value, banType, reason, timeout);
     }
 }
