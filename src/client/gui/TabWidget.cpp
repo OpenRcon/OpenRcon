@@ -30,6 +30,11 @@ TabWidget *TabWidget::instance = nullptr;
 
 TabWidget::TabWidget(QWidget *parent) : QTabWidget(parent)
 {
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    setDocumentMode(true);
+    setTabsClosable(true);
+    setMovable(true);
+
     // Actions
     actionTabConnect = new QAction(tr("Connect"), this);
     actionTabDisconnect = new QAction(tr("Disconnect"), this);

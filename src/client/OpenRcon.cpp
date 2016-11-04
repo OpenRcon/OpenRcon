@@ -124,10 +124,6 @@ OpenRcon::OpenRcon(QWidget *parent) :
 
     // TabWidget
     tabWidget = TabWidget::getInstance(this);
-    tabWidget->setDocumentMode(true);
-    tabWidget->setMovable(true);
-    tabWidget->setTabsClosable(true);
-    tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     setCentralWidget(tabWidget);
 
     // Statusbar
@@ -243,9 +239,9 @@ void OpenRcon::autoConnect()
 {
     QList<ServerEntry*> serverList = serverManager->getServers();
 
-    for (ServerEntry *entry : serverList) {
-        if (entry->getAutoConnect()) {
-            sessionManager->openSession(entry);
+    for (ServerEntry *serverEntry : serverList) {
+        if (serverEntry->getAutoConnect()) {
+            sessionManager->openSession(serverEntry);
         }
     }
 }
