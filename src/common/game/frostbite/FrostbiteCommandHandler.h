@@ -70,14 +70,14 @@ public slots:
     void sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason);
     void sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason);
     void sendBanListClearCommand();
-    void sendBanListListCommand(int index = 0);
+    void sendBanListListCommand(int index = -1);
     void sendBanListLoadCommand();
     void sendBanListRemoveCommand(const QString &idType, const QString &id);
     void sendBanListSaveCommand();
 
     // Maplist
     void sendMapListClearCommand();
-    void sendMapListListCommand(int index = 0);
+    void sendMapListListCommand(int index = -1);
     void sendMapListLoadCommand();
     void sendMapListRemoveCommand(int index);
     void sendMapListSaveCommand();

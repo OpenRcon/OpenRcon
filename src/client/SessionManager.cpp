@@ -67,7 +67,7 @@ void SessionManager::openSession(ServerEntry *serverEntry)
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->getHost()).arg(serverEntry->getPort()));
         tabWidget->setCurrentIndex(index);
 
-        emit (onSessionOpened());
+        emit(onSessionOpened());
     } else {
         qDebug() << tr("Already connected to this server.");
     }
@@ -98,7 +98,7 @@ void SessionManager::closeSession(GameWidget *gameWidget, int index)
 
     // Remove the ServerEntry from the list.
     if (sessions.remove(serverEntry)) {
-        emit (onSessionClosed());
+        emit(onSessionClosed());
     } else {
         qDebug() << tr("This session does not exist.");
     }

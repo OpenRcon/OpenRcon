@@ -605,7 +605,7 @@ void Frostbite2CommandHandler::parseServerLevelLoadedEvent(const FrostbiteRconPa
     int roundsPlayed = QString(packet.getWord(3).getContent()).toInt();
     int roundsTotal = QString(packet.getWord(4).getContent()).toInt();
 
-    emit (onServerLevelLoadedEvent(levelName, gameModeName, roundsPlayed, roundsTotal));
+    emit(onServerLevelLoadedEvent(levelName, gameModeName, roundsPlayed, roundsTotal));
 }
 
 void Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -614,7 +614,7 @@ void Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent(const Frostb
 
     int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-    emit (onServerMaxPlayerCountChangeEvent(count));
+    emit(onServerMaxPlayerCountChangeEvent(count));
 }
 
 /* Parse commands */
@@ -628,7 +628,7 @@ void Frostbite2CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacke
     if (response == "OK" && packet.getWordCount() > 1) {
         QString levelName = packet.getWord(1).getContent();
 
-        emit (onCurrentLevelCommand(levelName));
+        emit(onCurrentLevelCommand(levelName));
     }
 }
 
@@ -638,7 +638,7 @@ void Frostbite2CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket
 
     QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
 
-    emit (onListPlayersCommand(playerList));
+    emit(onListPlayersCommand(playerList));
 }
 
 // Admin
@@ -651,7 +651,7 @@ void Frostbite2CommandHandler::parseAdminEventsEnabledCommand(const FrostbiteRco
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onAdminEventsEnabledCommand(enabled));
+        emit(onAdminEventsEnabledCommand(enabled));
     }
 }
 
@@ -668,7 +668,7 @@ void Frostbite2CommandHandler::parseAdminHelpCommand(const FrostbiteRconPacket &
             commandList.append(packet.getWord(i).getContent());
         }
 
-        emit (onAdminHelpCommand(commandList));
+        emit(onAdminHelpCommand(commandList));
     }
 }
 
@@ -678,7 +678,7 @@ void Frostbite2CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconP
 
     QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
 
-    emit (onAdminListPlayersCommand(playerList));
+    emit(onAdminListPlayersCommand(playerList));
 }
 
 void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -690,7 +690,7 @@ void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPack
     if (response == "OK" && packet.getWordCount() > 1) {
         QString password = packet.getWord(1).getContent();
 
-        emit (onAdminPasswordCommand(password));
+        emit(onAdminPasswordCommand(password));
     }
 }
 
@@ -711,7 +711,7 @@ void Frostbite2CommandHandler::parseMapListAvailableMapsCommand(const FrostbiteR
             list.append(packet.getWord(i).getContent());
         }
 
-        emit (onMapListAvailableMapsCommand(value, list));
+        emit(onMapListAvailableMapsCommand(value, list));
     }
 }
 
@@ -725,7 +725,7 @@ void Frostbite2CommandHandler::parseMapListGetMapIndicesCommand(const FrostbiteR
         int currentMapIndex = FrostbiteUtils::toInt(packet.getWord(1).getContent());
         int nextMapIndex = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
-        emit (onMapListGetMapIndicesCommand(currentMapIndex, nextMapIndex));
+        emit(onMapListGetMapIndicesCommand(currentMapIndex, nextMapIndex));
     }
 }
 
@@ -739,7 +739,7 @@ void Frostbite2CommandHandler::parseMapListGetRoundsCommand(const FrostbiteRconP
         int currentRound = FrostbiteUtils::toInt(packet.getWord(1).getContent());
         int totalRounds = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
-        emit (onMapListGetRoundsCommand(currentRound, totalRounds));
+        emit(onMapListGetRoundsCommand(currentRound, totalRounds));
     }
 }
 
@@ -753,7 +753,7 @@ void Frostbite2CommandHandler::parsePlayerIdleDurationCommand(const FrostbiteRco
     if (response == "OK" && packet.getWordCount() == 2) {
         float idleDuration = FrostbiteUtils::toFloat(packet.getWord(1).getContent());
 
-        emit (onPlayerIdleDurationCommand(idleDuration));
+        emit(onPlayerIdleDurationCommand(idleDuration));
     }
 }
 
@@ -766,7 +766,7 @@ void Frostbite2CommandHandler::parsePlayerIsAliveCommand(const FrostbiteRconPack
     if (response == "OK" && packet.getWordCount() == 2) {
         bool alive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onPlayerIsAliveCommand(alive));
+        emit(onPlayerIsAliveCommand(alive));
     }
 }
 
@@ -780,7 +780,7 @@ void Frostbite2CommandHandler::parsePlayerPingCommand(const FrostbiteRconPacket 
         QString player = packet.getWord(1).getContent();
         int ping = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
-        emit (onPlayerPingCommand(player, ping));
+        emit(onPlayerPingCommand(player, ping));
     }
 }
 
@@ -794,7 +794,7 @@ void Frostbite2CommandHandler::parsePunkBusterIsActiveCommand(const FrostbiteRco
     if (response == "OK" && packet.getWordCount() == 2) {
         bool active = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onPunkBusterIsActiveCommand(active));
+        emit(onPunkBusterIsActiveCommand(active));
     }
 }
 
@@ -808,7 +808,7 @@ void Frostbite2CommandHandler::parseReservedSlotsListAggressiveJoinCommand(const
     if (response == "OK" && packet.getWordCount() == 2) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onReservedSlotsListAggressiveJoinCommand(enabled));
+        emit(onReservedSlotsListAggressiveJoinCommand(enabled));
     }
 }
 
@@ -825,7 +825,7 @@ void Frostbite2CommandHandler::parseReservedSlotsListListCommand(const Frostbite
             reservedSlotList.append(packet.getWord(i).getContent());
         }
 
-        emit (onReservedSlotsListListCommand(reservedSlotList));
+        emit(onReservedSlotsListListCommand(reservedSlotList));
     }
 }
 
@@ -839,7 +839,7 @@ void Frostbite2CommandHandler::parseSquadLeaderCommand(const FrostbiteRconPacket
     if (response == "OK" && packet.getWordCount() > 1) {
         QString player = packet.getWord(1).getContent();
 
-        emit (onSquadLeaderCommand(player));
+        emit(onSquadLeaderCommand(player));
     }
 }
 
@@ -857,7 +857,7 @@ void Frostbite2CommandHandler::parseSquadListPlayersCommand(const FrostbiteRconP
             playerList.append(packet.getWord(i).getContent());
         }
 
-        emit (onSquadListPlayersCommand(playerList));
+        emit(onSquadListPlayersCommand(playerList));
     }
 }
 
@@ -870,7 +870,7 @@ void Frostbite2CommandHandler::parseSquadPrivateCommand(const FrostbiteRconPacke
     if (response == "OK" && packet.getWordCount() > 1) {
         bool isPrivate = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onSquadPrivateCommand(isPrivate));
+        emit(onSquadPrivateCommand(isPrivate));
     }
 }
 
@@ -884,7 +884,7 @@ void Frostbite2CommandHandler::parseVars3pCamCommand(const FrostbiteRconPacket &
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onVars3pCamCommand(enabled));
+        emit(onVars3pCamCommand(enabled));
     }
 }
 
@@ -897,7 +897,7 @@ void Frostbite2CommandHandler::parseVarsAutoBalanceCommand(const FrostbiteRconPa
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onVarsAutoBalanceCommand(enabled));
+        emit(onVarsAutoBalanceCommand(enabled));
     }
 }
 
@@ -910,7 +910,7 @@ void Frostbite2CommandHandler::parseVarsBulletDamageCommand(const FrostbiteRconP
     if (response == "OK" && packet.getWordCount() > 1) {
         int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsBulletDamageCommand(percent));
+        emit(onVarsBulletDamageCommand(percent));
     }
 }
 
@@ -923,7 +923,7 @@ void Frostbite2CommandHandler::parseVarsGameModeCounterCommand(const FrostbiteRc
     if (response == "OK" && packet.getWordCount() > 1) {
         int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsGameModeCounterCommand(percent));
+        emit(onVarsGameModeCounterCommand(percent));
     }
 }
 
@@ -936,7 +936,7 @@ void Frostbite2CommandHandler::parseVarsHudCommand(const FrostbiteRconPacket &pa
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onVarsHudCommand(enabled));
+        emit(onVarsHudCommand(enabled));
     }
 }
 
@@ -949,7 +949,7 @@ void Frostbite2CommandHandler::parseVarsIdleBanRoundsCommand(const FrostbiteRcon
     if (response == "OK" && packet.getWordCount() > 1) {
         int rounds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsIdleBanRoundsCommand(rounds));
+        emit(onVarsIdleBanRoundsCommand(rounds));
     }
 }
 
@@ -962,7 +962,7 @@ void Frostbite2CommandHandler::parseVarsMaxPlayersCommand(const FrostbiteRconPac
     if (response == "OK" && packet.getWordCount() > 1) {
         int playerCount = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsMaxPlayersCommand(playerCount));
+        emit(onVarsMaxPlayersCommand(playerCount));
     }
 }
 
@@ -975,7 +975,7 @@ void Frostbite2CommandHandler::parseVarsNameTagCommand(const FrostbiteRconPacket
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onVarsNameTagCommand(enabled));
+        emit(onVarsNameTagCommand(enabled));
     }
 }
 
@@ -988,7 +988,7 @@ void Frostbite2CommandHandler::parseVarsOnlySquadLeaderSpawnCommand(const Frostb
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onVarsOnlySquadLeaderSpawnCommand(enabled));
+        emit(onVarsOnlySquadLeaderSpawnCommand(enabled));
     }
 }
 
@@ -1001,7 +1001,7 @@ void Frostbite2CommandHandler::parseVarsPlayerRespawnTimeCommand(const Frostbite
     if (response == "OK" && packet.getWordCount() > 1) {
         int respawnTime = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsPlayerRespawnTimeCommand(respawnTime));
+        emit(onVarsPlayerRespawnTimeCommand(respawnTime));
     }
 }
 
@@ -1014,7 +1014,7 @@ void Frostbite2CommandHandler::parseVarsRegenerateHealthCommand(const FrostbiteR
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onVarsRegenerateHealthCommand(enabled));
+        emit(onVarsRegenerateHealthCommand(enabled));
     }
 }
 
@@ -1027,7 +1027,7 @@ void Frostbite2CommandHandler::parseVarsRoundLockdownCountdownCommand(const Fros
     if (response == "OK" && packet.getWordCount() > 1) {
         int seconds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsRoundLockdownCountdownCommand(seconds));
+        emit(onVarsRoundLockdownCountdownCommand(seconds));
     }
 }
 
@@ -1040,7 +1040,7 @@ void Frostbite2CommandHandler::parseVarsRoundRestartPlayerCountCommand(const Fro
     if (response == "OK" && packet.getWordCount() > 1) {
         int players = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsRoundRestartPlayerCountCommand(players));
+        emit(onVarsRoundRestartPlayerCountCommand(players));
     }
 }
 
@@ -1053,7 +1053,7 @@ void Frostbite2CommandHandler::parseVarsRoundStartPlayerCountCommand(const Frost
     if (response == "OK" && packet.getWordCount() > 1) {
         int players = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsRoundStartPlayerCountCommand(players));
+        emit(onVarsRoundStartPlayerCountCommand(players));
     }
 }
 
@@ -1066,7 +1066,7 @@ void Frostbite2CommandHandler::parseVarsServerMessageCommand(const FrostbiteRcon
     if (response == "OK" && packet.getWordCount() > 1) {
         QString message = packet.getWord(1).getContent();
 
-        emit (onVarsServerMessageCommand(message));
+        emit(onVarsServerMessageCommand(message));
     }
 }
 
@@ -1079,7 +1079,7 @@ void Frostbite2CommandHandler::parseVarsSoldierHealthCommand(const FrostbiteRcon
     if (response == "OK" && packet.getWordCount() > 1) {
         int health = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsSoldierHealthCommand(health));
+        emit(onVarsSoldierHealthCommand(health));
     }
 }
 
@@ -1092,7 +1092,7 @@ void Frostbite2CommandHandler::parseVarsTeamKillKickForBanCommand(const Frostbit
     if (response == "OK" && packet.getWordCount() > 1) {
         int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsTeamKillKickForBanCommand(count));
+        emit(onVarsTeamKillKickForBanCommand(count));
     }
 }
 
@@ -1105,7 +1105,7 @@ void Frostbite2CommandHandler::parseVarsUnlockModeCommand(const FrostbiteRconPac
     if (response == "OK" && packet.getWordCount() > 1) {
         QString type = packet.getWord(1).getContent();
 
-        emit (onVarsUnlockModeCommand(type));
+        emit(onVarsUnlockModeCommand(type));
     }
 }
 
@@ -1118,7 +1118,7 @@ void Frostbite2CommandHandler::parseVarsVehicleSpawnAllowedCommand(const Frostbi
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit (onVarsVehicleSpawnAllowedCommand(enabled));
+        emit(onVarsVehicleSpawnAllowedCommand(enabled));
     }
 }
 
@@ -1131,6 +1131,6 @@ void Frostbite2CommandHandler::parseVarsVehicleSpawnDelayCommand(const Frostbite
     if (response == "OK" && packet.getWordCount() > 1) {
         int delay = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit (onVarsVehicleSpawnDelayCommand(delay));
+        emit(onVarsVehicleSpawnDelayCommand(delay));
     }
 }

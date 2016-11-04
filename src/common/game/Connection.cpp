@@ -101,13 +101,13 @@ void Connection::displayError(QAbstractSocket::SocketError socketError)
 void Connection::responseDataSent(const QString &request)
 {
     if (!request.isEmpty()) {
-         emit (onDataSent(request));
+         emit(onDataSent(request));
     }
 }
 
 void Connection::responseDataReceived(const QString &response)
 {
     if (!response.isEmpty()) {
-        emit (onDataReceived(response));
+        emit(onDataReceived(response));
     }
 }

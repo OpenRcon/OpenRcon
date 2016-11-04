@@ -221,7 +221,7 @@ void BFBC2CommandHandler::parsePlayerKickedEvent(const FrostbiteRconPacket &pack
     QString player = packet.getWord(1).getContent();
     QString reason = packet.getWord(2).getContent();
 
-    emit (onPlayerKickedEvent(player, reason));
+    emit(onPlayerKickedEvent(player, reason));
 }
 
 void BFBC2CommandHandler::parsePunkBusterVersionEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -230,7 +230,7 @@ void BFBC2CommandHandler::parsePunkBusterVersionEvent(const FrostbiteRconPacket 
 
     QString version = packet.getWord(1).getContent();
 
-    emit (onPunkBusterVersionEvent(version));
+    emit(onPunkBusterVersionEvent(version));
 }
 
 void BFBC2CommandHandler::parseServerLoadingLevelEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -241,7 +241,7 @@ void BFBC2CommandHandler::parseServerLoadingLevelEvent(const FrostbiteRconPacket
     int roundsPlayed = FrostbiteUtils::toInt(packet.getWord(2).getContent());
     int roundsTotal = FrostbiteUtils::toInt(packet.getWord(3).getContent());
 
-    emit (onServerLoadingLevelEvent(levelName, roundsPlayed, roundsTotal));
+    emit(onServerLoadingLevelEvent(levelName, roundsPlayed, roundsTotal));
 }
 
 void BFBC2CommandHandler::parseServerLevelStartedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -249,7 +249,7 @@ void BFBC2CommandHandler::parseServerLevelStartedEvent(const FrostbiteRconPacket
     Q_UNUSED(packet);
     Q_UNUSED(lastSentPacket);
 
-    emit (onServerLevelStartedEvent());
+    emit(onServerLevelStartedEvent());
 }
 
 /* Parse commands */
