@@ -21,13 +21,14 @@
 #define FROSTBITECOMMANDHANDLER_H
 
 #include "CommandHandler.h"
+#include "PlayerSubset.h"
 
 class QString;
 class QByteArray;
 
 class FrostbiteConnection;
 class FrostbiteRconPacket;
-enum class PlayerSubsetEnum;
+enum class BanIdTypeEnum;
 class Frostbite2ServerInfo;
 class BF3ServerInfo;
 class BF4ServerInfo;
@@ -62,17 +63,17 @@ public slots:
     void sendAdminKillPlayerCommand(const QString &player);
     //admin.listPlayers <players>
     void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
-    void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter = -1);
-    void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter = -1);
-    void sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetEnum &playerSubset, int parameter = -1);
+    void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset = PlayerSubsetEnum::All, int parameter = -1);
+    void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset = PlayerSubsetEnum::All, int parameter = -1);
+    void sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetEnum &playerSubset = PlayerSubsetEnum::All, int parameter = -1);
 
     // Banning
-    void sendBanListAddCommand(const QString &idType, const QString &id, const QString &reason);
-    void sendBanListAddCommand(const QString &idType, const QString &id, int timeout, bool useRounds, const QString &reason);
+    void sendBanListAddCommand(const BanIdTypeEnum &banIdType, const QString &banId, const QString &reason = QString());
+    void sendBanListAddCommand(const BanIdTypeEnum &banIdType, const QString &banId, bool useRounds, int timeout, const QString &reason = QString());
     void sendBanListClearCommand();
-    void sendBanListListCommand(int index = 0);
+    void sendBanListListCommand(int index = -1);
     void sendBanListLoadCommand();
-    void sendBanListRemoveCommand(const QString &idType, const QString &id);
+    void sendBanListRemoveCommand(const BanIdTypeEnum &banIdType, const QString &banId);
     void sendBanListSaveCommand();
 
     // Maplist

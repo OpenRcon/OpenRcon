@@ -21,15 +21,15 @@
 
 #include "BanListEntry.h"
 
-BanListEntry::BanListEntry(const QString &idType,
+BanListEntry::BanListEntry(const BanIdTypeEnum &idType,
                            const QString &id,
-                           const QString &banType,
+                           const BanTypeEnum &type,
                            int seconds,
                            int rounds,
                            const QString &reason) :
     idType(idType),
     id(id),
-    banType(banType),
+    type(type),
     seconds(seconds),
     rounds(rounds),
     reason(reason)
@@ -42,7 +42,7 @@ BanListEntry::~BanListEntry()
 
 }
 
-QString BanListEntry::getIdType()
+BanIdTypeEnum BanListEntry::getIdType()
 {
     return idType;
 }
@@ -52,9 +52,9 @@ QString BanListEntry::getId()
     return id;
 }
 
-QString BanListEntry::getBanType()
+BanTypeEnum BanListEntry::getType()
 {
-    return banType;
+    return type;
 }
 
 int BanListEntry::getSeconds()

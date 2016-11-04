@@ -17,40 +17,29 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BANLISTENTRY_H
-#define BANLISTENTRY_H
+#ifndef BANIDTYPE_H
+#define BANIDTYPE_H
 
 class QString;
+class QStringList;
 
-enum class BanIdTypeEnum;
-enum class BanTypeEnum;
+enum class BanIdTypeEnum {
+    Name,
+    IP,
+    GUID
+};
 
-class BanListEntry
+class BanIdType
 {
 public:
-    BanListEntry(const BanIdTypeEnum &idType,
-                 const QString &id,
-                 const BanTypeEnum &type,
-                 int seconds,
-                 int rounds,
-                 const QString &reason);
-    ~BanListEntry();
-
-    BanIdTypeEnum getIdType();
-    QString getId();
-    BanTypeEnum getType();
-    int getSeconds();
-    int getRounds();
-    QString getReason();
+    static BanIdTypeEnum fromString(const QString &banIdTypeString);
+    static QString toString(const BanIdTypeEnum &banIdType);
+    static int toInt(const BanIdTypeEnum &banIdType);
+    static QStringList asList();
 
 private:
-    BanIdTypeEnum idType;
-    QString id;
-    BanTypeEnum type;
-    int seconds;
-    int rounds;
-    QString reason;
+    static QStringList list;
 
 };
 
-#endif // BANLISTENTRY_H
+#endif // BANIDTYPE_H
