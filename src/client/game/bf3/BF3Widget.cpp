@@ -22,7 +22,17 @@
 BF3Widget::BF3Widget(BF3Client *client, QWidget *parent) :
     Frostbite2Widget(client, parent)
 {
-
+    commandList += {
+        "listPlayers",
+        "admin.listPlayers",
+        "admin.effectiveMaxPlayers",
+        "vars.ranked",
+        "vars.crossHair",
+        "vars.playerManDownTime",
+        "vars.premiumStatus",
+        "vars.bannerUrl",
+        "vars.roundsPerMap"
+    };
 }
 
 BF3Widget::~BF3Widget()

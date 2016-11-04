@@ -38,18 +38,6 @@ BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    commandList += {
-        "listPlayers",
-        "admin.listPlayers",
-        "admin.effectiveMaxPlayers",
-        "vars.ranked",
-        "vars.crossHair",
-        "vars.playerManDownTime",
-        "vars.premiumStatus",
-        "vars.bannerUrl",
-        "vars.roundsPerMap"
-    };
-
     chatWidget = new ChatWidget(getClient(), this);
     reservedSlotsWidget = new ReservedSlotsWidget(getClient(), this);
     consoleWidget = new ConsoleWidget(getClient(), commandList, this);

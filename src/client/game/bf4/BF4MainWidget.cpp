@@ -58,35 +58,6 @@ BF4MainWidget::BF4MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     connect(timerServerInfoRoundTime, &QTimer::timeout, this, &BF4MainWidget::updateRoundTime);
     connect(timerServerInfoUpTime,    &QTimer::timeout, this, &BF4MainWidget::updateUpTime);
 
-    commandList += {
-        "admin.shutdown",
-        "fairFight.activate",
-        "fairFight.deactivate",
-        "fairFight.isActive",
-        "spectatorList.add",
-        "spectatorList.clear",
-        "spectatorList.list",
-        "spectatorList.remove",
-        "spectatorList.save",
-        "vars.alwaysAllowSpectators",
-        "vars.skillBasedBalance",
-        "vars.commander",
-        "vars.forceReloadWholeMags",
-        "vars.hitIndicatorsEnabled",
-        "vars.maxSpectators",
-        "vars.mpExperience",
-        "vars.preset",
-        "vars.roundTimeLimit",
-        "vars.roundWarmupTimeout",
-        "vars.serverType",
-        "vars.teamFactionOverride",
-        "vars.ticketBleedRate",
-        "vars.roundPlayersReadyBypassTimer",
-        "vars.roundPlayersReadyMinCount",
-        "vars.roundPlayersReadyPercent",
-        "vars.isNoobOnlyJoin"
-    };
-
     // Create tabs from widgets.
     playerListWidget = new PlayerListWidget(getClient(), this);
     eventsWidget = new EventsWidget(getClient(), this);

@@ -22,7 +22,34 @@
 BF4Widget::BF4Widget(BF4Client *client, QWidget *parent) :
     Frostbite2Widget(client, parent)
 {
-
+    commandList += {
+        "admin.shutdown",
+        "fairFight.activate",
+        "fairFight.deactivate",
+        "fairFight.isActive",
+        "spectatorList.add",
+        "spectatorList.clear",
+        "spectatorList.list",
+        "spectatorList.remove",
+        "spectatorList.save",
+        "vars.alwaysAllowSpectators",
+        "vars.skillBasedBalance",
+        "vars.commander",
+        "vars.forceReloadWholeMags",
+        "vars.hitIndicatorsEnabled",
+        "vars.maxSpectators",
+        "vars.mpExperience",
+        "vars.preset",
+        "vars.roundTimeLimit",
+        "vars.roundWarmupTimeout",
+        "vars.serverType",
+        "vars.teamFactionOverride",
+        "vars.ticketBleedRate",
+        "vars.roundPlayersReadyBypassTimer",
+        "vars.roundPlayersReadyMinCount",
+        "vars.roundPlayersReadyPercent",
+        "vars.isNoobOnlyJoin"
+    };
 }
 
 BF4Widget::~BF4Widget()

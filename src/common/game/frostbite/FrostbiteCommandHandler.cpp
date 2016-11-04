@@ -757,7 +757,7 @@ void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket 
     if (response == "OK") {
         QList<BanListEntry> banList;
 
-        for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
+        for (int i = 1; i < packet.getWordCount(); i += 6) {
             QString banIdType = packet.getWord(i).getContent();
             QString id = packet.getWord(i + 1).getContent();
             QString banType = packet.getWord(i + 2).getContent();
