@@ -21,6 +21,7 @@
 #include <QStringList>
 
 #include "Squad.h"
+#include "FrostbiteUtils.h"
 
 QStringList Squad::list = {
     "None",
@@ -60,73 +61,74 @@ QStringList Squad::list = {
 
 SquadEnum Squad::fromString(const QString &squadName)
 {
+    QString squadNameCamelCase = FrostbiteUtils::toCamelCase(squadName);
     SquadEnum squad = SquadEnum::None;
 
-    if (squadName == "None") {
+    if (squadNameCamelCase == "None") {
         squad = SquadEnum::None;
-    } else if (squadName == "Alpha") {
+    } else if (squadNameCamelCase == "Alpha") {
         squad = SquadEnum::Alpha;
-    } else if (squadName == "Bravo") {
+    } else if (squadNameCamelCase == "Bravo") {
         squad = SquadEnum::Bravo;
-    } else if (squadName == "Charlie") {
+    } else if (squadNameCamelCase == "Charlie") {
         squad = SquadEnum::Charlie;
-    } else if (squadName == "Delta") {
+    } else if (squadNameCamelCase == "Delta") {
         squad = SquadEnum::Delta;
-    } else if (squadName == "Echo") {
+    } else if (squadNameCamelCase == "Echo") {
         squad = SquadEnum::Echo;
-    } else if (squadName == "Foxtrot") {
+    } else if (squadNameCamelCase == "Foxtrot") {
         squad = SquadEnum::Foxtrot;
-    } else if (squadName == "Golf") {
+    } else if (squadNameCamelCase == "Golf") {
         squad = SquadEnum::Golf;
-    } else if (squadName == "Hotel") {
+    } else if (squadNameCamelCase == "Hotel") {
         squad = SquadEnum::Hotel;
-    } else if (squadName == "India") {
+    } else if (squadNameCamelCase == "India") {
         squad = SquadEnum::India;
-    } else if (squadName == "Juliet") {
+    } else if (squadNameCamelCase == "Juliet") {
         squad = SquadEnum::Juliet;
-    } else if (squadName == "Kilo") {
+    } else if (squadNameCamelCase == "Kilo") {
         squad = SquadEnum::Kilo;
-    } else if (squadName == "Lima") {
+    } else if (squadNameCamelCase == "Lima") {
         squad = SquadEnum::Lima;
-    } else if (squadName == "Mike") {
+    } else if (squadNameCamelCase == "Mike") {
         squad = SquadEnum::Mike;
-    } else if (squadName == "November") {
+    } else if (squadNameCamelCase == "November") {
         squad = SquadEnum::November;
-    } else if (squadName == "Oscar") {
+    } else if (squadNameCamelCase == "Oscar") {
         squad = SquadEnum::Oscar;
-    } else if (squadName == "Papa") {
+    } else if (squadNameCamelCase == "Papa") {
         squad = SquadEnum::Papa;
-    } else if (squadName == "Quebec") {
+    } else if (squadNameCamelCase == "Quebec") {
         squad = SquadEnum::Quebec;
-    } else if (squadName == "Romeo") {
+    } else if (squadNameCamelCase == "Romeo") {
         squad = SquadEnum::Romeo;
-    } else if (squadName == "Sierra") {
+    } else if (squadNameCamelCase == "Sierra") {
         squad = SquadEnum::Sierra;
-    } else if (squadName == "Tango") {
+    } else if (squadNameCamelCase == "Tango") {
         squad = SquadEnum::Tango;
-    } else if (squadName == "Uniform") {
+    } else if (squadNameCamelCase == "Uniform") {
         squad = SquadEnum::Uniform;
-    } else if (squadName == "Victor") {
+    } else if (squadNameCamelCase == "Victor") {
         squad = SquadEnum::Victor;
-    } else if (squadName == "Whiskey") {
+    } else if (squadNameCamelCase == "Whiskey") {
         squad = SquadEnum::Whiskey;
-    } else if (squadName == "Xray") {
+    } else if (squadNameCamelCase == "Xray") {
         squad = SquadEnum::Xray;
-    } else if (squadName == "Yankee") {
+    } else if (squadNameCamelCase == "Yankee") {
         squad = SquadEnum::Yankee;
-    } else if (squadName == "Zulu") {
+    } else if (squadNameCamelCase == "Zulu") {
         squad = SquadEnum::Zulu;
-    } else if (squadName == "Haggard") {
+    } else if (squadNameCamelCase == "Haggard") {
         squad = SquadEnum::Haggard;
-    } else if (squadName == "Sweetwater") {
+    } else if (squadNameCamelCase == "Sweetwater") {
         squad = SquadEnum::Sweetwater;
-    } else if (squadName == "Preston") {
+    } else if (squadNameCamelCase == "Preston") {
         squad = SquadEnum::Preston;
-    } else if (squadName == "Redford") {
+    } else if (squadNameCamelCase == "Redford") {
         squad = SquadEnum::Redford;
-    } else if (squadName == "Faith") {
+    } else if (squadNameCamelCase == "Faith") {
         squad = SquadEnum::Faith;
-    } else if (squadName == "Celeste") {
+    } else if (squadNameCamelCase == "Celeste") {
         squad = SquadEnum::Celeste;
     }
 

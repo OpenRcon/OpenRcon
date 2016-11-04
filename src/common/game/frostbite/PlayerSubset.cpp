@@ -21,6 +21,7 @@
 #include <QStringList>
 
 #include "PlayerSubset.h"
+#include "FrostbiteUtils.h"
 
 QStringList PlayerSubset::list = {
     "All",
@@ -32,18 +33,19 @@ QStringList PlayerSubset::list = {
 
 PlayerSubsetEnum PlayerSubset::fromString(const QString &playerSubsetName)
 {
+    QString playerSubsetNameCamelCase = FrostbiteUtils::toCamelCase(playerSubsetName);
     PlayerSubsetEnum playerSubset = PlayerSubsetEnum::Unknown;
 
-    if (playerSubsetName == "Unknown") {
-        playerSubset = PlayerSubsetEnum::Unknown;
-    } else if (playerSubsetName == "All") {
+    if (playerSubsetNameCamelCase == "All") {
         playerSubset = PlayerSubsetEnum::All;
-    } else if (playerSubsetName == "Team") {
+    } else if (playerSubsetNameCamelCase == "Team") {
         playerSubset = PlayerSubsetEnum::Team;
-    } else if (playerSubsetName == "Squad") {
+    } else if (playerSubsetNameCamelCase == "Squad") {
         playerSubset = PlayerSubsetEnum::Squad;
-    } else if (playerSubsetName == "Player") {
+    } else if (playerSubsetNameCamelCase == "Player") {
         playerSubset = PlayerSubsetEnum::Player;
+    } else if (playerSubsetNameCamelCase == "Unknown") {
+        playerSubset = PlayerSubsetEnum::Unknown;
     }
 
     return playerSubset;
