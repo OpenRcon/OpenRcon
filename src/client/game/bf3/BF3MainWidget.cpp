@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,20 +17,26 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QTimer>
 #include <QMessageBox>
 
 #include "BF3MainWidget.h"
 #include "ui_Frostbite2MainWidget.h"
-#include "BF3ServerInfo.h"
-#include "PlayerInfo.h"
-#include "PlayerSubset.h"
-#include "TeamEntry.h"
-#include "BF3LevelDictionary.h"
-#include "FrostbiteUtils.h"
+#include "BF3Client.h"
 
+#include "EventsWidget.h"
 #include "ChatWidget.h"
+#include "BanListWidget.h"
 #include "ReservedSlotsWidget.h"
 #include "ConsoleWidget.h"
+
+#include "LevelEntry.h"
+#include "BF3LevelDictionary.h"
+#include "BF3ServerInfo.h"
+#include "GameModeEntry.h"
+#include "TabWidget.h"
+#include "FrostbiteUtils.h"
+#include "Time.h"
 
 BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     BF3Widget(new BF3Client(serverEntry, parent), parent),
@@ -38,24 +44,64 @@ BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    /* User Inferface */
+    // ServerInfo
+    timerServerInfoRoundTime = new QTimer(this);
+    timerServerInfoRoundTime->start(1000);
+
+    timerServerInfoUpTime = new QTimer(this);
+    timerServerInfoUpTime->start(1000);
+
+    connect(timerServerInfoRoundTime, &QTimer::timeout, this, &BF3MainWidget::updateRoundTime);
+    connect(timerServerInfoUpTime,    &QTimer::timeout, this, &BF3MainWidget::updateUpTime);
+
+    // Create tabs from widgets.
+    eventsWidget = new EventsWidget(getClient(), this);
     chatWidget = new ChatWidget(getClient(), this);
+    banListWidget = new BanListWidget(getClient(), this);
     reservedSlotsWidget = new ReservedSlotsWidget(getClient(), this);
     consoleWidget = new ConsoleWidget(getClient(), commandList, this);
 
+
+    ui->tabWidget->addTab(eventsWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
     ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
+    ui->tabWidget->addTab(banListWidget, QIcon(":/frostbite/icons/ban.png"), tr("Banlist"));
     ui->tabWidget->addTab(reservedSlotsWidget, QIcon(":/frostbite/icons/reserved.png"), tr("Reserved Slots"));
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
 
     /* Connection */
-    connect(getClient()->getConnection(), &Connection::onConnected,    this, &BF3MainWidget::onConnected);
-    connect(getClient()->getConnection(), &Connection::onDisconnected, this, &BF3MainWidget::onDisconnected);
+    connect(client->getConnection(), &Connection::onConnected,                                     this, &BF3MainWidget::onConnected);
+    connect(client->getConnection(), &Connection::onDisconnected,                                  this, &BF3MainWidget::onDisconnected);
+
+    /* Events */
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,        &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,       &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerLevelLoadedEvent, &Frostbite2CommandHandler::sendServerInfoCommand);
 
     /* Commands */
     // Misc
-    connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &BF3MainWidget::onLoginHashedCommand);
-    connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const BF3ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand), this, &BF3MainWidget::onServerInfoCommand);
+    connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
+            this, &BF3MainWidget::onLoginHashedCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,   this, &BF3MainWidget::onVersionCommand);
+    connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const BF3ServerInfo&)>(&FrostbiteCommandHandler::onServerInfoCommand),
+            this, &BF3MainWidget::onServerInfoCommand);
+
+    // Admin
+
+    // FairFight
+
+    // Player
+
+    // Punkbuster
+
+    // Squad
+
+    // Variables
 
     /* User Interface */
+    // Server Information
+    connect(ui->pushButton_si_restartRound, &QPushButton::clicked, this, &BF3MainWidget::pushButton_si_restartRound_clicked);
+    connect(ui->pushButton_si_runNextRound, &QPushButton::clicked, this, &BF3MainWidget::pushButton_si_runNextRound_clicked);
 }
 
 BF3MainWidget::~BF3MainWidget()
@@ -66,62 +112,48 @@ BF3MainWidget::~BF3MainWidget()
 void BF3MainWidget::setAuthenticated(bool auth)
 {
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
-    //ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_op), auth);
-    //ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_ml), auth);
-    //ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(ui->tab_bl), auth);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), auth);
-
-    if (auth) {
-        ui->tabWidget->setCurrentIndex(0);
-    }
+    ui->tabWidget->setCurrentIndex(0);
 
     startupCommands(auth);
 }
 
-void BF3MainWidget::startupCommands(bool authenticated)
+void BF3MainWidget::startupCommands(bool auth)
 {
     // Misc
     getClient()->getCommandHandler()->sendVersionCommand();
     getClient()->getCommandHandler()->sendServerInfoCommand();
 
-    if (authenticated) {
+    if (auth) {
         getClient()->getCommandHandler()->sendAdminEventsEnabledCommand(true);
-
-        // Admins
-
-        // Banning
-
-        // Maplist
-
-        // Player
-
-        // Punkbuster
-
-        // Squad
-
-        // Variables
-    } else {
-        //client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetType::All);
     }
 }
 
 /* Connection */
-void BF3MainWidget::onConnected()
+void BF3MainWidget::onConnected(QAbstractSocket *socket)
 {
-    setAuthenticated(false);
+    Q_UNUSED(socket);
 
-//    logEvent("Connected", tr("Connected to %1:%2.").arg(con->tcpSocket->peerAddress().toString()).arg(con->tcpSocket->peerPort()));
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), true);
+
+    setAuthenticated(false);
 }
 
-void BF3MainWidget::onDisconnected()
+void BF3MainWidget::onDisconnected(QAbstractSocket *socket)
 {
-//    logEvent("Disconnected", tr("Disconnected."));
+    Q_UNUSED(socket);
+
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
+
+    setAuthenticated(false);
 }
 
 /* Events */
 
 /* Commands */
-
 // Misc
 void BF3MainWidget::onLoginHashedCommand(bool auth)
 {
@@ -137,53 +169,109 @@ void BF3MainWidget::onLoginHashedCommand(bool auth)
     }
 }
 
-void BF3MainWidget::onServerInfoCommand(const BF3ServerInfo &serverInfo)
+void BF3MainWidget::onVersionCommand(const QString &type, int build)
 {
-    Q_UNUSED(serverInfo);
+    Q_UNUSED(type);
+
+    ui->label_si_version->setText(tr("<b>Version</b>: %1").arg(getClient()->getVersionFromBuild(build)));
+    ui->label_si_version->setToolTip(QString::number(build));
 }
 
-void BF3MainWidget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset)
+void BF3MainWidget::onServerInfoCommand(const BF3ServerInfo &serverInfo)
 {
+    LevelEntry level = BF3LevelDictionary::getLevel(serverInfo.getCurrentMap());
+    GameModeEntry gameMode = BF3LevelDictionary::getGameMode(serverInfo.getGameMode());
+    roundTime = serverInfo.getRoundTime();
+    upTime = serverInfo.getServerUpTime();
+    updateRoundTime();
+    updateUpTime();
 
+    // Update the title of the this sessions tab.
+    TabWidget *tabWidget = TabWidget::getInstance();
+    tabWidget->setTabText(tabWidget->indexOf(this), serverInfo.getServerName());
+
+    // Update the server information.
+    ui->label_si_level->setPixmap(level.getIcon());
+    ui->label_si_status->setText(QString("%1 - %2").arg(level.getName(), gameMode.getName()));
+    ui->label_si_status->setToolTip(tr("<table>"
+                                          "<tr>"
+                                              "<td>External IP address and port:</td>"
+                                              "<td>%1</td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td></td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td>Region:</td>"
+                                              "<td>%4</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Country:</td>"
+                                              "<td>%5</td>"
+                                          "</tr>"
+                                          "<tr>"
+                                              "<td>Closest ping site:</td>"
+                                              "<td>%6</td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td></td>"
+                                          "</tr>"
+
+                                          "<tr>"
+                                              "<td>Punkbuster Server:</td>"
+                                              "<td>%9</td>"
+                                          "</tr>"
+                                      "</table>").arg(serverInfo.getGameIpAndPort())
+                                                 .arg(serverInfo.getRegion(),
+                                                      serverInfo.getCountry(),
+                                                      serverInfo.getClosestPingSite())
+                                                 .arg(serverInfo.getPunkBusterVersion()));
+
+    ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.getPlayerCount()).arg(serverInfo.getMaxPlayerCount()));
+    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.getRoundsPlayed() + 1).arg(serverInfo.getRoundsTotal()));
 }
 
 // Admin
-void BF3MainWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset)
-{
-
-}
-
-// Banning
 
 // FairFight
-
-// Maplist
 
 // Player
 
 // Punkbuster
 
-// Reserved Slots
-
-// Spectator list
-
 // Squad
 
 // Variables
 
-QIcon BF3MainWidget::getRankIcon(int rank) const
+/* User Interface */
+// ServerInfo
+void BF3MainWidget::pushButton_si_restartRound_clicked()
 {
-    return QIcon(QString(":/bf3/ranks/rank_%1.png").arg(rank));
+    int ret = QMessageBox::question(this, tr("Restart round"), tr("Are you sure you want to restart the round?"));
+
+    if (ret == QMessageBox::Yes) {
+        getClient()->getCommandHandler()->sendMapListRestartRoundCommand();
+    }
 }
 
-/* User Interface */
-
-// Players
-void BF3MainWidget::updatePlayerList()
+void BF3MainWidget::pushButton_si_runNextRound_clicked()
 {
-    if (client->isAuthenticated()) {
-//        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
-    } else {
-        //client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetType::All);
+    int ret = QMessageBox::question(this, tr("Run next round"), tr("Are you sure you want to run the next round?"));
+
+    if (ret == QMessageBox::Yes) {
+        getClient()->getCommandHandler()->sendMapListRunNextRoundCommand();
     }
+}
+
+void BF3MainWidget::updateRoundTime()
+{
+    ui->label_si_round->setToolTip(Time::fromSeconds(roundTime++).toShortString());
+}
+
+void BF3MainWidget::updateUpTime()
+{
+    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(Time::fromSeconds(upTime++).toShortString()));
 }

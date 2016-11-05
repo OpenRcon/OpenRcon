@@ -51,6 +51,13 @@ private:
     QMenu *menu_current;
     QAction *action_current_remove;
 
+    void setAvailableMaplist(int gameModeIndex);
+    void addAvailableMapListItem(const QString &name, const QString &gameMode);
+    void setCurrentMaplist(const QList<MapListEntry> &mapList);
+    void addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds);
+    void addLevel(const QString &name, const QString &gameMode, int rounds);
+    void removeLevel(int index);
+
 private slots:
     /* Commands */
     void onLoginHashedCommand(bool auth);
@@ -70,13 +77,6 @@ private slots:
     void treeWidget_current_customContextMenuRequested(const QPoint &pos);
     void treeWidget_available_itemDrop(int index);
     void treeWidget_current_itemDrop(QTreeWidgetItem *item);
-
-    void addAvailableMapListItem(const QString &name, const QString &gameMode);
-    void setAvailableMaplist(int gameModeIndex);
-    void addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds);
-    void setCurrentMaplist(const QList<MapListEntry> &mapList);
-    void addLevel(const QString &name, const QString &gameMode, int rounds);
-    void removeLevel(int index);
 
 };
 

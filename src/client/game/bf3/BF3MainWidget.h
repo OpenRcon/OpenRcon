@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The OpenRcon Project.
+ * Copyright (C) 2014 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -22,14 +22,15 @@
 
 #include "BF3Widget.h"
 
+class QTimer;
+class QAbstractSocket;
+class QString;
+
+class EventsWidget;
 class ChatWidget;
+class BanListWidget;
 class ReservedSlotsWidget;
 class ConsoleWidget;
-
-class BF3ServerInfo;
-class PlayerInfo;
-enum class PlayerSubsetType;
-class ServerEntry;
 
 namespace Ui {
     class Frostbite2MainWidget;
@@ -46,46 +47,37 @@ public:
 private:
     Ui::Frostbite2MainWidget *ui;
 
+    EventsWidget *eventsWidget;
     ChatWidget *chatWidget;
+    BanListWidget *banListWidget;
     ReservedSlotsWidget *reservedSlotsWidget;
     ConsoleWidget *consoleWidget;
 
     /* User Interface */
     // ServerInfo
-
-    // Players
-    QTimer *timerPlayerList;
-
-    // Banlist
+    QTimer *timerServerInfoRoundTime;
+    QTimer *timerServerInfoUpTime;
+    int roundTime;
+    int upTime;
 
     void setAuthenticated(bool auth);
-    void startupCommands(bool authenticated);
-//    void logEvent(const QString &event, const QString &message);
-
-    QIcon getRankIcon(int rank) const;
+    void startupCommands(bool auth);
 
 private slots:
-    /* Connection */
-    void onConnected();
-    void onDisconnected();
-
     /* Events */
+    void onConnected(QAbstractSocket *socket);
+    void onDisconnected(QAbstractSocket *socket);
 
     /* Commands */
-
     // Misc
     void onLoginHashedCommand(bool auth);
+    void onVersionCommand(const QString &type, int build);
     void onServerInfoCommand(const BF3ServerInfo &serverInfo);
-    void onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
+
 
     // Admin
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
-
-    // Banning
 
     // FairFight
-
-    // Maplist
 
     // Player
 
@@ -96,17 +88,11 @@ private slots:
     // Variables
 
     /* User Interface */
-
-    // ServerInfo
-
-    // Players
-    void updatePlayerList();
-
-    // Maplist
-
-    // BanList
-
-    // Options
+    // Server Information
+    void pushButton_si_restartRound_clicked();
+    void pushButton_si_runNextRound_clicked();
+    void updateRoundTime();
+    void updateUpTime();
 
 };
 

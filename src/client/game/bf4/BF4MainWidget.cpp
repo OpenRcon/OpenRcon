@@ -34,6 +34,7 @@
 #include "ReservedSlotsWidget.h"
 #include "BF4SpectatorSlotsWidget.h"
 #include "ConsoleWidget.h"
+
 #include "BF4LevelDictionary.h"
 #include "BF4ServerInfo.h"
 #include "BF4GameModeEntry.h"

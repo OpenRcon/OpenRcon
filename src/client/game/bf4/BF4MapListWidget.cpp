@@ -81,6 +81,88 @@ BF4MapListWidget::~BF4MapListWidget()
     delete ui;
 }
 
+void BF4MapListWidget::setAvailableMaplist(int gameModeIndex)
+{
+    ui->treeWidget_available->clear();
+
+    QList<LevelEntry> levelList = BF4LevelDictionary::getLevels(gameModeIndex);
+    GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeIndex);
+
+    ui->label_availableSelectedMapImage->setPixmap(levelList.first().getImage());
+
+    for (LevelEntry level : levelList) {
+        addAvailableMapListItem(level.getName(), gameMode.getName());
+    }
+
+    // Sort items.
+    ui->treeWidget_available->sortItems(0, Qt::AscendingOrder);
+
+    // Resize columns so that they fits the content.
+    for (int i = 0; i < ui->treeWidget_available->columnCount(); i++) {
+        ui->treeWidget_available->resizeColumnToContents(i);
+    }
+}
+
+void BF4MapListWidget::addAvailableMapListItem(const QString &name, const QString &gameMode)
+{
+    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_available);
+    item->setText(0, name);
+    item->setText(1, gameMode);
+}
+
+void BF4MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
+{
+    ui->treeWidget_current->clear();
+
+    for (int i = 0; i < mapList.length(); i++) {
+        MapListEntry mapListEntry = mapList.at(i);
+        LevelEntry level = BF4LevelDictionary::getLevel(mapListEntry.getLevel());
+        BF4GameModeEntry gameMode = BF4LevelDictionary::getGameMode(mapListEntry.getGameMode());
+
+        if (i == 0) {
+            ui->label_currentSelectedMapImage->setPixmap(level.getImage());
+        }
+
+        addCurrentMapListItem(level.getName(), gameMode.getName(), mapListEntry.getRounds());
+    }
+
+    // Resize columns so that they fits the content.
+    for (int i = 0; i < ui->treeWidget_available->columnCount(); i++) {
+        ui->treeWidget_current->resizeColumnToContents(i);
+    }
+}
+
+void BF4MapListWidget::addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds)
+{
+    // Add the item to the QTreeWidget.
+    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_current);
+    item->setText(0, name);
+    item->setText(1, gameMode);
+    item->setText(2, QString::number(rounds));
+}
+
+void BF4MapListWidget::addLevel(const QString &name, const QString &gameMode, int rounds)
+{
+    if (rounds > 0) {
+        LevelEntry levelEntry = BF4LevelDictionary::getLevel(name);
+        BF4GameModeEntry gameModeEntry = BF4LevelDictionary::getGameMode(gameMode);
+
+        ui->label_currentSelectedMapImage->setPixmap(levelEntry.getImage());
+        addCurrentMapListItem(name, gameMode, rounds);
+        getClient()->getCommandHandler()->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getEngineName(), rounds);
+    }
+}
+
+void BF4MapListWidget::removeLevel(int index)
+{
+    if (ui->treeWidget_current->topLevelItemCount() <= 1) {
+        ui->label_currentSelectedMapImage->clear();
+    }
+
+    ui->treeWidget_current->takeTopLevelItem(index);
+    getClient()->getCommandHandler()->sendMapListRemoveCommand(index);
+}
+
 void BF4MapListWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
@@ -93,7 +175,6 @@ void BF4MapListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInf
 {
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.getGameMode());
-
     int gameModeIndex = BF4LevelDictionary::getGameModeNames().indexOf(gameMode.getName());
 
     ui->label_currentMapValue->setText(level.getName());
@@ -171,35 +252,6 @@ void BF4MapListWidget::pushButton_remove_clicked()
     }
 }
 
-void BF4MapListWidget::addAvailableMapListItem(const QString &name, const QString &gameMode)
-{
-    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_available);
-    item->setText(0, name);
-    item->setText(1, gameMode);
-}
-
-void BF4MapListWidget::setAvailableMaplist(int gameModeIndex)
-{
-    ui->treeWidget_available->clear();
-
-    QList<LevelEntry> levelList = BF4LevelDictionary::getLevels(gameModeIndex);
-    GameModeEntry gameMode = BF4LevelDictionary::getGameMode(gameModeIndex);
-
-    ui->label_availableSelectedMapImage->setPixmap(levelList.first().getImage());
-
-    for (LevelEntry level : levelList) {
-        addAvailableMapListItem(level.getName(), gameMode.getName());
-    }
-
-    // Sort items.
-    ui->treeWidget_available->sortItems(0, Qt::AscendingOrder);
-
-    // Resize columns so that they fits the content.
-    for (int i = 0; i < ui->treeWidget_available->columnCount(); i++) {
-        ui->treeWidget_available->resizeColumnToContents(i);
-    }
-}
-
 void BF4MapListWidget::treeWidget_current_itemSelectionChanged()
 {
     if (ui->treeWidget_current->topLevelItemCount() > 1) {
@@ -224,57 +276,4 @@ void BF4MapListWidget::treeWidget_available_itemDrop(int index)
 void BF4MapListWidget::treeWidget_current_itemDrop(QTreeWidgetItem *item)
 {
     addLevel(item->text(0), item->text(1), ui->spinBox_rounds->value());
-}
-
-void BF4MapListWidget::addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds)
-{
-    // Add the item to the QTreeWidget.
-    QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_current);
-    item->setText(0, name);
-    item->setText(1, gameMode);
-    item->setText(2, QString::number(rounds));
-}
-
-void BF4MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
-{
-    ui->treeWidget_current->clear();
-
-    for (int i = 0; i < mapList.length(); i++) {
-        MapListEntry mapListEntry = mapList.at(i);
-        LevelEntry level = BF4LevelDictionary::getLevel(mapListEntry.getLevel());
-        BF4GameModeEntry gameMode = BF4LevelDictionary::getGameMode(mapListEntry.getGameMode());
-
-        if (i == 0) {
-            ui->label_currentSelectedMapImage->setPixmap(level.getImage());
-        }
-
-        addCurrentMapListItem(level.getName(), gameMode.getName(), mapListEntry.getRounds());
-    }
-
-    // Resize columns so that they fits the content.
-    for (int i = 0; i < ui->treeWidget_available->columnCount(); i++) {
-        ui->treeWidget_current->resizeColumnToContents(i);
-    }
-}
-
-void BF4MapListWidget::addLevel(const QString &name, const QString &gameMode, int rounds)
-{
-    if (rounds > 0) {
-        LevelEntry levelEntry = BF4LevelDictionary::getLevel(name);
-        BF4GameModeEntry gameModeEntry = BF4LevelDictionary::getGameMode(gameMode);
-
-        ui->label_currentSelectedMapImage->setPixmap(levelEntry.getImage());
-        addCurrentMapListItem(name, gameMode, rounds);
-        getClient()->getCommandHandler()->sendMapListAddCommand(levelEntry.getEngineName(), gameModeEntry.getEngineName(), rounds);
-    }
-}
-
-void BF4MapListWidget::removeLevel(int index)
-{
-    if (ui->treeWidget_current->topLevelItemCount() <= 1) {
-        ui->label_currentSelectedMapImage->clear();
-    }
-
-    ui->treeWidget_current->takeTopLevelItem(index);
-    getClient()->getCommandHandler()->sendMapListRemoveCommand(index);
 }

@@ -26,7 +26,6 @@ class QTimer;
 class QAbstractSocket;
 class QString;
 
-class ServerEntry;
 class PlayerListWidget;
 class EventsWidget;
 class ChatWidget;
