@@ -18,7 +18,9 @@
 */
 
 #include <QString>
+#include <QList>
 #include <QPixmap>
+#include <QDebug>
 
 #include "LevelEntry.h"
 
@@ -59,10 +61,28 @@ QList<int> LevelEntry::getTeamList() const
 
 QPixmap LevelEntry::getImage() const
 {
-    return QPixmap(imagePath + "/" + imageFile).scaled(QSize(335, 160), Qt::KeepAspectRatio);
+    QString path = imagePath + "/" + imageFile;
+    QPixmap image(path);
+
+    if (!image.isNull()) {
+        return image.scaled(QSize(335, 160), Qt::KeepAspectRatio);
+    } else {
+        qDebug() << "Image pixmap for level" << name << "is null." << "No file found at path: " << path;
+    }
+
+    return QPixmap();
 }
 
 QPixmap LevelEntry::getIcon() const
 {
-    return QPixmap(imagePath + "/thumbnails/" + imageFile).scaled(QSize(62, 42), Qt::KeepAspectRatio);
+    QString path = imagePath + "/thumbnails/" + imageFile;
+    QPixmap icon(path);
+
+    if (!icon.isNull()) {
+        return icon.scaled(QSize(62, 42), Qt::KeepAspectRatio);
+    } else {
+        qDebug() << "Icon pixmap for level" << name << "is null." << "No file found at path: " << path;
+    }
+
+    return QPixmap();
 }
