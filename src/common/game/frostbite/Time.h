@@ -36,6 +36,7 @@ public:
     int getMinutes() const;
     int getSeconds() const;
     QString toString() const;
+    QString toShortString() const;
 
 private:
     int weeks;

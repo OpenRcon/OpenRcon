@@ -78,23 +78,50 @@ QString Time::toString() const
     QString timeString;
 
     if (weeks != 0) {
-        timeString += " " + QObject::tr("%1w").arg(weeks);
+        timeString += (weeks > 1 ? QObject::tr("%1 Weeks").arg(weeks) : QObject::tr("%1 Week").arg(weeks)) + " ";
     }
 
     if (days != 0) {
-        timeString += " " + QObject::tr("%1d").arg(days);
+        timeString += (days > 1 ? QObject::tr("%1 Days").arg(days) : QObject::tr("%1 Day").arg(days)) + " ";
     }
 
     if (hours != 0) {
-        timeString += " " + QObject::tr("%1h").arg(hours);
+        timeString += (hours > 1 ? QObject::tr("%1 Hours").arg(hours) : QObject::tr("%1 Hour").arg(hours)) + " ";;
     }
 
     if (minutes != 0) {
-        timeString += " " + QObject::tr("%1m").arg(minutes);
+        timeString += (minutes > 1 ? QObject::tr("%1 Minutes").arg(minutes) : QObject::tr("%1 Minute").arg(minutes)) + " ";;
     }
 
     if (seconds != 0) {
-        timeString += " " + QObject::tr("%1s").arg(seconds);
+        timeString += (seconds > 1 ? QObject::tr("%1 Seconds").arg(seconds) : QObject::tr("%1 Second").arg(seconds)) + " ";;
+    }
+
+    return timeString;
+}
+
+QString Time::toShortString() const
+{
+    QString timeString;
+
+    if (weeks != 0) {
+        timeString += QObject::tr("%1w").arg(weeks) + " ";;
+    }
+
+    if (days != 0) {
+        timeString += QObject::tr("%1d").arg(days) + " ";;
+    }
+
+    if (hours != 0) {
+        timeString += QObject::tr("%1h").arg(hours) + " ";;
+    }
+
+    if (minutes != 0) {
+        timeString += QObject::tr("%1m").arg(minutes) + " ";;
+    }
+
+    if (seconds != 0) {
+        timeString += QObject::tr("%1s").arg(seconds) + " ";;
     }
 
     return timeString;

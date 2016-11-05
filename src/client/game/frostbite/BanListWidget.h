@@ -68,14 +68,11 @@ private slots:
     void pushButton_load_clicked();
     void pushButton_save_clicked();
     void pushButton_clear_clicked();
-
     void radioButton_permanent_clicked();
     void radioButton_temporary_clicked();
     void comboBox_by_currentIndexChanged(int index);
     void pushButton_ban_clicked();
 
 };
-
-Q_DECLARE_METATYPE(int*)
 
 #endif // BANLISTWIDGET_H
