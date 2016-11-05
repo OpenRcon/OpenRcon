@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SPECTATORSLOTSWIDGET_H
-#define SPECTATORSLOTSWIDGET_H
+#ifndef BF4SPECTATORSLOTSWIDGET_H
+#define BF4SPECTATORSLOTSWIDGET_H
 
 #include "BF4Widget.h"
 
@@ -26,19 +26,19 @@ class QMenu;
 class QAction;
 
 namespace Ui {
-    class SpectatorSlotsWidget;
+    class BF4SpectatorSlotsWidget;
 }
 
-class SpectatorSlotsWidget : public BF4Widget
+class BF4SpectatorSlotsWidget : public BF4Widget
 {
     Q_OBJECT
 
 public:
-    SpectatorSlotsWidget(BF4Client *client, QWidget *parent = nullptr);
-    ~SpectatorSlotsWidget() final;
+    BF4SpectatorSlotsWidget(BF4Client *client, QWidget *parent = nullptr);
+    ~BF4SpectatorSlotsWidget() final;
 
 private:
-    Ui::SpectatorSlotsWidget *ui;
+    Ui::BF4SpectatorSlotsWidget *ui;
 
     /* User Interface */
     QMenu *menu_spectatorList;
@@ -60,4 +60,4 @@ private slots:
 
 };
 
-#endif // SPECTATORSLOTSWIDGET_H
+#endif // BF4SPECTATORSLOTSWIDGET_H

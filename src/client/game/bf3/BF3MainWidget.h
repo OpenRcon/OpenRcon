@@ -101,7 +101,6 @@ private slots:
 
     // Players
     void updatePlayerList();
-    void listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset);
 
     // Maplist
 

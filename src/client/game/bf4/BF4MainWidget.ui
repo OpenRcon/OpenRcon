@@ -19,14 +19,14 @@
      <item>
       <widget class="QLabel" name="label_si_level">
        <property name="text">
-        <string/>
+        <string>Level</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="label_si_status">
        <property name="text">
-        <string/>
+        <string>Status</string>
        </property>
       </widget>
      </item>
@@ -55,7 +55,7 @@
         <bool>false</bool>
        </property>
        <property name="flat">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -96,7 +96,7 @@
         <bool>false</bool>
        </property>
        <property name="flat">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>

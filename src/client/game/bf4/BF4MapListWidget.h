@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MAPLISTWIDGET_H
-#define MAPLISTWIDGET_H
+#ifndef BF4MAPLISTWIDGET_H
+#define BF4MAPLISTWIDGET_H
 
 #include "BF4Widget.h"
 
@@ -30,19 +30,19 @@ class Frostbite2ServerInfo;
 class MapListEntry;
 
 namespace Ui {
-    class MapListWidget;
+    class BF4MapListWidget;
 }
 
-class MapListWidget : public BF4Widget
+class BF4MapListWidget : public BF4Widget
 {
     Q_OBJECT
 
 public:
-    MapListWidget(BF4Client *client, QWidget *parent = nullptr);
-    ~MapListWidget() final;
+    BF4MapListWidget(BF4Client *client, QWidget *parent = nullptr);
+    ~BF4MapListWidget() final;
 
 private:
-    Ui::MapListWidget *ui;
+    Ui::BF4MapListWidget *ui;
 
     /* User Interface */
     // Maplist
@@ -80,4 +80,4 @@ private slots:
 
 };
 
-#endif // MAPLISTWIDGET_H
+#endif // BF4MAPLISTWIDGET_H

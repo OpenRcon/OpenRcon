@@ -31,10 +31,10 @@ class PlayerListWidget;
 class EventsWidget;
 class ChatWidget;
 class BF4OptionsWidget;
-class MapListWidget;
+class BF4MapListWidget;
 class BanListWidget;
 class ReservedSlotsWidget;
-class SpectatorSlotsWidget;
+class BF4SpectatorSlotsWidget;
 class ConsoleWidget;
 class BF4ServerInfo;
 
@@ -57,10 +57,10 @@ private:
     EventsWidget *eventsWidget;
     ChatWidget *chatWidget;
     BF4OptionsWidget *optionsWidget;
-    MapListWidget *mapListWidget;
+    BF4MapListWidget *mapListWidget;
     BanListWidget *banListWidget;
     ReservedSlotsWidget *reservedSlotsWidget;
-    SpectatorSlotsWidget *spectatorSlotsWidget;
+    BF4SpectatorSlotsWidget *spectatorSlotsWidget;
     ConsoleWidget *consoleWidget;
 
     /* User Interface */

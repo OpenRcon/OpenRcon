@@ -20,17 +20,17 @@
 #include <QMenu>
 #include <QAction>
 
-#include "MapListWidget.h"
-#include "ui_MapListWidget.h"
+#include "BF4MapListWidget.h"
+#include "ui_BF4MapListWidget.h"
 #include "LevelEntry.h"
 #include "BF4LevelDictionary.h"
 #include "Frostbite2ServerInfo.h"
 #include "BF4GameModeEntry.h"
 #include "MapListEntry.h"
 
-MapListWidget::MapListWidget(BF4Client *client, QWidget *parent) :
+BF4MapListWidget::BF4MapListWidget(BF4Client *client, QWidget *parent) :
     BF4Widget(client, parent),
-    ui(new Ui::MapListWidget)
+    ui(new Ui::BF4MapListWidget)
 {
     ui->setupUi(this);
 
@@ -50,38 +50,38 @@ MapListWidget::MapListWidget(BF4Client *client, QWidget *parent) :
 
     /* Commands */
     // Misc
-    connect(getClient()->getCommandHandler(),   static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
-            this,   &MapListWidget::onLoginHashedCommand);
-    connect(getClient()->getCommandHandler(),   static_cast<void (Frostbite2CommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
-            this,   &MapListWidget::onServerInfoCommand);
+    connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
+            this, &BF4MapListWidget::onLoginHashedCommand);
+    connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
+            this, &BF4MapListWidget::onServerInfoCommand);
 
     // MapList
-    connect(getClient()->getCommandHandler(),   &BF4CommandHandler::onMapListListCommand,                                                   this, &MapListWidget::onMapListListCommand);
+    connect(getClient()->getCommandHandler(),   &BF4CommandHandler::onMapListListCommand,                                                   this, &BF4MapListWidget::onMapListListCommand);
 
     /* User Interface */
-    connect(ui->comboBox_gameMode,              static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),                     this, &MapListWidget::comboBox_gameMode_currentIndexChanged);
-    connect(ui->treeWidget_available,           &QTreeWidget::itemSelectionChanged,                                                         this, &MapListWidget::treeWidget_available_itemSelectionChanged);
-    connect(ui->treeWidget_available,           &QTreeWidget::customContextMenuRequested,                                                   this, &MapListWidget::treeWidget_available_customContextMenuRequested);
-    connect(action_available_add,               &QAction::triggered,                                                                        this, &MapListWidget::pushButton_add_clicked);
-    connect(ui->pushButton_load,                &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_load_clicked);
-    connect(ui->pushButton_save,                &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_save_clicked);
-    connect(ui->pushButton_clear,               &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_clear_clicked);
-    connect(ui->pushButton_add,                 &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_add_clicked);
-    connect(ui->pushButton_remove,              &QPushButton::clicked,                                                                      this, &MapListWidget::pushButton_remove_clicked);
-    connect(ui->treeWidget_current,             &QTreeWidget::itemSelectionChanged,                                                         this, &MapListWidget::treeWidget_current_itemSelectionChanged);
-    connect(ui->treeWidget_current,             &QTreeWidget::customContextMenuRequested,                                                   this, &MapListWidget::treeWidget_current_customContextMenuRequested);
-    connect(action_current_remove,              &QAction::triggered,                                                                        this, &MapListWidget::pushButton_remove_clicked);
+    connect(action_available_add,               &QAction::triggered,                                                                        this, &BF4MapListWidget::pushButton_add_clicked);
+    connect(action_current_remove,              &QAction::triggered,                                                                        this, &BF4MapListWidget::pushButton_remove_clicked);
+    connect(ui->treeWidget_available,           &QTreeWidget::itemSelectionChanged,                                                         this, &BF4MapListWidget::treeWidget_available_itemSelectionChanged);
+    connect(ui->treeWidget_available,           &QTreeWidget::customContextMenuRequested,                                                   this, &BF4MapListWidget::treeWidget_available_customContextMenuRequested);
+    connect(ui->treeWidget_available,           static_cast<void (DragDropTreeWidget::*)(int)>(&DragDropTreeWidget::itemDrop),              this, &BF4MapListWidget::treeWidget_available_itemDrop);
+    connect(ui->treeWidget_current,             &QTreeWidget::itemSelectionChanged,                                                         this, &BF4MapListWidget::treeWidget_current_itemSelectionChanged);
+    connect(ui->treeWidget_current,             &QTreeWidget::customContextMenuRequested,                                                   this, &BF4MapListWidget::treeWidget_current_customContextMenuRequested);
+    connect(ui->treeWidget_current,             static_cast<void (DragDropTreeWidget::*)(QTreeWidgetItem*)>(&DragDropTreeWidget::itemDrop), this, &BF4MapListWidget::treeWidget_current_itemDrop);
+    connect(ui->comboBox_gameMode,              static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),                     this, &BF4MapListWidget::comboBox_gameMode_currentIndexChanged);
+    connect(ui->pushButton_load,                &QPushButton::clicked,                                                                      this, &BF4MapListWidget::pushButton_load_clicked);
+    connect(ui->pushButton_save,                &QPushButton::clicked,                                                                      this, &BF4MapListWidget::pushButton_save_clicked);
+    connect(ui->pushButton_clear,               &QPushButton::clicked,                                                                      this, &BF4MapListWidget::pushButton_clear_clicked);
+    connect(ui->pushButton_add,                 &QPushButton::clicked,                                                                      this, &BF4MapListWidget::pushButton_add_clicked);
+    connect(ui->pushButton_remove,              &QPushButton::clicked,                                                                      this, &BF4MapListWidget::pushButton_remove_clicked);
 
-    connect(ui->treeWidget_available,           static_cast<void (DragDropTreeWidget::*)(int)>(&DragDropTreeWidget::itemDrop),              this, &MapListWidget::treeWidget_available_itemDrop);
-    connect(ui->treeWidget_current,             static_cast<void (DragDropTreeWidget::*)(QTreeWidgetItem*)>(&DragDropTreeWidget::itemDrop), this, &MapListWidget::treeWidget_current_itemDrop);
-}
+    }
 
-MapListWidget::~MapListWidget()
+BF4MapListWidget::~BF4MapListWidget()
 {
     delete ui;
 }
 
-void MapListWidget::onLoginHashedCommand(bool auth)
+void BF4MapListWidget::onLoginHashedCommand(bool auth)
 {
     if (auth) {
         getClient()->getCommandHandler()->sendServerInfoCommand();
@@ -89,7 +89,7 @@ void MapListWidget::onLoginHashedCommand(bool auth)
     }
 }
 
-void MapListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
+void BF4MapListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
 {
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
     GameModeEntry gameMode = BF4LevelDictionary::getGameMode(serverInfo.getGameMode());
@@ -103,7 +103,7 @@ void MapListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
     setAvailableMaplist(gameModeIndex);
 }
 
-void MapListWidget::onMapListListCommand(const QList<MapListEntry> &mapList)
+void BF4MapListWidget::onMapListListCommand(const QList<MapListEntry> &mapList)
 {   
     ui->pushButton_clear->setEnabled(!mapList.isEmpty());
     ui->pushButton_remove->setEnabled(!mapList.isEmpty());
@@ -111,41 +111,41 @@ void MapListWidget::onMapListListCommand(const QList<MapListEntry> &mapList)
     setCurrentMaplist(mapList);
 }
 
-void MapListWidget::comboBox_gameMode_currentIndexChanged(int index)
+void BF4MapListWidget::comboBox_gameMode_currentIndexChanged(int index)
 {
     setAvailableMaplist(index);
 }
 
-void MapListWidget::treeWidget_available_itemSelectionChanged()
+void BF4MapListWidget::treeWidget_available_itemSelectionChanged()
 {
     LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_available->currentItem()->text(0));
 
     ui->label_availableSelectedMapImage->setPixmap(level.getImage());
 }
 
-void MapListWidget::treeWidget_available_customContextMenuRequested(const QPoint &pos)
+void BF4MapListWidget::treeWidget_available_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->treeWidget_available->itemAt(pos)) {
         menu_available->exec(QCursor::pos());
     }
 }
 
-void MapListWidget::pushButton_load_clicked()
+void BF4MapListWidget::pushButton_load_clicked()
 {
     getClient()->getCommandHandler()->sendMapListLoadCommand();
 }
 
-void MapListWidget::pushButton_save_clicked()
+void BF4MapListWidget::pushButton_save_clicked()
 {
     getClient()->getCommandHandler()->sendMapListSaveCommand();
 }
 
-void MapListWidget::pushButton_clear_clicked()
+void BF4MapListWidget::pushButton_clear_clicked()
 {
     getClient()->getCommandHandler()->sendMapListClearCommand();
 }
 
-void MapListWidget::pushButton_add_clicked()
+void BF4MapListWidget::pushButton_add_clicked()
 {
     // Make sure that treeWidget_available selected item count is greater than zero.
     if (ui->treeWidget_available->selectedItems().size() > 0) {
@@ -159,7 +159,7 @@ void MapListWidget::pushButton_add_clicked()
     }
 }
 
-void MapListWidget::pushButton_remove_clicked()
+void BF4MapListWidget::pushButton_remove_clicked()
 {
     // Make sure that treeWidget_current selected item count is greater than zero.
     if (ui->treeWidget_current->selectedItems().size() > 0) {
@@ -171,14 +171,14 @@ void MapListWidget::pushButton_remove_clicked()
     }
 }
 
-void MapListWidget::addAvailableMapListItem(const QString &name, const QString &gameMode)
+void BF4MapListWidget::addAvailableMapListItem(const QString &name, const QString &gameMode)
 {
     QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_available);
     item->setText(0, name);
     item->setText(1, gameMode);
 }
 
-void MapListWidget::setAvailableMaplist(int gameModeIndex)
+void BF4MapListWidget::setAvailableMaplist(int gameModeIndex)
 {
     ui->treeWidget_available->clear();
 
@@ -200,7 +200,7 @@ void MapListWidget::setAvailableMaplist(int gameModeIndex)
     }
 }
 
-void MapListWidget::treeWidget_current_itemSelectionChanged()
+void BF4MapListWidget::treeWidget_current_itemSelectionChanged()
 {
     if (ui->treeWidget_current->topLevelItemCount() > 1) {
         LevelEntry level = BF4LevelDictionary::getLevel(ui->treeWidget_current->currentItem()->text(0));
@@ -209,24 +209,24 @@ void MapListWidget::treeWidget_current_itemSelectionChanged()
     }
 }
 
-void MapListWidget::treeWidget_current_customContextMenuRequested(const QPoint &pos)
+void BF4MapListWidget::treeWidget_current_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->treeWidget_current->itemAt(pos)) {
         menu_current->exec(QCursor::pos());
     }
 }
 
-void MapListWidget::treeWidget_available_itemDrop(int index)
+void BF4MapListWidget::treeWidget_available_itemDrop(int index)
 {
     removeLevel(index);
 }
 
-void MapListWidget::treeWidget_current_itemDrop(QTreeWidgetItem *item)
+void BF4MapListWidget::treeWidget_current_itemDrop(QTreeWidgetItem *item)
 {
     addLevel(item->text(0), item->text(1), ui->spinBox_rounds->value());
 }
 
-void MapListWidget::addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds)
+void BF4MapListWidget::addCurrentMapListItem(const QString &name, const QString &gameMode, int rounds)
 {
     // Add the item to the QTreeWidget.
     QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_current);
@@ -235,7 +235,7 @@ void MapListWidget::addCurrentMapListItem(const QString &name, const QString &ga
     item->setText(2, QString::number(rounds));
 }
 
-void MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
+void BF4MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
 {
     ui->treeWidget_current->clear();
 
@@ -257,7 +257,7 @@ void MapListWidget::setCurrentMaplist(const QList<MapListEntry> &mapList)
     }
 }
 
-void MapListWidget::addLevel(const QString &name, const QString &gameMode, int rounds)
+void BF4MapListWidget::addLevel(const QString &name, const QString &gameMode, int rounds)
 {
     if (rounds > 0) {
         LevelEntry levelEntry = BF4LevelDictionary::getLevel(name);
@@ -269,7 +269,7 @@ void MapListWidget::addLevel(const QString &name, const QString &gameMode, int r
     }
 }
 
-void MapListWidget::removeLevel(int index)
+void BF4MapListWidget::removeLevel(int index)
 {
     if (ui->treeWidget_current->topLevelItemCount() <= 1) {
         ui->label_currentSelectedMapImage->clear();

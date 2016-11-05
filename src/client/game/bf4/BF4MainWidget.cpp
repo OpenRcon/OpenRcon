@@ -29,10 +29,10 @@
 #include "EventsWidget.h"
 #include "ChatWidget.h"
 #include "BF4OptionsWidget.h"
-#include "MapListWidget.h"
+#include "BF4MapListWidget.h"
 #include "BanListWidget.h"
 #include "ReservedSlotsWidget.h"
-#include "SpectatorSlotsWidget.h"
+#include "BF4SpectatorSlotsWidget.h"
 #include "ConsoleWidget.h"
 #include "BF4LevelDictionary.h"
 #include "BF4ServerInfo.h"
@@ -63,10 +63,10 @@ BF4MainWidget::BF4MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     eventsWidget = new EventsWidget(getClient(), this);
     chatWidget = new ChatWidget(getClient(), this);
     optionsWidget = new BF4OptionsWidget(getClient(), this);
-    mapListWidget = new MapListWidget(getClient(), this);
+    mapListWidget = new BF4MapListWidget(getClient(), this);
     banListWidget = new BanListWidget(getClient(), this);
     reservedSlotsWidget = new ReservedSlotsWidget(getClient(), this);
-    spectatorSlotsWidget = new SpectatorSlotsWidget(getClient(), this);
+    spectatorSlotsWidget = new BF4SpectatorSlotsWidget(getClient(), this);
     consoleWidget = new ConsoleWidget(getClient(), commandList, this);
 
     ui->tabWidget->addTab(playerListWidget, QIcon(":/frostbite/icons/players.png"), tr("Players"));

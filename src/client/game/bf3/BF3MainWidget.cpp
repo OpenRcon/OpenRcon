@@ -144,13 +144,13 @@ void BF3MainWidget::onServerInfoCommand(const BF3ServerInfo &serverInfo)
 
 void BF3MainWidget::onListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset)
 {
-    listPlayers(playerList, playerSubset);
+
 }
 
 // Admin
 void BF3MainWidget::onAdminListPlayersCommand(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset)
 {
-    listPlayers(playerList, playerSubset);
+
 }
 
 // Banning
@@ -185,53 +185,5 @@ void BF3MainWidget::updatePlayerList()
 //        commandHandler->sendAdminListPlayersCommand(PlayerSubset::All);
     } else {
         //client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetType::All);
-    }
-}
-
-void BF3MainWidget::listPlayers(const QList<PlayerInfo> &playerList, const PlayerSubsetEnum &playerSubset)
-{
-    if (playerSubset == PlayerSubsetEnum::All) {
-        ui->treeWidget_pl_players->clear();
-
-        QList<QTreeWidgetItem *> playerItems;
-        QSet<int> teamIds;
-
-        for (PlayerInfo player : playerList) {
-            QTreeWidgetItem *playerItem = new QTreeWidgetItem();
-            playerItem->setData(0, Qt::UserRole, player.getTeamId());
-            playerItem->setIcon(0, getRankIcon(player.getRank()));
-            playerItem->setText(0, player.getName());
-            playerItem->setText(1, FrostbiteUtils::getSquadName(player.getSquadId()));
-            playerItem->setText(2, QString::number(player.getKills()));
-            playerItem->setText(3, QString::number(player.getDeaths()));
-            playerItem->setText(4, QString::number(player.getScore()));
-            playerItem->setText(5, QString::number(player.getPing()));
-            playerItem->setText(6, player.getGuid());
-
-            // Add player item and team id to lists.
-            playerItems.append(playerItem);
-            teamIds.insert(player.getTeamId());
-        }
-
-        for (int teamId : teamIds) {
-            if (teamId > 0) { // Don't list team with id 0, as this is the neutrual team.
-                QTreeWidgetItem *teamItem = new QTreeWidgetItem(ui->treeWidget_pl_players);
-                teamItem->setText(0, BF3LevelDictionary::getTeam(teamId - 1).getName());
-
-                foreach (QTreeWidgetItem *playerItem, playerItems) {
-                    if (teamId == playerItem->data(0, Qt::UserRole)) {
-                        teamItem->addChild(playerItem);
-                    }
-                }
-            }
-        }
-
-        // Expand all player rows
-        ui->treeWidget_pl_players->expandAll();
-
-        // Resize columns so that they fits the content.
-        for (int i = 0; i < ui->treeWidget_pl_players->columnCount(); i++) {
-            ui->treeWidget_pl_players->resizeColumnToContents(i);
-        }
     }
 }
