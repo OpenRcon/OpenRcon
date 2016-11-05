@@ -44,6 +44,12 @@
         <file alias="hammerhead.png">images/levels/hammerhead.png</file>
         <file alias="hangar_21.png">images/levels/hangar_21.png</file>
         <file alias="giants_of_karelia.png">images/levels/giants_of_karelia.png</file>
+
+        <file alias="zavod_graveyard_shift.png">images/levels/zavod_graveyard_shift.png</file>
+
+        <file alias="operation_outbreak.png">images/levels/operation_outbreak.png</file>
+
+        <file alias="dragon_valley_2015.png">images/levels/dragon_valley_2015.png</file>
     </qresource>
     <qresource prefix="/bf4/levels/thumbnails">
         <file alias="zavod_311.png">images/levels/thumbnails/zavod_311.png</file>
@@ -81,6 +87,12 @@
         <file alias="hammerhead.png">images/levels/thumbnails/hammerhead.png</file>
         <file alias="hangar_21.png">images/levels/thumbnails/hangar_21.png</file>
         <file alias="giants_of_karelia.png">images/levels/thumbnails/giants_of_karelia.png</file>
+
+        <file alias="zavod_graveyard_shift.png">images/levels/thumbnails/zavod_graveyard_shift.png</file>
+
+        <file alias="operation_outbreak.png">images/levels/thumbnails/operation_outbreak.png</file>
+
+        <file alias="dragon_valley_2015.png">images/levels/thumbnails/dragon_valley_2015.png</file>
     </qresource>
     <qresource prefix="/bf4/ranks">
         <file alias="rank_0.png">images/ranks/rank_0.png</file>
