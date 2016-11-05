@@ -293,9 +293,9 @@ void FrostbiteCommandHandler::sendBanListLoadCommand()
     sendBanListListCommand();
 }
 
-void FrostbiteCommandHandler::sendBanListRemoveCommand(const QString &idType, const QString &id)
+void FrostbiteCommandHandler::sendBanListRemoveCommand(const BanIdTypeEnum &banIdType, const QString &banId)
 {
-    connection->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(idType, id));
+    connection->sendCommand(QString("\"banList.remove\" \"%1\" \"%2\"").arg(BanIdType::toString(banIdType).toLower(), banId));
     sendBanListListCommand();
 }
 

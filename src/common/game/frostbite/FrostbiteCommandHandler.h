@@ -73,7 +73,7 @@ public slots:
     void sendBanListClearCommand();
     void sendBanListListCommand(int index = -1);
     void sendBanListLoadCommand();
-    void sendBanListRemoveCommand(const QString &idType, const QString &id);
+    void sendBanListRemoveCommand(const BanIdTypeEnum &banIdType, const QString &banId);
     void sendBanListSaveCommand();
 
     // Maplist

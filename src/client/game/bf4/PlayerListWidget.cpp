@@ -33,6 +33,8 @@
 #include "Frostbite2ServerInfo.h"
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
+#include "BanIdType.h"
+#include "BanType.h"
 #include "TeamEntry.h"
 #include "BF4LevelDictionary.h"
 
@@ -48,7 +50,6 @@ PlayerListWidget::PlayerListWidget(Frostbite2Client *client, QWidget *parent) :
     timer = new QTimer(this);
     timer->setInterval(5000);
     timer->start();
-
     connect(timer, &QTimer::timeout, this, &PlayerListWidget::updatePlayerList);
 
     // Set the columns in headerItem.
@@ -310,14 +311,14 @@ void PlayerListWidget::action_player_kick_triggered()
 {
     QString player = currentItem()->text(0);
 
-    client->getCommandHandler()->sendAdminKickPlayerCommand(player, "Kicked by admin.");
+    client->getCommandHandler()->sendAdminKickPlayerCommand(player);
 }
 
 void PlayerListWidget::action_player_ban_triggered()
 {
     QString player = currentItem()->text(0);
 
-    client->getCommandHandler()->sendBanListAddCommand("perm", player, "Banned by admin.");
+    client->getCommandHandler()->sendBanListAddCommand(BanIdTypeEnum::Name, player, BanTypeEnum::Perm);
 }
 
 void PlayerListWidget::action_player_reserveSlot_triggered()
