@@ -36,12 +36,12 @@ public:
                  const QString &reason);
     ~BanListEntry();
 
-    BanIdTypeEnum getIdType();
-    QString getId();
-    BanTypeEnum getType();
-    int getSeconds();
-    int getRounds();
-    QString getReason();
+    BanIdTypeEnum getIdType() const;
+    QString getId() const;
+    BanTypeEnum getType() const;
+    int getSeconds() const;
+    int getRounds() const;
+    QString getReason() const;
 
 private:
     BanIdTypeEnum idType;

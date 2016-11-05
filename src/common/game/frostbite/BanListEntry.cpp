@@ -42,32 +42,32 @@ BanListEntry::~BanListEntry()
 
 }
 
-BanIdTypeEnum BanListEntry::getIdType()
+BanIdTypeEnum BanListEntry::getIdType() const
 {
     return idType;
 }
 
-QString BanListEntry::getId()
+QString BanListEntry::getId() const
 {
     return id;
 }
 
-BanTypeEnum BanListEntry::getType()
+BanTypeEnum BanListEntry::getType() const
 {
     return type;
 }
 
-int BanListEntry::getSeconds()
+int BanListEntry::getSeconds() const
 {
     return seconds;
 }
 
-int BanListEntry::getRounds()
+int BanListEntry::getRounds() const
 {
     return rounds;
 }
 
-QString BanListEntry::getReason()
+QString BanListEntry::getReason() const
 {
     return reason;
 }
