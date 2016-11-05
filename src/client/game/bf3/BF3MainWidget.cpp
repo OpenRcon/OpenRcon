@@ -20,7 +20,7 @@
 #include <QMessageBox>
 
 #include "BF3MainWidget.h"
-#include "ui_BF3MainWidget.h"
+#include "ui_Frostbite2MainWidget.h"
 #include "BF3ServerInfo.h"
 #include "PlayerInfo.h"
 #include "PlayerSubset.h"
@@ -34,7 +34,7 @@
 
 BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     BF3Widget(new BF3Client(serverEntry, parent), parent),
-    ui(new Ui::BF3MainWidget)
+    ui(new Ui::Frostbite2MainWidget)
 {
     ui->setupUi(this);
 

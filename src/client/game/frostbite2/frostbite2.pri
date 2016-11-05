@@ -9,5 +9,6 @@ SOURCES += $$PWD/Frostbite2Widget.cpp \
     $$PWD/EventsWidget.cpp \
     $$PWD/ReservedSlotsWidget.cpp
 
-FORMS += $$PWD/EventsWidget.ui \
+FORMS += $$PWD/Frostbite2MainWidget.ui \
+    $$PWD/EventsWidget.ui \
     $$PWD/ReservedSlotsWidget.ui

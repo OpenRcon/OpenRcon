@@ -32,7 +32,7 @@ enum class PlayerSubsetType;
 class ServerEntry;
 
 namespace Ui {
-    class BF3MainWidget;
+    class Frostbite2MainWidget;
 }
 
 class BF3MainWidget : public BF3Widget
@@ -44,7 +44,7 @@ public:
     ~BF3MainWidget() final;
 
 private:
-    Ui::BF3MainWidget *ui;
+    Ui::Frostbite2MainWidget *ui;
 
     ChatWidget *chatWidget;
     ReservedSlotsWidget *reservedSlotsWidget;

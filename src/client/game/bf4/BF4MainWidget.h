@@ -39,7 +39,7 @@ class ConsoleWidget;
 class BF4ServerInfo;
 
 namespace Ui {
-    class BF4MainWidget;
+    class Frostbite2MainWidget;
 }
 
 class BF4MainWidget : public BF4Widget
@@ -51,7 +51,7 @@ public:
     ~BF4MainWidget() final;
 
 private:
-    Ui::BF4MainWidget *ui;
+    Ui::Frostbite2MainWidget *ui;
 
     PlayerListWidget *playerListWidget;
     EventsWidget *eventsWidget;

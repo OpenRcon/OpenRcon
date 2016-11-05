@@ -15,8 +15,7 @@ SOURCES += $$PWD/BF4Widget.cpp \
     $$PWD/BF4SpectatorSlotsWidget.cpp \
     $$PWD/PlayerListWidget.cpp
 
-FORMS += $$PWD/BF4MainWidget.ui \
-    $$PWD/BF4OptionsWidget.ui \
+FORMS += $$PWD/BF4OptionsWidget.ui \
     $$PWD/BF4MapListWidget.ui \
     $$PWD/BF4SpectatorSlotsWidget.ui
 

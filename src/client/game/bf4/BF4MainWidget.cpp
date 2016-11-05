@@ -22,7 +22,7 @@
 #include <QMessageBox>
 
 #include "BF4MainWidget.h"
-#include "ui_BF4MainWidget.h"
+#include "ui_Frostbite2MainWidget.h"
 #include "BF4Client.h"
 
 #include "PlayerListWidget.h"
@@ -43,7 +43,7 @@
 
 BF4MainWidget::BF4MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     BF4Widget(new BF4Client(serverEntry, parent), parent),
-    ui(new Ui::BF4MainWidget)
+    ui(new Ui::Frostbite2MainWidget)
 {
     ui->setupUi(this);
 
