@@ -20,6 +20,8 @@
 #ifndef BANTYPE_H
 #define BANTYPE_H
 
+#include <QMetaType>
+
 class QString;
 class QStringList;
 
@@ -41,5 +43,8 @@ private:
     static QStringList list;
 
 };
+
+// For use with QVariant
+Q_DECLARE_METATYPE(BanTypeEnum)
 
 #endif // BANTYPE_H

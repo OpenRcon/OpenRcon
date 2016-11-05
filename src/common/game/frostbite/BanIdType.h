@@ -20,6 +20,8 @@
 #ifndef BANIDTYPE_H
 #define BANIDTYPE_H
 
+#include <QMetaType>
+
 class QString;
 class QStringList;
 
@@ -41,5 +43,8 @@ private:
     static QStringList list;
 
 };
+
+// For use with QVariant
+Q_DECLARE_METATYPE(BanIdTypeEnum)
 
 #endif // BANIDTYPE_H
