@@ -30,6 +30,9 @@ ConsoleWidget::ConsoleWidget(FrostbiteClient *client, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // Set Punkbuster tab to disabled by default.
+    ui->tabWidget_co->setTabEnabled(ui->tabWidget_co->indexOf(ui->tab_co_pb), false);
+
     /* Events */
     connect(getClient()->getConnection(), &Connection::onDisconnected, this, &ConsoleWidget::onDisconnected);
     connect(getClient()->getConnection(), &Connection::onDataSent,     this, &ConsoleWidget::onDataSent);
@@ -110,7 +113,7 @@ void ConsoleWidget::onDataReceived(const QString &response)
 /* Commands */
 void ConsoleWidget::onLoginHashedCommand(bool auth)
 {
-    ui->tab_co_pb->setEnabled(auth);
+    ui->tabWidget_co->setTabEnabled(ui->tabWidget_co->indexOf(ui->tab_co_pb), auth);
 }
 
 void ConsoleWidget::onPunkBusterMessageEvent(const QString &message)
