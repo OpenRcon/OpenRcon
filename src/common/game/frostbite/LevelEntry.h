@@ -20,9 +20,9 @@
 #ifndef LEVELENTRY_H
 #define LEVELENTRY_H
 
-#include <QList>
-
 class QString;
+template<class T>
+class QList;
 class QPixmap;
 
 class LevelEntry

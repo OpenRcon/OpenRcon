@@ -20,9 +20,12 @@
 #ifndef LEVELDICTIONARY_H
 #define LEVELDICTIONARY_H
 
-#include <QList>
 #include <QMultiHash>
-#include <QStringList>
+
+class QString;
+template<class T>
+class QList;
+class QStringList;
 
 class TeamEntry;
 class LevelEntry;

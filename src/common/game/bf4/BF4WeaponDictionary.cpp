@@ -18,6 +18,7 @@
  */
 
 #include <QString>
+#include <QList>
 
 #include "BF4WeaponDictionary.h"
 #include "WeaponEntry.h"

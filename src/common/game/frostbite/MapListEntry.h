@@ -21,8 +21,6 @@
 #define MAPLISTENTRY_H
 
 class QString;
-template<class T>
-class QList;
 
 class MapListEntry
 {

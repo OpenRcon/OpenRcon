@@ -20,9 +20,9 @@
 #ifndef WEAPONDICTIONARY_H
 #define WEAPONDICTIONARY_H
 
-#include <QList>
-
 class QString;
+template<class T>
+class QList;
 
 class WeaponEntry;
 
