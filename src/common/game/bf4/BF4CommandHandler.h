@@ -57,7 +57,7 @@ public slots:
     //admin.help
     //admin.kickPlayer <player name> <reason>
     //admin.killPlayer <player name>
-    //admin.listPlauers
+    //admin.listPlayers
     //admin.movePlayer <name> <teamId> <squadId> <forceKill>
     //admin.password <password>
     //admin.say <message> <players>
@@ -66,6 +66,9 @@ public slots:
     /// BF4 Only.
     void sendAdminShutdownCommand();
     void sendAdminShutdownCommand(bool graceful, int seconds = -1);
+
+    /// Not confirmed.
+    //admin.teamSwitchPlayer
 
     // Banning
     //banList.add <id-type> <id, timeout> reason>
@@ -195,6 +198,12 @@ public slots:
     void sendVarsIsNoobOnlyJoinCommand(bool enabled);
     //vars.serverTickTime
 
+    /// Not confirmed.
+    //"vars.idleTimeoutActiveMinPlayersPercent
+    //"vars.isCompetitive
+    //"vars.outHighFrequency
+    //"vars.outHighFrequencyRconCap
+
 private:
     /* Parse events */
     //player.onAuthenticated
@@ -239,6 +248,9 @@ private:
 
     /// BF4 Only.
     //admin.shutDown <gracefulShutdown: boolean> <timeInSeconds: integer>
+
+    /// Not confirmed.
+    //admin.teamSwitchPlayer
 
     // Banning
     //banList.add <id-type> <id, timeout>
@@ -360,6 +372,12 @@ private:
     //vars.isNoobOnlyJoin <enabled>
     //vars.serverTickTime
 
+    /// Not confirmed.
+    //"vars.idleTimeoutActiveMinPlayersPercent
+    //"vars.isCompetitive
+    //"vars.outHighFrequency
+    //"vars.outHighFrequencyRconCap
+
 signals:
     /* Event signals */
     //player.onAuthenticated
@@ -404,6 +422,9 @@ signals:
 
     /// BF4 Only.
     //admin.shutDown <gracefulShutdown: boolean> <timeInSeconds: integer>
+
+    /// Not confirmed.
+    //admin.teamSwitchPlayer
 
     // Banning
     //banList.add <id-type> <id, timeout>
@@ -523,6 +544,12 @@ signals:
     void onVarsRoundPlayersReadyPercentCommand(int percent);
     //vars.isNoobOnlyJoin <enabled>
     //vars.serverTickTime
+
+    /// Not confirmed.
+    //"vars.idleTimeoutActiveMinPlayersPercent
+    //"vars.isCompetitive
+    //"vars.outHighFrequency
+    //"vars.outHighFrequencyRconCap
 
 };
 
