@@ -27,8 +27,8 @@
 
 #define MAX_PACKET_SIZE 16384
 
-enum class FrostbiteRconPacketOrigin;
-enum class FrostbiteRconPacketType;
+enum class FrostbiteRconPacketOriginEnum;
+enum class FrostbiteRconPacketTypeEnum;
 
 class FrostbiteRconPacket : public QObject
 {
@@ -37,7 +37,7 @@ class FrostbiteRconPacket : public QObject
 public:
     FrostbiteRconPacket(QObject *parent = nullptr);
     FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObject *parent = nullptr);
-    FrostbiteRconPacket(const FrostbiteRconPacketOrigin &packetOrigin, const FrostbiteRconPacketType &packetType, unsigned int initSequence = 0, QObject *parent = nullptr);
+    FrostbiteRconPacket(const FrostbiteRconPacketOriginEnum &packetOrigin, const FrostbiteRconPacketTypeEnum &packetType, unsigned int initSequence = 0, QObject *parent = nullptr);
     ~FrostbiteRconPacket();
 
     FrostbiteRconPacket &operator =(const FrostbiteRconPacket &packet);

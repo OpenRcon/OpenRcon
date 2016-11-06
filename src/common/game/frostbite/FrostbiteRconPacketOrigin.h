@@ -20,9 +20,9 @@
 #ifndef FROSTBITERCONPACKETORIGIN_H
 #define FROSTBITERCONPACKETORIGIN_H
 
-enum class FrostbiteRconPacketOrigin {
-    ServerOrigin,
-    ClientOrigin
+enum class FrostbiteRconPacketOriginEnum {
+    Server,
+    Client
 };
 
 #endif // FROSTBITERCONPACKETORIGIN_H

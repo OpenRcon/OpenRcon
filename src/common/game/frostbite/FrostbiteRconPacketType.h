@@ -20,7 +20,7 @@
 #ifndef FROSTBITERCONPACKETTYPE_H
 #define FROSTBITERCONPACKETTYPE_H
 
-enum class FrostbiteRconPacketType {
+enum class FrostbiteRconPacketTypeEnum {
     Request,
     Response
 };

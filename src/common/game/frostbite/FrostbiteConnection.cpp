@@ -56,7 +56,7 @@ void FrostbiteConnection::hostConnect(ServerEntry *serverEntry)
 void FrostbiteConnection::sendCommand(const QString &command)
 {
     if (!command.isEmpty()) {
-        FrostbiteRconPacket packet(FrostbiteRconPacketOrigin::ServerOrigin, FrostbiteRconPacketType::Request, nextPacketSequence);
+        FrostbiteRconPacket packet(FrostbiteRconPacketOriginEnum::Server, FrostbiteRconPacketTypeEnum::Request, nextPacketSequence);
         QStringList wordList;
         wordList = command.split(QRegularExpression(" +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
         wordList.replaceInStrings("\"", "", Qt::CaseSensitive);

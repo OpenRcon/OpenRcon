@@ -42,16 +42,16 @@ FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacket &packet, QObj
     }
 }
 
-FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacketOrigin &packetOrigin, const FrostbiteRconPacketType &packetType, unsigned int initSequence, QObject *parent) :
+FrostbiteRconPacket::FrostbiteRconPacket(const FrostbiteRconPacketOriginEnum &packetOrigin, const FrostbiteRconPacketTypeEnum &packetType, unsigned int initSequence, QObject *parent) :
     FrostbiteRconPacket(parent)
 {
     sequence = initSequence & 0x3FFFFFFF;
 
-    if (packetOrigin == FrostbiteRconPacketOrigin::ClientOrigin) {
+    if (packetOrigin == FrostbiteRconPacketOriginEnum::Client) {
         sequence |= 0x80000000;
     }
 
-    if (packetType == FrostbiteRconPacketType::Response) {
+    if (packetType == FrostbiteRconPacketTypeEnum::Response) {
         sequence |= 0x40000000;
     }
 }
@@ -61,7 +61,7 @@ FrostbiteRconPacket::~FrostbiteRconPacket()
     clear();
 }
 
-FrostbiteRconPacket &FrostbiteRconPacket::operator=(const FrostbiteRconPacket &packet)
+FrostbiteRconPacket &FrostbiteRconPacket::operator =(const FrostbiteRconPacket &packet)
 {
     if (&packet != this) {
         clear();
