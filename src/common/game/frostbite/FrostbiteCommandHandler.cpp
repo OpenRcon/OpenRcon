@@ -614,6 +614,18 @@ void FrostbiteCommandHandler::parsePunkBusterMessageEvent(const FrostbiteRconPac
     if (packet.getWordCount() > 0) {
         QString message = packet.getWord(1).getContent();
 
+        if (message != "PunkBuster Server: Player List: [Slot #] [GUID] [Address] [Status] [Power] [Auth Rate] [Recent SS] [O/S] [Name]\n") {
+            QStringList wordList = message.split(" ");
+
+                    for (QString word : wordList) {
+                        qDebug() << word;
+                    }
+        }
+    }
+
+    if (packet.getWordCount() > 0) {
+        QString message = packet.getWord(1).getContent();
+
         emit (onPunkBusterMessageEvent(message));
     }
 }
