@@ -140,7 +140,16 @@ void PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInf
 
 QIcon PlayerListWidget::getRankIcon(int rank) const
 {
-    return QIcon(QString(":/bf4/ranks/rank_%1.png").arg(rank));
+    QString path = QString(":/bf4/ranks/rank_%1.png").arg(rank);
+    QIcon icon = QIcon(path);
+
+    if (!icon.isNull()) {
+        return icon;
+    } else {
+        qDebug() << "Icon pixmap for rank" << rank << "is null." << "No file found at path: " << path;
+    }
+
+    return QIcon();
 }
 
 void PlayerListWidget::resizeColumnsToContents()
@@ -215,7 +224,7 @@ void PlayerListWidget::listPlayers(const QList<Player> &playerList)
         playerItem->setText(4, QString::number(player.getScore()));
         playerItem->setText(5, QString::number(player.getPing()));
         playerItem->setText(6, player.getGuid());
-        playerItem->setText(7, QString::number(player.getDeaths() <= 0 ? (double) player.getKills() : (double) player.getKills() / (double) player.getDeaths()));
+        playerItem->setText(7, QString::number(player.getDeaths() <= 0 ? (double) player.getKills() : (double) player.getKills() / (double) player.getDeaths(), 'f', 2));
 
         // Add player item and team id to lists.
         playerItemList.insert(playerItem);
