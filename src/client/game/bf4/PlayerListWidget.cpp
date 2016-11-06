@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -23,15 +23,16 @@
 #include <QMenu>
 #include <QAction>
 #include <QDragEnterEvent>
-#include <QDragLeaveEvent>
 #include <QDropEvent>
+#include <QList>
+#include <QPoint>
 
 #include "PlayerListWidget.h"
 #include "Frostbite2Client.h"
 #include "BF4Client.h"
 #include "FrostbiteUtils.h"
 #include "Frostbite2ServerInfo.h"
-#include "PlayerInfo.h"
+#include "Player.h"
 #include "PlayerSubset.h"
 #include "BanIdType.h"
 #include "BanType.h"
@@ -190,7 +191,7 @@ void PlayerListWidget::dropEvent(QDropEvent *event)
 }
 
 /* User Interface */
-void PlayerListWidget::listPlayers(const QList<PlayerInfo> &playerList)
+void PlayerListWidget::listPlayers(const QList<Player> &playerList)
 {
     // Clear the QTreeWidget and item.
     clear();
@@ -201,7 +202,7 @@ void PlayerListWidget::listPlayers(const QList<PlayerInfo> &playerList)
     QSet<int> teamIdList;
 
     // Create player items and adding them to the list.
-    for (PlayerInfo player : playerList) {
+    for (Player player : playerList) {
         QTreeWidgetItem *playerItem = new QTreeWidgetItem();
         playerItem->setData(0, Qt::UserRole, player.getTeamId());
         playerItem->setIcon(0, getRankIcon(player.getRank()));

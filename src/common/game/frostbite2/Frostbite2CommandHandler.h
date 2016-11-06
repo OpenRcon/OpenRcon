@@ -22,7 +22,7 @@
 
 #include "FrostbiteCommandHandler.h"
 
-class PlayerInfo;
+class Player;
 
 class Frostbite2CommandHandler : public FrostbiteCommandHandler
 {
@@ -120,7 +120,7 @@ public slots:
     //vars.gunMasterWeaponsPreset <index>
 
 protected:
-    QList<PlayerInfo> parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    QList<Player> parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 private:
     /* Parse events */
@@ -206,12 +206,12 @@ signals:
     /* Command signals */
     // Misc
     void onCurrentLevelCommand(const QString &levelName);
-    void onListPlayersCommand(const QList<PlayerInfo> &playerList);
+    void onListPlayersCommand(const QList<Player> &playerList);
 
     // Admin
     void onAdminEventsEnabledCommand(bool enabled);
     void onAdminHelpCommand(const QStringList &commandList);
-    void onAdminListPlayersCommand(const QList<PlayerInfo> &playerList);
+    void onAdminListPlayersCommand(const QList<Player> &playerList);
     void onAdminPasswordCommand(const QString &password);
 
     // Banning

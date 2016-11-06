@@ -24,7 +24,7 @@
 #include "PlayerSubset.h"
 #include "BF4Preset.h"
 #include "BF4ServerType.h"
-#include "PlayerInfo.h"
+#include "Player.h"
 
 BF4CommandHandler::BF4CommandHandler(QObject *parent) :
     Frostbite2CommandHandler(parent)

@@ -30,7 +30,7 @@
 #include "Frostbite2ServerInfo.h"
 #include "BF3ServerInfo.h"
 #include "BF4ServerInfo.h"
-#include "PlayerInfo.h"
+#include "Player.h"
 
 Frostbite2CommandHandler::Frostbite2CommandHandler(QObject *parent) :
     FrostbiteCommandHandler(parent)
@@ -562,10 +562,10 @@ void Frostbite2CommandHandler::sendVarsVehicleSpawnDelayCommand(int percent)
     }
 }
 
-QList<PlayerInfo> Frostbite2CommandHandler::parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+QList<Player> Frostbite2CommandHandler::parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QString response = packet.getWord(0).getContent();
-    QList<PlayerInfo> playerList;
+    QList<Player> playerList;
 
     if (response == "OK" && lastSentPacket.getWordCount() > 1) {
         int parameters = QString(packet.getWord(1).getContent()).toInt();
@@ -588,7 +588,7 @@ QList<PlayerInfo> Frostbite2CommandHandler::parsePlayerList(const FrostbiteRconP
             int rank = FrostbiteUtils::toInt(list.at(7));
             int ping = FrostbiteUtils::toInt(list.at(8));
 
-            playerList.append(PlayerInfo(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
+            playerList.append(Player(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
         }
     }
 
@@ -636,9 +636,7 @@ void Frostbite2CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket
 {
     Q_UNUSED(lastSentPacket);
 
-    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
-
-    emit(onListPlayersCommand(playerList));
+    emit(onListPlayersCommand(parsePlayerList(packet, lastSentPacket)));
 }
 
 // Admin
@@ -676,9 +674,7 @@ void Frostbite2CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconP
 {
     Q_UNUSED(lastSentPacket);
 
-    QList<PlayerInfo> playerList = parsePlayerList(packet, lastSentPacket);
-
-    emit(onAdminListPlayersCommand(playerList));
+    emit(onAdminListPlayersCommand(parsePlayerList(packet, lastSentPacket)));
 }
 
 void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

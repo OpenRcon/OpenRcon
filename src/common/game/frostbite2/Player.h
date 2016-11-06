@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 201 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -17,15 +17,15 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYERINFO_H
-#define PLAYERINFO_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
 class QString;
 
-class PlayerInfo
+class Player
 {
 public:
-    PlayerInfo(const QString &name,
+    Player(const QString &name,
                const QString &guid,
                int teamId,
                int squadId,
@@ -34,7 +34,7 @@ public:
                int score,
                int rank,
                int ping);
-    ~PlayerInfo();
+    ~Player();
 
     QString getName() const;
     QString getGuid() const;
@@ -59,4 +59,4 @@ private:
 
 };
 
-#endif // PLAYERINFO_H
+#endif // PLAYER_H

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -24,9 +24,20 @@
 
 #include "LevelEntry.h"
 
+class QTimer;
+class QClipboard;
+class QMenu;
+class QAction;
+class QIcon;
+class QDragEnterEvent;
+class QDragEvent;
+template<class T>
+class QList;
+class QPoint;
+
 class Frostbite2Client;
 class Frostbite2ServerInfo;
-class PlayerInfo;
+class Player;
 
 class PlayerListWidget : public QTreeWidget
 {
@@ -69,7 +80,7 @@ private slots:
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
 
     /* User Interface */
-    void listPlayers(const QList<PlayerInfo> &playerList);
+    void listPlayers(const QList<Player> &playerList);
     void updatePlayerList();
     void customContextMenuRequested(const QPoint &pos);
     void action_player_kill_triggered();

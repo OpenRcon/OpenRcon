@@ -19,9 +19,9 @@
 
 #include <QString>
 
-#include "PlayerInfo.h"
+#include "Player.h"
 
-PlayerInfo::PlayerInfo(const QString &name,
+Player::Player(const QString &name,
                        const QString &guid,
                        int teamId,
                        int squadId,
@@ -43,52 +43,52 @@ PlayerInfo::PlayerInfo(const QString &name,
 
 }
 
-PlayerInfo::~PlayerInfo()
+Player::~Player()
 {
 
 }
 
-QString PlayerInfo::getName() const
+QString Player::getName() const
 {
     return name;
 }
 
-QString PlayerInfo::getGuid() const
+QString Player::getGuid() const
 {
     return guid;
 }
 
-int PlayerInfo::getTeamId() const
+int Player::getTeamId() const
 {
     return teamId;
 }
 
-int PlayerInfo::getSquadId() const
+int Player::getSquadId() const
 {
     return squadId;
 }
 
-int PlayerInfo::getKills() const
+int Player::getKills() const
 {
     return kills;
 }
 
-int PlayerInfo::getDeaths() const
+int Player::getDeaths() const
 {
     return deaths;
 }
 
-int PlayerInfo::getScore() const
+int Player::getScore() const
 {
     return score;
 }
 
-int PlayerInfo::getRank() const
+int Player::getRank() const
 {
     return rank;
 }
 
-int PlayerInfo::getPing() const
+int Player::getPing() const
 {
     return ping;
 }
