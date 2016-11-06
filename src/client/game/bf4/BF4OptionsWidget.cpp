@@ -168,7 +168,6 @@ void BF4OptionsWidget::onLoginHashedCommand(bool auth)
 
         // Punkbuster
         getClient()->getCommandHandler()->sendPunkBusterIsActiveCommand();
-        getClient()->getCommandHandler()->sendPunkBusterPbSvCommand("pb_sv_plist");
 
         // Variables
         getClient()->getCommandHandler()->sendVars3dSpottingCommand();

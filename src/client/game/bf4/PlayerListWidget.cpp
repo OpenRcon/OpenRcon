@@ -268,6 +268,7 @@ void PlayerListWidget::updatePlayerList()
 {
     if (client->isAuthenticated()) {
         client->getCommandHandler()->sendAdminListPlayersCommand(PlayerSubsetEnum::All);
+        client->getCommandHandler()->sendPunkBusterPbSvCommand("pb_sv_plist");
     } else {
         client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetEnum::All);
     }
