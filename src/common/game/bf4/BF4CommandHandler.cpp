@@ -330,7 +330,7 @@ void BF4CommandHandler::parsePlayerDisconnectEvent(const FrostbiteRconPacket &pa
 
     QString player = packet.getWord(1).getContent();
 
-    emit(onPlayerDisconnectEvent(player));
+    emit (onPlayerDisconnectEvent(player));
 }
 
 /* Parse commands */
@@ -344,7 +344,7 @@ void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket 
     if (response == "OK" && packet.getWordCount() > 1) {
         bool isActive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit(onFairFightIsActiveCommand(isActive));
+        emit (onFairFightIsActiveCommand(isActive));
     }
 }
 
@@ -362,7 +362,7 @@ void BF4CommandHandler::parseSpectatorListListCommand(const FrostbiteRconPacket 
             spectatorList.append(packet.getWord(i).getContent());
         }
 
-        emit(onSpectatorListListCommand(spectatorList));
+        emit (onSpectatorListListCommand(spectatorList));
     }
 }
 
@@ -376,7 +376,7 @@ void BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRco
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit(onVarsAlwaysAllowSpectatorsCommand(enabled));
+        emit (onVarsAlwaysAllowSpectatorsCommand(enabled));
     }
 }
 
@@ -389,7 +389,7 @@ void BF4CommandHandler::parseVarsCommanderCommand(const FrostbiteRconPacket &pac
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit(onVarsCommanderCommand(enabled));
+        emit (onVarsCommanderCommand(enabled));
     }
 }
 
@@ -402,7 +402,7 @@ void BF4CommandHandler::parseVarsForceReloadWholeMagsCommand(const FrostbiteRcon
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit(onVarsForceReloadWholeMagsCommand(enabled));
+        emit (onVarsForceReloadWholeMagsCommand(enabled));
     }
 }
 
@@ -415,7 +415,7 @@ void BF4CommandHandler::parseVarsHitIndicatorsEnabledCommand(const FrostbiteRcon
     if (response == "OK" && packet.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit(onVarsHitIndicatorsEnabledCommand(enabled));
+        emit (onVarsHitIndicatorsEnabledCommand(enabled));
     }
 }
 
@@ -428,7 +428,7 @@ void BF4CommandHandler::parseVarsMaxSpectatorsCommand(const FrostbiteRconPacket 
     if (response == "OK" && packet.getWordCount() > 1) {
         int spectatorCount = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsMaxSpectatorsCommand(spectatorCount));
+        emit (onVarsMaxSpectatorsCommand(spectatorCount));
     }
 }
 
@@ -441,7 +441,7 @@ void BF4CommandHandler::parseVarsMpExperienceCommand(const FrostbiteRconPacket &
     if (response == "OK" && packet.getWordCount() > 1) {
         QString experience = packet.getWord(1).getContent();
 
-        emit(onVarsMpExperienceCommand(experience));
+        emit (onVarsMpExperienceCommand(experience));
     }
 }
 
@@ -457,7 +457,7 @@ void BF4CommandHandler::parseVarsPresetCommand(const FrostbiteRconPacket &packet
 
         bool lockPresetSetting = FrostbiteUtils::toBool(packet.getWord(2).getContent());
 
-        emit(onVarsPresetCommand(BF4Preset::fromString(serverPreset), lockPresetSetting));
+        emit (onVarsPresetCommand(BF4Preset::fromString(serverPreset), lockPresetSetting));
     }
 }
 
@@ -470,7 +470,7 @@ void BF4CommandHandler::parseVarsRoundTimeLimitCommand(const FrostbiteRconPacket
     if (response == "OK" && packet.getWordCount() > 1) {
         int percentage = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsRoundTimeLimitCommand(percentage));
+        emit (onVarsRoundTimeLimitCommand(percentage));
     }
 }
 
@@ -483,7 +483,7 @@ void BF4CommandHandler::parseVarsRoundWarmupTimeoutCommand(const FrostbiteRconPa
     if (response == "OK" && packet.getWordCount() > 1) {
         int timeout = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsRoundWarmupTimeoutCommand(timeout));
+        emit (onVarsRoundWarmupTimeoutCommand(timeout));
     }
 }
 
@@ -497,7 +497,7 @@ void BF4CommandHandler::parseVarsServerTypeCommand(const FrostbiteRconPacket &pa
         QString serverTypeName = FrostbiteUtils::toCamelCase(packet.getWord(1).getContent());
         BF4ServerTypeEnum serverType = BF4ServerType::fromString(serverTypeName);
 
-        emit(onVarsServerTypeCommand(serverType));
+        emit (onVarsServerTypeCommand(serverType));
     }
 }
 
@@ -513,7 +513,7 @@ void BF4CommandHandler::parseVarsTeamFactionOverrideCommand(const FrostbiteRconP
         int team3 = FrostbiteUtils::toInt(packet.getWord(3).getContent());
         int team4 = FrostbiteUtils::toInt(packet.getWord(4).getContent());
 
-        emit(onVarsTeamFactionOverrideCommand(team1, team2, team3, team4));
+        emit (onVarsTeamFactionOverrideCommand(team1, team2, team3, team4));
     }
 }
 
@@ -526,7 +526,7 @@ void BF4CommandHandler::parseVarsTicketBleedRateCommand(const FrostbiteRconPacke
     if (response == "OK" && packet.getWordCount() > 1) {
         int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsTicketBleedRateCommand(percent));
+        emit (onVarsTicketBleedRateCommand(percent));
     }
 }
 
@@ -539,7 +539,7 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimerCommand(const Frost
     if (response == "OK" && packet.getWordCount() > 1) {
         int timer = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsRoundPlayersReadyBypassTimerCommand(timer));
+        emit (onVarsRoundPlayersReadyBypassTimerCommand(timer));
     }
 }
 
@@ -552,7 +552,7 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyMinCountCommand(const Frostbit
     if (response == "OK" && packet.getWordCount() > 1) {
         int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsRoundPlayersReadyMinCountCommand(count));
+        emit (onVarsRoundPlayersReadyMinCountCommand(count));
     }
 }
 
@@ -565,6 +565,6 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand(const Frostbite
     if (response == "OK" && packet.getWordCount() > 1) {
         int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsRoundPlayersReadyPercentCommand(percent));
+        emit (onVarsRoundPlayersReadyPercentCommand(percent));
     }
 }

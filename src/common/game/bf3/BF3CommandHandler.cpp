@@ -156,7 +156,7 @@ void BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand(const FrostbiteRcon
     if (response == "OK" && packet.getWordCount() > 1) {
         int effectiveMaxPlayers = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onAdminEffectiveMaxPlayersCommand(effectiveMaxPlayers));
+        emit (onAdminEffectiveMaxPlayersCommand(effectiveMaxPlayers));
     }
 }
 
@@ -170,7 +170,7 @@ void BF3CommandHandler::parseVarsGunMasterWeaponsPresetCommand(const FrostbiteRc
     if (response == "OK" && lastSentPacket.getWordCount() > 1) {
         int weaponPreset = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsGunMasterWeaponsPresetCommand(weaponPreset));
+        emit (onVarsGunMasterWeaponsPresetCommand(weaponPreset));
     }
 }
 
@@ -183,7 +183,7 @@ void BF3CommandHandler::parseVarsRankedCommand(const FrostbiteRconPacket &packet
     if (response == "OK" && lastSentPacket.getWordCount() > 1) {
         bool ranked = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit(onVarsRankedCommand(ranked));
+        emit (onVarsRankedCommand(ranked));
     }
 }
 
@@ -196,7 +196,7 @@ void BF3CommandHandler::parseVarsCrossHairCommand(const FrostbiteRconPacket &pac
     if (response == "OK" && lastSentPacket.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsCrossHairCommand(enabled));
+        emit (onVarsCrossHairCommand(enabled));
     }
 }
 
@@ -209,7 +209,7 @@ void BF3CommandHandler::parseVarsPlayerManDownTimeCommand(const FrostbiteRconPac
     if (response == "OK" && lastSentPacket.getWordCount() > 1) {
         int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsPlayerManDownTimeCommand(percent));
+        emit (onVarsPlayerManDownTimeCommand(percent));
     }
 }
 
@@ -222,7 +222,7 @@ void BF3CommandHandler::parseVarsPremiumStatusCommand(const FrostbiteRconPacket 
     if (response == "OK" && lastSentPacket.getWordCount() > 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        emit(onVarsPremiumStatusCommand(enabled));
+        emit (onVarsPremiumStatusCommand(enabled));
     }
 }
 
@@ -235,7 +235,7 @@ void BF3CommandHandler::parseVarsBannerUrlCommand(const FrostbiteRconPacket &pac
     if (response == "OK" && lastSentPacket.getWordCount() > 1) {
         QString bannerUrl = packet.getWord(1).getContent();
 
-        emit(onVarsBannerUrlCommand(bannerUrl));
+        emit (onVarsBannerUrlCommand(bannerUrl));
     }
 }
 
@@ -248,6 +248,6 @@ void BF3CommandHandler::parseVarsRoundsPerMapCommand(const FrostbiteRconPacket &
     if (response == "OK" && lastSentPacket.getWordCount() > 1) {
         int rounds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-        emit(onVarsRoundsPerMapCommand(rounds));
+        emit (onVarsRoundsPerMapCommand(rounds));
     }
 }

@@ -119,7 +119,7 @@ void ServerManager::setServers(const QList<ServerEntry*> &list)
     serverList = list;
     writeSettings();
 
-    emit(onServerUpdated());
+    emit (onServerUpdated());
 }
 
 QList<ServerEntry*> ServerManager::getServers() const
@@ -144,14 +144,14 @@ void ServerManager::addServer(ServerEntry *serverEntry)
 {
     serverList.append(serverEntry);
 
-    emit(onServerUpdated());
+    emit (onServerUpdated());
 }
 
 void ServerManager::removeServer(int index)
 {
     serverList.removeAt(index);
 
-    emit(onServerUpdated());
+    emit (onServerUpdated());
 }
 
 void ServerManager::removeServer(ServerEntry *serverEntry)

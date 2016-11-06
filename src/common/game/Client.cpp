@@ -45,5 +45,9 @@ bool Client::isAuthenticated() const
 
 void Client::setAuthenticated(bool authenticated)
 {
+    if (authenticated) {
+        emit (onAuthenticated());
+    }
+
     this->authenticated = authenticated;
 }

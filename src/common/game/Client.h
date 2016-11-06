@@ -47,6 +47,9 @@ protected:
     ServerEntry *serverEntry;
     bool authenticated;
 
+signals:
+    void onAuthenticated();
+
 };
 
 #endif // CLIENT_H

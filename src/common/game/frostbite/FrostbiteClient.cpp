@@ -29,6 +29,7 @@ FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandl
 
     // Connection
     connect(connection,     &Connection::onConnected,                      this, &FrostbiteClient::onConnected);
+    connect(connection,     &Connection::onDisconnected,                   this, &FrostbiteClient::onDisconnected);
 
     // Commands
     connect(commandHandler, static_cast<void (FrostbiteCommandHandler::*)(const QByteArray&)>(&FrostbiteCommandHandler::onLoginHashedCommand),
@@ -53,11 +54,21 @@ void FrostbiteClient::disconnectFromHost()
     connection->hostDisconnect();
 }
 
+QString FrostbiteClient::getVersionFromBuild(int build) const
+{
+    return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);
+}
+
 void FrostbiteClient::onConnected()
 {
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
         commandHandler->sendLoginHashedCommand();
     }
+}
+
+void FrostbiteClient::onDisconnected()
+{
+    setAuthenticated(false);
 }
 
 void FrostbiteClient::onLoginHashedCommand(const QByteArray &salt)
@@ -81,9 +92,4 @@ void FrostbiteClient::onVersionCommand(const QString &type, int build)
 
         qDebug() << tr("Wrong server type, disconnecting...");
     }
-}
-
-QString FrostbiteClient::getVersionFromBuild(int build) const
-{
-    return versionMap.contains(build) ? versionMap.value(build) : QString::number(build);
 }

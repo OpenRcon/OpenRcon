@@ -64,14 +64,14 @@ bool Connection::isConnected()
 
 void Connection::connected()
 {
-    emit(onConnected(socket));
+    emit (onConnected(socket));
 
     qDebug() << tr("Connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
 }
 
 void Connection::disconnected()
 {
-    emit(onDisconnected(socket));
+    emit (onDisconnected(socket));
 
     qDebug() << tr("Disconnected from %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort());
 }
@@ -101,13 +101,13 @@ void Connection::displayError(QAbstractSocket::SocketError socketError)
 void Connection::responseDataSent(const QString &request)
 {
     if (!request.isEmpty()) {
-         emit(onDataSent(request));
+         emit (onDataSent(request));
     }
 }
 
 void Connection::responseDataReceived(const QString &response)
 {
     if (!response.isEmpty()) {
-        emit(onDataReceived(response));
+        emit (onDataReceived(response));
     }
 }
