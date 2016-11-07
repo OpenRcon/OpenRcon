@@ -144,4 +144,3 @@ QStringList Squad::asList()
 {
     return list;
 }
-
