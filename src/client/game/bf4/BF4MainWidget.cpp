@@ -21,7 +21,7 @@
 #include "ui_Frostbite2MainWidget.h"
 
 #include "BF4PlayerListWidget.h"
-#include "EventsWidget.h"
+#include "FrostbiteEventWidget.h"
 #include "ChatWidget.h"
 #include "BF4OptionsWidget.h"
 #include "BF4MapListWidget.h"
@@ -99,7 +99,7 @@ BF4MainWidget::~BF4MainWidget()
 void BF4MainWidget::onConnected()
 {
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), true);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventWidget), true);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), true);
 }
 
@@ -117,7 +117,7 @@ void BF4MainWidget::onAuthenticated()
 void BF4MainWidget::onDisconnected()
 {
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), false);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(optionsWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), false);

@@ -23,7 +23,7 @@
 #include "Frostbite2MainWidget.h"
 #include "ui_Frostbite2MainWidget.h"
 
-#include "EventsWidget.h"
+#include "FrostbiteEventWidget.h"
 #include "ChatWidget.h"
 #include "BanListWidget.h"
 #include "ReservedSlotsWidget.h"
@@ -48,18 +48,18 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
     connect(timerServerInfoUpTime,    &QTimer::timeout, this, &Frostbite2MainWidget::updateUpTime);
 
     // Create tabs from widgets.
-    eventsWidget = new EventsWidget(getClient(), this);
+    eventWidget = new FrostbiteEventWidget(getClient(), this);
     chatWidget = new ChatWidget(getClient(), this);
     banListWidget = new BanListWidget(getClient(), this);
     reservedSlotsWidget = new ReservedSlotsWidget(getClient(), this);
     consoleWidget = new ConsoleWidget(getClient(), commandList, this);
 
-    ui->tabWidget->addTab(eventsWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
+    ui->tabWidget->addTab(eventWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
     ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
     ui->tabWidget->addTab(banListWidget, QIcon(":/frostbite/icons/ban.png"), tr("Banlist"));
     ui->tabWidget->addTab(reservedSlotsWidget, QIcon(":/frostbite/icons/reserved.png"), tr("Reserved Slots"));
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), false);
@@ -103,7 +103,7 @@ Frostbite2MainWidget::~Frostbite2MainWidget()
 /* Connection */
 void Frostbite2MainWidget::onConnected()
 {
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventWidget), true);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), true);
 }
 
@@ -116,7 +116,7 @@ void Frostbite2MainWidget::onAuthenticated()
 
 void Frostbite2MainWidget::onDisconnected()
 {
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), false);

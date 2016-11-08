@@ -1,17 +1,20 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-HEADERS += $$PWD/ChatWidget.h \
+HEADERS += $$PWD/FrostbiteWidget.h \
+    $$PWD/FrostbiteEventWidget.h \
+    $$PWD/ChatWidget.h \
     $$PWD/BanListWidget.h \
-    $$PWD/ConsoleWidget.h \
-    $$PWD/FrostbiteWidget.h
+    $$PWD/ConsoleWidget.h
 
-SOURCES += $$PWD/ChatWidget.cpp \
+SOURCES += $$PWD/FrostbiteWidget.cpp \
+    $$PWD/FrostbiteEventWidget.cpp \
+    $$PWD/ChatWidget.cpp \
     $$PWD/BanListWidget.cpp \
-    $$PWD/ConsoleWidget.cpp \
-    $$PWD/FrostbiteWidget.cpp
+    $$PWD/ConsoleWidget.cpp
 
-FORMS += $$PWD/ChatWidget.ui \
+FORMS += $$PWD/FrostbiteEventWidget.ui \
+    $$PWD/ChatWidget.ui \
     $$PWD/BanListWidget.ui \
     $$PWD/ConsoleWidget.ui
 

@@ -26,7 +26,7 @@ class QTimer;
 class QAbstractSocket;
 class QString;
 
-class EventsWidget;
+class FrostbiteEventWidget;
 class ChatWidget;
 class BanListWidget;
 class ReservedSlotsWidget;
@@ -47,7 +47,7 @@ public:
 private:
     Ui::Frostbite2MainWidget *ui;
 
-    EventsWidget *eventsWidget;
+    FrostbiteEventWidget *eventWidget;
     ChatWidget *chatWidget;
     BanListWidget *banListWidget;
     ReservedSlotsWidget *reservedSlotsWidget;

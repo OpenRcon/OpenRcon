@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EVENTSWIDGET_H
-#define EVENTSWIDGET_H
+#ifndef FROSTBITEEVENTWIDGET_H
+#define FROSTBITEEVENTWIDGET_H
 
 #include "Frostbite2Widget.h"
 
@@ -26,26 +26,29 @@ class QString;
 class QAbstractSocket;
 
 namespace Ui {
-    class EventsWidget;
+    class FrostbiteEventWidget;
 }
 
-class EventsWidget : public Frostbite2Widget
+class FrostbiteEventWidget : public Frostbite2Widget
 {
     Q_OBJECT
 
 public:
-    EventsWidget(Frostbite2Client *client, QWidget *parent = nullptr);
-    ~EventsWidget() final;
+    FrostbiteEventWidget(Frostbite2Client *client, QWidget *parent = nullptr);
+    ~FrostbiteEventWidget() final;
 
 private:
-    Ui::EventsWidget *ui;
+    Ui::FrostbiteEventWidget *ui;
 
     void logEvent(const QString &event, const QString &message);
 
 private slots:
     /* Connection */
     void onConnected(QAbstractSocket *socket);
-    void onDisconnected(QAbstractSocket *socket);
+    void onDisconnected();
+
+    /* Client */
+    void onAuthenticated();
 
     /* Events */
     void onPlayerAuthenticatedEvent(const QString &player);
@@ -63,11 +66,6 @@ private slots:
     void onServerRoundOverPlayersEvent(const QString &playerInfo);
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
 
-    /* Commands */
-    // Misc
-    void onLoginHashedCommand(bool auth);
-
-    /* User Interface */
 };
 
-#endif // EVENTSWIDGET_H
+#endif // FROSTBITEEVENTWIDGET_H

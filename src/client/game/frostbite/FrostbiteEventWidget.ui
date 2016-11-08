@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>EventsWidget</class>
- <widget class="QWidget" name="EventsWidget">
+ <class>FrostbiteEventWidget</class>
+ <widget class="QWidget" name="FrostbiteEventWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
