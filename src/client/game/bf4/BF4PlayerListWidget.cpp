@@ -27,7 +27,7 @@
 #include <QList>
 #include <QPoint>
 
-#include "PlayerListWidget.h"
+#include "BF4PlayerListWidget.h"
 #include "Frostbite2Client.h"
 #include "ServerEntry.h"
 #include "FrostbiteUtils.h"
@@ -40,7 +40,7 @@
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
 
-PlayerListWidget::PlayerListWidget(Frostbite2Client *client, QWidget *parent) :
+BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *parent) :
     QTreeWidget(parent),
     client(client)
 {
@@ -52,7 +52,7 @@ PlayerListWidget::PlayerListWidget(Frostbite2Client *client, QWidget *parent) :
     timer = new QTimer(this);
     timer->setInterval(5000);
     timer->start();
-    connect(timer, &QTimer::timeout, this, &PlayerListWidget::updatePlayerList);
+    connect(timer, &QTimer::timeout, this, &BF4PlayerListWidget::updatePlayerList);
 
     // Set the columns in headerItem.
     QTreeWidgetItem *headerItem = this->headerItem();
@@ -91,54 +91,57 @@ PlayerListWidget::PlayerListWidget(Frostbite2Client *client, QWidget *parent) :
     menu_player_copyTo->addAction(action_player_copyTo_name);
     menu_player_copyTo->addAction(action_player_copyTo_guid);
 
+    /* Client */
+    connect(client,                                 &FrostbiteClient::onAuthenticated,                    this, &BF4PlayerListWidget::onAuthenticated);
+
     /* Events */
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerAuthenticatedEvent, this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerAuthenticatedEvent, this, &BF4PlayerListWidget::updatePlayerList);
 
     if (dynamic_cast<BF4CommandHandler*>(client->getCommandHandler())) {
         BF4CommandHandler *commandHandler = dynamic_cast<BF4CommandHandler*>(client->getCommandHandler());
 
-        connect(commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent, this, &PlayerListWidget::updatePlayerList);
+        connect(commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent, this, &BF4PlayerListWidget::updatePlayerList);
     }
 
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerJoinEvent,          this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerLeaveEvent,         this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerSpawnEvent,         this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerKillEvent,          this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerSquadChangeEvent,   this, &PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerTeamChangeEvent,    this, &PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerJoinEvent,          this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerLeaveEvent,         this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerSpawnEvent,         this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerKillEvent,          this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerSquadChangeEvent,   this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerTeamChangeEvent,    this, &BF4PlayerListWidget::updatePlayerList);
 
     /* Commands */
     connect(client->getCommandHandler(),            static_cast<void (FrostbiteCommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
-            this, &PlayerListWidget::updatePlayerList);
+            this, &BF4PlayerListWidget::updatePlayerList);
     connect(client->getCommandHandler(),            static_cast<void (FrostbiteCommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
-            this, &PlayerListWidget::onServerInfoCommand);
-    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onListPlayersCommand,      this, &PlayerListWidget::listPlayers);
-    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onAdminListPlayersCommand, this, &PlayerListWidget::listPlayers);
+            this, &BF4PlayerListWidget::onServerInfoCommand);
+    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onListPlayersCommand,      this, &BF4PlayerListWidget::listPlayers);
+    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onAdminListPlayersCommand, this, &BF4PlayerListWidget::listPlayers);
 
     /* User Interface */
-    connect(this,                       &QTreeWidget::customContextMenuRequested, this, &PlayerListWidget::customContextMenuRequested);
-    connect(action_player_kill,         &QAction::triggered,                      this, &PlayerListWidget::action_player_kill_triggered);
-    connect(action_player_kick,         &QAction::triggered,                      this, &PlayerListWidget::action_player_kick_triggered);
-    connect(action_player_ban,          &QAction::triggered,                      this, &PlayerListWidget::action_player_ban_triggered);
-    connect(action_player_reserveSlot,  &QAction::triggered,                      this, &PlayerListWidget::action_player_reserveSlot_triggered);
-    connect(action_player_copyTo_name,  &QAction::triggered,                      this, &PlayerListWidget::action_player_copyTo_name_triggered);
-    connect(action_player_copyTo_guid,  &QAction::triggered,                      this, &PlayerListWidget::action_player_copyTo_guid_triggered);
-    connect(menu_player_move,           &QMenu::triggered,                        this, &PlayerListWidget::menu_player_move_triggered);
+    connect(this,                       &QTreeWidget::customContextMenuRequested, this, &BF4PlayerListWidget::customContextMenuRequested);
+    connect(action_player_kill,         &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_kill_triggered);
+    connect(action_player_kick,         &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_kick_triggered);
+    connect(action_player_ban,          &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_ban_triggered);
+    connect(action_player_reserveSlot,  &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_reserveSlot_triggered);
+    connect(action_player_copyTo_name,  &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_copyTo_name_triggered);
+    connect(action_player_copyTo_guid,  &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_copyTo_guid_triggered);
+    connect(menu_player_move,           &QMenu::triggered,                        this, &BF4PlayerListWidget::menu_player_move_triggered);
 }
 
-PlayerListWidget::~PlayerListWidget()
+BF4PlayerListWidget::~BF4PlayerListWidget()
 {
     delete client;
 }
 
-void PlayerListWidget::clear()
+void BF4PlayerListWidget::clear()
 {
     menu_player_move->clear();
 
     QTreeWidget::clear();
 }
 
-void PlayerListWidget::resizeColumnsToContents()
+void BF4PlayerListWidget::resizeColumnsToContents()
 {
     // Resize columns so that they fits the content.
     for (int i = 0; i < columnCount(); i++) {
@@ -146,7 +149,7 @@ void PlayerListWidget::resizeColumnsToContents()
     }
 }
 
-void PlayerListWidget::dragEnterEvent(QDragEnterEvent *event)
+void BF4PlayerListWidget::dragEnterEvent(QDragEnterEvent *event)
 {
     QTreeWidgetItem *item = currentItem();
 
@@ -157,7 +160,7 @@ void PlayerListWidget::dragEnterEvent(QDragEnterEvent *event)
     QTreeWidget::dragEnterEvent(event);
 }
 
-void PlayerListWidget::dropEvent(QDropEvent *event)
+void BF4PlayerListWidget::dropEvent(QDropEvent *event)
 {
     QTreeWidgetItem *parentItem = itemAt(event->pos());
 
@@ -185,16 +188,20 @@ void PlayerListWidget::dropEvent(QDropEvent *event)
     QTreeWidget::dropEvent(event);
 }
 
-/* Events */
+/* Client */
+void BF4PlayerListWidget::onAuthenticated()
+{
+    client->getCommandHandler()->sendAdminEventsEnabledCommand(true);
+}
 
 /* Commands */
-void PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
+void BF4PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
 {
-    this->currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
+    currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
 }
 
 /* User Interface */
-void PlayerListWidget::listPlayers(const QList<Player> &playerList)
+void BF4PlayerListWidget::listPlayers(const QList<Player> &playerList)
 {
     // Clear the QTreeWidget and item.
     clear();
@@ -266,7 +273,7 @@ void PlayerListWidget::listPlayers(const QList<Player> &playerList)
     resizeColumnsToContents();
 }
 
-void PlayerListWidget::updatePlayerList()
+void BF4PlayerListWidget::updatePlayerList()
 {
     if (client->isAuthenticated()) {
         client->getCommandHandler()->sendAdminListPlayersCommand(PlayerSubsetEnum::All);
@@ -276,7 +283,7 @@ void PlayerListWidget::updatePlayerList()
     }
 }
 
-void PlayerListWidget::customContextMenuRequested(const QPoint &pos)
+void BF4PlayerListWidget::customContextMenuRequested(const QPoint &pos)
 {
     QTreeWidgetItem *item = itemAt(pos);
 
@@ -304,45 +311,45 @@ void PlayerListWidget::customContextMenuRequested(const QPoint &pos)
     }
 }
 
-void PlayerListWidget::action_player_kill_triggered()
+void BF4PlayerListWidget::action_player_kill_triggered()
 {
     QString player = currentItem()->text(0);
 
     client->getCommandHandler()->sendAdminKillPlayerCommand(player);
 }
 
-void PlayerListWidget::action_player_kick_triggered()
+void BF4PlayerListWidget::action_player_kick_triggered()
 {
     QString player = currentItem()->text(0);
 
     client->getCommandHandler()->sendAdminKickPlayerCommand(player);
 }
 
-void PlayerListWidget::action_player_ban_triggered()
+void BF4PlayerListWidget::action_player_ban_triggered()
 {
     QString player = currentItem()->text(0);
 
     client->getCommandHandler()->sendBanListAddCommand(BanIdTypeEnum::Name, player, BanTypeEnum::Perm);
 }
 
-void PlayerListWidget::action_player_reserveSlot_triggered()
+void BF4PlayerListWidget::action_player_reserveSlot_triggered()
 {
     QString player = currentItem()->text(0);
 
     client->getCommandHandler()->sendReservedSlotsListAddCommand(player);
 }
 
-void PlayerListWidget::action_player_copyTo_name_triggered()
+void BF4PlayerListWidget::action_player_copyTo_name_triggered()
 {
     clipboard->setText(currentItem()->text(0));
 }
 
-void PlayerListWidget::action_player_copyTo_guid_triggered()
+void BF4PlayerListWidget::action_player_copyTo_guid_triggered()
 {
     clipboard->setText(currentItem()->text(6));
 }
 
-void PlayerListWidget::menu_player_move_triggered(QAction *action)
+void BF4PlayerListWidget::menu_player_move_triggered(QAction *action)
 {
     QTreeWidgetItem *item = currentItem();
     QString playerName = item->text(0);

@@ -39,13 +39,13 @@ class Frostbite2Client;
 class Frostbite2ServerInfo;
 class Player;
 
-class PlayerListWidget : public QTreeWidget
+class BF4PlayerListWidget : public QTreeWidget
 {
     Q_OBJECT
 
 public:
-    PlayerListWidget(Frostbite2Client *client, QWidget *parent = nullptr);
-    ~PlayerListWidget();
+    BF4PlayerListWidget(Frostbite2Client *client, QWidget *parent = nullptr);
+    ~BF4PlayerListWidget();
 
 private:
     Frostbite2Client *client;
@@ -74,7 +74,8 @@ private:
     void dropEvent(QDropEvent *event) final;
 
 private slots:
-    /* Events */
+    /* Client */
+    void onAuthenticated();
 
     /* Commands */
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
