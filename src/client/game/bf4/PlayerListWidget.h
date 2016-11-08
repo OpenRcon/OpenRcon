@@ -68,7 +68,7 @@ private:
 
     LevelEntry currentLevel;
 
-    QIcon getRankIcon(int rank) const;
+    void clear();
     void resizeColumnsToContents();
     void dragEnterEvent(QDragEnterEvent *event) final;
     void dropEvent(QDropEvent *event) final;

@@ -17,37 +17,38 @@
 * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QString>
 #include <QStringList>
 
 #include "GameType.h"
 
-QStringList GameTypeUtils::list = {
+QStringList GameType::list = {
     "BFBC2",
     "BF3",
     "BF4",
 };
 
-GameType GameTypeUtils::fromString(const QString &game)
+GameTypeEnum GameType::fromString(const QString &game)
 {
-    GameType gameType = GameType::Unsupported;
+    GameTypeEnum gameType = GameTypeEnum::Unsupported;
 
     if (game == "BFBC2") {
-        gameType = GameType::BFBC2;
+        gameType = GameTypeEnum::BFBC2;
     } else if (game == "BF3") {
-        gameType = GameType::BF3;
+        gameType = GameTypeEnum::BF3;
     } else if (game == "BF4") {
-        gameType = GameType::BF4;
+        gameType = GameTypeEnum::BF4;
     }
 
     return gameType;
 }
 
-QString GameTypeUtils::toString(const GameType &gameType)
+QString GameType::toString(const GameTypeEnum &gameType)
 {
     return list.at(static_cast<int>(gameType));
 }
 
-QStringList GameTypeUtils::asList()
+QStringList GameType::asList()
 {
     return list;
 }

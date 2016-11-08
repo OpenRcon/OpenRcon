@@ -25,19 +25,19 @@
 class QString;
 class QStringList;
 
-enum class GameType {
+enum class GameTypeEnum {
     BFBC2,
     BF3,
     BF4,
     Unsupported
 };
 
-class GameTypeUtils
+class GameType
 {
 public:
-    static GameType fromString(const QString &game);
-    static QString toString(const GameType &gameType);
-    static int toInt(const GameType &gameType);
+    static GameTypeEnum fromString(const QString &game);
+    static QString toString(const GameTypeEnum &gameType);
+    static int toInt(const GameTypeEnum &gameType);
     static QStringList asList();
 
 private:
@@ -46,6 +46,6 @@ private:
 };
 
 // For use with QVariant
-Q_DECLARE_METATYPE(GameType)
+Q_DECLARE_METATYPE(GameTypeEnum)
 
 #endif // GAMETYPE_H

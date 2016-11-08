@@ -17,12 +17,14 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QObject>
+#include <QDebug>
 #include <QString>
 #include <QStringList>
+#include <QIcon>
 
 #include "FrostbiteUtils.h"
 #include "Time.h"
+#include "GameType.h"
 #include "Squad.h"
 
 QStringList FrostbiteUtils::squads = {
@@ -88,6 +90,21 @@ QString FrostbiteUtils::toCamelCase(const QString &value)
     camelCaseValue.insert(0, value.at(0).toUpper());
 
     return camelCaseValue;
+}
+
+
+QIcon FrostbiteUtils::getRankIcon(GameTypeEnum gameType, int rank)
+{
+    QString path = QString(":/%1/ranks/rank_%2.png").arg(GameType::toString(gameType).toLower(), rank);
+    QIcon icon = QIcon(path);
+
+    if (!icon.isNull()) {
+        return icon;
+    } else {
+        qDebug() << "Icon pixmap for rank" << rank << "is null." << "No file found at path: " << path;
+    }
+
+    return QIcon();
 }
 
 QString FrostbiteUtils::getSquadName(const SquadEnum &squad)

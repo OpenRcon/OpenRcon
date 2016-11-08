@@ -24,8 +24,10 @@
 
 class QString;
 class QStringList;
+class QIcon;
 
 class Time;
+enum class GameTypeEnum;
 enum class SquadEnum;
 
 class FrostbiteUtils : public QObject
@@ -41,6 +43,8 @@ public:
     static QString toCamelCase(const QString &value);
 
     static Time getTimeFromSeconds(int elapsedSeconds);
+
+    static QIcon getRankIcon(GameTypeEnum gameType, int rank);
     static QString getSquadName(const SquadEnum &squad);
     static QString getSquadName(int squadId);
 

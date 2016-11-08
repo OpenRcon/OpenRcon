@@ -29,7 +29,7 @@
 
 #include "PlayerListWidget.h"
 #include "Frostbite2Client.h"
-#include "BF4Client.h"
+#include "ServerEntry.h"
 #include "FrostbiteUtils.h"
 #include "Frostbite2ServerInfo.h"
 #include "Player.h"
@@ -38,6 +38,7 @@
 #include "BanType.h"
 #include "TeamEntry.h"
 #include "BF4LevelDictionary.h"
+#include "BF4CommandHandler.h"
 
 PlayerListWidget::PlayerListWidget(Frostbite2Client *client, QWidget *parent) :
     QTreeWidget(parent),
@@ -130,26 +131,11 @@ PlayerListWidget::~PlayerListWidget()
     delete client;
 }
 
-/* Events */
-
-/* Commands */
-void PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
+void PlayerListWidget::clear()
 {
-    this->currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
-}
+    menu_player_move->clear();
 
-QIcon PlayerListWidget::getRankIcon(int rank) const
-{
-    QString path = QString(":/bf4/ranks/rank_%1.png").arg(rank);
-    QIcon icon = QIcon(path);
-
-    if (!icon.isNull()) {
-        return icon;
-    } else {
-        qDebug() << "Icon pixmap for rank" << rank << "is null." << "No file found at path: " << path;
-    }
-
-    return QIcon();
+    QTreeWidget::clear();
 }
 
 void PlayerListWidget::resizeColumnsToContents()
@@ -199,12 +185,19 @@ void PlayerListWidget::dropEvent(QDropEvent *event)
     QTreeWidget::dropEvent(event);
 }
 
+/* Events */
+
+/* Commands */
+void PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
+{
+    this->currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
+}
+
 /* User Interface */
 void PlayerListWidget::listPlayers(const QList<Player> &playerList)
 {
     // Clear the QTreeWidget and item.
     clear();
-    menu_player_move->clear();
 
     // Create a list of all players as QTreeWidgetItem's.
     QSet<QTreeWidgetItem*> playerItemList;
@@ -214,7 +207,7 @@ void PlayerListWidget::listPlayers(const QList<Player> &playerList)
     for (Player player : playerList) {
         QTreeWidgetItem *playerItem = new QTreeWidgetItem();
         playerItem->setData(0, Qt::UserRole, player.getTeamId());
-        playerItem->setIcon(0, getRankIcon(player.getRank()));
+        playerItem->setIcon(0, FrostbiteUtils::getRankIcon(client->getServerEntry()->getGameType(), player.getRank()));
         playerItem->setText(0, player.getName());
         playerItem->setToolTip(0, tr("Rank %1").arg(player.getRank()));
         playerItem->setData(1, Qt::UserRole, player.getSquadId());
