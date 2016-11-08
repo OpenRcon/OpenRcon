@@ -23,9 +23,7 @@
 #include "Frostbite2MainWidget.h"
 #include "BF4Client.h"
 
-class QAbstractSocket;
-
-class PlayerListWidget;
+class BF4PlayerListWidget;
 class BF4OptionsWidget;
 class BF4MapListWidget;
 class BF4SpectatorSlotsWidget;
@@ -44,19 +42,19 @@ public:
     }
 
 private:
-    PlayerListWidget *playerListWidget;
+    /* User Interface */
+    BF4PlayerListWidget *playerListWidget;
     BF4OptionsWidget *optionsWidget;
     BF4MapListWidget *mapListWidget;
     BF4SpectatorSlotsWidget *spectatorSlotsWidget;
 
-    /* User Interface */
-    void setAuthenticated(bool auth);
-    void startupCommands(bool auth);
-
 private slots:
-    /* Events */
-    void onConnected(QAbstractSocket *socket);
-    void onDisconnected(QAbstractSocket *socket);
+    /* Connection */
+    void onConnected() final;
+    void onDisconnected() final;
+
+    /* Client */
+    void onAuthenticated() final;
 
     /* Commands */
     // Misc

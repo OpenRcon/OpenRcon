@@ -62,6 +62,9 @@ QString FrostbiteClient::getVersionFromBuild(int build) const
 
 void FrostbiteClient::onConnected()
 {
+    commandHandler->sendVersionCommand();
+    commandHandler->sendServerInfoCommand();
+
     if (!isAuthenticated() && !serverEntry->getPassword().isEmpty()) {
         commandHandler->sendLoginHashedCommand();
     }
@@ -79,9 +82,9 @@ void FrostbiteClient::onLoginHashedCommand(const QByteArray &salt)
     }
 }
 
-void FrostbiteClient::onLoginHashedCommand(bool auth)
+void FrostbiteClient::onLoginHashedCommand(bool authenticated)
 {
-    setAuthenticated(auth);
+    setAuthenticated(authenticated);
 }
 
 void FrostbiteClient::onVersionCommand(const QString &type, int build)

@@ -62,7 +62,7 @@ public slots:
     void onConnected();
     void onDisconnected();
     void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand(bool auth);
+    void onLoginHashedCommand(bool authenticated);
     void onVersionCommand(const QString &type, int build);
 
 };

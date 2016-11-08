@@ -196,9 +196,9 @@ signals:
 
     /* Command signals */
     // Misc
-    void onLoginPlainTextCommand(bool auth);
+    void onLoginPlainTextCommand(bool authenticated);
     void onLoginHashedCommand(const QByteArray &salt);
-    void onLoginHashedCommand(bool auth);
+    void onLoginHashedCommand(bool authenticated);
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
     void onServerInfoCommand(const BF3ServerInfo &serverInfo);
     void onServerInfoCommand(const BF4ServerInfo &serverInfo);

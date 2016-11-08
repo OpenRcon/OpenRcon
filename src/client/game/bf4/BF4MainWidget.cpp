@@ -18,10 +18,9 @@
  */
 
 #include "BF4MainWidget.h"
-#include "BF4Client.h"
 #include "ui_Frostbite2MainWidget.h"
 
-#include "PlayerListWidget.h"
+#include "BF4PlayerListWidget.h"
 #include "EventsWidget.h"
 #include "ChatWidget.h"
 #include "BF4OptionsWidget.h"
@@ -31,32 +30,42 @@
 #include "BF4SpectatorSlotsWidget.h"
 #include "ConsoleWidget.h"
 
-#include "BF4LevelDictionary.h"
 #include "BF4ServerInfo.h"
+#include "BF4LevelDictionary.h"
 #include "BF4GameModeEntry.h"
 #include "TabWidget.h"
-#include "FrostbiteUtils.h"
-#include "Time.h"
 
 BF4MainWidget::BF4MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     Frostbite2MainWidget(new BF4Client(serverEntry, parent), parent)
 {
-
     /* User Inferface */
     // Create tabs from widgets.
-    playerListWidget = new PlayerListWidget(getClient(), this);
+    playerListWidget = new BF4PlayerListWidget(getClient(), this);
     optionsWidget = new BF4OptionsWidget(getClient(), this);
     mapListWidget = new BF4MapListWidget(getClient(), this);
     spectatorSlotsWidget = new BF4SpectatorSlotsWidget(getClient(), this);
 
     ui->tabWidget->insertTab(0, playerListWidget, QIcon(":/frostbite/icons/players.png"), tr("Players"));
+    // EventsWidget (1)
+    // ChatWidget (2)
     ui->tabWidget->insertTab(3, optionsWidget, QIcon(":/icons/options.png"), tr("Options"));
     ui->tabWidget->insertTab(4, mapListWidget, QIcon(":/frostbite/icons/map.png"), tr("Maplist"));
-    ui->tabWidget->insertTab(5, spectatorSlotsWidget, QIcon(":/bf4/icons/spectator.png"), tr("Spectator Slots"));
+    // Banlist (5)
+    // ReservedSlotsWidget (6)
+    ui->tabWidget->insertTab(7, spectatorSlotsWidget, QIcon(":/bf4/icons/spectator.png"), tr("Spectator Slots"));
+    // ConsoleWidget (8)
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(optionsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), false);
+    ui->tabWidget->setCurrentIndex(0);
 
     /* Connection */
-    connect(client->getConnection(), &Connection::onConnected,                                     this, &BF4MainWidget::onConnected);
-    connect(client->getConnection(), &Connection::onDisconnected,                                  this, &BF4MainWidget::onDisconnected);
+    connect(getClient()->getConnection(), &Connection::onConnected,                                     this, &BF4MainWidget::onConnected);
+    connect(getClient()->getConnection(), &Connection::onDisconnected,                                  this, &BF4MainWidget::onDisconnected);
+
+    /* Client */
+    connect(getClient(), &Client::onAuthenticated,                                                      this, &BF4MainWidget::onAuthenticated);
 
     /* Events */
 
@@ -86,44 +95,36 @@ BF4MainWidget::~BF4MainWidget()
 
 }
 
-void BF4MainWidget::setAuthenticated(bool auth)
-{
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(optionsWidget), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), auth);
-    ui->tabWidget->setCurrentIndex(0);
-
-    startupCommands(auth);
-}
-
-void BF4MainWidget::startupCommands(bool auth)
-{
-    // Misc
-    getClient()->getCommandHandler()->sendVersionCommand();
-    getClient()->getCommandHandler()->sendServerInfoCommand();
-
-    if (auth) {
-        getClient()->getCommandHandler()->sendAdminEventsEnabledCommand(true);
-    }
-}
-
 /* Connection */
-void BF4MainWidget::onConnected(QAbstractSocket *socket)
+void BF4MainWidget::onConnected()
 {
-    Q_UNUSED(socket);
-
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), true);
-
-    setAuthenticated(false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), true);
 }
 
-void BF4MainWidget::onDisconnected(QAbstractSocket *socket)
+void BF4MainWidget::onAuthenticated()
 {
-    Q_UNUSED(socket);
+    getClient()->getCommandHandler()->sendVarsAlwaysAllowSpectatorsCommand();
 
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(optionsWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), true);
+}
+
+void BF4MainWidget::onDisconnected()
+{
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), false);
-
-    setAuthenticated(false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(optionsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
 }
 
 /* Events */
