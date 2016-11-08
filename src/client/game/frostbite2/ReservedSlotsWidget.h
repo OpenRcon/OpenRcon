@@ -25,6 +25,7 @@
 class QMenu;
 class QAction;
 class QStringList;
+class QPoint;
 
 class Frostbite2Client;
 
@@ -48,17 +49,16 @@ private:
     QAction *action_rs_reservedSlotsList_remove;
 
 private slots:
+    /* Client */
+    void onAuthenticated();
+
     /* Commands */
-    void onLoginHashedCommand(bool auth);
     void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
 
     /* User Interface */
     void listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos);
     void action_rs_reservedSlotsList_remove_triggered();
     void pushButton_rs_add_clicked();
-    void pushButton_rs_load_clicked();
-    void pushButton_rs_save_clicked();
-    void pushButton_rs_clear_clicked();
 
 };
 

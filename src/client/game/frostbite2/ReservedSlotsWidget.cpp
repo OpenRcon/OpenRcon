@@ -20,6 +20,8 @@
 
 #include <QMenu>
 #include <QAction>
+#include <QStringList>
+#include <QPoint>
 
 #include "ReservedSlotsWidget.h"
 #include "ui_ReservedSlotsWidget.h"
@@ -36,18 +38,20 @@ ReservedSlotsWidget::ReservedSlotsWidget(Frostbite2Client *client, QWidget *pare
 
     menu_rs_reservedSlotsList->addAction(action_rs_reservedSlotsList_remove);
 
+    /* Client */
+    connect(getClient(),                         &Frostbite2Client::onAuthenticated,                        this,                             &ReservedSlotsWidget::onAuthenticated);
+
     /* Commands */
-    connect(getClient()->getCommandHandler(),       static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand), this, &ReservedSlotsWidget::onLoginHashedCommand);
-    connect(getClient()->getCommandHandler(),       &Frostbite2CommandHandler::onReservedSlotsListListCommand,                                              this, &ReservedSlotsWidget::onReservedSlotsListListCommand);
+    connect(getClient()->getCommandHandler(),    &Frostbite2CommandHandler::onReservedSlotsListListCommand, this,                             &ReservedSlotsWidget::onReservedSlotsListListCommand);
 
     /* User Interface */
-    connect(ui->listWidget_rs_reservedSlotsList,    &QListWidget::customContextMenuRequested, this, &ReservedSlotsWidget::listWidget_rs_reservedSlotsList_customContextMenuRequested);
-    connect(action_rs_reservedSlotsList_remove,     &QAction::triggered,                      this, &ReservedSlotsWidget::action_rs_reservedSlotsList_remove_triggered);
-    connect(ui->lineEdit_rs_player,                 &QLineEdit::returnPressed,                this, &ReservedSlotsWidget::pushButton_rs_add_clicked);
-    connect(ui->pushButton_rs_add,                  &QPushButton::clicked,                    this, &ReservedSlotsWidget::pushButton_rs_add_clicked);
-    connect(ui->pushButton_rs_load,                 &QPushButton::clicked,                    this, &ReservedSlotsWidget::pushButton_rs_load_clicked);
-    connect(ui->pushButton_rs_save,                 &QPushButton::clicked,                    this, &ReservedSlotsWidget::pushButton_rs_save_clicked);
-    connect(ui->pushButton_rs_clear,                &QPushButton::clicked,                    this, &ReservedSlotsWidget::pushButton_rs_clear_clicked);
+    connect(ui->listWidget_rs_reservedSlotsList, &QListWidget::customContextMenuRequested,                  this,                             &ReservedSlotsWidget::listWidget_rs_reservedSlotsList_customContextMenuRequested);
+    connect(action_rs_reservedSlotsList_remove,  &QAction::triggered,                                       this,                             &ReservedSlotsWidget::action_rs_reservedSlotsList_remove_triggered);
+    connect(ui->lineEdit_rs_player,              &QLineEdit::returnPressed,                                 this,                             &ReservedSlotsWidget::pushButton_rs_add_clicked);
+    connect(ui->pushButton_rs_add,               &QPushButton::clicked,                                     this,                             &ReservedSlotsWidget::pushButton_rs_add_clicked);
+    connect(ui->pushButton_rs_load,              &QPushButton::clicked,                                     getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListLoadCommand);
+    connect(ui->pushButton_rs_save,              &QPushButton::clicked,                                     getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListSaveCommand);
+    connect(ui->pushButton_rs_clear,             &QPushButton::clicked,                                     getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListClearCommand);
 }
 
 ReservedSlotsWidget::~ReservedSlotsWidget()
@@ -55,13 +59,13 @@ ReservedSlotsWidget::~ReservedSlotsWidget()
     delete ui;
 }
 
-void ReservedSlotsWidget::onLoginHashedCommand(bool auth)
+/* Client */
+void ReservedSlotsWidget::onAuthenticated()
 {
-    if (auth) {
-        getClient()->getCommandHandler()->sendReservedSlotsListListCommand();
-    }
+    getClient()->getCommandHandler()->sendReservedSlotsListListCommand();
 }
 
+/* Commands */
 void ReservedSlotsWidget::onReservedSlotsListListCommand(const QStringList &reservedSlotsList)
 {
     ui->pushButton_rs_clear->setEnabled(!reservedSlotsList.isEmpty());
@@ -70,6 +74,7 @@ void ReservedSlotsWidget::onReservedSlotsListListCommand(const QStringList &rese
     ui->listWidget_rs_reservedSlotsList->addItems(reservedSlotsList);
 }
 
+/* User Interface */
 void ReservedSlotsWidget::listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->listWidget_rs_reservedSlotsList->itemAt(pos)) {
@@ -86,7 +91,7 @@ void ReservedSlotsWidget::action_rs_reservedSlotsList_remove_triggered()
 
         ui->listWidget_rs_reservedSlotsList->takeItem(index);
         ui->pushButton_rs_clear->setEnabled(ui->listWidget_rs_reservedSlotsList->count() > 0);
-        client->getCommandHandler()->sendReservedSlotsListRemoveCommand(player);
+        getClient()->getCommandHandler()->sendReservedSlotsListRemoveCommand(player);
     }
 }
 
@@ -99,21 +104,6 @@ void ReservedSlotsWidget::pushButton_rs_add_clicked()
         ui->pushButton_rs_clear->setEnabled(true);
         ui->lineEdit_rs_player->clear();
 
-        client->getCommandHandler()->sendReservedSlotsListAddCommand(player);
+        getClient()->getCommandHandler()->sendReservedSlotsListAddCommand(player);
     }
-}
-
-void ReservedSlotsWidget::pushButton_rs_load_clicked()
-{
-    getClient()->getCommandHandler()->sendReservedSlotsListLoadCommand();
-}
-
-void ReservedSlotsWidget::pushButton_rs_save_clicked()
-{
-    getClient()->getCommandHandler()->sendReservedSlotsListSaveCommand();
-}
-
-void ReservedSlotsWidget::pushButton_rs_clear_clicked()
-{
-    getClient()->getCommandHandler()->sendReservedSlotsListClearCommand();
 }
