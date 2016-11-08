@@ -19,6 +19,8 @@
 
 #include <QMenu>
 #include <QAction>
+#include <QStringList>
+#include <QPoint>
 
 #include "BF4SpectatorSlotsWidget.h"
 #include "ui_BF4SpectatorSlotsWidget.h"
@@ -31,21 +33,19 @@ BF4SpectatorSlotsWidget::BF4SpectatorSlotsWidget(BF4Client *client, QWidget *par
 
     menu_spectatorList = new QMenu(ui->listWidget_spectatorList);
     action_spectatorList_remove = new QAction(tr("Remove"), menu_spectatorList);
-
     menu_spectatorList->addAction(action_spectatorList_remove);
 
     /* Commands */
-    connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this, &BF4SpectatorSlotsWidget::onLoginHashedCommand);
-    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onSpectatorListListCommand, this, &BF4SpectatorSlotsWidget::onSpectatorListListCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onSpectatorListListCommand, this,                             &BF4SpectatorSlotsWidget::onSpectatorListListCommand);
 
     /* User Interface */
-    connect(ui->listWidget_spectatorList,     &QListWidget::customContextMenuRequested,       this, &BF4SpectatorSlotsWidget::listWidget_spectatorList_customContextMenuRequested);
-    connect(action_spectatorList_remove,      &QAction::triggered,                            this, &BF4SpectatorSlotsWidget::action_spectatorList_remove_triggered);
-    connect(ui->lineEdit_nickname,            &QLineEdit::returnPressed,                      this, &BF4SpectatorSlotsWidget::pushButton_add_clicked);
-    connect(ui->pushButton_add,               &QPushButton::clicked,                          this, &BF4SpectatorSlotsWidget::pushButton_add_clicked);
-    connect(ui->pushButton_save,              &QPushButton::clicked,                          this, &BF4SpectatorSlotsWidget::pushButton_save_clicked);
-    connect(ui->pushButton_clear,             &QPushButton::clicked,                          this, &BF4SpectatorSlotsWidget::pushButton_clear_clicked);
+    connect(ui->listWidget_spectatorList,     &QListWidget::customContextMenuRequested,       this,                             &BF4SpectatorSlotsWidget::listWidget_spectatorList_customContextMenuRequested);
+    connect(action_spectatorList_remove,      &QAction::triggered,                            this,                             &BF4SpectatorSlotsWidget::action_spectatorList_remove_triggered);
+    connect(ui->lineEdit_nickname,            &QLineEdit::returnPressed,                      this,                             &BF4SpectatorSlotsWidget::pushButton_add_clicked);
+    connect(ui->pushButton_add,               &QPushButton::clicked,                          this,                             &BF4SpectatorSlotsWidget::pushButton_add_clicked);
+
+    connect(ui->pushButton_save,              &QPushButton::clicked,                          getClient()->getCommandHandler(), &BF4CommandHandler::sendSpectatorListSaveCommand);
+    connect(ui->pushButton_clear,             &QPushButton::clicked,                          getClient()->getCommandHandler(), &BF4CommandHandler::sendSpectatorListClearCommand);
 }
 
 BF4SpectatorSlotsWidget::~BF4SpectatorSlotsWidget()
@@ -53,13 +53,13 @@ BF4SpectatorSlotsWidget::~BF4SpectatorSlotsWidget()
     delete ui;
 }
 
-void BF4SpectatorSlotsWidget::onLoginHashedCommand(bool auth)
+/* Client */
+void BF4SpectatorSlotsWidget::onAuthenticated()
 {
-    if (auth) {
-        getClient()->getCommandHandler()->sendSpectatorListListCommand();
-    }
+    getClient()->getCommandHandler()->sendSpectatorListListCommand();
 }
 
+/* Commands */
 void BF4SpectatorSlotsWidget::onSpectatorListListCommand(const QStringList &spectatorList)
 {
     ui->pushButton_clear->setEnabled(!spectatorList.isEmpty());
@@ -68,6 +68,7 @@ void BF4SpectatorSlotsWidget::onSpectatorListListCommand(const QStringList &spec
     ui->listWidget_spectatorList->addItems(spectatorList);
 }
 
+/* User Interface */
 void BF4SpectatorSlotsWidget::listWidget_spectatorList_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->listWidget_spectatorList->itemAt(pos)) {
@@ -99,14 +100,4 @@ void BF4SpectatorSlotsWidget::pushButton_add_clicked()
 
         getClient()->getCommandHandler()->sendSpectatorListAddCommand(player);
     }
-}
-
-void BF4SpectatorSlotsWidget::pushButton_save_clicked()
-{
-    getClient()->getCommandHandler()->sendSpectatorListSaveCommand();
-}
-
-void BF4SpectatorSlotsWidget::pushButton_clear_clicked()
-{
-    getClient()->getCommandHandler()->sendSpectatorListClearCommand();
 }

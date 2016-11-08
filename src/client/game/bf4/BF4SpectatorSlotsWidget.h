@@ -24,6 +24,8 @@
 
 class QMenu;
 class QAction;
+class QStringList;
+class QPoint;
 
 namespace Ui {
     class BF4SpectatorSlotsWidget;
@@ -45,18 +47,16 @@ private:
     QAction *action_spectatorList_remove;
 
 private slots:
-    /* Events */
+    /* Client */
+    void onAuthenticated();
 
     /* Commands */
-    void onLoginHashedCommand(bool auth);
     void onSpectatorListListCommand(const QStringList &spectatorList);
 
     /* User Interface */
     void listWidget_spectatorList_customContextMenuRequested(const QPoint &pos);
     void action_spectatorList_remove_triggered();
     void pushButton_add_clicked();
-    void pushButton_save_clicked();
-    void pushButton_clear_clicked();
 
 };
 

@@ -23,8 +23,8 @@
 #include <QAbstractSocket>
 #include <QHostAddress>
 
-#include "FrostbiteEventWidget.h"
-#include "ui_FrostbiteEventWidget.h"
+#include "FrostbiteEventsWidget.h"
+#include "ui_FrostbiteEventsWidget.h"
 
 #include "BF4CommandHandler.h"
 #include "WeaponEntry.h"
@@ -40,54 +40,54 @@
 #include "ServerEntry.h"
 #include "GameType.h"
 
-FrostbiteEventWidget::FrostbiteEventWidget(Frostbite2Client *client, QWidget *parent) :
+FrostbiteEventsWidget::FrostbiteEventsWidget(Frostbite2Client *client, QWidget *parent) :
     Frostbite2Widget(client, parent),
-    ui(new Ui::FrostbiteEventWidget)
+    ui(new Ui::FrostbiteEventsWidget)
 {
     ui->setupUi(this);
 
     /* Connection */
-    connect(getClient()->getConnection(),     &Connection::onConnected,                                    this, &FrostbiteEventWidget::onConnected);
-    connect(getClient()->getConnection(),     &Connection::onDisconnected,                                 this, &FrostbiteEventWidget::onDisconnected);
+    connect(getClient()->getConnection(),     &Connection::onConnected,                                    this, &FrostbiteEventsWidget::onConnected);
+    connect(getClient()->getConnection(),     &Connection::onDisconnected,                                 this, &FrostbiteEventsWidget::onDisconnected);
 
     /* Client */
-    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                           this, &FrostbiteEventWidget::onAuthenticated);
+    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                           this, &FrostbiteEventsWidget::onAuthenticated);
 
     /* Events */
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,       this, &FrostbiteEventWidget::onPlayerAuthenticatedEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,       this, &FrostbiteEventsWidget::onPlayerAuthenticatedEvent);
 
     BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(getClient()->getCommandHandler());
 
     if (bf4CommandHandler) {
-        connect(bf4CommandHandler,            &BF4CommandHandler::onPlayerDisconnectEvent,                 this, &FrostbiteEventWidget::onPlayerDisconnectEvent);
+        connect(bf4CommandHandler,            &BF4CommandHandler::onPlayerDisconnectEvent,                 this, &FrostbiteEventsWidget::onPlayerDisconnectEvent);
     }
 
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,                this, &FrostbiteEventWidget::onPlayerJoinEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,               this, &FrostbiteEventWidget::onPlayerLeaveEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSpawnEvent,               this, &FrostbiteEventWidget::onPlayerSpawnEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerKillEvent,                this, &FrostbiteEventWidget::onPlayerKillEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerChatEvent,                this, &FrostbiteEventWidget::onPlayerChatEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSquadChangeEvent,         this, &FrostbiteEventWidget::onPlayerSquadChangeEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerTeamChangeEvent,          this, &FrostbiteEventWidget::onPlayerTeamChangeEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,                this, &FrostbiteEventsWidget::onPlayerJoinEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,               this, &FrostbiteEventsWidget::onPlayerLeaveEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSpawnEvent,               this, &FrostbiteEventsWidget::onPlayerSpawnEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerKillEvent,                this, &FrostbiteEventsWidget::onPlayerKillEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerChatEvent,                this, &FrostbiteEventsWidget::onPlayerChatEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSquadChangeEvent,         this, &FrostbiteEventsWidget::onPlayerSquadChangeEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerTeamChangeEvent,          this, &FrostbiteEventsWidget::onPlayerTeamChangeEvent);
 
     Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
 
     if (frostbite2CommandHandler) {
-        connect(frostbite2CommandHandler, &Frostbite2CommandHandler::onServerMaxPlayerCountChangeEvent,    this, &FrostbiteEventWidget::onServerMaxPlayerCountChangeEvent);
-        connect(frostbite2CommandHandler, &Frostbite2CommandHandler::onServerLevelLoadedEvent,             this, &FrostbiteEventWidget::onServerLevelLoadedEvent);
+        connect(frostbite2CommandHandler, &Frostbite2CommandHandler::onServerMaxPlayerCountChangeEvent,    this, &FrostbiteEventsWidget::onServerMaxPlayerCountChangeEvent);
+        connect(frostbite2CommandHandler, &Frostbite2CommandHandler::onServerLevelLoadedEvent,             this, &FrostbiteEventsWidget::onServerLevelLoadedEvent);
     }
 
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverEvent,           this, &FrostbiteEventWidget::onServerRoundOverEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverPlayersEvent,    this, &FrostbiteEventWidget::onServerRoundOverPlayersEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverTeamScoresEvent, this, &FrostbiteEventWidget::onServerRoundOverTeamScoresEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverEvent,           this, &FrostbiteEventsWidget::onServerRoundOverEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverPlayersEvent,    this, &FrostbiteEventsWidget::onServerRoundOverPlayersEvent);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverTeamScoresEvent, this, &FrostbiteEventsWidget::onServerRoundOverTeamScoresEvent);
 }
 
-FrostbiteEventWidget::~FrostbiteEventWidget()
+FrostbiteEventsWidget::~FrostbiteEventsWidget()
 {
     delete ui;
 }
 
-void FrostbiteEventWidget::logEvent(const QString &event, const QString &message)
+void FrostbiteEventsWidget::logEvent(const QString &event, const QString &message)
 {
     int row = ui->tableWidget->rowCount();
 
@@ -99,18 +99,18 @@ void FrostbiteEventWidget::logEvent(const QString &event, const QString &message
 }
 
 /* Connection */
-void FrostbiteEventWidget::onConnected(QAbstractSocket *socket)
+void FrostbiteEventsWidget::onConnected(QAbstractSocket *socket)
 {
     logEvent(tr("Connected"), tr("Connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort()));
 }
 
-void FrostbiteEventWidget::onDisconnected()
+void FrostbiteEventsWidget::onDisconnected()
 {
     logEvent(tr("Disconnected"), tr("Disconnected."));
 }
 
 /* Client */
-void FrostbiteEventWidget::onAuthenticated()
+void FrostbiteEventsWidget::onAuthenticated()
 {
     logEvent(tr("Authenticated"), tr("Authenticated."));
 
@@ -118,34 +118,34 @@ void FrostbiteEventWidget::onAuthenticated()
 }
 
 /* Events */
-void FrostbiteEventWidget::onPlayerAuthenticatedEvent(const QString &player)
+void FrostbiteEventsWidget::onPlayerAuthenticatedEvent(const QString &player)
 {
     logEvent(tr("PlayerAuthenticated"), tr("Player %1 authenticated.").arg(player));
 }
 
-void FrostbiteEventWidget::onPlayerDisconnectEvent(const QString &player)
+void FrostbiteEventsWidget::onPlayerDisconnectEvent(const QString &player)
 {
     logEvent(tr("PlayerDisconnect"), tr("Player %1 disconnected.").arg(player));
 }
 
-void FrostbiteEventWidget::onPlayerJoinEvent(const QString &player, const QString &guid)
+void FrostbiteEventsWidget::onPlayerJoinEvent(const QString &player, const QString &guid)
 {
     logEvent(tr("PlayerJoin"), tr("Player %1 joined the game (GUID: %2).").arg(player, guid));
 }
 
-void FrostbiteEventWidget::onPlayerLeaveEvent(const QString &player, const QString &info)
+void FrostbiteEventsWidget::onPlayerLeaveEvent(const QString &player, const QString &info)
 {
     Q_UNUSED(info);
 
     logEvent(tr("PlayerLeave"), tr("Player %1 left the game.").arg(player)); // TODO: Impelment score stuffs here?
 }
 
-void FrostbiteEventWidget::onPlayerSpawnEvent(const QString &player, int teamId)
+void FrostbiteEventsWidget::onPlayerSpawnEvent(const QString &player, int teamId)
 {
     logEvent(tr("PlayerSpawn"), tr("Player %1 spawned, and is on team %2.").arg(player).arg(BF4LevelDictionary::getTeam(teamId - 1).getName()));
 }
 
-void FrostbiteEventWidget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
+void FrostbiteEventsWidget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
 {
     QString message;
     GameTypeEnum gameType = getClient()->getServerEntry()->getGameType();
@@ -170,14 +170,14 @@ void FrostbiteEventWidget::onPlayerKillEvent(const QString &killer, const QStrin
     logEvent(tr("PlayerKill"), message);
 }
 
-void FrostbiteEventWidget::onPlayerChatEvent(const QString &sender, const QString &message, const QString &target)
+void FrostbiteEventsWidget::onPlayerChatEvent(const QString &sender, const QString &message, const QString &target)
 {
     Q_UNUSED(target);
 
     logEvent(tr("PlayerChat"), QString("%1: %2").arg(sender).arg(message));
 }
 
-void FrostbiteEventWidget::onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId)
+void FrostbiteEventsWidget::onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId)
 {
     Q_UNUSED(teamId);
 
@@ -186,19 +186,19 @@ void FrostbiteEventWidget::onPlayerSquadChangeEvent(const QString &player, int t
     }
 }
 
-void FrostbiteEventWidget::onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId)
+void FrostbiteEventsWidget::onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId)
 {
     Q_UNUSED(squadId);
 
     logEvent(tr("PlayerTeamChange"), tr("Player %1 changed team to %2.").arg(player).arg(teamId));
 }
 
-void FrostbiteEventWidget::onServerMaxPlayerCountChangeEvent()
+void FrostbiteEventsWidget::onServerMaxPlayerCountChangeEvent()
 {
 
 }
 
-void FrostbiteEventWidget::onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal)
+void FrostbiteEventsWidget::onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal)
 {
     Q_UNUSED(roundsPlayed);
     Q_UNUSED(roundsTotal);
@@ -218,17 +218,17 @@ void FrostbiteEventWidget::onServerLevelLoadedEvent(const QString &levelName, co
     logEvent(tr("ServerLevelLoaded"), tr("Loading level %1 with gamemode %2.").arg(level.getName()).arg(gameMode.getName()));
 }
 
-void FrostbiteEventWidget::onServerRoundOverEvent(int winningTeamId)
+void FrostbiteEventsWidget::onServerRoundOverEvent(int winningTeamId)
 {
     logEvent(tr("ServerRoundOver"), tr("The round has just ended, and %1 won.").arg(winningTeamId));
 }
 
-void FrostbiteEventWidget::onServerRoundOverPlayersEvent(const QString &playerInfo)
+void FrostbiteEventsWidget::onServerRoundOverPlayersEvent(const QString &playerInfo)
 {
     logEvent(tr("ServerRoundOverPlayers"), tr("The round has just ended, and %1 is the final detailed player stats.").arg(playerInfo)); // TODO: Check what this actually outputs.
 }
 
-void FrostbiteEventWidget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
+void FrostbiteEventsWidget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
 {
     logEvent(tr("ServerRoundOverTeamScores"), tr("The round has just ended, and %1 is the final ticket/kill/life count for each team.").arg(teamScores));
 }

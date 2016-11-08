@@ -24,7 +24,7 @@
 #include "ui_Frostbite2MainWidget.h"
 #include "BF3Client.h"
 
-#include "FrostbiteEventWidget.h"
+#include "FrostbiteEventsWidget.h"
 #include "ChatWidget.h"
 #include "BanListWidget.h"
 #include "ReservedSlotsWidget.h"
@@ -56,14 +56,14 @@ BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     connect(timerServerInfoUpTime,    &QTimer::timeout, this, &BF3MainWidget::updateUpTime);
 
     // Create tabs from widgets.
-    eventWidget = new FrostbiteEventWidget(getClient(), this);
+    eventsWidget = new FrostbiteEventsWidget(getClient(), this);
     chatWidget = new ChatWidget(getClient(), this);
     banListWidget = new BanListWidget(getClient(), this);
     reservedSlotsWidget = new ReservedSlotsWidget(getClient(), this);
     consoleWidget = new ConsoleWidget(getClient(), commandList, this);
 
 
-    ui->tabWidget->addTab(eventWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
+    ui->tabWidget->addTab(eventsWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
     ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
     ui->tabWidget->addTab(banListWidget, QIcon(":/frostbite/icons/ban.png"), tr("Banlist"));
     ui->tabWidget->addTab(reservedSlotsWidget, QIcon(":/frostbite/icons/reserved.png"), tr("Reserved Slots"));
@@ -135,7 +135,7 @@ void BF3MainWidget::onConnected(QAbstractSocket *socket)
 {
     Q_UNUSED(socket);
 
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), true);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), true);
 
     setAuthenticated(false);
@@ -145,7 +145,7 @@ void BF3MainWidget::onDisconnected(QAbstractSocket *socket)
 {
     Q_UNUSED(socket);
 
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
 
     setAuthenticated(false);

@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FROSTBITEEVENTWIDGET_H
-#define FROSTBITEEVENTWIDGET_H
+#ifndef FROSTBITEEVENTSWIDGET_H
+#define FROSTBITEEVENTSWIDGET_H
 
 #include "Frostbite2Widget.h"
 
@@ -26,19 +26,19 @@ class QString;
 class QAbstractSocket;
 
 namespace Ui {
-    class FrostbiteEventWidget;
+    class FrostbiteEventsWidget;
 }
 
-class FrostbiteEventWidget : public Frostbite2Widget
+class FrostbiteEventsWidget : public Frostbite2Widget
 {
     Q_OBJECT
 
 public:
-    FrostbiteEventWidget(Frostbite2Client *client, QWidget *parent = nullptr);
-    ~FrostbiteEventWidget() final;
+    FrostbiteEventsWidget(Frostbite2Client *client, QWidget *parent = nullptr);
+    ~FrostbiteEventsWidget() final;
 
 private:
-    Ui::FrostbiteEventWidget *ui;
+    Ui::FrostbiteEventsWidget *ui;
 
     void logEvent(const QString &event, const QString &message);
 
@@ -68,4 +68,4 @@ private slots:
 
 };
 
-#endif // FROSTBITEEVENTWIDGET_H
+#endif // FROSTBITEEVENTSWIDGET_H
