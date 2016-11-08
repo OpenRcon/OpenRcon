@@ -17,13 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QTimer>
-
-#include <QMessageBox>
-
 #include "BF4MainWidget.h"
-#include "ui_Frostbite2MainWidget.h"
 #include "BF4Client.h"
+#include "ui_Frostbite2MainWidget.h"
 
 #include "PlayerListWidget.h"
 #include "EventsWidget.h"
@@ -43,57 +39,29 @@
 #include "Time.h"
 
 BF4MainWidget::BF4MainWidget(ServerEntry *serverEntry, QWidget *parent) :
-    BF4Widget(new BF4Client(serverEntry, parent), parent),
-    ui(new Ui::Frostbite2MainWidget)
+    Frostbite2MainWidget(new BF4Client(serverEntry, parent), parent)
 {
-    ui->setupUi(this);
 
     /* User Inferface */
-    // ServerInfo
-    timerServerInfoRoundTime = new QTimer(this);
-    timerServerInfoRoundTime->start(1000);
-
-    timerServerInfoUpTime = new QTimer(this);
-    timerServerInfoUpTime->start(1000);
-
-    connect(timerServerInfoRoundTime, &QTimer::timeout, this, &BF4MainWidget::updateRoundTime);
-    connect(timerServerInfoUpTime,    &QTimer::timeout, this, &BF4MainWidget::updateUpTime);
-
     // Create tabs from widgets.
     playerListWidget = new PlayerListWidget(getClient(), this);
-    eventsWidget = new EventsWidget(getClient(), this);
-    chatWidget = new ChatWidget(getClient(), this);
     optionsWidget = new BF4OptionsWidget(getClient(), this);
     mapListWidget = new BF4MapListWidget(getClient(), this);
-    banListWidget = new BanListWidget(getClient(), this);
-    reservedSlotsWidget = new ReservedSlotsWidget(getClient(), this);
     spectatorSlotsWidget = new BF4SpectatorSlotsWidget(getClient(), this);
-    consoleWidget = new ConsoleWidget(getClient(), commandList, this);
 
-    ui->tabWidget->addTab(playerListWidget, QIcon(":/frostbite/icons/players.png"), tr("Players"));
-    ui->tabWidget->addTab(eventsWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
-    ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
-    ui->tabWidget->addTab(optionsWidget, QIcon(":/icons/options.png"), tr("Options"));
-    ui->tabWidget->addTab(mapListWidget, QIcon(":/frostbite/icons/map.png"), tr("Maplist"));
-    ui->tabWidget->addTab(banListWidget, QIcon(":/frostbite/icons/ban.png"), tr("Banlist"));
-    ui->tabWidget->addTab(reservedSlotsWidget, QIcon(":/frostbite/icons/reserved.png"), tr("Reserved Slots"));
-    ui->tabWidget->addTab(spectatorSlotsWidget, QIcon(":/bf4/icons/spectator.png"), tr("Spectator Slots"));
-    ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
+    ui->tabWidget->insertTab(0, playerListWidget, QIcon(":/frostbite/icons/players.png"), tr("Players"));
+    ui->tabWidget->insertTab(3, optionsWidget, QIcon(":/icons/options.png"), tr("Options"));
+    ui->tabWidget->insertTab(4, mapListWidget, QIcon(":/frostbite/icons/map.png"), tr("Maplist"));
+    ui->tabWidget->insertTab(5, spectatorSlotsWidget, QIcon(":/bf4/icons/spectator.png"), tr("Spectator Slots"));
 
     /* Connection */
     connect(client->getConnection(), &Connection::onConnected,                                     this, &BF4MainWidget::onConnected);
     connect(client->getConnection(), &Connection::onDisconnected,                                  this, &BF4MainWidget::onDisconnected);
 
     /* Events */
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,        &Frostbite2CommandHandler::sendServerInfoCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,       &Frostbite2CommandHandler::sendServerInfoCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerLevelLoadedEvent, &Frostbite2CommandHandler::sendServerInfoCommand);
 
     /* Commands */
     // Misc
-    connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this, &BF4MainWidget::onLoginHashedCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,   this, &BF4MainWidget::onVersionCommand);
     connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const BF4ServerInfo&)>(&FrostbiteCommandHandler::onServerInfoCommand),
             this, &BF4MainWidget::onServerInfoCommand);
 
@@ -111,23 +79,17 @@ BF4MainWidget::BF4MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     connect(getClient()->getCommandHandler(), &BF4CommandHandler::onVarsAlwaysAllowSpectatorsCommand,   this, &BF4MainWidget::onVarsAlwaysAllowSpectatorsCommand);
 
     /* User Interface */
-    // Server Information
-    connect(ui->pushButton_si_restartRound, &QPushButton::clicked, this, &BF4MainWidget::pushButton_si_restartRound_clicked);
-    connect(ui->pushButton_si_runNextRound, &QPushButton::clicked, this, &BF4MainWidget::pushButton_si_runNextRound_clicked);
 }
 
 BF4MainWidget::~BF4MainWidget()
 {
-    delete ui;
+
 }
 
 void BF4MainWidget::setAuthenticated(bool auth)
 {
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(optionsWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(mapListWidget), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), auth);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(spectatorSlotsWidget), auth);
     ui->tabWidget->setCurrentIndex(0);
 
@@ -151,8 +113,6 @@ void BF4MainWidget::onConnected(QAbstractSocket *socket)
     Q_UNUSED(socket);
 
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), true);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), true);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), true);
 
     setAuthenticated(false);
 }
@@ -162,8 +122,6 @@ void BF4MainWidget::onDisconnected(QAbstractSocket *socket)
     Q_UNUSED(socket);
 
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(playerListWidget), false);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
 
     setAuthenticated(false);
 }
@@ -172,28 +130,6 @@ void BF4MainWidget::onDisconnected(QAbstractSocket *socket)
 
 /* Commands */
 // Misc
-void BF4MainWidget::onLoginHashedCommand(bool auth)
-{
-    if (auth) {
-        // Call commands on startup.
-        setAuthenticated(true);
-    } else {
-        int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
-
-        if (ret) {
-            client->getConnection()->hostDisconnect();
-        }
-    }
-}
-
-void BF4MainWidget::onVersionCommand(const QString &type, int build)
-{
-    Q_UNUSED(type);
-
-    ui->label_si_version->setText(tr("<b>Version</b>: %1").arg(getClient()->getVersionFromBuild(build)));
-    ui->label_si_version->setToolTip(QString::number(build));
-}
-
 void BF4MainWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
@@ -278,31 +214,3 @@ void BF4MainWidget::onVarsAlwaysAllowSpectatorsCommand(bool enabled)
 }
 
 /* User Interface */
-// ServerInfo
-void BF4MainWidget::pushButton_si_restartRound_clicked()
-{
-    int ret = QMessageBox::question(this, tr("Restart round"), tr("Are you sure you want to restart the round?"));
-
-    if (ret == QMessageBox::Yes) {
-        getClient()->getCommandHandler()->sendMapListRestartRoundCommand();
-    }
-}
-
-void BF4MainWidget::pushButton_si_runNextRound_clicked()
-{
-    int ret = QMessageBox::question(this, tr("Run next round"), tr("Are you sure you want to run the next round?"));
-
-    if (ret == QMessageBox::Yes) {
-        getClient()->getCommandHandler()->sendMapListRunNextRoundCommand();
-    }
-}
-
-void BF4MainWidget::updateRoundTime()
-{
-    ui->label_si_round->setToolTip(Time::fromSeconds(roundTime++).toShortString());
-}
-
-void BF4MainWidget::updateUpTime()
-{
-    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(Time::fromSeconds(upTime++).toShortString()));
-}

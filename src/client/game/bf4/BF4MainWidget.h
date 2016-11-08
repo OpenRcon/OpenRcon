@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 201 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,28 +20,18 @@
 #ifndef BF4MAINWIDGET_H
 #define BF4MAINWIDGET_H
 
-#include "BF4Widget.h"
+#include "Frostbite2MainWidget.h"
+#include "BF4Client.h"
 
-class QTimer;
 class QAbstractSocket;
-class QString;
 
 class PlayerListWidget;
-class EventsWidget;
-class ChatWidget;
 class BF4OptionsWidget;
 class BF4MapListWidget;
-class BanListWidget;
-class ReservedSlotsWidget;
 class BF4SpectatorSlotsWidget;
-class ConsoleWidget;
 class BF4ServerInfo;
 
-namespace Ui {
-    class Frostbite2MainWidget;
-}
-
-class BF4MainWidget : public BF4Widget
+class BF4MainWidget : public Frostbite2MainWidget
 {
     Q_OBJECT
 
@@ -49,26 +39,17 @@ public:
     BF4MainWidget(ServerEntry *serverEntry, QWidget *parent = nullptr);
     ~BF4MainWidget() final;
 
-private:
-    Ui::Frostbite2MainWidget *ui;
+    BF4Client *getClient() final {
+        return dynamic_cast<BF4Client*>(client);
+    }
 
+private:
     PlayerListWidget *playerListWidget;
-    EventsWidget *eventsWidget;
-    ChatWidget *chatWidget;
     BF4OptionsWidget *optionsWidget;
     BF4MapListWidget *mapListWidget;
-    BanListWidget *banListWidget;
-    ReservedSlotsWidget *reservedSlotsWidget;
     BF4SpectatorSlotsWidget *spectatorSlotsWidget;
-    ConsoleWidget *consoleWidget;
 
     /* User Interface */
-    // ServerInfo
-    QTimer *timerServerInfoRoundTime;
-    QTimer *timerServerInfoUpTime;
-    int roundTime;
-    int upTime;
-
     void setAuthenticated(bool auth);
     void startupCommands(bool auth);
 
@@ -79,10 +60,7 @@ private slots:
 
     /* Commands */
     // Misc
-    void onLoginHashedCommand(bool auth);
-    void onVersionCommand(const QString &type, int build);
     void onServerInfoCommand(const BF4ServerInfo &serverInfo);
-
 
     // Admin
 
@@ -98,11 +76,6 @@ private slots:
     void onVarsAlwaysAllowSpectatorsCommand(bool enabled);
 
     /* User Interface */
-    // Server Information
-    void pushButton_si_restartRound_clicked();
-    void pushButton_si_runNextRound_clicked();
-    void updateRoundTime();
-    void updateUpTime();
 
 };
 
