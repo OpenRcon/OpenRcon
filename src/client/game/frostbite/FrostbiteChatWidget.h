@@ -25,28 +25,28 @@
 class QString;
 
 namespace Ui {
-    class ChatWidget;
+    class FrostbiteChatWidget;
 }
 
-class ChatWidget : public FrostbiteWidget
+class FrostbiteChatWidget : public FrostbiteWidget
 {
     Q_OBJECT
 
 public:
-    ChatWidget(FrostbiteClient *client, QWidget *parent = nullptr);
-    ~ChatWidget() final;
+    FrostbiteChatWidget(FrostbiteClient *client, QWidget *parent = nullptr);
+    ~FrostbiteChatWidget() final;
 
 private:
-    Ui::ChatWidget *ui;
+    Ui::FrostbiteChatWidget *ui;
 
     void logChat(const QString &sender, const QString &message, const QString &target);
 
 private slots:
+    /* Client */
+    void onAuthenticated();
+
     /* Events */
     void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
-
-    /* Commands */
-    void onLoginHashedCommand(bool auth);
 
     /* User Interface */
     void comboBox_mode_currentIndexChanged(int index);

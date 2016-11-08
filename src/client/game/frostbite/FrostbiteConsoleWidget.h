@@ -17,30 +17,29 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONSOLEWIDGET_H
-#define CONSOLEWIDGET_H
+#ifndef FROSTBITECONSOLEWIDGET_H
+#define FROSTBITECONSOLEWIDGET_H
 
 #include "FrostbiteWidget.h"
 
 class QStringList;
 class QString;
-class QAbstractSocket;
 
 namespace Ui {
-    class ConsoleWidget;
+    class FrostbiteConsoleWidget;
 }
 
-class ConsoleWidget : public FrostbiteWidget
+class FrostbiteConsoleWidget : public FrostbiteWidget
 {
     Q_OBJECT
 
 public:
-    ConsoleWidget(FrostbiteClient *client, QWidget *parent = nullptr);
-    ConsoleWidget(FrostbiteClient *client, const QStringList &commandList, QWidget *parent = nullptr);
-    ~ConsoleWidget() final;
+    FrostbiteConsoleWidget(FrostbiteClient *client, QWidget *parent = nullptr);
+    FrostbiteConsoleWidget(FrostbiteClient *client, const QStringList &commandList, QWidget *parent = nullptr);
+    ~FrostbiteConsoleWidget() final;
 
 private:
-    Ui::ConsoleWidget *ui;
+    Ui::FrostbiteConsoleWidget *ui;
 
     QStringList commandHistory;
     bool commandHistoryFirst;
@@ -50,13 +49,15 @@ private:
     void logConsole(int type, const QString &message);
 
 private slots:
-    /* Events */
-    void onDisconnected(QAbstractSocket *socket);
+    /* Connection */
+    void onDisconnected();
     void onDataSent(const QString &request);
     void onDataReceived(const QString &response);
 
-    /* Commands */
-    void onLoginHashedCommand(bool auth);
+    /* Client */
+    void onAuthenticated();
+
+    /* Events */
     void onPunkBusterMessageEvent(const QString &message);
 
     /* User Interface */
@@ -67,4 +68,4 @@ private slots:
 
 };
 
-#endif // CONSOLEWIDGET_H
+#endif // FROSTBITECONSOLEWIDGET_H

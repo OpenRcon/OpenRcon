@@ -24,10 +24,10 @@
 #include "ui_Frostbite2MainWidget.h"
 
 #include "FrostbiteEventsWidget.h"
-#include "ChatWidget.h"
+#include "FrostbiteChatWidget.h"
 #include "BanListWidget.h"
 #include "ReservedSlotsWidget.h"
-#include "ConsoleWidget.h"
+#include "FrostbiteConsoleWidget.h"
 #include "Time.h"
 
 Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *parent) :
@@ -49,10 +49,10 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
 
     // Create tabs from widgets.
     eventsWidget = new FrostbiteEventsWidget(getClient(), this);
-    chatWidget = new ChatWidget(getClient(), this);
+    chatWidget = new FrostbiteChatWidget(getClient(), this);
     banListWidget = new BanListWidget(getClient(), this);
     reservedSlotsWidget = new ReservedSlotsWidget(getClient(), this);
-    consoleWidget = new ConsoleWidget(getClient(), commandList, this);
+    consoleWidget = new FrostbiteConsoleWidget(getClient(), commandList, this);
 
     ui->tabWidget->addTab(eventsWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
     ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));

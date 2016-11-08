@@ -22,13 +22,13 @@
 
 #include "BF4PlayerListWidget.h"
 #include "FrostbiteEventsWidget.h"
-#include "ChatWidget.h"
+#include "FrostbiteChatWidget.h"
 #include "BF4OptionsWidget.h"
 #include "BF4MapListWidget.h"
 #include "BanListWidget.h"
 #include "ReservedSlotsWidget.h"
 #include "BF4SpectatorSlotsWidget.h"
-#include "ConsoleWidget.h"
+#include "FrostbiteConsoleWidget.h"
 
 #include "BF4ServerInfo.h"
 #include "BF4LevelDictionary.h"

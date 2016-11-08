@@ -17,75 +17,76 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QString>
 #include <QDateTime>
 
-#include "ChatWidget.h"
-#include "ui_ChatWidget.h"
+#include "FrostbiteChatWidget.h"
+#include "ui_FrostbiteChatWidget.h"
+
 #include "BFBC2CommandHandler.h"
 #include "Frostbite2CommandHandler.h"
 #include "PlayerSubset.h"
 
-ChatWidget::ChatWidget(FrostbiteClient *client, QWidget *parent) :
+FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *parent) :
     FrostbiteWidget(client, parent),
-    ui(new Ui::ChatWidget)
+    ui(new Ui::FrostbiteChatWidget)
 {
     ui->setupUi(this);
 
-    /* Events */
-    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent, this, &ChatWidget::onPlayerChatEvent);
+    /* Client */
+    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                                      this, &FrostbiteChatWidget::onAuthenticated);
 
-    /* Commands */
-    connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand), this, &ChatWidget::onLoginHashedCommand);
+    /* Events */
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent,                            this, &FrostbiteChatWidget::onPlayerChatEvent);
 
     /* User Interface */
-    connect(ui->comboBox_mode,    static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ChatWidget::comboBox_mode_currentIndexChanged);
-    connect(ui->spinBox_duration, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),          this, &ChatWidget::spinBox_duration_valueChanged);
-    connect(ui->pushButton_send,  &QPushButton::clicked,                                                  this, &ChatWidget::pushButton_send_clicked);
-    connect(ui->lineEdit,         &QLineEdit::editingFinished,                                            this, &ChatWidget::pushButton_send_clicked);
+    connect(ui->comboBox_mode,                static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &FrostbiteChatWidget::comboBox_mode_currentIndexChanged);
+    connect(ui->spinBox_duration,             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),          this, &FrostbiteChatWidget::spinBox_duration_valueChanged);
+    connect(ui->pushButton_send,              &QPushButton::clicked,                                                  this, &FrostbiteChatWidget::pushButton_send_clicked);
+    connect(ui->lineEdit,                     &QLineEdit::editingFinished,                                            this, &FrostbiteChatWidget::pushButton_send_clicked);
 }
 
-ChatWidget::~ChatWidget()
+FrostbiteChatWidget::~FrostbiteChatWidget()
 {
     delete ui;
 }
 
-void ChatWidget::logChat(const QString &sender, const QString &message, const QString &target)
+void FrostbiteChatWidget::logChat(const QString &sender, const QString &message, const QString &target)
 {
     ui->textEdit->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
 }
 
+/* Client */
+void FrostbiteChatWidget::onAuthenticated()
+{
+    BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(getClient()->getCommandHandler());
+    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
+
+    if (bfbc2CommandHandler) {
+        bfbc2CommandHandler->sendEventsEnabledCommand(true);
+    } else if (frostbite2CommandHandler) {
+        frostbite2CommandHandler->sendAdminEventsEnabledCommand(true);
+    }
+}
+
 /* Events */
-void ChatWidget::onPlayerChatEvent(const QString &sender, const QString &message, const QString &target)
+void FrostbiteChatWidget::onPlayerChatEvent(const QString &sender, const QString &message, const QString &target)
 {
     logChat(sender, message, target);
 }
 
-/* Commands */
-void ChatWidget::onLoginHashedCommand(bool auth)
-{
-    if (auth) {
-        if (dynamic_cast<BFBC2CommandHandler*>(this)) {
-            BFBC2CommandHandler *commandHandler = dynamic_cast<BFBC2CommandHandler*>(getClient()->getCommandHandler());
-            commandHandler->sendEventsEnabledCommand(true);
-        } else if (dynamic_cast<Frostbite2CommandHandler*>(this)) {
-            Frostbite2CommandHandler *commandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
-            commandHandler->sendAdminEventsEnabledCommand(true);
-        }
-    }
-}
-
 /* User Interface */
-void ChatWidget::comboBox_mode_currentIndexChanged(int index)
+void FrostbiteChatWidget::comboBox_mode_currentIndexChanged(int index)
 {
     ui->spinBox_duration->setEnabled(index > 0);
 }
 
-void ChatWidget::spinBox_duration_valueChanged(int index)
+void FrostbiteChatWidget::spinBox_duration_valueChanged(int index)
 {
     ui->label_duration->setText(index > 1 ? tr("Seconds") : tr("Second"));
 }
 
-void ChatWidget::pushButton_send_clicked()
+void FrostbiteChatWidget::pushButton_send_clicked()
 {
     QString message = ui->lineEdit->text();
     int target = ui->comboBox_target->currentIndex();

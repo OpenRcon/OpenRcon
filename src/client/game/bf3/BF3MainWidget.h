@@ -27,10 +27,10 @@ class QAbstractSocket;
 class QString;
 
 class FrostbiteEventsWidget;
-class ChatWidget;
+class FrostbiteChatWidget;
 class BanListWidget;
 class ReservedSlotsWidget;
-class ConsoleWidget;
+class FrostbiteConsoleWidget;
 
 namespace Ui {
     class Frostbite2MainWidget;
@@ -48,10 +48,10 @@ private:
     Ui::Frostbite2MainWidget *ui;
 
     FrostbiteEventsWidget *eventsWidget;
-    ChatWidget *chatWidget;
+    FrostbiteChatWidget *chatWidget;
     BanListWidget *banListWidget;
     ReservedSlotsWidget *reservedSlotsWidget;
-    ConsoleWidget *consoleWidget;
+    FrostbiteConsoleWidget *consoleWidget;
 
     /* User Interface */
     // ServerInfo

@@ -3,19 +3,19 @@ DEPENDPATH += $$PWD
 
 HEADERS += $$PWD/FrostbiteWidget.h \
     $$PWD/FrostbiteEventsWidget.h \
-    $$PWD/ChatWidget.h \
     $$PWD/BanListWidget.h \
-    $$PWD/ConsoleWidget.h
+    $$PWD/FrostbiteConsoleWidget.h \
+    $$PWD/FrostbiteChatWidget.h
 
 SOURCES += $$PWD/FrostbiteWidget.cpp \
     $$PWD/FrostbiteEventsWidget.cpp \
-    $$PWD/ChatWidget.cpp \
     $$PWD/BanListWidget.cpp \
-    $$PWD/ConsoleWidget.cpp
+    $$PWD/FrostbiteConsoleWidget.cpp \
+    $$PWD/FrostbiteChatWidget.cpp
 
 FORMS += $$PWD/FrostbiteEventsWidget.ui \
-    $$PWD/ChatWidget.ui \
     $$PWD/BanListWidget.ui \
-    $$PWD/ConsoleWidget.ui
+    $$PWD/FrostbiteConsoleWidget.ui \
+    $$PWD/FrostbiteChatWidget.ui
 
 RESOURCES += $$PWD/Frostbite.qrc
