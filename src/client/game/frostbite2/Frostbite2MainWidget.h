@@ -45,42 +45,41 @@ public:
     virtual ~Frostbite2MainWidget() override;
 
 protected:
+    /* User Interface */
     Ui::Frostbite2MainWidget *ui;
-
-    /* User Interface */
-    // Server Information
-    int roundTime;
-    int upTime;
-
-protected slots:
-    /* User Interface */
-    // Server Information
-    void updateRoundTime();
-    void updateUpTime();
-
-private:
     EventsWidget *eventsWidget;
     ChatWidget *chatWidget;
     BanListWidget *banListWidget;
     ReservedSlotsWidget *reservedSlotsWidget;
     ConsoleWidget *consoleWidget;
 
+    // Server Information
+    int roundTime;
+    int upTime;
+
+protected slots:
+    /* Connection */
+    virtual void onConnected();
+    virtual void onDisconnected();
+
+    /* Client */
+    virtual void onAuthenticated();
+
+    /* User Interface */
+    // Server Information
+    void updateRoundTime();
+    void updateUpTime();
+
+private:
     /* User Interface */
     // Server Information
     QTimer *timerServerInfoRoundTime;
     QTimer *timerServerInfoUpTime;
 
-    void setAuthenticated(bool auth);
-    void startupCommands(bool auth);
-
 private slots:
-    /* Events */
-    void onConnected(QAbstractSocket *socket);
-    void onDisconnected(QAbstractSocket *socket);
-
     /* Commands */
     // Misc
-    void onLoginHashedCommand(bool auth);
+    void onLoginHashedCommand(bool authenticated);
     void onVersionCommand(const QString &type, int build);
 
     // Admin

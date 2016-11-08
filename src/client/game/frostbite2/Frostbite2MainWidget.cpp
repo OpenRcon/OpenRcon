@@ -59,10 +59,12 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
     ui->tabWidget->addTab(banListWidget, QIcon(":/frostbite/icons/ban.png"), tr("Banlist"));
     ui->tabWidget->addTab(reservedSlotsWidget, QIcon(":/frostbite/icons/reserved.png"), tr("Reserved Slots"));
     ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
-
-    /* Connection */
-    connect(client->getConnection(), &Connection::onConnected,                                     this, &Frostbite2MainWidget::onConnected);
-    connect(client->getConnection(), &Connection::onDisconnected,                                  this, &Frostbite2MainWidget::onDisconnected);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
+    ui->tabWidget->setCurrentIndex(0);
 
     /* Events */
     connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,        &Frostbite2CommandHandler::sendServerInfoCommand);
@@ -73,7 +75,7 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
     // Misc
     connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this, &Frostbite2MainWidget::onLoginHashedCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,         this, &Frostbite2MainWidget::onVersionCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,   this, &Frostbite2MainWidget::onVersionCommand);
 
     // Admin
 
@@ -89,8 +91,8 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
 
     /* User Interface */
     // Server Information
-    connect(ui->pushButton_si_restartRound, &QPushButton::clicked, this, &Frostbite2MainWidget::pushButton_si_restartRound_clicked);
-    connect(ui->pushButton_si_runNextRound, &QPushButton::clicked, this, &Frostbite2MainWidget::pushButton_si_runNextRound_clicked);
+    connect(ui->pushButton_si_restartRound,   &QPushButton::clicked,                         this, &Frostbite2MainWidget::pushButton_si_restartRound_clicked);
+    connect(ui->pushButton_si_runNextRound,   &QPushButton::clicked,                         this, &Frostbite2MainWidget::pushButton_si_runNextRound_clicked);
 }
 
 Frostbite2MainWidget::~Frostbite2MainWidget()
@@ -98,61 +100,37 @@ Frostbite2MainWidget::~Frostbite2MainWidget()
     delete ui;
 }
 
-void Frostbite2MainWidget::setAuthenticated(bool auth)
-{
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), auth);
-    ui->tabWidget->setCurrentIndex(0);
-
-    startupCommands(auth);
-}
-
-void Frostbite2MainWidget::startupCommands(bool auth)
-{
-    // Misc
-    getClient()->getCommandHandler()->sendVersionCommand();
-    getClient()->getCommandHandler()->sendServerInfoCommand();
-
-    if (auth) {
-        getClient()->getCommandHandler()->sendAdminEventsEnabledCommand(true);
-    }
-}
-
 /* Connection */
-void Frostbite2MainWidget::onConnected(QAbstractSocket *socket)
+void Frostbite2MainWidget::onConnected()
 {
-    Q_UNUSED(socket);
-
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), true);
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), true);
-
-    setAuthenticated(false);
 }
 
-void Frostbite2MainWidget::onDisconnected(QAbstractSocket *socket)
+void Frostbite2MainWidget::onAuthenticated()
 {
-    Q_UNUSED(socket);
-
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
-
-    setAuthenticated(false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), true);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), true);
 }
 
-/* Events */
+void Frostbite2MainWidget::onDisconnected()
+{
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), false);
+    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
+}
 
 /* Commands */
 // Misc
-void Frostbite2MainWidget::onLoginHashedCommand(bool auth)
+void Frostbite2MainWidget::onLoginHashedCommand(bool authenticated)
 {
-    if (auth) {
-        // Call commands on startup.
-        setAuthenticated(true);
-    } else {
-        int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
+    if (!authenticated) {
+        int result = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
 
-        if (ret) {
+        if (result) {
             client->getConnection()->hostDisconnect();
         }
     }
@@ -182,18 +160,18 @@ void Frostbite2MainWidget::onVersionCommand(const QString &type, int build)
 // ServerInfo
 void Frostbite2MainWidget::pushButton_si_restartRound_clicked()
 {
-    int ret = QMessageBox::question(this, tr("Restart round"), tr("Are you sure you want to restart the round?"));
+    int result = QMessageBox::question(this, tr("Restart round"), tr("Are you sure you want to restart the round?"));
 
-    if (ret == QMessageBox::Yes) {
+    if (result == QMessageBox::Yes) {
         getClient()->getCommandHandler()->sendMapListRestartRoundCommand();
     }
 }
 
 void Frostbite2MainWidget::pushButton_si_runNextRound_clicked()
 {
-    int ret = QMessageBox::question(this, tr("Run next round"), tr("Are you sure you want to run the next round?"));
+    int result = QMessageBox::question(this, tr("Run next round"), tr("Are you sure you want to run the next round?"));
 
-    if (ret == QMessageBox::Yes) {
+    if (result == QMessageBox::Yes) {
         getClient()->getCommandHandler()->sendMapListRunNextRoundCommand();
     }
 }
