@@ -20,8 +20,14 @@
 #include <QString>
 
 #include "ServerEntry.h"
+#include "GameType.h"
 
-ServerEntry::ServerEntry(GameType gameType, const QString &name, const QString &host, int port, const QString &password, bool autoConnect) :
+ServerEntry::ServerEntry()
+{
+
+}
+
+ServerEntry::ServerEntry(GameTypeEnum gameType, const QString &name, const QString &host, int port, const QString &password, bool autoConnect) :
     gameType(gameType),
     name(name),
     host(host),
@@ -32,17 +38,12 @@ ServerEntry::ServerEntry(GameType gameType, const QString &name, const QString &
 
 }
 
-ServerEntry::ServerEntry()
-{
-
-}
-
 ServerEntry::~ServerEntry()
 {
 
 }
 
-GameType ServerEntry::getGameType() const
+GameTypeEnum ServerEntry::getGameType() const
 {
     return gameType;
 }

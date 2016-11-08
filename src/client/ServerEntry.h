@@ -22,18 +22,18 @@
 
 #include <QMetaType>
 
-#include "GameType.h"
-
 class QString;
+
+enum class GameTypeEnum;
 
 class ServerEntry
 {
 public:
-    ServerEntry(GameType gameType, const QString &name, const QString &host, int port, const QString &password, bool autoConnect);
     ServerEntry();
+    ServerEntry(GameTypeEnum gameType, const QString &name, const QString &host, int port, const QString &password, bool autoConnect);
     ~ServerEntry();
 
-    GameType getGameType() const;
+    GameTypeEnum getGameType() const;
     QString getName() const;
     QString getHost() const;
     int getPort() const;
@@ -42,7 +42,7 @@ public:
     void setAutoConnect(bool autoConnect);
 
 private:
-    GameType gameType;
+    GameTypeEnum gameType;
     QString name;
     QString host;
     int port;

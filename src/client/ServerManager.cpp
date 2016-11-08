@@ -62,7 +62,7 @@ void ServerManager::readSettings()
             int gameIndex = settings->value("game").toInt();
 
             if (GameManager::isGameSupported(gameIndex)) {
-                ServerEntry *entry = new ServerEntry(
+                ServerEntry *serverEntry = new ServerEntry(
                     GameManager::toGameType(gameIndex),
                     settings->value("name").toString(),
                     settings->value("host").toString(),
@@ -71,7 +71,7 @@ void ServerManager::readSettings()
                     settings->value("autoconnect").toBool()
                 );
 
-                serverList.append(entry);
+                serverList.append(serverEntry);
             } else {
                 qDebug() << tr("Tried to load server belonging to unsupported game type, removing...");
             }
@@ -91,13 +91,13 @@ void ServerManager::writeSettings()
             for (int i = 0; i < size; i++) {
                 settings->setArrayIndex(i);
 
-                ServerEntry *entry = serverList.at(i);
-                settings->setValue("game", GameManager::toInt(entry->getGameType()));
-                settings->setValue("name", entry->getName());
-                settings->setValue("host", entry->getHost());
-                settings->setValue("port", entry->getPort());
-                settings->setValue("password", entry->getPassword());
-                settings->setValue("autoconnect", entry->getAutoConnect());
+                ServerEntry *serverEntry = serverList.at(i);
+                settings->setValue("game", GameManager::toInt(serverEntry->getGameType()));
+                settings->setValue("name", serverEntry->getName());
+                settings->setValue("host", serverEntry->getHost());
+                settings->setValue("port", serverEntry->getPort());
+                settings->setValue("password", serverEntry->getPassword());
+                settings->setValue("autoconnect", serverEntry->getAutoConnect());
             }
         settings->endArray();
     settings->endGroup();
@@ -127,13 +127,13 @@ QList<ServerEntry*> ServerManager::getServers() const
     return serverList;
 }
 
-QList<ServerEntry*> ServerManager::getServers(GameType gameType) const
+QList<ServerEntry*> ServerManager::getServers(GameTypeEnum gameType) const
 {
-    QList<ServerEntry *> list;
+    QList<ServerEntry*> list;
 
-    for (ServerEntry *entry : serverList) {
-        if (entry->getGameType() == gameType) {
-            list.append(entry);
+    for (ServerEntry *serverEntry : serverList) {
+        if (serverEntry->getGameType() == gameType) {
+            list.append(serverEntry);
         }
     }
 

@@ -30,6 +30,7 @@
 #include "BF4GameModeEntry.h"
 #include "FrostbiteUtils.h"
 #include "ServerEntry.h"
+#include "GameType.h"
 
 EventsWidget::EventsWidget(Frostbite2Client *client, QWidget *parent) :
     Frostbite2Widget(client, parent),
@@ -180,10 +181,10 @@ void EventsWidget::onServerLevelLoadedEvent(const QString &levelName, const QStr
     LevelEntry level;
     GameModeEntry gameMode;
 
-    if (serverEntry.getGameType() == GameType::BF3) {
+    if (serverEntry.getGameType() == GameTypeEnum::BF3) {
         level = BF3LevelDictionary::getLevel(levelName);
         gameMode = BF3LevelDictionary::getGameMode(gameModeName);
-    } else if (serverEntry.getGameType() == GameType::BF4) {
+    } else if (serverEntry.getGameType() == GameTypeEnum::BF4) {
         level = BF4LevelDictionary::getLevel(levelName);
         gameMode = BF4LevelDictionary::getGameMode(gameModeName);
     }

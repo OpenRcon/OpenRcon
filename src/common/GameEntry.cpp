@@ -28,7 +28,7 @@ GameEntry::GameEntry()
 
 }
 
-GameEntry::GameEntry(GameType gameType,
+GameEntry::GameEntry(GameTypeEnum gameType,
           const QString &prefix,
           const QString &name,
           const QString &icon,
@@ -47,7 +47,7 @@ GameEntry::~GameEntry()
 
 }
 
-GameType GameEntry::getGameType() const
+GameTypeEnum GameEntry::getGameType() const
 {
     return gameType;
 }

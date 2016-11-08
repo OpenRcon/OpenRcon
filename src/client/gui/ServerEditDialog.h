@@ -24,7 +24,7 @@
 
 class QString;
 
-enum class GameType;
+enum class GameTypeEnum;
 
 namespace Ui {
     class ServerEditDialog;
@@ -40,7 +40,7 @@ public:
     ServerEditDialog(int index, const QString &name = 0, const QString &host = 0, int port = 0, const QString &password = 0, bool autoConnect = false, QWidget *parent = nullptr);
     ~ServerEditDialog();
 
-    GameType getGameType() const;
+    GameTypeEnum getGameType() const;
     QString getName() const;
     QString getHost() const;
     int getPort() const;

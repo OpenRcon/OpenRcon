@@ -40,6 +40,7 @@
 #include "ServerEntry.h"
 #include "GameManager.h"
 #include "GameEntry.h"
+#include "GameType.h"
 
 #include "ServerEditDialog.h"
 
@@ -156,7 +157,7 @@ void ServerListDialog::action_gameEntry_add_triggered()
         QTreeWidgetItem *item = ui->treeWidget->currentItem();
 
         if (!item->parent()) {
-            addItem(GameManager::toInt(item->data(0, Qt::UserRole).value<GameType>()));
+            addItem(GameManager::toInt(item->data(0, Qt::UserRole).value<GameTypeEnum>()));
         }
     }
 }

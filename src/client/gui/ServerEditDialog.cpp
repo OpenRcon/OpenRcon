@@ -17,7 +17,6 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QWidget>
 #include <QComboBox>
 #include <QLineEdit>
 #include <QSpinBox>
@@ -128,7 +127,7 @@ void ServerEditDialog::accept()
     QDialog::accept();
 }
 
-GameType ServerEditDialog::getGameType() const
+GameTypeEnum ServerEditDialog::getGameType() const
 {
     return GameManager::toGameType(ui->comboBox_game->currentIndex());
 }

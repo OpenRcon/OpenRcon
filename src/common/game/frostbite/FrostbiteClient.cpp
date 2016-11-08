@@ -19,6 +19,7 @@
 
 #include "FrostbiteClient.h"
 #include "ServerEntry.h"
+#include "GameType.h"
 
 FrostbiteClient::FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandler *commandHandler, QObject *parent) :
     Client(serverEntry, parent),
@@ -87,7 +88,7 @@ void FrostbiteClient::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(build);
 
-    if (GameTypeUtils::fromString(type) != serverEntry->getGameType()) {
+    if (GameType::fromString(type) != serverEntry->getGameType()) {
         disconnectFromHost();
 
         qDebug() << tr("Wrong server type, disconnecting...");

@@ -31,7 +31,7 @@ template<class T>
 class QList;
 
 class ServerEntry;
-enum class GameType;
+enum class GameTypeEnum;
 
 class ServerManager : public QObject
 {
@@ -48,7 +48,7 @@ public:
     void setServers(const QList<ServerEntry *> &list);
 
     QList<ServerEntry*> getServers() const;
-    QList<ServerEntry*> getServers(GameType gameType) const;
+    QList<ServerEntry*> getServers(GameTypeEnum gameType) const;
 
     void addServer(ServerEntry *serverEntry);
     void removeServer(int index);

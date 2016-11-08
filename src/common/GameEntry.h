@@ -23,27 +23,27 @@
 class QString;
 class QIcon;
 
-enum class GameType;
+enum class GameTypeEnum;
 
 class GameEntry
 {
 public:
     GameEntry();
-    GameEntry(GameType gameType,
+    GameEntry(GameTypeEnum gameType,
               const QString &prefix,
               const QString &name,
               const QString &icon,
               int defaultPort);
     ~GameEntry();
 
-    GameType getGameType() const;
+    GameTypeEnum getGameType() const;
     QString getPrefix() const;
     QString getName() const;
     QIcon getIcon() const;
     int getDefaultPort() const;
 
 private:
-    GameType gameType;
+    GameTypeEnum gameType;
     QString prefix;
     QString name;
     QString icon;
