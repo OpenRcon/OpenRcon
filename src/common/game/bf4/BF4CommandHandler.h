@@ -24,10 +24,8 @@
 
 class QStringList;
 
-enum class PlayerSubsetEnum;
 enum class BF4PresetEnum;
 enum class BF4ServerTypeEnum;
-class PlayerInfo;
 
 class BF4CommandHandler : public Frostbite2CommandHandler
 {

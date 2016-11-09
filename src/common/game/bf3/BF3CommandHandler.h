@@ -25,7 +25,6 @@
 class QStringList;
 
 enum class PlayerSubsetEnum;
-class PlayerInfo;
 
 class BF3CommandHandler : public Frostbite2CommandHandler
 {

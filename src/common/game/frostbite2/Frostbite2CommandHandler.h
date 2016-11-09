@@ -22,7 +22,8 @@
 
 #include "FrostbiteCommandHandler.h"
 
-class Player;
+class Frostbite2PlayerEntry;
+class BF4PlayerEntry;
 
 class Frostbite2CommandHandler : public FrostbiteCommandHandler
 {
@@ -120,7 +121,7 @@ public slots:
     //vars.gunMasterWeaponsPreset <index>
 
 protected:
-    QList<Player> parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+    QList<Frostbite2PlayerEntry> parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
 private:
     /* Parse events */
@@ -206,12 +207,14 @@ signals:
     /* Command signals */
     // Misc
     void onCurrentLevelCommand(const QString &levelName);
-    void onListPlayersCommand(const QList<Player> &playerList);
+    void onListPlayersCommand(const QList<Frostbite2PlayerEntry> &playerList);
+    void onListPlayersCommand(const QList<BF4PlayerEntry> &playerList);
 
     // Admin
     void onAdminEventsEnabledCommand(bool enabled);
     void onAdminHelpCommand(const QStringList &commandList);
-    void onAdminListPlayersCommand(const QList<Player> &playerList);
+    void onAdminListPlayersCommand(const QList<Frostbite2PlayerEntry> &playerList);
+    void onAdminListPlayersCommand(const QList<BF4PlayerEntry> &playerList);
     void onAdminPasswordCommand(const QString &password);
 
     // Banning

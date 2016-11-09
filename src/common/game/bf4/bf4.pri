@@ -8,7 +8,8 @@ HEADERS += $$PWD/BF4Client.h \
     $$PWD/BF4ServerInfo.h \
     $$PWD/BF4Preset.h \
     $$PWD/BF4WeaponDictionary.h \
-    $$PWD/BF4ServerType.h
+    $$PWD/BF4ServerType.h \
+    $$PWD/BF4PlayerEntry.h
 
 SOURCES += $$PWD/BF4Client.cpp \
     $$PWD/BF4CommandHandler.cpp \
@@ -17,4 +18,5 @@ SOURCES += $$PWD/BF4Client.cpp \
     $$PWD/BF4ServerInfo.cpp \
     $$PWD/BF4Preset.cpp \
     $$PWD/BF4WeaponDictionary.cpp \
-    $$PWD/BF4ServerType.cpp
+    $$PWD/BF4ServerType.cpp \
+    $$PWD/BF4PlayerEntry.cpp

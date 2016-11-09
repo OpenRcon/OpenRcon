@@ -37,7 +37,7 @@ class QPoint;
 
 class Frostbite2Client;
 class Frostbite2ServerInfo;
-class Player;
+class BF4PlayerEntry;
 
 class BF4PlayerListWidget : public QTreeWidget
 {
@@ -79,7 +79,7 @@ private slots:
 
     /* Commands */
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
-    void onListPlayersCommand(const QList<Player> &playerList);
+    void onListPlayersCommand(const QList<BF4PlayerEntry> &playerList);
 
     /* User Interface */
     void customContextMenuRequested(const QPoint &pos);

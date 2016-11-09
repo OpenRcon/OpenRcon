@@ -17,78 +17,62 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QString>
+#include "FrostbitePlayerEntry.h"
 
-#include "Player.h"
-
-Player::Player(const QString &name,
+FrostbitePlayerEntry::FrostbitePlayerEntry(const QString &name,
                        const QString &guid,
                        int teamId,
                        int squadId,
                        int kills,
                        int deaths,
-                       int score,
-                       int rank,
-                       int ping) :
+                       int score) :
     name(name),
     guid(guid),
     teamId(teamId),
     squadId(squadId),
     kills(kills),
     deaths(deaths),
-    score(score),
-    rank(rank),
-    ping(ping)
+    score(score)
 {
 
 }
 
-Player::~Player()
+FrostbitePlayerEntry::~FrostbitePlayerEntry()
 {
 
 }
 
-QString Player::getName() const
+QString FrostbitePlayerEntry::getName() const
 {
     return name;
 }
 
-QString Player::getGuid() const
+QString FrostbitePlayerEntry::getGuid() const
 {
     return guid;
 }
 
-int Player::getTeamId() const
+int FrostbitePlayerEntry::getTeamId() const
 {
     return teamId;
 }
 
-int Player::getSquadId() const
+int FrostbitePlayerEntry::getSquadId() const
 {
     return squadId;
 }
 
-int Player::getKills() const
+int FrostbitePlayerEntry::getKills() const
 {
     return kills;
 }
 
-int Player::getDeaths() const
+int FrostbitePlayerEntry::getDeaths() const
 {
     return deaths;
 }
 
-int Player::getScore() const
+int FrostbitePlayerEntry::getScore() const
 {
     return score;
-}
-
-int Player::getRank() const
-{
-    return rank;
-}
-
-int Player::getPing() const
-{
-    return ping;
 }

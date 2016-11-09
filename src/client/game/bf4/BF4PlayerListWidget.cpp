@@ -32,7 +32,7 @@
 #include "ServerEntry.h"
 #include "FrostbiteUtils.h"
 #include "Frostbite2ServerInfo.h"
-#include "Player.h"
+#include "BF4PlayerEntry.h"
 #include "PlayerSubset.h"
 #include "BanIdType.h"
 #include "BanType.h"
@@ -112,8 +112,11 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
     /* Commands */
     connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
             this, &BF4PlayerListWidget::onServerInfoCommand);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onListPlayersCommand,      this, &BF4PlayerListWidget::onListPlayersCommand);
-    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onAdminListPlayersCommand, this, &BF4PlayerListWidget::onListPlayersCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const QList<Frostbite2PlayerEntry>&)>(&Frostbite2CommandHandler::onListPlayersCommand), this, &BF4PlayerListWidget::onListPlayersCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const QList<Frostbite2PlayerEntry>&)>(&Frostbite2CommandHandler::onAdminListPlayersCommand), this, &BF4PlayerListWidget::onListPlayersCommand);
+
+    //connect(client->getCommandHandler(), &Frostbite2CommandHandler::onListPlayersCommand,      this, &BF4PlayerListWidget::onListPlayersCommand);
+    //connect(client->getCommandHandler(), &Frostbite2CommandHandler::onAdminListPlayersCommand, this, &BF4PlayerListWidget::onListPlayersCommand);
 
     /* User Interface */
     connect(this,                        &QTreeWidget::customContextMenuRequested,             this, &BF4PlayerListWidget::customContextMenuRequested);
@@ -197,7 +200,7 @@ void BF4PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &server
     currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
 }
 
-void BF4PlayerListWidget::onListPlayersCommand(const QList<Player> &playerList)
+void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &playerList)
 {
     // Clear the QTreeWidget and item.
     clear();
@@ -207,24 +210,24 @@ void BF4PlayerListWidget::onListPlayersCommand(const QList<Player> &playerList)
     QSet<int> teamIdList;
 
     // Create player items and adding them to the list.
-    for (Player player : playerList) {
+    for (BF4PlayerEntry playerEntry : playerList) {
         QTreeWidgetItem *playerItem = new QTreeWidgetItem();
-        playerItem->setData(0, Qt::UserRole, player.getTeamId());
-        playerItem->setIcon(0, FrostbiteUtils::getRankIcon(client->getServerEntry()->getGameType(), player.getRank()));
-        playerItem->setText(0, player.getName());
-        playerItem->setToolTip(0, tr("Rank %1").arg(player.getRank()));
-        playerItem->setData(1, Qt::UserRole, player.getSquadId());
-        playerItem->setText(1, FrostbiteUtils::getSquadName(player.getSquadId()));
-        playerItem->setText(2, QString::number(player.getKills()));
-        playerItem->setText(3, QString::number(player.getDeaths()));
-        playerItem->setText(4, QString::number(player.getScore()));
-        playerItem->setText(5, QString::number(player.getPing()));
-        playerItem->setText(6, player.getGuid());
-        playerItem->setText(7, QString::number(player.getDeaths() <= 0 ? (double) player.getKills() : (double) player.getKills() / (double) player.getDeaths(), 'f', 2));
+        playerItem->setData(0, Qt::UserRole, playerEntry.getTeamId());
+        playerItem->setIcon(0, FrostbiteUtils::getRankIcon(client->getServerEntry()->getGameType(), playerEntry.getRank()));
+        playerItem->setText(0, playerEntry.getName());
+        playerItem->setToolTip(0, tr("Rank %1").arg(playerEntry.getRank()));
+        playerItem->setData(1, Qt::UserRole, playerEntry.getSquadId());
+        playerItem->setText(1, FrostbiteUtils::getSquadName(playerEntry.getSquadId()));
+        playerItem->setText(2, QString::number(playerEntry.getKills()));
+        playerItem->setText(3, QString::number(playerEntry.getDeaths()));
+        playerItem->setText(4, QString::number(playerEntry.getScore()));
+        playerItem->setText(5, QString::number(playerEntry.getPing()));
+        playerItem->setText(6, playerEntry.getGuid());
+        playerItem->setText(7, QString::number(playerEntry.getDeaths() <= 0 ? (double) playerEntry.getKills() : (double) playerEntry.getKills() / (double) playerEntry.getDeaths(), 'f', 2));
 
         // Add player item and team id to lists.
         playerItemList.insert(playerItem);
-        teamIdList.insert(player.getTeamId());
+        teamIdList.insert(playerEntry.getTeamId());
     }
 
     for (int teamId = 0; teamId <= 2; teamId++) {

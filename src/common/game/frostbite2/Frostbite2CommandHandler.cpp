@@ -30,7 +30,7 @@
 #include "Frostbite2ServerInfo.h"
 #include "BF3ServerInfo.h"
 #include "BF4ServerInfo.h"
-#include "Player.h"
+#include "BF4PlayerEntry.h"
 
 Frostbite2CommandHandler::Frostbite2CommandHandler(QObject *parent) :
     FrostbiteCommandHandler(parent)
@@ -618,10 +618,15 @@ void Frostbite2CommandHandler::sendVarsVehicleSpawnDelayCommand(int percent)
     connection->sendCommand(command);
 }
 
-QList<Player> Frostbite2CommandHandler::parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+QList<Frostbite2PlayerEntry> Frostbite2CommandHandler::parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     QString response = packet.getWord(0).getContent();
-    QList<Player> playerList;
+    QList<Frostbite2PlayerEntry> playerList;
+
+    // BF4 Only.
+    if (dynamic_cast<BF4CommandHandler*>(this)) {
+        QList<BF4PlayerEntry> playerList;
+    }
 
     if (response == "OK" && lastSentPacket.getWordCount() > 1) {
         int parameters = QString(packet.getWord(1).getContent()).toInt();
@@ -642,9 +647,16 @@ QList<Player> Frostbite2CommandHandler::parsePlayerList(const FrostbiteRconPacke
             int deaths = FrostbiteUtils::toInt(list.at(5));
             int score = FrostbiteUtils::toInt(list.at(6));
             int rank = FrostbiteUtils::toInt(list.at(7));
-            int ping = FrostbiteUtils::toInt(list.at(8));
 
-            playerList.append(Player(name, guid, teamId, squadId, kills, deaths, score, rank, ping));
+            // BF4 Only.
+            if (dynamic_cast<BF4CommandHandler*>(this)) {
+                int ping = FrostbiteUtils::toInt(list.at(8));
+                int type = FrostbiteUtils::toInt(list.at(9));
+
+                playerList.append(BF4PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank, ping, type));
+            } else {
+                playerList.append(Frostbite2PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank));
+            }
         }
     }
 

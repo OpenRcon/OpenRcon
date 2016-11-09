@@ -22,7 +22,6 @@
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteUtils.h"
 #include "PlayerSubset.h"
-#include "Player.h"
 
 BF3CommandHandler::BF3CommandHandler(QObject *parent) :
     Frostbite2CommandHandler(parent)

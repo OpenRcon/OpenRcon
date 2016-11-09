@@ -23,7 +23,8 @@ HEADERS += $$PWD/FrostbiteClient.h \
     $$PWD/FrostbiteRconPacketOrigin.h \
     $$PWD/FrostbiteRconPacketType.h \
     $$PWD/BanType.h \
-    $$PWD/BanIdType.h
+    $$PWD/BanIdType.h \
+    $$PWD/FrostbitePlayerEntry.h
 
 SOURCES += $$PWD/FrostbiteClient.cpp \
     $$PWD/FrostbiteConnection.cpp \
@@ -43,4 +44,5 @@ SOURCES += $$PWD/FrostbiteClient.cpp \
     $$PWD/TeamScores.cpp \
     $$PWD/Time.cpp \
     $$PWD/BanType.cpp \
-    $$PWD/BanIdType.cpp
+    $$PWD/BanIdType.cpp \
+    $$PWD/FrostbitePlayerEntry.cpp

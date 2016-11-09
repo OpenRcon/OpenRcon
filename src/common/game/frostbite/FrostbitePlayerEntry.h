@@ -17,24 +17,22 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef FROSTBITEPLAYERENTRY_H
+#define FROSTBITEPLAYERENTRY_H
 
-class QString;
+#include <QString>
 
-class Player
+class FrostbitePlayerEntry
 {
 public:
-    Player(const QString &name,
-               const QString &guid,
-               int teamId,
-               int squadId,
-               int kills,
-               int deaths,
-               int score,
-               int rank,
-               int ping);
-    ~Player();
+    FrostbitePlayerEntry(const QString &name,
+                         const QString &guid,
+                         int teamId,
+                         int squadId,
+                         int kills,
+                         int deaths,
+                         int score);
+    ~FrostbitePlayerEntry();
 
     QString getName() const;
     QString getGuid() const;
@@ -43,8 +41,6 @@ public:
     int getKills() const;
     int getDeaths() const;
     int getScore() const;
-    int getRank() const;
-    int getPing() const;
 
 private:
     QString name;
@@ -54,9 +50,7 @@ private:
     int kills;
     int deaths;
     int score;
-    int rank;
-    int ping;
 
 };
 
-#endif // PLAYER_H
+#endif // FROSTBITEPLAYERENTRY_H
