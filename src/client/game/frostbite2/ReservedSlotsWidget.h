@@ -49,9 +49,6 @@ private:
     QAction *action_rs_reservedSlotsList_remove;
 
 private slots:
-    /* Client */
-    void onAuthenticated();
-
     /* Commands */
     void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
 
