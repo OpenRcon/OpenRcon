@@ -151,10 +151,17 @@ void FrostbiteEventsWidget::onPlayerKillEvent(const QString &killer, const QStri
     GameTypeEnum gameType = getClient()->getServerEntry()->getGameType();
     WeaponEntry weaponEntry;
 
-    if (gameType == GameTypeEnum::BF3) {
+    switch (gameType) {
+    case GameTypeEnum::BF3:
         weaponEntry = BF3WeaponDictionary::getWeapon(weapon);
-    } else if (gameType == GameTypeEnum::BF4) {
+        break;
+
+    case GameTypeEnum::BF4:
         weaponEntry = BF4WeaponDictionary::getWeapon(weapon);
+        break;
+
+    default:
+        break;
     }
 
     if (killer != victim) {
@@ -207,12 +214,19 @@ void FrostbiteEventsWidget::onServerLevelLoadedEvent(const QString &levelName, c
     LevelEntry level;
     GameModeEntry gameMode;
 
-    if (gameType == GameTypeEnum::BF3) {
+    switch (gameType) {
+    case GameTypeEnum::BF3:
         level = BF3LevelDictionary::getLevel(levelName);
         gameMode = BF3LevelDictionary::getGameMode(gameModeName);
-    } else if (gameType == GameTypeEnum::BF4) {
+        break;
+
+    case GameTypeEnum::BF4:
         level = BF4LevelDictionary::getLevel(levelName);
         gameMode = BF4LevelDictionary::getGameMode(gameModeName);
+        break;
+
+    default:
+        break;
     }
 
     logEvent(tr("ServerLevelLoaded"), tr("Loading level %1 with gamemode %2.").arg(level.getName()).arg(gameMode.getName()));
