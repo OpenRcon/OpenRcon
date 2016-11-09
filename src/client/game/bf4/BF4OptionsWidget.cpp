@@ -19,6 +19,7 @@
 
 #include "BF4OptionsWidget.h"
 #include "ui_BF4OptionsWidget.h"
+
 #include "BF4Preset.h"
 #include "BF4ServerType.h"
 
@@ -31,16 +32,16 @@ BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
     // Initialize comboBox with preset types.
     ui->comboBox_gameplay_preset->addItems(BF4Preset::asList());
 
-    /* Commands */
-    // Misc
-    connect(getClient()->getCommandHandler(), static_cast<void (BF4CommandHandler::*)(bool)>(&BF4CommandHandler::onLoginHashedCommand),
-            this, &BF4OptionsWidget::onLoginHashedCommand);
+    /* Client */
+    connect(getClient(),                      &Client::onAuthenticated,                        this, &BF4OptionsWidget::onAuthenticated);
 
+
+    /* Commands */
     // Admin
-    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onAdminPasswordCommand, this, &BF4OptionsWidget::onAdminPasswordCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onAdminPasswordCommand,      this, &BF4OptionsWidget::onAdminPasswordCommand);
 
     // FairFight
-    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onFairFightIsActiveCommand, this, &BF4OptionsWidget::onFairFightIsActiveCommand);
+    connect(getClient()->getCommandHandler(), &BF4CommandHandler::onFairFightIsActiveCommand,  this, &BF4OptionsWidget::onFairFightIsActiveCommand);
 
     // Player
 
@@ -154,64 +155,63 @@ BF4OptionsWidget::~BF4OptionsWidget()
     delete ui;
 }
 
-void BF4OptionsWidget::onLoginHashedCommand(bool auth)
+/* Client */
+void BF4OptionsWidget::onAuthenticated()
 {
-    if (auth) {
-        // Admins
-        getClient()->getCommandHandler()->sendAdminPasswordCommand();
+    // Admins
+    getClient()->getCommandHandler()->sendAdminPasswordCommand();
 
-        // Banning
-        getClient()->getCommandHandler()->sendBanListListCommand();
+    // Banning
+    getClient()->getCommandHandler()->sendBanListListCommand();
 
-        // FairFight
-        getClient()->getCommandHandler()->sendFairFightIsActiveCommand();
+    // FairFight
+    getClient()->getCommandHandler()->sendFairFightIsActiveCommand();
 
-        // Punkbuster
-        getClient()->getCommandHandler()->sendPunkBusterIsActiveCommand();
+    // Punkbuster
+    getClient()->getCommandHandler()->sendPunkBusterIsActiveCommand();
 
-        // Variables
-        getClient()->getCommandHandler()->sendVars3dSpottingCommand();
-        getClient()->getCommandHandler()->sendVars3pCamCommand();
-        getClient()->getCommandHandler()->sendVarsAlwaysAllowSpectatorsCommand();
-        getClient()->getCommandHandler()->sendVarsAutoBalanceCommand();
-        getClient()->getCommandHandler()->sendVarsBulletDamageCommand();
-        getClient()->getCommandHandler()->sendVarsCommanderCommand();
-        getClient()->getCommandHandler()->sendVarsForceReloadWholeMagsCommand();
-        getClient()->getCommandHandler()->sendVarsFriendlyFireCommand();
-        getClient()->getCommandHandler()->sendVarsGameModeCounterCommand();
-        getClient()->getCommandHandler()->sendVarsGamePasswordCommand();
-        getClient()->getCommandHandler()->sendVarsHitIndicatorsEnabledCommand();
-        getClient()->getCommandHandler()->sendVarsHudCommand();
-        getClient()->getCommandHandler()->sendVarsIdleBanRoundsCommand();
-        getClient()->getCommandHandler()->sendVarsIdleTimeoutCommand();
-        getClient()->getCommandHandler()->sendVarsKillCamCommand();
-        getClient()->getCommandHandler()->sendVarsMaxPlayersCommand();
-        getClient()->getCommandHandler()->sendVarsMaxSpectatorsCommand();
-        getClient()->getCommandHandler()->sendVarsMiniMapCommand();
-        getClient()->getCommandHandler()->sendVarsMiniMapSpottingCommand();
-        getClient()->getCommandHandler()->sendVarsNameTagCommand();
-        getClient()->getCommandHandler()->sendVarsOnlySquadLeaderSpawnCommand();
-        getClient()->getCommandHandler()->sendVarsPlayerRespawnTimeCommand();
-        getClient()->getCommandHandler()->sendVarsPresetCommand();
-        getClient()->getCommandHandler()->sendVarsRegenerateHealthCommand();
-        getClient()->getCommandHandler()->sendVarsRoundLockdownCountdownCommand();
-        getClient()->getCommandHandler()->sendVarsRoundRestartPlayerCountCommand();
-        getClient()->getCommandHandler()->sendVarsRoundStartPlayerCountCommand();
-        getClient()->getCommandHandler()->sendVarsRoundTimeLimitCommand();
-        getClient()->getCommandHandler()->sendVarsRoundWarmupTimeoutCommand();
-        getClient()->getCommandHandler()->sendVarsServerNameCommand();
-        getClient()->getCommandHandler()->sendVarsServerDescriptionCommand();
-        getClient()->getCommandHandler()->sendVarsServerMessageCommand();
-        getClient()->getCommandHandler()->sendVarsServerTypeCommand();
-        getClient()->getCommandHandler()->sendVarsSoldierHealthCommand();
-        getClient()->getCommandHandler()->sendVarsTicketBleedRateCommand();
-        getClient()->getCommandHandler()->sendVarsUnlockModeCommand();
-        getClient()->getCommandHandler()->sendVarsVehicleSpawnAllowedCommand();
-        getClient()->getCommandHandler()->sendVarsVehicleSpawnDelayCommand();
-        getClient()->getCommandHandler()->sendVarsRoundPlayersReadyBypassTimerCommand();
-        getClient()->getCommandHandler()->sendVarsRoundPlayersReadyMinCountCommand();
-        getClient()->getCommandHandler()->sendVarsRoundPlayersReadyPercentCommand();
-    }
+    // Variables
+    getClient()->getCommandHandler()->sendVars3dSpottingCommand();
+    getClient()->getCommandHandler()->sendVars3pCamCommand();
+    getClient()->getCommandHandler()->sendVarsAlwaysAllowSpectatorsCommand();
+    getClient()->getCommandHandler()->sendVarsAutoBalanceCommand();
+    getClient()->getCommandHandler()->sendVarsBulletDamageCommand();
+    getClient()->getCommandHandler()->sendVarsCommanderCommand();
+    getClient()->getCommandHandler()->sendVarsForceReloadWholeMagsCommand();
+    getClient()->getCommandHandler()->sendVarsFriendlyFireCommand();
+    getClient()->getCommandHandler()->sendVarsGameModeCounterCommand();
+    getClient()->getCommandHandler()->sendVarsGamePasswordCommand();
+    getClient()->getCommandHandler()->sendVarsHitIndicatorsEnabledCommand();
+    getClient()->getCommandHandler()->sendVarsHudCommand();
+    getClient()->getCommandHandler()->sendVarsIdleBanRoundsCommand();
+    getClient()->getCommandHandler()->sendVarsIdleTimeoutCommand();
+    getClient()->getCommandHandler()->sendVarsKillCamCommand();
+    getClient()->getCommandHandler()->sendVarsMaxPlayersCommand();
+    getClient()->getCommandHandler()->sendVarsMaxSpectatorsCommand();
+    getClient()->getCommandHandler()->sendVarsMiniMapCommand();
+    getClient()->getCommandHandler()->sendVarsMiniMapSpottingCommand();
+    getClient()->getCommandHandler()->sendVarsNameTagCommand();
+    getClient()->getCommandHandler()->sendVarsOnlySquadLeaderSpawnCommand();
+    getClient()->getCommandHandler()->sendVarsPlayerRespawnTimeCommand();
+    getClient()->getCommandHandler()->sendVarsPresetCommand();
+    getClient()->getCommandHandler()->sendVarsRegenerateHealthCommand();
+    getClient()->getCommandHandler()->sendVarsRoundLockdownCountdownCommand();
+    getClient()->getCommandHandler()->sendVarsRoundRestartPlayerCountCommand();
+    getClient()->getCommandHandler()->sendVarsRoundStartPlayerCountCommand();
+    getClient()->getCommandHandler()->sendVarsRoundTimeLimitCommand();
+    getClient()->getCommandHandler()->sendVarsRoundWarmupTimeoutCommand();
+    getClient()->getCommandHandler()->sendVarsServerNameCommand();
+    getClient()->getCommandHandler()->sendVarsServerDescriptionCommand();
+    getClient()->getCommandHandler()->sendVarsServerMessageCommand();
+    getClient()->getCommandHandler()->sendVarsServerTypeCommand();
+    getClient()->getCommandHandler()->sendVarsSoldierHealthCommand();
+    getClient()->getCommandHandler()->sendVarsTicketBleedRateCommand();
+    getClient()->getCommandHandler()->sendVarsUnlockModeCommand();
+    getClient()->getCommandHandler()->sendVarsVehicleSpawnAllowedCommand();
+    getClient()->getCommandHandler()->sendVarsVehicleSpawnDelayCommand();
+    getClient()->getCommandHandler()->sendVarsRoundPlayersReadyBypassTimerCommand();
+    getClient()->getCommandHandler()->sendVarsRoundPlayersReadyMinCountCommand();
+    getClient()->getCommandHandler()->sendVarsRoundPlayersReadyPercentCommand();
 }
 
 /* Commands */

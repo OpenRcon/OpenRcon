@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>BF4MapListWidget</class>
- <widget class="QWidget" name="MapListWidget">
+ <widget class="QWidget" name="BF4MapListWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -46,7 +46,7 @@
     </widget>
    </item>
    <item row="0" column="0" colspan="3">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <layout class="QFormLayout" name="formLayout">
        <item row="1" column="0" colspan="2">
@@ -117,7 +117,7 @@
     </layout>
    </item>
    <item row="2" column="1">
-    <layout class="QVBoxLayout" name="verticalLayout_5">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="pushButton_load">
        <property name="text">
@@ -228,7 +228,7 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="label_gameMode">
        <property name="text">
@@ -303,8 +303,8 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../frostbite/Frostbite.qrc"/>
   <include location="../../OpenRcon.qrc"/>
+  <include location="../frostbite/Frostbite.qrc"/>
  </resources>
  <connections/>
 </ui>

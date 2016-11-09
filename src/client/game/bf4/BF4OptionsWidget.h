@@ -40,10 +40,10 @@ private:
     Ui::BF4OptionsWidget *ui;
 
 private slots:
-    /* Commands */
-    // Misc
-    void onLoginHashedCommand(bool auth);
+    /* Client */
+    void onAuthenticated();
 
+    /* Commands */
     // Admin
     void onAdminPasswordCommand(const QString &password);
 
