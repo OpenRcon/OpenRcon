@@ -20,23 +20,12 @@
 #ifndef BF3MAINWIDGET_H
 #define BF3MAINWIDGET_H
 
-#include "BF3Widget.h"
+#include "Frostbite2MainWidget.h"
+#include "BF3Client.h"
 
-class QTimer;
-class QAbstractSocket;
-class QString;
+class BF4ServerInfo;
 
-class FrostbiteEventsWidget;
-class FrostbiteChatWidget;
-class FrostbiteBanListWidget;
-class Frostbite2ReservedSlotsWidget;
-class FrostbiteConsoleWidget;
-
-namespace Ui {
-    class Frostbite2MainWidget;
-}
-
-class BF3MainWidget : public BF3Widget
+class BF3MainWidget : public Frostbite2MainWidget
 {
     Q_OBJECT
 
@@ -44,36 +33,14 @@ public:
     BF3MainWidget(ServerEntry *serverEntry, QWidget *parent = nullptr);
     ~BF3MainWidget() final;
 
-private:
-    Ui::Frostbite2MainWidget *ui;
-
-    FrostbiteEventsWidget *eventsWidget;
-    FrostbiteChatWidget *chatWidget;
-    FrostbiteBanListWidget *banListWidget;
-    Frostbite2ReservedSlotsWidget *reservedSlotsWidget;
-    FrostbiteConsoleWidget *consoleWidget;
-
-    /* User Interface */
-    // ServerInfo
-    QTimer *timerServerInfoRoundTime;
-    QTimer *timerServerInfoUpTime;
-    int roundTime;
-    int upTime;
-
-    void setAuthenticated(bool auth);
-    void startupCommands(bool auth);
+    BF3Client *getClient() final {
+        return dynamic_cast<BF3Client*>(client);
+    }
 
 private slots:
-    /* Events */
-    void onConnected(QAbstractSocket *socket);
-    void onDisconnected(QAbstractSocket *socket);
-
     /* Commands */
     // Misc
-    void onLoginHashedCommand(bool auth);
-    void onVersionCommand(const QString &type, int build);
     void onServerInfoCommand(const BF3ServerInfo &serverInfo);
-
 
     // Admin
 
@@ -88,11 +55,6 @@ private slots:
     // Variables
 
     /* User Interface */
-    // Server Information
-    void pushButton_si_restartRound_clicked();
-    void pushButton_si_runNextRound_clicked();
-    void updateRoundTime();
-    void updateUpTime();
 
 };
 

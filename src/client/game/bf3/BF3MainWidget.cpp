@@ -39,50 +39,12 @@
 #include "Time.h"
 
 BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
-    BF3Widget(new BF3Client(serverEntry, parent), parent),
-    ui(new Ui::Frostbite2MainWidget)
+    Frostbite2MainWidget(new BF3Client(serverEntry, parent), parent)
 {
     ui->setupUi(this);
 
-    /* User Inferface */
-    // ServerInfo
-    timerServerInfoRoundTime = new QTimer(this);
-    timerServerInfoRoundTime->start(1000);
-
-    timerServerInfoUpTime = new QTimer(this);
-    timerServerInfoUpTime->start(1000);
-
-    connect(timerServerInfoRoundTime, &QTimer::timeout, this, &BF3MainWidget::updateRoundTime);
-    connect(timerServerInfoUpTime,    &QTimer::timeout, this, &BF3MainWidget::updateUpTime);
-
-    // Create tabs from widgets.
-    eventsWidget = new FrostbiteEventsWidget(getClient(), this);
-    chatWidget = new FrostbiteChatWidget(getClient(), this);
-    banListWidget = new FrostbiteBanListWidget(getClient(), this);
-    reservedSlotsWidget = new Frostbite2ReservedSlotsWidget(getClient(), this);
-    consoleWidget = new FrostbiteConsoleWidget(getClient(), commandList, this);
-
-
-    ui->tabWidget->addTab(eventsWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));
-    ui->tabWidget->addTab(chatWidget, QIcon(":/frostbite/icons/chat.png"), tr("Chat"));
-    ui->tabWidget->addTab(banListWidget, QIcon(":/frostbite/icons/ban.png"), tr("Banlist"));
-    ui->tabWidget->addTab(reservedSlotsWidget, QIcon(":/frostbite/icons/reserved.png"), tr("Reserved Slots"));
-    ui->tabWidget->addTab(consoleWidget, QIcon(":/frostbite/icons/console.png"), tr("Console"));
-
-    /* Connection */
-    connect(client->getConnection(), &Connection::onConnected,                                     this, &BF3MainWidget::onConnected);
-    connect(client->getConnection(), &Connection::onDisconnected,                                  this, &BF3MainWidget::onDisconnected);
-
-    /* Events */
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,        &Frostbite2CommandHandler::sendServerInfoCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,       &Frostbite2CommandHandler::sendServerInfoCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerLevelLoadedEvent, &Frostbite2CommandHandler::sendServerInfoCommand);
-
     /* Commands */
     // Misc
-    connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
-            this, &BF3MainWidget::onLoginHashedCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,   this, &BF3MainWidget::onVersionCommand);
     connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const BF3ServerInfo&)>(&FrostbiteCommandHandler::onServerInfoCommand),
             this, &BF3MainWidget::onServerInfoCommand);
 
@@ -97,11 +59,6 @@ BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     // Squad
 
     // Variables
-
-    /* User Interface */
-    // Server Information
-    connect(ui->pushButton_si_restartRound, &QPushButton::clicked, this, &BF3MainWidget::pushButton_si_restartRound_clicked);
-    connect(ui->pushButton_si_runNextRound, &QPushButton::clicked, this, &BF3MainWidget::pushButton_si_runNextRound_clicked);
 }
 
 BF3MainWidget::~BF3MainWidget()
@@ -109,74 +66,8 @@ BF3MainWidget::~BF3MainWidget()
     delete ui;
 }
 
-void BF3MainWidget::setAuthenticated(bool auth)
-{
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(chatWidget), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(banListWidget), auth);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(reservedSlotsWidget), auth);
-    ui->tabWidget->setCurrentIndex(0);
-
-    startupCommands(auth);
-}
-
-void BF3MainWidget::startupCommands(bool auth)
-{
-    // Misc
-    getClient()->getCommandHandler()->sendVersionCommand();
-    getClient()->getCommandHandler()->sendServerInfoCommand();
-
-    if (auth) {
-        getClient()->getCommandHandler()->sendAdminEventsEnabledCommand(true);
-    }
-}
-
-/* Connection */
-void BF3MainWidget::onConnected(QAbstractSocket *socket)
-{
-    Q_UNUSED(socket);
-
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), true);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), true);
-
-    setAuthenticated(false);
-}
-
-void BF3MainWidget::onDisconnected(QAbstractSocket *socket)
-{
-    Q_UNUSED(socket);
-
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(eventsWidget), false);
-    ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
-
-    setAuthenticated(false);
-}
-
-/* Events */
-
 /* Commands */
 // Misc
-void BF3MainWidget::onLoginHashedCommand(bool auth)
-{
-    if (auth) {
-        // Call commands on startup.
-        setAuthenticated(true);
-    } else {
-        int ret = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
-
-        if (ret) {
-            client->getConnection()->hostDisconnect();
-        }
-    }
-}
-
-void BF3MainWidget::onVersionCommand(const QString &type, int build)
-{
-    Q_UNUSED(type);
-
-    ui->label_si_version->setText(tr("<b>Version</b>: %1").arg(getClient()->getVersionFromBuild(build)));
-    ui->label_si_version->setToolTip(QString::number(build));
-}
-
 void BF3MainWidget::onServerInfoCommand(const BF3ServerInfo &serverInfo)
 {
     LevelEntry level = BF3LevelDictionary::getLevel(serverInfo.getCurrentMap());
@@ -245,33 +136,3 @@ void BF3MainWidget::onServerInfoCommand(const BF3ServerInfo &serverInfo)
 // Squad
 
 // Variables
-
-/* User Interface */
-// ServerInfo
-void BF3MainWidget::pushButton_si_restartRound_clicked()
-{
-    int ret = QMessageBox::question(this, tr("Restart round"), tr("Are you sure you want to restart the round?"));
-
-    if (ret == QMessageBox::Yes) {
-        getClient()->getCommandHandler()->sendMapListRestartRoundCommand();
-    }
-}
-
-void BF3MainWidget::pushButton_si_runNextRound_clicked()
-{
-    int ret = QMessageBox::question(this, tr("Run next round"), tr("Are you sure you want to run the next round?"));
-
-    if (ret == QMessageBox::Yes) {
-        getClient()->getCommandHandler()->sendMapListRunNextRoundCommand();
-    }
-}
-
-void BF3MainWidget::updateRoundTime()
-{
-    ui->label_si_round->setToolTip(Time::fromSeconds(roundTime++).toShortString());
-}
-
-void BF3MainWidget::updateUpTime()
-{
-    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(Time::fromSeconds(upTime++).toShortString()));
-}
