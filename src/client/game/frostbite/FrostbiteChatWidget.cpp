@@ -33,6 +33,9 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
 {
     ui->setupUi(this);
 
+    // Modify the initial size of the splitter.
+    ui->splitter->setSizes({ 500, 100 });
+
     /* Client */
     connect(getClient(),                      &Client::onAuthenticated,                                               this, &FrostbiteChatWidget::onAuthenticated);
 

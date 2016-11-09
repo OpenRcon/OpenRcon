@@ -11,6 +11,38 @@
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="1">
+    <widget class="QComboBox" name="comboBox_target">
+     <item>
+      <property name="text">
+       <string>All</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QSpinBox" name="spinBox_duration">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>60</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="HistoryLineEdit" name="lineEdit">
+     <property name="placeholderText">
+      <string>Enter message to chat here.</string>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="2">
     <widget class="QComboBox" name="comboBox_mode">
      <property name="enabled">
@@ -28,13 +60,11 @@
      </item>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="comboBox_target">
-     <item>
-      <property name="text">
-       <string>All</string>
-      </property>
-     </item>
+   <item row="1" column="4">
+    <widget class="QLabel" name="label_duration">
+     <property name="text">
+      <string>Second</string>
+     </property>
     </widget>
    </item>
    <item row="1" column="5">
@@ -44,41 +74,24 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="HistoryLineEdit" name="lineEdit">
-     <property name="placeholderText">
-      <string>Enter message to chat here.</string>
-     </property>
-     <property name="clearButtonEnabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0" colspan="6">
-    <widget class="QTextEdit" name="textEdit">
-     <property name="readOnly">
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="opaqueResize">
       <bool>true</bool>
      </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
-    <widget class="QSpinBox" name="spinBox_duration">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="maximum">
-      <number>60</number>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="4">
-    <widget class="QLabel" name="label_duration">
-     <property name="text">
-      <string>Second</string>
-     </property>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
    </item>
   </layout>
