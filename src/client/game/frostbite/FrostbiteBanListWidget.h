@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BANLISTWIDGET_H
-#define BANLISTWIDGET_H
+#ifndef FROSTBITEBANLISTWIDGET_H
+#define FROSTBITEBANLISTWIDGET_H
 
 #include "FrostbiteWidget.h"
 
@@ -35,19 +35,19 @@ enum class BanIdTypeEnum;
 enum class BanTypeEnum;
 
 namespace Ui {
-    class BanListWidget;
+    class FrostbiteBanListWidget;
 }
 
-class BanListWidget : public FrostbiteWidget
+class FrostbiteBanListWidget : public FrostbiteWidget
 {
     Q_OBJECT
 
 public:
-    BanListWidget(FrostbiteClient *client, QWidget *parent = nullptr);
-    ~BanListWidget() final;
+    FrostbiteBanListWidget(FrostbiteClient *client, QWidget *parent = nullptr);
+    ~FrostbiteBanListWidget() final;
 
 private:
-    Ui::BanListWidget *ui;
+    Ui::FrostbiteBanListWidget *ui;
 
     void setBanlist(const QList<BanListEntry> &banList);
     void setTemporaryEnabled(bool enabled);
@@ -80,4 +80,4 @@ private slots:
 
 };
 
-#endif // BANLISTWIDGET_H
+#endif // FROSTBITEBANLISTWIDGET_H

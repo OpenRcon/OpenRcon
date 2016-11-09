@@ -25,7 +25,7 @@
 #include "FrostbiteChatWidget.h"
 #include "BF4OptionsWidget.h"
 #include "BF4MapListWidget.h"
-#include "BanListWidget.h"
+#include "FrostbiteBanListWidget.h"
 #include "Frostbite2ReservedSlotsWidget.h"
 #include "BF4SpectatorSlotsWidget.h"
 #include "FrostbiteConsoleWidget.h"

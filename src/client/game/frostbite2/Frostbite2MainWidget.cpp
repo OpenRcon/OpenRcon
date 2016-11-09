@@ -25,7 +25,7 @@
 
 #include "FrostbiteEventsWidget.h"
 #include "FrostbiteChatWidget.h"
-#include "BanListWidget.h"
+#include "FrostbiteBanListWidget.h"
 #include "Frostbite2ReservedSlotsWidget.h"
 #include "FrostbiteConsoleWidget.h"
 #include "Time.h"
@@ -50,7 +50,7 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
     // Create tabs from widgets.
     eventsWidget = new FrostbiteEventsWidget(getClient(), this);
     chatWidget = new FrostbiteChatWidget(getClient(), this);
-    banListWidget = new BanListWidget(getClient(), this);
+    banListWidget = new FrostbiteBanListWidget(getClient(), this);
     reservedSlotsWidget = new Frostbite2ReservedSlotsWidget(getClient(), this);
     consoleWidget = new FrostbiteConsoleWidget(getClient(), commandList, this);
 

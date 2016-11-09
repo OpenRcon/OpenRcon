@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BanListWidget</class>
- <widget class="QWidget" name="BanListWidget">
+ <class>FrostbiteBanListWidget</class>
+ <widget class="QWidget" name="FrostbiteBanListWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

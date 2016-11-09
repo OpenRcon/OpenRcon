@@ -28,7 +28,7 @@ class QString;
 
 class FrostbiteEventsWidget;
 class FrostbiteChatWidget;
-class BanListWidget;
+class FrostbiteBanListWidget;
 class Frostbite2ReservedSlotsWidget;
 class FrostbiteConsoleWidget;
 
@@ -49,7 +49,7 @@ protected:
     Ui::Frostbite2MainWidget *ui;
     FrostbiteEventsWidget *eventsWidget;
     FrostbiteChatWidget *chatWidget;
-    BanListWidget *banListWidget;
+    FrostbiteBanListWidget *banListWidget;
     Frostbite2ReservedSlotsWidget *reservedSlotsWidget;
     FrostbiteConsoleWidget *consoleWidget;
 

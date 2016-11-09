@@ -25,8 +25,8 @@
 #include <QList>
 #include <QString>
 
-#include "BanListWidget.h"
-#include "ui_BanListWidget.h"
+#include "FrostbiteBanListWidget.h"
+#include "ui_FrostbiteBanListWidget.h"
 
 #include "BanListEntry.h"
 #include "BanType.h"
@@ -34,16 +34,16 @@
 #include "FrostbiteUtils.h"
 #include "Time.h"
 
-BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
+FrostbiteBanListWidget::FrostbiteBanListWidget(FrostbiteClient *client, QWidget *parent) :
     FrostbiteWidget(client, parent),
-    ui(new Ui::BanListWidget)
+    ui(new Ui::FrostbiteBanListWidget)
 {
     ui->setupUi(this);
 
     timer = new QTimer(this);
     timer->setInterval(1000);
     timer->start();
-    connect(timer, &QTimer::timeout, this, &BanListWidget::update);
+    connect(timer, &QTimer::timeout, this, &FrostbiteBanListWidget::update);
 
     QStringList banIdTypeList = {
         tr("Name"),
@@ -76,32 +76,32 @@ BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
     menu_bl_banList->addAction(action_bl_banList_remove);
 
     /* Client */
-    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                                      this, &BanListWidget::onAuthenticated);
+    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                                      this, &FrostbiteBanListWidget::onAuthenticated);
 
     /* Commands */
     // BanList
-    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onBanListListCommand,                         this, &BanListWidget::onBanListListCommand);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onBanListListCommand,                         this, &FrostbiteBanListWidget::onBanListListCommand);
 
     /* User Interface */
-    connect(ui->tableWidget_bl_banList,       &QTableWidget::customContextMenuRequested,                              this, &BanListWidget::tableWidget_bl_banList_customContextMenuRequested);
-    connect(action_bl_banList_remove,         &QAction::triggered,                                                    this, &BanListWidget::action_bl_banList_remove_triggered);
-    connect(ui->pushButton_load,              &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_load_clicked);
-    connect(ui->pushButton_save,              &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_save_clicked);
-    connect(ui->pushButton_clear,             &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_clear_clicked);
-    connect(ui->lineEdit_value,               &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
-    connect(ui->lineEdit_reason,              &QLineEdit::textChanged,                                                this, &BanListWidget::validate);
-    connect(ui->radioButton_permanent,        &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_permanent_clicked);
-    connect(ui->radioButton_temporary,        &QRadioButton::clicked,                                                 this, &BanListWidget::radioButton_temporary_clicked);
-    connect(ui->comboBox_by,                  static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BanListWidget::comboBox_by_currentIndexChanged);
-    connect(ui->pushButton_ban,               &QPushButton::clicked,                                                  this, &BanListWidget::pushButton_ban_clicked);
+    connect(ui->tableWidget_bl_banList,       &QTableWidget::customContextMenuRequested,                              this, &FrostbiteBanListWidget::tableWidget_bl_banList_customContextMenuRequested);
+    connect(action_bl_banList_remove,         &QAction::triggered,                                                    this, &FrostbiteBanListWidget::action_bl_banList_remove_triggered);
+    connect(ui->pushButton_load,              &QPushButton::clicked,                                                  this, &FrostbiteBanListWidget::pushButton_load_clicked);
+    connect(ui->pushButton_save,              &QPushButton::clicked,                                                  this, &FrostbiteBanListWidget::pushButton_save_clicked);
+    connect(ui->pushButton_clear,             &QPushButton::clicked,                                                  this, &FrostbiteBanListWidget::pushButton_clear_clicked);
+    connect(ui->lineEdit_value,               &QLineEdit::textChanged,                                                this, &FrostbiteBanListWidget::validate);
+    connect(ui->lineEdit_reason,              &QLineEdit::textChanged,                                                this, &FrostbiteBanListWidget::validate);
+    connect(ui->radioButton_permanent,        &QRadioButton::clicked,                                                 this, &FrostbiteBanListWidget::radioButton_permanent_clicked);
+    connect(ui->radioButton_temporary,        &QRadioButton::clicked,                                                 this, &FrostbiteBanListWidget::radioButton_temporary_clicked);
+    connect(ui->comboBox_by,                  static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &FrostbiteBanListWidget::comboBox_by_currentIndexChanged);
+    connect(ui->pushButton_ban,               &QPushButton::clicked,                                                  this, &FrostbiteBanListWidget::pushButton_ban_clicked);
 }
 
-BanListWidget::~BanListWidget()
+FrostbiteBanListWidget::~FrostbiteBanListWidget()
 {
     delete ui;
 }
 
-void BanListWidget::setBanlist(const QList<BanListEntry> &banList)
+void FrostbiteBanListWidget::setBanlist(const QList<BanListEntry> &banList)
 {
     ui->tableWidget_bl_banList->clearContents();
     ui->tableWidget_bl_banList->setRowCount(0);
@@ -113,14 +113,14 @@ void BanListWidget::setBanlist(const QList<BanListEntry> &banList)
     ui->tableWidget_bl_banList->resizeColumnsToContents();
 }
 
-void BanListWidget::setTemporaryEnabled(bool enabled)
+void FrostbiteBanListWidget::setTemporaryEnabled(bool enabled)
 {
     ui->comboBox_by->setEnabled(enabled);
     ui->spinBox_timeout->setEnabled(enabled);
     ui->comboBox_timeUnit->setEnabled(enabled);
 }
 
-void BanListWidget::addBanListItem(const BanIdTypeEnum &banIdType, const QString &banId, const BanTypeEnum &banType, int seconds, int rounds, const QString &reason)
+void FrostbiteBanListWidget::addBanListItem(const BanIdTypeEnum &banIdType, const QString &banId, const BanTypeEnum &banType, int seconds, int rounds, const QString &reason)
 {
     int row = ui->tableWidget_bl_banList->rowCount();
     ui->tableWidget_bl_banList->insertRow(row);
@@ -162,13 +162,13 @@ void BanListWidget::addBanListItem(const BanIdTypeEnum &banIdType, const QString
 }
 
 /* Client */
-void BanListWidget::onAuthenticated()
+void FrostbiteBanListWidget::onAuthenticated()
 {
     getClient()->getCommandHandler()->sendBanListListCommand();
 }
 
 /* Commands */
-void BanListWidget::onBanListListCommand(const QList<BanListEntry> &banList)
+void FrostbiteBanListWidget::onBanListListCommand(const QList<BanListEntry> &banList)
 {
     ui->pushButton_clear->setEnabled(!banList.isEmpty());
 
@@ -176,7 +176,7 @@ void BanListWidget::onBanListListCommand(const QList<BanListEntry> &banList)
 }
 
 /* User Interface */
-void BanListWidget::validate()
+void FrostbiteBanListWidget::validate()
 {
     bool enabled = !ui->lineEdit_value->text().isEmpty();
 
@@ -185,7 +185,7 @@ void BanListWidget::validate()
     ui->pushButton_ban->setEnabled(enabled);
 }
 
-void BanListWidget::update()
+void FrostbiteBanListWidget::update()
 {
     // Loop thru all rows and update current duration.
     for (int row = 0; row < ui->tableWidget_bl_banList->rowCount(); row++) {
@@ -208,14 +208,14 @@ void BanListWidget::update()
 
 
 
-void BanListWidget::tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos)
+void FrostbiteBanListWidget::tableWidget_bl_banList_customContextMenuRequested(const QPoint &pos)
 {
     if (ui->tableWidget_bl_banList->itemAt(pos)) {
         menu_bl_banList->exec(QCursor::pos());
     }
 }
 
-void BanListWidget::action_bl_banList_remove_triggered()
+void FrostbiteBanListWidget::action_bl_banList_remove_triggered()
 {
     int row = ui->tableWidget_bl_banList->currentRow();
     BanIdTypeEnum banIdType = ui->tableWidget_bl_banList->itemAt(row, 0)->data(Qt::UserRole).value<BanIdTypeEnum>();
@@ -228,17 +228,17 @@ void BanListWidget::action_bl_banList_remove_triggered()
     }
 }
 
-void BanListWidget::pushButton_load_clicked()
+void FrostbiteBanListWidget::pushButton_load_clicked()
 {
     getClient()->getCommandHandler()->sendBanListLoadCommand();
 }
 
-void BanListWidget::pushButton_save_clicked()
+void FrostbiteBanListWidget::pushButton_save_clicked()
 {
     getClient()->getCommandHandler()->sendBanListSaveCommand();
 }
 
-void BanListWidget::pushButton_clear_clicked()
+void FrostbiteBanListWidget::pushButton_clear_clicked()
 {
     ui->tableWidget_bl_banList->clearContents();
     ui->tableWidget_bl_banList->setRowCount(0);
@@ -246,22 +246,22 @@ void BanListWidget::pushButton_clear_clicked()
     getClient()->getCommandHandler()->sendBanListClearCommand();
 }
 
-void BanListWidget::radioButton_permanent_clicked()
+void FrostbiteBanListWidget::radioButton_permanent_clicked()
 {
     setTemporaryEnabled(false);
 }
 
-void BanListWidget::radioButton_temporary_clicked()
+void FrostbiteBanListWidget::radioButton_temporary_clicked()
 {
     setTemporaryEnabled(true);
 }
 
-void BanListWidget::comboBox_by_currentIndexChanged(int index)
+void FrostbiteBanListWidget::comboBox_by_currentIndexChanged(int index)
 {
     ui->comboBox_timeUnit->setEnabled(index == 0);
 }
 
-void BanListWidget::pushButton_ban_clicked()
+void FrostbiteBanListWidget::pushButton_ban_clicked()
 {
     BanIdTypeEnum banIdType = BanIdType::fromString(ui->comboBox_type->currentText());
     QString value = ui->lineEdit_value->text();
