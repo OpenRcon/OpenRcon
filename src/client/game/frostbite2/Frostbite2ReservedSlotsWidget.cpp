@@ -32,14 +32,15 @@ Frostbite2ReservedSlotsWidget::Frostbite2ReservedSlotsWidget(Frostbite2Client *c
 {
     ui->setupUi(this);
 
-    // Set clear button disabled by default.
-    ui->pushButton_rs_clear->setEnabled(false);
+    // Set listWidget and clear button disabled by default.
+    ui->listWidget->setEnabled(false);
+    ui->pushButton_clear->setEnabled(false);
 
     // Create menu and actions.
-    menu_rs_reservedSlotsList = new QMenu(ui->listWidget_rs_reservedSlotsList);
-    action_rs_reservedSlotsList_remove = new QAction(tr("Remove"), menu_rs_reservedSlotsList);
+    menu = new QMenu(this);
+    action_remove = new QAction(tr("Remove"), menu);
 
-    menu_rs_reservedSlotsList->addAction(action_rs_reservedSlotsList_remove);
+    menu->addAction(action_remove);
 
     /* Client */
     connect(getClient(),                         &Client::onAuthenticated,                                  getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListListCommand);
@@ -48,13 +49,13 @@ Frostbite2ReservedSlotsWidget::Frostbite2ReservedSlotsWidget(Frostbite2Client *c
     connect(getClient()->getCommandHandler(),    &Frostbite2CommandHandler::onReservedSlotsListListCommand, this,                             &Frostbite2ReservedSlotsWidget::onReservedSlotsListListCommand);
 
     /* User Interface */
-    connect(ui->listWidget_rs_reservedSlotsList, &QListWidget::customContextMenuRequested,                  this,                             &Frostbite2ReservedSlotsWidget::listWidget_rs_reservedSlotsList_customContextMenuRequested);
-    connect(action_rs_reservedSlotsList_remove,  &QAction::triggered,                                       this,                             &Frostbite2ReservedSlotsWidget::action_rs_reservedSlotsList_remove_triggered);
-    connect(ui->lineEdit_rs_player,              &QLineEdit::returnPressed,                                 this,                             &Frostbite2ReservedSlotsWidget::pushButton_rs_add_clicked);
-    connect(ui->pushButton_rs_add,               &QPushButton::clicked,                                     this,                             &Frostbite2ReservedSlotsWidget::pushButton_rs_add_clicked);
-    connect(ui->pushButton_rs_load,              &QPushButton::clicked,                                     getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListLoadCommand);
-    connect(ui->pushButton_rs_save,              &QPushButton::clicked,                                     getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListSaveCommand);
-    connect(ui->pushButton_rs_clear,             &QPushButton::clicked,                                     getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListClearCommand);
+    connect(ui->listWidget,                      &QListWidget::customContextMenuRequested,                  this,                             &Frostbite2ReservedSlotsWidget::listWidget_customContextMenuRequested);
+    connect(action_remove,                       &QAction::triggered,                                       this,                             &Frostbite2ReservedSlotsWidget::action_remove_triggered);
+    connect(ui->lineEdit_player,                 &QLineEdit::returnPressed,                                 this,                             &Frostbite2ReservedSlotsWidget::pushButton_add_clicked);
+    connect(ui->pushButton_add,                  &QPushButton::clicked,                                     this,                             &Frostbite2ReservedSlotsWidget::pushButton_add_clicked);
+    connect(ui->pushButton_load,                 &QPushButton::clicked,                                     getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListLoadCommand);
+    connect(ui->pushButton_save,                 &QPushButton::clicked,                                     getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListSaveCommand);
+    connect(ui->pushButton_clear,                &QPushButton::clicked,                                     getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListClearCommand);
 }
 
 Frostbite2ReservedSlotsWidget::~Frostbite2ReservedSlotsWidget()
@@ -65,41 +66,44 @@ Frostbite2ReservedSlotsWidget::~Frostbite2ReservedSlotsWidget()
 /* Commands */
 void Frostbite2ReservedSlotsWidget::onReservedSlotsListListCommand(const QStringList &reservedSlotsList)
 {
-    ui->pushButton_rs_clear->setEnabled(!reservedSlotsList.isEmpty());
+    ui->listWidget->clear();
+    ui->listWidget->setEnabled(!reservedSlotsList.isEmpty());
+    ui->pushButton_clear->setEnabled(!reservedSlotsList.isEmpty());
 
-    ui->listWidget_rs_reservedSlotsList->clear();
-    ui->listWidget_rs_reservedSlotsList->addItems(reservedSlotsList);
-}
-
-/* User Interface */
-void Frostbite2ReservedSlotsWidget::listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos)
-{
-    if (ui->listWidget_rs_reservedSlotsList->itemAt(pos)) {
-        menu_rs_reservedSlotsList->exec(QCursor::pos());
+    if (!reservedSlotsList.isEmpty()) {
+        ui->listWidget->addItems(reservedSlotsList);
     }
 }
 
-void Frostbite2ReservedSlotsWidget::action_rs_reservedSlotsList_remove_triggered()
+/* User Interface */
+void Frostbite2ReservedSlotsWidget::listWidget_customContextMenuRequested(const QPoint &pos)
 {
-    QString player = ui->listWidget_rs_reservedSlotsList->currentItem()->text();
+    if (ui->listWidget->itemAt(pos)) {
+        menu->exec(QCursor::pos());
+    }
+}
+
+void Frostbite2ReservedSlotsWidget::action_remove_triggered()
+{
+    QString player = ui->listWidget->currentItem()->text();
 
     if (!player.isEmpty()) {
-        int index = ui->listWidget_rs_reservedSlotsList->currentRow();
+        int index = ui->listWidget->currentRow();
 
-        ui->listWidget_rs_reservedSlotsList->takeItem(index);
-        ui->pushButton_rs_clear->setEnabled(ui->listWidget_rs_reservedSlotsList->count() > 0);
+        ui->listWidget->takeItem(index);
+        ui->pushButton_clear->setEnabled(ui->listWidget->count() > 0);
         getClient()->getCommandHandler()->sendReservedSlotsListRemoveCommand(player);
     }
 }
 
-void Frostbite2ReservedSlotsWidget::pushButton_rs_add_clicked()
+void Frostbite2ReservedSlotsWidget::pushButton_add_clicked()
 {
-    QString player = ui->lineEdit_rs_player->text();
+    QString player = ui->lineEdit_player->text();
 
     if (!player.isEmpty()) {
-        ui->listWidget_rs_reservedSlotsList->addItem(player);
-        ui->pushButton_rs_clear->setEnabled(true);
-        ui->lineEdit_rs_player->clear();
+        ui->listWidget->addItem(player);
+        ui->pushButton_clear->setEnabled(true);
+        ui->lineEdit_player->clear();
 
         getClient()->getCommandHandler()->sendReservedSlotsListAddCommand(player);
     }

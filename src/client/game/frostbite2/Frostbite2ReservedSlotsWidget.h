@@ -45,17 +45,17 @@ private:
     Ui::Frostbite2ReservedSlotsWidget *ui;
     Frostbite2Client *client;
 
-    QMenu *menu_rs_reservedSlotsList;
-    QAction *action_rs_reservedSlotsList_remove;
+    QMenu *menu;
+    QAction *action_remove;
 
 private slots:
     /* Commands */
     void onReservedSlotsListListCommand(const QStringList &reservedSlotsList);
 
     /* User Interface */
-    void listWidget_rs_reservedSlotsList_customContextMenuRequested(const QPoint &pos);
-    void action_rs_reservedSlotsList_remove_triggered();
-    void pushButton_rs_add_clicked();
+    void listWidget_customContextMenuRequested(const QPoint &pos);
+    void action_remove_triggered();
+    void pushButton_add_clicked();
 
 };
 
