@@ -111,8 +111,8 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
 
     /* User Interface */
     // Server Information
-    connect(ui->pushButton_si_restartRound,   &QPushButton::clicked,                         this, &Frostbite2MainWidget::pushButton_si_restartRound_clicked);
-    connect(ui->pushButton_si_runNextRound,   &QPushButton::clicked,                         this, &Frostbite2MainWidget::pushButton_si_runNextRound_clicked);
+    connect(ui->pushButton_si_restartRound,   &QPushButton::clicked,                         this,                             &Frostbite2MainWidget::pushButton_si_restartRound_clicked);
+    connect(ui->pushButton_si_runNextRound,   &QPushButton::clicked,                         this,                             &Frostbite2MainWidget::pushButton_si_runNextRound_clicked);
 }
 
 Frostbite2MainWidget::~Frostbite2MainWidget()

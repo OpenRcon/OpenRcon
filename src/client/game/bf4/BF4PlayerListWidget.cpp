@@ -92,41 +92,38 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
     menu_player_copyTo->addAction(action_player_copyTo_guid);
 
     /* Client */
-    connect(client,                                 &Client::onAuthenticated,                             this, &BF4PlayerListWidget::onAuthenticated);
+    connect(client,                      &Client::onAuthenticated,                             this, &BF4PlayerListWidget::onAuthenticated);
+    connect(client,                      &Client::onAuthenticated,                             this, &BF4PlayerListWidget::updatePlayerList);
 
     /* Events */
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerAuthenticatedEvent, this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPlayerAuthenticatedEvent, this, &BF4PlayerListWidget::updatePlayerList);
 
-    if (dynamic_cast<BF4CommandHandler*>(client->getCommandHandler())) {
-        BF4CommandHandler *commandHandler = dynamic_cast<BF4CommandHandler*>(client->getCommandHandler());
+    BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(client->getCommandHandler());
 
-        connect(commandHandler, &BF4CommandHandler::onPlayerDisconnectEvent, this, &BF4PlayerListWidget::updatePlayerList);
+    if (bf4CommandHandler) {
+        connect(bf4CommandHandler,       &BF4CommandHandler::onPlayerDisconnectEvent,          this, &BF4PlayerListWidget::updatePlayerList);
     }
 
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerJoinEvent,          this, &BF4PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerLeaveEvent,         this, &BF4PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerSpawnEvent,         this, &BF4PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerKillEvent,          this, &BF4PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerSquadChangeEvent,   this, &BF4PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerTeamChangeEvent,    this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPlayerJoinEvent,          this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPlayerLeaveEvent,         this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPlayerSquadChangeEvent,   this, &BF4PlayerListWidget::updatePlayerList);
+    connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPlayerTeamChangeEvent,    this, &BF4PlayerListWidget::updatePlayerList);
 
     /* Commands */
-    connect(client->getCommandHandler(),            static_cast<void (FrostbiteCommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
-            this, &BF4PlayerListWidget::updatePlayerList);
-    connect(client->getCommandHandler(),            static_cast<void (FrostbiteCommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
+    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
             this, &BF4PlayerListWidget::onServerInfoCommand);
-    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onListPlayersCommand,      this, &BF4PlayerListWidget::listPlayers);
-    connect(client->getCommandHandler(),            &Frostbite2CommandHandler::onAdminListPlayersCommand, this, &BF4PlayerListWidget::listPlayers);
+    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onListPlayersCommand,      this, &BF4PlayerListWidget::onListPlayersCommand);
+    connect(client->getCommandHandler(), &Frostbite2CommandHandler::onAdminListPlayersCommand, this, &BF4PlayerListWidget::onListPlayersCommand);
 
     /* User Interface */
-    connect(this,                       &QTreeWidget::customContextMenuRequested, this, &BF4PlayerListWidget::customContextMenuRequested);
-    connect(action_player_kill,         &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_kill_triggered);
-    connect(action_player_kick,         &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_kick_triggered);
-    connect(action_player_ban,          &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_ban_triggered);
-    connect(action_player_reserveSlot,  &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_reserveSlot_triggered);
-    connect(action_player_copyTo_name,  &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_copyTo_name_triggered);
-    connect(action_player_copyTo_guid,  &QAction::triggered,                      this, &BF4PlayerListWidget::action_player_copyTo_guid_triggered);
-    connect(menu_player_move,           &QMenu::triggered,                        this, &BF4PlayerListWidget::menu_player_move_triggered);
+    connect(this,                        &QTreeWidget::customContextMenuRequested,             this, &BF4PlayerListWidget::customContextMenuRequested);
+    connect(action_player_kill,          &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_kill_triggered);
+    connect(action_player_kick,          &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_kick_triggered);
+    connect(action_player_ban,           &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_ban_triggered);
+    connect(action_player_reserveSlot,   &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_reserveSlot_triggered);
+    connect(action_player_copyTo_name,   &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_copyTo_name_triggered);
+    connect(action_player_copyTo_guid,   &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_copyTo_guid_triggered);
+    connect(menu_player_move,            &QMenu::triggered,                                    this, &BF4PlayerListWidget::menu_player_move_triggered);
 }
 
 BF4PlayerListWidget::~BF4PlayerListWidget()
@@ -200,8 +197,7 @@ void BF4PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &server
     currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
 }
 
-/* User Interface */
-void BF4PlayerListWidget::listPlayers(const QList<Player> &playerList)
+void BF4PlayerListWidget::onListPlayersCommand(const QList<Player> &playerList)
 {
     // Clear the QTreeWidget and item.
     clear();
@@ -273,16 +269,7 @@ void BF4PlayerListWidget::listPlayers(const QList<Player> &playerList)
     resizeColumnsToContents();
 }
 
-void BF4PlayerListWidget::updatePlayerList()
-{
-    if (client->isAuthenticated()) {
-        client->getCommandHandler()->sendAdminListPlayersCommand(PlayerSubsetEnum::All);
-        client->getCommandHandler()->sendPunkBusterPbSvCommand("pb_sv_plist");
-    } else {
-        client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetEnum::All);
-    }
-}
-
+/* User Interface */
 void BF4PlayerListWidget::customContextMenuRequested(const QPoint &pos)
 {
     QTreeWidgetItem *item = itemAt(pos);
@@ -368,4 +355,14 @@ void BF4PlayerListWidget::menu_player_move_triggered(QAction *action)
     }
 
     client->getCommandHandler()->sendAdminMovePlayerCommand(playerName, teamId, squadId, true);
+}
+
+void BF4PlayerListWidget::updatePlayerList()
+{
+    if (client->isAuthenticated()) {
+        client->getCommandHandler()->sendAdminListPlayersCommand(PlayerSubsetEnum::All);
+        client->getCommandHandler()->sendPunkBusterPbSvCommand("pb_sv_plist");
+    } else {
+        client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetEnum::All);
+    }
 }

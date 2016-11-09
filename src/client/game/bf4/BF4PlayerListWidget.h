@@ -79,10 +79,9 @@ private slots:
 
     /* Commands */
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
+    void onListPlayersCommand(const QList<Player> &playerList);
 
     /* User Interface */
-    void listPlayers(const QList<Player> &playerList);
-    void updatePlayerList();
     void customContextMenuRequested(const QPoint &pos);
     void action_player_kill_triggered();
     void action_player_kick_triggered();
@@ -91,6 +90,7 @@ private slots:
     void action_player_copyTo_name_triggered();
     void action_player_copyTo_guid_triggered();
     void menu_player_move_triggered(QAction *action);
+    void updatePlayerList();
 
 };
 

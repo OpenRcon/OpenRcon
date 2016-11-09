@@ -85,8 +85,8 @@ FrostbiteBanListWidget::FrostbiteBanListWidget(FrostbiteClient *client, QWidget 
     /* User Interface */
     connect(ui->tableWidget_bl_banList,       &QTableWidget::customContextMenuRequested,                              this, &FrostbiteBanListWidget::tableWidget_bl_banList_customContextMenuRequested);
     connect(action_bl_banList_remove,         &QAction::triggered,                                                    this, &FrostbiteBanListWidget::action_bl_banList_remove_triggered);
-    connect(ui->pushButton_load,              &QPushButton::clicked,                                                  this, &FrostbiteBanListWidget::pushButton_load_clicked);
-    connect(ui->pushButton_save,              &QPushButton::clicked,                                                  this, &FrostbiteBanListWidget::pushButton_save_clicked);
+    connect(ui->pushButton_load,              &QPushButton::clicked,                                                  getClient()->getCommandHandler(), &FrostbiteCommandHandler::sendBanListLoadCommand);
+    connect(ui->pushButton_save,              &QPushButton::clicked,                                                  getClient()->getCommandHandler(), &FrostbiteCommandHandler::sendBanListSaveCommand);
     connect(ui->pushButton_clear,             &QPushButton::clicked,                                                  this, &FrostbiteBanListWidget::pushButton_clear_clicked);
     connect(ui->lineEdit_value,               &QLineEdit::textChanged,                                                this, &FrostbiteBanListWidget::validate);
     connect(ui->lineEdit_reason,              &QLineEdit::textChanged,                                                this, &FrostbiteBanListWidget::validate);
@@ -226,16 +226,6 @@ void FrostbiteBanListWidget::action_bl_banList_remove_triggered()
 
         ui->tableWidget_bl_banList->removeRow(row);
     }
-}
-
-void FrostbiteBanListWidget::pushButton_load_clicked()
-{
-    getClient()->getCommandHandler()->sendBanListLoadCommand();
-}
-
-void FrostbiteBanListWidget::pushButton_save_clicked()
-{
-    getClient()->getCommandHandler()->sendBanListSaveCommand();
 }
 
 void FrostbiteBanListWidget::pushButton_clear_clicked()
