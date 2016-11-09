@@ -44,13 +44,6 @@ public:
 private:
     Ui::BF4MapListWidget *ui;
 
-    /* User Interface */
-    // Maplist
-    QMenu *menu_available;
-    QAction *action_available_add;
-    QMenu *menu_current;
-    QAction *action_current_remove;
-
     void setAvailableMaplist(int gameModeIndex);
     void addAvailableMapListItem(const QString &name, const QString &gameMode);
     void setCurrentMaplist(const QList<MapListEntry> &mapList);
@@ -58,9 +51,18 @@ private:
     void addLevel(const QString &name, const QString &gameMode, int rounds);
     void removeLevel(int index);
 
+    /* User Interface */
+    // Maplist
+    QMenu *menu_available;
+    QAction *action_available_add;
+    QMenu *menu_current;
+    QAction *action_current_remove;
+
 private slots:
+    /* Client */
+    void onAuthenticated();
+
     /* Commands */
-    void onLoginHashedCommand(bool auth);
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
     void onMapListListCommand(const QList<MapListEntry> &mapList);
 

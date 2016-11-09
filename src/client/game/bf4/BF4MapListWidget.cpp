@@ -22,6 +22,7 @@
 
 #include "BF4MapListWidget.h"
 #include "ui_BF4MapListWidget.h"
+
 #include "LevelEntry.h"
 #include "BF4LevelDictionary.h"
 #include "Frostbite2ServerInfo.h"
@@ -36,7 +37,6 @@ BF4MapListWidget::BF4MapListWidget(BF4Client *client, QWidget *parent) :
 
     // Set default values
     ui->comboBox_gameMode->addItems(BF4LevelDictionary::getGameModeNames());
-    ui->spinBox_rounds->setValue(2);
     setAvailableMaplist(0);
 
     // Add menus
@@ -48,10 +48,12 @@ BF4MapListWidget::BF4MapListWidget(BF4Client *client, QWidget *parent) :
     menu_available->addAction(action_available_add);
     menu_current->addAction(action_current_remove);
 
+    /* Client */
+    connect(getClient(),                        &Client::onAuthenticated,                                                                   getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient(),                        &Client::onAuthenticated,                                                                   this, &BF4MapListWidget::onAuthenticated);
+
     /* Commands */
     // Misc
-    connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(bool)>(&Frostbite2CommandHandler::onLoginHashedCommand),
-            this, &BF4MapListWidget::onLoginHashedCommand);
     connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
             this, &BF4MapListWidget::onServerInfoCommand);
 
@@ -163,14 +165,13 @@ void BF4MapListWidget::removeLevel(int index)
     getClient()->getCommandHandler()->sendMapListRemoveCommand(index);
 }
 
-void BF4MapListWidget::onLoginHashedCommand(bool auth)
+/* Client */
+void BF4MapListWidget::onAuthenticated()
 {
-    if (auth) {
-        getClient()->getCommandHandler()->sendServerInfoCommand();
-        getClient()->getCommandHandler()->sendMapListListCommand();
-    }
+    getClient()->getCommandHandler()->sendMapListListCommand();
 }
 
+/* Commands */
 void BF4MapListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
 {
     LevelEntry level = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
@@ -192,6 +193,7 @@ void BF4MapListWidget::onMapListListCommand(const QList<MapListEntry> &mapList)
     setCurrentMaplist(mapList);
 }
 
+/* User Interface */
 void BF4MapListWidget::comboBox_gameMode_currentIndexChanged(int index)
 {
     setAvailableMaplist(index);
