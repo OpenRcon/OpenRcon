@@ -41,8 +41,6 @@
 BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     Frostbite2MainWidget(new BF3Client(serverEntry, parent), parent)
 {
-    ui->setupUi(this);
-
     /* Commands */
     // Misc
     connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const BF3ServerInfo&)>(&FrostbiteCommandHandler::onServerInfoCommand),
@@ -63,7 +61,7 @@ BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
 
 BF3MainWidget::~BF3MainWidget()
 {
-    delete ui;
+
 }
 
 /* Commands */
