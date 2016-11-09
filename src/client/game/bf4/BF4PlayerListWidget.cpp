@@ -92,7 +92,7 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
     menu_player_copyTo->addAction(action_player_copyTo_guid);
 
     /* Client */
-    connect(client,                                 &FrostbiteClient::onAuthenticated,                    this, &BF4PlayerListWidget::onAuthenticated);
+    connect(client,                                 &Client::onAuthenticated,                             this, &BF4PlayerListWidget::onAuthenticated);
 
     /* Events */
     connect(client->getCommandHandler(),            &FrostbiteCommandHandler::onPlayerAuthenticatedEvent, this, &BF4PlayerListWidget::updatePlayerList);

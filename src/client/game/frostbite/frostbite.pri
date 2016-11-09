@@ -3,9 +3,9 @@ DEPENDPATH += $$PWD
 
 HEADERS += $$PWD/FrostbiteWidget.h \
     $$PWD/FrostbiteEventsWidget.h \
-    $$PWD/FrostbiteConsoleWidget.h \
     $$PWD/FrostbiteChatWidget.h \
-    $$PWD/FrostbiteBanListWidget.h
+    $$PWD/FrostbiteBanListWidget.h \
+    $$PWD/FrostbiteConsoleWidget.h
 
 SOURCES += $$PWD/FrostbiteWidget.cpp \
     $$PWD/FrostbiteEventsWidget.cpp \

@@ -35,6 +35,9 @@ BF4SpectatorSlotsWidget::BF4SpectatorSlotsWidget(BF4Client *client, QWidget *par
     action_spectatorList_remove = new QAction(tr("Remove"), menu_spectatorList);
     menu_spectatorList->addAction(action_spectatorList_remove);
 
+    /* Client */
+    connect(getClient(),                      &Client::onAuthenticated,                       this,                             &BF4SpectatorSlotsWidget::onAuthenticated);
+
     /* Commands */
     connect(getClient()->getCommandHandler(), &BF4CommandHandler::onSpectatorListListCommand, this,                             &BF4SpectatorSlotsWidget::onSpectatorListListCommand);
 
