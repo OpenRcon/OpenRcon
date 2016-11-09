@@ -18,12 +18,16 @@
  */
 
 #include <QTimer>
+#include <QStringList>
 #include <QCompleter>
 #include <QMenu>
 #include <QAction>
+#include <QList>
+#include <QString>
 
 #include "BanListWidget.h"
 #include "ui_BanListWidget.h"
+
 #include "BanListEntry.h"
 #include "BanType.h"
 #include "BanIdType.h"
@@ -71,8 +75,8 @@ BanListWidget::BanListWidget(FrostbiteClient *client, QWidget *parent) :
 
     menu_bl_banList->addAction(action_bl_banList_remove);
 
-    /* Events */
-    // TODO: Connect event here so that list is update when runnig next round.
+    /* Client */
+    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                                      this, &BanListWidget::onAuthenticated);
 
     /* Commands */
     // BanList
@@ -155,6 +159,12 @@ void BanListWidget::addBanListItem(const BanIdTypeEnum &banIdType, const QString
 
     ui->tableWidget_bl_banList->setItem(row, 2, banTypeItem);
     ui->tableWidget_bl_banList->setItem(row, 3, new QTableWidgetItem(reason));
+}
+
+/* Client */
+void BanListWidget::onAuthenticated()
+{
+    getClient()->getCommandHandler()->sendBanListListCommand();
 }
 
 /* Commands */

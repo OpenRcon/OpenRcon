@@ -22,10 +22,12 @@
 
 #include "FrostbiteWidget.h"
 
+class QString;
 class QTimer;
 class QMenu;
 class QAction;
-class QString;
+template<class T>
+class QList;
 class QPoint;
 
 class BanListEntry;
@@ -47,16 +49,19 @@ public:
 private:
     Ui::BanListWidget *ui;
 
+    void setBanlist(const QList<BanListEntry> &banList);
+    void setTemporaryEnabled(bool enabled);
+    void addBanListItem(const BanIdTypeEnum &banIdType, const QString &banId, const BanTypeEnum &banType, int seconds, int rounds, const QString &reason);
+
     /* User Interface */
     QTimer *timer;
     QMenu *menu_bl_banList;
     QAction *action_bl_banList_remove;
 
-    void setBanlist(const QList<BanListEntry> &banList);
-    void setTemporaryEnabled(bool enabled);
-    void addBanListItem(const BanIdTypeEnum &banIdType, const QString &banId, const BanTypeEnum &banType, int seconds, int rounds, const QString &reason);
-
 private slots:
+    /* Client */
+    void onAuthenticated();
+
     /* Commands */
     void onBanListListCommand(const QList<BanListEntry> &banList);
 
