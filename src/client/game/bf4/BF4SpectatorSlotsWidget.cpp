@@ -31,6 +31,10 @@ BF4SpectatorSlotsWidget::BF4SpectatorSlotsWidget(BF4Client *client, QWidget *par
 {
     ui->setupUi(this);
 
+    // Set listWidget and clear button disabled by default.
+    ui->listWidget_spectatorList->setEnabled(false);
+    ui->pushButton_clear->setEnabled(false);
+
     menu_spectatorList = new QMenu(ui->listWidget_spectatorList);
     action_spectatorList_remove = new QAction(tr("Remove"), menu_spectatorList);
     menu_spectatorList->addAction(action_spectatorList_remove);
@@ -65,10 +69,13 @@ void BF4SpectatorSlotsWidget::onAuthenticated()
 /* Commands */
 void BF4SpectatorSlotsWidget::onSpectatorListListCommand(const QStringList &spectatorList)
 {
+    ui->listWidget_spectatorList->clear();
+    ui->listWidget_spectatorList->setEnabled(!spectatorList.isEmpty());
     ui->pushButton_clear->setEnabled(!spectatorList.isEmpty());
 
-    ui->listWidget_spectatorList->clear();
-    ui->listWidget_spectatorList->addItems(spectatorList);
+    if (!spectatorList.isEmpty()) {
+        ui->listWidget_spectatorList->addItems(spectatorList);
+    }
 }
 
 /* User Interface */
