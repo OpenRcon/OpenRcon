@@ -87,6 +87,7 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
     connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,                                    &Frostbite2CommandHandler::sendServerInfoCommand);
     connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,                                   &Frostbite2CommandHandler::sendServerInfoCommand);
     connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerLevelLoadedEvent,                             &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerMaxPlayerCountChangeEvent,                    &Frostbite2CommandHandler::sendServerInfoCommand);
 
     /* Commands */
     // Misc
@@ -147,7 +148,7 @@ void Frostbite2MainWidget::onDisconnected()
 void Frostbite2MainWidget::onLoginHashedCommand(bool authenticated)
 {
     if (!authenticated) {
-        int result = QMessageBox::warning(0, tr("Error"), "Wrong password, make sure you typed in the right password and try again.");
+        int result = QMessageBox::warning(0, tr("Error"), tr("Wrong password, make sure you typed in the right password and try again."));
 
         if (result) {
             client->getConnection()->hostDisconnect();
