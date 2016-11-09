@@ -29,7 +29,7 @@ class QString;
 class FrostbiteEventsWidget;
 class FrostbiteChatWidget;
 class BanListWidget;
-class ReservedSlotsWidget;
+class Frostbite2ReservedSlotsWidget;
 class FrostbiteConsoleWidget;
 
 namespace Ui {
@@ -50,7 +50,7 @@ protected:
     FrostbiteEventsWidget *eventsWidget;
     FrostbiteChatWidget *chatWidget;
     BanListWidget *banListWidget;
-    ReservedSlotsWidget *reservedSlotsWidget;
+    Frostbite2ReservedSlotsWidget *reservedSlotsWidget;
     FrostbiteConsoleWidget *consoleWidget;
 
     // Server Information

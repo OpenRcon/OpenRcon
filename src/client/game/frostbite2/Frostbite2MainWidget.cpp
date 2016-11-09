@@ -26,7 +26,7 @@
 #include "FrostbiteEventsWidget.h"
 #include "FrostbiteChatWidget.h"
 #include "BanListWidget.h"
-#include "ReservedSlotsWidget.h"
+#include "Frostbite2ReservedSlotsWidget.h"
 #include "FrostbiteConsoleWidget.h"
 #include "Time.h"
 
@@ -51,7 +51,7 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
     eventsWidget = new FrostbiteEventsWidget(getClient(), this);
     chatWidget = new FrostbiteChatWidget(getClient(), this);
     banListWidget = new BanListWidget(getClient(), this);
-    reservedSlotsWidget = new ReservedSlotsWidget(getClient(), this);
+    reservedSlotsWidget = new Frostbite2ReservedSlotsWidget(getClient(), this);
     consoleWidget = new FrostbiteConsoleWidget(getClient(), commandList, this);
 
     ui->tabWidget->addTab(eventsWidget, QIcon(":/frostbite/icons/events.png"), tr("Events"));

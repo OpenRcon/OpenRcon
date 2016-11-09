@@ -17,8 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESERVEDSLOTSWIDGET_H
-#define RESERVEDSLOTSWIDGET_H
+#ifndef FROSTBITE2RESERVEDSLOTSWIDGET_H
+#define FROSTBITE2RESERVEDSLOTSWIDGET_H
 
 #include "Frostbite2Widget.h"
 
@@ -30,19 +30,19 @@ class QPoint;
 class Frostbite2Client;
 
 namespace Ui {
-    class ReservedSlotsWidget;
+    class Frostbite2ReservedSlotsWidget;
 }
 
-class ReservedSlotsWidget : public Frostbite2Widget
+class Frostbite2ReservedSlotsWidget : public Frostbite2Widget
 {
     Q_OBJECT
 
 public:
-    ReservedSlotsWidget(Frostbite2Client *client, QWidget *parent = nullptr);
-    ~ReservedSlotsWidget() final;
+    Frostbite2ReservedSlotsWidget(Frostbite2Client *client, QWidget *parent = nullptr);
+    ~Frostbite2ReservedSlotsWidget() final;
 
 private:
-    Ui::ReservedSlotsWidget *ui;
+    Ui::Frostbite2ReservedSlotsWidget *ui;
     Frostbite2Client *client;
 
     QMenu *menu_rs_reservedSlotsList;
@@ -59,4 +59,4 @@ private slots:
 
 };
 
-#endif // RESERVEDSLOTSWIDGET_H
+#endif // FROSTBITE2RESERVEDSLOTSWIDGET_H

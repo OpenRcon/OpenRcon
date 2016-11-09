@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ReservedSlotsWidget</class>
- <widget class="QWidget" name="ReservedSlotsWidget">
+ <class>Frostbite2ReservedSlotsWidget</class>
+ <widget class="QWidget" name="Frostbite2ReservedSlotsWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,7 +29,7 @@
         <string>Add</string>
        </property>
        <property name="icon">
-        <iconset resource="../OpenRcon.qrc">
+        <iconset resource="../../OpenRcon.qrc">
          <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
        </property>
       </widget>
@@ -139,7 +139,7 @@
  </widget>
  <resources>
   <include location="../frostbite/Frostbite.qrc"/>
-  <include location="../OpenRcon.qrc"/>
+  <include location="../../OpenRcon.qrc"/>
  </resources>
  <connections/>
 </ui>
