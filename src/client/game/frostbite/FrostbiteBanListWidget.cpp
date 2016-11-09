@@ -76,7 +76,7 @@ FrostbiteBanListWidget::FrostbiteBanListWidget(FrostbiteClient *client, QWidget 
     menu_bl_banList->addAction(action_bl_banList_remove);
 
     /* Client */
-    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                                      this, &FrostbiteBanListWidget::onAuthenticated);
+    connect(getClient(),                      &Client::onAuthenticated,                                               this, &FrostbiteBanListWidget::onAuthenticated);
 
     /* Commands */
     // BanList

@@ -39,7 +39,7 @@ FrostbiteConsoleWidget::FrostbiteConsoleWidget(FrostbiteClient *client, QWidget 
     connect(getClient()->getConnection(),     &Connection::onDataReceived,                        this, &FrostbiteConsoleWidget::onDataReceived);
 
     /* Client */
-    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                  this, &FrostbiteConsoleWidget::onAuthenticated);
+    connect(getClient(),                      &Client::onAuthenticated,                           this, &FrostbiteConsoleWidget::onAuthenticated);
 
     /* Events */
     connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPunkBusterMessageEvent, this, &FrostbiteConsoleWidget::onPunkBusterMessageEvent);

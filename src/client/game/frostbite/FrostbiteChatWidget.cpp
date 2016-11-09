@@ -34,7 +34,7 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
     ui->setupUi(this);
 
     /* Client */
-    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                                      this, &FrostbiteChatWidget::onAuthenticated);
+    connect(getClient(),                      &Client::onAuthenticated,                                               this, &FrostbiteChatWidget::onAuthenticated);
 
     /* Events */
     connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent,                            this, &FrostbiteChatWidget::onPlayerChatEvent);

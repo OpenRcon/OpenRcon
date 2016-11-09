@@ -51,7 +51,7 @@ FrostbiteEventsWidget::FrostbiteEventsWidget(Frostbite2Client *client, QWidget *
     connect(getClient()->getConnection(),     &Connection::onDisconnected,                                 this, &FrostbiteEventsWidget::onDisconnected);
 
     /* Client */
-    connect(getClient(),                      &FrostbiteClient::onAuthenticated,                           this, &FrostbiteEventsWidget::onAuthenticated);
+    connect(getClient(),                      &Client::onAuthenticated,                                    this, &FrostbiteEventsWidget::onAuthenticated);
 
     /* Events */
     connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,       this, &FrostbiteEventsWidget::onPlayerAuthenticatedEvent);

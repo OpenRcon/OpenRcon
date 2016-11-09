@@ -42,7 +42,7 @@ Frostbite2ReservedSlotsWidget::Frostbite2ReservedSlotsWidget(Frostbite2Client *c
     menu_rs_reservedSlotsList->addAction(action_rs_reservedSlotsList_remove);
 
     /* Client */
-    connect(getClient(),                         &Frostbite2Client::onAuthenticated,                        getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListListCommand);
+    connect(getClient(),                         &Client::onAuthenticated,                                  getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendReservedSlotsListListCommand);
 
     /* Commands */
     connect(getClient()->getCommandHandler(),    &Frostbite2CommandHandler::onReservedSlotsListListCommand, this,                             &Frostbite2ReservedSlotsWidget::onReservedSlotsListListCommand);
