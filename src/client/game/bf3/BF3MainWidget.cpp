@@ -70,20 +70,7 @@ BF3MainWidget::~BF3MainWidget()
 // Misc
 void BF3MainWidget::onServerInfoCommand(const BF3ServerInfo &serverInfo)
 {
-    LevelEntry level = BF3LevelDictionary::getLevel(serverInfo.getCurrentMap());
-    GameModeEntry gameMode = BF3LevelDictionary::getGameMode(serverInfo.getGameMode());
-    roundTime = serverInfo.getRoundTime();
-    upTime = serverInfo.getServerUpTime();
-    updateRoundTime();
-    updateUpTime();
-
-    // Update the title of the this sessions tab.
-    TabWidget *tabWidget = TabWidget::getInstance();
-    tabWidget->setTabText(tabWidget->indexOf(this), serverInfo.getServerName());
-
     // Update the server information.
-    ui->label_si_level->setPixmap(level.getIcon());
-    ui->label_si_status->setText(QString("%1 - %2").arg(level.getName(), gameMode.getName()));
     ui->label_si_status->setToolTip(tr("<table>"
                                           "<tr>"
                                               "<td>External IP address and port:</td>"
@@ -120,9 +107,6 @@ void BF3MainWidget::onServerInfoCommand(const BF3ServerInfo &serverInfo)
                                                       serverInfo.getCountry(),
                                                       serverInfo.getClosestPingSite())
                                                  .arg(serverInfo.getPunkBusterVersion()));
-
-    ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.getPlayerCount()).arg(serverInfo.getMaxPlayerCount()));
-    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.getRoundsPlayed() + 1).arg(serverInfo.getRoundsTotal()));
 }
 
 // Admin

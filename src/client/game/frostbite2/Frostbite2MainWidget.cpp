@@ -28,6 +28,15 @@
 #include "FrostbiteBanListWidget.h"
 #include "Frostbite2ReservedSlotsWidget.h"
 #include "FrostbiteConsoleWidget.h"
+#include "Frostbite2ServerInfo.h"
+#include "TabWidget.h"
+#include "ServerEntry.h"
+#include "GameType.h"
+#include "LevelEntry.h"
+#include "GameModeEntry.h"
+#include "BF4GameModeEntry.h"
+#include "BF3LevelDictionary.h"
+#include "BF4LevelDictionary.h"
 #include "Time.h"
 
 Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *parent) :
@@ -66,16 +75,26 @@ Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *pa
     ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(consoleWidget), false);
     ui->tabWidget->setCurrentIndex(0);
 
+    /* Connection */
+    connect(getClient()->getConnection(),     &Connection::onConnected,                      this,                             &Frostbite2MainWidget::onConnected);
+    connect(getClient()->getConnection(),     &Connection::onConnected,                      getClient()->getCommandHandler(), &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient()->getConnection(),     &Connection::onDisconnected,                   this,                             &Frostbite2MainWidget::onDisconnected);
+
+    /* Client */
+    connect(getClient(),                      &Client::onAuthenticated,                      this,                             &Frostbite2MainWidget::onAuthenticated);
+
     /* Events */
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,        &Frostbite2CommandHandler::sendServerInfoCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,       &Frostbite2CommandHandler::sendServerInfoCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerLevelLoadedEvent, &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,                                    &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,                                   &Frostbite2CommandHandler::sendServerInfoCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerLevelLoadedEvent,                             &Frostbite2CommandHandler::sendServerInfoCommand);
 
     /* Commands */
     // Misc
     connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(bool)>(&FrostbiteCommandHandler::onLoginHashedCommand),
             this, &Frostbite2MainWidget::onLoginHashedCommand);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,   this, &Frostbite2MainWidget::onVersionCommand);
+    connect(getClient()->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const Frostbite2ServerInfo&)>(&FrostbiteCommandHandler::onServerInfoCommand),
+            this, &Frostbite2MainWidget::onServerInfoCommand);
+    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onVersionCommand,   this,                             &Frostbite2MainWidget::onVersionCommand);
 
     // Admin
 
@@ -134,6 +153,46 @@ void Frostbite2MainWidget::onLoginHashedCommand(bool authenticated)
             client->getConnection()->hostDisconnect();
         }
     }
+}
+
+void Frostbite2MainWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
+{
+    // Update the title of the this sessions tab.
+    TabWidget *tabWidget = TabWidget::getInstance();
+    tabWidget->setTabText(tabWidget->indexOf(this), serverInfo.getServerName());
+
+    GameTypeEnum gameType = getClient()->getServerEntry()->getGameType();
+    LevelEntry level;
+    GameModeEntry gameMode;
+
+    switch (gameType) {
+    case GameTypeEnum::BF3:
+        level = BF3LevelDictionary::getLevel(serverInfo.getCurrentMap());
+        gameMode = BF3LevelDictionary::getGameMode(serverInfo.getGameMode());
+        break;
+
+    case GameTypeEnum::BF4:
+        level = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
+        gameMode = BF4LevelDictionary::getGameMode(serverInfo.getGameMode());
+        break;
+
+    default:
+        break;
+    }
+
+    // Update the roundTime and serverUpTime.
+    roundTime = serverInfo.getRoundTime();
+    upTime = serverInfo.getServerUpTime();
+    updateRoundTime();
+    updateUpTime();
+
+    // Update the server information.
+    ui->label_si_level->setPixmap(level.getIcon());
+    ui->label_si_status->setText(QString("%1 - %2").arg(level.getName(), gameMode.getName()));
+
+    // Update the players and round information.
+    ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.getPlayerCount()).arg(serverInfo.getMaxPlayerCount()));
+    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.getRoundsPlayed() + 1).arg(serverInfo.getRoundsTotal()));
 }
 
 void Frostbite2MainWidget::onVersionCommand(const QString &type, int build)

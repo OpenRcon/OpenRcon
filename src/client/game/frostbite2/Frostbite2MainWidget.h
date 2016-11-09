@@ -80,6 +80,7 @@ private slots:
     /* Commands */
     // Misc
     void onLoginHashedCommand(bool authenticated);
+    void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
     void onVersionCommand(const QString &type, int build);
 
     // Admin
