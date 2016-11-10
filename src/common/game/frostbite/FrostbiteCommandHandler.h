@@ -60,12 +60,12 @@ public slots:
     void sendLogoutCommand();
     void sendQuitCommand();
     void sendVersionCommand();
-    void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset);
+    void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
 
     // Admin
     void sendAdminKickPlayerCommand(const QString &player, const QString &reason = QString());
     void sendAdminKillPlayerCommand(const QString &player);
-    void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset);
+    void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
     void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
     void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter = -1);
     void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter = -1);

@@ -183,9 +183,28 @@ void FrostbiteCommandHandler::sendVersionCommand()
     connection->sendCommand("version");
 }
 
-void FrostbiteCommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &playerSubset)
+void FrostbiteCommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
 {
-    connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
+    QString command = QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower());
+
+    switch (playerSubset) {
+    case PlayerSubsetEnum::Team:
+        command += QString(" \"%1\"").arg(teamId);
+        break;
+
+    case PlayerSubsetEnum::Squad:
+        command += QString(" \"%1\" \"%2\"").arg(teamId, squadId);
+        break;
+
+    case PlayerSubsetEnum::Player:
+        command += QString(" \"%1\"").arg(player);
+        break;
+
+    default:
+        break;
+    }
+
+    connection->sendCommand(command);
 }
 
 // Admin
@@ -207,9 +226,28 @@ void FrostbiteCommandHandler::sendAdminKillPlayerCommand(const QString &player)
     connection->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
 }
 
-void FrostbiteCommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset)
+void FrostbiteCommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
 {
-    connection->sendCommand(QString("\"admin.listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
+    QString command = QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower());
+
+    switch (playerSubset) {
+    case PlayerSubsetEnum::Team:
+        command += QString(" \"%1\"").arg(teamId);
+        break;
+
+    case PlayerSubsetEnum::Squad:
+        command += QString(" \"%1\" \"%2\"").arg(teamId, squadId);
+        break;
+
+    case PlayerSubsetEnum::Player:
+        command += QString(" \"%1\"").arg(player);
+        break;
+
+    default:
+        break;
+    }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
