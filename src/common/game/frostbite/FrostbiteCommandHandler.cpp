@@ -252,42 +252,64 @@ void FrostbiteCommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum
 
 void FrostbiteCommandHandler::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
 {
-    connection->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(forceKill)));
+    connection->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(FrostbiteUtils::toString(forceKill)));
 }
 
-void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter)
+void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
 {
     if (message.length() < 128) {
-        QString command;
+        QString command = QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubset).toLower());
 
-        if (parameter < 0) {
-            command = QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubset).toLower());
-        } else {
-            command = QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubset).toLower()).arg(parameter);
+        switch (playerSubset) {
+        case PlayerSubsetEnum::Team:
+            command += QString(" \"%1\"").arg(teamId);
+            break;
+
+        case PlayerSubsetEnum::Squad:
+            command += QString(" \"%1\" \"%2\"").arg(teamId, squadId);
+            break;
+
+        case PlayerSubsetEnum::Player:
+            command += QString(" \"%1\"").arg(player);
+            break;
+
+        default:
+            break;
         }
 
         connection->sendCommand(command);
     }
 }
 
-void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter)
-{
-    sendAdminYellCommand(message, 10, playerSubset, parameter);
-}
-
-void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetEnum &playerSubset, int parameter)
+void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
 {
     if (message.length() < 256) {
-        QString command;
+        QString command = QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower());
 
-        if (parameter < 0) {
-            command = QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower());
-        } else {
-            command = QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower()).arg(parameter);
+        switch (playerSubset) {
+        case PlayerSubsetEnum::Team:
+            command += QString(" \"%1\"").arg(teamId);
+            break;
+
+        case PlayerSubsetEnum::Squad:
+            command += QString(" \"%1\" \"%2\"").arg(teamId, squadId);
+            break;
+
+        case PlayerSubsetEnum::Player:
+            command += QString(" \"%1\"").arg(player);
+            break;
+
+        default:
+            break;
         }
 
         connection->sendCommand(command);
     }
+}
+
+void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
+{
+    sendAdminYellCommand(message, 10, playerSubset, teamId, squadId, player);
 }
 
 // Banning
