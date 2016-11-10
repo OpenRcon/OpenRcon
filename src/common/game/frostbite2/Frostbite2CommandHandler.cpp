@@ -27,7 +27,6 @@
 #include "BF4CommandHandler.h"
 #include "PlayerSubset.h"
 #include "TeamScores.h"
-#include "Frostbite2ServerInfo.h"
 #include "BF3ServerInfo.h"
 #include "BF4ServerInfo.h"
 #include "BF4PlayerEntry.h"
@@ -73,14 +72,14 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         /*{ "quit",                                 &FrostbiteCommandHandler::parseQuitCommand },*/
         /*{ "version",                              &FrostbiteCommandHandler::parseVersionCommand },*/
         { "currentLevel",                           &Frostbite2CommandHandler::parseCurrentLevelCommand },
-        { "listPlayers",                            &Frostbite2CommandHandler::parseListPlayersCommand },
+        /*{ "listPlayers",                          &FrostbiteCommandHandler::parseListPlayersCommand },*/
 
         // Admin
         { "admin.eventsEnabled",                    &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
         { "admin.help",                             &Frostbite2CommandHandler::parseAdminHelpCommand },
         /*{ "admin.kickPlayer",                     &FrostbiteCommandHandler::parseAdminKickPlayerCommand },*/
         /*{ "admin.killPlayer",                     &FrostbiteCommandHandler::parseAdminKillPlayerCommand },*/
-        { "admin.listPlayers",                      &Frostbite2CommandHandler::parseAdminListPlayersCommand },
+        /*{ "admin.listPlayers",                    &FrostbiteCommandHandler::parseAdminListPlayersCommand },*/
         /*{ "admin.movePlayer",                     &FrostbiteCommandHandler::parseAdminMovePlayerCommand },*/
         { "admin.password",                         &Frostbite2CommandHandler::parseAdminPasswordCommand },
         /*{ "admin.say",                            &FrostbiteCommandHandler::parseAdminSayCommand },*/
@@ -191,11 +190,6 @@ void Frostbite2CommandHandler::sendCurrentLevelCommand()
     connection->sendCommand("currentLevel");
 }
 
-void Frostbite2CommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &playerSubset)
-{
-    connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
-}
-
 // Admin
 void Frostbite2CommandHandler::sendAdminEventsEnabledCommand()
 {
@@ -210,11 +204,6 @@ void Frostbite2CommandHandler::sendAdminEventsEnabledCommand(bool enabled)
 void Frostbite2CommandHandler::sendAdminHelpCommand()
 {
     connection->sendCommand("admin.help");
-}
-
-void Frostbite2CommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset)
-{
-    connection->sendCommand(QString("\"admin.listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
 }
 
 void Frostbite2CommandHandler::sendAdminPasswordCommand(const QString &password)
@@ -618,51 +607,6 @@ void Frostbite2CommandHandler::sendVarsVehicleSpawnDelayCommand(int percent)
     connection->sendCommand(command);
 }
 
-QList<Frostbite2PlayerEntry> Frostbite2CommandHandler::parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    QString response = packet.getWord(0).getContent();
-    QList<Frostbite2PlayerEntry> playerList;
-
-    // BF4 Only.
-    if (dynamic_cast<BF4CommandHandler*>(this)) {
-        QList<BF4PlayerEntry> playerList;
-    }
-
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
-        int parameters = QString(packet.getWord(1).getContent()).toInt();
-        int players = QString(packet.getWord(2 + parameters).getContent()).toInt();
-
-        for (int i = 0; i < players; i++) {
-            QStringList list;
-
-            for (int j = 0; j < parameters; j++) {
-                list.append(packet.getWord(2 + parameters + 1 + i * parameters + j).getContent());
-            }
-
-            QString name = list.at(0);
-            QString guid = list.at(1);
-            int teamId = FrostbiteUtils::toInt(list.at(2));
-            int squadId = FrostbiteUtils::toInt(list.at(3));
-            int kills = FrostbiteUtils::toInt(list.at(4));
-            int deaths = FrostbiteUtils::toInt(list.at(5));
-            int score = FrostbiteUtils::toInt(list.at(6));
-            int rank = FrostbiteUtils::toInt(list.at(7));
-
-            // BF4 Only.
-            if (dynamic_cast<BF4CommandHandler*>(this)) {
-                int ping = FrostbiteUtils::toInt(list.at(8));
-                int type = FrostbiteUtils::toInt(list.at(9));
-
-                playerList.append(BF4PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank, ping, type));
-            } else {
-                playerList.append(Frostbite2PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank));
-            }
-        }
-    }
-
-    return playerList;
-}
-
 /* Parse events */
 void Frostbite2CommandHandler::parseServerLevelLoadedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
@@ -700,13 +644,6 @@ void Frostbite2CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacke
     }
 }
 
-void Frostbite2CommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    emit (onListPlayersCommand(parsePlayerList(packet, lastSentPacket)));
-}
-
 // Admin
 void Frostbite2CommandHandler::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
@@ -736,13 +673,6 @@ void Frostbite2CommandHandler::parseAdminHelpCommand(const FrostbiteRconPacket &
 
         emit (onAdminHelpCommand(commandList));
     }
-}
-
-void Frostbite2CommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    emit (onAdminListPlayersCommand(parsePlayerList(packet, lastSentPacket)));
 }
 
 void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

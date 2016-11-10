@@ -33,6 +33,9 @@ enum class BanTypeEnum;
 class Frostbite2ServerInfo;
 class BF3ServerInfo;
 class BF4ServerInfo;
+class FrostbitePlayerEntry;
+class Frostbite2PlayerEntry;
+class BF4PlayerEntry;
 class BanListEntry;
 class MapListEntry;
 
@@ -57,12 +60,12 @@ public slots:
     void sendLogoutCommand();
     void sendQuitCommand();
     void sendVersionCommand();
-    //listPlayers <players>
+    void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset);
 
     // Admin
     void sendAdminKickPlayerCommand(const QString &player, const QString &reason = QString());
     void sendAdminKillPlayerCommand(const QString &player);
-    //admin.listPlayers <players>
+    void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset);
     void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
     void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter = -1);
     void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int parameter = -1);
@@ -131,12 +134,12 @@ private:
     void parseLogoutCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-    //listPlayers <players>
+    void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Admin
     //admin.kickPlayer <player name> <reason>
     //admin.killPlayer <player name>
-    //admin.listPlayers <players>
+    void parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     //admin.movePlayer <name> <teamId> <squadId> <forceKill>
     //admin.say <message> <players>
     //admin.yell <message> <duration> <players>
@@ -176,6 +179,8 @@ private:
     void parseVarsTeamKillValueForKickCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVarsTeamKillValueIncreaseCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
+    void parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
 protected:
     FrostbiteConnection *connection;
 
@@ -205,12 +210,14 @@ signals:
     void onLogoutCommand();
     void onQuitCommand();
     void onVersionCommand(const QString &type, int build);
-    //listPlayers <players>
+    void onListPlayersCommand(const QList<FrostbitePlayerEntry> &playerList);
+    void onListPlayersCommand(const QList<Frostbite2PlayerEntry> &playerList);
+    void onListPlayersCommand(const QList<BF4PlayerEntry> &playerList);
 
     // Admin
     //admin.kickPlayer <player name> <reason>
     //admin.killPlayer <player name>
-    //admin.listPlayers <players>
+    /*void onAdminListPlayersCommand(const QList<Frostbite2PlayerEntry> &playerList);*/
     //admin.movePlayer <name> <teamId> <squadId> <forceKill>
     //admin.say <message> <players>
     //admin.yell <message> <duration> <players>

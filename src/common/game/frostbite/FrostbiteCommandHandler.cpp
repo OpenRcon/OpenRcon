@@ -27,11 +27,11 @@
 #include "TeamScores.h"
 #include "BanIdType.h"
 #include "BanType.h"
-#include "Frostbite2ServerInfo.h"
 #include "BF3ServerInfo.h"
 #include "BF4ServerInfo.h"
 #include "BF3CommandHandler.h"
 #include "BF4CommandHandler.h"
+#include "BF4PlayerEntry.h"
 #include "BanListEntry.h"
 #include "MapListEntry.h"
 
@@ -78,12 +78,12 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
         { "logout",                                 &FrostbiteCommandHandler::parseLogoutCommand },
         { "quit",                                   &FrostbiteCommandHandler::parseQuitCommand },
         { "version",                                &FrostbiteCommandHandler::parseVersionCommand },
-        { "listPlayers",                            nullptr /*&FrostbiteCommandHandler::parseListPlayersCommand*/}, // TODO: Move this from BF3CommandHandler and BF4CommandHandler.
+        { "listPlayers",                            &FrostbiteCommandHandler::parseListPlayersCommand },
 
         // Admin
         { "admin.kickPlayer",                       nullptr /*&FrostbiteCommandHandler::parseAdminKickPlayerCommand*/ },
         { "admin.killPlayer",                       nullptr /*&FrostbiteCommandHandler::parseAdminKillPlayerCommand*/ },
-        { "admin.listPlayers",                      nullptr /*&FrostbiteCommandHandler::parseAdminListPlayersCommand*/ },
+        { "admin.listPlayers",                      &FrostbiteCommandHandler::parseAdminListPlayersCommand },
         { "admin.movePlayer",                       nullptr /*&FrostbiteCommandHandler::parseAdminMovePlayerCommand*/ },
         { "admin.say",                              nullptr /*&FrostbiteCommandHandler::parseAdminSayCommand*/ },
         { "admin.yell",                             nullptr /*&FrostbiteCommandHandler::parseAdminYellCommand*/ },
@@ -183,6 +183,11 @@ void FrostbiteCommandHandler::sendVersionCommand()
     connection->sendCommand("version");
 }
 
+void FrostbiteCommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &playerSubset)
+{
+    connection->sendCommand(QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
+}
+
 // Admin
 void FrostbiteCommandHandler::sendAdminKickPlayerCommand(const QString &player, const QString &reason)
 {
@@ -200,6 +205,11 @@ void FrostbiteCommandHandler::sendAdminKickPlayerCommand(const QString &player, 
 void FrostbiteCommandHandler::sendAdminKillPlayerCommand(const QString &player)
 {
     connection->sendCommand(QString("\"admin.killPlayer\" \"%1\"").arg(player));
+}
+
+void FrostbiteCommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset)
+{
+    connection->sendCommand(QString("\"admin.listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower()));
 }
 
 void FrostbiteCommandHandler::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
@@ -841,7 +851,16 @@ void FrostbiteCommandHandler::parseVersionCommand(const FrostbiteRconPacket &pac
     }
 }
 
+void FrostbiteCommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    parsePlayerList(packet, lastSentPacket);
+}
+
 // Admin
+void FrostbiteCommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    parsePlayerList(packet, lastSentPacket);
+}
 
 // Banning
 void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
@@ -1079,5 +1098,67 @@ void FrostbiteCommandHandler::parseVarsTeamKillValueIncreaseCommand(const Frostb
         int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillValueIncreaseCommand(count));
+    }
+}
+
+void FrostbiteCommandHandler::parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    QString response = packet.getWord(0).getContent();
+    QList<FrostbitePlayerEntry> playerList;
+    QList<Frostbite2PlayerEntry> frostbite2PlayerList;
+    QList<BF4PlayerEntry> bf4PlayerList;
+
+    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
+    BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(this);
+
+    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+        int parameters = QString(packet.getWord(1).getContent()).toInt();
+        int players = QString(packet.getWord(2 + parameters).getContent()).toInt();
+
+        for (int i = 0; i < players; i++) {
+            QStringList list;
+
+            for (int j = 0; j < parameters; j++) {
+                list.append(packet.getWord(2 + parameters + 1 + i * parameters + j).getContent());
+            }
+
+            QString name = list.at(0);
+            QString guid = list.at(1);
+            int teamId = FrostbiteUtils::toInt(list.at(2));
+            int squadId = FrostbiteUtils::toInt(list.at(3));
+            int kills = FrostbiteUtils::toInt(list.at(4));
+            int deaths = FrostbiteUtils::toInt(list.at(5));
+            int score = FrostbiteUtils::toInt(list.at(6));
+
+
+            // Frostbite2 Only.
+            if (frostbite2CommandHandler) {
+                int rank = FrostbiteUtils::toInt(list.at(7));
+
+                frostbite2PlayerList.append(Frostbite2PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank));
+
+                // BF4 Only.
+                if (bf4CommandHandler) {
+                    int ping = FrostbiteUtils::toInt(list.at(8));
+                    int type = FrostbiteUtils::toInt(list.at(9));
+
+                    bf4PlayerList.append(BF4PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank, ping, type));
+                }
+            }
+
+            playerList.append(FrostbitePlayerEntry(name, guid, teamId, squadId, kills, deaths, score));
+        }
+
+        // Frostbite2 Only.
+        if (frostbite2CommandHandler) {
+            emit (onListPlayersCommand(frostbite2PlayerList));
+
+            // BF4 Only.
+            if (bf4CommandHandler) {
+                emit (onListPlayersCommand(bf4PlayerList));
+            }
+        }
+
+        emit (onListPlayersCommand(playerList));
     }
 }
