@@ -112,7 +112,8 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
     /* Commands */
     connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
             this, &BF4PlayerListWidget::onServerInfoCommand);
-    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const QList<BF4PlayerEntry>&)>(&Frostbite2CommandHandler::onListPlayersCommand), this, &BF4PlayerListWidget::onListPlayersCommand);
+    connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const QList<BF4PlayerEntry>&)>(&Frostbite2CommandHandler::onListPlayersCommand),
+            this, &BF4PlayerListWidget::onListPlayersCommand);
 
     /* User Interface */
     connect(this,                        &QTreeWidget::customContextMenuRequested,             this, &BF4PlayerListWidget::customContextMenuRequested);

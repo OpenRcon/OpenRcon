@@ -50,7 +50,7 @@ private:
     Ui::FrostbiteBanListWidget *ui;
 
     void setBanlist(const QList<BanListEntry> &banList);
-
+    void setTemporaryEnabled(bool enabled);
     void addBanListItem(const BanIdTypeEnum &banIdType, const QString &banId, const BanTypeEnum &banType, int seconds, int rounds, const QString &reason);
 
     /* User Interface */
@@ -59,8 +59,6 @@ private:
     QAction *action_bl_banList_remove;
 
 private slots:
-    void setTemporaryEnabled(bool enabled);
-
     /* Client */
     void onAuthenticated();
 

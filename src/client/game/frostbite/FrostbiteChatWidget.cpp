@@ -25,6 +25,7 @@
 
 #include "BFBC2CommandHandler.h"
 #include "Frostbite2CommandHandler.h"
+#include "FrostbitePlayerEntry.h"
 #include "PlayerSubset.h"
 
 FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *parent) :
@@ -41,6 +42,11 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
 
     /* Events */
     connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent,                            this, &FrostbiteChatWidget::onPlayerChatEvent);
+
+    /* Commands */
+    // Misc
+    connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const QList<FrostbitePlayerEntry>&)>(&FrostbiteCommandHandler::onListPlayersCommand),
+            this, &FrostbiteChatWidget::onListPlayersCommand);
 
     /* User Interface */
     connect(ui->comboBox_mode,                static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &FrostbiteChatWidget::comboBox_mode_currentIndexChanged);
@@ -76,6 +82,16 @@ void FrostbiteChatWidget::onAuthenticated()
 void FrostbiteChatWidget::onPlayerChatEvent(const QString &sender, const QString &message, const QString &target)
 {
     logChat(sender, message, target);
+}
+
+/* Commands */
+void FrostbiteChatWidget::onListPlayersCommand(const QList<FrostbitePlayerEntry> &playerList)
+{
+    ui->listWidget->clear();
+
+    for (FrostbitePlayerEntry playerEntry : playerList) {
+        ui->listWidget->addItem(playerEntry.getName());
+    }
 }
 
 /* User Interface */

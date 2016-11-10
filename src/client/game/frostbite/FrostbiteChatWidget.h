@@ -23,6 +23,10 @@
 #include "FrostbiteWidget.h"
 
 class QString;
+template<class T>
+class QList;
+
+class FrostbitePlayerEntry;
 
 namespace Ui {
     class FrostbiteChatWidget;
@@ -47,6 +51,9 @@ private slots:
 
     /* Events */
     void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
+
+    /* Commands */
+    void onListPlayersCommand(const QList<FrostbitePlayerEntry> &playerList);
 
     /* User Interface */
     void comboBox_mode_currentIndexChanged(int index);
