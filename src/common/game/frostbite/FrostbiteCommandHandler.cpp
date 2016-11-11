@@ -329,7 +329,7 @@ void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const
 void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player, int duration)
 {
     if (message.length() < 256) {
-        connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\ \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower(), player));
+        connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower(), player));
     }
 }
 
