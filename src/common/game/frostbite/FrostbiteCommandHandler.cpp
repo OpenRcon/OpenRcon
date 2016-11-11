@@ -29,6 +29,7 @@
 #include "BanType.h"
 #include "BF3ServerInfo.h"
 #include "BF4ServerInfo.h"
+#include "BFBC2CommandHandler.h"
 #include "BF3CommandHandler.h"
 #include "BF4CommandHandler.h"
 #include "BF4PlayerEntry.h"
@@ -80,6 +81,9 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
         { "version",                                &FrostbiteCommandHandler::parseVersionCommand },
         { "listPlayers",                            &FrostbiteCommandHandler::parseListPlayersCommand },
 
+        /// Frostbite2 Only.
+        { "currentLevel",                           &FrostbiteCommandHandler::parseCurrentLevelCommand },
+
         // Admin
         { "admin.kickPlayer",                       nullptr /*&FrostbiteCommandHandler::parseAdminKickPlayerCommand*/ },
         { "admin.killPlayer",                       nullptr /*&FrostbiteCommandHandler::parseAdminKillPlayerCommand*/ },
@@ -87,6 +91,9 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
         { "admin.movePlayer",                       nullptr /*&FrostbiteCommandHandler::parseAdminMovePlayerCommand*/ },
         { "admin.say",                              nullptr /*&FrostbiteCommandHandler::parseAdminSayCommand*/ },
         { "admin.yell",                             nullptr /*&FrostbiteCommandHandler::parseAdminYellCommand*/ },
+
+        /// BFBC2 Only.
+        { "admin.currentLevel",                     &FrostbiteCommandHandler::parseCurrentLevelCommand },
 
         // Banning
         { "banList.add",                            nullptr /*&FrostbiteCommandHandler::parseBanListAddCommand*/ },
@@ -183,6 +190,19 @@ void FrostbiteCommandHandler::sendVersionCommand()
     connection->sendCommand("version");
 }
 
+void FrostbiteCommandHandler::sendCurrentLevelCommand()
+{
+    QString command;
+
+    if (dynamic_cast<BFBC2CommandHandler*>(this)) {
+        command = "admin.currentLevel";
+    } else {
+        command = "currentLevel";
+    }
+
+    connection->sendCommand(command);
+}
+
 void FrostbiteCommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
 {
     QString command = QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower());
@@ -255,7 +275,7 @@ void FrostbiteCommandHandler::sendAdminMovePlayerCommand(const QString &player, 
     connection->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(FrostbiteUtils::toString(forceKill)));
 }
 
-void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
+void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId)
 {
     if (message.length() < 128) {
         QString command = QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubset).toLower());
@@ -269,10 +289,6 @@ void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const 
             command += QString(" \"%1\" \"%2\"").arg(teamId, squadId);
             break;
 
-        case PlayerSubsetEnum::Player:
-            command += QString(" \"%1\"").arg(player);
-            break;
-
         default:
             break;
         }
@@ -281,7 +297,14 @@ void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const 
     }
 }
 
-void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
+void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player)
+{
+    if (message.length() < 128) {
+        connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubset).toLower(), player));
+    }
+}
+
+void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId, int duration)
 {
     if (message.length() < 256) {
         QString command = QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower());
@@ -295,10 +318,6 @@ void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, int d
             command += QString(" \"%1\" \"%2\"").arg(teamId, squadId);
             break;
 
-        case PlayerSubsetEnum::Player:
-            command += QString(" \"%1\"").arg(player);
-            break;
-
         default:
             break;
         }
@@ -307,9 +326,11 @@ void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, int d
     }
 }
 
-void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
+void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player, int duration)
 {
-    sendAdminYellCommand(message, 10, playerSubset, teamId, squadId, player);
+    if (message.length() < 256) {
+        connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\ \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower(), player));
+    }
 }
 
 // Banning
@@ -914,6 +935,20 @@ void FrostbiteCommandHandler::parseVersionCommand(const FrostbiteRconPacket &pac
 void FrostbiteCommandHandler::parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     parsePlayerList(packet, lastSentPacket);
+}
+
+/// Frostbite2 Only.
+void FrostbiteCommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        QString levelName = packet.getWord(1).getContent();
+
+        emit (onCurrentLevelCommand(levelName));
+    }
 }
 
 // Admin

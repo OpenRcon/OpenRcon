@@ -71,7 +71,7 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         /*{ "logout",                               &FrostbiteCommandHandler::parseLogoutCommand },*/
         /*{ "quit",                                 &FrostbiteCommandHandler::parseQuitCommand },*/
         /*{ "version",                              &FrostbiteCommandHandler::parseVersionCommand },*/
-        { "currentLevel",                           &Frostbite2CommandHandler::parseCurrentLevelCommand },
+        /*{ "currentLevel",                         &FrostbiteCommandHandler::parseCurrentLevelCommand },*/
         /*{ "listPlayers",                          &FrostbiteCommandHandler::parseListPlayersCommand },*/
 
         // Admin
@@ -184,12 +184,6 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
 }
 
 /* Send commands */
-// Misc
-void Frostbite2CommandHandler::sendCurrentLevelCommand()
-{
-    connection->sendCommand("currentLevel");
-}
-
 // Admin
 void Frostbite2CommandHandler::sendAdminEventsEnabledCommand()
 {
@@ -630,20 +624,6 @@ void Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent(const Frostb
 }
 
 /* Parse commands */
-// Misc
-void Frostbite2CommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        QString levelName = packet.getWord(1).getContent();
-
-        emit (onCurrentLevelCommand(levelName));
-    }
-}
-
 // Admin
 void Frostbite2CommandHandler::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {

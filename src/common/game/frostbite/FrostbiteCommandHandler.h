@@ -60,6 +60,7 @@ public slots:
     void sendLogoutCommand();
     void sendQuitCommand();
     void sendVersionCommand();
+    void sendCurrentLevelCommand();
     void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
 
     // Admin
@@ -67,9 +68,11 @@ public slots:
     void sendAdminKillPlayerCommand(const QString &player);
     void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
     void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
-    void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
-    void sendAdminYellCommand(const QString &message, int duration, const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
-    void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
+    void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId = 0);
+    void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player);
+
+    void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId = 0, int duration = 10);
+    void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player, int duration = 10);
 
     // Banning
     void sendBanListAddCommand(const BanIdTypeEnum &banIdType, const QString &banId, const BanTypeEnum &banType, const QString &reason = QString(), int timeout = 0);
@@ -135,6 +138,9 @@ private:
     void parseQuitCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseVersionCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
+    /// Frostbite2 Only.
+    void parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     // Admin
     //admin.kickPlayer <player name> <reason>
@@ -213,6 +219,9 @@ signals:
     void onListPlayersCommand(const QList<FrostbitePlayerEntry> &playerList);
     void onListPlayersCommand(const QList<Frostbite2PlayerEntry> &playerList);
     void onListPlayersCommand(const QList<BF4PlayerEntry> &playerList);
+
+    /// Frostbite2 Only.
+    void onCurrentLevelCommand(const QString &levelName);
 
     // Admin
     //admin.kickPlayer <player name> <reason>

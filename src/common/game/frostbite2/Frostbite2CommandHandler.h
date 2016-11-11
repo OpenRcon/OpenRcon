@@ -37,9 +37,6 @@ public:
 
 public slots:
     /* Send commands */
-    // Misc
-    void sendCurrentLevelCommand();
-
     // Admin
     void sendAdminEventsEnabledCommand();
     void sendAdminEventsEnabledCommand(bool enabled);
@@ -86,8 +83,6 @@ public slots:
     void sendSquadPrivateCommand();
     void sendSquadPrivateCommand(int teamId, int squadId, bool isPrivate);
 
-    // Reserved Slots
-
     // Variables
     void sendVars3pCamCommand();
     void sendVars3pCamCommand(bool enabled);
@@ -124,9 +119,6 @@ private:
     void parseServerLevelLoadedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
     /* Parse commands */
-    // Misc
-    void parseCurrentLevelCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
-
     // Admin
     void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
@@ -198,9 +190,6 @@ signals:
     void onServerLevelLoadedEvent(const QString &levelName, const QString &gameModeName, int roundsPlayed, int roundsTotal);
 
     /* Command signals */
-    // Misc
-    void onCurrentLevelCommand(const QString &levelName);
-
     // Admin
     void onAdminEventsEnabledCommand(bool enabled);
     void onAdminHelpCommand(const QStringList &commandList);
