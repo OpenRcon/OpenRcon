@@ -163,6 +163,17 @@ public:
         return teamList;
     }
 
+    static QList<TeamEntryType> getTeams(const QList<int> teamIdList)
+    {
+        QList<TeamEntryType> teamList;
+
+        for (int teamId : teamIdList) {
+            teamList.append(getTeam(teamId));
+        }
+
+        return teamList;
+    }
+
 private:
     static QList<TeamEntryType> teamList;
     static QString imagePath;

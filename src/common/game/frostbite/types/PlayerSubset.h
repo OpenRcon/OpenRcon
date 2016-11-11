@@ -20,6 +20,8 @@
 #ifndef PLAYERSUBSET_H
 #define PLAYERSUBSET_H
 
+#include <QMetaType>
+
 class QString;
 class QStringList;
 
@@ -43,5 +45,8 @@ private:
     static QStringList list;
 
 };
+
+// For use with QVariant
+Q_DECLARE_METATYPE(PlayerSubsetEnum)
 
 #endif // PLAYERSUBSET_H

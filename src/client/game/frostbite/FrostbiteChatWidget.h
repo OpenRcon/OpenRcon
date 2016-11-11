@@ -54,9 +54,11 @@ private slots:
 
     /* Commands */
     void onListPlayersCommand(const QList<FrostbitePlayerEntry> &playerList);
+    void onCurrentLevelCommand(const QString &levelName);
 
     /* User Interface */
     void comboBox_mode_currentIndexChanged(int index);
+    void comboBox_target_currentIndexChanged(int index);
     void spinBox_duration_valueChanged(int index);
     void pushButton_send_clicked();
 };
