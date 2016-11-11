@@ -24,8 +24,11 @@
 #include <QAction>
 #include <QDragEnterEvent>
 #include <QDropEvent>
+#include <QTreeWidgetItem>
 #include <QList>
+#include <QSet>
 #include <QPoint>
+#include <QInputDialog>
 
 #include "BF4PlayerListWidget.h"
 #include "Frostbite2Client.h"
@@ -62,7 +65,9 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
     headerItem->setText(3, tr("Deaths"));
     headerItem->setText(4, tr("Score"));
 
-    if (dynamic_cast<BF4CommandHandler*>(client->getCommandHandler())) {
+    BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(client->getCommandHandler());
+
+    if (bf4CommandHandler) {
         headerItem->setText(5, tr("Ping"));
     }
 
@@ -76,6 +81,8 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
     action_player_kill = new QAction(tr("Kill"), menu_player);
     action_player_kick = new QAction(tr("Kick"), menu_player);
     action_player_ban = new QAction(QIcon(":/frostbite/icons/ban.png"), tr("Ban"), menu_player);
+    action_player_chat = new QAction(tr("Send message"), menu_player);
+    action_player_yell = new QAction(tr("Yell to"), menu_player);
     action_player_reserveSlot = new QAction(QIcon(":/frostbite/icons/reserved.png"), tr("Reserve slot"), menu_player);
     menu_player_copyTo = new QMenu(tr("Copy..."), menu_player);
     menu_player_copyTo->setIcon(QIcon(":/frostbite/icons/copy.png"));
@@ -86,6 +93,8 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
     menu_player->addAction(action_player_kill);
     menu_player->addAction(action_player_kick);
     menu_player->addAction(action_player_ban);
+    menu_player->addAction(action_player_chat);
+    menu_player->addAction(action_player_yell);
     menu_player->addAction(action_player_reserveSlot);
     menu_player->addMenu(menu_player_copyTo);
     menu_player_copyTo->addAction(action_player_copyTo_name);
@@ -97,8 +106,6 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
 
     /* Events */
     connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPlayerAuthenticatedEvent, this, &BF4PlayerListWidget::updatePlayerList);
-
-    BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(client->getCommandHandler());
 
     if (bf4CommandHandler) {
         connect(bf4CommandHandler,       &BF4CommandHandler::onPlayerDisconnectEvent,          this, &BF4PlayerListWidget::updatePlayerList);
@@ -120,6 +127,8 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
     connect(action_player_kill,          &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_kill_triggered);
     connect(action_player_kick,          &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_kick_triggered);
     connect(action_player_ban,           &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_ban_triggered);
+    connect(action_player_chat,          &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_chat_triggered);
+    connect(action_player_yell,          &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_yell_triggered);
     connect(action_player_reserveSlot,   &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_reserveSlot_triggered);
     connect(action_player_copyTo_name,   &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_copyTo_name_triggered);
     connect(action_player_copyTo_guid,   &QAction::triggered,                                  this, &BF4PlayerListWidget::action_player_copyTo_guid_triggered);
@@ -138,12 +147,14 @@ void BF4PlayerListWidget::clear()
     QTreeWidget::clear();
 }
 
-void BF4PlayerListWidget::resizeColumnsToContents()
-{
-    // Resize columns so that they fits the content.
-    for (int i = 0; i < columnCount(); i++) {
-        resizeColumnToContents(i);
+QTreeWidgetItem *BF4PlayerListWidget::currentItem() const {
+    QTreeWidgetItem *emtpyItem = new QTreeWidgetItem();
+
+    if (QTreeWidget::currentItem()->parent()) {
+        return QTreeWidget::currentItem();
     }
+
+    return emtpyItem;
 }
 
 void BF4PlayerListWidget::dragEnterEvent(QDragEnterEvent *event)
@@ -185,6 +196,14 @@ void BF4PlayerListWidget::dropEvent(QDropEvent *event)
     QTreeWidget::dropEvent(event);
 }
 
+void BF4PlayerListWidget::resizeColumnsToContents()
+{
+    // Resize columns so that they fits the content.
+    for (int i = 0; i < columnCount(); i++) {
+        resizeColumnToContents(i);
+    }
+}
+
 /* Client */
 void BF4PlayerListWidget::onAuthenticated()
 {
@@ -206,6 +225,8 @@ void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &play
     QSet<QTreeWidgetItem*> playerItemList;
     QSet<int> teamIdList;
 
+    BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(client->getCommandHandler());
+
     // Create player items and adding them to the list.
     for (BF4PlayerEntry playerEntry : playerList) {
         QTreeWidgetItem *playerItem = new QTreeWidgetItem();
@@ -218,7 +239,11 @@ void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &play
         playerItem->setText(2, QString::number(playerEntry.getKills()));
         playerItem->setText(3, QString::number(playerEntry.getDeaths()));
         playerItem->setText(4, QString::number(playerEntry.getScore()));
-        playerItem->setText(5, QString::number(playerEntry.getPing()));
+
+        if (bf4CommandHandler) {
+            playerItem->setText(5, QString::number(playerEntry.getPing()));
+        }
+
         playerItem->setText(6, playerEntry.getGuid());
         playerItem->setText(7, QString::number(playerEntry.getDeaths() <= 0 ? (double) playerEntry.getKills() : (double) playerEntry.getKills() / (double) playerEntry.getDeaths(), 'f', 2));
 
@@ -230,7 +255,6 @@ void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &play
     for (int teamId = 0; teamId <= 2; teamId++) {
         if (teamId > 0 || (teamId == 0 && teamIdList.contains(teamId))) {
             TeamEntry team = BF4LevelDictionary::getTeam(teamId != 0 ? currentLevel.getTeamList().at(teamId - 1) : 0);
-
             QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
             teamItem->setData(0, Qt::UserRole, teamId);
             teamItem->setIcon(0, team.getImage());
@@ -317,6 +341,28 @@ void BF4PlayerListWidget::action_player_ban_triggered()
     QString player = currentItem()->text(0);
 
     client->getCommandHandler()->sendBanListAddCommand(BanIdTypeEnum::Name, player, BanTypeEnum::Perm);
+}
+
+void BF4PlayerListWidget::action_player_chat_triggered()
+{
+    QString player = currentItem()->text(0);
+    bool ok;
+    QString message = QInputDialog::getText(this, tr("Send message to %1").arg(player), tr("Enter message:"), QLineEdit::Normal, QString(), &ok);
+
+    if (ok && !message.isEmpty()) {
+        client->getCommandHandler()->sendAdminSayCommand(message, PlayerSubsetEnum::Player, player);
+    }
+}
+
+void BF4PlayerListWidget::action_player_yell_triggered()
+{
+    QString player = currentItem()->text(0);
+    bool ok;
+    QString message = QInputDialog::getText(this, tr("Yell to %1").arg(player), tr("Enter message:"), QLineEdit::Normal, QString(), &ok);
+
+    if (ok && !message.isEmpty()) {
+        client->getCommandHandler()->sendAdminYellCommand(message, PlayerSubsetEnum::Player, player);
+    }
 }
 
 void BF4PlayerListWidget::action_player_reserveSlot_triggered()

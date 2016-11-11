@@ -58,6 +58,8 @@ private:
     QAction *action_player_kill;
     QAction *action_player_kick;
     QAction *action_player_ban;
+    QAction *action_player_chat;
+    QAction *action_player_yell;
     QAction *action_player_reserveSlot;
     QMenu *menu_player_move;
     QAction *action_player_move_team;
@@ -69,9 +71,10 @@ private:
     LevelEntry currentLevel;
 
     void clear();
-    void resizeColumnsToContents();
+    QTreeWidgetItem *currentItem() const;
     void dragEnterEvent(QDragEnterEvent *event) final;
     void dropEvent(QDropEvent *event) final;
+    void resizeColumnsToContents();
 
 private slots:
     /* Client */
@@ -86,6 +89,8 @@ private slots:
     void action_player_kill_triggered();
     void action_player_kick_triggered();
     void action_player_ban_triggered();
+    void action_player_chat_triggered();
+    void action_player_yell_triggered();
     void action_player_reserveSlot_triggered();
     void action_player_copyTo_name_triggered();
     void action_player_copyTo_guid_triggered();
