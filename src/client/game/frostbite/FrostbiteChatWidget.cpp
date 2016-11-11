@@ -109,14 +109,13 @@ void FrostbiteChatWidget::onPlayerChatEvent(const QString &sender, const QString
 /* Commands */
 void FrostbiteChatWidget::onListPlayersCommand(const QList<FrostbitePlayerEntry> &playerList)
 {
-    ui->listWidget->clear();
+    // Update the player list only if it's not currently in use.
+    if (!ui->listWidget->hasFocus()) {
+        ui->listWidget->clear();
 
-    QSet<int> teamIdList;
-
-    for (FrostbitePlayerEntry playerEntry : playerList) {
-        ui->listWidget->addItem(playerEntry.getName());
-
-        teamIdList.insert(playerEntry.getTeamId());
+        for (FrostbitePlayerEntry playerEntry : playerList) {
+            ui->listWidget->addItem(playerEntry.getName());
+        }
     }
 }
 
@@ -180,21 +179,25 @@ void FrostbiteChatWidget::pushButton_send_clicked()
 
         switch (playerSubset) {
         case PlayerSubsetEnum::Player:
-            player = ui->listWidget->currentItem()->text();
+            if (ui->listWidget->currentItem()) {
+                player = ui->listWidget->currentItem()->text();
+            }
             break;
 
         default:
             break;
         }
 
-        switch (type) {
-        case 0:
-            getClient()->getCommandHandler()->sendAdminSayCommand(message, playerSubset, player);
-            break;
+        if (!player.isEmpty())  {
+            switch (type) {
+            case 0:
+                getClient()->getCommandHandler()->sendAdminSayCommand(message, playerSubset, player);
+                break;
 
-        case 1:
-            getClient()->getCommandHandler()->sendAdminYellCommand(message, playerSubset, player, duration);
-            break;
+            case 1:
+                getClient()->getCommandHandler()->sendAdminYellCommand(message, playerSubset, player, duration);
+                break;
+            }
         }
 
         ui->lineEdit->clear();
