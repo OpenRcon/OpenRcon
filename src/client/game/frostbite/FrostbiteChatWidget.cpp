@@ -26,8 +26,8 @@
 
 #include "BFBC2CommandHandler.h"
 #include "Frostbite2CommandHandler.h"
-#include "FrostbitePlayerEntry.h"
 #include "PlayerSubset.h"
+#include "FrostbitePlayerEntry.h"
 
 #include "GameType.h"
 #include "ServerEntry.h"
@@ -82,7 +82,9 @@ FrostbiteChatWidget::~FrostbiteChatWidget()
 
 void FrostbiteChatWidget::logChat(const QString &sender, const QString &message, const QString &target)
 {
-    ui->textEdit->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
+    PlayerSubsetEnum playerSubset = PlayerSubset::fromString(target);
+
+    ui->textEdit->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), PlayerSubset::toString(playerSubset), sender, message));
 }
 
 /* Client */
