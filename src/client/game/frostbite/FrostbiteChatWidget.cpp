@@ -37,6 +37,8 @@
 #include "BF4LevelDictionary.h"
 #include "FrostbiteUtils.h"
 
+#include "Squad.h"
+
 FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *parent) :
     FrostbiteWidget(client, parent),
     ui(new Ui::FrostbiteChatWidget)
@@ -47,11 +49,25 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
     ui->splitter->setSizes({ 500, 100 });
 
     // Hide player list by default.
+    ui->listWidget->setEnabled(false);
     ui->listWidget->hide();
 
     // Populate the target comboBox.
-    for (QString playerSubset : PlayerSubset::asList()) {
-        ui->comboBox_target->addItem(playerSubset, QVariant::fromValue(PlayerSubset::fromString(playerSubset)));
+    ui->comboBox_target->addItem(tr("All"), QVariant::fromValue(PlayerSubsetEnum::All));
+    ui->comboBox_target->addItem(tr("Player"), QVariant::fromValue(PlayerSubsetEnum::Player));
+
+    // Disable squad comboBox by default, and populate it.
+    ui->comboBox_squad->setEnabled(false);
+    ui->comboBox_squad->hide();
+
+    // Disable duration comboBox by default.
+    ui->spinBox_duration->setEnabled(false);
+    ui->spinBox_duration->hide();
+
+    for (QString squadName : Squad::asList()) {
+        SquadEnum squad = Squad::fromString(squadName);
+
+        ui->comboBox_squad->addItem(squadName, QVariant::fromValue(squad));
     }
 
     /* Client */
@@ -68,11 +84,12 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
     connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onCurrentLevelCommand,                        this,                        &FrostbiteChatWidget::onCurrentLevelCommand);
 
     /* User Interface */
+    connect(ui->lineEdit,                     &QLineEdit::textChanged,                                                this,                        &FrostbiteChatWidget::lineEdit_textChanged);
     connect(ui->comboBox_mode,                static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,                        &FrostbiteChatWidget::comboBox_mode_currentIndexChanged);
     connect(ui->comboBox_target,              static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,                        &FrostbiteChatWidget::comboBox_target_currentIndexChanged);
     connect(ui->spinBox_duration,             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),          this,                        &FrostbiteChatWidget::spinBox_duration_valueChanged);
     connect(ui->pushButton_send,              &QPushButton::clicked,                                                  this,                        &FrostbiteChatWidget::pushButton_send_clicked);
-    connect(ui->lineEdit,                     &QLineEdit::editingFinished,                                            this,                        &FrostbiteChatWidget::pushButton_send_clicked);
+    connect(ui->lineEdit,                     &QLineEdit::returnPressed,                                              this,                        &FrostbiteChatWidget::pushButton_send_clicked);
 }
 
 FrostbiteChatWidget::~FrostbiteChatWidget()
@@ -80,11 +97,9 @@ FrostbiteChatWidget::~FrostbiteChatWidget()
     delete ui;
 }
 
-void FrostbiteChatWidget::logChat(const QString &sender, const QString &message, const QString &target)
+void FrostbiteChatWidget::logChat(const QString &sender, const QString &target, const QString &message)
 {
-    PlayerSubsetEnum playerSubset = PlayerSubset::fromString(target);
-
-    ui->textEdit->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), PlayerSubset::toString(playerSubset), sender, message));
+    ui->textEdit->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
 }
 
 /* Client */
@@ -101,9 +116,30 @@ void FrostbiteChatWidget::onAuthenticated()
 }
 
 /* Events */
-void FrostbiteChatWidget::onPlayerChatEvent(const QString &sender, const QString &message, const QString &target)
+void FrostbiteChatWidget::onPlayerChatEvent(const QString &sender, const QString &message, const PlayerSubsetEnum &playerSubset, QString player, int teamId, int squadId)
 {
-    logChat(sender, message, target);
+    QString target;
+
+    switch (playerSubset) {
+    case PlayerSubsetEnum::Player:
+        target = player;
+        break;
+
+    case PlayerSubsetEnum::Team:
+        target = tr("Team %1").arg(teamId);
+        break;
+
+
+    case PlayerSubsetEnum::Squad:
+        target = tr("Team %1, Squad %2").arg(teamId).arg(Squad::toString(squadId));
+        break;
+
+    default:
+        target = PlayerSubset::toString(playerSubset);
+        break;
+    }
+
+    logChat(sender, target, message);
 }
 
 /* Commands */
@@ -127,33 +163,45 @@ void FrostbiteChatWidget::onCurrentLevelCommand(const QString &levelName)
     switch (gameType) {
     case GameTypeEnum::BF3:
         teamList = BF3LevelDictionary::getTeams(BF3LevelDictionary::getLevel(levelName).getTeamList());
-        break;
+
     case GameTypeEnum::BF4:
         teamList = BF4LevelDictionary::getTeams(BF4LevelDictionary::getLevel(levelName).getTeamList());
         break;
+
     default:
         break;
     }
 
-    for (TeamEntry teamEntry : teamList) {
-        ui->comboBox_target->addItem(tr("Team %1").arg(teamEntry.getName()));
+    for (int teamId = 0; teamId < teamList.length(); teamId++) {
+        ui->comboBox_target->addItem(tr("Team %1").arg(teamList.at(teamId).getName()), QVariant::fromValue(PlayerSubsetEnum::Team));
     }
 }
 
 /* User Interface */
+void FrostbiteChatWidget::lineEdit_textChanged(const QString &text)
+{
+    ui->pushButton_send->setEnabled(!text.isEmpty());
+}
+
 void FrostbiteChatWidget::comboBox_mode_currentIndexChanged(int index)
 {
     ui->spinBox_duration->setEnabled(index > 0);
+    ui->spinBox_duration->setVisible(index > 0);
 }
 
 void FrostbiteChatWidget::comboBox_target_currentIndexChanged(int index)
 {
+    ui->listWidget->setEnabled(false);
     ui->listWidget->hide();
+
+    ui->comboBox_squad->setEnabled(index > 1);
+    ui->comboBox_squad->setVisible(index > 1);
 
     PlayerSubsetEnum playerSubset = ui->comboBox_target->itemData(index, Qt::UserRole).value<PlayerSubsetEnum>();
 
     switch (playerSubset) {
     case PlayerSubsetEnum::Player:
+        ui->listWidget->setEnabled(true);
         ui->listWidget->show();
         break;
 
@@ -170,12 +218,15 @@ void FrostbiteChatWidget::spinBox_duration_valueChanged(int index)
 void FrostbiteChatWidget::pushButton_send_clicked()
 {
     QString message = ui->lineEdit->text();
-    int type = ui->comboBox_mode->currentIndex();
+    int modeIndex = ui->comboBox_mode->currentIndex();
+    int targetIndex = ui->comboBox_target->currentIndex();
     int duration = ui->spinBox_duration->value();
 
     if (!message.isEmpty()) {
-        PlayerSubsetEnum playerSubset = ui->comboBox_target->itemData(ui->comboBox_target->currentIndex(), Qt::UserRole).value<PlayerSubsetEnum>();
+        PlayerSubsetEnum playerSubset = ui->comboBox_target->itemData(targetIndex, Qt::UserRole).value<PlayerSubsetEnum>();
         QString player;
+        int teamId = 0;
+        int squadId = 0;
 
         switch (playerSubset) {
         case PlayerSubsetEnum::Player:
@@ -184,20 +235,36 @@ void FrostbiteChatWidget::pushButton_send_clicked()
             }
             break;
 
+        case PlayerSubsetEnum::Team:
+            teamId = ui->comboBox_target->currentIndex() - 1;
+            squadId = ui->comboBox_squad->currentIndex();
+
+            // If a squad is selected, set the player subset to squad.
+            if (squadId > 0) {
+                playerSubset = PlayerSubsetEnum::Squad;
+            }
+            break;
+
         default:
             break;
         }
 
-        if (!player.isEmpty())  {
-            switch (type) {
-            case 0:
+        switch (modeIndex) {
+        case 0:
+            if (playerSubset == PlayerSubsetEnum::Team || playerSubset == PlayerSubsetEnum::Squad) {
+                getClient()->getCommandHandler()->sendAdminSayCommand(message, playerSubset, teamId, squadId);
+            } else {
                 getClient()->getCommandHandler()->sendAdminSayCommand(message, playerSubset, player);
-                break;
-
-            case 1:
-                getClient()->getCommandHandler()->sendAdminYellCommand(message, playerSubset, player, duration);
-                break;
             }
+            break;
+
+        case 1:
+            if (playerSubset == PlayerSubsetEnum::Team || playerSubset == PlayerSubsetEnum::Squad) {
+                getClient()->getCommandHandler()->sendAdminYellCommand(message, playerSubset, teamId, squadId, duration);
+            } else {
+                getClient()->getCommandHandler()->sendAdminYellCommand(message, playerSubset, player, duration);
+            }
+            break;
         }
 
         ui->lineEdit->clear();
