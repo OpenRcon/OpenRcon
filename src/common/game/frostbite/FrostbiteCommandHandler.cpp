@@ -651,12 +651,12 @@ void FrostbiteCommandHandler::parsePlayerKillEvent(const FrostbiteRconPacket &pa
     Q_UNUSED(lastSentPacket);
 
     if (packet.getWordCount() > 0) {
-        QString killer = packet.getWord(1).getContent();
-        QString victim = packet.getWord(2).getContent();
+        QString killerPlayer = packet.getWord(1).getContent();
+        QString victimPlayer = packet.getWord(2).getContent();
         QString weapon = packet.getWord(3).getContent();
         bool headshot = packet.getWord(4).getContent();
 
-        emit (onPlayerKillEvent(killer, victim, weapon, headshot));
+        emit (onPlayerKillEvent(killerPlayer, victimPlayer, weapon, headshot));
     }
 }
 
@@ -667,9 +667,9 @@ void FrostbiteCommandHandler::parsePlayerChatEvent(const FrostbiteRconPacket &pa
     if (packet.getWordCount() > 0) {
         QString player = packet.getWord(1).getContent();
         QString message = packet.getWord(2).getContent();
-        QString target = packet.getWord(3).getContent();
+        PlayerSubsetEnum playerSubset = PlayerSubset::fromString(packet.getWord(3).getContent());
 
-        emit (onPlayerChatEvent(player, message, target));
+        emit (onPlayerChatEvent(player, message, playerSubset));
     }
 }
 

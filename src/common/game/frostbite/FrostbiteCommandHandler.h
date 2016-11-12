@@ -197,8 +197,8 @@ signals:
     void onPlayerJoinEvent(const QString &player, const QString &guid);
     void onPlayerLeaveEvent(const QString &player, const QString &info);
     void onPlayerSpawnEvent(const QString &player, int teamId);
-    void onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot);
-    void onPlayerChatEvent(const QString &sender, const QString &message, const QString &target);
+    void onPlayerKillEvent(const QString &killerPlayer, const QString &victimPlayer, const QString &weapon, bool headshot);
+    void onPlayerChatEvent(const QString &sender, const QString &message, const PlayerSubsetEnum &playerSubset);
     void onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId);
     void onPlayerTeamChangeEvent(const QString &player, int teamId, int squadId);
     void onPunkBusterMessageEvent(const QString &message);

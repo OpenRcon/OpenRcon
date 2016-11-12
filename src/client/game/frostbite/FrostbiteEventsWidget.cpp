@@ -27,6 +27,7 @@
 #include "ui_FrostbiteEventsWidget.h"
 
 #include "BF4CommandHandler.h"
+#include "PlayerSubset.h"
 #include "WeaponEntry.h"
 #include "TeamEntry.h"
 #include "LevelEntry.h"
@@ -145,7 +146,7 @@ void FrostbiteEventsWidget::onPlayerSpawnEvent(const QString &player, int teamId
     logEvent(tr("PlayerSpawn"), tr("Player %1 spawned, and is on team %2.").arg(player).arg(BF4LevelDictionary::getTeam(teamId - 1).getName()));
 }
 
-void FrostbiteEventsWidget::onPlayerKillEvent(const QString &killer, const QString &victim, const QString &weapon, bool headshot)
+void FrostbiteEventsWidget::onPlayerKillEvent(const QString &killerPlayer, const QString &victimPlayer, const QString &weapon, bool headshot)
 {
     QString message;
     GameTypeEnum gameType = getClient()->getServerEntry()->getGameType();
@@ -164,24 +165,22 @@ void FrostbiteEventsWidget::onPlayerKillEvent(const QString &killer, const QStri
         break;
     }
 
-    if (killer != victim) {
+    if (killerPlayer != victimPlayer) {
         if (headshot) {
-            message = tr("Player %1 shot player %2 in the head using %3.").arg(killer).arg(victim).arg(weaponEntry.getName());
+            message = tr("Player %1 shot player %2 in the head using %3.").arg(killerPlayer).arg(victimPlayer).arg(weaponEntry.getName());
         } else {
-            message = tr("Player %1 killed player %2 with %3.").arg(killer).arg(victim).arg(weaponEntry.getName());
+            message = tr("Player %1 killed player %2 with %3.").arg(killerPlayer).arg(victimPlayer).arg(weaponEntry.getName());
         }
     } else {
-        message = tr("Player %1 commited sucide using %2.").arg(killer).arg(weapon);
+        message = tr("Player %1 commited sucide using %2.").arg(killerPlayer).arg(weapon);
     }
 
     logEvent(tr("PlayerKill"), message);
 }
 
-void FrostbiteEventsWidget::onPlayerChatEvent(const QString &sender, const QString &message, const QString &target)
+void FrostbiteEventsWidget::onPlayerChatEvent(const QString &sender, const QString &message, const PlayerSubsetEnum &playerSubset)
 {
-    Q_UNUSED(target);
-
-    logEvent(tr("PlayerChat"), QString("%1: %2").arg(sender).arg(message));
+    logEvent(tr("PlayerChat"), QString("[%1] %2: %3").arg(PlayerSubset::toString(playerSubset), sender, message));
 }
 
 void FrostbiteEventsWidget::onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId)
