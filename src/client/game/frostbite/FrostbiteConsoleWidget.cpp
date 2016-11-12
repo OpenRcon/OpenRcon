@@ -47,10 +47,10 @@ FrostbiteConsoleWidget::FrostbiteConsoleWidget(FrostbiteClient *client, QWidget 
     /* User Interface */
     connect(ui->lineEdit_co_co,               &QLineEdit::textChanged,                            this, &FrostbiteConsoleWidget::lineEdit_co_co_textChanged);
     connect(ui->pushButton_co_co,             &QPushButton::clicked,                              this, &FrostbiteConsoleWidget::pushButton_co_co_clicked);
-    connect(ui->lineEdit_co_co,               &QLineEdit::editingFinished,                        this, &FrostbiteConsoleWidget::pushButton_co_co_clicked);
+    connect(ui->lineEdit_co_co,               &QLineEdit::returnPressed,                          this, &FrostbiteConsoleWidget::pushButton_co_co_clicked);
     connect(ui->lineEdit_co_pb,               &QLineEdit::textChanged,                            this, &FrostbiteConsoleWidget::lineEdit_co_pb_textChanged);
     connect(ui->pushButton_co_pb,             &QPushButton::clicked,                              this, &FrostbiteConsoleWidget::pushButton_co_pb_clicked);
-    connect(ui->lineEdit_co_pb,               &QLineEdit::editingFinished,                        this, &FrostbiteConsoleWidget::pushButton_co_pb_clicked);
+    connect(ui->lineEdit_co_pb,               &QLineEdit::returnPressed,                          this, &FrostbiteConsoleWidget::pushButton_co_pb_clicked);
 }
 
 FrostbiteConsoleWidget::FrostbiteConsoleWidget(FrostbiteClient *client, const QStringList &commandList, QWidget *parent) :
