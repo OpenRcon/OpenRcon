@@ -19,5 +19,4 @@ SOURCES += $$PWD/FrostbiteClient.cpp \
     $$PWD/FrostbiteRconWord.cpp \
     $$PWD/FrostbiteUtils.cpp
 
-include(entries/entries.pri)
 include(types/types.pri)
