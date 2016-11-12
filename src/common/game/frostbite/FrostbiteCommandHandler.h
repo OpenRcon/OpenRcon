@@ -69,11 +69,10 @@ public slots:
     void sendAdminKillPlayerCommand(const QString &player);
     void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
     void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
+    void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player = QString());
     void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId = 0);
-    void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player);
-
+    void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player = QString(), int duration = 10);
     void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId = 0, int duration = 10);
-    void sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player, int duration = 10);
 
     // Banning
     void sendBanListAddCommand(const BanIdTypeEnum &banIdType, const QString &banId, const BanTypeEnum &banType, const QString &reason = QString(), int timeout = 0);

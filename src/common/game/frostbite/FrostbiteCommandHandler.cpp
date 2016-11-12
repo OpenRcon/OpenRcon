@@ -276,6 +276,24 @@ void FrostbiteCommandHandler::sendAdminMovePlayerCommand(const QString &player, 
     connection->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(FrostbiteUtils::toString(forceKill)));
 }
 
+void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player)
+{
+    if (message.length() < 128) {
+        QString command = QString("\"admin.say\" \"%1\" \"%2\"").arg(message, PlayerSubset::toString(playerSubset).toLower());
+
+        switch (playerSubset) {
+        case PlayerSubsetEnum::Player:
+            command += QString(" \"%1\"").arg(player);
+            break;
+
+        default:
+            break;
+        }
+
+        connection->sendCommand(command);
+    }
+}
+
 void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId)
 {
     if (message.length() < 128) {
@@ -298,10 +316,21 @@ void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const 
     }
 }
 
-void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player)
+void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player, int duration)
 {
-    if (message.length() < 128) {
-        connection->sendCommand(QString("\"admin.say\" \"%1\" \"%2\" \"%3\"").arg(message, PlayerSubset::toString(playerSubset).toLower(), player));
+    if (message.length() < 256) {
+        QString command = QString("\"admin.yell\" \"%1\" \"%2\" \"%3\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower());
+
+        switch (playerSubset) {
+        case PlayerSubsetEnum::Player:
+            command += QString(" \"%1\"").arg(player);
+            break;
+
+        default:
+            break;
+        }
+
+        connection->sendCommand(command);
     }
 }
 
@@ -324,13 +353,6 @@ void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const
         }
 
         connection->sendCommand(command);
-    }
-}
-
-void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player, int duration)
-{
-    if (message.length() < 256) {
-        connection->sendCommand(QString("\"admin.yell\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(message).arg(duration).arg(PlayerSubset::toString(playerSubset).toLower(), player));
     }
 }
 
