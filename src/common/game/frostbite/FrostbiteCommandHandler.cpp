@@ -687,11 +687,29 @@ void FrostbiteCommandHandler::parsePlayerChatEvent(const FrostbiteRconPacket &pa
     Q_UNUSED(lastSentPacket);
 
     if (packet.getWordCount() > 0) {
-        QString player = packet.getWord(1).getContent();
+        QString sender = packet.getWord(1).getContent();
         QString message = packet.getWord(2).getContent();
         PlayerSubsetEnum playerSubset = PlayerSubset::fromString(packet.getWord(3).getContent());
+        QString player;
+        int teamId = 0;
+        int squadId = 0;
 
-        emit (onPlayerChatEvent(player, message, playerSubset));
+        switch (playerSubset) {
+        case PlayerSubsetEnum::Player:
+            player = packet.getWord(4).getContent();
+            break;
+
+        case PlayerSubsetEnum::Squad:
+            squadId = FrostbiteUtils::toInt(packet.getWord(5).getContent());
+        case PlayerSubsetEnum::Team:
+            teamId = FrostbiteUtils::toInt(packet.getWord(4).getContent());
+            break;
+
+        default:
+            break;
+        }
+
+        emit (onPlayerChatEvent(sender, message, playerSubset, player, teamId, squadId));
     }
 }
 
