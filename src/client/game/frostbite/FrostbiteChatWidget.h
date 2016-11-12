@@ -27,6 +27,7 @@ class QString;
 template<class T>
 class QList;
 
+class TeamEntry;
 class FrostbitePlayerEntry;
 
 namespace Ui {
@@ -43,7 +44,7 @@ public:
 
 private:
     Ui::FrostbiteChatWidget *ui;
-    LevelEntry currentLevel;
+    QList<TeamEntry> teamList;
 
     void logChat(const QString &sender, const QString &target, const QString &message);
 

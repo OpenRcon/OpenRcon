@@ -77,6 +77,12 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
     /* Events */
     connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent,                            this,                        &FrostbiteChatWidget::onPlayerChatEvent);
 
+    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
+
+    if (frostbite2CommandHandler) {
+        connect(frostbite2CommandHandler,     &Frostbite2CommandHandler::onServerLevelLoadedEvent,                    this,                        &FrostbiteChatWidget::onCurrentLevelCommand);
+    }
+
     /* Commands */
     // Misc
     connect(getClient()->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const QList<FrostbitePlayerEntry>&)>(&FrostbiteCommandHandler::onListPlayersCommand),
@@ -105,14 +111,7 @@ void FrostbiteChatWidget::logChat(const QString &sender, const QString &target, 
 /* Client */
 void FrostbiteChatWidget::onAuthenticated()
 {
-    BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(getClient()->getCommandHandler());
-    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
-
-    if (bfbc2CommandHandler) {
-        bfbc2CommandHandler->sendEventsEnabledCommand(true);
-    } else if (frostbite2CommandHandler) {
-        frostbite2CommandHandler->sendAdminEventsEnabledCommand(true);
-    }
+    getClient()->getCommandHandler()->sendAdminEventsEnabledCommand(true);
 }
 
 /* Events */
@@ -126,12 +125,12 @@ void FrostbiteChatWidget::onPlayerChatEvent(const QString &sender, const QString
         break;
 
     case PlayerSubsetEnum::Team:
-        target = tr("Team %1").arg(teamId);
+        target = tr("Team %1").arg(teamList.at(teamId).getName());
         break;
 
 
     case PlayerSubsetEnum::Squad:
-        target = tr("Team %1, Squad %2").arg(teamId).arg(Squad::toString(squadId));
+        target = tr("Team %1, Squad %2").arg(teamList.at(teamId).getName()).arg(Squad::toString(squadId));
         break;
 
     default:
@@ -158,11 +157,12 @@ void FrostbiteChatWidget::onListPlayersCommand(const QList<FrostbitePlayerEntry>
 void FrostbiteChatWidget::onCurrentLevelCommand(const QString &levelName)
 {
     GameTypeEnum gameType = getClient()->getServerEntry()->getGameType();
-    QList<TeamEntry> teamList;
 
+    // Get the list of teams depending on game.
     switch (gameType) {
     case GameTypeEnum::BF3:
         teamList = BF3LevelDictionary::getTeams(BF3LevelDictionary::getLevel(levelName).getTeamList());
+        break;
 
     case GameTypeEnum::BF4:
         teamList = BF4LevelDictionary::getTeams(BF4LevelDictionary::getLevel(levelName).getTeamList());
@@ -172,8 +172,28 @@ void FrostbiteChatWidget::onCurrentLevelCommand(const QString &levelName)
         break;
     }
 
+    // Remove old team entries.
+    qDebug() << "Index count is: " << ui->comboBox_target->count();
+
+    for (int index = 0; index < ui->comboBox_target->count() - 1; index++) {
+        PlayerSubsetEnum playerSubset = ui->comboBox_target->itemData(index).value<PlayerSubsetEnum>();
+
+        qDebug() << "Index name is: " << ui->comboBox_target->itemText(index);
+
+        if (playerSubset == PlayerSubsetEnum::Team) {
+            qDebug() << "Index matches PlayerSubsetEnum::Team: " << ui->comboBox_target->itemText(index);
+
+            ui->comboBox_target->removeItem(index);
+        }
+
+        qDebug() << "Index is: " << index;
+    }
+
+    // Add new team entries for this level.
     for (int teamId = 0; teamId < teamList.length(); teamId++) {
         ui->comboBox_target->addItem(tr("Team %1").arg(teamList.at(teamId).getName()), QVariant::fromValue(PlayerSubsetEnum::Team));
+
+        qDebug() << "Team list index is: " << teamId << teamList.at(teamId).getName();
     }
 }
 
