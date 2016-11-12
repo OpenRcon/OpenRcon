@@ -11,6 +11,26 @@
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="7">
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QComboBox" name="comboBox_target"/>
+   </item>
    <item row="1" column="0">
     <widget class="HistoryLineEdit" name="lineEdit">
      <property name="placeholderText">
@@ -38,10 +58,7 @@
      </item>
     </widget>
    </item>
-   <item row="1" column="2">
-    <widget class="QComboBox" name="comboBox_target"/>
-   </item>
-   <item row="1" column="3">
+   <item row="1" column="4">
     <widget class="QSpinBox" name="spinBox_duration">
      <property name="enabled">
       <bool>false</bool>
@@ -57,35 +74,28 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="4">
+   <item row="1" column="5">
     <widget class="QLabel" name="label_duration">
      <property name="text">
       <string>Seconds</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="5">
+   <item row="1" column="6">
     <widget class="QPushButton" name="pushButton_send">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="text">
       <string>Send</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="0" colspan="6">
-    <widget class="QSplitter" name="splitter">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="1" column="3">
+    <widget class="QComboBox" name="comboBox_squad">
+     <property name="enabled">
+      <bool>false</bool>
      </property>
-     <widget class="QTextEdit" name="textEdit">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QListWidget" name="listWidget">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-     </widget>
     </widget>
    </item>
   </layout>
