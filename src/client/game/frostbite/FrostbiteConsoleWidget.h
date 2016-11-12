@@ -29,6 +29,13 @@ namespace Ui {
     class FrostbiteConsoleWidget;
 }
 
+enum class ConsoleTypeEnum {
+    Send,
+    Receive,
+    PunkbusterSend,
+    PunkBusterReceive
+};
+
 class FrostbiteConsoleWidget : public FrostbiteWidget
 {
     Q_OBJECT
@@ -46,7 +53,7 @@ private:
     int commandHistoryIndex;
 
     void clear();
-    void logConsole(int type, const QString &message);
+    void logConsole(ConsoleTypeEnum consoleType, const QString &message);
 
 private slots:
     /* Connection */

@@ -71,24 +71,24 @@ void FrostbiteConsoleWidget::clear()
     ui->textEdit_co_pb->clear();
 }
 
-void FrostbiteConsoleWidget::logConsole(int type, const QString &message)
+void FrostbiteConsoleWidget::logConsole(ConsoleTypeEnum consoleType, const QString &message)
 {
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
 
-    switch (type) {
-        case 0: // Server send
+    switch (consoleType) {
+        case ConsoleTypeEnum::Send: // Server send
             ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
             break;
 
-        case 1: // Server receive
+        case ConsoleTypeEnum::Receive: // Server receive
             ui->textEdit_co_co->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
             break;
 
-        case 2: // Punkbuster con->send
+        case ConsoleTypeEnum::PunkbusterSend: // Punkbuster send
             ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#008000\">%2</span>").arg(time, message));
             break;
 
-        case 3: // PunkBuster receive
+        case ConsoleTypeEnum::PunkBusterReceive: // PunkBuster receive
             ui->textEdit_co_pb->append(QString("[%1] <span style=\"color:#0000FF\">%2</span>").arg(time, message));
             break;
     }
@@ -104,12 +104,12 @@ void FrostbiteConsoleWidget::onDisconnected()
 
 void FrostbiteConsoleWidget::onDataSent(const QString &request)
 {
-    logConsole(0, request);
+    logConsole(ConsoleTypeEnum::Send, request);
 }
 
 void FrostbiteConsoleWidget::onDataReceived(const QString &response)
 {
-    logConsole(1, response);
+    logConsole(ConsoleTypeEnum::Receive, response);
 }
 
 /* Client */
@@ -121,7 +121,7 @@ void FrostbiteConsoleWidget::onAuthenticated()
 /* Events */
 void FrostbiteConsoleWidget::onPunkBusterMessageEvent(const QString &message)
 {
-    logConsole(2, message);
+    logConsole(ConsoleTypeEnum::PunkBusterReceive, message);
 }
 
 /* User Interface */
