@@ -100,35 +100,30 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
 
         if (it != packetSendQueue.end()) {
             const FrostbiteRconPacket &lastSentPacket = *it;
+            QString request = lastSentPacket.getWord(0).getContent();
 
-            if (lastSentPacket.getSequenceNum() == packet.getSequenceNum()) {
-                if (lastSentPacket.getWordCount() > 0) {
-                    QString request = lastSentPacket.getWord(0).getContent();
+            if (packet.getWordCount() > 0) {
+                QString messages = request + " ";
 
-                    if (packet.getWordCount() > 0) {
-                        QString messages = request + " ";
-
-                        for (unsigned int i = 1; i < lastSentPacket.getWordCount(); i++) {
-                            messages += lastSentPacket.getWord(i).getContent();
-                            messages += " ";
-                        }
-
-                        responseDataSent(messages);
-                        qDebug() << messages;
-
-                        QString messager;
-
-                        for (unsigned int i = 0; i < packet.getWordCount(); i++) {
-                            messager += packet.getWord(i).getContent();
-                            messager += " ";
-                        }
-
-                        responseDataReceived(messager);
-                        qDebug() << messager;
-
-                        commandHandler->parse(request, packet, lastSentPacket);
-                    }
+                for (unsigned int i = 1; i < lastSentPacket.getWordCount(); i++) {
+                    messages += lastSentPacket.getWord(i).getContent();
+                    messages += " ";
                 }
+
+                responseDataSent(messages);
+                qDebug() << messages;
+
+                QString messager;
+
+                for (unsigned int i = 0; i < packet.getWordCount(); i++) {
+                    messager += packet.getWord(i).getContent();
+                    messager += " ";
+                }
+
+                responseDataReceived(messager);
+                qDebug() << messager;
+
+                commandHandler->parse(request, packet, lastSentPacket);
             }
 
             // BIG MISTAKE HERE: packetSendQueue.erase(it);
@@ -139,7 +134,7 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
                 }
             }
         }
-    } else if (packet.getWordCount() > 0) {
+    } else {
         QString request = packet.getWord(0).getContent();
         QString message;
 
@@ -149,6 +144,8 @@ void FrostbiteConnection::handlePacket(const FrostbiteRconPacket &packet)
         }
 
         responseDataSent(message);
+        qDebug() << message;
+
         commandHandler->parse(request, packet, FrostbiteRconPacket());
     }
 }
