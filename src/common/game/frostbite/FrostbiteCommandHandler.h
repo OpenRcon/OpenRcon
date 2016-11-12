@@ -34,6 +34,7 @@ class Frostbite2ServerInfo;
 class BF3ServerInfo;
 class BF4ServerInfo;
 class FrostbitePlayerEntry;
+class BFBC2PlayerEntry;
 class Frostbite2PlayerEntry;
 class BF4PlayerEntry;
 class BanListEntry;
@@ -217,6 +218,7 @@ signals:
     void onQuitCommand();
     void onVersionCommand(const QString &type, int build);
     void onListPlayersCommand(const QList<FrostbitePlayerEntry> &playerList);
+    void onListPlayersCommand(const QList<BFBC2PlayerEntry> &playerList);
     void onListPlayersCommand(const QList<Frostbite2PlayerEntry> &playerList);
     void onListPlayersCommand(const QList<BF4PlayerEntry> &playerList);
 

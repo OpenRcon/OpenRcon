@@ -17,33 +17,29 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BF4PLAYERENTRY_H
-#define BF4PLAYERENTRY_H
+#ifndef BFBC2PLAYERENTRY_H
+#define BFBC2PLAYERENTRY_H
 
-#include "Frostbite2PlayerEntry.h"
+#include "FrostbitePlayerEntry.h"
 
-class BF4PlayerEntry : public Frostbite2PlayerEntry
+class BFBC2PlayerEntry : public FrostbitePlayerEntry
 {
 public:
-    BF4PlayerEntry(const QString &name,
-                   const QString &guid,
-                   int teamId,
-                   int squadId,
-                   int kills,
-                   int deaths,
-                   int score,
-                   int rank,
-                   int ping,
-                   int type);
-    ~BF4PlayerEntry();
+    BFBC2PlayerEntry(const QString &name,
+                     const QString &guid,
+                     int teamId,
+                     int squadId,
+                     int kills,
+                     int deaths,
+                     int score,
+                     int ping);
+    ~BFBC2PlayerEntry();
 
     int getPing() const;
-    int getType() const;
 
 private:
     int ping;
-    int type;
 
 };
 
-#endif // BF4PLAYERENTRY_H
+#endif // BFBC2PLAYERENTRY_H

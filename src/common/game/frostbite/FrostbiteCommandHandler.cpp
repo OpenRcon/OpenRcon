@@ -32,6 +32,7 @@
 #include "BFBC2CommandHandler.h"
 #include "BF3CommandHandler.h"
 #include "BF4CommandHandler.h"
+#include "BFBC2PlayerEntry.h"
 #include "BF4PlayerEntry.h"
 #include "BanListEntry.h"
 #include "MapListEntry.h"
@@ -1200,9 +1201,11 @@ void FrostbiteCommandHandler::parsePlayerList(const FrostbiteRconPacket &packet,
 {
     QString response = packet.getWord(0).getContent();
     QList<FrostbitePlayerEntry> playerList;
+    QList<BFBC2PlayerEntry> bfbc2PlayerList;
     QList<Frostbite2PlayerEntry> frostbite2PlayerList;
     QList<BF4PlayerEntry> bf4PlayerList;
 
+    BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(this);
     Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
     BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(this);
 
@@ -1224,7 +1227,17 @@ void FrostbiteCommandHandler::parsePlayerList(const FrostbiteRconPacket &packet,
             int kills = FrostbiteUtils::toInt(list.at(4));
             int deaths = FrostbiteUtils::toInt(list.at(5));
             int score = FrostbiteUtils::toInt(list.at(6));
+            int ping;
 
+            // Ping available for both BFBC2 and BF4.
+            if (bfbc2CommandHandler || bf4CommandHandler) {
+                ping = FrostbiteUtils::toInt(list.at(8));
+            }
+
+            // BFBC2 Only.
+            if (bfbc2CommandHandler) {
+                bfbc2PlayerList.append(BFBC2PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, ping));
+            }
 
             // Frostbite2 Only.
             if (frostbite2CommandHandler) {
@@ -1234,7 +1247,6 @@ void FrostbiteCommandHandler::parsePlayerList(const FrostbiteRconPacket &packet,
 
                 // BF4 Only.
                 if (bf4CommandHandler) {
-                    int ping = FrostbiteUtils::toInt(list.at(8));
                     int type = FrostbiteUtils::toInt(list.at(9));
 
                     bf4PlayerList.append(BF4PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank, ping, type));
