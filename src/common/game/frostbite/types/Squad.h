@@ -20,6 +20,8 @@
 #ifndef SQUAD_H
 #define SQUAD_H
 
+#include <QMetaType>
+
 class QString;
 class QStringList;
 
@@ -71,5 +73,8 @@ private:
     static QStringList list;
 
 };
+
+// For use with QVariant
+Q_DECLARE_METATYPE(SquadEnum)
 
 #endif // SQUAD_H
