@@ -106,13 +106,3 @@ QIcon FrostbiteUtils::getRankIcon(GameTypeEnum gameType, int rank)
 
     return QIcon();
 }
-
-QString FrostbiteUtils::getSquadName(const SquadEnum &squad)
-{
-    return getSquadName(static_cast<int>(squad));
-}
-
-QString FrostbiteUtils::getSquadName(int squadId)
-{
-    return squads.at(squadId);
-}

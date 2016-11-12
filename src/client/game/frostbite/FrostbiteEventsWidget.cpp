@@ -40,6 +40,7 @@
 #include "FrostbiteUtils.h"
 #include "ServerEntry.h"
 #include "GameType.h"
+#include "Squad.h"
 
 FrostbiteEventsWidget::FrostbiteEventsWidget(Frostbite2Client *client, QWidget *parent) :
     Frostbite2Widget(client, parent),
@@ -188,7 +189,7 @@ void FrostbiteEventsWidget::onPlayerSquadChangeEvent(const QString &player, int 
     Q_UNUSED(teamId);
 
     if (squadId != 0) {
-        logEvent(tr("PlayerSquadChange"), tr("Player %1 changed squad to %2.").arg(player).arg(FrostbiteUtils::getSquadName(squadId)));
+        logEvent(tr("PlayerSquadChange"), tr("Player %1 changed squad to %2.").arg(player).arg(Squad::toString(squadId)));
     }
 }
 

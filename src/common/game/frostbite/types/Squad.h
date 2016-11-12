@@ -66,6 +66,8 @@ class Squad
 public:
     static SquadEnum fromString(const QString &squadName);
     static QString toString(const SquadEnum &squad);
+    static QString toString(int squadId);
+    static SquadEnum fromInt(int squadId);
     static int toInt(const SquadEnum &squad);
     static QStringList asList();
 

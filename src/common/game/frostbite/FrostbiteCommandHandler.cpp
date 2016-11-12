@@ -305,7 +305,7 @@ void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const 
             break;
 
         case PlayerSubsetEnum::Squad:
-            command += QString(" \"%1\" \"%2\"").arg(teamId, squadId);
+            command += QString(" \"%1\" \"%2\"").arg(teamId).arg(squadId);
             break;
 
         default:
@@ -345,7 +345,7 @@ void FrostbiteCommandHandler::sendAdminYellCommand(const QString &message, const
             break;
 
         case PlayerSubsetEnum::Squad:
-            command += QString(" \"%1\" \"%2\"").arg(teamId, squadId);
+            command += QString(" \"%1\" \"%2\"").arg(teamId).arg(squadId);
             break;
 
         default:

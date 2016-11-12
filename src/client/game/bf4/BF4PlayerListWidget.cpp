@@ -40,6 +40,7 @@
 #include "BanIdType.h"
 #include "BanType.h"
 #include "TeamEntry.h"
+#include "Squad.h"
 #include "BF4LevelDictionary.h"
 #include "BF4CommandHandler.h"
 
@@ -235,7 +236,7 @@ void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &play
         playerItem->setText(0, playerEntry.getName());
         playerItem->setToolTip(0, tr("Rank %1").arg(playerEntry.getRank()));
         playerItem->setData(1, Qt::UserRole, playerEntry.getSquadId());
-        playerItem->setText(1, FrostbiteUtils::getSquadName(playerEntry.getSquadId()));
+        playerItem->setText(1, Squad::toString(playerEntry.getSquadId()));
         playerItem->setText(2, QString::number(playerEntry.getKills()));
         playerItem->setText(3, QString::number(playerEntry.getDeaths()));
         playerItem->setText(4, QString::number(playerEntry.getScore()));
@@ -279,7 +280,7 @@ void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &play
     menu_player_move->addSeparator();
 
     for (int squadId = 0; squadId <= 8; squadId++) {
-        action_player_move_squad = new QAction(tr("Squad %1").arg(FrostbiteUtils::getSquadName(squadId)), menu_player_move);
+        action_player_move_squad = new QAction(tr("Squad %1").arg(Squad::toString(squadId)), menu_player_move);
         action_player_move_squad->setCheckable(true);
         action_player_move_squad->setData(squadId + 5);
 

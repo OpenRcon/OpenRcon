@@ -137,7 +137,22 @@ SquadEnum Squad::fromString(const QString &squadName)
 
 QString Squad::toString(const SquadEnum &squad)
 {
-    return list.at(static_cast<int>(squad));
+    return toString(toInt(squad));
+}
+
+QString Squad::toString(int squadId)
+{
+    return list.at(squadId);
+}
+
+SquadEnum Squad::fromInt(int squadId)
+{
+    return static_cast<SquadEnum>(squadId);
+}
+
+int Squad::toInt(const SquadEnum &squad)
+{
+    return static_cast<int>(squad);
 }
 
 QStringList Squad::asList()
