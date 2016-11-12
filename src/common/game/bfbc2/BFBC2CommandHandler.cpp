@@ -67,7 +67,7 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         /*{ "listPlayers",                            &FrostbiteCommandHandler::parseListPlayersCommand },*/
 
         /// BFBC2 Only.
-        //eventsEnabled
+        /*{ "eventsEnabled",                          &FrostbiteCommandHandler::parseEventsEnabledCommand },*/
         //help
 
         // Admin
@@ -186,16 +186,6 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
 
 /* Send commands */
 // Misc
-void BFBC2CommandHandler::sendEventsEnabledCommand()
-{
-    connection->sendCommand("eventsEnabled");
-}
-
-void BFBC2CommandHandler::sendEventsEnabledCommand(bool enabled)
-{
-    connection->sendCommand(QString("\"eventsEnabled\" \"%1\"").arg(enabled));
-}
-
 void BFBC2CommandHandler::sendHelpCommand()
 {
     connection->sendCommand("help");

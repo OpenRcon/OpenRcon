@@ -37,9 +37,6 @@ public:
 
 public slots:
     /* Send commands */
-    // Admin
-    void sendAdminEventsEnabledCommand();
-    void sendAdminEventsEnabledCommand(bool enabled);
     void sendAdminHelpCommand();
     void sendAdminPasswordCommand(const QString &password = QString());
 
@@ -120,7 +117,6 @@ private:
 
     /* Parse commands */
     // Admin
-    void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
@@ -191,7 +187,6 @@ signals:
 
     /* Command signals */
     // Admin
-    void onAdminEventsEnabledCommand(bool enabled);
     void onAdminHelpCommand(const QStringList &commandList);
     void onAdminPasswordCommand(const QString &password);
 

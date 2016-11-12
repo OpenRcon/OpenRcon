@@ -75,7 +75,7 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         /*{ "listPlayers",                          &FrostbiteCommandHandler::parseListPlayersCommand },*/
 
         // Admin
-        { "admin.eventsEnabled",                    &Frostbite2CommandHandler::parseAdminEventsEnabledCommand },
+        /*{ "admin.eventsEnabled",                  &FrostbiteCommandHandler::parseAdminEventsEnabledCommand },*/
         { "admin.help",                             &Frostbite2CommandHandler::parseAdminHelpCommand },
         /*{ "admin.kickPlayer",                     &FrostbiteCommandHandler::parseAdminKickPlayerCommand },*/
         /*{ "admin.killPlayer",                     &FrostbiteCommandHandler::parseAdminKillPlayerCommand },*/
@@ -185,16 +185,6 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
 
 /* Send commands */
 // Admin
-void Frostbite2CommandHandler::sendAdminEventsEnabledCommand()
-{
-    connection->sendCommand("admin.eventsEnabled");
-}
-
-void Frostbite2CommandHandler::sendAdminEventsEnabledCommand(bool enabled)
-{
-    connection->sendCommand(QString("\"admin.eventsEnabled\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
-}
-
 void Frostbite2CommandHandler::sendAdminHelpCommand()
 {
     connection->sendCommand("admin.help");
@@ -625,19 +615,6 @@ void Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent(const Frostb
 
 /* Parse commands */
 // Admin
-void Frostbite2CommandHandler::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
-{
-    Q_UNUSED(lastSentPacket);
-
-    QString response = packet.getWord(0).getContent();
-
-    if (response == "OK" && packet.getWordCount() > 1) {
-        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
-
-        emit (onAdminEventsEnabledCommand(enabled));
-    }
-}
-
 void Frostbite2CommandHandler::parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);

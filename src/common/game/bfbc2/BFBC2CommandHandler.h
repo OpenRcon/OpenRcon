@@ -36,8 +36,6 @@ public slots:
     /* Send commands */
     // Misc
     /// BFBC2 Only.
-    void sendEventsEnabledCommand();
-    void sendEventsEnabledCommand(bool enabled);
     void sendHelpCommand();
 
     // Admin
@@ -121,7 +119,6 @@ private:
     /* Parse commands */
     // Misc
     /// BFBC2 Only.
-    //eventsEnabled
     //help
 
     // Admin
@@ -200,7 +197,6 @@ signals:
     /* Command signals */
     // Misc
     /// BFBC2 Only.
-    //eventsEnabled
     //help
 
     // Admin

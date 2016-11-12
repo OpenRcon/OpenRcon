@@ -65,6 +65,8 @@ public slots:
     void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
 
     // Admin
+    void sendAdminEventsEnabledCommand();
+    void sendAdminEventsEnabledCommand(bool enabled);
     void sendAdminKickPlayerCommand(const QString &player, const QString &reason = QString());
     void sendAdminKillPlayerCommand(const QString &player);
     void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
@@ -150,6 +152,9 @@ private:
     //admin.say <message> <players>
     //admin.yell <message> <duration> <players>
 
+    /// Frostbite2 Only.
+    void parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
+
     // Banning
     //banList.add <id-type> <id, timeout>
     //banList.clear
@@ -221,6 +226,10 @@ signals:
     void onListPlayersCommand(const QList<Frostbite2PlayerEntry> &playerList);
     void onListPlayersCommand(const QList<BF4PlayerEntry> &playerList);
 
+    /// BFBC2 Only.
+    void onEventsEnabledCommand();
+    void onEventsEnabledCommand(bool enabled);
+
     /// Frostbite2 Only.
     void onCurrentLevelCommand(const QString &levelName);
 
@@ -231,6 +240,10 @@ signals:
     //admin.movePlayer <name> <teamId> <squadId> <forceKill>
     //admin.say <message> <players>
     //admin.yell <message> <duration> <players>
+
+    /// Frostbite2 Only.
+    void onAdminEventsEnabledCommand();
+    void onAdminEventsEnabledCommand(bool enabled);
 
     // Banning
     //banList.add <id-type> <id, timeout>

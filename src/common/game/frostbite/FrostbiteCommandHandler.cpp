@@ -82,6 +82,9 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
         { "version",                                &FrostbiteCommandHandler::parseVersionCommand },
         { "listPlayers",                            &FrostbiteCommandHandler::parseListPlayersCommand },
 
+        /// BFBC2 Only.
+        { "eventsEnabled",                          &FrostbiteCommandHandler::parseAdminEventsEnabledCommand },
+
         /// Frostbite2 Only.
         { "currentLevel",                           &FrostbiteCommandHandler::parseCurrentLevelCommand },
 
@@ -95,6 +98,9 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
 
         /// BFBC2 Only.
         { "admin.currentLevel",                     &FrostbiteCommandHandler::parseCurrentLevelCommand },
+
+        /// Frostbite2 Only.
+        { "admin.eventsEnabled",                    &FrostbiteCommandHandler::parseAdminEventsEnabledCommand },
 
         // Banning
         { "banList.add",                            nullptr /*&FrostbiteCommandHandler::parseBanListAddCommand*/ },
@@ -229,6 +235,36 @@ void FrostbiteCommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &pla
 }
 
 // Admin
+void FrostbiteCommandHandler::sendAdminEventsEnabledCommand()
+{
+    BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(this);
+    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
+    QString command;
+
+    if (bfbc2CommandHandler) {
+        command = "eventsEnabled";
+    } else if (frostbite2CommandHandler) {
+        command = "admin.eventsEnabled";
+    }
+
+    connection->sendCommand(command);
+}
+
+void FrostbiteCommandHandler::sendAdminEventsEnabledCommand(bool enabled)
+{
+    BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(this);
+    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
+    QString command;
+
+    if (bfbc2CommandHandler) {
+        command = "eventsEnabled";
+    } else if (frostbite2CommandHandler) {
+        command = "admin.eventsEnabled";
+    }
+
+    connection->sendCommand(QString("\"%1\" \"%2\"").arg(command, FrostbiteUtils::toString(enabled)));
+}
+
 void FrostbiteCommandHandler::sendAdminKickPlayerCommand(const QString &player, const QString &reason)
 {
     QString command;
@@ -996,6 +1032,27 @@ void FrostbiteCommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket
 void FrostbiteCommandHandler::parseAdminListPlayersCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     parsePlayerList(packet, lastSentPacket);
+}
+
+/// Frostbite2 Only.
+void FrostbiteCommandHandler::parseAdminEventsEnabledCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
+{
+    Q_UNUSED(lastSentPacket);
+
+    QString response = packet.getWord(0).getContent();
+
+    if (response == "OK" && packet.getWordCount() > 1) {
+        bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
+
+        BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(this);
+        Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
+
+        if (bfbc2CommandHandler) {
+            emit (onEventsEnabledCommand(enabled));
+        } else if (frostbite2CommandHandler) {
+            emit (onAdminEventsEnabledCommand(enabled));
+        }
+    }
 }
 
 // Banning
