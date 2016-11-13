@@ -56,26 +56,6 @@
         <translation>Lisens</translation>
     </message>
     <message>
-        <source>About %1 %2</source>
-        <translation type="vanished">Om %1 %2</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;A open-source cross-platform RCON administration tool, written in C++.&lt;/p&gt;</source>
-        <translation type="vanished">&lt;p&gt;Et åpen-kildekode kryss plattform RCON administrasjons verktøy, skrevet i C++.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Built on %2 at %3&lt;/p&gt;</source>
-        <translation type="vanished">&lt;p&gt;Bygd den %2 klokken %3&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Copyright &amp;copy; %4 %5&lt;/p&gt;</source>
-        <translation type="vanished">&lt;p&gt;Kopirett &amp;copy; %4 %5&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;We would like to thank Sourceforge.net for their services and support.&lt;br /&gt;A big thank to GitHub! For making a coders everyday easier.&lt;/p&gt;</source>
-        <translation type="vanished">&lt;p&gt; Vi vil takke Sourceforge.net for deres tjenester og support.&lt;br /&gt;En stor takk til GitHub! For å gjøre en programmerers hverdag enklere.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <location filename="../gui/AboutDialog.cpp" line="36"/>
         <source>A open-source cross-platform RCON administration tool, written in C++.</source>
         <translation>Et åpen-kildekode kryss plattform RCON administrasjons verktøy, skrevet i C++.</translation>
@@ -97,102 +77,7 @@
     </message>
 </context>
 <context>
-    <name>BF3</name>
-    <message>
-        <source>Wrong server type, disconnecting...</source>
-        <translation type="vanished">Feil server type, kobler fra...</translation>
-    </message>
-</context>
-<context>
     <name>BF3MainWidget</name>
-    <message>
-        <source>Restart round</source>
-        <translation type="vanished">Start runden på nytt</translation>
-    </message>
-    <message>
-        <source>Run next round</source>
-        <translation type="vanished">Kjør neste runde</translation>
-    </message>
-    <message>
-        <source>Round:</source>
-        <translation type="vanished">Runde:</translation>
-    </message>
-    <message>
-        <source>Players:</source>
-        <translation type="vanished">Spillere:</translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation type="vanished">Versjon:</translation>
-    </message>
-    <message>
-        <source>Uptime:</source>
-        <translation type="vanished">Oppetid:</translation>
-    </message>
-    <message>
-        <source>Players</source>
-        <translation type="vanished">Spillere</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Navn</translation>
-    </message>
-    <message>
-        <source>Squad</source>
-        <translation type="vanished">Skvadron</translation>
-    </message>
-    <message>
-        <source>Kills</source>
-        <translation type="vanished">Drap</translation>
-    </message>
-    <message>
-        <source>Deaths</source>
-        <translation type="vanished">Dødsfall</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation type="vanished">Poeng</translation>
-    </message>
-    <message>
-        <source>Ping</source>
-        <translation type="vanished">Ping</translation>
-    </message>
-    <message>
-        <source>GUID</source>
-        <translation type="vanished">GUID</translation>
-    </message>
-    <message>
-        <source>Events</source>
-        <translation type="vanished">Hendelser</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation type="vanished">Tid</translation>
-    </message>
-    <message>
-        <source>Event</source>
-        <translation type="vanished">Hendelse</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation type="vanished">Melding</translation>
-    </message>
-    <message>
-        <source>Chat</source>
-        <translation type="vanished">Prat</translation>
-    </message>
-    <message>
-        <source>Reserved Slots</source>
-        <translation type="vanished">Reserverte plasser</translation>
-    </message>
-    <message>
-        <source>Console</source>
-        <translation type="vanished">Konsoll</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Feil</translation>
-    </message>
     <message>
         <location filename="../game/bf3/BF3MainWidget.cpp" line="59"/>
         <source>External IP address and port</source>
@@ -220,141 +105,11 @@
     </message>
 </context>
 <context>
-    <name>BF3Widget</name>
-    <message>
-        <source>Reserved Slots</source>
-        <translation type="vanished">Reserverte plasser</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Feil</translation>
-    </message>
-    <message>
-        <source>Restart round</source>
-        <translation type="vanished">Start runden på nytt</translation>
-    </message>
-    <message>
-        <source>Run next round</source>
-        <translation type="vanished">Kjør neste runde</translation>
-    </message>
-    <message>
-        <source>Round:</source>
-        <translation type="vanished">Runde:</translation>
-    </message>
-    <message>
-        <source>Players:</source>
-        <translation type="vanished">Spillere:</translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation type="vanished">Versjon:</translation>
-    </message>
-    <message>
-        <source>Uptime:</source>
-        <translation type="vanished">Oppetid:</translation>
-    </message>
-    <message>
-        <source>Players</source>
-        <translation type="vanished">Spillere</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Navn</translation>
-    </message>
-    <message>
-        <source>Squad</source>
-        <translation type="vanished">Skvadron</translation>
-    </message>
-    <message>
-        <source>Kills</source>
-        <translation type="vanished">Drap</translation>
-    </message>
-    <message>
-        <source>Deaths</source>
-        <translation type="vanished">Dødsfall</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation type="vanished">Poeng</translation>
-    </message>
-    <message>
-        <source>Ping</source>
-        <translation type="vanished">Ping</translation>
-    </message>
-    <message>
-        <source>GUID</source>
-        <translation type="vanished">GUID</translation>
-    </message>
-    <message>
-        <source>Events</source>
-        <translation type="vanished">Hendelser</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation type="vanished">Tid</translation>
-    </message>
-    <message>
-        <source>Event</source>
-        <translation type="vanished">Hendelse</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation type="vanished">Melding</translation>
-    </message>
-    <message>
-        <source>Chat</source>
-        <translation type="vanished">Prat</translation>
-    </message>
-    <message>
-        <source>Console</source>
-        <translation type="vanished">Konsoll</translation>
-    </message>
-</context>
-<context>
-    <name>BF4</name>
-    <message>
-        <source>Wrong server type, disconnecting...</source>
-        <translation type="vanished">Feil server type, kobler fra...</translation>
-    </message>
-</context>
-<context>
     <name>BF4MainWidget</name>
-    <message>
-        <source>Restart round</source>
-        <translation type="vanished">Start runden på nytt</translation>
-    </message>
-    <message>
-        <source>Run next round</source>
-        <translation type="vanished">Kjør neste runde</translation>
-    </message>
-    <message>
-        <source>Round:</source>
-        <translation type="vanished">Runde:</translation>
-    </message>
-    <message>
-        <source>Players:</source>
-        <translation type="vanished">Spillere:</translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation type="vanished">Versjon:</translation>
-    </message>
-    <message>
-        <source>Uptime:</source>
-        <translation type="vanished">Oppetid:</translation>
-    </message>
     <message>
         <location filename="../game/bf4/BF4MainWidget.cpp" line="45"/>
         <source>Players</source>
         <translation>Spillere</translation>
-    </message>
-    <message>
-        <source>Events</source>
-        <translation type="vanished">Hendelser</translation>
-    </message>
-    <message>
-        <source>Chat</source>
-        <translation type="vanished">Prat</translation>
     </message>
     <message>
         <location filename="../game/bf4/BF4MainWidget.cpp" line="46"/>
@@ -402,49 +157,9 @@
         <translation>Punkbuster Tjener</translation>
     </message>
     <message>
-        <source>Banlist</source>
-        <translation type="vanished">Svarteliste</translation>
-    </message>
-    <message>
-        <source>Reserved Slots</source>
-        <translation type="vanished">Reserverte plasser</translation>
-    </message>
-    <message>
         <location filename="../game/bf4/BF4MainWidget.cpp" line="48"/>
         <source>Spectator Slots</source>
         <translation>Tilskuerplasser</translation>
-    </message>
-    <message>
-        <source>Console</source>
-        <translation type="vanished">Konsoll</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Feil</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Version&lt;/b&gt;: %1</source>
-        <translation type="vanished">&lt;b&gt;Versjon&lt;/b&gt;: %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Players&lt;/b&gt;: %1 of %2</source>
-        <translation type="vanished">&lt;b&gt;Spillere&lt;/b&gt;: %1 av %2</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Round&lt;/b&gt;: %1 of %2</source>
-        <translation type="vanished">&lt;b&gt;Runde&lt;/b&gt;: %1 av %2</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to restart the round?</source>
-        <translation type="vanished">Er du sikker på at du vil starte runden på nytt?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to run the next round?</source>
-        <translation type="vanished">Er du sikker på at du vil kjøre neste runde?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Uptime:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Oppetid:&lt;/b&gt; %1</translation>
     </message>
 </context>
 <context>
@@ -523,26 +238,14 @@
         <translation>Detaljer</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation type="vanished">Navn</translation>
-    </message>
-    <message>
         <location filename="../game/bf4/BF4OptionsWidget.ui" line="39"/>
         <source>Enter a servername, this name is used in Battlelog.</source>
         <translation>Skriv inn et tjenernavn, dette navnet blir brukt i Battlelog.</translation>
     </message>
     <message>
-        <source>Description</source>
-        <translation type="vanished">Beskrivelse</translation>
-    </message>
-    <message>
         <location filename="../game/bf4/BF4OptionsWidget.ui" line="56"/>
         <source>Enter a server description, this description is displayed on the loading screen.</source>
         <translation>Skriv inn tjener beskrivelse, denne beskrivelsen blir vist på laste skjermen.</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation type="vanished">Melding</translation>
     </message>
     <message>
         <location filename="../game/bf4/BF4OptionsWidget.ui" line="70"/>
@@ -555,18 +258,6 @@
         <translation>Konfigurasjon</translation>
     </message>
     <message>
-        <source>Game password</source>
-        <translation type="vanished">Spill passord</translation>
-    </message>
-    <message>
-        <source>Admin password</source>
-        <translation type="vanished">Admin passord</translation>
-    </message>
-    <message>
-        <source>Servertype</source>
-        <translation type="vanished">Tjenertype</translation>
-    </message>
-    <message>
         <location filename="../game/bf4/BF4OptionsWidget.ui" line="182"/>
         <source>PunkBuster</source>
         <translation>PunkBuster</translation>
@@ -577,17 +268,9 @@
         <translation>FairFight</translation>
     </message>
     <message>
-        <source>Spectator limit</source>
-        <translation type="vanished">Tilskuergrense</translation>
-    </message>
-    <message>
         <location filename="../game/bf4/BF4OptionsWidget.ui" line="210"/>
         <source>Public spectators</source>
         <translation>Offentlige tilskuere</translation>
-    </message>
-    <message>
-        <source>Player limit</source>
-        <translation type="vanished">Spillergrense</translation>
     </message>
     <message>
         <location filename="../game/bf4/BF4OptionsWidget.ui" line="32"/>
@@ -1005,497 +688,6 @@
     </message>
 </context>
 <context>
-    <name>BF4Widget</name>
-    <message>
-        <source>Restart round</source>
-        <translation type="vanished">Start runden på nytt</translation>
-    </message>
-    <message>
-        <source>Run next round</source>
-        <translation type="vanished">Kjør neste runde</translation>
-    </message>
-    <message>
-        <source>Round:</source>
-        <translation type="vanished">Runde:</translation>
-    </message>
-    <message>
-        <source>Players:</source>
-        <translation type="vanished">Spillere:</translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation type="vanished">Versjon:</translation>
-    </message>
-    <message>
-        <source>Uptime:</source>
-        <translation type="vanished">Oppetid:</translation>
-    </message>
-    <message>
-        <source>Players</source>
-        <translation type="vanished">Spillere</translation>
-    </message>
-    <message>
-        <source>Events</source>
-        <translation type="vanished">Hendelser</translation>
-    </message>
-    <message>
-        <source>Chat</source>
-        <translation type="vanished">Prat</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="vanished">Alternativer</translation>
-    </message>
-    <message>
-        <source>Maplist</source>
-        <translation type="vanished">Kart</translation>
-    </message>
-    <message>
-        <source>Banlist</source>
-        <translation type="vanished">Svarteliste</translation>
-    </message>
-    <message>
-        <source>Reserved Slots</source>
-        <translation type="vanished">Reserverte plasser</translation>
-    </message>
-    <message>
-        <source>Spectator Slots</source>
-        <translation type="vanished">Tilskuerplasser</translation>
-    </message>
-    <message>
-        <source>Console</source>
-        <translation type="vanished">Konsoll</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Feil</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Version&lt;/b&gt;: %1</source>
-        <translation type="vanished">&lt;b&gt;Versjon&lt;/b&gt;: %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Players&lt;/b&gt;: %1 of %2</source>
-        <translation type="vanished">&lt;b&gt;Spillere&lt;/b&gt;: %1 av %2</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Round&lt;/b&gt;: %1 of %2</source>
-        <translation type="vanished">&lt;b&gt;Runde&lt;/b&gt;: %1 av %2</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to restart the round?</source>
-        <translation type="vanished">Er du sikker på at du vil starte runden på nytt?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to run the next round?</source>
-        <translation type="vanished">Er du sikker på at du vil kjøre neste runde?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Uptime:&lt;/b&gt; %1</source>
-        <translation type="vanished">&lt;b&gt;Oppetid:&lt;/b&gt; %1</translation>
-    </message>
-</context>
-<context>
-    <name>BFBC2</name>
-    <message>
-        <source>Wrong server type, disconnecting...</source>
-        <translation type="vanished">Feil server type, kobler fra...</translation>
-    </message>
-</context>
-<context>
-    <name>BFBC2Widget</name>
-    <message>
-        <source>Send message</source>
-        <translation type="vanished">Send melding</translation>
-    </message>
-    <message>
-        <source>Muted</source>
-        <translation type="vanished">Dempet</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="vanished">Normal</translation>
-    </message>
-    <message>
-        <source>Voice</source>
-        <translation type="vanished">Stemme</translation>
-    </message>
-    <message>
-        <source>Admin</source>
-        <translation type="vanished">Admin</translation>
-    </message>
-    <message>
-        <source>Kill</source>
-        <translation type="vanished">Drep</translation>
-    </message>
-    <message>
-        <source>By name</source>
-        <translation type="vanished">Etter navn</translation>
-    </message>
-    <message>
-        <source>Reserved Slots</source>
-        <translation type="vanished">Reserverte plasser</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="vanished">Fjern</translation>
-    </message>
-    <message>
-        <source>Players</source>
-        <translation type="vanished">Spillere</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Navn</translation>
-    </message>
-    <message>
-        <source>Kills</source>
-        <translation type="vanished">Drap</translation>
-    </message>
-    <message>
-        <source>Deaths</source>
-        <translation type="vanished">Dødsfall</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation type="vanished">Poeng</translation>
-    </message>
-    <message>
-        <source>Ping</source>
-        <translation type="vanished">Ping</translation>
-    </message>
-    <message>
-        <source>GUID</source>
-        <translation type="vanished">GUID</translation>
-    </message>
-    <message>
-        <source>Events</source>
-        <translation type="vanished">Hendelser</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation type="vanished">Tid</translation>
-    </message>
-    <message>
-        <source>Event</source>
-        <translation type="vanished">Hendelse</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation type="vanished">Melding</translation>
-    </message>
-    <message>
-        <source>Chat</source>
-        <translation type="vanished">Prat</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="vanished">Alternativer</translation>
-    </message>
-    <message>
-        <source>Servername:</source>
-        <translation type="vanished">Tjenernavn:</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="vanished">Beskrivelse:</translation>
-    </message>
-    <message>
-        <source>Banner URL:</source>
-        <translation type="vanished">Banner URL:</translation>
-    </message>
-    <message>
-        <source>Admin password:</source>
-        <translation type="vanished">Admin passord:</translation>
-    </message>
-    <message>
-        <source>Game password:</source>
-        <translation type="vanished">Spill passord:</translation>
-    </message>
-    <message>
-        <source>Player limit:</source>
-        <translation type="vanished">Spillergrense:</translation>
-    </message>
-    <message>
-        <source>Punkbuster</source>
-        <translation type="vanished">Punkbuster</translation>
-    </message>
-    <message>
-        <source>Ranked</source>
-        <translation type="vanished">Ranked</translation>
-    </message>
-    <message>
-        <source>Team balance</source>
-        <translation type="obsolete">Lag balanse</translation>
-    </message>
-    <message>
-        <source>Maplist</source>
-        <translation type="vanished">Kart</translation>
-    </message>
-    <message>
-        <source>Gamemode:</source>
-        <translation type="vanished">Spillermodus:</translation>
-    </message>
-    <message>
-        <source>Rush</source>
-        <translation type="vanished">Rush</translation>
-    </message>
-    <message>
-        <source>Conquest</source>
-        <translation type="vanished">Conquest</translation>
-    </message>
-    <message>
-        <source>Squad Rush</source>
-        <translation type="vanished">Squad Rush</translation>
-    </message>
-    <message>
-        <source>Squad Deathmatch</source>
-        <translation type="vanished">Squad Deathmatch</translation>
-    </message>
-    <message>
-        <source>Current map:</source>
-        <translation type="vanished">Nåværende kart:</translation>
-    </message>
-    <message>
-        <source>Restart</source>
-        <translation type="vanished">Start på nytt</translation>
-    </message>
-    <message>
-        <source>Next map:</source>
-        <translation type="vanished">Neste kart:</translation>
-    </message>
-    <message>
-        <source>Run</source>
-        <translation type="vanished">Kjør</translation>
-    </message>
-    <message>
-        <source>Preview:</source>
-        <translation type="vanished">Forhåndsvisning:</translation>
-    </message>
-    <message>
-        <source>Mod:</source>
-        <translation type="vanished">Mod:</translation>
-    </message>
-    <message>
-        <source>Avaliable maps:</source>
-        <translation type="vanished">Tilgjengelige kart:</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="vanished">Legg til</translation>
-    </message>
-    <message>
-        <source>Current maps:</source>
-        <translation type="vanished">Nåværende kart:</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">Tøm</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">Lagre</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation type="vanished">Last</translation>
-    </message>
-    <message>
-        <source>Reserved Slots:</source>
-        <translation type="vanished">Reserverte Plasser:</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="vanished">Navn:</translation>
-    </message>
-    <message>
-        <source>Console</source>
-        <translation type="vanished">Konsoll</translation>
-    </message>
-    <message>
-        <source>Round:</source>
-        <translation type="vanished">Runde:</translation>
-    </message>
-    <message>
-        <source>Uptime:</source>
-        <translation type="vanished">Oppetid:</translation>
-    </message>
-    <message>
-        <source>Move</source>
-        <translation type="vanished">Flytt</translation>
-    </message>
-    <message>
-        <source>Kick</source>
-        <translation type="vanished">Spark ut</translation>
-    </message>
-    <message>
-        <source>Ban</source>
-        <translation type="vanished">Utesteng</translation>
-    </message>
-    <message>
-        <source>Banlist</source>
-        <translation type="vanished">Svarteliste</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Feil</translation>
-    </message>
-    <message>
-        <source>Team %1</source>
-        <translation type="vanished">Lag: %1</translation>
-    </message>
-</context>
-<context>
-    <name>BanListWidget</name>
-    <message>
-        <source>Value</source>
-        <translation type="vanished">Verdi</translation>
-    </message>
-    <message>
-        <source>Remaining</source>
-        <translation type="vanished">Gjenværende</translation>
-    </message>
-    <message>
-        <source>Reason</source>
-        <translation type="vanished">Årsak</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation type="vanished">Last</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Navn</translation>
-    </message>
-    <message>
-        <source>IP</source>
-        <translation type="vanished">IP</translation>
-    </message>
-    <message>
-        <source>GUID</source>
-        <translation type="vanished">GUID</translation>
-    </message>
-    <message>
-        <source>Seconds</source>
-        <translation type="vanished">Sekunder</translation>
-    </message>
-    <message>
-        <source>Minutes</source>
-        <translation type="vanished">Minutter</translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation type="vanished">Timer</translation>
-    </message>
-    <message>
-        <source>Days</source>
-        <translation type="vanished">Dager</translation>
-    </message>
-    <message>
-        <source>Weeks</source>
-        <translation type="vanished">Uker</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="vanished">Type:</translation>
-    </message>
-    <message>
-        <source>Value:</source>
-        <translation type="vanished">Verdi:</translation>
-    </message>
-    <message>
-        <source>Reason:</source>
-        <translation type="vanished">Grunn:</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">Lagre</translation>
-    </message>
-    <message>
-        <source>By time</source>
-        <translation type="vanished">Etter tid</translation>
-    </message>
-    <message>
-        <source>By rounds</source>
-        <translation type="vanished">Etter runder</translation>
-    </message>
-    <message>
-        <source>Temporary</source>
-        <translation type="vanished">Midlertidlig</translation>
-    </message>
-    <message>
-        <source>By</source>
-        <translation type="vanished">Av</translation>
-    </message>
-    <message>
-        <source>Ban</source>
-        <translation type="vanished">Utesteng</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">Tøm</translation>
-    </message>
-    <message>
-        <source>Teamkilling</source>
-        <translation type="vanished">Lagdreping</translation>
-    </message>
-    <message>
-        <source>Team balance</source>
-        <translation type="vanished">Lag balanse</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="vanished">Fjern</translation>
-    </message>
-    <message>
-        <source>%1 Rounds</source>
-        <translation type="vanished">%1 Runder</translation>
-    </message>
-    <message>
-        <source>%1 Round</source>
-        <translation type="vanished">%1 Runde</translation>
-    </message>
-    <message>
-        <source>%1 Seconds</source>
-        <translation type="vanished">%1 Sekunder</translation>
-    </message>
-    <message>
-        <source>Permanent</source>
-        <translation type="vanished">Permanent</translation>
-    </message>
-</context>
-<context>
-    <name>ChatWidget</name>
-    <message>
-        <source>Enter message to chat here.</source>
-        <translation type="vanished">Skriv inn en melding her for å chatte.</translation>
-    </message>
-    <message>
-        <source>Say</source>
-        <translation type="vanished">Snakk</translation>
-    </message>
-    <message>
-        <source>Yell</source>
-        <translation type="vanished">Rop</translation>
-    </message>
-    <message>
-        <source>Send</source>
-        <translation type="vanished">Send</translation>
-    </message>
-    <message>
-        <source>Second</source>
-        <translation type="vanished">Sekund</translation>
-    </message>
-    <message>
-        <source>Seconds</source>
-        <translation type="vanished">Sekunder</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="vanished">Alle</translation>
-    </message>
-</context>
-<context>
     <name>Connection</name>
     <message>
         <location filename="../../common/game/Connection.cpp" line="47"/>
@@ -1518,21 +710,9 @@
         <translation>Koblet fra %1:%2.</translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation type="vanished">Feil</translation>
-    </message>
-    <message>
-        <source>The remote host closed the connection.</source>
-        <translation type="vanished">Tjeneren lukket tilkoblingen.</translation>
-    </message>
-    <message>
         <location filename="../../common/game/Connection.cpp" line="84"/>
         <source>Remote host closed the connection: %1.</source>
         <translation>Tjeneren lukket tilkoblingen: %1.</translation>
-    </message>
-    <message>
-        <source>The host address was not found.</source>
-        <translation type="vanished">Tjenerens addresse ble ikke funnet.</translation>
     </message>
     <message>
         <location filename="../../common/game/Connection.cpp" line="88"/>
@@ -1540,120 +720,14 @@
         <translation>Tjener ikke funnet: %1.</translation>
     </message>
     <message>
-        <source>The connection was refused by the peer (or timed out).</source>
-        <translation type="vanished">Tilkoblingen ble nektet av tjeneren (eller tidsavbrutt).</translation>
-    </message>
-    <message>
         <location filename="../../common/game/Connection.cpp" line="92"/>
         <source>Connection refused: %1.</source>
         <translation>Tilkobling nektet: %1.</translation>
     </message>
     <message>
-        <source>The following error occurred: %1.</source>
-        <translation type="vanished">Følgende feil oppstod: %1.</translation>
-    </message>
-    <message>
         <location filename="../../common/game/Connection.cpp" line="96"/>
         <source>Unknown error: %1.</source>
         <translation>Ukjent feil: %1.</translation>
-    </message>
-</context>
-<context>
-    <name>ConsoleWidget</name>
-    <message>
-        <source>Console</source>
-        <translation type="vanished">Konsoll</translation>
-    </message>
-    <message>
-        <source>Enter command to execute here...</source>
-        <translation type="vanished">Skriv inn kommandoen som skal kjøres her...</translation>
-    </message>
-    <message>
-        <source>Send</source>
-        <translation type="vanished">Send</translation>
-    </message>
-    <message>
-        <source>PunkBuster</source>
-        <translation type="vanished">PunkBuster</translation>
-    </message>
-</context>
-<context>
-    <name>EventsWidget</name>
-    <message>
-        <source>Time</source>
-        <translation type="vanished">Tid</translation>
-    </message>
-    <message>
-        <source>Event</source>
-        <translation type="vanished">Hendelse</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation type="vanished">Melding</translation>
-    </message>
-    <message>
-        <source>Connected to %1:%2.</source>
-        <translation type="vanished">Koblet til %1:%2.</translation>
-    </message>
-    <message>
-        <source>Disconnected.</source>
-        <translation type="vanished">Koblet fra.</translation>
-    </message>
-    <message>
-        <source>Player %1 authenticated.</source>
-        <translation type="vanished">Spiller %1 ble autentisert.</translation>
-    </message>
-    <message>
-        <source>Player %1 disconnected.</source>
-        <translation type="vanished">Spiller %1 koblet fra.</translation>
-    </message>
-    <message>
-        <source>Player %1 joined the game (GUID: %2).</source>
-        <translation type="vanished">Spiller %1 ble med i spillet (GUID: %2).</translation>
-    </message>
-    <message>
-        <source>Player %1 left the game.</source>
-        <translation type="vanished">Spiller %1 forlot spillet.</translation>
-    </message>
-    <message>
-        <source>Player %1 spawned, and is on team %2.</source>
-        <translation type="vanished">Spiller %1 spawnet, og er på lag %2.</translation>
-    </message>
-    <message>
-        <source>Player %1 headshoted player %2 using %3.</source>
-        <translation type="vanished">Spiller %1 skjøt spiller %2 i hodet med %3.</translation>
-    </message>
-    <message>
-        <source>Player %1 killed player %2 with %3.</source>
-        <translation type="vanished">Spiller %1 drepte spiller %2 med %3.</translation>
-    </message>
-    <message>
-        <source>Player %1 commited sucide using %2.</source>
-        <translation type="vanished">Spiller %1 begikk selvmord med %2.</translation>
-    </message>
-    <message>
-        <source>Player %1 changed squad to %2.</source>
-        <translation type="vanished">Spiller %1 byttet skvadron til %2.</translation>
-    </message>
-    <message>
-        <source>Player %1 changed team to %2.</source>
-        <translation type="vanished">Spiller %1 byttet lag til %2.</translation>
-    </message>
-    <message>
-        <source>Loading level %1 with gamemode %2.</source>
-        <translation type="vanished">Laster kart %1 med spillmodus %2.</translation>
-    </message>
-    <message>
-        <source>The round has just ended, and %1 won.</source>
-        <translation type="vanished">Runden er akkurat over, og %1 vant.</translation>
-    </message>
-    <message>
-        <source>The round has just ended, and %1 is the final detailed player stats.</source>
-        <translation type="vanished">Runden er akkurat over, og %1 er den endelige detaljerte spiller statistikken.</translation>
-    </message>
-    <message>
-        <source>The round has just ended, and %1 is the final ticket/kill/life count for each team.</source>
-        <translation type="vanished">Runden er akkurat over, og %1 er den endelige ticket/drap/liv tellingen for hvert lag.</translation>
     </message>
 </context>
 <context>
@@ -1856,34 +930,6 @@
         <translation>GUID</translation>
     </message>
     <message>
-        <source>Hacking/Cheating</source>
-        <translation type="vanished">Hacking/Juksing</translation>
-    </message>
-    <message>
-        <source>Make room for reserved slots</source>
-        <translation type="vanished">Å lage rom for en reservert plass</translation>
-    </message>
-    <message>
-        <source>Being disrespectful</source>
-        <translation type="vanished">Å være respektløs </translation>
-    </message>
-    <message>
-        <source>Teamkilling</source>
-        <translation type="vanished">Lagdreping</translation>
-    </message>
-    <message>
-        <source>Camping</source>
-        <translation type="vanished">Camping</translation>
-    </message>
-    <message>
-        <source>Team balance</source>
-        <translation type="vanished">Lag balansering</translation>
-    </message>
-    <message>
-        <source>Switching to winning team</source>
-        <translation type="vanished">Bytte lag til vinnerlaget</translation>
-    </message>
-    <message>
         <location filename="../game/frostbite/FrostbiteBanListWidget.cpp" line="74"/>
         <source>Remove</source>
         <translation>Fjern</translation>
@@ -2018,26 +1064,14 @@
         <translation>Melding</translation>
     </message>
     <message>
-        <source>Connected</source>
-        <translation type="vanished">Tilkoblet</translation>
-    </message>
-    <message>
         <location filename="../game/frostbite/FrostbiteEventsWidget.cpp" line="108"/>
         <source>Connected to %1:%2.</source>
         <translation>Koblet til %1:%2.</translation>
     </message>
     <message>
-        <source>Disconnected</source>
-        <translation type="vanished">Frakoblet</translation>
-    </message>
-    <message>
         <location filename="../game/frostbite/FrostbiteEventsWidget.cpp" line="113"/>
         <source>Disconnected.</source>
         <translation>Frakoblet.</translation>
-    </message>
-    <message>
-        <source>Authenticated</source>
-        <translation type="vanished">Autentisert</translation>
     </message>
     <message>
         <location filename="../game/frostbite/FrostbiteEventsWidget.cpp" line="119"/>
@@ -2216,18 +1250,6 @@
         <translation>Oppetid</translation>
     </message>
     <message>
-        <source>&lt;b&gt;Players&lt;/b&gt;: %1 of %2</source>
-        <translation type="obsolete">&lt;b&gt;Spillere&lt;/b&gt;: %1 av %2</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Round&lt;/b&gt;: %1 of %2</source>
-        <translation type="obsolete">&lt;b&gt;Runde&lt;/b&gt;: %1 av %2</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Version&lt;/b&gt;: %1</source>
-        <translation type="obsolete">&lt;b&gt;Versjon&lt;/b&gt;: %1</translation>
-    </message>
-    <message>
         <location filename="../game/frostbite/FrostbiteMainWidget.cpp" line="225"/>
         <source>Are you sure you want to restart the round?</source>
         <translation>Er du sikker på at du vil starte runden på nytt?</translation>
@@ -2236,10 +1258,6 @@
         <location filename="../game/frostbite/FrostbiteMainWidget.cpp" line="234"/>
         <source>Are you sure you want to run the next round?</source>
         <translation>Er du sikker på at du vil kjøre neste runde?</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Uptime:&lt;/b&gt; %1</source>
-        <translation type="obsolete">&lt;b&gt;Oppetid:&lt;/b&gt; %1</translation>
     </message>
 </context>
 <context>
@@ -2251,34 +1269,7 @@
     </message>
 </context>
 <context>
-    <name>FrostbiteUtils</name>
-    <message>
-        <source>%1w</source>
-        <translation type="vanished">%1u</translation>
-    </message>
-    <message>
-        <source>%1d</source>
-        <translation type="vanished">%1d</translation>
-    </message>
-    <message>
-        <source>%1h</source>
-        <translation type="vanished">%1t</translation>
-    </message>
-    <message>
-        <source>%1m</source>
-        <translation type="vanished">%1m</translation>
-    </message>
-    <message>
-        <source>%1s</source>
-        <translation type="vanished">%1s</translation>
-    </message>
-</context>
-<context>
     <name>GameManager</name>
-    <message>
-        <source>Unknown game requested, the id was: %1.</source>
-        <translation type="vanished">Ukjent spill fårespurt, id&apos;en var: %1.</translation>
-    </message>
     <message>
         <location filename="../../common/GameManager.cpp" line="92"/>
         <source>Unknown game requested.</source>
@@ -2296,107 +1287,6 @@
         <location filename="../LanguageManager.cpp" line="30"/>
         <source>Norwegian</source>
         <translation>Norsk</translation>
-    </message>
-</context>
-<context>
-    <name>MapListWidget</name>
-    <message>
-        <source>Gamemode:</source>
-        <translation type="vanished">Spillermodus:</translation>
-    </message>
-    <message>
-        <source>Preview of selected map</source>
-        <translation type="vanished">Forhåndsvisning av valgt kart</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Navn</translation>
-    </message>
-    <message>
-        <source>Gamemode</source>
-        <translation type="vanished">Spillmodus</translation>
-    </message>
-    <message>
-        <source>Rounds</source>
-        <translation type="vanished">Runder</translation>
-    </message>
-    <message>
-        <source>Preview of map selected below</source>
-        <translation type="vanished">Forhåndsvisning av kart valgt nedenfor</translation>
-    </message>
-    <message>
-        <source>Current map:</source>
-        <translation type="vanished">Nåværende kart:</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation type="vanished">Last</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">Lagre</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">Tøm</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="vanished">Legg til</translation>
-    </message>
-    <message>
-        <source>Rounds:</source>
-        <translation type="vanished">Runder:</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="vanished">Fjern</translation>
-    </message>
-</context>
-<context>
-    <name>MinecraftConnection</name>
-    <message>
-        <source>Payload data too long.</source>
-        <translation type="vanished">Nyttelast for lang.</translation>
-    </message>
-</context>
-<context>
-    <name>MinecraftWidget</name>
-    <message>
-        <source>Players</source>
-        <translation type="vanished">Spillere</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Navn</translation>
-    </message>
-    <message>
-        <source>Kills</source>
-        <translation type="vanished">Drap</translation>
-    </message>
-    <message>
-        <source>Deaths</source>
-        <translation type="vanished">Dødsfall</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation type="vanished">Poeng</translation>
-    </message>
-    <message>
-        <source>Ping</source>
-        <translation type="vanished">Ping</translation>
-    </message>
-    <message>
-        <source>Chat</source>
-        <translation type="vanished">Prat</translation>
-    </message>
-    <message>
-        <source>Send</source>
-        <translation type="vanished">Send</translation>
-    </message>
-    <message>
-        <source>Console</source>
-        <translation type="vanished">Konsoll</translation>
     </message>
 </context>
 <context>
@@ -2502,14 +1392,6 @@
         <translation>Hurtigtilkobling</translation>
     </message>
     <message>
-        <source>Reconnect</source>
-        <translation type="vanished">Koble til på nytt</translation>
-    </message>
-    <message>
-        <source>Disconnect</source>
-        <translation type="vanished">Koble fra</translation>
-    </message>
-    <message>
         <location filename="../OpenRcon.cpp" line="111"/>
         <source>Quick Connect</source>
         <translation>Hurtigtilkobling</translation>
@@ -2589,233 +1471,7 @@
     </message>
 </context>
 <context>
-    <name>OptionsWidget</name>
-    <message>
-        <source>Details</source>
-        <translation type="vanished">Detaljer</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Navn</translation>
-    </message>
-    <message>
-        <source>Enter a servername, this name is used in Battlelog.</source>
-        <translation type="vanished">Skriv inn et tjenernavn, dette navnet blir brukt i Battlelog.</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="vanished">Beskrivelse</translation>
-    </message>
-    <message>
-        <source>Enter a server description, this description is displayed on the loading screen.</source>
-        <translation type="vanished">Skriv inn tjener beskrivelse, denne beskrivelsen blir vist på laste skjermen.</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation type="vanished">Melding</translation>
-    </message>
-    <message>
-        <source>Enter a massage here, this message is shown to player on join.</source>
-        <translation type="vanished">Skriv inn en melding her, denne meldingen blir vist til spillere når de blir med i spillet.</translation>
-    </message>
-    <message>
-        <source>Configuration</source>
-        <translation type="vanished">Konfigurasjon</translation>
-    </message>
-    <message>
-        <source>Game password</source>
-        <translation type="vanished">Spill passord</translation>
-    </message>
-    <message>
-        <source>Admin password</source>
-        <translation type="vanished">Admin passord</translation>
-    </message>
-    <message>
-        <source>Servertype</source>
-        <translation type="vanished">Tjenertype</translation>
-    </message>
-    <message>
-        <source>PunkBuster</source>
-        <translation type="vanished">PunkBuster</translation>
-    </message>
-    <message>
-        <source>FairFight</source>
-        <translation type="vanished">FairFight</translation>
-    </message>
-    <message>
-        <source>Spectator limit</source>
-        <translation type="vanished">Tilskuergrense</translation>
-    </message>
-    <message>
-        <source>Public spectators</source>
-        <translation type="vanished">Offentlige tilskuere</translation>
-    </message>
-    <message>
-        <source>Player limit</source>
-        <translation type="vanished">Spillergrense</translation>
-    </message>
-    <message>
-        <source>Commander</source>
-        <translation type="vanished">Kommandør</translation>
-    </message>
-    <message>
-        <source>Gameplay</source>
-        <translation type="vanished">Spill</translation>
-    </message>
-    <message>
-        <source>Vehicles</source>
-        <translation type="vanished">Kjøretøy</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="vanished">Ingen</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="vanished">Alle</translation>
-    </message>
-    <message>
-        <source>Based on stats</source>
-        <translation type="vanished">Basert på stats</translation>
-    </message>
-    <message>
-        <source>Teamkilling</source>
-        <translation type="vanished">Lagdreping</translation>
-    </message>
-</context>
-<context>
-    <name>PlayerListWidget</name>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Navn</translation>
-    </message>
-    <message>
-        <source>Squad</source>
-        <translation type="vanished">Skvadron</translation>
-    </message>
-    <message>
-        <source>Kills</source>
-        <translation type="vanished">Drap</translation>
-    </message>
-    <message>
-        <source>Deaths</source>
-        <translation type="vanished">Dødsfall</translation>
-    </message>
-    <message>
-        <source>Score</source>
-        <translation type="vanished">Poeng</translation>
-    </message>
-    <message>
-        <source>Ping</source>
-        <translation type="vanished">Ping</translation>
-    </message>
-    <message>
-        <source>GUID</source>
-        <translation type="vanished">GUID</translation>
-    </message>
-    <message>
-        <source>K/D</source>
-        <translation type="vanished">K/D</translation>
-    </message>
-    <message>
-        <source>Move to...</source>
-        <translation type="vanished">Flytt til...</translation>
-    </message>
-    <message>
-        <source>Copy...</source>
-        <translation type="vanished">Kopier...</translation>
-    </message>
-    <message>
-        <source>Kill</source>
-        <translation type="vanished">Drep</translation>
-    </message>
-    <message>
-        <source>Kick</source>
-        <translation type="vanished">Spark ut</translation>
-    </message>
-    <message>
-        <source>Ban</source>
-        <translation type="vanished">Utesteng</translation>
-    </message>
-    <message>
-        <source>Reserve slot</source>
-        <translation type="vanished">Reserver plass</translation>
-    </message>
-    <message>
-        <source>Rank %1</source>
-        <translation type="vanished">Grad %1</translation>
-    </message>
-    <message>
-        <source>Team %1</source>
-        <translation type="vanished">Lag %1</translation>
-    </message>
-    <message>
-        <source>Squad %1</source>
-        <translation type="vanished">Skvadron %1</translation>
-    </message>
-</context>
-<context>
     <name>QObject</name>
-    <message>
-        <source>%1 Weeks</source>
-        <translation type="vanished">%1 Uker</translation>
-    </message>
-    <message>
-        <source>%1 Week</source>
-        <translation type="vanished">%1 Uke</translation>
-    </message>
-    <message>
-        <source>%1 Days</source>
-        <translation type="vanished">%1 Dager</translation>
-    </message>
-    <message>
-        <source>%1 Day</source>
-        <translation type="vanished">%1 Dag</translation>
-    </message>
-    <message>
-        <source>%1 Hours</source>
-        <translation type="vanished">%1 Timer</translation>
-    </message>
-    <message>
-        <source>%1 Hour</source>
-        <translation type="vanished">%1 Time</translation>
-    </message>
-    <message>
-        <source>%1 Minutes</source>
-        <translation type="vanished">%1 Minutter</translation>
-    </message>
-    <message>
-        <source>%1 Minute</source>
-        <translation type="vanished">%1 Minutt</translation>
-    </message>
-    <message>
-        <source>%1 Seconds</source>
-        <translation type="vanished">%1 Sekunder</translation>
-    </message>
-    <message>
-        <source>%1 Second</source>
-        <translation type="vanished">%1 Sekund</translation>
-    </message>
-    <message>
-        <source>%1w</source>
-        <translation type="vanished">%1u</translation>
-    </message>
-    <message>
-        <source>%1d</source>
-        <translation type="vanished">%1d</translation>
-    </message>
-    <message>
-        <source>%1h</source>
-        <translation type="vanished">%1t</translation>
-    </message>
-    <message>
-        <source>%1m</source>
-        <translation type="vanished">%1m</translation>
-    </message>
-    <message>
-        <source>%1s</source>
-        <translation type="vanished">%1s</translation>
-    </message>
     <message>
         <location filename="../../common/game/frostbite/types/Time.cpp" line="81"/>
         <source>Weeks</source>
@@ -2890,33 +1546,6 @@
         <location filename="../../common/game/frostbite/types/Time.cpp" line="124"/>
         <source>s</source>
         <translation>s</translation>
-    </message>
-</context>
-<context>
-    <name>ReservedSlotsWidget</name>
-    <message>
-        <source>Enter players name here...</source>
-        <translation type="vanished">Skriv inn spillerens navn her...</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="vanished">Legg til</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation type="vanished">Last</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">Lagre</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">Tøm</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="vanished">Fjern</translation>
     </message>
 </context>
 <context>
@@ -3061,29 +1690,6 @@
         <location filename="../SessionManager.cpp" line="103"/>
         <source>This session does not exist.</source>
         <translation>Denne sesjonen eksisterer ikke.</translation>
-    </message>
-</context>
-<context>
-    <name>SpectatorSlotsWidget</name>
-    <message>
-        <source>Add</source>
-        <translation type="vanished">Legg til</translation>
-    </message>
-    <message>
-        <source>Enter players name here...</source>
-        <translation type="vanished">Skriv inn spillerens navn her...</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">Lagre</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">Tøm</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="vanished">Fjern</translation>
     </message>
 </context>
 <context>
