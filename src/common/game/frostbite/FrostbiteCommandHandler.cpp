@@ -885,90 +885,109 @@ void FrostbiteCommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &
         bool hasGamePassword = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 4).getContent());
         int serverUpTime = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 5).getContent());
         int roundTime = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 6).getContent());
-        QString gameIpAndPort = packet.getWord(entriesIndex + 7).getContent();
-        QString punkBusterVersion = packet.getWord(entriesIndex + 8).getContent();
-        bool joinQueueEnabled = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 9).getContent());
-        QString region = packet.getWord(entriesIndex + 10).getContent();
-        QString closestPingSite = packet.getWord(entriesIndex + 11).getContent();
-        QString country = packet.getWord(entriesIndex + 12).getContent();
 
-        Frostbite2ServerInfo serverInfo(serverName,
-                                        playerCount,
-                                        maxPlayerCount,
-                                        gamemode,
-                                        currentMap,
-                                        roundsPlayed,
-                                        roundsTotal,
-                                        scores,
-                                        ranked,
-                                        punkBuster,
-                                        hasGamePassword,
-                                        serverUpTime,
-                                        roundTime,
-                                        gameIpAndPort,
-                                        punkBusterVersion,
-                                        joinQueueEnabled,
-                                        region,
-                                        closestPingSite,
-                                        country);
+        FrostbiteServerInfo serverInfo(serverName,
+                                       playerCount,
+                                       maxPlayerCount,
+                                       gamemode,
+                                       currentMap,
+                                       roundsPlayed,
+                                       roundsTotal,
+                                       scores,
+                                       ranked,
+                                       punkBuster,
+                                       hasGamePassword,
+                                       serverUpTime,
+                                       roundTime);
 
         emit (onServerInfoCommand(serverInfo));
 
-        // BF3 Only.
-        if (dynamic_cast<BF3CommandHandler*>(this)) {
-            bool matchMakingEnabled = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 13).getContent());
+        if (dynamic_cast<Frostbite2CommandHandler*>(this)) {
+            QString gameIpAndPort = packet.getWord(entriesIndex + 7).getContent();
+            QString punkBusterVersion = packet.getWord(entriesIndex + 8).getContent();
+            bool joinQueueEnabled = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 9).getContent());
+            QString region = packet.getWord(entriesIndex + 10).getContent();
+            QString closestPingSite = packet.getWord(entriesIndex + 11).getContent();
+            QString country = packet.getWord(entriesIndex + 12).getContent();
 
-            BF3ServerInfo serverInfo(serverName,
-                                     playerCount,
-                                     maxPlayerCount,
-                                     gamemode,
-                                     currentMap,
-                                     roundsPlayed,
-                                     roundsTotal,
-                                     scores,
-                                     ranked,
-                                     punkBuster,
-                                     hasGamePassword,
-                                     serverUpTime,
-                                     roundTime,
-                                     gameIpAndPort,
-                                     punkBusterVersion,
-                                     joinQueueEnabled,
-                                     region,
-                                     closestPingSite,
-                                     country,
-                                     matchMakingEnabled);
-
-            emit (onServerInfoCommand(serverInfo));
-
-        // BF4 Only.
-        } else if (dynamic_cast<BF4CommandHandler*>(this)) {
-            int blazePlayerCount = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 13).getContent());
-            QString blazeGameState = packet.getWord(entriesIndex + 14).getContent();
-
-            BF4ServerInfo serverInfo(serverName,
-                                     playerCount,
-                                     maxPlayerCount,
-                                     gamemode,
-                                     currentMap,
-                                     roundsPlayed,
-                                     roundsTotal,
-                                     scores,
-                                     ranked,
-                                     punkBuster,
-                                     hasGamePassword,
-                                     serverUpTime,
-                                     roundTime,
-                                     gameIpAndPort,
-                                     punkBusterVersion,
-                                     joinQueueEnabled,
-                                     region,
-                                     closestPingSite,
-                                     country,
-                                     blazePlayerCount,
-                                     blazeGameState);
+            Frostbite2ServerInfo serverInfo(serverName,
+                                            playerCount,
+                                            maxPlayerCount,
+                                            gamemode,
+                                            currentMap,
+                                            roundsPlayed,
+                                            roundsTotal,
+                                            scores,
+                                            ranked,
+                                            punkBuster,
+                                            hasGamePassword,
+                                            serverUpTime,
+                                            roundTime,
+                                            gameIpAndPort,
+                                            punkBusterVersion,
+                                            joinQueueEnabled,
+                                            region,
+                                            closestPingSite,
+                                            country);
 
             emit (onServerInfoCommand(serverInfo));
+
+            // BF3 Only.
+            if (dynamic_cast<BF3CommandHandler*>(this)) {
+                bool matchMakingEnabled = FrostbiteUtils::toBool(packet.getWord(entriesIndex + 13).getContent());
+
+                BF3ServerInfo serverInfo(serverName,
+                                         playerCount,
+                                         maxPlayerCount,
+                                         gamemode,
+                                         currentMap,
+                                         roundsPlayed,
+                                         roundsTotal,
+                                         scores,
+                                         ranked,
+                                         punkBuster,
+                                         hasGamePassword,
+                                         serverUpTime,
+                                         roundTime,
+                                         gameIpAndPort,
+                                         punkBusterVersion,
+                                         joinQueueEnabled,
+                                         region,
+                                         closestPingSite,
+                                         country,
+                                         matchMakingEnabled);
+
+                emit (onServerInfoCommand(serverInfo));
+
+            // BF4 Only.
+            } else if (dynamic_cast<BF4CommandHandler*>(this)) {
+                int blazePlayerCount = FrostbiteUtils::toInt(packet.getWord(entriesIndex + 13).getContent());
+                QString blazeGameState = packet.getWord(entriesIndex + 14).getContent();
+
+                BF4ServerInfo serverInfo(serverName,
+                                         playerCount,
+                                         maxPlayerCount,
+                                         gamemode,
+                                         currentMap,
+                                         roundsPlayed,
+                                         roundsTotal,
+                                         scores,
+                                         ranked,
+                                         punkBuster,
+                                         hasGamePassword,
+                                         serverUpTime,
+                                         roundTime,
+                                         gameIpAndPort,
+                                         punkBusterVersion,
+                                         joinQueueEnabled,
+                                         region,
+                                         closestPingSite,
+                                         country,
+                                         blazePlayerCount,
+                                         blazeGameState);
+
+                emit (onServerInfoCommand(serverInfo));
+            }
         }
     }
 }

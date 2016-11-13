@@ -30,6 +30,7 @@ class FrostbiteConnection;
 class FrostbiteRconPacket;
 enum class BanIdTypeEnum;
 enum class BanTypeEnum;
+class FrostbiteServerInfo;
 class Frostbite2ServerInfo;
 class BF3ServerInfo;
 class BF4ServerInfo;
@@ -215,6 +216,7 @@ signals:
     void onLoginPlainTextCommand(bool authenticated);
     void onLoginHashedCommand(const QByteArray &salt);
     void onLoginHashedCommand(bool authenticated);
+    void onServerInfoCommand(const FrostbiteServerInfo &serverInfo);
     void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
     void onServerInfoCommand(const BF3ServerInfo &serverInfo);
     void onServerInfoCommand(const BF4ServerInfo &serverInfo);
