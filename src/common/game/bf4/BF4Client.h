@@ -32,7 +32,7 @@ public:
     ~BF4Client() final;
 
     BF4CommandHandler *getCommandHandler() final {
-        return dynamic_cast<BF4CommandHandler*>(commandHandler);
+        return static_cast<BF4CommandHandler*>(commandHandler);
     }
 };
 

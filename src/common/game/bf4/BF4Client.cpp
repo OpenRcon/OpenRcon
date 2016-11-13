@@ -21,7 +21,7 @@
 #include "ServerEntry.h"
 
 BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
-    Frostbite2Client(serverEntry, new BF4CommandHandler(), parent)
+    Frostbite2Client(serverEntry, new BF4CommandHandler(parent), parent)
 {
     versionMap = {
         { 70517,  "OB-R2" },

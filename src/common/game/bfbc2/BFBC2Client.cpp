@@ -20,7 +20,7 @@
 #include "BFBC2Client.h"
 
 BFBC2Client::BFBC2Client(ServerEntry *serverEntry, QObject *parent) :
-    FrostbiteClient(serverEntry, new BFBC2CommandHandler(), parent)
+    FrostbiteClient(serverEntry, new BFBC2CommandHandler(parent), parent)
 {
     versionMap = {
         { 571287, "R21" },

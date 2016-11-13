@@ -32,9 +32,8 @@ public:
     ~BF3Client() final;
 
     BF3CommandHandler *getCommandHandler() final {
-        return dynamic_cast<BF3CommandHandler*>(commandHandler);
+        return static_cast<BF3CommandHandler*>(commandHandler);
     }
-
 };
 
 #endif // BF3CLIENT_H

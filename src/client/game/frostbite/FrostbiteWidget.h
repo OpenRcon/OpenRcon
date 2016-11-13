@@ -32,7 +32,7 @@ public:
     virtual ~FrostbiteWidget() override;
 
     virtual FrostbiteClient *getClient() override {
-        return dynamic_cast<FrostbiteClient*>(client);
+        return static_cast<FrostbiteClient*>(client);
     }
 };
 

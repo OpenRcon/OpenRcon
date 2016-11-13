@@ -32,7 +32,7 @@ public:
     virtual ~BF4Widget() override;
 
     BF4Client *getClient() final {
-        return dynamic_cast<BF4Client*>(client);
+        return static_cast<BF4Client*>(client);
     }
 };
 

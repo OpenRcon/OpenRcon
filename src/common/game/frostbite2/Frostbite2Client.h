@@ -32,7 +32,7 @@ public:
     virtual ~Frostbite2Client() override;
 
     virtual Frostbite2CommandHandler *getCommandHandler() override {
-        return dynamic_cast<Frostbite2CommandHandler*>(commandHandler);
+        return static_cast<Frostbite2CommandHandler*>(commandHandler);
     }
 };
 

@@ -32,7 +32,7 @@ public:
     ~BFBC2MainWidget() final;
 
     BFBC2Client *getClient() final {
-        return dynamic_cast<BFBC2Client*>(client);
+        return static_cast<BFBC2Client*>(client);
     }
 
 private slots:

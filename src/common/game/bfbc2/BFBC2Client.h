@@ -32,7 +32,7 @@ public:
     ~BFBC2Client() final;
 
     BFBC2CommandHandler *getCommandHandler() final {
-        return dynamic_cast<BFBC2CommandHandler*>(commandHandler);
+        return static_cast<BFBC2CommandHandler*>(commandHandler);
     }
 };
 
