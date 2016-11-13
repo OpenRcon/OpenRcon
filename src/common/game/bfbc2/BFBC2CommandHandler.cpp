@@ -140,7 +140,7 @@ void BFBC2CommandHandler::parsePlayerKickedEvent(const FrostbiteRconPacket &pack
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString player = packet.getWord(1).getContent();
         QString reason = packet.getWord(2).getContent();
 
@@ -152,7 +152,7 @@ void BFBC2CommandHandler::parsePunkBusterVersionEvent(const FrostbiteRconPacket 
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString version = packet.getWord(1).getContent();
 
         emit (onPunkBusterVersionEvent(version));
@@ -163,7 +163,7 @@ void BFBC2CommandHandler::parseServerLoadingLevelEvent(const FrostbiteRconPacket
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString levelName = packet.getWord(1).getContent();
         int roundsPlayed = FrostbiteUtils::toInt(packet.getWord(2).getContent());
         int roundsTotal = FrostbiteUtils::toInt(packet.getWord(3).getContent());
@@ -174,10 +174,9 @@ void BFBC2CommandHandler::parseServerLoadingLevelEvent(const FrostbiteRconPacket
 
 void BFBC2CommandHandler::parseServerLevelStartedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
-    Q_UNUSED(packet);
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         emit (onServerLevelStartedEvent());
     }
 }

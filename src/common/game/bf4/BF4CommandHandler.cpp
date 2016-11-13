@@ -323,9 +323,11 @@ void BF4CommandHandler::parsePlayerDisconnectEvent(const FrostbiteRconPacket &pa
 {
     Q_UNUSED(lastSentPacket);
 
-    QString player = packet.getWord(1).getContent();
+    if (packet.getWordCount() >= 1) {
+        QString player = packet.getWord(1).getContent();
 
-    emit (onPlayerDisconnectEvent(player));
+        emit (onPlayerDisconnectEvent(player));
+    }
 }
 
 /* Parse commands */
@@ -336,7 +338,7 @@ void BF4CommandHandler::parseFairFightIsActiveCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool isActive = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onFairFightIsActiveCommand(isActive));
@@ -350,7 +352,7 @@ void BF4CommandHandler::parseSpectatorListListCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK") {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QStringList spectatorList;
 
         for (unsigned int i = 1; i < packet.getWordCount(); i++) {
@@ -368,7 +370,7 @@ void BF4CommandHandler::parseVarsAlwaysAllowSpectatorsCommand(const FrostbiteRco
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsAlwaysAllowSpectatorsCommand(enabled));
@@ -381,7 +383,7 @@ void BF4CommandHandler::parseVarsCommanderCommand(const FrostbiteRconPacket &pac
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsCommanderCommand(enabled));
@@ -394,7 +396,7 @@ void BF4CommandHandler::parseVarsForceReloadWholeMagsCommand(const FrostbiteRcon
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsForceReloadWholeMagsCommand(enabled));
@@ -407,7 +409,7 @@ void BF4CommandHandler::parseVarsHitIndicatorsEnabledCommand(const FrostbiteRcon
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsHitIndicatorsEnabledCommand(enabled));
@@ -420,7 +422,7 @@ void BF4CommandHandler::parseVarsMaxSpectatorsCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int spectatorCount = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsMaxSpectatorsCommand(spectatorCount));
@@ -433,7 +435,7 @@ void BF4CommandHandler::parseVarsMpExperienceCommand(const FrostbiteRconPacket &
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString experience = packet.getWord(1).getContent();
 
         emit (onVarsMpExperienceCommand(experience));
@@ -446,7 +448,7 @@ void BF4CommandHandler::parseVarsPresetCommand(const FrostbiteRconPacket &packet
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString serverPreset = QString(packet.getWord(1).getContent()).toLower();
         serverPreset.replace(0, 1, serverPreset[0].toUpper());
 
@@ -462,7 +464,7 @@ void BF4CommandHandler::parseVarsRoundTimeLimitCommand(const FrostbiteRconPacket
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int percentage = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundTimeLimitCommand(percentage));
@@ -475,7 +477,7 @@ void BF4CommandHandler::parseVarsRoundWarmupTimeoutCommand(const FrostbiteRconPa
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int timeout = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundWarmupTimeoutCommand(timeout));
@@ -488,7 +490,7 @@ void BF4CommandHandler::parseVarsServerTypeCommand(const FrostbiteRconPacket &pa
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString serverTypeName = FrostbiteUtils::toCamelCase(packet.getWord(1).getContent());
         BF4ServerTypeEnum serverType = BF4ServerType::fromString(serverTypeName);
 
@@ -502,7 +504,7 @@ void BF4CommandHandler::parseVarsTeamFactionOverrideCommand(const FrostbiteRconP
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int team1 = FrostbiteUtils::toInt(packet.getWord(1).getContent());
         int team2 = FrostbiteUtils::toInt(packet.getWord(2).getContent());
         int team3 = FrostbiteUtils::toInt(packet.getWord(3).getContent());
@@ -518,7 +520,7 @@ void BF4CommandHandler::parseVarsTicketBleedRateCommand(const FrostbiteRconPacke
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTicketBleedRateCommand(percent));
@@ -531,7 +533,7 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyBypassTimerCommand(const Frost
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int timer = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundPlayersReadyBypassTimerCommand(timer));
@@ -544,7 +546,7 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyMinCountCommand(const Frostbit
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundPlayersReadyMinCountCommand(count));
@@ -557,7 +559,7 @@ void BF4CommandHandler::parseVarsRoundPlayersReadyPercentCommand(const Frostbite
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundPlayersReadyPercentCommand(percent));

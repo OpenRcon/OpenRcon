@@ -689,7 +689,7 @@ void FrostbiteCommandHandler::parsePlayerAuthenticatedEvent(const FrostbiteRconP
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString player = packet.getWord(1).getContent();
 
         emit (onPlayerAuthenticatedEvent(player));
@@ -700,7 +700,7 @@ void FrostbiteCommandHandler::parsePlayerJoinEvent(const FrostbiteRconPacket &pa
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString player = packet.getWord(1).getContent();
         QString guid = packet.getWord(2).getContent();
 
@@ -712,7 +712,7 @@ void FrostbiteCommandHandler::parsePlayerLeaveEvent(const FrostbiteRconPacket &p
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString player = packet.getWord(1).getContent();
         QString info = packet.getWord(2).getContent();
 
@@ -724,7 +724,7 @@ void FrostbiteCommandHandler::parsePlayerSpawnEvent(const FrostbiteRconPacket &p
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString player = packet.getWord(1).getContent();
         int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
@@ -736,7 +736,7 @@ void FrostbiteCommandHandler::parsePlayerKillEvent(const FrostbiteRconPacket &pa
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString killerPlayer = packet.getWord(1).getContent();
         QString victimPlayer = packet.getWord(2).getContent();
         QString weapon = packet.getWord(3).getContent();
@@ -750,7 +750,7 @@ void FrostbiteCommandHandler::parsePlayerChatEvent(const FrostbiteRconPacket &pa
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString sender = packet.getWord(1).getContent();
         QString message = packet.getWord(2).getContent();
         PlayerSubsetEnum playerSubset = PlayerSubset::fromString(packet.getWord(3).getContent());
@@ -781,7 +781,7 @@ void FrostbiteCommandHandler::parsePlayerSquadChangeEvent(const FrostbiteRconPac
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString player = packet.getWord(1).getContent();
         int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
         int squadId = FrostbiteUtils::toInt(packet.getWord(3).getContent());
@@ -794,7 +794,7 @@ void FrostbiteCommandHandler::parsePlayerTeamChangeEvent(const FrostbiteRconPack
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString player = packet.getWord(1).getContent();
         int teamId = FrostbiteUtils::toInt(packet.getWord(2).getContent());
         int squadId = FrostbiteUtils::toInt(packet.getWord(3).getContent());
@@ -807,7 +807,7 @@ void FrostbiteCommandHandler::parsePunkBusterMessageEvent(const FrostbiteRconPac
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString message = packet.getWord(1).getContent();
 
         emit (onPunkBusterMessageEvent(message));
@@ -818,7 +818,7 @@ void FrostbiteCommandHandler::parseServerRoundOverEvent(const FrostbiteRconPacke
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         int winningTeamId = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onServerRoundOverEvent(winningTeamId));
@@ -829,7 +829,7 @@ void FrostbiteCommandHandler::parseServerRoundOverPlayersEvent(const FrostbiteRc
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0)  {
+    if (packet.getWordCount() >= 1) {
         QString playerInfo = packet.getWord(1).getContent();
 
         emit (onServerRoundOverPlayersEvent(playerInfo));
@@ -840,7 +840,7 @@ void FrostbiteCommandHandler::parseServerRoundOverTeamScoresEvent(const Frostbit
 {
     Q_UNUSED(lastSentPacket);
 
-    if (packet.getWordCount() > 0) {
+    if (packet.getWordCount() >= 1) {
         QString teamScores = packet.getWord(1).getContent();
 
         emit (onServerRoundOverTeamScoresEvent(teamScores));
@@ -855,10 +855,12 @@ void FrostbiteCommandHandler::parseLoginPlainTextCommand(const FrostbiteRconPack
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK") {
-        emit (onLoginPlainTextCommand(true));
-    } else {
-        emit (onLoginPlainTextCommand(false));
+    if (packet.getWordCount() >= 1) {
+        if (response == "OK") {
+            emit (onLoginPlainTextCommand(true));
+        } else if (response == "PasswordNotSet" || response == "InvalidPassword") {
+            emit (onLoginPlainTextCommand(false));
+        }
     }
 }
 
@@ -866,17 +868,19 @@ void FrostbiteCommandHandler::parseLoginHashedCommand(const FrostbiteRconPacket 
 {
     QString response = packet.getWord(0).getContent();
 
-    if (lastSentPacket.getWordCount() == 1) {
-        if (response == "OK" && packet.getWordCount() == 2) {
-            QByteArray salt = QByteArray::fromHex(QByteArray(packet.getWord(1).getContent()));
+    if (packet.getWordCount() >= 1) {
+        if (lastSentPacket.getWordCount() == 1) {
+            if (response == "OK") {
+                QByteArray salt = QByteArray::fromHex(QByteArray(packet.getWord(1).getContent()));
 
-            emit (onLoginHashedCommand(salt));
-        }
-    } else if (lastSentPacket.getWordCount() == 2) {
-        if (response == "OK") {
-            emit (onLoginHashedCommand(true));
-        } else { // if (response == "InvalidPasswordHash")
-            emit (onLoginHashedCommand(false));
+                emit (onLoginHashedCommand(salt));
+            }
+        } else if (lastSentPacket.getWordCount() == 2) {
+            if (response == "OK") {
+                emit (onLoginHashedCommand(true));
+            } else if (response == "PasswordNotSet" || response == "InvalidPasswordHash") {
+                emit (onLoginHashedCommand(false));
+            }
         }
     }
 }
@@ -887,7 +891,7 @@ void FrostbiteCommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString serverName = packet.getWord(1).getContent();
         int playerCount = FrostbiteUtils::toInt(packet.getWord(2).getContent());
         int maxPlayerCount = FrostbiteUtils::toInt(packet.getWord(3).getContent());
@@ -1026,7 +1030,7 @@ void FrostbiteCommandHandler::parseLogoutCommand(const FrostbiteRconPacket &pack
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK") {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         emit (onLogoutCommand());
     }
 }
@@ -1037,7 +1041,7 @@ void FrostbiteCommandHandler::parseQuitCommand(const FrostbiteRconPacket &packet
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK") {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         emit (onQuitCommand());
     }
 }
@@ -1048,7 +1052,7 @@ void FrostbiteCommandHandler::parseVersionCommand(const FrostbiteRconPacket &pac
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString type = packet.getWord(1).getContent();
         int build = FrostbiteUtils::toInt(packet.getWord(2).getContent());
 
@@ -1068,7 +1072,7 @@ void FrostbiteCommandHandler::parseCurrentLevelCommand(const FrostbiteRconPacket
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString levelName = packet.getWord(1).getContent();
 
         emit (onCurrentLevelCommand(levelName));
@@ -1088,15 +1092,12 @@ void FrostbiteCommandHandler::parseAdminEventsEnabledCommand(const FrostbiteRcon
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
-        BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(this);
-        Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
-
-        if (bfbc2CommandHandler) {
+        if (dynamic_cast<BFBC2CommandHandler*>(this)) {
             emit (onEventsEnabledCommand(enabled));
-        } else if (frostbite2CommandHandler) {
+        } else if (dynamic_cast<Frostbite2CommandHandler*>(this)) {
             emit (onAdminEventsEnabledCommand(enabled));
         }
     }
@@ -1109,7 +1110,7 @@ void FrostbiteCommandHandler::parseBanListListCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QList<BanListEntry> banList;
 
         for (unsigned int i = 1; i < packet.getWordCount(); i += 6) {
@@ -1134,7 +1135,7 @@ void FrostbiteCommandHandler::parseMapListListCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QList<MapListEntry> mapList;
         int maps = QString(packet.getWord(1).getContent()).toInt();
         int parameters = QString(packet.getWord(2).getContent()).toInt();
@@ -1178,7 +1179,7 @@ void FrostbiteCommandHandler::parseVars3dSpottingCommand(const FrostbiteRconPack
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVars3dSpottingCommand(enabled));
@@ -1191,7 +1192,7 @@ void FrostbiteCommandHandler::parseVarsFriendlyFireCommand(const FrostbiteRconPa
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsFriendlyFireCommand(enabled));
@@ -1204,7 +1205,7 @@ void FrostbiteCommandHandler::parseVarsGamePasswordCommand(const FrostbiteRconPa
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString password = packet.getWord(1).getContent();
 
         emit (onVarsGamePasswordCommand(password));
@@ -1217,7 +1218,7 @@ void FrostbiteCommandHandler::parseVarsIdleTimeoutCommand(const FrostbiteRconPac
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int seconds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsIdleTimeoutCommand(seconds));
@@ -1230,7 +1231,7 @@ void FrostbiteCommandHandler::parseVarsKillCamCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsKillCamCommand(enabled));
@@ -1243,7 +1244,7 @@ void FrostbiteCommandHandler::parseVarsMiniMapCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsMiniMapCommand(enabled));
@@ -1256,7 +1257,7 @@ void FrostbiteCommandHandler::parseVarsMiniMapSpottingCommand(const FrostbiteRco
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsMiniMapSpottingCommand(enabled));
@@ -1269,7 +1270,7 @@ void FrostbiteCommandHandler::parseVarsServerDescriptionCommand(const FrostbiteR
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString description = packet.getWord(1).getContent();
 
         emit (onVarsServerDescriptionCommand(description));
@@ -1282,7 +1283,7 @@ void FrostbiteCommandHandler::parseVarsServerNameCommand(const FrostbiteRconPack
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString name = packet.getWord(1).getContent();
 
         emit (onVarsServerNameCommand(name));
@@ -1295,7 +1296,7 @@ void FrostbiteCommandHandler::parseVarsTeamKillCountForKickCommand(const Frostbi
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillCountForKickCommand(count));
@@ -1308,7 +1309,7 @@ void FrostbiteCommandHandler::parseVarsTeamKillValueDecreasePerSecondCommand(con
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillValueDecreasePerSecondCommand(count));
@@ -1321,7 +1322,7 @@ void FrostbiteCommandHandler::parseVarsTeamKillValueForKickCommand(const Frostbi
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillValueForKickCommand(count));
@@ -1334,7 +1335,7 @@ void FrostbiteCommandHandler::parseVarsTeamKillValueIncreaseCommand(const Frostb
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsTeamKillValueIncreaseCommand(count));
@@ -1343,17 +1344,20 @@ void FrostbiteCommandHandler::parseVarsTeamKillValueIncreaseCommand(const Frostb
 
 void FrostbiteCommandHandler::parsePlayerList(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
+    Q_UNUSED(lastSentPacket);
+
     QString response = packet.getWord(0).getContent();
-    QList<FrostbitePlayerEntry> playerList;
-    QList<BFBC2PlayerEntry> bfbc2PlayerList;
-    QList<Frostbite2PlayerEntry> frostbite2PlayerList;
-    QList<BF4PlayerEntry> bf4PlayerList;
 
-    BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(this);
-    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
-    BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(this);
+    if (response == "OK" && packet.getWordCount() >= 1) {
+        QList<FrostbitePlayerEntry> playerList;
+        QList<BFBC2PlayerEntry> bfbc2PlayerList;
+        QList<Frostbite2PlayerEntry> frostbite2PlayerList;
+        QList<BF4PlayerEntry> bf4PlayerList;
 
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+        BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(this);
+        Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
+        BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(this);
+
         int parameters = QString(packet.getWord(1).getContent()).toInt();
         int players = QString(packet.getWord(2 + parameters).getContent()).toInt();
 

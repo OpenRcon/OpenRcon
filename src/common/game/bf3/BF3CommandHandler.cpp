@@ -138,7 +138,7 @@ void BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand(const FrostbiteRcon
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && packet.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int effectiveMaxPlayers = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onAdminEffectiveMaxPlayersCommand(effectiveMaxPlayers));
@@ -152,7 +152,7 @@ void BF3CommandHandler::parseVarsRankedCommand(const FrostbiteRconPacket &packet
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool ranked = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsRankedCommand(ranked));
@@ -165,7 +165,7 @@ void BF3CommandHandler::parseVarsCrossHairCommand(const FrostbiteRconPacket &pac
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsCrossHairCommand(enabled));
@@ -178,7 +178,7 @@ void BF3CommandHandler::parseVarsPlayerManDownTimeCommand(const FrostbiteRconPac
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int percent = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsPlayerManDownTimeCommand(percent));
@@ -191,7 +191,7 @@ void BF3CommandHandler::parseVarsPremiumStatusCommand(const FrostbiteRconPacket 
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         bool enabled = FrostbiteUtils::toBool(packet.getWord(1).getContent());
 
         emit (onVarsPremiumStatusCommand(enabled));
@@ -204,7 +204,7 @@ void BF3CommandHandler::parseVarsBannerUrlCommand(const FrostbiteRconPacket &pac
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         QString bannerUrl = packet.getWord(1).getContent();
 
         emit (onVarsBannerUrlCommand(bannerUrl));
@@ -217,7 +217,7 @@ void BF3CommandHandler::parseVarsRoundsPerMapCommand(const FrostbiteRconPacket &
 
     QString response = packet.getWord(0).getContent();
 
-    if (response == "OK" && lastSentPacket.getWordCount() > 1) {
+    if (response == "OK" && packet.getWordCount() >= 1) {
         int rounds = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
         emit (onVarsRoundsPerMapCommand(rounds));
