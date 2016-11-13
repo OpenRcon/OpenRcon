@@ -17,6 +17,10 @@
 * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QString>
+#include <QList>
+
+#include "TeamScores.h"
 #include "BF3ServerInfo.h"
 
 BF3ServerInfo::BF3ServerInfo(const QString &serverName,

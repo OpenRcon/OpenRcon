@@ -17,6 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QString>
+
 #include "Frostbite2PlayerEntry.h"
 
 Frostbite2PlayerEntry::Frostbite2PlayerEntry(const QString &name,

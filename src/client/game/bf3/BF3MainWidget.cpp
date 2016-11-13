@@ -32,6 +32,7 @@
 
 #include "LevelEntry.h"
 #include "BF3LevelDictionary.h"
+#include "TeamScores.h"
 #include "BF3ServerInfo.h"
 #include "GameModeEntry.h"
 #include "TabWidget.h"

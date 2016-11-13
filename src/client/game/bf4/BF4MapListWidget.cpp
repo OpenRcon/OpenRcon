@@ -25,6 +25,7 @@
 
 #include "LevelEntry.h"
 #include "BF4LevelDictionary.h"
+#include "TeamScores.h"
 #include "Frostbite2ServerInfo.h"
 #include "BF4GameModeEntry.h"
 #include "MapListEntry.h"

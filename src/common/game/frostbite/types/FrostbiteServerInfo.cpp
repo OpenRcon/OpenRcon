@@ -18,7 +18,9 @@
  */
 
 #include <QString>
+#include <QList>
 
+#include "TeamScores.h"
 #include "FrostbiteServerInfo.h"
 
 FrostbiteServerInfo::FrostbiteServerInfo(const QString &serverName,

@@ -27,6 +27,7 @@
 #include "FrostbiteChatWidget.h"
 #include "FrostbiteBanListWidget.h"
 #include "FrostbiteConsoleWidget.h"
+#include "TeamScores.h"
 #include "FrostbiteServerInfo.h"
 #include "TabWidget.h"
 #include "ServerEntry.h"

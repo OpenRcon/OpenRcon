@@ -21,12 +21,12 @@
 #define CHATWIDGET_H
 
 #include "FrostbiteWidget.h"
-#include "LevelEntry.h"
 
 class QString;
 template<class T>
 class QList;
 
+class LevelEntry;
 class TeamEntry;
 class FrostbitePlayerEntry;
 

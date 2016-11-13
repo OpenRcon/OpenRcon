@@ -20,6 +20,7 @@
 #include "BF4MainWidget.h"
 #include "ui_FrostbiteMainWidget.h"
 
+#include "LevelEntry.h"
 #include "BF4PlayerListWidget.h"
 #include "FrostbiteEventsWidget.h"
 #include "FrostbiteChatWidget.h"
@@ -29,7 +30,7 @@
 #include "Frostbite2ReservedSlotsWidget.h"
 #include "BF4SpectatorSlotsWidget.h"
 #include "FrostbiteConsoleWidget.h"
-
+#include "TeamScores.h"
 #include "BF4ServerInfo.h"
 #include "BF4LevelDictionary.h"
 #include "BF4GameModeEntry.h"

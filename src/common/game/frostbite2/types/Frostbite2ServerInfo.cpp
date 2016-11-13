@@ -17,6 +17,10 @@
 * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QString>
+#include <QList>
+
+#include "TeamScores.h"
 #include "Frostbite2ServerInfo.h"
 
 Frostbite2ServerInfo::Frostbite2ServerInfo(const QString &serverName,

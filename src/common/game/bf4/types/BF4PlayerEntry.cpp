@@ -17,6 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QString>
+
 #include "BF4PlayerEntry.h"
 
 BF4PlayerEntry::BF4PlayerEntry(const QString &name,

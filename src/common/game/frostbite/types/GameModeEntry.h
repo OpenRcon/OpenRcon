@@ -20,7 +20,7 @@
 #ifndef GAMEMODEENTRY_H
 #define GAMEMODEENTRY_H
 
-#include <QString>
+class QString;
 
 class GameModeEntry
 {

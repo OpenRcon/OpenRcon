@@ -28,6 +28,7 @@
 #include "FrostbiteBanListWidget.h"
 #include "Frostbite2ReservedSlotsWidget.h"
 #include "FrostbiteConsoleWidget.h"
+#include "TeamScores.h"
 #include "Frostbite2ServerInfo.h"
 #include "TabWidget.h"
 #include "ServerEntry.h"

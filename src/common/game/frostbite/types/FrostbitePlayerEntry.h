@@ -20,7 +20,7 @@
 #ifndef FROSTBITEPLAYERENTRY_H
 #define FROSTBITEPLAYERENTRY_H
 
-#include <QString>
+class QString;
 
 class FrostbitePlayerEntry
 {

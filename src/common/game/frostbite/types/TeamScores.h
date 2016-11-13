@@ -20,7 +20,8 @@
 #ifndef TEAMSCORES_H
 #define TEAMSCORES_H
 
-#include <QList>
+template<class T>
+class QList;
 
 class TeamScores
 {

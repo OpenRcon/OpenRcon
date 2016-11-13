@@ -17,6 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QString>
+
 #include "BFBC2PlayerEntry.h"
 
 BFBC2PlayerEntry::BFBC2PlayerEntry(const QString &name,

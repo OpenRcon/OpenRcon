@@ -17,6 +17,8 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QList>
+
 #include "TeamScores.h"
 
 TeamScores::TeamScores(const QList<int> &scores, int targetScore) :
