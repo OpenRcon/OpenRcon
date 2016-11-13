@@ -30,7 +30,6 @@
 #include <QPoint>
 #include <QInputDialog>
 
-#include "LevelEntry.h"
 #include "BF4PlayerListWidget.h"
 #include "Frostbite2Client.h"
 #include "ServerEntry.h"

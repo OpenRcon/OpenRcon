@@ -22,6 +22,8 @@
 
 #include <QTreeWidget>
 
+#include "LevelEntry.h"
+
 class QTimer;
 class QClipboard;
 class QMenu;
@@ -34,7 +36,6 @@ class QList;
 class QPoint;
 
 class Frostbite2Client;
-class LevelEntry;
 class Frostbite2ServerInfo;
 class BF4PlayerEntry;
 
