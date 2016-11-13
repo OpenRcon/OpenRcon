@@ -173,27 +173,17 @@ void FrostbiteChatWidget::onCurrentLevelCommand(const QString &levelName)
     }
 
     // Remove old team entries.
-    qDebug() << "Index count is: " << ui->comboBox_target->count();
-
-    for (int index = 0; index < ui->comboBox_target->count() - 1; index++) {
+    for (int index = ui->comboBox_target->count(); index > 0; index--) {
         PlayerSubsetEnum playerSubset = ui->comboBox_target->itemData(index).value<PlayerSubsetEnum>();
 
-        qDebug() << "Index name is: " << ui->comboBox_target->itemText(index);
-
         if (playerSubset == PlayerSubsetEnum::Team) {
-            qDebug() << "Index matches PlayerSubsetEnum::Team: " << ui->comboBox_target->itemText(index);
-
             ui->comboBox_target->removeItem(index);
         }
-
-        qDebug() << "Index is: " << index;
     }
 
     // Add new team entries for this level.
     for (int teamId = 0; teamId < teamList.length(); teamId++) {
         ui->comboBox_target->addItem(tr("Team %1").arg(teamList.at(teamId).getName()), QVariant::fromValue(PlayerSubsetEnum::Team));
-
-        qDebug() << "Team list index is: " << teamId << teamList.at(teamId).getName();
     }
 }
 
