@@ -164,16 +164,6 @@ void BF4CommandHandler::sendSpectatorListSaveCommand()
 }
 
 // Variables
-void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand()
-{
-    connection->sendCommand("vars.vehicleSpawnAllowed");
-}
-
-void BF4CommandHandler::sendVarsVehicleSpawnAllowedCommand(bool enabled)
-{
-    connection->sendCommand(QString("\"vars.vehicleSpawnAllowed\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
-}
-
 void BF4CommandHandler::sendVarsAlwaysAllowSpectatorsCommand()
 {
     connection->sendCommand("vars.alwaysAllowSpectators");
