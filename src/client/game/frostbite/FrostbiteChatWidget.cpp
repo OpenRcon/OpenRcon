@@ -47,7 +47,6 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
 
     // Populate the target comboBox.
     ui->comboBox_target->addItem(tr("All"), QVariant::fromValue(PlayerSubsetEnum::All));
-    ui->comboBox_target->addItem(tr("Player"), QVariant::fromValue(PlayerSubsetEnum::Player));
 
     // Hide squad comboBox by default, and populate it.
     ui->comboBox_squad->setVisible(false);
