@@ -37,10 +37,17 @@ public:
 
 public slots:
     /* Send commands */
+    // Admin
     void sendAdminHelpCommand();
     void sendAdminPasswordCommand(const QString &password = QString());
 
-    // Banning
+    // Game Admin
+    //gameAdmin.add
+    //gameAdmin.clear
+    //gameAdmin.list
+    //gameAdmin.load
+    //gameAdmin.remove
+    //gameAdmin.save
 
     // Maplist
     void sendMapListAddCommand(const QString &level, const QString &gameMode, int rounds, int offSet = 0);
@@ -118,7 +125,13 @@ private:
     void parseAdminHelpCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseAdminPasswordCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    // Banning
+    // Game Admin
+    //gameAdmin.add
+    //gameAdmin.clear
+    //gameAdmin.list
+    //gameAdmin.load
+    //gameAdmin.remove
+    //gameAdmin.save
 
     // Maplist
     //mapList.add <map> <gamemode> <rounds> <offset>
@@ -188,7 +201,13 @@ signals:
     void onAdminHelpCommand(const QStringList &commandList);
     void onAdminPasswordCommand(const QString &password);
 
-    // Banning
+    // Game Admin
+    //gameAdmin.add
+    //gameAdmin.clear
+    //gameAdmin.list
+    //gameAdmin.load
+    //gameAdmin.remove
+    //gameAdmin.save
 
     // Maplist
     //mapList.add <map> <gamemode> <rounds> <offset>

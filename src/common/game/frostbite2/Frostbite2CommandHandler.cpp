@@ -85,6 +85,14 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         /*{ "admin.say",                            &FrostbiteCommandHandler::parseAdminSayCommand },*/
         /*{ "admin.yell",                           &FrostbiteCommandHandler::parseAdminYellCommand },*/
 
+        // Game Admin
+        /*{ "gameAdmin.add",                        &Frostbite2CommandHandler::parseGameAdminAddCommand },*/
+        /*{ "gameAdmin.clear",                      &Frostbite2CommandHandler::parseGameAdminClearCommand },*/
+        /*{ "gameAdmin.list",                       &Frostbite2CommandHandler::parseGameAdminListCommand },*/
+        /*{ "gameAdmin.load",                       &Frostbite2CommandHandler::parseGameAdminLoadCommand },*/
+        /*{ "gameAdmin.remove",                     &Frostbite2CommandHandler::parseGameAdminRemoveCommand },*/
+        /*{ "gameAdmin.save",                       &Frostbite2CommandHandler::parseGameAdminSaveCommand },*/
+
         // Banning
         /*{ "banList.add",                          &FrostbiteCommandHandler::parseBanListAddCommand },*/
         /*{ "banList.clear",                        &FrostbiteCommandHandler::parseBanListClearCommand },*/
@@ -203,7 +211,7 @@ void Frostbite2CommandHandler::sendAdminPasswordCommand(const QString &password)
     connection->sendCommand(command);
 }
 
-// Banning
+// Game Admin
 
 // Maplist
 void Frostbite2CommandHandler::sendMapListAddCommand(const QString &level, const QString &gameMode, int rounds, int offSet)
@@ -639,7 +647,7 @@ void Frostbite2CommandHandler::parseAdminPasswordCommand(const FrostbiteRconPack
     }
 }
 
-// Banning
+// Game Admin
 
 // Maplist
 void Frostbite2CommandHandler::parseMapListAvailableMapsCommand(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
