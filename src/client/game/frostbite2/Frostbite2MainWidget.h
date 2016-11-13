@@ -20,23 +20,16 @@
 #ifndef FROSTBITE2MAINWIDGET_H
 #define FROSTBITE2MAINWIDGET_H
 
-#include "Frostbite2Widget.h"
+#include "FrostbiteMainWidget.h"
+#include "Frostbite2Client.h"
 
-class QTimer;
-class QAbstractSocket;
-class QString;
-
-class FrostbiteEventsWidget;
-class FrostbiteChatWidget;
-class FrostbiteBanListWidget;
 class Frostbite2ReservedSlotsWidget;
-class FrostbiteConsoleWidget;
 
 namespace Ui {
     class Frostbite2MainWidget;
 }
 
-class Frostbite2MainWidget : public Frostbite2Widget
+class Frostbite2MainWidget : public FrostbiteMainWidget
 {
     Q_OBJECT
 
@@ -44,44 +37,27 @@ public:
     Frostbite2MainWidget(Frostbite2Client *client, QWidget *parent = nullptr);
     virtual ~Frostbite2MainWidget() override;
 
+    virtual Frostbite2Client *getClient() override {
+        return dynamic_cast<Frostbite2Client*>(client);
+    }
+
 protected:
     /* User Interface */
-    Ui::Frostbite2MainWidget *ui;
-    FrostbiteEventsWidget *eventsWidget;
-    FrostbiteChatWidget *chatWidget;
-    FrostbiteBanListWidget *banListWidget;
     Frostbite2ReservedSlotsWidget *reservedSlotsWidget;
-    FrostbiteConsoleWidget *consoleWidget;
-
-    // Server Information
-    int roundTime;
-    int upTime;
 
 protected slots:
     /* Connection */
-    virtual void onConnected();
-    virtual void onDisconnected();
+    void onConnected() override;
+    void onDisconnected() override;
 
     /* Client */
-    virtual void onAuthenticated();
+    void onAuthenticated() override;
 
     /* User Interface */
-    // Server Information
-    void updateRoundTime();
-    void updateUpTime();
-
-private:
-    /* User Interface */
-    // Server Information
-    QTimer *timerServerInfoRoundTime;
-    QTimer *timerServerInfoUpTime;
 
 private slots:
     /* Commands */
     // Misc
-    void onLoginHashedCommand(bool authenticated);
-    void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
-    void onVersionCommand(const QString &type, int build);
 
     // Admin
 
@@ -96,9 +72,6 @@ private slots:
     // Variables
 
     /* User Interface */
-    // Server Information
-    void pushButton_si_restartRound_clicked();
-    void pushButton_si_runNextRound_clicked();
 
 };
 

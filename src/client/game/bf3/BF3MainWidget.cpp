@@ -21,7 +21,7 @@
 #include <QMessageBox>
 
 #include "BF3MainWidget.h"
-#include "ui_Frostbite2MainWidget.h"
+#include "ui_FrostbiteMainWidget.h"
 #include "BF3Client.h"
 
 #include "FrostbiteEventsWidget.h"

@@ -18,7 +18,7 @@
  */
 
 #include "BF4MainWidget.h"
-#include "ui_Frostbite2MainWidget.h"
+#include "ui_FrostbiteMainWidget.h"
 
 #include "BF4PlayerListWidget.h"
 #include "FrostbiteEventsWidget.h"
