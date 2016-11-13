@@ -407,9 +407,9 @@ void BF4PlayerListWidget::menu_player_move_triggered(QAction *action)
 void BF4PlayerListWidget::updatePlayerList()
 {
     if (client->isAuthenticated()) {
-        client->getCommandHandler()->sendAdminListPlayersCommand(PlayerSubsetEnum::All);
+        client->getCommandHandler()->sendAdminListPlayersCommand();
         client->getCommandHandler()->sendPunkBusterPbSvCommand("pb_sv_plist");
     } else {
-        client->getCommandHandler()->sendListPlayersCommand(PlayerSubsetEnum::All);
+        client->getCommandHandler()->sendListPlayersCommand();
     }
 }

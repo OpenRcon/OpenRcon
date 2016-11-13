@@ -21,13 +21,13 @@
 #define FROSTBITECOMMANDHANDLER_H
 
 #include "CommandHandler.h"
+#include "PlayerSubset.h"
 
 class QString;
 class QByteArray;
 
 class FrostbiteConnection;
 class FrostbiteRconPacket;
-enum class PlayerSubsetEnum;
 enum class BanIdTypeEnum;
 enum class BanTypeEnum;
 class Frostbite2ServerInfo;
@@ -62,14 +62,14 @@ public slots:
     void sendQuitCommand();
     void sendVersionCommand();
     void sendCurrentLevelCommand();
-    void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
+    void sendListPlayersCommand(const PlayerSubsetEnum &playerSubset = PlayerSubsetEnum::All, int teamId = 0, int squadId = 0, const QString &player = QString());
 
     // Admin
     void sendAdminEventsEnabledCommand();
     void sendAdminEventsEnabledCommand(bool enabled);
     void sendAdminKickPlayerCommand(const QString &player, const QString &reason = QString());
     void sendAdminKillPlayerCommand(const QString &player);
-    void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId = 0, int squadId = 0, const QString &player = QString());
+    void sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset = PlayerSubsetEnum::All, int teamId = 0, int squadId = 0, const QString &player = QString());
     void sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill);
     void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player = QString());
     void sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, int teamId, int squadId = 0);
