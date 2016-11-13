@@ -209,7 +209,7 @@ void FrostbiteCommandHandler::sendCurrentLevelCommand()
 
     if (dynamic_cast<BFBC2CommandHandler*>(this)) {
         command = "admin.currentLevel";
-    } else {
+    } else if (dynamic_cast<Frostbite2CommandHandler*>(this)) {
         command = "currentLevel";
     }
 
