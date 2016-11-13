@@ -678,28 +678,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_gameplay_unlockMode">
-           <item>
-            <property name="text">
-             <string>None</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>All</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Common</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Based on stats</string>
-            </property>
-           </item>
-          </widget>
+          <widget class="QComboBox" name="comboBox_gameplay_unlockMode"/>
          </item>
         </layout>
        </item>

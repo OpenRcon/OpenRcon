@@ -30,6 +30,7 @@
 #include "BF3ServerInfo.h"
 #include "BF4ServerInfo.h"
 #include "BF4PlayerEntry.h"
+#include "Frostbite2UnlockMode.h"
 
 Frostbite2CommandHandler::Frostbite2CommandHandler(QObject *parent) :
     FrostbiteCommandHandler(parent)
@@ -1056,9 +1057,9 @@ void Frostbite2CommandHandler::parseVarsUnlockModeCommand(const FrostbiteRconPac
     QString response = packet.getWord(0).getContent();
 
     if (response == "OK" && packet.getWordCount() > 1) {
-        QString type = packet.getWord(1).getContent();
+        Frostbite2UnlockModeEnum unlockMode = Frostbite2UnlockMode::fromString(packet.getWord(1).getContent());
 
-        emit (onVarsUnlockModeCommand(type));
+        emit (onVarsUnlockModeCommand(unlockMode));
     }
 }
 

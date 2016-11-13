@@ -22,7 +22,9 @@
 
 #include "BF4Widget.h"
 
+enum class Frostbite2UnlockModeEnum;
 enum class BF4PresetEnum;
+enum class BF4ServerTypeEnum;
 
 namespace Ui {
     class BF4OptionsWidget;
@@ -92,7 +94,7 @@ private slots:
     void onVarsServerTypeCommand(const BF4ServerTypeEnum &serverType);
     void onVarsSoldierHealthCommand(int health);
     void onVarsTicketBleedRateCommand(int percent);
-    void onVarsUnlockModeCommand(const QString &type);
+    void onVarsUnlockModeCommand(const Frostbite2UnlockModeEnum &unlockMode);
     void onVarsVehicleSpawnAllowedCommand(bool enabled);
     void onVarsVehicleSpawnDelayCommand(int delay);
     void onVarsRoundPlayersReadyBypassTimerCommand(int timer);

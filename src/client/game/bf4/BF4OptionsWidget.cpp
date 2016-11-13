@@ -20,8 +20,9 @@
 #include "BF4OptionsWidget.h"
 #include "ui_BF4OptionsWidget.h"
 
-#include "BF4Preset.h"
 #include "BF4ServerType.h"
+#include "Frostbite2UnlockMode.h"
+#include "BF4Preset.h"
 
 BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
     BF4Widget(client, parent),
@@ -29,12 +30,16 @@ BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Initialize comboBox with preset types.
+    // Initialize preset comboBox with preset types.
     ui->comboBox_gameplay_preset->addItems(BF4Preset::asList());
+
+    // Initialize unlock mode comboBox with unlock modes.
+    for (QString unlockModeName : Frostbite2UnlockMode::asList()) {
+        ui->comboBox_gameplay_unlockMode->addItem(unlockModeName, QVariant::fromValue(Frostbite2UnlockMode::fromString(unlockModeName)));
+    }
 
     /* Client */
     connect(getClient(),                      &Client::onAuthenticated,                        this, &BF4OptionsWidget::onAuthenticated);
-
 
     /* Commands */
     // Admin
@@ -443,21 +448,13 @@ void BF4OptionsWidget::onVarsTicketBleedRateCommand(int percent)
     ui->spinBox_gameplay_ticketBleedRate->setValue(percent);
 }
 
-void BF4OptionsWidget::onVarsUnlockModeCommand(const QString &type)
+void BF4OptionsWidget::onVarsUnlockModeCommand(const Frostbite2UnlockModeEnum &unlockMode)
 {
-    int index = 0;
-
-    if (type == "none") {
-        index = 0;
-    } else if (type == "all") {
-        index = 1;
-    } else if (type == "common") {
-        index = 2;
-    } else if (type == "stats") {
-        index = 3;
+    for (int index = 0; index < ui->comboBox_gameplay_unlockMode->count(); index++) {
+        if (unlockMode == ui->comboBox_gameplay_unlockMode->itemData(index).value<Frostbite2UnlockModeEnum>()) {
+            ui->comboBox_gameplay_unlockMode->setCurrentIndex(index);
+        }
     }
-
-    ui->comboBox_gameplay_unlockMode->setCurrentIndex(index);
 }
 
 void BF4OptionsWidget::onVarsVehicleSpawnAllowedCommand(bool enabled)

@@ -24,6 +24,7 @@
 
 class Frostbite2PlayerEntry;
 class BF4PlayerEntry;
+enum class Frostbite2UnlockModeEnum;
 
 class Frostbite2CommandHandler : public FrostbiteCommandHandler
 {
@@ -262,7 +263,7 @@ signals:
     void onVarsServerMessageCommand(const QString &message);
     void onVarsSoldierHealthCommand(int health);
     void onVarsTeamKillKickForBanCommand(int count);
-    void onVarsUnlockModeCommand(const QString &type);
+    void onVarsUnlockModeCommand(const Frostbite2UnlockModeEnum &unlockMode);
     void onVarsVehicleSpawnAllowedCommand(bool enabled);
     void onVarsVehicleSpawnDelayCommand(int delay);
     //vars.gunMasterWeaponsPreset <index>
