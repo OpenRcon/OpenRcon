@@ -191,18 +191,18 @@ void FrostbiteMainWidget::onServerInfoCommand(const FrostbiteServerInfo &serverI
 
     // Update the server information.
     ui->label_si_level->setPixmap(level.getIcon());
-    ui->label_si_status->setText(QString("%1 - %2").arg(level.getName(), gameMode.getName()));
+    ui->label_si_status->setText(level.getName() + " - " + gameMode.getName());
 
     // Update the players and round information.
-    ui->label_si_players->setText(tr("<b>Players</b>: %1 of %2").arg(serverInfo.getPlayerCount()).arg(serverInfo.getMaxPlayerCount()));
-    ui->label_si_round->setText(tr("<b>Round</b>: %1 of %2").arg(serverInfo.getRoundsPlayed() + 1).arg(serverInfo.getRoundsTotal()));
+    ui->label_si_players->setText("<b>" + tr("Players") + "</b>: " + tr("%1 of %2").arg(serverInfo.getPlayerCount()).arg(serverInfo.getMaxPlayerCount()));
+    ui->label_si_round->setText("<b>" + tr("Round") + "</b>: " + tr("%1 of %2").arg(serverInfo.getRoundsPlayed() + 1).arg(serverInfo.getRoundsTotal()));
 }
 
 void FrostbiteMainWidget::onVersionCommand(const QString &type, int build)
 {
     Q_UNUSED(type);
 
-    ui->label_si_version->setText(tr("<b>Version</b>: %1").arg(getClient()->getVersionFromBuild(build)));
+    ui->label_si_version->setText("<b>" + tr("Version") + "</b>: " + getClient()->getVersionFromBuild(build));
     ui->label_si_version->setToolTip(QString::number(build));
 }
 
@@ -225,11 +225,7 @@ void FrostbiteMainWidget::pushButton_si_restartRound_clicked()
     int result = QMessageBox::question(this, tr("Restart round"), tr("Are you sure you want to restart the round?"));
 
     if (result == QMessageBox::Yes) {
-        Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
-
-        if (frostbite2CommandHandler) {
-            frostbite2CommandHandler->sendMapListRestartRoundCommand();
-        }
+        getClient()->getCommandHandler()->sendMapListRestartRoundCommand();
     }
 }
 
@@ -238,11 +234,7 @@ void FrostbiteMainWidget::pushButton_si_runNextRound_clicked()
     int result = QMessageBox::question(this, tr("Run next round"), tr("Are you sure you want to run the next round?"));
 
     if (result == QMessageBox::Yes) {
-        Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
-
-        if (frostbite2CommandHandler) {
-            frostbite2CommandHandler->sendMapListRunNextRoundCommand();
-        }
+        getClient()->getCommandHandler()->sendMapListRunNextRoundCommand();
     }
 }
 
@@ -253,5 +245,5 @@ void FrostbiteMainWidget::updateRoundTime()
 
 void FrostbiteMainWidget::updateUpTime()
 {
-    ui->label_si_upTime->setText(tr("<b>Uptime:</b> %1").arg(Time::fromSeconds(upTime++).toShortString()));
+    ui->label_si_upTime->setText("<b>" + tr("Uptime") + "</b>: " + Time::fromSeconds(upTime++).toShortString());
 }
