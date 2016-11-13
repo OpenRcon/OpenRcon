@@ -20,9 +20,27 @@
 #ifndef BFBC2MOD_H
 #define BFBC2MOD_H
 
+class QString;
+class QStringList;
+
 enum class BFBC2ModEnum {
     BC2,
     VIETNAM
+};
+
+class BFBC2Mod
+{
+public:
+    static BFBC2ModEnum fromString(const QString &modName);
+    static QString toString(const BFBC2ModEnum &mod);
+    static QString toString(int modId);
+    static BFBC2ModEnum fromInt(int modId);
+    static int toInt(const BFBC2ModEnum &mod);
+    static QStringList asList();
+
+private:
+    static QStringList list;
+
 };
 
 #endif // BFBC2MOD_H

@@ -7,4 +7,5 @@ HEADERS += $$PWD/BFBC2LevelEntry.h \
 
 
 SOURCES += $$PWD/BFBC2LevelEntry.cpp \
+	$$PWD/BFBC2Mod.cpp \
     $$PWD/BFBC2PlayerEntry.cpp
