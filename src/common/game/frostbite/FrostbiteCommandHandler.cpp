@@ -1370,36 +1370,36 @@ void FrostbiteCommandHandler::parsePlayerList(const FrostbiteRconPacket &packet,
             QString clanTag;
 
             if (bfbc2CommandHandler) {
-                clanTag = list[index++];                            // 0
+                clanTag = list[index++];
             }
 
-            QString name = list.at(index++);                        // 0
-            QString guid = list.at(index++);                        // 1
-            int teamId = FrostbiteUtils::toInt(list.at(index++));   // 2
-            int squadId = FrostbiteUtils::toInt(list.at(index++));  // 3
-            int kills = FrostbiteUtils::toInt(list.at(index++));    // 4
-            int deaths = FrostbiteUtils::toInt(list.at(index++));   // 5
-            int score = FrostbiteUtils::toInt(list.at(index++));    // 6
+            QString name = list.at(index++);
+            QString guid = list.at(index++);
+            int teamId = FrostbiteUtils::toInt(list.at(index++));
+            int squadId = FrostbiteUtils::toInt(list.at(index++));
+            int kills = FrostbiteUtils::toInt(list.at(index++));
+            int deaths = FrostbiteUtils::toInt(list.at(index++));
+            int score = FrostbiteUtils::toInt(list.at(index++));
 
             // Frostbite2 Only.
-            int rank;
+            int rank = 0;
 
             if (frostbite2CommandHandler) {
-                rank = FrostbiteUtils::toInt(list.at(index++));     // 7
+                rank = FrostbiteUtils::toInt(list.at(index++));
             }
 
             // BFBC2 and BF4 Only.
-            int ping;
+            int ping = 0;
 
             if (bfbc2CommandHandler || bf4CommandHandler) {
-                ping = FrostbiteUtils::toInt(list.at(index++));     // 8
+                ping = FrostbiteUtils::toInt(list.at(index++));
             }
 
             // BF4 Only.
-            int type;
+            int type = 0;
 
             if (bf4CommandHandler) {
-                type = FrostbiteUtils::toInt(list.at(index++));     // 9
+                type = FrostbiteUtils::toInt(list.at(index++));
             }
 
             // BFBC2 Only.
