@@ -39,46 +39,16 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
 
     static QHash<QString, ResponseFunction> responseList = {
         /* Events */
-        /*{ "player.onAuthenticated",               &FrostbiteCommandHandler::parsePlayerAuthenticatedEvent },*/
-        /*{ "player.onJoin",                        &FrostbiteCommandHandler::parsePlayerJoinEvent },*/
-        /*{ "player.onLeave",                       &FrostbiteCommandHandler::parsePlayerLeaveEvent },*/
-        /*{ "player.onSpawn",                       &FrostbiteCommandHandler::parsePlayerSpawnEvent },*/
-        /*{ "player.onKill",                        &FrostbiteCommandHandler::parsePlayerKillEvent },*/
-        /*{ "player.onChat",                        &FrostbiteCommandHandler::parsePlayerChatEvent },*/
         { "player.onKicked",                        &BFBC2CommandHandler::parsePlayerKickedEvent },
-        /*{ "player.onSquadChange",                 &FrostbiteCommandHandler::parsePlayerSquadChangeEvent },*/
-        /*{ "player.onTeamChange",                  &FrostbiteCommandHandler::parsePlayerTeamChangeEvent },*/
-        /*{ "punkBuster.onMessage",                 &FrostbiteCommandHandler::parsePunkBusterMessageEvent },*/
         { "punkBuster.onVersion",                   &BFBC2CommandHandler::parsePunkBusterVersionEvent },
         { "server.onLoadingLevel",                  &BFBC2CommandHandler::parseServerLoadingLevelEvent },
         { "server.onLevelStarted",                  &BFBC2CommandHandler::parseServerLevelStartedEvent },
-        /*{ "server.onRoundOver",                   &FrostbiteCommandHandler::parseServerRoundOverEvent },*/
-        /*{ "server.onRoundOverPlayers",            &FrostbiteCommandHandler::parseServerRoundOverPlayersEvent },*/
-        /*{ "server.onRoundOverTeamScores",         &FrostbiteCommandHandler::parseServerRoundOverTeamScoresEvent },*/
 
         /* Commands */
-        // Misc
-        /*{ "login.plainText",                      &FrostbiteCommandHandler::parseLoginPlainTextCommand },*/
-        /*{ "login.hashed",                         &FrostbiteCommandHandler::parseLoginHashedCommand },*/
-        /*{ "serverInfo",                           &FrostbiteCommandHandler::parseServerInfoCommand },*/
-        /*{ "logout",                               &FrostbiteCommandHandler::parseLogoutCommand },*/
-        /*{ "quit",                                 &FrostbiteCommandHandler::parseQuitCommand },*/
-        /*{ "version",                              &FrostbiteCommandHandler::parseVersionCommand },*/
-        /*{ "listPlayers",                          &FrostbiteCommandHandler::parseListPlayersCommand },*/
-
-        /// BFBC2 Only.
         /*{ "eventsEnabled",                        &FrostbiteCommandHandler::parseEventsEnabledCommand },*/
         /*{ "help",                                 &FrostbiteCommandHandler::parseHelpCommand },*/
 
         // Admin
-        /*{ "admin.kickPlayer",                     &FrostbiteCommandHandler::parseAdminKickPlayerCommand },*/
-        /*{ "admin.killPlayer",                     &FrostbiteCommandHandler::parseAdminKillPlayerCommand },*/
-        /*{ "admin.listPlayers",                    &FrostbiteCommandHandler::parseAdminListPlayersCommand },*/
-        /*{ "admin.movePlayer",                     &FrostbiteCommandHandler::parseAdminMovePlayerCommand },*/
-        /*{ "admin.say",                            &FrostbiteCommandHandler::parseAdminSayCommand },*/
-        /*{ "admin.yell",                           &FrostbiteCommandHandler::parseAdminYellCommand },*/
-
-        /// BFBC2 Only.
         //admin.runscript <filename>
         /*{ "admin.runNextRound",                   &FrostbiteCommandHandler::parseAdminRunNextRoundCommand },*/
         /*{ "admin.restartRound",                   &FrostbiteCommandHandler::parseAdminRestartRoundCommand },*/
@@ -89,31 +59,12 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         /*{ "admin.getPlaylist",                    &BFBC2CommandHandler::parseAdminGetPlaylistCommand },*/
         /*{ "admin.getPlaylists",                   &BFBC2CommandHandler::parseAdminGetPlaylistsCommand },*/
 
-        // Banning
-        /*{ "banList.add",                          &FrostbiteCommandHandler::parseBanListAddCommand },*/
-        /*{ "banList.clear",                        &FrostbiteCommandHandler::parseBanListClearCommand },*/
-        /*{ "banList.list",                         &FrostbiteCommandHandler::parseBanListListCommand },*/
-        /*{ "banList.load",                         &FrostbiteCommandHandler::parseBanListLoadCommand },*/
-        /*{ "banList.remove",                       &FrostbiteCommandHandler::parseBanListRemoveCommand },*/
-        /*{ "banList.save",                         &FrostbiteCommandHandler::parseBanListSaveCommand },*/
-
         // Maplist
-        /*{ "mapList.clear",                        &FrostbiteCommandHandler::parseMapListClearCommand },*/
-        /*{ "mapList.list",                         &FrostbiteCommandHandler::parseMapListListCommand },*/
-        /*{ "mapList.load",                         &FrostbiteCommandHandler::parseMapListLoadCommand },*/
-        /*{ "mapList.remove",                       &FrostbiteCommandHandler::parseMapListRemoveCommand },*/
-        /*{ "mapList.save",                         &FrostbiteCommandHandler::parseMapListSaveCommand },*/
-
-        /// BFBC2 Only.
         /*{ "mapList.append",                       &BFBC2CommandHandler::parseMapListAppendCommand },*/
         /*{ "mapList.insert",                       &BFBC2CommandHandler::parseMapListInsertCommand },*/
         /*{ "mapList.nextLevelIndex",               &BFBC2CommandHandler::parseMapListNextLevelIndexCommand },*/
 
-        // Punkbuster
-        /*{ "punkBuster.pb_sv_command",             &FrostbiteCommandHandler::parsePunkBusterPbSvCommand },*/
-
         // Reserved Slots
-        /// BFBC2 Only.
         /*{ "reservedSlots.load",                   &BFBC2CommandHandler::parseReservedSlotsLoadCommand },*/
         /*{ "reservedSlots.save",                   &BFBC2CommandHandler::parseReservedSlotsSaveCommand },*/
         /*{ "reservedSlots.addPlayer",              &BFBC2CommandHandler::parseReservedSlotsAddPlayerCommand },*/
@@ -122,21 +73,6 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         /*{ "reservedSlots.list",                   &BFBC2CommandHandler::parseReservedSlotsListCommand },*/
 
         // Variables
-        /*{ "vars.3dSpotting",                      &FrostbiteCommandHandler::parseVars3dSpottingCommand },*/
-        /*{ "vars.friendlyFire",                    &FrostbiteCommandHandler::parseVarsFriendlyFireCommand },*/
-        /*{ "vars.gamePassword",                    &FrostbiteCommandHandler::parseVarsGamePasswordCommand },*/
-        /*{ "vars.idleTimeout",                     &FrostbiteCommandHandler::parseVarsIdleTimeoutCommand },*/
-        /*{ "vars.killCam",                         &FrostbiteCommandHandler::parseVarsKillCamCommand },*/
-        /*{ "vars.miniMap",                         &FrostbiteCommandHandler::parseVarsMiniMapCommand },*/
-        /*{ "vars.miniMapSpotting",                 &FrostbiteCommandHandler::parseVarsMiniMapSpottingCommand },*/
-        /*{ "vars.serverDescription",               &FrostbiteCommandHandler::parseVarsServerDescriptionCommand },*/
-        /*{ "vars.serverName",                      &FrostbiteCommandHandler::parseVarsServerNameCommand },*/
-        /*{ "vars.teamKillCountForKick",            &FrostbiteCommandHandler::parseVarsTeamKillCountForKickCommand },*/
-        /*{ "vars.teamKillValueDecreasePerSecond",  &FrostbiteCommandHandler::parseVarsTeamKillValueDecreasePerSecondCommand },*/
-        /*{ "vars.teamKillValueForKick",            &FrostbiteCommandHandler::parseVarsTeamKillValueForKickCommand },*/
-        /*{ "vars.teamKillValueIncrease",           &FrostbiteCommandHandler::parseVarsTeamKillValueIncreaseCommand }*/
-
-        /// BFBC2 Only.
         /*{ "vars.adminPassword",                   &BFBC2CommandHandler::parseVarsAdminPasswordCommand },*/
         /*{ "vars.punkBuster",                      &BFBC2CommandHandler::parseVarsPunkBusterCommand },*/
         /*{ "vars.hardCore",                        &BFBC2CommandHandler::parseVarsHardCoreCommand },*/
@@ -155,7 +91,6 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         /*{ "vars.textChatSpamDetectionTime",       &BFBC2CommandHandler::parseVarsTextChatSpamDetectionTimeCommand },*/
         /*{ "vars.textChatSpamCoolDownTime",        &BFBC2CommandHandler::parseVarsTextChatSpamCoolDownTimeCommand },*/
 
-        /// BFBC2 Only.
         // Text Chat Moderation
         /*{ "textChatModerationList.load",          &BFBC2CommandHandler::parseTextChatModerationListLoadCommand },*/
         /*{ "textChatModerationList.save",          &BFBC2CommandHandler::parseTextChatModerationListSaveCommand },*/
@@ -164,7 +99,6 @@ bool BFBC2CommandHandler::parse(const QString &request, const FrostbiteRconPacke
         /*{ "textChatModerationList.clear",         &BFBC2CommandHandler::parseTextChatModerationListClearCommand },*/
         /*{ "textChatModerationList.list",          &BFBC2CommandHandler::parseTextChatModerationListListCommand },*/
 
-        /// BFBC2 Only.
         // Level Variables
         /*{ "levelVars.set",                        &BFBC2CommandHandler::parseLevelVarsSetCommand },*/
         /*{ "levelVars.get",                        &BFBC2CommandHandler::parseLevelVarsGetCommand },*/
@@ -195,11 +129,7 @@ void BFBC2CommandHandler::sendHelpCommand()
 
 // Admin
 
-// Banning
-
 // Maplist
-
-// Punkbuster
 
 // Reserved Slots
 
@@ -257,11 +187,7 @@ void BFBC2CommandHandler::parseServerLevelStartedEvent(const FrostbiteRconPacket
 
 // Admin
 
-// Banning
-
 // Maplist
-
-// Punkbuster
 
 // Reserved Slots
 

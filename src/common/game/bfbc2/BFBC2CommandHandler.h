@@ -35,11 +35,9 @@ public:
 public slots:
     /* Send commands */
     // Misc
-    /// BFBC2 Only.
     void sendHelpCommand();
 
     // Admin
-    /// BFBC2 Only.
     //admin.runscript <filename>
     //admin.endRound <teamID>
     //admin.currentLevel
@@ -48,18 +46,12 @@ public slots:
     //admin.getPlaylist
     //admin.getPlaylists
 
-    // Banning
-
     // Maplist
-    /// BFBC2 Only.
     //mapList.append <name, rounds>
     //mapList.insert <index, name, rounds>
     //mapList.nextLevelIndex [index: integer]
 
-    // Punkbuster
-
     // Reserved Slots
-    /// BFBC2 Only.
     //reservedSlots.load
     //reservedSlots.save
     //reservedSlots.addPlayer <name>
@@ -68,7 +60,6 @@ public slots:
     //reservedSlots.list
 
     // Variables
-    /// BFBC2 Only.
     //vars.adminPassword [password]
     //vars.punkBuster [enabled]
     //vars.hardCore
@@ -87,7 +78,6 @@ public slots:
     //vars.textChatSpamDetectionTime [time]
     //vars.textChatSpamCoolDownTime [time]
 
-    /// BFBC2 Only.
     // Text Chat Moderation
     //textChatModerationList.load
     //textChatModerationList.save
@@ -96,7 +86,6 @@ public slots:
     //textChatModerationList.clear
     //textChatModerationList.list [startOffset]
 
-    /// BFBC2 Only.
     // Level Variables
     //levelVars.set <context> <var name> <value>
     //levelVars.get <context> <var name>
@@ -111,18 +100,11 @@ private:
     void parseServerLoadingLevelEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
     void parseServerLevelStartedEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket);
 
-    //player.onKicked
-    //punkBuster.onVersion
-    //server.onLoadingLevel
-    //server.onLevelStarted
-
     /* Parse commands */
     // Misc
-    /// BFBC2 Only.
     //help
 
     // Admin
-    /// BFBC2 Only.
     //admin.runscript <filename>
     //admin.endRound <teamID>
     //admin.currentLevel
@@ -131,18 +113,12 @@ private:
     //admin.getPlaylist
     //admin.getPlaylists
 
-    // Banning
-
     // Maplist
-    /// BFBC2 Only.
     //mapList.append <name, rounds>
     //mapList.insert <index, name, rounds>
     //mapList.nextLevelIndex [index: integer]
 
-    // Punkbuster
-
     // Reserved Slots
-    /// BFBC2 Only.
     //reservedSlots.load
     //reservedSlots.save
     //reservedSlots.addPlayer <name>
@@ -151,7 +127,6 @@ private:
     //reservedSlots.list
 
     // Variables
-    /// BFBC2 Only.
     //vars.adminPassword [password]
     //vars.punkBuster [enabled]
     //vars.hardCore
@@ -170,7 +145,6 @@ private:
     //vars.textChatSpamDetectionTime [time]
     //vars.textChatSpamCoolDownTime [time]
 
-    /// BFBC2 Only.
     // Text Chat Moderation
     //textChatModerationList.load
     //textChatModerationList.save
@@ -179,7 +153,6 @@ private:
     //textChatModerationList.clear
     //textChatModerationList.list [startOffset]
 
-    /// BFBC2 Only.
     // Level Variables
     //levelVars.set <context> <var name> <value>
     //levelVars.get <context> <var name>
@@ -196,11 +169,9 @@ signals:
 
     /* Command signals */
     // Misc
-    /// BFBC2 Only.
     //help
 
     // Admin
-    /// BFBC2 Only.
     //admin.runscript <filename>
     //admin.endRound <teamID>
     //admin.currentLevel
@@ -209,18 +180,12 @@ signals:
     //admin.getPlaylist
     //admin.getPlaylists
 
-    // Banning
-
     // Maplist
-    /// BFBC2 Only.
     //mapList.append <name, rounds>
     //mapList.insert <index, name, rounds>
     //mapList.nextLevelIndex [index: integer]
 
-    // Punkbuster
-
     // Reserved Slots
-    /// BFBC2 Only.
     //reservedSlots.load
     //reservedSlots.save
     //reservedSlots.addPlayer <name>
@@ -229,7 +194,6 @@ signals:
     //reservedSlots.list
 
     // Variables
-    /// BFBC2 Only.
     //vars.adminPassword [password]
     //vars.punkBuster [enabled]
     //vars.hardCore
@@ -248,7 +212,6 @@ signals:
     //vars.textChatSpamDetectionTime [time]
     //vars.textChatSpamCoolDownTime [time]
 
-    /// BFBC2 Only.
     // Text Chat Moderation
     //textChatModerationList.load
     //textChatModerationList.save
@@ -257,7 +220,6 @@ signals:
     //textChatModerationList.clear
     //textChatModerationList.list [startOffset]
 
-    /// BFBC2 Only.
     // Level Variables
     //levelVars.set <context> <var name> <value>
     //levelVars.get <context> <var name>

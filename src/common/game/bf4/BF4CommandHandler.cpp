@@ -17,6 +17,9 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QString>
+#include <QStringList>
+
 #include "BF4CommandHandler.h"
 #include "FrostbiteConnection.h"
 #include "FrostbiteRconPacket.h"
@@ -314,7 +317,6 @@ void BF4CommandHandler::sendVarsIsNoobOnlyJoinCommand(bool enabled)
 {
     connection->sendCommand(QString("\"vars.isNoobOnlyJoin\" \"%1\"").arg(FrostbiteUtils::toString(enabled)));
 }
-
 
 /* Parse events */
 void BF4CommandHandler::parsePlayerDisconnectEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)

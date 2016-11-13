@@ -21,7 +21,6 @@
 #include "FrostbiteConnection.h"
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteUtils.h"
-#include "PlayerSubset.h"
 
 BF3CommandHandler::BF3CommandHandler(QObject *parent) :
     Frostbite2CommandHandler(parent)
@@ -39,8 +38,6 @@ bool BF3CommandHandler::parse(const QString &request, const FrostbiteRconPacket 
     typedef void (BF3CommandHandler::*ResponseFunction)(const FrostbiteRconPacket&, const FrostbiteRconPacket&);
 
     static QHash<QString, ResponseFunction> responseList = {
-        /* Events */
-
         /* Commands */
         // Admin
         { "admin.effectiveMaxPlayers",     &BF3CommandHandler::parseAdminEffectiveMaxPlayersCommand },

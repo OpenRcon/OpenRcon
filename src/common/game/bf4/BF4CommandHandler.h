@@ -22,6 +22,7 @@
 
 #include "Frostbite2CommandHandler.h"
 
+class QString;
 class QStringList;
 
 enum class BF4PresetEnum;

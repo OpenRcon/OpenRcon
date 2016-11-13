@@ -22,10 +22,6 @@
 
 #include "Frostbite2CommandHandler.h"
 
-class QStringList;
-
-enum class PlayerSubsetEnum;
-
 class BF3CommandHandler : public Frostbite2CommandHandler
 {
     Q_OBJECT
