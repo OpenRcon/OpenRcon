@@ -42,8 +42,8 @@
 #include "GameType.h"
 #include "Squad.h"
 
-FrostbiteEventsWidget::FrostbiteEventsWidget(Frostbite2Client *client, QWidget *parent) :
-    Frostbite2Widget(client, parent),
+FrostbiteEventsWidget::FrostbiteEventsWidget(FrostbiteClient *client, QWidget *parent) :
+    FrostbiteWidget(client, parent),
     ui(new Ui::FrostbiteEventsWidget)
 {
     ui->setupUi(this);
@@ -56,7 +56,11 @@ FrostbiteEventsWidget::FrostbiteEventsWidget(Frostbite2Client *client, QWidget *
     connect(getClient(),                      &Client::onAuthenticated,                                    this, &FrostbiteEventsWidget::onAuthenticated);
 
     /* Events */
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,       this, &FrostbiteEventsWidget::onPlayerAuthenticatedEvent);
+    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
+
+    if (frostbite2CommandHandler) {
+        connect(frostbite2CommandHandler,     &FrostbiteCommandHandler::onPlayerAuthenticatedEvent,       this, &FrostbiteEventsWidget::onPlayerAuthenticatedEvent);
+    }
 
     BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(getClient()->getCommandHandler());
 
@@ -64,15 +68,13 @@ FrostbiteEventsWidget::FrostbiteEventsWidget(Frostbite2Client *client, QWidget *
         connect(bf4CommandHandler,            &BF4CommandHandler::onPlayerDisconnectEvent,                 this, &FrostbiteEventsWidget::onPlayerDisconnectEvent);
     }
 
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerJoinEvent,                this, &FrostbiteEventsWidget::onPlayerJoinEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerLeaveEvent,               this, &FrostbiteEventsWidget::onPlayerLeaveEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSpawnEvent,               this, &FrostbiteEventsWidget::onPlayerSpawnEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerKillEvent,                this, &FrostbiteEventsWidget::onPlayerKillEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerChatEvent,                this, &FrostbiteEventsWidget::onPlayerChatEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerSquadChangeEvent,         this, &FrostbiteEventsWidget::onPlayerSquadChangeEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onPlayerTeamChangeEvent,          this, &FrostbiteEventsWidget::onPlayerTeamChangeEvent);
-
-    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerJoinEvent,                this, &FrostbiteEventsWidget::onPlayerJoinEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerLeaveEvent,               this, &FrostbiteEventsWidget::onPlayerLeaveEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerSpawnEvent,               this, &FrostbiteEventsWidget::onPlayerSpawnEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerKillEvent,                this, &FrostbiteEventsWidget::onPlayerKillEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent,                this, &FrostbiteEventsWidget::onPlayerChatEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerSquadChangeEvent,         this, &FrostbiteEventsWidget::onPlayerSquadChangeEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerTeamChangeEvent,          this, &FrostbiteEventsWidget::onPlayerTeamChangeEvent);
 
     if (frostbite2CommandHandler) {
         connect(frostbite2CommandHandler, &Frostbite2CommandHandler::onServerMaxPlayerCountChangeEvent,    this, &FrostbiteEventsWidget::onServerMaxPlayerCountChangeEvent);

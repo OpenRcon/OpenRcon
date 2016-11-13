@@ -20,7 +20,7 @@
 #ifndef FROSTBITEEVENTSWIDGET_H
 #define FROSTBITEEVENTSWIDGET_H
 
-#include "Frostbite2Widget.h"
+#include "FrostbiteWidget.h"
 
 class QString;
 class QAbstractSocket;
@@ -29,12 +29,12 @@ namespace Ui {
     class FrostbiteEventsWidget;
 }
 
-class FrostbiteEventsWidget : public Frostbite2Widget
+class FrostbiteEventsWidget : public FrostbiteWidget
 {
     Q_OBJECT
 
 public:
-    FrostbiteEventsWidget(Frostbite2Client *client, QWidget *parent = nullptr);
+    FrostbiteEventsWidget(FrostbiteClient *client, QWidget *parent = nullptr);
     ~FrostbiteEventsWidget() final;
 
 private:
