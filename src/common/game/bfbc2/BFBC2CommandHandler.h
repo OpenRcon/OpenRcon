@@ -41,8 +41,6 @@ public slots:
     // Admin
     /// BFBC2 Only.
     //admin.runscript <filename>
-    //admin.runNextRound
-    //admin.restartRound
     //admin.endRound <teamID>
     //admin.currentLevel
     //admin.supportedMaps <play list>
@@ -89,6 +87,7 @@ public slots:
     //vars.textChatSpamDetectionTime [time]
     //vars.textChatSpamCoolDownTime [time]
 
+    /// BFBC2 Only.
     // Text Chat Moderation
     //textChatModerationList.load
     //textChatModerationList.save
@@ -97,6 +96,7 @@ public slots:
     //textChatModerationList.clear
     //textChatModerationList.list [startOffset]
 
+    /// BFBC2 Only.
     // Level Variables
     //levelVars.set <context> <var name> <value>
     //levelVars.get <context> <var name>
@@ -124,8 +124,6 @@ private:
     // Admin
     /// BFBC2 Only.
     //admin.runscript <filename>
-    //admin.runNextRound
-    //admin.restartRound
     //admin.endRound <teamID>
     //admin.currentLevel
     //admin.supportedMaps <play list>
@@ -172,6 +170,7 @@ private:
     //vars.textChatSpamDetectionTime [time]
     //vars.textChatSpamCoolDownTime [time]
 
+    /// BFBC2 Only.
     // Text Chat Moderation
     //textChatModerationList.load
     //textChatModerationList.save
@@ -180,6 +179,7 @@ private:
     //textChatModerationList.clear
     //textChatModerationList.list [startOffset]
 
+    /// BFBC2 Only.
     // Level Variables
     //levelVars.set <context> <var name> <value>
     //levelVars.get <context> <var name>
@@ -202,8 +202,6 @@ signals:
     // Admin
     /// BFBC2 Only.
     //admin.runscript <filename>
-    //admin.runNextRound
-    //admin.restartRound
     //admin.endRound <teamID>
     //admin.currentLevel
     //admin.supportedMaps <play list>
@@ -250,6 +248,7 @@ signals:
     //vars.textChatSpamDetectionTime [time]
     //vars.textChatSpamCoolDownTime [time]
 
+    /// BFBC2 Only.
     // Text Chat Moderation
     //textChatModerationList.load
     //textChatModerationList.save
@@ -258,6 +257,7 @@ signals:
     //textChatModerationList.clear
     //textChatModerationList.list [startOffset]
 
+    /// BFBC2 Only.
     // Level Variables
     //levelVars.set <context> <var name> <value>
     //levelVars.get <context> <var name>

@@ -103,8 +103,8 @@ bool Frostbite2CommandHandler::parse(const QString &request, const FrostbiteRcon
         /*{ "mapList.list",                         &FrostbiteCommandHandler::parseMapListListCommand },*/
         /*{ "mapList.load",                         &FrostbiteCommandHandler::parseMapListLoadCommand },*/
         /*{ "mapList.remove",                       &FrostbiteCommandHandler::parseMapListRemoveCommand },*/
-        /*{ "mapList.restartRound",                 &Frostbite2CommandHandler::parseMapListRestartRoundCommand },*/
-        /*{ "mapList.runNextRound",                 &Frostbite2CommandHandler::parseMapListRunNextRoundCommand },*/
+        /*{ "mapList.restartRound",                 &FrostbiteCommandHandler::parseMapListRestartRoundCommand },*/
+        /*{ "mapList.runNextRound",                 &FrostbiteCommandHandler::parseMapListRunNextRoundCommand },*/
         /*{ "mapList.save",                         &FrostbiteCommandHandler::parseMapListSaveCommand },*/
         /*{ "mapList.setNextMapIndex",              &Frostbite2CommandHandler::parseMapListSetNextMapIndexCommand },*/
 
@@ -230,16 +230,6 @@ void Frostbite2CommandHandler::sendMapListGetMapIndicesCommand()
 void Frostbite2CommandHandler::sendMapListGetRoundsCommand()
 {
     connection->sendCommand("mapList.getRounds");
-}
-
-void Frostbite2CommandHandler::sendMapListRestartRoundCommand()
-{
-    connection->sendCommand("mapList.restartRound");
-}
-
-void Frostbite2CommandHandler::sendMapListRunNextRoundCommand()
-{
-    connection->sendCommand("mapList.runNextRound");
 }
 
 void Frostbite2CommandHandler::sendMapListSetNextMapIndexCommand(int index)
@@ -596,21 +586,25 @@ void Frostbite2CommandHandler::parseServerLevelLoadedEvent(const FrostbiteRconPa
 {
     Q_UNUSED(lastSentPacket);
 
-    QString levelName = packet.getWord(1).getContent();
-    QString gameModeName = packet.getWord(2).getContent();
-    int roundsPlayed = QString(packet.getWord(3).getContent()).toInt();
-    int roundsTotal = QString(packet.getWord(4).getContent()).toInt();
+    if (packet.getWordCount() > 0) {
+        QString levelName = packet.getWord(1).getContent();
+        QString gameModeName = packet.getWord(2).getContent();
+        int roundsPlayed = QString(packet.getWord(3).getContent()).toInt();
+        int roundsTotal = QString(packet.getWord(4).getContent()).toInt();
 
-    emit (onServerLevelLoadedEvent(levelName, gameModeName, roundsPlayed, roundsTotal));
+        emit (onServerLevelLoadedEvent(levelName, gameModeName, roundsPlayed, roundsTotal));
+    }
 }
 
 void Frostbite2CommandHandler::parseServerMaxPlayerCountChangeEvent(const FrostbiteRconPacket &packet, const FrostbiteRconPacket &lastSentPacket)
 {
     Q_UNUSED(lastSentPacket);
 
-    int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
+    if (packet.getWordCount() > 0) {
+        int count = FrostbiteUtils::toInt(packet.getWord(1).getContent());
 
-    emit (onServerMaxPlayerCountChangeEvent(count));
+        emit (onServerMaxPlayerCountChangeEvent(count));
+    }
 }
 
 /* Parse commands */

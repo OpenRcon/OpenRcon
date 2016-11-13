@@ -90,6 +90,8 @@ public slots:
     void sendMapListListCommand(int index = -1);
     void sendMapListLoadCommand();
     void sendMapListRemoveCommand(int index);
+    void sendMapListRestartRoundCommand();
+    void sendMapListRunNextRoundCommand();
     void sendMapListSaveCommand();
 
     // Punkbuster

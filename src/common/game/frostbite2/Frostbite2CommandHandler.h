@@ -48,8 +48,6 @@ public slots:
     void sendMapListEndRoundCommand(int teamId);
     void sendMapListGetMapIndicesCommand();
     void sendMapListGetRoundsCommand();
-    void sendMapListRestartRoundCommand();
-    void sendMapListRunNextRoundCommand();
     void sendMapListSetNextMapIndexCommand(int index);
 
     // Player

@@ -98,6 +98,8 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
 
         /// BFBC2 Only.
         { "admin.currentLevel",                     &FrostbiteCommandHandler::parseCurrentLevelCommand },
+        /*{ "admin.runNextRound",                   &FrostbiteCommandHandler::parseAdminRunNextRoundCommand },*/
+        /*{ "admin.restartRound",                   &FrostbiteCommandHandler::parseAdminRestartRoundCommand },*/
 
         /// Frostbite2 Only.
         { "admin.eventsEnabled",                    &FrostbiteCommandHandler::parseAdminEventsEnabledCommand },
@@ -116,6 +118,10 @@ bool FrostbiteCommandHandler::parse(const QString &request, const FrostbiteRconP
         { "mapList.load",                           nullptr /*&FrostbiteCommandHandler::parseMapListLoadCommand*/ },
         { "mapList.remove",                         nullptr /*&FrostbiteCommandHandler::parseMapListRemoveCommand*/ },
         { "mapList.save",                           nullptr /*&FrostbiteCommandHandler::parseMapListSaveCommand*/ },
+
+        /// Frostbite2 Only.
+        /*{ "mapList.restartRound",                 &FrostbiteCommandHandler::parseMapListRestartRoundCommand },*/
+        /*{ "mapList.runNextRound",                 &FrostbiteCommandHandler::parseMapListRunNextRoundCommand },*/
 
         // Punkbuster
         { "punkBuster.pb_sv_command",               nullptr /*&FrostbiteCommandHandler::parsePunkBusterPbSvCommand*/ },
@@ -237,13 +243,11 @@ void FrostbiteCommandHandler::sendListPlayersCommand(const PlayerSubsetEnum &pla
 // Admin
 void FrostbiteCommandHandler::sendAdminEventsEnabledCommand()
 {
-    BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(this);
-    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
     QString command;
 
-    if (bfbc2CommandHandler) {
+    if (dynamic_cast<BFBC2CommandHandler*>(this)) {
         command = "eventsEnabled";
-    } else if (frostbite2CommandHandler) {
+    } else if (dynamic_cast<Frostbite2CommandHandler*>(this)) {
         command = "admin.eventsEnabled";
     }
 
@@ -252,13 +256,11 @@ void FrostbiteCommandHandler::sendAdminEventsEnabledCommand()
 
 void FrostbiteCommandHandler::sendAdminEventsEnabledCommand(bool enabled)
 {
-    BFBC2CommandHandler *bfbc2CommandHandler = dynamic_cast<BFBC2CommandHandler*>(this);
-    Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(this);
     QString command;
 
-    if (bfbc2CommandHandler) {
+    if (dynamic_cast<BFBC2CommandHandler*>(this)) {
         command = "eventsEnabled";
-    } else if (frostbite2CommandHandler) {
+    } else if (dynamic_cast<Frostbite2CommandHandler*>(this)) {
         command = "admin.eventsEnabled";
     }
 
@@ -484,6 +486,32 @@ void FrostbiteCommandHandler::sendMapListRemoveCommand(int index)
 {
     connection->sendCommand(QString("\"mapList.remove\" \"%1\"").arg(index));
     sendMapListListCommand();
+}
+
+void FrostbiteCommandHandler::sendMapListRestartRoundCommand()
+{
+    QString command;
+
+    if (dynamic_cast<BFBC2CommandHandler*>(this)) {
+        command = "admin.restartRound";
+    } else if (dynamic_cast<Frostbite2CommandHandler*>(this)) {
+        command = "mapList.restartRound";
+    }
+
+    connection->sendCommand(command);
+}
+
+void FrostbiteCommandHandler::sendMapListRunNextRoundCommand()
+{
+    QString command;
+
+    if (dynamic_cast<BFBC2CommandHandler*>(this)) {
+        command = "admin.runNextRound";
+    } else if (dynamic_cast<Frostbite2CommandHandler*>(this)) {
+        command = "mapList.runNextRound";
+    }
+
+    connection->sendCommand(command);
 }
 
 void FrostbiteCommandHandler::sendMapListSaveCommand()
