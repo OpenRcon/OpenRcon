@@ -287,7 +287,7 @@ void FrostbiteCommandHandler::sendAdminKillPlayerCommand(const QString &player)
 
 void FrostbiteCommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum &playerSubset, int teamId, int squadId, const QString &player)
 {
-    QString command = QString("\"listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower());
+    QString command = QString("\"admin.listPlayers\" \"%1\"").arg(PlayerSubset::toString(playerSubset).toLower());
 
     switch (playerSubset) {
     case PlayerSubsetEnum::Team:
