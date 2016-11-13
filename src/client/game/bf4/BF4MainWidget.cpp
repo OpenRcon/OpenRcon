@@ -31,9 +31,6 @@
 #include "FrostbiteConsoleWidget.h"
 #include "TeamScores.h"
 #include "BF4ServerInfo.h"
-#include "BF4LevelDictionary.h"
-#include "BF4GameModeEntry.h"
-#include "TabWidget.h"
 
 BF4MainWidget::BF4MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     Frostbite2MainWidget(new BF4Client(serverEntry, parent), parent)

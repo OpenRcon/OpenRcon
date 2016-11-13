@@ -23,7 +23,7 @@
 #include "Frostbite2MainWidget.h"
 #include "BF3Client.h"
 
-class BF4ServerInfo;
+class BF3ServerInfo;
 
 class BF3MainWidget : public Frostbite2MainWidget
 {

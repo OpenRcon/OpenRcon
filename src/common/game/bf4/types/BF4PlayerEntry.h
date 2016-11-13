@@ -35,7 +35,7 @@ public:
                    int rank,
                    int ping,
                    int type);
-    ~BF4PlayerEntry();
+    ~BF4PlayerEntry() final;
 
     int getPing() const;
     int getType() const;

@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/bfbc2/icons">
+        <file alias="bfbc2.png">images/icons/bfbc2.png</file>
+    </qresource>
+    <qresource prefix="/bfbc2/levels">
+        <file alias="arica_harbor.png">images/levels/arica_harbor.png</file>
+        <file alias="atacama_desert.png">images/levels/atacama_desert.png</file>
+        <file alias="cao_son_temple.png">images/levels/cao_son_temple.png</file>
+        <file alias="cold_war.png">images/levels/cold_war.png</file>
+        <file alias="harvest_day.png">images/levels/harvest_day.png</file>
+        <file alias="heavy_metal.png">images/levels/heavy_metal.png</file>
+        <file alias="hill_137.png">images/levels/hill_137.png</file>
+        <file alias="isla_inocentes.png">images/levels/isla_inocentes.png</file>
+        <file alias="laguna_alta.png">images/levels/laguna_alta.png</file>
+        <file alias="laguna_presa.png">images/levels/laguna_presa.png</file>
+        <file alias="nelson_bay.png">images/levels/nelson_bay.png</file>
+        <file alias="oasis.png">images/levels/oasis.png</file>
+        <file alias="operation_hastings.png">images/levels/operation_hastings.png</file>
+        <file alias="panama_canal.png">images/levels/panama_canal.png</file>
+        <file alias="phu_bai_valley.png">images/levels/phu_bai_valley.png</file>
+        <file alias="port_valdez.png">images/levels/port_valdez.png</file>
+        <file alias="valparaiso.png">images/levels/valparaiso.png</file>
+        <file alias="vantage_point.png">images/levels/vantage_point.png</file>
+        <file alias="white_pass.png">images/levels/white_pass.png</file>
+    </qresource>
+</RCC>

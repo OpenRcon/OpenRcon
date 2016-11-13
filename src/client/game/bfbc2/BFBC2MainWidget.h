@@ -17,32 +17,42 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BFBC2PLAYERENTRY_H
-#define BFBC2PLAYERENTRY_H
+#ifndef BFBC2MAINWIDGET_H
+#define BFBC2MAINWIDGET_H
 
-#include "FrostbitePlayerEntry.h"
+#include "FrostbiteMainWidget.h"
+#include "BFBC2Client.h"
 
-class BFBC2PlayerEntry : public FrostbitePlayerEntry
+class BFBC2MainWidget : public FrostbiteMainWidget
 {
+    Q_OBJECT
+
 public:
-    BFBC2PlayerEntry(const QString &name,
-                     const QString &guid,
-                     int teamId,
-                     int squadId,
-                     int kills,
-                     int deaths,
-                     int score,
-                     const QString &clanTag,
-                     int ping);
-    ~BFBC2PlayerEntry() final;
+    BFBC2MainWidget(ServerEntry *serverEntry, QWidget *parent = nullptr);
+    ~BFBC2MainWidget() final;
 
-    QString getClanTag() const;
-    int getPing() const;
+    BFBC2Client *getClient() final {
+        return dynamic_cast<BFBC2Client*>(client);
+    }
 
-private:
-    QString clanTag;
-    int ping;
+private slots:
+    /* Commands */
+    // Misc
+
+    // Admin
+
+    // FairFight
+
+    // Player
+
+    // Punkbuster
+
+    // Squad
+
+    // Variables
+
+    /* User Interface */
 
 };
 
-#endif // BFBC2PLAYERENTRY_H
+#endif // BFBC2MAINWIDGET_H

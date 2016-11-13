@@ -17,28 +17,10 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QTimer>
-#include <QMessageBox>
-
 #include "Frostbite2MainWidget.h"
 #include "ui_FrostbiteMainWidget.h"
 
-#include "FrostbiteEventsWidget.h"
-#include "FrostbiteChatWidget.h"
-#include "FrostbiteBanListWidget.h"
 #include "Frostbite2ReservedSlotsWidget.h"
-#include "FrostbiteConsoleWidget.h"
-#include "TeamScores.h"
-#include "Frostbite2ServerInfo.h"
-#include "TabWidget.h"
-#include "ServerEntry.h"
-#include "GameType.h"
-#include "LevelEntry.h"
-#include "GameModeEntry.h"
-#include "BF4GameModeEntry.h"
-#include "BF3LevelDictionary.h"
-#include "BF4LevelDictionary.h"
-#include "Time.h"
 
 Frostbite2MainWidget::Frostbite2MainWidget(Frostbite2Client *client, QWidget *parent) :
     FrostbiteMainWidget(client, parent)

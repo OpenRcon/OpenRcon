@@ -33,7 +33,7 @@ public:
                           int deaths,
                           int score,
                           int rank);
-    ~Frostbite2PlayerEntry();
+    virtual ~Frostbite2PlayerEntry() override;
 
     int getRank() const;
 

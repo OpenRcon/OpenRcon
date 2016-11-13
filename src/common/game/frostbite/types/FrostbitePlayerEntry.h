@@ -32,7 +32,7 @@ public:
                          int kills,
                          int deaths,
                          int score);
-    ~FrostbitePlayerEntry();
+    virtual ~FrostbitePlayerEntry();
 
     QString getName() const;
     QString getGuid() const;

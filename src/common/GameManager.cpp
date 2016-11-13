@@ -25,6 +25,7 @@
 #include "ServerEntry.h"
 #include "GameType.h"
 
+#include "BFBC2MainWidget.h"
 #include "BF3MainWidget.h"
 #include "BF4MainWidget.h"
 
@@ -76,8 +77,7 @@ GameWidget *GameManager::getGameWidget(ServerEntry *serverEntry)
 
     switch (serverEntry->getGameType()) {
     case GameTypeEnum::BFBC2:
-        //gameWidget = new BFBC2Widget(serverEntry);
-        gameWidget = nullptr;
+        gameWidget = new BFBC2MainWidget(serverEntry);
         break;
 
     case GameTypeEnum::BF3:

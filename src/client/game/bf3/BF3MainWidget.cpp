@@ -17,27 +17,11 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QTimer>
-#include <QMessageBox>
-
 #include "BF3MainWidget.h"
 #include "ui_FrostbiteMainWidget.h"
-#include "BF3Client.h"
 
-#include "FrostbiteEventsWidget.h"
-#include "FrostbiteChatWidget.h"
-#include "FrostbiteBanListWidget.h"
-#include "Frostbite2ReservedSlotsWidget.h"
-#include "FrostbiteConsoleWidget.h"
-
-#include "LevelEntry.h"
-#include "BF3LevelDictionary.h"
 #include "TeamScores.h"
 #include "BF3ServerInfo.h"
-#include "GameModeEntry.h"
-#include "TabWidget.h"
-#include "FrostbiteUtils.h"
-#include "Time.h"
 
 BF3MainWidget::BF3MainWidget(ServerEntry *serverEntry, QWidget *parent) :
     Frostbite2MainWidget(new BF3Client(serverEntry, parent), parent)

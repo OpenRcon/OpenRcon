@@ -1336,50 +1336,75 @@ void FrostbiteCommandHandler::parsePlayerList(const FrostbiteRconPacket &packet,
                 list.append(packet.getWord(2 + parameters + 1 + i * parameters + j).getContent());
             }
 
-            QString name = list.at(0);
-            QString guid = list.at(1);
-            int teamId = FrostbiteUtils::toInt(list.at(2));
-            int squadId = FrostbiteUtils::toInt(list.at(3));
-            int kills = FrostbiteUtils::toInt(list.at(4));
-            int deaths = FrostbiteUtils::toInt(list.at(5));
-            int score = FrostbiteUtils::toInt(list.at(6));
+            int index = 0;
+
+            // BFBC2 Only.
+            QString clanTag;
+
+            if (bfbc2CommandHandler) {
+                clanTag = list[index++];                            // 0
+            }
+
+            QString name = list.at(index++);                        // 0
+            QString guid = list.at(index++);                        // 1
+            int teamId = FrostbiteUtils::toInt(list.at(index++));   // 2
+            int squadId = FrostbiteUtils::toInt(list.at(index++));  // 3
+            int kills = FrostbiteUtils::toInt(list.at(index++));    // 4
+            int deaths = FrostbiteUtils::toInt(list.at(index++));   // 5
+            int score = FrostbiteUtils::toInt(list.at(index++));    // 6
+
+            // Frostbite2 Only.
+            int rank;
+
+            if (frostbite2CommandHandler) {
+                rank = FrostbiteUtils::toInt(list.at(index++));     // 7
+            }
+
+            // BFBC2 and BF4 Only.
             int ping;
 
-            // Ping available for both BFBC2 and BF4.
             if (bfbc2CommandHandler || bf4CommandHandler) {
-                ping = FrostbiteUtils::toInt(list.at(8));
+                ping = FrostbiteUtils::toInt(list.at(index++));     // 8
+            }
+
+            // BF4 Only.
+            int type;
+
+            if (bf4CommandHandler) {
+                type = FrostbiteUtils::toInt(list.at(index++));     // 9
             }
 
             // BFBC2 Only.
             if (bfbc2CommandHandler) {
-                bfbc2PlayerList.append(BFBC2PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, ping));
+                bfbc2PlayerList.append(BFBC2PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, clanTag, ping));
             }
 
             // Frostbite2 Only.
             if (frostbite2CommandHandler) {
-                int rank = FrostbiteUtils::toInt(list.at(7));
-
                 frostbite2PlayerList.append(Frostbite2PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank));
+            }
 
-                // BF4 Only.
-                if (bf4CommandHandler) {
-                    int type = FrostbiteUtils::toInt(list.at(9));
-
-                    bf4PlayerList.append(BF4PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank, ping, type));
-                }
+            // BF4 Only.
+            if (bf4CommandHandler) {
+                bf4PlayerList.append(BF4PlayerEntry(name, guid, teamId, squadId, kills, deaths, score, rank, ping, type));
             }
 
             playerList.append(FrostbitePlayerEntry(name, guid, teamId, squadId, kills, deaths, score));
         }
 
+        // BFBC2 Only.
+        if (bfbc2CommandHandler) {
+            emit (onListPlayersCommand(bfbc2PlayerList));
+        }
+
         // Frostbite2 Only.
         if (frostbite2CommandHandler) {
             emit (onListPlayersCommand(frostbite2PlayerList));
+        }
 
-            // BF4 Only.
-            if (bf4CommandHandler) {
-                emit (onListPlayersCommand(bf4PlayerList));
-            }
+        // BF4 Only.
+        if (bf4CommandHandler) {
+            emit (onListPlayersCommand(bf4PlayerList));
         }
 
         emit (onListPlayersCommand(playerList));

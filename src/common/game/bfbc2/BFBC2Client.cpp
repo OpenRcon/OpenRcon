@@ -22,7 +22,19 @@
 BFBC2Client::BFBC2Client(ServerEntry *serverEntry, QObject *parent) :
     FrostbiteClient(serverEntry, new BFBC2CommandHandler(), parent)
 {
-
+    versionMap = {
+        { 571287, "R21" },
+        { 581637, "R22" },
+        { 584642, "R23" },
+        { 593485, "R24" },
+        { 602833, "R25" },
+        { 609063, "R26" },
+        { 617877, "R27" },
+        { 621775, "R28" },
+        { 638140, "R30" },
+        { 720174, "R32" },
+        { 851434, "R34" }
+    };
 }
 
 BFBC2Client::~BFBC2Client()

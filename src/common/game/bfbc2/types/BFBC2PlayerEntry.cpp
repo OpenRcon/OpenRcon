@@ -28,6 +28,7 @@ BFBC2PlayerEntry::BFBC2PlayerEntry(const QString &name,
                                    int kills,
                                    int deaths,
                                    int score,
+                                   const QString &clanTag,
                                    int ping) :
     FrostbitePlayerEntry(name,
                          guid,
@@ -36,6 +37,7 @@ BFBC2PlayerEntry::BFBC2PlayerEntry(const QString &name,
                          kills,
                          deaths,
                          score),
+    clanTag(clanTag),
     ping(ping)
 {
 
@@ -44,6 +46,11 @@ BFBC2PlayerEntry::BFBC2PlayerEntry(const QString &name,
 BFBC2PlayerEntry::~BFBC2PlayerEntry()
 {
 
+}
+
+QString BFBC2PlayerEntry::getClanTag() const
+{
+    return clanTag;
 }
 
 int BFBC2PlayerEntry::getPing() const

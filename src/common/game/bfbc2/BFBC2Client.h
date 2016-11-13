@@ -34,7 +34,6 @@ public:
     BFBC2CommandHandler *getCommandHandler() final {
         return dynamic_cast<BFBC2CommandHandler*>(commandHandler);
     }
-
 };
 
 #endif // BFBC2CLIENT_H
