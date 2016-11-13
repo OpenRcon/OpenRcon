@@ -45,10 +45,13 @@ public:
 private:
     Ui::FrostbiteChatWidget *ui;
     QList<TeamEntry> teamList;
+    bool updateLock;
 
     void logChat(const QString &sender, const QString &target, const QString &message);
 
 private slots:
+    void updatePlayerList();
+
     /* Client */
     void onAuthenticated();
 

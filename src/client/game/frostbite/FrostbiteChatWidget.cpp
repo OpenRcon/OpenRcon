@@ -45,29 +45,21 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
 {
     ui->setupUi(this);
 
-    // Modify the initial size of the splitter.
-    ui->splitter->setSizes({ 500, 100 });
-
-    // Hide player list by default.
-    ui->listWidget->setEnabled(false);
-    ui->listWidget->hide();
-
     // Populate the target comboBox.
     ui->comboBox_target->addItem(tr("All"), QVariant::fromValue(PlayerSubsetEnum::All));
     ui->comboBox_target->addItem(tr("Player"), QVariant::fromValue(PlayerSubsetEnum::Player));
 
-    // Disable squad comboBox by default, and populate it.
-    ui->comboBox_squad->setEnabled(false);
-    ui->comboBox_squad->hide();
+    // Hide squad comboBox by default, and populate it.
+    ui->comboBox_squad->setVisible(false);
 
-    // Disable duration comboBox by default.
-    ui->spinBox_duration->setEnabled(false);
-    ui->spinBox_duration->hide();
+    // Hide duration comboBox by default.
+    ui->spinBox_duration->setVisible(false);
+
+    // Hide duration label by default.
+    ui->label_duration->setVisible(false);
 
     for (QString squadName : Squad::asList()) {
-        SquadEnum squad = Squad::fromString(squadName);
-
-        ui->comboBox_squad->addItem(squadName, QVariant::fromValue(squad));
+        ui->comboBox_squad->addItem(squadName, QVariant::fromValue(Squad::fromString(squadName)));
     }
 
     /* Client */
@@ -75,6 +67,8 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
     connect(getClient(),                      &Client::onAuthenticated,                                               client->getCommandHandler(), &FrostbiteCommandHandler::sendCurrentLevelCommand);
 
     /* Events */
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerJoinEvent,                            this,                        &FrostbiteChatWidget::updatePlayerList);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerLeaveEvent,                           this,                        &FrostbiteChatWidget::updatePlayerList);
     connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerChatEvent,                            this,                        &FrostbiteChatWidget::onPlayerChatEvent);
 
     Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
@@ -105,7 +99,14 @@ FrostbiteChatWidget::~FrostbiteChatWidget()
 
 void FrostbiteChatWidget::logChat(const QString &sender, const QString &target, const QString &message)
 {
-    ui->textEdit->append(QString("[%1] <span style=\"color:#0000FF\">[%2] %3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), target, sender, message));
+    ui->textEdit->append(QString("[%1] <span style=\"color:#ff9933\">%2</span> &rarr; <span style=\"color:#0000ff\">%3</span>: <span style=\"color:#008000\">%4</span>").arg(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"), sender, target, message));
+}
+
+void FrostbiteChatWidget::updatePlayerList()
+{
+    updateLock = false;
+
+    getClient()->getCommandHandler()->sendAdminListPlayersCommand();
 }
 
 /* Client */
@@ -130,7 +131,7 @@ void FrostbiteChatWidget::onPlayerChatEvent(const QString &sender, const QString
 
 
     case PlayerSubsetEnum::Squad:
-        target = tr("Team %1, Squad %2").arg(teamList.at(teamId).getName()).arg(Squad::toString(squadId));
+        target = tr("Team %1 - Squad %2").arg(teamList.at(teamId).getName()).arg(Squad::toString(squadId));
         break;
 
     default:
@@ -144,13 +145,22 @@ void FrostbiteChatWidget::onPlayerChatEvent(const QString &sender, const QString
 /* Commands */
 void FrostbiteChatWidget::onListPlayersCommand(const QList<FrostbitePlayerEntry> &playerList)
 {
-    // Update the player list only if it's not currently in use.
-    if (!ui->listWidget->hasFocus()) {
-        ui->listWidget->clear();
+    if (!updateLock) {
+        // Remove old player entries.
+        for (int index = ui->comboBox_target->count(); index > 0; index--) {
+            PlayerSubsetEnum playerSubset = ui->comboBox_target->itemData(index).value<PlayerSubsetEnum>();
 
-        for (FrostbitePlayerEntry playerEntry : playerList) {
-            ui->listWidget->addItem(playerEntry.getName());
+            if (playerSubset == PlayerSubsetEnum::Player) {
+                ui->comboBox_target->removeItem(index);
+            }
         }
+
+        // Add new player entries.
+        for (FrostbitePlayerEntry playerEntry : playerList) {
+            ui->comboBox_target->addItem(playerEntry.getName(), QVariant::fromValue(PlayerSubsetEnum::Player));
+        }
+
+        updateLock = true;
     }
 }
 
@@ -176,8 +186,12 @@ void FrostbiteChatWidget::onCurrentLevelCommand(const QString &levelName)
     for (int index = ui->comboBox_target->count(); index > 0; index--) {
         PlayerSubsetEnum playerSubset = ui->comboBox_target->itemData(index).value<PlayerSubsetEnum>();
 
-        if (playerSubset == PlayerSubsetEnum::Team) {
+        if (playerSubset == PlayerSubsetEnum::Team || playerSubset == PlayerSubsetEnum::Player) {
             ui->comboBox_target->removeItem(index);
+        }
+
+        if (playerSubset == PlayerSubsetEnum::Player) {
+            updateLock = false;
         }
     }
 
@@ -197,27 +211,15 @@ void FrostbiteChatWidget::comboBox_mode_currentIndexChanged(int index)
 {
     ui->spinBox_duration->setEnabled(index > 0);
     ui->spinBox_duration->setVisible(index > 0);
+    ui->label_duration->setVisible(index > 0);
 }
 
 void FrostbiteChatWidget::comboBox_target_currentIndexChanged(int index)
 {
-    ui->listWidget->setEnabled(false);
-    ui->listWidget->hide();
-
-    ui->comboBox_squad->setEnabled(index > 1);
-    ui->comboBox_squad->setVisible(index > 1);
-
     PlayerSubsetEnum playerSubset = ui->comboBox_target->itemData(index, Qt::UserRole).value<PlayerSubsetEnum>();
 
-    switch (playerSubset) {
-    case PlayerSubsetEnum::Player:
-        ui->listWidget->setEnabled(true);
-        ui->listWidget->show();
-        break;
-
-    default:
-        break;
-    }
+    ui->comboBox_squad->setEnabled(playerSubset == PlayerSubsetEnum::Team);
+    ui->comboBox_squad->setVisible(playerSubset == PlayerSubsetEnum::Team);
 }
 
 void FrostbiteChatWidget::spinBox_duration_valueChanged(int index)
@@ -228,11 +230,9 @@ void FrostbiteChatWidget::spinBox_duration_valueChanged(int index)
 void FrostbiteChatWidget::pushButton_send_clicked()
 {
     QString message = ui->lineEdit->text();
-    int modeIndex = ui->comboBox_mode->currentIndex();
-    int targetIndex = ui->comboBox_target->currentIndex();
-    int duration = ui->spinBox_duration->value();
 
     if (!message.isEmpty()) {
+        int targetIndex = ui->comboBox_target->currentIndex();
         PlayerSubsetEnum playerSubset = ui->comboBox_target->itemData(targetIndex, Qt::UserRole).value<PlayerSubsetEnum>();
         QString player;
         int teamId = 0;
@@ -240,9 +240,7 @@ void FrostbiteChatWidget::pushButton_send_clicked()
 
         switch (playerSubset) {
         case PlayerSubsetEnum::Player:
-            if (ui->listWidget->currentItem()) {
-                player = ui->listWidget->currentItem()->text();
-            }
+            player = ui->comboBox_target->itemText(targetIndex);
             break;
 
         case PlayerSubsetEnum::Team:
@@ -259,6 +257,8 @@ void FrostbiteChatWidget::pushButton_send_clicked()
             break;
         }
 
+        int modeIndex = ui->comboBox_mode->currentIndex();
+
         switch (modeIndex) {
         case 0:
             if (playerSubset == PlayerSubsetEnum::Team || playerSubset == PlayerSubsetEnum::Squad) {
@@ -269,6 +269,8 @@ void FrostbiteChatWidget::pushButton_send_clicked()
             break;
 
         case 1:
+            int duration = ui->spinBox_duration->value();
+
             if (playerSubset == PlayerSubsetEnum::Team || playerSubset == PlayerSubsetEnum::Squad) {
                 getClient()->getCommandHandler()->sendAdminYellCommand(message, playerSubset, teamId, squadId, duration);
             } else {
