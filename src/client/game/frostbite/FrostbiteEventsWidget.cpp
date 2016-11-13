@@ -105,18 +105,18 @@ void FrostbiteEventsWidget::logEvent(const QString &event, const QString &messag
 /* Connection */
 void FrostbiteEventsWidget::onConnected(QAbstractSocket *socket)
 {
-    logEvent(tr("Connected"), tr("Connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort()));
+    logEvent("Connected", tr("Connected to %1:%2.").arg(socket->peerAddress().toString()).arg(socket->peerPort()));
 }
 
 void FrostbiteEventsWidget::onDisconnected()
 {
-    logEvent(tr("Disconnected"), tr("Disconnected."));
+    logEvent("Disconnected", tr("Disconnected."));
 }
 
 /* Client */
 void FrostbiteEventsWidget::onAuthenticated()
 {
-    logEvent(tr("Authenticated"), tr("Authenticated."));
+    logEvent("Authenticated", tr("Authenticated."));
 
     getClient()->getCommandHandler()->sendAdminEventsEnabledCommand(true);
 }
@@ -124,29 +124,29 @@ void FrostbiteEventsWidget::onAuthenticated()
 /* Events */
 void FrostbiteEventsWidget::onPlayerAuthenticatedEvent(const QString &player)
 {
-    logEvent(tr("PlayerAuthenticated"), tr("Player %1 authenticated.").arg(player));
+    logEvent("PlayerAuthenticated", tr("Player %1 authenticated.").arg(player));
 }
 
 void FrostbiteEventsWidget::onPlayerDisconnectEvent(const QString &player)
 {
-    logEvent(tr("PlayerDisconnect"), tr("Player %1 disconnected.").arg(player));
+    logEvent("PlayerDisconnect", tr("Player %1 disconnected.").arg(player));
 }
 
 void FrostbiteEventsWidget::onPlayerJoinEvent(const QString &player, const QString &guid)
 {
-    logEvent(tr("PlayerJoin"), tr("Player %1 joined the game (GUID: %2).").arg(player, guid));
+    logEvent("PlayerJoin", tr("Player %1 joined the game (GUID: %2).").arg(player, guid));
 }
 
 void FrostbiteEventsWidget::onPlayerLeaveEvent(const QString &player, const QString &info)
 {
     Q_UNUSED(info);
 
-    logEvent(tr("PlayerLeave"), tr("Player %1 left the game.").arg(player)); // TODO: Impelment score stuffs here?
+    logEvent("PlayerLeave", tr("Player %1 left the game.").arg(player)); // TODO: Impelment score stuffs here?
 }
 
 void FrostbiteEventsWidget::onPlayerSpawnEvent(const QString &player, int teamId)
 {
-    logEvent(tr("PlayerSpawn"), tr("Player %1 spawned, and is on team %2.").arg(player).arg(BF4LevelDictionary::getTeam(teamId - 1).getName()));
+    logEvent("PlayerSpawn", tr("Player %1 spawned, and is on team %2.").arg(player).arg(BF4LevelDictionary::getTeam(teamId - 1).getName()));
 }
 
 void FrostbiteEventsWidget::onPlayerKillEvent(const QString &killerPlayer, const QString &victimPlayer, const QString &weapon, bool headshot)
@@ -178,12 +178,12 @@ void FrostbiteEventsWidget::onPlayerKillEvent(const QString &killerPlayer, const
         message = tr("Player %1 commited sucide using %2.").arg(killerPlayer).arg(weapon);
     }
 
-    logEvent(tr("PlayerKill"), message);
+    logEvent("PlayerKill", message);
 }
 
 void FrostbiteEventsWidget::onPlayerChatEvent(const QString &sender, const QString &message, const PlayerSubsetEnum &playerSubset)
 {
-    logEvent(tr("PlayerChat"), QString("[%1] %2: %3").arg(PlayerSubset::toString(playerSubset), sender, message));
+    logEvent("PlayerChat", QString("[%1] %2: %3").arg(PlayerSubset::toString(playerSubset), sender, message));
 }
 
 void FrostbiteEventsWidget::onPlayerSquadChangeEvent(const QString &player, int teamId, int squadId)
@@ -191,7 +191,7 @@ void FrostbiteEventsWidget::onPlayerSquadChangeEvent(const QString &player, int 
     Q_UNUSED(teamId);
 
     if (squadId != 0) {
-        logEvent(tr("PlayerSquadChange"), tr("Player %1 changed squad to %2.").arg(player).arg(Squad::toString(squadId)));
+        logEvent("PlayerSquadChange", tr("Player %1 changed squad to %2.").arg(player).arg(Squad::toString(squadId)));
     }
 }
 
@@ -199,7 +199,7 @@ void FrostbiteEventsWidget::onPlayerTeamChangeEvent(const QString &player, int t
 {
     Q_UNUSED(squadId);
 
-    logEvent(tr("PlayerTeamChange"), tr("Player %1 changed team to %2.").arg(player).arg(teamId));
+    logEvent("PlayerTeamChange", tr("Player %1 changed team to %2.").arg(player).arg(teamId));
 }
 
 void FrostbiteEventsWidget::onServerMaxPlayerCountChangeEvent()
@@ -231,20 +231,20 @@ void FrostbiteEventsWidget::onServerLevelLoadedEvent(const QString &levelName, c
         break;
     }
 
-    logEvent(tr("ServerLevelLoaded"), tr("Loading level %1 with gamemode %2.").arg(level.getName()).arg(gameMode.getName()));
+    logEvent("ServerLevelLoaded", tr("Loading level %1 with gamemode %2.").arg(level.getName()).arg(gameMode.getName()));
 }
 
 void FrostbiteEventsWidget::onServerRoundOverEvent(int winningTeamId)
 {
-    logEvent(tr("ServerRoundOver"), tr("The round has just ended, and %1 won.").arg(winningTeamId));
+    logEvent("ServerRoundOver", tr("The round has just ended, and %1 won.").arg(winningTeamId));
 }
 
 void FrostbiteEventsWidget::onServerRoundOverPlayersEvent(const QString &playerInfo)
 {
-    logEvent(tr("ServerRoundOverPlayers"), tr("The round has just ended, and %1 is the final detailed player stats.").arg(playerInfo)); // TODO: Check what this actually outputs.
+    logEvent("ServerRoundOverPlayers", tr("The round has just ended, and %1 is the final detailed player stats.").arg(playerInfo)); // TODO: Check what this actually outputs.
 }
 
 void FrostbiteEventsWidget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
 {
-    logEvent(tr("ServerRoundOverTeamScores"), tr("The round has just ended, and %1 is the final ticket/kill/life count for each team.").arg(teamScores));
+    logEvent("ServerRoundOverTeamScores", tr("The round has just ended, and %1 is the final ticket/kill/life count for each team.").arg(teamScores)); // TODO: Check what this actually outputs.
 }

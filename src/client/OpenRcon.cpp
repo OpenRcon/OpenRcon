@@ -59,7 +59,7 @@ OpenRcon::OpenRcon(QWidget *parent) :
     aboutDialog = new AboutDialog(this);
 
     // Sets window title
-    setWindowTitle(QString("%1 %2").arg(APP_NAME).arg(APP_VERSION));
+    setWindowTitle(APP_NAME + " " + APP_VERSION);
     setWindowIcon(QIcon(":/icons/openrcon.png"));
 
     // Actions

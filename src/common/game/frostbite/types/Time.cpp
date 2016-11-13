@@ -78,23 +78,23 @@ QString Time::toString() const
     QString timeString;
 
     if (weeks != 0) {
-        timeString += (weeks > 1 ? QObject::tr("%1 Weeks").arg(weeks) : QObject::tr("%1 Week").arg(weeks)) + " ";
+        timeString += weeks + " " + (weeks > 1 ? QObject::tr("Weeks") : QObject::tr("Week")) + " ";
     }
 
     if (days != 0) {
-        timeString += (days > 1 ? QObject::tr("%1 Days").arg(days) : QObject::tr("%1 Day").arg(days)) + " ";
+        timeString += days + " " + (days > 1 ? QObject::tr("Days") : QObject::tr("Day")) + " ";
     }
 
     if (hours != 0) {
-        timeString += (hours > 1 ? QObject::tr("%1 Hours").arg(hours) : QObject::tr("%1 Hour").arg(hours)) + " ";;
+        timeString += hours + " " + (hours > 1 ? QObject::tr("Hours") : QObject::tr("Hour")) + " ";
     }
 
     if (minutes != 0) {
-        timeString += (minutes > 1 ? QObject::tr("%1 Minutes").arg(minutes) : QObject::tr("%1 Minute").arg(minutes)) + " ";;
+        timeString += minutes + " " + (minutes > 1 ? QObject::tr("Minutes") : QObject::tr("Minute")) + " ";
     }
 
     if (seconds != 0) {
-        timeString += (seconds > 1 ? QObject::tr("%1 Seconds").arg(seconds) : QObject::tr("%1 Second").arg(seconds)) + " ";;
+        timeString += seconds + " " + (seconds > 1 ? QObject::tr("Seconds") : QObject::tr("Second")) + " ";
     }
 
     return timeString;
@@ -105,23 +105,23 @@ QString Time::toShortString() const
     QString timeString;
 
     if (weeks != 0) {
-        timeString += QObject::tr("%1w").arg(weeks) + " ";;
+        timeString += QString::number(weeks) + QObject::tr("w") + " ";
     }
 
     if (days != 0) {
-        timeString += QObject::tr("%1d").arg(days) + " ";;
+        timeString += QString::number(days) + QObject::tr("d") + " ";
     }
 
     if (hours != 0) {
-        timeString += QObject::tr("%1h").arg(hours) + " ";;
+        timeString += QString::number(hours) + QObject::tr("h") + " ";
     }
 
     if (minutes != 0) {
-        timeString += QObject::tr("%1m").arg(minutes) + " ";;
+        timeString += QString::number(minutes) + QObject::tr("m") + " ";
     }
 
     if (seconds != 0) {
-        timeString += QObject::tr("%1s").arg(seconds) + " ";;
+        timeString += QString::number(seconds) + QObject::tr("s") + " ";
     }
 
     return timeString;

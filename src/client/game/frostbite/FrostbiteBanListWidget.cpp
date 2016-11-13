@@ -54,15 +54,15 @@ FrostbiteBanListWidget::FrostbiteBanListWidget(FrostbiteClient *client, QWidget 
     ui->comboBox_type->addItems(banIdTypeList);
 
     QStringList reasonList = {
-        tr("Hacking/Cheating"),
-        tr("Admin abuse"),
-        tr("Make room for reserved slots"),
-        tr("Being disrespectful"),
-        tr("Teamkilling"),
-        tr("Spawnkilling"),
-        tr("Camping"),
-        tr("Team balance"),
-        tr("Switching to winning team")
+        "Hacking/Cheating",
+        "Admin abuse",
+        "Make room for reserved slots",
+        "Being disrespectful",
+        "Teamkilling",
+        "Spawnkilling",
+        "Camping",
+        "Team balance",
+        "Switching to winning team"
     };
 
     QCompleter *completer = new QCompleter(reasonList, this);

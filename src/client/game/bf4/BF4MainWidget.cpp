@@ -117,52 +117,45 @@ void BF4MainWidget::onDisconnected()
 void BF4MainWidget::onServerInfoCommand(const BF4ServerInfo &serverInfo)
 {
     // Update the server information.
-    ui->label_si_status->setToolTip(tr("<table>"
-                                          "<tr>"
-                                              "<td>External IP address and port:</td>"
-                                              "<td>%1</td>"
-                                          "</tr>"
-
-                                          "<tr>"
-                                              "<td></td>"
-                                          "</tr>"
-
-                                          "<tr>"
-                                              "<td>Region:</td>"
-                                              "<td>%4</td>"
-                                          "</tr>"
-                                          "<tr>"
-                                              "<td>Country:</td>"
-                                              "<td>%5</td>"
-                                          "</tr>"
-                                          "<tr>"
-                                              "<td>Closest ping site:</td>"
-                                              "<td>%6</td>"
-                                          "</tr>"
-
-                                          "<tr>"
-                                              "<td></td>"
-                                          "</tr>"
-
-                                          "<tr>"
-                                              "<td>Blaze player count:</td>"
-                                              "<td>%7</td>"
-                                          "</tr>"
-                                          "<tr>"
-                                              "<td>Blaze game stat:</td>"
-                                              "<td>%8</td>"
-                                          "</tr>"
-                                          "<tr>"
-                                              "<td>Punkbuster Server:</td>"
-                                              "<td>%9</td>"
-                                          "</tr>"
-                                      "</table>").arg(serverInfo.getGameIpAndPort())
-                                                 .arg(serverInfo.getRegion(),
-                                                      serverInfo.getCountry(),
-                                                      serverInfo.getClosestPingSite())
-                                                 .arg(serverInfo.getBlazePlayerCount())
-                                                 .arg(serverInfo.getBlazeGameState(),
-                                                      serverInfo.getPunkBusterVersion()));
+    ui->label_si_status->setToolTip(QString("<table>"
+                                                "<tr>"
+                                                    "<td>" + tr("External IP address and port") + ":</td>"
+                                                    "<td>%1</td>"
+                                                "</tr>"
+                                                "<tr>"
+                                                    "<td></td>"
+                                                "</tr>"
+                                                "<tr>"
+                                                    "<td>" + tr("Region") + ":</td>"
+                                                    "<td>%4</td>"
+                                                "</tr>"
+                                                "<tr>"
+                                                    "<td>" + tr("Country") + ":</td>"
+                                                    "<td>%5</td>"
+                                                "</tr>"
+                                                "<tr>"
+                                                    "<td>" + tr("Closest ping site") + ":</td>"
+                                                    "<td>%6</td>"
+                                                "</tr>"
+                                                "<tr>"
+                                                    "<td></td>"
+                                                "</tr>"
+                                                "<tr>"
+                                                    "<td>" + tr("Blaze player count") + ":</td>"
+                                                    "<td>%7</td>"
+                                                "</tr>"
+                                                 "<tr>"
+                                                    "<td>" + tr("Blaze game stat") + ":</td>"
+                                                    "<td>%8</td>"
+                                                 "</tr>"
+                                                "<tr>"
+                                                    "<td>" + tr("Punkbuster Server") + ":</td>"
+                                                    "<td>%9</td>"
+                                                "</tr>"
+                                            "</table>").arg(serverInfo.getGameIpAndPort())
+                                                       .arg(serverInfo.getRegion(), serverInfo.getCountry(), serverInfo.getClosestPingSite())
+                                                       .arg(serverInfo.getBlazePlayerCount())
+                                                       .arg(serverInfo.getBlazeGameState(), serverInfo.getPunkBusterVersion()));
 }
 
 // Admin

@@ -30,12 +30,12 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     ui->setupUi(this);
 
     // Sets application title
-    setWindowTitle(tr("About %1 %2").arg(APP_NAME, APP_VERSION));
+    setWindowTitle(tr("About") + " " + APP_NAME + " " + APP_VERSION);
 
     // About
-    ui->label_ab_info->setText(tr("<p>A open-source cross-platform RCON administration tool, written in C++.</p>"));
-    ui->label_ab_built->setText(tr("<p>Built on %2 at %3</p>").arg(__DATE__).arg(__TIME__));
-    ui->label_ab_copyright->setText(tr("<p>Copyright &copy; %4 %5</p>").arg(APP_YEAR).arg(APP_AUTHOR));
+    ui->label_ab_info->setText("<p>" + tr("A open-source cross-platform RCON administration tool, written in C++.") + "</p>");
+    ui->label_ab_built->setText("<p>" + tr("Built on %2 at %3.").arg(__DATE__).arg(__TIME__) + "</p>");
+    ui->label_ab_copyright->setText("<p>" + tr("Copyright") + " &copy; " + QString::number(APP_YEAR) + " " + APP_AUTHOR + "</p>");
     ui->label_ab_disclaimer->setText("<p>The program is provided AS IS with NO WARRANTY OF ANY KIND, <br />"
                                      "INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND <br />"
                                      "FITNESS FOR A PARTICULAR PURPOSE.</p>");
@@ -47,8 +47,8 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDia
     ui->textBrowser_li->setText(getFile(":/COPYING"));
 
     // Thanks to
-    ui->label_th->setText(tr("<p>We would like to thank Sourceforge.net for their services and support.<br />"
-                             "A big thank to GitHub! For making a coders everyday easier.</p>"));
+    ui->label_th->setText("<p>" + tr("We would like to thank Sourceforge.net for their services and support.") + "<br />" +
+                          tr("A big thank to GitHub! For making a coders everyday easier.") + "</p>");
 
     connect(ui->pushButton_ab_close, &QPushButton::clicked, this, &QDialog::accept);
 }
