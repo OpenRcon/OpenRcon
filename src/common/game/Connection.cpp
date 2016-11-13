@@ -36,7 +36,7 @@ Connection::Connection(QObject *parent) :
 
 Connection::~Connection()
 {
-    hostDisconnect();
+
 }
 
 void Connection::hostConnect(ServerEntry *serverEntry)
