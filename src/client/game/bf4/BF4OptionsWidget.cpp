@@ -31,7 +31,9 @@ BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
     ui->setupUi(this);
 
     // Initialize preset comboBox with preset types.
-    ui->comboBox_gameplay_preset->addItems(BF4Preset::asList());
+    for (QString presetName : BF4Preset::asList()) {
+        ui->comboBox_gameplay_preset->addItem(presetName, QVariant::fromValue(BF4Preset::fromString(presetName)));
+    }
 
     // Initialize unlock mode comboBox with unlock modes.
     for (QString unlockModeName : Frostbite2UnlockMode::asList()) {
@@ -379,7 +381,12 @@ void BF4OptionsWidget::onVarsPlayerRespawnTimeCommand(int respawnTime)
 
 void BF4OptionsWidget::onVarsPresetCommand(const BF4PresetEnum &preset, bool lockPresetSetting)
 {
-    ui->comboBox_gameplay_preset->setCurrentIndex(BF4Preset::toInt(preset));
+    for (int index = 0; index < ui->comboBox_gameplay_preset->count(); index++) {
+        if (preset == ui->comboBox_gameplay_preset->itemData(index).value<BF4PresetEnum>()) {
+            ui->comboBox_gameplay_preset->setCurrentIndex(index);
+        }
+    }
+
     ui->checkBox_gameplay_presetLockPresetSetting->setChecked(lockPresetSetting);
 }
 
