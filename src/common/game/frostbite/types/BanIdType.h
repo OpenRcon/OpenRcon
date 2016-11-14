@@ -23,6 +23,8 @@
 #include <QMetaType>
 
 class QString;
+template<class T>
+class QList;
 class QStringList;
 
 enum class BanIdTypeEnum {
@@ -38,10 +40,12 @@ public:
     static QString toString(const BanIdTypeEnum &banIdType);
     static BanIdTypeEnum fromInt(int banIdTypeId);
     static int toInt(const BanIdTypeEnum &banIdType);
-    static QStringList asList();
+    static QList<BanIdTypeEnum> asList();
+    static QStringList asStringList();
 
 private:
-    static QStringList list;
+    static QList<BanIdTypeEnum> list;
+    static QStringList stringList;
 
 };
 

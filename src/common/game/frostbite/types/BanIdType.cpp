@@ -17,6 +17,7 @@
 * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QList>
 #include <QString>
 #include <QStringList>
 
@@ -24,7 +25,13 @@
 
 #include "FrostbiteUtils.h"
 
-QStringList BanIdType::list = {
+QList<BanIdTypeEnum> BanIdType::list = {
+    BanIdTypeEnum::Name,
+    BanIdTypeEnum::IP,
+    BanIdTypeEnum::GUID
+};
+
+QStringList BanIdType::stringList = {
     "Name",
     "IP",
     "GUID"
@@ -48,7 +55,7 @@ BanIdTypeEnum BanIdType::fromString(const QString &banIdTypeString)
 
 QString BanIdType::toString(const BanIdTypeEnum &banIdType)
 {
-    return list.at(toInt(banIdType));
+    return stringList.at(toInt(banIdType));
 }
 
 BanIdTypeEnum BanIdTypefromInt(int banIdTypeId)
@@ -61,7 +68,12 @@ int BanIdType::toInt(const BanIdTypeEnum &banIdType)
     return static_cast<int>(banIdType);
 }
 
-QStringList BanIdType::asList()
+QList<BanIdTypeEnum> BanIdType::asList()
 {
     return list;
+}
+
+QStringList BanIdType::asStringList()
+{
+    return stringList;
 }
