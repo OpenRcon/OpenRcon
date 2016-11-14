@@ -430,11 +430,18 @@ void BF4OptionsWidget::onVarsServerMessageCommand(const QString &serverMessage)
 
 void BF4OptionsWidget::onVarsServerTypeCommand(const BF4ServerTypeEnum &serverType)
 {
-    ui->label_configuration_serverType->setText(BF4ServerType::toString(serverType));
+    ui->label_configuration_serverType->setText("<b>" + BF4ServerType::toString(serverType) + "</b>");
 
-    if (serverType == BF4ServerTypeEnum::Ranked) {
+    switch (serverType) {
+    case BF4ServerTypeEnum::Official:
+    case BF4ServerTypeEnum::Ranked:
+        ui->checkBox_configuration_punkBuster->setEnabled(false);
         ui->checkBox_configuration_fairFight->setEnabled(false);
         ui->lineEdit_configuration_gamePassword->setEnabled(false);
+        break;
+
+    default:
+        break;
     }
 }
 
@@ -450,6 +457,8 @@ void BF4OptionsWidget::onVarsTicketBleedRateCommand(int percent)
 
 void BF4OptionsWidget::onVarsUnlockModeCommand(const Frostbite2UnlockModeEnum &unlockMode)
 {
+    // TODO: Figure out what serverTypes does not accept different values here.
+
     for (int index = 0; index < ui->comboBox_gameplay_unlockMode->count(); index++) {
         if (unlockMode == ui->comboBox_gameplay_unlockMode->itemData(index).value<Frostbite2UnlockModeEnum>()) {
             ui->comboBox_gameplay_unlockMode->setCurrentIndex(index);
