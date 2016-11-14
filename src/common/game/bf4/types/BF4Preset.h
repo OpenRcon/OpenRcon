@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 201 The OpenRcon Project.
+ * Copyright (C) 2016 The OpenRcon Project.
  *
  * This file is part of OpenRcon.
  *
@@ -20,6 +20,8 @@
 #ifndef BF4PRESET_H
 #define BF4PRESET_H
 
+#include <QMetaType>
+
 class QString;
 class QStringList;
 
@@ -36,6 +38,7 @@ class BF4Preset
 public:
     static BF4PresetEnum fromString(const QString &presetName);
     static QString toString(const BF4PresetEnum &preset);
+    static BF4PresetEnum fromInt(int presetId);
     static int toInt(const BF4PresetEnum &preset);
     static QStringList asList();
 
@@ -43,5 +46,8 @@ private:
     static QStringList list;
 
 };
+
+// For use with QVariant
+Q_DECLARE_METATYPE(BF4PresetEnum)
 
 #endif // BF4PRESET_H

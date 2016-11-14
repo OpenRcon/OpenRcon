@@ -36,6 +36,7 @@ class BanIdType
 public:
     static BanIdTypeEnum fromString(const QString &banIdTypeString);
     static QString toString(const BanIdTypeEnum &banIdType);
+    static BanIdTypeEnum fromInt(int banIdTypeId);
     static int toInt(const BanIdTypeEnum &banIdType);
     static QStringList asList();
 

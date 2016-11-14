@@ -20,9 +20,9 @@
 #include <QStringList>
 #include <QString>
 
-#include <QDebug>
-
 #include "BF4ServerType.h"
+
+#include "FrostbiteUtils.h"
 
 QStringList BF4ServerType::list = {
     "Official",
@@ -34,15 +34,16 @@ QStringList BF4ServerType::list = {
 
 BF4ServerTypeEnum BF4ServerType::fromString(const QString &serverTypeName)
 {
+    QString serverTypeNameCamelCase = FrostbiteUtils::toCamelCase(serverTypeName);
     BF4ServerTypeEnum serverType = BF4ServerTypeEnum::Unknown;
 
-    if (serverTypeName == "Official") {
+    if (serverTypeNameCamelCase == "Official") {
         serverType = BF4ServerTypeEnum::Official;
-    } else if (serverTypeName == "Ranked") {
+    } else if (serverTypeNameCamelCase == "Ranked") {
         serverType = BF4ServerTypeEnum::Ranked;
-    } else if (serverTypeName == "Unranked") {
+    } else if (serverTypeNameCamelCase == "Unranked") {
         serverType = BF4ServerTypeEnum::Unranked;
-    } else if (serverTypeName == "Private") {
+    } else if (serverTypeNameCamelCase == "Private") {
         serverType = BF4ServerTypeEnum::Private;
     }
 
@@ -51,7 +52,12 @@ BF4ServerTypeEnum BF4ServerType::fromString(const QString &serverTypeName)
 
 QString BF4ServerType::toString(const BF4ServerTypeEnum &serverType)
 {
-    return list.at(static_cast<int>(serverType));
+    return list.at(toInt(serverType));
+}
+
+BF4ServerTypeEnum BF4ServerType::fromInt(int serverTypeId)
+{
+    return static_cast<BF4ServerTypeEnum>(serverTypeId);
 }
 
 int BF4ServerType::toInt(const BF4ServerTypeEnum &serverType)

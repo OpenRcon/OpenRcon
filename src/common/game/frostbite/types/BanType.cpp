@@ -21,6 +21,7 @@
 #include <QStringList>
 
 #include "BanType.h"
+
 #include "FrostbiteUtils.h"
 
 QStringList BanType::list = {
@@ -48,6 +49,11 @@ BanTypeEnum BanType::fromString(const QString &banTypeString)
 QString BanType::toString(const BanTypeEnum &banType)
 {
     return list.at(toInt(banType));
+}
+
+BanTypeEnum BanType::fromInt(int banTypeId)
+{
+    return static_cast<BanTypeEnum>(banTypeId);
 }
 
 int BanType::toInt(const BanTypeEnum &banType)

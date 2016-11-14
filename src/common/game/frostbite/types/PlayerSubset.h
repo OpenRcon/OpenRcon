@@ -38,6 +38,7 @@ class PlayerSubset
 public:
     static PlayerSubsetEnum fromString(const QString &playerSubsetName);
     static QString toString(const PlayerSubsetEnum &playerSubset);
+    static PlayerSubsetEnum fromInt(int playuerSubsetId);
     static int toInt(const PlayerSubsetEnum &playerSubset);
     static QStringList asList();
 

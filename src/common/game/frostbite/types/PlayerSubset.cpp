@@ -21,6 +21,7 @@
 #include <QStringList>
 
 #include "PlayerSubset.h"
+
 #include "FrostbiteUtils.h"
 
 QStringList PlayerSubset::list = {
@@ -53,7 +54,17 @@ PlayerSubsetEnum PlayerSubset::fromString(const QString &playerSubsetName)
 
 QString PlayerSubset::toString(const PlayerSubsetEnum &playerSubset)
 {
-    return list.at(static_cast<int>(playerSubset));
+    return list.at(toInt(playerSubset));
+}
+
+PlayerSubsetEnum PlayerSubset::fromInt(int playuerSubsetId)
+{
+    return static_cast<PlayerSubsetEnum>(playuerSubsetId);
+}
+
+int PlayerSubset::toInt(const PlayerSubsetEnum &playerSubset)
+{
+    return static_cast<int>(playerSubset);
 }
 
 QStringList PlayerSubset::asList()

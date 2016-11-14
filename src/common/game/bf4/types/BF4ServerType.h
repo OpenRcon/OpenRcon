@@ -36,6 +36,7 @@ class BF4ServerType
 public:
     static BF4ServerTypeEnum fromString(const QString &serverTypeName);
     static QString toString(const BF4ServerTypeEnum &serverType);
+    static BF4ServerTypeEnum fromInt(int serverTypeId);
     static int toInt(const BF4ServerTypeEnum &serverType);
     static QStringList asList();
 

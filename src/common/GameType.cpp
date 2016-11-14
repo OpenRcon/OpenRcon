@@ -48,6 +48,11 @@ QString GameType::toString(const GameTypeEnum &gameType)
     return list.at(toInt(gameType));
 }
 
+GameTypeEnum GameType::fromInt(int gameTypeId)
+{
+    return static_cast<GameTypeEnum>(gameTypeId);
+}
+
 int GameType::toInt(const GameTypeEnum &gameType)
 {
     return static_cast<int>(gameType);

@@ -22,6 +22,8 @@
 
 #include "BF4Preset.h"
 
+#include "FrostbiteUtils.h"
+
 QStringList BF4Preset::list = {
     "Normal",
     "Classic",
@@ -32,17 +34,18 @@ QStringList BF4Preset::list = {
 
 BF4PresetEnum BF4Preset::fromString(const QString &presetName)
 {
+    QString presetNameCamelCase = FrostbiteUtils::toCamelCase(presetName);
     BF4PresetEnum preset = BF4PresetEnum::Normal;
 
-    if (presetName == "Normal") {
+    if (presetNameCamelCase == "Normal") {
         preset = BF4PresetEnum::Normal;
-    } else if (presetName == "Classic") {
+    } else if (presetNameCamelCase == "Classic") {
         preset = BF4PresetEnum::Classic;
-    } else if (presetName == "Hardcore") {
+    } else if (presetNameCamelCase == "Hardcore") {
         preset = BF4PresetEnum::Hardcore;
-    } else if (presetName == "Infantry") {
+    } else if (presetNameCamelCase == "Infantry") {
         preset = BF4PresetEnum::Infantry;
-    } else if (presetName == "Custom") {
+    } else if (presetNameCamelCase == "Custom") {
         preset = BF4PresetEnum::Custom;
     }
 
@@ -51,7 +54,12 @@ BF4PresetEnum BF4Preset::fromString(const QString &presetName)
 
 QString BF4Preset::toString(const BF4PresetEnum &preset)
 {
-    return list.at(static_cast<int>(preset));
+    return list.at(toInt(preset));
+}
+
+BF4PresetEnum BF4Preset::fromInt(int presetId)
+{
+    return static_cast<BF4PresetEnum>(presetId);
 }
 
 int BF4Preset::toInt(const BF4PresetEnum &preset)

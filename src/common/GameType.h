@@ -37,6 +37,7 @@ class GameType
 public:
     static GameTypeEnum fromString(const QString &game);
     static QString toString(const GameTypeEnum &gameType);
+    static GameTypeEnum fromInt(int gameTypeId);
     static int toInt(const GameTypeEnum &gameType);
     static QStringList asList();
 
