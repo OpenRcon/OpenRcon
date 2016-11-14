@@ -45,13 +45,9 @@ FrostbiteBanListWidget::FrostbiteBanListWidget(FrostbiteClient *client, QWidget 
     timer->start();
     connect(timer, &QTimer::timeout, this, &FrostbiteBanListWidget::update);
 
-    QStringList banIdTypeList = {
-        tr("Name"),
-        tr("IP"),
-        tr("GUID")
-    };
-
-    ui->comboBox_type->addItems(banIdTypeList);
+    for (BanIdTypeEnum banIdType : BanIdType::asList()) {
+        ui->comboBox_type->addItem(BanIdType::toString(banIdType), QVariant::fromValue(banIdType));
+    }
 
     QStringList reasonList = {
         "Hacking/Cheating",
@@ -253,7 +249,7 @@ void FrostbiteBanListWidget::comboBox_by_currentIndexChanged(int index)
 
 void FrostbiteBanListWidget::pushButton_ban_clicked()
 {
-    BanIdTypeEnum banIdType = BanIdType::fromString(ui->comboBox_type->currentText());
+    BanIdTypeEnum banIdType = ui->comboBox_type->itemData(ui->comboBox_type->currentIndex()).value<BanIdTypeEnum>();
     QString value = ui->lineEdit_value->text();
     QString reason = ui->lineEdit_reason->text();
 
