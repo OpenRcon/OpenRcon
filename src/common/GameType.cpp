@@ -25,7 +25,7 @@
 QStringList GameType::list = {
     "BFBC2",
     "BF3",
-    "BF4",
+    "BF4"
 };
 
 GameTypeEnum GameType::fromString(const QString &game)
@@ -45,7 +45,12 @@ GameTypeEnum GameType::fromString(const QString &game)
 
 QString GameType::toString(const GameTypeEnum &gameType)
 {
-    return list.at(static_cast<int>(gameType));
+    return list.at(toInt(gameType));
+}
+
+int GameType::toInt(const GameTypeEnum &gameType)
+{
+    return static_cast<int>(gameType);
 }
 
 QStringList GameType::asList()

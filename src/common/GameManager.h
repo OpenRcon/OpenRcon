@@ -28,7 +28,6 @@ class QList;
 
 class GameEntry;
 enum class GameTypeEnum;
-class GameWidget;
 class ServerEntry;
 
 class GameManager : public QObject
@@ -36,14 +35,13 @@ class GameManager : public QObject
     Q_OBJECT
 
 public:
-    static bool isGameSupported(int index);
+    static bool isGameSupported(int gameId);
     static GameEntry getGame(GameTypeEnum gameType);
-    static GameEntry getGame(int index);
+    static GameEntry getGame(int gameId);
     static GameEntry getGame(const QString &gamePrefix);
     static QList<GameEntry> getGames();
-    static GameWidget *getGameWidget(ServerEntry *serverEntry);
     static int toInt(GameTypeEnum gameType);
-    static GameTypeEnum toGameType(int gameType);
+    static GameTypeEnum toGameType(int gameTypeId);
     static GameTypeEnum toGameType(const QString &gameType);
 
 private: 

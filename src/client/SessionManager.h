@@ -35,6 +35,7 @@ public:
     ~SessionManager();
 
     static SessionManager *getInstance(QObject *parent = nullptr);
+    static GameWidget *getGameWidget(ServerEntry *serverEntry);
 
     void openSession(ServerEntry *serverEntry);
     void closeSession(GameWidget *gameWidget);

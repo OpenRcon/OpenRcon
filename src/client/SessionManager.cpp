@@ -23,6 +23,11 @@
 
 #include "SessionManager.h"
 
+#include "GameType.h"
+#include "BFBC2MainWidget.h"
+#include "BF3MainWidget.h"
+#include "BF4MainWidget.h"
+
 #include "TabWidget.h"
 #include "GameEntry.h"
 #include "GameManager.h"
@@ -53,6 +58,31 @@ SessionManager *SessionManager::getInstance(QObject *parent)
     return instance;
 }
 
+GameWidget *SessionManager::getGameWidget(ServerEntry *serverEntry)
+{
+    GameWidget *gameWidget = nullptr;
+
+    switch (serverEntry->getGameType()) {
+    case GameTypeEnum::BFBC2:
+        gameWidget = new BFBC2MainWidget(serverEntry);
+        break;
+
+    case GameTypeEnum::BF3:
+        gameWidget = new BF3MainWidget(serverEntry);
+        break;
+
+    case GameTypeEnum::BF4:
+        gameWidget = new BF4MainWidget(serverEntry);
+        break;
+
+    default:
+        qDebug() << tr("Unknown game requested.");
+        break;
+    }
+
+    return gameWidget;
+}
+
 void SessionManager::openSession(ServerEntry *serverEntry)
 {
     // Add ServerEntry to the list.
@@ -61,7 +91,7 @@ void SessionManager::openSession(ServerEntry *serverEntry)
 
         TabWidget *tabWidget = TabWidget::getInstance();
         GameEntry gameEntry = GameManager::getGame(serverEntry->getGameType());
-        GameWidget *gameWidget = GameManager::getGameWidget(serverEntry);
+        GameWidget *gameWidget = SessionManager::getGameWidget(serverEntry);
 
         int index = tabWidget->addTab(gameWidget, QIcon(gameEntry.getIcon()), serverEntry->getName());
         tabWidget->setTabToolTip(index, QString("%1:%2").arg(serverEntry->getHost()).arg(serverEntry->getPort()));

@@ -21,13 +21,10 @@
 #include <QList>
 
 #include "GameManager.h"
+
 #include "GameEntry.h"
 #include "ServerEntry.h"
 #include "GameType.h"
-
-#include "BFBC2MainWidget.h"
-#include "BF3MainWidget.h"
-#include "BF4MainWidget.h"
 
 QList<GameEntry> GameManager::gameList = {
     // Adds all games to the list.
@@ -36,9 +33,9 @@ QList<GameEntry> GameManager::gameList = {
     GameEntry(GameTypeEnum::BF4,       "BF4",       "Battlefield 4",              ":/bf4/icons/bf4.png",             47200)
 };
 
-bool GameManager::isGameSupported(int index)
+bool GameManager::isGameSupported(int gameId)
 {
-    return index < gameList.length();
+    return gameId < gameList.length();
 }
 
 GameEntry GameManager::getGame(GameTypeEnum gameType)
@@ -46,10 +43,10 @@ GameEntry GameManager::getGame(GameTypeEnum gameType)
     return getGame(toInt(gameType));
 }
 
-GameEntry GameManager::getGame(int index)
+GameEntry GameManager::getGame(int gameId)
 {
-    if (index < gameList.length()) {
-        return gameList.at(index);
+    if (gameId < gameList.length()) {
+        return gameList.at(gameId);
     }
 
     return GameEntry();
@@ -71,39 +68,14 @@ QList<GameEntry> GameManager::getGames()
     return gameList;
 }
 
-GameWidget *GameManager::getGameWidget(ServerEntry *serverEntry)
-{
-    GameWidget *gameWidget = nullptr;
-
-    switch (serverEntry->getGameType()) {
-    case GameTypeEnum::BFBC2:
-        gameWidget = new BFBC2MainWidget(serverEntry);
-        break;
-
-    case GameTypeEnum::BF3:
-        gameWidget = new BF3MainWidget(serverEntry);
-        break;
-
-    case GameTypeEnum::BF4:
-        gameWidget = new BF4MainWidget(serverEntry);
-        break;
-
-    default:
-        qDebug() << tr("Unknown game requested.");
-        break;
-    }
-
-    return gameWidget;
-}
-
 int GameManager::toInt(GameTypeEnum gameType)
 {
     return static_cast<int>(gameType);
 }
 
-GameTypeEnum GameManager::toGameType(int gameType)
+GameTypeEnum GameManager::toGameType(int gameTypeId)
 {
-    return static_cast<GameTypeEnum>(gameType);
+    return static_cast<GameTypeEnum>(gameTypeId);
 }
 
 GameTypeEnum GameManager::toGameType(const QString &gameType)
