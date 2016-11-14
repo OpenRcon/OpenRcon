@@ -77,7 +77,8 @@ BF4Client::BF4Client(ServerEntry *serverEntry, QObject *parent) :
         { 166185, "R52" },
         { 171730, "R53" },
         { 176744, "R55" },
-        { 177035, "R56" }
+        { 177035, "R56" },
+        { 179171, "R58" }
     };
 }
 
