@@ -38,74 +38,74 @@ QString BFBC2LevelDictionary::imagePath = ":/bfbc2/levels";
 template<>
 QList<BFBC2LevelEntry> BFBC2LevelDictionary::levelList = {
     /* List of all levels */
-    BFBC2LevelEntry("levels/mp_001",              "Panama Canal",       QList<int>({ 1, 2 }), imagePath, "panama_canal.png",       BFBC2ModEnum::BC2),     // 0
-    BFBC2LevelEntry("levels/mp_003",              "Laguna Alta",        QList<int>({ 1, 2 }), imagePath, "laguna_alta.png",        BFBC2ModEnum::BC2),     // 1
-    BFBC2LevelEntry("levels/mp_005",              "Atacama Desert",     QList<int>({ 1, 2 }), imagePath, "atacama_desert.png",     BFBC2ModEnum::BC2),     // 2
-    BFBC2LevelEntry("levels/mp_006cq",            "Arica Harbor",       QList<int>({ 1, 2 }), imagePath, "arica_harbor.png",       BFBC2ModEnum::BC2),     // 3
-    BFBC2LevelEntry("levels/mp_007",              "White Pass",         QList<int>({ 1, 2 }), imagePath, "white_pass.png",         BFBC2ModEnum::BC2),     // 4
-    BFBC2LevelEntry("levels/mp_008cq",            "Nelson Bay",         QList<int>({ 1, 2 }), imagePath, "nelson_bay.png",         BFBC2ModEnum::BC2),     // 5
-    BFBC2LevelEntry("levels/mp_009cq",            "Laguna Presa",       QList<int>({ 1, 2 }), imagePath, "laguna_presa.png",       BFBC2ModEnum::BC2),     // 6
-    BFBC2LevelEntry("levels/mp_012cq",            "Port Valdez",        QList<int>({ 1, 2 }), imagePath, "port_valdez.png",        BFBC2ModEnum::BC2),     // 7
-    BFBC2LevelEntry("levels/bc1_oasis_cq",        "Oasis",              QList<int>({ 1, 2 }), imagePath, "oasis.png",              BFBC2ModEnum::BC2),     // 8
-    BFBC2LevelEntry("levels/bc1_harvest_day_cq",  "Harvest Day",        QList<int>({ 1, 2 }), imagePath, "harvest_day.png",        BFBC2ModEnum::BC2),     // 9
-    BFBC2LevelEntry("levels/mp_sp_005cq",         "Heavy Metal",        QList<int>({ 1, 2 }), imagePath, "heavy_metal.png",        BFBC2ModEnum::BC2),     // 10
+    BFBC2LevelEntry("Levels/MP_001",              "Panama Canal",       QList<int>({ 1, 2 }), imagePath, "panama_canal.png",       BFBC2ModEnum::BC2),     // 0
+    BFBC2LevelEntry("Levels/MP_003",              "Laguna Alta",        QList<int>({ 1, 2 }), imagePath, "laguna_alta.png",        BFBC2ModEnum::BC2),     // 1
+    BFBC2LevelEntry("Levels/MP_005",              "Atacama Desert",     QList<int>({ 1, 2 }), imagePath, "atacama_desert.png",     BFBC2ModEnum::BC2),     // 2
+    BFBC2LevelEntry("Levels/MP_006CQ",            "Arica Harbor",       QList<int>({ 1, 2 }), imagePath, "arica_harbor.png",       BFBC2ModEnum::BC2),     // 3
+    BFBC2LevelEntry("Levels/MP_007",              "White Pass",         QList<int>({ 1, 2 }), imagePath, "white_pass.png",         BFBC2ModEnum::BC2),     // 4
+    BFBC2LevelEntry("Levels/MP_008CQ",            "Nelson Bay",         QList<int>({ 1, 2 }), imagePath, "nelson_bay.png",         BFBC2ModEnum::BC2),     // 5
+    BFBC2LevelEntry("Levels/MP_009CQ",            "Laguna Presa",       QList<int>({ 1, 2 }), imagePath, "laguna_presa.png",       BFBC2ModEnum::BC2),     // 6
+    BFBC2LevelEntry("Levels/MP_012CQ",            "Port Valdez",        QList<int>({ 1, 2 }), imagePath, "port_valdez.png",        BFBC2ModEnum::BC2),     // 7
+    BFBC2LevelEntry("Levels/BC1_OASIS_CQ",        "Oasis",              QList<int>({ 1, 2 }), imagePath, "oasis.png",              BFBC2ModEnum::BC2),     // 8
+    BFBC2LevelEntry("Levels/BC1_HARVEST_DAY_CQ",  "Harvest Day",        QList<int>({ 1, 2 }), imagePath, "harvest_day.png",        BFBC2ModEnum::BC2),     // 9
+    BFBC2LevelEntry("Levels/MP_sp_005CQ",         "Heavy Metal",        QList<int>({ 1, 2 }), imagePath, "heavy_metal.png",        BFBC2ModEnum::BC2),     // 10
 
-    BFBC2LevelEntry("levels/nam_mp_002cq",        "Vantage Point",      QList<int>({ 1, 3 }), imagePath, "vantage_point.png",      BFBC2ModEnum::VIETNAM), // 11
-    BFBC2LevelEntry("levels/nam_mp_003cq",        "Hill 137",           QList<int>({ 1, 3 }), imagePath, "hill_137.png",           BFBC2ModEnum::VIETNAM), // 12
-    BFBC2LevelEntry("levels/nam_mp_005cq",        "Cao Son Temple",     QList<int>({ 1, 3 }), imagePath, "cao_son_temple.png",     BFBC2ModEnum::VIETNAM), // 13
-    BFBC2LevelEntry("levels/nam_mp_006cq",        "Phu Bai Valley",     QList<int>({ 1, 3 }), imagePath, "phu_bai_valley.png",     BFBC2ModEnum::VIETNAM), // 14
-    BFBC2LevelEntry("levels/nam_mp_007cq",        "Operation Hastings", QList<int>({ 1, 3 }), imagePath, "operation_hastings.png", BFBC2ModEnum::VIETNAM), // 15
+    BFBC2LevelEntry("Levels/NAM_MP_002CQ",        "Vantage Point",      QList<int>({ 1, 3 }), imagePath, "vantage_point.png",      BFBC2ModEnum::VIETNAM), // 11
+    BFBC2LevelEntry("Levels/NAM_MP_003CQ",        "Hill 137",           QList<int>({ 1, 3 }), imagePath, "hill_137.png",           BFBC2ModEnum::VIETNAM), // 12
+    BFBC2LevelEntry("Levels/NAM_MP_005CQ",        "Cao Son Temple",     QList<int>({ 1, 3 }), imagePath, "cao_son_temple.png",     BFBC2ModEnum::VIETNAM), // 13
+    BFBC2LevelEntry("Levels/NAM_MP_006CQ",        "Phu Bai Valley",     QList<int>({ 1, 3 }), imagePath, "phu_bai_valley.png",     BFBC2ModEnum::VIETNAM), // 14
+    BFBC2LevelEntry("Levels/NAM_MP_007CQ",        "Operation Hastings", QList<int>({ 1, 3 }), imagePath, "operation_hastings.png", BFBC2ModEnum::VIETNAM), // 15
 
-    BFBC2LevelEntry("levels/mp_002",              "Valparaíso",         QList<int>({ 1, 2 }), imagePath, "valparaiso.png",         BFBC2ModEnum::BC2),     // 16
-    BFBC2LevelEntry("levels/mp_004",              "Isla Inocentes",     QList<int>({ 1, 2 }), imagePath, "isla_inocentes.png",     BFBC2ModEnum::BC2),     // 17
-    BFBC2LevelEntry("levels/mp_005gr",            "Atacama Desert",     QList<int>({ 1, 2 }), imagePath, "atacama_desert.png",     BFBC2ModEnum::BC2),     // 18
-    BFBC2LevelEntry("levels/mp_006",              "Arica Harbor",       QList<int>({ 1, 2 }), imagePath, "arica_harbor.png",       BFBC2ModEnum::BC2),     // 19
-    BFBC2LevelEntry("levels/mp_007gr",            "White Pass",         QList<int>({ 1, 2 }), imagePath, "white_pass.png",         BFBC2ModEnum::BC2),     // 20
-    BFBC2LevelEntry("levels/mp_008",              "Nelson Bay",         QList<int>({ 1, 2 }), imagePath, "nelson_bay.png",         BFBC2ModEnum::BC2),     // 21
-    BFBC2LevelEntry("levels/mp_009gr",            "Laguna Presa",       QList<int>({ 1, 2 }), imagePath, "laguna_presa.png",       BFBC2ModEnum::BC2),     // 22
-    BFBC2LevelEntry("levels/mp_012gr",            "Port Valdez",        QList<int>({ 1, 2 }), imagePath, "port_valdez.png",        BFBC2ModEnum::BC2),     // 23
-    BFBC2LevelEntry("levels/bc1_oasis_gr",        "Oasis",              QList<int>({ 1, 2 }), imagePath, "oasis.png",              BFBC2ModEnum::BC2),     // 24
-    BFBC2LevelEntry("levels/bc1_harvest_day_gr",  "Harvest Day",        QList<int>({ 1, 2 }), imagePath, "harvest_day.png",        BFBC2ModEnum::BC2),     // 25
-    BFBC2LevelEntry("levels/mp_sp_002gr",         "Cold War",           QList<int>({ 1, 2 }), imagePath, "cold_war.png",           BFBC2ModEnum::BC2),     // 26
+    BFBC2LevelEntry("Levels/MP_002",              "Valparaíso",         QList<int>({ 1, 2 }), imagePath, "valparaiso.png",         BFBC2ModEnum::BC2),     // 16
+    BFBC2LevelEntry("Levels/MP_004",              "Isla Inocentes",     QList<int>({ 1, 2 }), imagePath, "isla_inocentes.png",     BFBC2ModEnum::BC2),     // 17
+    BFBC2LevelEntry("Levels/MP_005GR",            "Atacama Desert",     QList<int>({ 1, 2 }), imagePath, "atacama_desert.png",     BFBC2ModEnum::BC2),     // 18
+    BFBC2LevelEntry("Levels/MP_006",              "Arica Harbor",       QList<int>({ 1, 2 }), imagePath, "arica_harbor.png",       BFBC2ModEnum::BC2),     // 19
+    BFBC2LevelEntry("Levels/MP_007GR",            "White Pass",         QList<int>({ 1, 2 }), imagePath, "white_pass.png",         BFBC2ModEnum::BC2),     // 20
+    BFBC2LevelEntry("Levels/MP_008",              "Nelson Bay",         QList<int>({ 1, 2 }), imagePath, "nelson_bay.png",         BFBC2ModEnum::BC2),     // 21
+    BFBC2LevelEntry("Levels/MP_009GR",            "Laguna Presa",       QList<int>({ 1, 2 }), imagePath, "laguna_presa.png",       BFBC2ModEnum::BC2),     // 22
+    BFBC2LevelEntry("Levels/MP_012GR",            "Port Valdez",        QList<int>({ 1, 2 }), imagePath, "port_valdez.png",        BFBC2ModEnum::BC2),     // 23
+    BFBC2LevelEntry("Levels/BC1_OASIS_GR",        "Oasis",              QList<int>({ 1, 2 }), imagePath, "oasis.png",              BFBC2ModEnum::BC2),     // 24
+    BFBC2LevelEntry("Levels/BC1_HARVEST_DAY_GR",  "Harvest Day",        QList<int>({ 1, 2 }), imagePath, "harvest_day.png",        BFBC2ModEnum::BC2),     // 25
+    BFBC2LevelEntry("Levels/MP_sp_002GR",         "Cold War",           QList<int>({ 1, 2 }), imagePath, "cold_war.png",           BFBC2ModEnum::BC2),     // 26
 
-    BFBC2LevelEntry("levels/nam_mp_002r",         "Vantage Point",      QList<int>({ 1, 3 }), imagePath, "vantage_point.png",      BFBC2ModEnum::VIETNAM), // 27
-    BFBC2LevelEntry("levels/nam_mp_003r",         "Hill 137",           QList<int>({ 1, 3 }), imagePath, "hill_137.png",           BFBC2ModEnum::VIETNAM), // 28
-    BFBC2LevelEntry("levels/nam_mp_005r",         "Cao Son Temple",     QList<int>({ 1, 3 }), imagePath, "cao_son_temple.png",     BFBC2ModEnum::VIETNAM), // 29
-    BFBC2LevelEntry("levels/nam_mp_006r",         "Phu Bai Valley",     QList<int>({ 1, 3 }), imagePath, "phi_bai_valley.png",     BFBC2ModEnum::VIETNAM), // 30
-    BFBC2LevelEntry("levels/nam_mp_007r",         "Operation Hastings", QList<int>({ 1, 3 }), imagePath, "operation_hastings.png", BFBC2ModEnum::VIETNAM), // 31
+    BFBC2LevelEntry("Levels/NAM_MP_002R",         "Vantage Point",      QList<int>({ 1, 3 }), imagePath, "vantage_point.png",      BFBC2ModEnum::VIETNAM), // 27
+    BFBC2LevelEntry("Levels/NAM_MP_003R",         "Hill 137",           QList<int>({ 1, 3 }), imagePath, "hill_137.png",           BFBC2ModEnum::VIETNAM), // 28
+    BFBC2LevelEntry("Levels/NAM_MP_005R",         "Cao Son Temple",     QList<int>({ 1, 3 }), imagePath, "cao_son_temple.png",     BFBC2ModEnum::VIETNAM), // 29
+    BFBC2LevelEntry("Levels/NAM_MP_006R",         "Phu Bai Valley",     QList<int>({ 1, 3 }), imagePath, "phi_bai_valley.png",     BFBC2ModEnum::VIETNAM), // 30
+    BFBC2LevelEntry("Levels/NAM_MP_007R",         "Operation Hastings", QList<int>({ 1, 3 }), imagePath, "operation_hastings.png", BFBC2ModEnum::VIETNAM), // 31
 
-    BFBC2LevelEntry("levels/mp_001sr",            "Panama Canal",       QList<int>({ 1, 2 }), imagePath, "panama_canal.png",       BFBC2ModEnum::BC2),     // 32
-    BFBC2LevelEntry("levels/mp_002sr",            "Valparaíso",         QList<int>({ 1, 2 }), imagePath, "valparaiso.png",         BFBC2ModEnum::BC2),     // 33
-    BFBC2LevelEntry("levels/mp_003sr",            "Laguna Alta",        QList<int>({ 1, 2 }), imagePath, "laguna_alta.png",        BFBC2ModEnum::BC2),     // 34
-    BFBC2LevelEntry("levels/mp_005sr",            "Atacama Desert",     QList<int>({ 1, 2 }), imagePath, "atacama_desert.png",     BFBC2ModEnum::BC2),     // 35
-    BFBC2LevelEntry("levels/mp_009sr",            "Laguna Presa",       QList<int>({ 1, 2 }), imagePath, "laguna_presa.png",       BFBC2ModEnum::BC2),     // 36
-    BFBC2LevelEntry("levels/mp_012sr",            "Port Valdez",        QList<int>({ 1, 2 }), imagePath, "port_valdez.png",        BFBC2ModEnum::BC2),     // 37
-    BFBC2LevelEntry("levels/bc1_oasis_sr",        "Oasis",              QList<int>({ 1, 2 }), imagePath, "oasis.png",              BFBC2ModEnum::BC2),     // 38
-    BFBC2LevelEntry("levels/bc1_harvest_day_sr",  "Harvest Day",        QList<int>({ 1, 2 }), imagePath, "harvest_day.png",        BFBC2ModEnum::BC2),     // 39
-    BFBC2LevelEntry("levels/mp_sp_002sr",         "Cold War",           QList<int>({ 1, 2 }), imagePath, "cold_war.png",           BFBC2ModEnum::BC2),     // 40
+    BFBC2LevelEntry("Levels/MP_001SR",            "Panama Canal",       QList<int>({ 1, 2 }), imagePath, "panama_canal.png",       BFBC2ModEnum::BC2),     // 32
+    BFBC2LevelEntry("Levels/MP_002SR",            "Valparaíso",         QList<int>({ 1, 2 }), imagePath, "valparaiso.png",         BFBC2ModEnum::BC2),     // 33
+    BFBC2LevelEntry("Levels/MP_003SR",            "Laguna Alta",        QList<int>({ 1, 2 }), imagePath, "laguna_alta.png",        BFBC2ModEnum::BC2),     // 34
+    BFBC2LevelEntry("Levels/MP_005SR",            "Atacama Desert",     QList<int>({ 1, 2 }), imagePath, "atacama_desert.png",     BFBC2ModEnum::BC2),     // 35
+    BFBC2LevelEntry("Levels/MP_009SR",            "Laguna Presa",       QList<int>({ 1, 2 }), imagePath, "laguna_presa.png",       BFBC2ModEnum::BC2),     // 36
+    BFBC2LevelEntry("Levels/MP_012SR",            "Port Valdez",        QList<int>({ 1, 2 }), imagePath, "port_valdez.png",        BFBC2ModEnum::BC2),     // 37
+    BFBC2LevelEntry("Levels/BC1_OASIS_SR",        "Oasis",              QList<int>({ 1, 2 }), imagePath, "oasis.png",              BFBC2ModEnum::BC2),     // 38
+    BFBC2LevelEntry("Levels/BC1_HARVEST_DAY_SR",  "Harvest Day",        QList<int>({ 1, 2 }), imagePath, "harvest_day.png",        BFBC2ModEnum::BC2),     // 39
+    BFBC2LevelEntry("Levels/MP_SP_002SR",         "Cold War",           QList<int>({ 1, 2 }), imagePath, "cold_war.png",           BFBC2ModEnum::BC2),     // 40
 
-    BFBC2LevelEntry("levels/nam_mp_002sr",        "Vantage Point",      QList<int>({ 1, 3 }), imagePath, "vantage_point.png",      BFBC2ModEnum::VIETNAM), // 41
-    BFBC2LevelEntry("levels/nam_mp_003sr",        "Hill 137",           QList<int>({ 1, 3 }), imagePath, "hill_137.png",           BFBC2ModEnum::VIETNAM), // 42
-    BFBC2LevelEntry("levels/nam_mp_005sr",        "Cao Son Temple",     QList<int>({ 1, 3 }), imagePath, "cao_son_temple.png",     BFBC2ModEnum::VIETNAM), // 43
-    BFBC2LevelEntry("levels/nam_mp_006sr",        "Phu Bai Valley",     QList<int>({ 1, 3 }), imagePath, "phu_bai_valley.png",     BFBC2ModEnum::VIETNAM), // 44
-    BFBC2LevelEntry("levels/nam_mp_007sr",        "Operation Hastings", QList<int>({ 1, 3 }), imagePath, "operation_hastings.png", BFBC2ModEnum::VIETNAM), // 45
+    BFBC2LevelEntry("Levels/NAM_MP_002SR",        "Vantage Point",      QList<int>({ 1, 3 }), imagePath, "vantage_point.png",      BFBC2ModEnum::VIETNAM), // 41
+    BFBC2LevelEntry("Levels/NAM_MP_003SR",        "Hill 137",           QList<int>({ 1, 3 }), imagePath, "hill_137.png",           BFBC2ModEnum::VIETNAM), // 42
+    BFBC2LevelEntry("Levels/NAM_MP_005SR",        "Cao Son Temple",     QList<int>({ 1, 3 }), imagePath, "cao_son_temple.png",     BFBC2ModEnum::VIETNAM), // 43
+    BFBC2LevelEntry("Levels/NAM_MP_006SR",        "Phu Bai Valley",     QList<int>({ 1, 3 }), imagePath, "phu_bai_valley.png",     BFBC2ModEnum::VIETNAM), // 44
+    BFBC2LevelEntry("Levels/NAM_MP_007SR",        "Operation Hastings", QList<int>({ 1, 3 }), imagePath, "operation_hastings.png", BFBC2ModEnum::VIETNAM), // 45
 
-    BFBC2LevelEntry("levels/mp_001sdm",           "Panama Canal",       QList<int>({ 1, 2, 1, 2 }), imagePath, "panama_canal.png",       BFBC2ModEnum::BC2),     // 46
-    BFBC2LevelEntry("levels/mp_004sdm",           "Isla Inocentes",     QList<int>({ 1, 2, 1, 2 }), imagePath, "isla_inocentes.png",     BFBC2ModEnum::BC2),     // 47
-    BFBC2LevelEntry("levels/mp_006sdm",           "Arica Harbor",       QList<int>({ 1, 2, 1, 2 }), imagePath, "arica_harbor.png",       BFBC2ModEnum::BC2),     // 48
-    BFBC2LevelEntry("levels/mp_007sdm",           "White Pass",         QList<int>({ 1, 2, 1, 2 }), imagePath, "white_pass.png",         BFBC2ModEnum::BC2),     // 49
-    BFBC2LevelEntry("levels/mp_008sdm",           "Nelson Bay",         QList<int>({ 1, 2, 1, 2 }), imagePath, "nelson_bay.png",         BFBC2ModEnum::BC2),     // 50
-    BFBC2LevelEntry("levels/mp_009sdm",           "Laguna Presa",       QList<int>({ 1, 2, 1, 2 }), imagePath, "laguna_presa.png",       BFBC2ModEnum::BC2),     // 51
-    BFBC2LevelEntry("levels/bc1_oasis_sdm",       "Oasis",              QList<int>({ 1, 2, 2, 2 }), imagePath, "oasis.png",              BFBC2ModEnum::BC2),     // 52
-    BFBC2LevelEntry("levels/bc1_harvest_day_sdm", "Harvest Day",        QList<int>({ 1, 2, 2, 2 }), imagePath, "harvest_day.png",        BFBC2ModEnum::BC2),     // 53
-    BFBC2LevelEntry("levels/mp_sp_002sdm",        "Cold War",           QList<int>({ 1, 2, 2, 2 }), imagePath, "cold_war.png",           BFBC2ModEnum::BC2),     // 54
-    BFBC2LevelEntry("levels/mp_sp_005sdm",        "Heavy Metal",        QList<int>({ 1, 2, 2, 2 }), imagePath, "heavy_metal.png",        BFBC2ModEnum::BC2),     // 55
+    BFBC2LevelEntry("Levels/MP_001SDM",           "Panama Canal",       QList<int>({ 1, 2, 1, 2 }), imagePath, "panama_canal.png",       BFBC2ModEnum::BC2),     // 46
+    BFBC2LevelEntry("Levels/MP_004SDM",           "Isla Inocentes",     QList<int>({ 1, 2, 1, 2 }), imagePath, "isla_inocentes.png",     BFBC2ModEnum::BC2),     // 47
+    BFBC2LevelEntry("Levels/MP_006SDM",           "Arica Harbor",       QList<int>({ 1, 2, 1, 2 }), imagePath, "arica_harbor.png",       BFBC2ModEnum::BC2),     // 48
+    BFBC2LevelEntry("Levels/MP_007SDM",           "White Pass",         QList<int>({ 1, 2, 1, 2 }), imagePath, "white_pass.png",         BFBC2ModEnum::BC2),     // 49
+    BFBC2LevelEntry("Levels/MP_008SDM",           "Nelson Bay",         QList<int>({ 1, 2, 1, 2 }), imagePath, "nelson_bay.png",         BFBC2ModEnum::BC2),     // 50
+    BFBC2LevelEntry("Levels/MP_009SDM",           "Laguna Presa",       QList<int>({ 1, 2, 1, 2 }), imagePath, "laguna_presa.png",       BFBC2ModEnum::BC2),     // 51
+    BFBC2LevelEntry("Levels/BC1_OASIS_SDM",       "Oasis",              QList<int>({ 1, 2, 2, 2 }), imagePath, "oasis.png",              BFBC2ModEnum::BC2),     // 52
+    BFBC2LevelEntry("Levels/BC1_HARVEST_DAY_SDM", "Harvest Day",        QList<int>({ 1, 2, 2, 2 }), imagePath, "harvest_day.png",        BFBC2ModEnum::BC2),     // 53
+    BFBC2LevelEntry("Levels/MP_SP_002SDM",        "Cold War",           QList<int>({ 1, 2, 2, 2 }), imagePath, "cold_war.png",           BFBC2ModEnum::BC2),     // 54
+    BFBC2LevelEntry("Levels/MP_SP_005SDM",        "Heavy Metal",        QList<int>({ 1, 2, 2, 2 }), imagePath, "heavy_metal.png",        BFBC2ModEnum::BC2),     // 55
 
-    BFBC2LevelEntry("levels/nam_mp_002sdm",       "Vantage Point",      QList<int>({ 1, 3, 3, 3 }), imagePath, "vantage_point.png",      BFBC2ModEnum::VIETNAM), // 56
-    BFBC2LevelEntry("levels/nam_mp_003sdm",       "Hill 137",           QList<int>({ 1, 3, 3, 3 }), imagePath, "hill_137.png",           BFBC2ModEnum::VIETNAM), // 57
-    BFBC2LevelEntry("levels/nam_mp_005sdm",       "Cao Son Temple",     QList<int>({ 1, 3, 3, 3 }), imagePath, "cao_son_temple.png",     BFBC2ModEnum::VIETNAM), // 58
-    BFBC2LevelEntry("levels/nam_mp_006sdm",       "Phu Bai Valley",     QList<int>({ 1, 3, 3, 3 }), imagePath, "phu_bai_valley.png",     BFBC2ModEnum::VIETNAM), // 59
-    BFBC2LevelEntry("levels/nam_mp_007sdm",       "Operation Hastings", QList<int>({ 1, 3, 3, 3 }), imagePath, "operation_hastings.png", BFBC2ModEnum::VIETNAM)  // 60
+    BFBC2LevelEntry("Levels/NAM_MP_002SDM",       "Vantage Point",      QList<int>({ 1, 3, 3, 3 }), imagePath, "vantage_point.png",      BFBC2ModEnum::VIETNAM), // 56
+    BFBC2LevelEntry("Levels/NAM_MP_003SDM",       "Hill 137",           QList<int>({ 1, 3, 3, 3 }), imagePath, "hill_137.png",           BFBC2ModEnum::VIETNAM), // 57
+    BFBC2LevelEntry("Levels/NAM_MP_005SDM",       "Cao Son Temple",     QList<int>({ 1, 3, 3, 3 }), imagePath, "cao_son_temple.png",     BFBC2ModEnum::VIETNAM), // 58
+    BFBC2LevelEntry("Levels/NAM_MP_006SDM",       "Phu Bai Valley",     QList<int>({ 1, 3, 3, 3 }), imagePath, "phu_bai_valley.png",     BFBC2ModEnum::VIETNAM), // 59
+    BFBC2LevelEntry("Levels/NAM_MP_007SDM",       "Operation Hastings", QList<int>({ 1, 3, 3, 3 }), imagePath, "operation_hastings.png", BFBC2ModEnum::VIETNAM)  // 60
 };
 
 template<>
