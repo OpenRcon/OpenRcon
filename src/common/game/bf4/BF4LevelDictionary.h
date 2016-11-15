@@ -21,15 +21,21 @@
 #define BF4LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
+#include "GameType.h"
 
 class BF4GameModeEntry;
 
-typedef LevelDictionary<3, TeamEntry, LevelEntry, BF4GameModeEntry> BF4LevelDictionary;
+typedef LevelDictionary<GameTypeEnum::BF4, TeamEntry, LevelEntry, BF4GameModeEntry> BF4LevelDictionary;
 
-template<> QList<TeamEntry> BF4LevelDictionary::teamList;
-template<> QString BF4LevelDictionary::imagePath;
-template<> QList<LevelEntry> BF4LevelDictionary::levelList;
-template<> QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList;
-template<> QMultiHash<int, int> BF4LevelDictionary::levelMap;
+template<>
+QList<TeamEntry> BF4LevelDictionary::teamList;
+template<>
+QString BF4LevelDictionary::imagePath;
+template<>
+QList<LevelEntry> BF4LevelDictionary::levelList;
+template<>
+QList<BF4GameModeEntry> BF4LevelDictionary::gameModeList;
+template<>
+QMultiHash<int, int> BF4LevelDictionary::levelMap;
 
 #endif // BF4LEVELDICTIONARY_H

@@ -21,15 +21,21 @@
 #define BFBC2LEVELDICTIONARY_H
 
 #include "LevelDictionary.h"
+#include "GameType.h"
 
 class BFBC2LevelEntry;
 
-typedef LevelDictionary<1, TeamEntry, BFBC2LevelEntry, GameModeEntry> BFBC2LevelDictionary;
+typedef LevelDictionary<GameTypeEnum::BFBC2, TeamEntry, BFBC2LevelEntry, GameModeEntry> BFBC2LevelDictionary;
 
-template<> QList<TeamEntry> BFBC2LevelDictionary::teamList;
-template<> QString BFBC2LevelDictionary::imagePath;
-template<> QList<BFBC2LevelEntry> BFBC2LevelDictionary::levelList;
-template<> QList<GameModeEntry> BFBC2LevelDictionary::gameModeList;
-template<> QMultiHash<int, int> BFBC2LevelDictionary::levelMap;
+template<>
+QList<TeamEntry> BFBC2LevelDictionary::teamList;
+template<>
+QString BFBC2LevelDictionary::imagePath;
+template<>
+QList<BFBC2LevelEntry> BFBC2LevelDictionary::levelList;
+template<>
+QList<GameModeEntry> BFBC2LevelDictionary::gameModeList;
+template<>
+QMultiHash<int, int> BFBC2LevelDictionary::levelMap;
 
 #endif // BFBC2LEVELDICTIONARY_H

@@ -21,9 +21,11 @@
 #define BF3WEAPONDICTIONARY_H
 
 #include "WeaponDictionary.h"
+#include "GameType.h"
 
-typedef WeaponDictionary<2, WeaponEntry> BF3WeaponDictionary;
+typedef WeaponDictionary<GameTypeEnum::BF3, WeaponEntry> BF3WeaponDictionary;
 
-template<> QList<WeaponEntry> BF3WeaponDictionary::weaponList;
+template<>
+QList<WeaponEntry> BF3WeaponDictionary::weaponList;
 
 #endif // BF3WEAPONDICTIONARY_H

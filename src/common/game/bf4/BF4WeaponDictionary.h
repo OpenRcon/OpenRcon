@@ -21,9 +21,11 @@
 #define BF4WEAPONDICTIONARY_H
 
 #include "WeaponDictionary.h"
+#include "GameType.h"
 
-typedef WeaponDictionary<3, WeaponEntry> BF4WeaponDictionary;
+typedef WeaponDictionary<GameTypeEnum::BF4, WeaponEntry> BF4WeaponDictionary;
 
-template<> QList<WeaponEntry> BF4WeaponDictionary::weaponList;
+template<>
+QList<WeaponEntry> BF4WeaponDictionary::weaponList;
 
 #endif // BF4WEAPONDICTIONARY_H

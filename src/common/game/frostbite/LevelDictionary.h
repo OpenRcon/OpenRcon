@@ -27,16 +27,16 @@ class QString;
 template<class T>
 class QList;
 
+enum class GameTypeEnum;
 class TeamEntry;
 class LevelEntry;
 class GameModeEntry;
 
-template<int gameId, class TeamEntryType, class LevelEntryType, class GameModeEntryType>
+template<GameTypeEnum gameType, class TeamEntryType, class LevelEntryType, class GameModeEntryType>
 class LevelDictionary
 {
 public:
-    LevelDictionary()
-    {
+    LevelDictionary() {
         static_assert(std::is_base_of<TeamEntry, TeamEntryType>::value, "TeamEntryType must be a subclass of TeamEntry.");
         static_assert(std::is_base_of<LevelEntry, LevelEntryType>::value, "LevelEntryType must be a subclass of LevelEntry.");
         static_assert(std::is_base_of<GameModeEntry, GameModeEntryType>::value, "GameModeEntryType must be a subclass of GameModeEntry.");
@@ -44,102 +44,95 @@ public:
 
     ~LevelDictionary();
 
-    static const LevelEntryType &getLevel(int index)
-    {
-        return levelList.at(index);
-    }
-
-    static const LevelEntryType &getLevel(const QString &level)
-    {
-        static const LevelEntryType empty;
-
-        for (LevelEntryType &entry : levelList) {
-            if (entry.getEngineName() == level || entry.getName() == level) {
-                return entry;
-            }
-        }
-
-        return empty;
-    }
-
-    static const LevelEntryType &getLevel(int index, int gameModeIndex)
-    {
-        if (index < getLevels(gameModeIndex).length()) {
-            return getLevels(gameModeIndex).at(index);
+    static const LevelEntryType &getLevel(int levelIndex) {
+        if (levelIndex < levelList.length()) {
+            return levelList.at(levelIndex);
         }
 
         return LevelEntryType();
     }
 
-    static const QList<LevelEntryType> &getLevels()
-    {
-        return levelList;
-    }
+    static const LevelEntryType &getLevel(const QString &levelName) {
+        static const LevelEntryType empty;
 
-    static QList<LevelEntryType> getLevels(int gameModeIndex)
-    {
-        QList<LevelEntryType> list;
-
-        for (int index : levelMap.values(gameModeIndex)) {
-            list.append(levelList.at(index));
-        }
-
-        return list;
-    }
-
-    static QStringList getLevelNames()
-    {
-        QStringList list;
-
-        for (const LevelEntryType &entry : levelList) {
-            list.append(entry.name);
-        }
-
-        return list;
-    }
-
-    static QStringList getLevelNames(int gameModeIndex)
-    {
-        QStringList list;
-
-        for (LevelEntryType &entry : getLevels(gameModeIndex)) {
-            list.append(entry.getName());
-        }
-
-        return list;
-    }
-
-    static const GameModeEntryType &getGameMode(int index)
-    {
-        static const GameModeEntryType empty;
-
-        if (index < gameModeList.length()) {
-            return gameModeList.at(index);
-        }
-
-        return empty;
-    }
-
-    static const GameModeEntryType &getGameMode(const QString &level)
-    {
-        static const GameModeEntryType empty;
-
-        for (GameModeEntryType &entry : gameModeList) {
-            if (entry.getEngineName() == level || entry.getName() == level) {
-                return entry;
+        for (LevelEntryType &levelEntry : levelList) {
+            if (levelName == levelEntry.getEngineName() || levelName == levelEntry.getName()) {
+                return levelEntry;
             }
         }
 
         return empty;
     }
 
-    static const QList<GameModeEntryType> &getGameModes()
-    {
+    static const LevelEntryType &getLevel(int levelIndex, int gameModeIndex) {
+        if (levelIndex < getLevels(gameModeIndex).length()) {
+            return getLevels(gameModeIndex).at(levelIndex);
+        }
+
+        return LevelEntryType();
+    }
+
+    static const QList<LevelEntryType> &getLevels() {
+        return levelList;
+    }
+
+    static QList<LevelEntryType> getLevels(int gameModeIndex) {
+        QList<LevelEntryType> list;
+
+        for (int levelIndex : levelMap.values(gameModeIndex)) {
+            list.append(levelList.at(levelIndex));
+        }
+
+        return list;
+    }
+
+    static QStringList getLevelNames() {
+        QStringList list;
+
+        for (const LevelEntryType &levelEntry : levelList) {
+            list.append(levelEntry.getName());
+        }
+
+        return list;
+    }
+
+    static QStringList getLevelNames(int gameModeIndex) {
+        QStringList list;
+
+        for (LevelEntryType &levelEntry : getLevels(gameModeIndex)) {
+            list.append(levelEntry.getName());
+        }
+
+        return list;
+    }
+
+    static const GameModeEntryType &getGameMode(int gameModeIndex) {
+        static const GameModeEntryType empty;
+
+        if (gameModeIndex < gameModeList.length()) {
+            return gameModeList.at(gameModeIndex);
+        }
+
+        return empty;
+    }
+
+    static const GameModeEntryType &getGameMode(const QString &levelName) {
+        static const GameModeEntryType empty;
+
+        for (GameModeEntryType &gameModeEntry : gameModeList) {
+            if (levelName == gameModeEntry.getEngineName() || levelName == gameModeEntry.getName()) {
+                return gameModeEntry;
+            }
+        }
+
+        return empty;
+    }
+
+    static const QList<GameModeEntryType> &getGameModes() {
         return gameModeList;
     }
 
-    static QStringList getGameModeNames()
-    {
+    static QStringList getGameModeNames() {
         QStringList list;
 
         for (GameModeEntryType &entry : gameModeList) {
@@ -149,22 +142,19 @@ public:
         return list;
     }
 
-    static TeamEntryType getTeam(int index)
-    {
-        if (index < teamList.length()) {
-            return teamList.at(index);
+    static TeamEntryType getTeam(int teamIndex) {
+        if (teamIndex < teamList.length()) {
+            return teamList.at(teamIndex);
         }
 
         return TeamEntryType();
     }
 
-    static QList<TeamEntryType> getTeams()
-    {
+    static QList<TeamEntryType> getTeams() {
         return teamList;
     }
 
-    static QList<TeamEntryType> getTeams(const QList<int> teamIdList)
-    {
+    static QList<TeamEntryType> getTeams(const QList<int> teamIdList) {
         QList<TeamEntryType> teamList;
 
         for (int teamId : teamIdList) {

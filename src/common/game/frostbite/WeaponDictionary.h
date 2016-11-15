@@ -24,25 +24,24 @@ class QString;
 template<class T>
 class QList;
 
+enum class GameTypeEnum;
 class WeaponEntry;
 
-template<int gameId, typename WeaponEntryType>
+template<GameTypeEnum gameType, class WeaponEntryType>
 class WeaponDictionary
 {
 public:
-    WeaponDictionary()
-    {
+    WeaponDictionary() {
         static_assert(std::is_base_of<WeaponEntry, WeaponEntryType>::value, "WeaponEntryType must be a subclass of WeaponEntry.");
     }
 
     ~WeaponDictionary();
 
-    static WeaponEntryType getWeapon(const QString &name)
-    {
+    static WeaponEntryType getWeapon(const QString &weaponName) {
         static WeaponEntryType empty;
 
         for (WeaponEntryType weaponEntry : weaponList) {
-            if (weaponEntry.getName() == name) {
+            if (weaponName == weaponEntry.getName()) {
                 return weaponEntry;
             }
         }
@@ -50,8 +49,7 @@ public:
         return empty;
     }
 
-    static QList<WeaponEntryType> getWeapons()
-    {
+    static QList<WeaponEntryType> getWeapons() {
         return weaponList;
     }
 
