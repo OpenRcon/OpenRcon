@@ -194,8 +194,15 @@ void FrostbiteMainWidget::onServerInfoCommand(const FrostbiteServerInfo &serverI
     ui->label_si_status->setText(level.getName() + " - " + gameMode.getName());
 
     // Update the players and round information.
+    int roundsPlayed = serverInfo.getRoundsPlayed();
+
+    // Workaround for offset by increment roundPlayed by one for all other games than BFBC2.
+    if (gameType != GameTypeEnum::BFBC2) {
+        roundsPlayed++;
+    }
+
     ui->label_si_players->setText("<b>" + tr("Players") + "</b>: " + tr("%1 of %2").arg(serverInfo.getPlayerCount()).arg(serverInfo.getMaxPlayerCount()));
-    ui->label_si_round->setText("<b>" + tr("Round") + "</b>: " + tr("%1 of %2").arg(serverInfo.getRoundsPlayed() + 1).arg(serverInfo.getRoundsTotal()));
+    ui->label_si_round->setText("<b>" + tr("Round") + "</b>: " + tr("%1 of %2").arg(roundsPlayed).arg(serverInfo.getRoundsTotal()));
 }
 
 void FrostbiteMainWidget::onVersionCommand(const QString &type, int build)
