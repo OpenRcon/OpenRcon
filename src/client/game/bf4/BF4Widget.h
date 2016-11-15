@@ -31,7 +31,7 @@ public:
     BF4Widget(BF4Client *client, QWidget *parent = nullptr);
     virtual ~BF4Widget() override;
 
-    BF4Client *getClient() final {
+    BF4Client *getClient() const final {
         return static_cast<BF4Client*>(client);
     }
 };

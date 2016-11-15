@@ -31,7 +31,7 @@ public:
     BF4Client(ServerEntry *serverEntry, QObject *parent = nullptr);
     ~BF4Client() final;
 
-    BF4CommandHandler *getCommandHandler() final {
+    BF4CommandHandler *getCommandHandler() const final {
         return static_cast<BF4CommandHandler*>(commandHandler);
     }
 };

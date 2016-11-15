@@ -31,7 +31,7 @@ public:
     BFBC2MainWidget(ServerEntry *serverEntry, QWidget *parent = nullptr);
     ~BFBC2MainWidget() final;
 
-    BFBC2Client *getClient() final {
+    BFBC2Client *getClient() const final {
         return static_cast<BFBC2Client*>(client);
     }
 

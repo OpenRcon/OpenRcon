@@ -31,7 +31,7 @@ public:
     BFBC2Client(ServerEntry *serverEntry, QObject *parent = nullptr);
     ~BFBC2Client() final;
 
-    BFBC2CommandHandler *getCommandHandler() final {
+    BFBC2CommandHandler *getCommandHandler() const final {
         return static_cast<BFBC2CommandHandler*>(commandHandler);
     }
 };

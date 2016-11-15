@@ -31,7 +31,7 @@ public:
     BF3Client(ServerEntry *serverEntry, QObject *parent = nullptr);
     ~BF3Client() final;
 
-    BF3CommandHandler *getCommandHandler() final {
+    BF3CommandHandler *getCommandHandler() const final {
         return static_cast<BF3CommandHandler*>(commandHandler);
     }
 };

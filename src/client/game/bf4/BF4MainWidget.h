@@ -37,7 +37,7 @@ public:
     BF4MainWidget(ServerEntry *serverEntry, QWidget *parent = nullptr);
     ~BF4MainWidget() final;
 
-    BF4Client *getClient() final {
+    BF4Client *getClient() const final {
         return static_cast<BF4Client*>(client);
     }
 

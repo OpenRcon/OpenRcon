@@ -31,7 +31,7 @@ public:
     Frostbite2Client(ServerEntry *serverEntry, Frostbite2CommandHandler *commandHandler, QObject *parent = nullptr);
     virtual ~Frostbite2Client() override;
 
-    virtual Frostbite2CommandHandler *getCommandHandler() override {
+    virtual Frostbite2CommandHandler *getCommandHandler() const override {
         return static_cast<Frostbite2CommandHandler*>(commandHandler);
     }
 };

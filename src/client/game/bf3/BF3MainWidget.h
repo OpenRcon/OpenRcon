@@ -33,7 +33,7 @@ public:
     BF3MainWidget(ServerEntry *serverEntry, QWidget *parent = nullptr);
     ~BF3MainWidget() final;
 
-    BF3Client *getClient() final {
+    BF3Client *getClient() const final {
         return static_cast<BF3Client*>(client);
     }
 
