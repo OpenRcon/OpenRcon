@@ -34,7 +34,7 @@ public:
     GameWidget(Client *client, QWidget *parent = nullptr);
     virtual ~GameWidget();
 
-    virtual Client *getClient() {
+    virtual Client *getClient() const {
         return client;
     }
 

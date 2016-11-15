@@ -31,7 +31,7 @@ public:
     BFBC2Widget(BFBC2Client *client, QWidget *parent = nullptr);
     virtual ~BFBC2Widget() override;
 
-    BFBC2Client *getClient() final {
+    BFBC2Client *getClient() const final {
         return static_cast<BFBC2Client*>(client);
     }
 };

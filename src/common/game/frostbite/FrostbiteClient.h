@@ -39,11 +39,11 @@ public:
     FrostbiteClient(ServerEntry *serverEntry, FrostbiteCommandHandler *commandHandler, QObject *parent = nullptr);
     virtual ~FrostbiteClient() override;
 
-    FrostbiteConnection *getConnection() final {
+    FrostbiteConnection *getConnection() const final {
         return connection;
     }
 
-    virtual FrostbiteCommandHandler *getCommandHandler() override {
+    virtual FrostbiteCommandHandler *getCommandHandler() const override {
         return commandHandler;
     }
 

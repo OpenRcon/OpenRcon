@@ -31,7 +31,7 @@ public:
     Frostbite2Widget(Frostbite2Client *client, QWidget *parent = nullptr);
     virtual ~Frostbite2Widget() override;
 
-    virtual Frostbite2Client *getClient() override {
+    virtual Frostbite2Client *getClient() const override {
         return static_cast<Frostbite2Client*>(client);
     }
 };

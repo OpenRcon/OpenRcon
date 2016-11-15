@@ -34,8 +34,8 @@ public:
     Client(ServerEntry *serverEntry, QObject *parent = nullptr);
     virtual ~Client();
 
-    virtual Connection *getConnection() = 0;
-    virtual CommandHandler *getCommandHandler() = 0;
+    virtual Connection *getConnection() const = 0;
+    virtual CommandHandler *getCommandHandler() const = 0;
     virtual void connectToHost() = 0;
     virtual void disconnectFromHost() = 0;
 
