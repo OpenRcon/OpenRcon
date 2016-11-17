@@ -30,6 +30,7 @@ public:
     }
 
     virtual QString getName() const = 0;
+    virtual QString getDescription() const = 0;
 
 };
 

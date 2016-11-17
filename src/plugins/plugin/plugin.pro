@@ -1,11 +1,10 @@
-QT += widgets
+include(../plugin.pri)
 
-CONFIG += plugin
+QT += gui \
+    widgets
 
-TEMPLATE = lib
 TARGET = plugin
 
-HEADERS += $$PWD/PluginInterface.h \
-    $$PWD/Plugin.h
+HEADERS += Plugin.h
 
-SOURCES += $$PWD/Plugin.cpp
+SOURCES += Plugin.cpp

@@ -1,4 +1,5 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/PluginInterface.h
+HEADERS += PluginInterface.h

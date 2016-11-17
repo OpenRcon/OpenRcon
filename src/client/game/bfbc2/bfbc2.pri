@@ -1,10 +1,11 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/BFBC2Widget.h \
-    $$PWD/BFBC2MainWidget.h
+HEADERS += BFBC2Widget.h \
+    BFBC2MainWidget.h
 
-SOURCES += $$PWD/BFBC2Widget.cpp \
-    $$PWD/BFBC2MainWidget.cpp
+SOURCES += BFBC2Widget.cpp \
+    BFBC2MainWidget.cpp
 
-RESOURCES += $$PWD/BFBC2.qrc
+RESOURCES += BFBC2.qrc

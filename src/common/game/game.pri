@@ -1,13 +1,14 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/Connection.h \
-    $$PWD/CommandHandler.h \
-    $$PWD/Client.h
+HEADERS += Connection.h \
+    CommandHandler.h \
+    Client.h
 
-SOURCES += $$PWD/Connection.cpp \
-    $$PWD/CommandHandler.cpp \
-    $$PWD/Client.cpp
+SOURCES += Connection.cpp \
+    CommandHandler.cpp \
+    Client.cpp
 
 include(frostbite/frostbite.pri)
 include(bfbc2/bfbc2.pri)

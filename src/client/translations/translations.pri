@@ -1,6 +1,7 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-TRANSLATIONS += $$PWD/nb_NO.ts
+TRANSLATIONS += nb_NO.ts
 
-RESOURCES += $$PWD/Translations.qrc
+RESOURCES += Translations.qrc

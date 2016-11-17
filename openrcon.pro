@@ -1,6 +1,8 @@
+
 TEMPLATE = subdirs
 
-SUBDIRS += src
+SUBDIRS += src/client \
+    src/plugins
 
 DISTFILES += AUTHORS \
     CHANGES \

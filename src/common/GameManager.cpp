@@ -23,7 +23,6 @@
 #include "GameManager.h"
 
 #include "GameEntry.h"
-#include "ServerEntry.h"
 #include "GameType.h"
 
 QList<GameEntry> GameManager::gameList = {

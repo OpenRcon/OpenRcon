@@ -1,10 +1,11 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/BF3Widget.h \
-    $$PWD/BF3MainWidget.h
+HEADERS += BF3Widget.h \
+    BF3MainWidget.h
 
-SOURCES += $$PWD/BF3Widget.cpp \
-    $$PWD/BF3MainWidget.cpp
+SOURCES += BF3Widget.cpp \
+    BF3MainWidget.cpp
 
-RESOURCES += $$PWD/BF3.qrc
+RESOURCES += BF3.qrc

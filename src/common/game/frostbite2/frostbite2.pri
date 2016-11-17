@@ -1,10 +1,11 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/Frostbite2Client.h \
-    $$PWD/Frostbite2CommandHandler.h
+HEADERS += Frostbite2Client.h \
+    Frostbite2CommandHandler.h
 
-SOURCES += $$PWD/Frostbite2Client.cpp \
-    $$PWD/Frostbite2CommandHandler.cpp
+SOURCES += Frostbite2Client.cpp \
+    Frostbite2CommandHandler.cpp
 
 include(types/types.pri)

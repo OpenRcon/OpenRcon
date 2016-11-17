@@ -1,22 +1,23 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/FrostbiteClient.h \
-    $$PWD/FrostbiteCommandHandler.h \
-    $$PWD/FrostbiteConnection.h \
-    $$PWD/FrostbiteRconPacket.h \
-    $$PWD/FrostbiteRconPacketOrigin.h \
-    $$PWD/FrostbiteRconPacketType.h \
-    $$PWD/FrostbiteRconWord.h \
-    $$PWD/FrostbiteUtils.h \
-    $$PWD/LevelDictionary.h \
-    $$PWD/WeaponDictionary.h
+HEADERS += FrostbiteClient.h \
+    FrostbiteCommandHandler.h \
+    FrostbiteConnection.h \
+    FrostbiteRconPacket.h \
+    FrostbiteRconPacketOrigin.h \
+    FrostbiteRconPacketType.h \
+    FrostbiteRconWord.h \
+    FrostbiteUtils.h \
+    LevelDictionary.h \
+    WeaponDictionary.h
 
-SOURCES += $$PWD/FrostbiteClient.cpp \
-    $$PWD/FrostbiteCommandHandler.cpp \
-    $$PWD/FrostbiteConnection.cpp \
-    $$PWD/FrostbiteRconPacket.cpp \
-    $$PWD/FrostbiteRconWord.cpp \
-    $$PWD/FrostbiteUtils.cpp
+SOURCES += FrostbiteClient.cpp \
+    FrostbiteCommandHandler.cpp \
+    FrostbiteConnection.cpp \
+    FrostbiteRconPacket.cpp \
+    FrostbiteRconWord.cpp \
+    FrostbiteUtils.cpp
 
 include(types/types.pri)

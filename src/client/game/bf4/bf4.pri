@@ -1,22 +1,23 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/BF4Widget.h \
-    $$PWD/BF4MainWidget.h \
-    $$PWD/BF4PlayerListWidget.h \
-    $$PWD/BF4OptionsWidget.h \
-    $$PWD/BF4MapListWidget.h \
-    $$PWD/BF4SpectatorSlotsWidget.h
+HEADERS += BF4Widget.h \
+    BF4MainWidget.h \
+    BF4PlayerListWidget.h \
+    BF4OptionsWidget.h \
+    BF4MapListWidget.h \
+    BF4SpectatorSlotsWidget.h
 
-SOURCES += $$PWD/BF4Widget.cpp \
-    $$PWD/BF4MainWidget.cpp \
-    $$PWD/BF4PlayerListWidget.cpp \
-    $$PWD/BF4OptionsWidget.cpp \
-    $$PWD/BF4MapListWidget.cpp \
-    $$PWD/BF4SpectatorSlotsWidget.cpp
+SOURCES += BF4Widget.cpp \
+    BF4MainWidget.cpp \
+    BF4PlayerListWidget.cpp \
+    BF4OptionsWidget.cpp \
+    BF4MapListWidget.cpp \
+    BF4SpectatorSlotsWidget.cpp
 
-FORMS += $$PWD/BF4OptionsWidget.ui \
-    $$PWD/BF4MapListWidget.ui \
-    $$PWD/BF4SpectatorSlotsWidget.ui
+FORMS += BF4OptionsWidget.ui \
+    BF4MapListWidget.ui \
+    BF4SpectatorSlotsWidget.ui
 
-RESOURCES += $$PWD/BF4.qrc
+RESOURCES += BF4.qrc

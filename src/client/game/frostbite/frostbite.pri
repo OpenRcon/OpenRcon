@@ -1,24 +1,25 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/FrostbiteWidget.h \
-    $$PWD/FrostbiteMainWidget.h \
-    $$PWD/FrostbiteEventsWidget.h \
-    $$PWD/FrostbiteChatWidget.h \
-    $$PWD/FrostbiteBanListWidget.h \
-    $$PWD/FrostbiteConsoleWidget.h
+HEADERS += FrostbiteWidget.h \
+    FrostbiteMainWidget.h \
+    FrostbiteEventsWidget.h \
+    FrostbiteChatWidget.h \
+    FrostbiteBanListWidget.h \
+    FrostbiteConsoleWidget.h
 
-SOURCES += $$PWD/FrostbiteWidget.cpp \
-    $$PWD/FrostbiteMainWidget.cpp \
-    $$PWD/FrostbiteEventsWidget.cpp \
-    $$PWD/FrostbiteChatWidget.cpp \
-    $$PWD/FrostbiteBanListWidget.cpp \
-    $$PWD/FrostbiteConsoleWidget.cpp
+SOURCES += FrostbiteWidget.cpp \
+    FrostbiteMainWidget.cpp \
+    FrostbiteEventsWidget.cpp \
+    FrostbiteChatWidget.cpp \
+    FrostbiteBanListWidget.cpp \
+    FrostbiteConsoleWidget.cpp
 
-FORMS += $$PWD/FrostbiteMainWidget.ui \
-    $$PWD/FrostbiteEventsWidget.ui \
-    $$PWD/FrostbiteChatWidget.ui \
-    $$PWD/FrostbiteBanListWidget.ui \
-    $$PWD/FrostbiteConsoleWidget.ui
+FORMS += FrostbiteMainWidget.ui \
+    FrostbiteEventsWidget.ui \
+    FrostbiteChatWidget.ui \
+    FrostbiteBanListWidget.ui \
+    FrostbiteConsoleWidget.ui
 
-RESOURCES += $$PWD/Frostbite.qrc
+RESOURCES += Frostbite.qrc

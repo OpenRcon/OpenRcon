@@ -1,19 +1,20 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/TabWidget.h \
-    $$PWD/AboutDialog.h \
-    $$PWD/OptionsDialog.h \
-    $$PWD/ServerListDialog.h \
-    $$PWD/ServerEditDialog.h
+HEADERS += TabWidget.h \
+    AboutDialog.h \
+    OptionsDialog.h \
+    ServerListDialog.h \
+    ServerEditDialog.h
 
-SOURCES += $$PWD/TabWidget.cpp \
-    $$PWD/AboutDialog.cpp \
-    $$PWD/OptionsDialog.cpp \
-    $$PWD/ServerListDialog.cpp \
-    $$PWD/ServerEditDialog.cpp
+SOURCES += TabWidget.cpp \
+    AboutDialog.cpp \
+    OptionsDialog.cpp \
+    ServerListDialog.cpp \
+    ServerEditDialog.cpp
 
-FORMS += $$PWD/AboutDialog.ui \
-    $$PWD/OptionsDialog.ui \
-    $$PWD/ServerListDialog.ui \
-    $$PWD/ServerEditDialog.ui
+FORMS += AboutDialog.ui \
+    OptionsDialog.ui \
+    ServerListDialog.ui \
+    ServerEditDialog.ui

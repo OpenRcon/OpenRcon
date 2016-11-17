@@ -1,13 +1,14 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/DragDropTreeWidget.h \
-    $$PWD/HistoryLineEdit.h \
-    $$PWD/GameWidget.h
+HEADERS += DragDropTreeWidget.h \
+    HistoryLineEdit.h \
+    GameWidget.h
 
-SOURCES += $$PWD/DragDropTreeWidget.cpp \
-    $$PWD/HistoryLineEdit.cpp \
-    $$PWD/GameWidget.cpp
+SOURCES += DragDropTreeWidget.cpp \
+    HistoryLineEdit.cpp \
+    GameWidget.cpp
 
 include(frostbite/frostbite.pri)
 include(bfbc2/bfbc2.pri)

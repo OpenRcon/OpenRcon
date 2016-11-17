@@ -28,7 +28,7 @@
 #include <QPluginLoader>
 #include <QDebug>
 
-#include "plugins/PluginInterface.h"
+#include "PluginInterface.h"
 
 int main(int argc, char *argv[])
 {
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
     // Load plugins.
     QPluginLoader pluginLoader;
-    QFileInfoList libs = QDir(QApplication::applicationDirPath()).entryInfoList(QDir::Files);
+    QFileInfoList libs = QDir(QApplication::applicationDirPath() + "/plugins").entryInfoList(QDir::Files);
 
     for (const QFileInfo &libinfo : libs) {
         QString libname = libinfo.absoluteFilePath();

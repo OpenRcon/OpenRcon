@@ -28,7 +28,6 @@ class QList;
 
 class GameEntry;
 enum class GameTypeEnum;
-class ServerEntry;
 
 class GameManager : public QObject
 {

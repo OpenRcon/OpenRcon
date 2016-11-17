@@ -1,12 +1,13 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/BFBC2Client.h \
-    $$PWD/BFBC2CommandHandler.h \
-    $$PWD/BFBC2LevelDictionary.h
+HEADERS += BFBC2Client.h \
+    BFBC2CommandHandler.h \
+    BFBC2LevelDictionary.h
 
-SOURCES += $$PWD/BFBC2Client.cpp \
-    $$PWD/BFBC2CommandHandler.cpp \
-    $$PWD/BFBC2LevelDictionary.cpp
+SOURCES += BFBC2Client.cpp \
+    BFBC2CommandHandler.cpp \
+    BFBC2LevelDictionary.cpp
 
 include(types/types.pri)

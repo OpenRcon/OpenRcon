@@ -33,6 +33,7 @@ class Plugin : public QObject, public PluginInterface
     Q_INTERFACES(PluginInterface)
 
 public:
+    Plugin();
     ~Plugin() final;
 
     QString getName() const final;
