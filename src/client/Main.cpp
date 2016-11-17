@@ -24,8 +24,10 @@
 
 #include "OpenRcon.h"
 
+#include <QDir>
 #include <QPluginLoader>
 #include <QDebug>
+
 #include "plugins/PluginInterface.h"
 
 int main(int argc, char *argv[])
@@ -49,14 +51,22 @@ int main(int argc, char *argv[])
     OpenRcon o;
     o.show();
 
-    QPluginLoader pluginLoader("plugin.dll");
-    QObject *plugin = pluginLoader.instance();
+    // Load plugins.
+    QPluginLoader pluginLoader;
+    QFileInfoList libs = QDir(QApplication::applicationDirPath()).entryInfoList(QDir::Files);
 
-    if (plugin) {
-        PluginInterface *pluginInterface = qobject_cast<PluginInterface*>(plugin);
-        qDebug() << "Plugin name: " << pluginInterface->getName();
+    for (const QFileInfo &libinfo : libs) {
+        QString libname = libinfo.absoluteFilePath();
 
-        qDebug() << "Plugin loaded.";
+        if (QLibrary::isLibrary(libname)) {
+            pluginLoader.setFileName(libname);
+
+            if (pluginLoader.load()) {
+                PluginInterface *pluginInterface = qobject_cast<PluginInterface*>(pluginLoader.instance());
+
+                qDebug() << "Loaded plugin: " << pluginInterface->getName();
+            }
+        }
     }
 
     return app.exec();

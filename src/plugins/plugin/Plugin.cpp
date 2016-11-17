@@ -21,17 +21,16 @@
 
 #include "Plugin.h"
 
-Plugin::Plugin()
-{
-    qDebug() << "Plugin with name plugin loaded.";
-}
-
-Plugin::~Plugin()
-{
+Plugin::~Plugin() {
 
 }
 
 QString Plugin::getName() const
 {
-    return "It works!";
+    return "Plugin";
+}
+
+QString Plugin::getDescription() const
+{
+    return "Plugin Description";
 }
