@@ -26,25 +26,28 @@
 
 QStringList BF4Preset::list = {
     "Normal",
-    "Classic",
     "Hardcore",
     "Infantry",
+    "Noob",
+    "Classic",
     "Custom"
 };
 
 BF4PresetEnum BF4Preset::fromString(const QString &presetName)
 {
     QString presetNameCamelCase = FrostbiteUtils::toCamelCase(presetName);
-    BF4PresetEnum preset = BF4PresetEnum::Normal;
+    BF4PresetEnum preset = BF4PresetEnum::Custom;
 
     if (presetNameCamelCase == "Normal") {
         preset = BF4PresetEnum::Normal;
-    } else if (presetNameCamelCase == "Classic") {
-        preset = BF4PresetEnum::Classic;
     } else if (presetNameCamelCase == "Hardcore") {
         preset = BF4PresetEnum::Hardcore;
     } else if (presetNameCamelCase == "Infantry") {
         preset = BF4PresetEnum::Infantry;
+    } else if (presetNameCamelCase == "Noob") {
+        preset = BF4PresetEnum::Noob;
+    } else if (presetNameCamelCase == "Classic") {
+        preset = BF4PresetEnum::Classic;
     } else if (presetNameCamelCase == "Custom") {
         preset = BF4PresetEnum::Custom;
     }

@@ -27,9 +27,10 @@ class QStringList;
 
 enum class BF4PresetEnum {
     Normal,
-    Classic,
     Hardcore,
     Infantry,
+    Noob,
+    Classic,
     Custom
 };
 
