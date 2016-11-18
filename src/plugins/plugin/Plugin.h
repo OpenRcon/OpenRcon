@@ -36,6 +36,7 @@ public:
     Plugin();
     ~Plugin() final;
 
+    GameTypeEnum getGameType() const final;
     QString getName() const final;
     QString getDescription() const final;
 

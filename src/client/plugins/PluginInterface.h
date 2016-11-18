@@ -22,6 +22,8 @@
 
 class QString;
 
+enum class GameTypeEnum;
+
 class PluginInterface
 {
 public:
@@ -29,6 +31,7 @@ public:
 
     }
 
+    virtual GameTypeEnum getGameType() const = 0;
     virtual QString getName() const = 0;
     virtual QString getDescription() const = 0;
 

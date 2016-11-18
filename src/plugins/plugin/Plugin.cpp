@@ -19,6 +19,8 @@
 
 #include "Plugin.h"
 
+#include "GameType.h"
+
 Plugin::Plugin()
 {
 
@@ -26,6 +28,11 @@ Plugin::Plugin()
 
 Plugin::~Plugin() {
 
+}
+
+GameTypeEnum Plugin::getGameType() const
+{
+    return GameTypeEnum::BF4;
 }
 
 QString Plugin::getName() const
