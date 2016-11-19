@@ -117,6 +117,7 @@ FrostbiteMainWidget::FrostbiteMainWidget(FrostbiteClient *client, QWidget *paren
 FrostbiteMainWidget::~FrostbiteMainWidget()
 {
     delete ui;
+    delete client;
 }
 
 /* Connection */
