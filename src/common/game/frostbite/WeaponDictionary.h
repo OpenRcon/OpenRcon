@@ -37,10 +37,10 @@ public:
 
     ~WeaponDictionary();
 
-    static WeaponEntryType getWeapon(const QString &weaponName) {
-        static WeaponEntryType empty;
+    static const WeaponEntryType &getWeapon(const QString &weaponName) {
+        static const WeaponEntryType empty;
 
-        for (WeaponEntryType weaponEntry : weaponList) {
+        for (const WeaponEntryType &weaponEntry : weaponList) {
             if (weaponName == weaponEntry.getName()) {
                 return weaponEntry;
             }
@@ -49,7 +49,7 @@ public:
         return empty;
     }
 
-    static QList<WeaponEntryType> getWeapons() {
+    static const QList<WeaponEntryType> &getWeapons() {
         return weaponList;
     }
 
