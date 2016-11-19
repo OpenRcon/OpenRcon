@@ -104,6 +104,7 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
 
     /* Client */
     connect(client,                      &Client::onAuthenticated,                             this, &BF4PlayerListWidget::onAuthenticated);
+    connect(client,                      &Client::onAuthenticated,                             client->getCommandHandler(), &FrostbiteCommandHandler::sendServerInfoCommand);
     connect(client,                      &Client::onAuthenticated,                             this, &BF4PlayerListWidget::updatePlayerList);
 
     /* Events */
@@ -119,7 +120,7 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
     connect(client->getCommandHandler(), &FrostbiteCommandHandler::onPlayerTeamChangeEvent,    this, &BF4PlayerListWidget::updatePlayerList);
 
     /* Commands */
-    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const Frostbite2ServerInfo&)>(&Frostbite2CommandHandler::onServerInfoCommand),
+    connect(client->getCommandHandler(), static_cast<void (FrostbiteCommandHandler::*)(const FrostbiteServerInfo&)>(&FrostbiteCommandHandler::onServerInfoCommand),
             this, &BF4PlayerListWidget::onServerInfoCommand);
     connect(client->getCommandHandler(), static_cast<void (Frostbite2CommandHandler::*)(const QList<BF4PlayerEntry>&)>(&Frostbite2CommandHandler::onListPlayersCommand),
             this, &BF4PlayerListWidget::onListPlayersCommand);
@@ -139,7 +140,7 @@ BF4PlayerListWidget::BF4PlayerListWidget(Frostbite2Client *client, QWidget *pare
 
 BF4PlayerListWidget::~BF4PlayerListWidget()
 {
-    delete client;
+
 }
 
 void BF4PlayerListWidget::clear()
@@ -213,11 +214,6 @@ void BF4PlayerListWidget::onAuthenticated()
 }
 
 /* Commands */
-void BF4PlayerListWidget::onServerInfoCommand(const Frostbite2ServerInfo &serverInfo)
-{
-    currentLevel = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
-}
-
 void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &playerList)
 {
     // Clear the QTreeWidget and item.
@@ -254,28 +250,26 @@ void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &play
         teamIdList.insert(playerEntry.getTeamId());
     }
 
-    for (int teamId = 0; teamId <= 2; teamId++) {
-        if (teamId > 0 || (teamId == 0 && teamIdList.contains(teamId))) {
-            TeamEntry team = BF4LevelDictionary::getTeam(teamId != 0 ? currentLevel.getTeamList().at(teamId - 1) : 0);
-            QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
-            teamItem->setData(0, Qt::UserRole, teamId);
-            teamItem->setIcon(0, team.getImage());
-            teamItem->setText(0, team.getName());
+    for (int teamId : teamIdList) {
+        TeamEntry team = BF4LevelDictionary::getTeam(levelEntry, teamId);
+        QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
+        teamItem->setData(0, Qt::UserRole, teamId);
+        teamItem->setIcon(0, team.getImage());
+        teamItem->setText(0, team.getName());
 
-            // Add players to the teamItem.
-            for (QTreeWidgetItem *playerItem : playerItemList) {
-                if (teamId == playerItem->data(0, Qt::UserRole).toInt()) {
-                    teamItem->addChild(playerItem);
-                }
+        // Add players to the teamItem.
+        for (QTreeWidgetItem *playerItem : playerItemList) {
+            if (teamId == playerItem->data(0, Qt::UserRole).toInt()) {
+                teamItem->addChild(playerItem);
             }
-
-            // Add the team to the menu_player_move menu.
-            action_player_move_team = new QAction(team.getImage(), tr("Team %1").arg(team.getName()), menu_player_move);
-            action_player_move_team->setCheckable(true);
-            action_player_move_team->setData(teamId);
-
-            menu_player_move->addAction(action_player_move_team);
         }
+
+        // Add the team to the menu_player_move menu.
+        action_player_move_team = new QAction(team.getImage(), tr("Team %1").arg(team.getName()), menu_player_move);
+        action_player_move_team->setCheckable(true);
+        action_player_move_team->setData(teamId);
+
+        menu_player_move->addAction(action_player_move_team);
     }
 
     menu_player_move->addSeparator();
@@ -293,6 +287,11 @@ void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &play
 
     // Resize columns to content.
     resizeColumnsToContents();
+}
+
+void BF4PlayerListWidget::onServerInfoCommand(const FrostbiteServerInfo &serverInfo)
+{
+    levelEntry = BF4LevelDictionary::getLevel(serverInfo.getCurrentMap());
 }
 
 /* User Interface */

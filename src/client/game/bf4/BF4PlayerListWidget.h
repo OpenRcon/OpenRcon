@@ -36,7 +36,7 @@ class QList;
 class QPoint;
 
 class Frostbite2Client;
-class Frostbite2ServerInfo;
+class FrostbiteServerInfo;
 class BF4PlayerEntry;
 
 class BF4PlayerListWidget : public QTreeWidget
@@ -49,6 +49,7 @@ public:
 
 private:
     Frostbite2Client *client;
+    LevelEntry levelEntry;
 
     /* User Interface */
     // Players
@@ -68,8 +69,6 @@ private:
     QAction *action_player_copyTo_name;
     QAction *action_player_copyTo_guid;
 
-    LevelEntry currentLevel;
-
     void clear();
     QTreeWidgetItem *currentItem() const;
     void dragEnterEvent(QDragEnterEvent *event) final;
@@ -81,7 +80,7 @@ private slots:
     void onAuthenticated();
 
     /* Commands */
-    void onServerInfoCommand(const Frostbite2ServerInfo &serverInfo);
+    void onServerInfoCommand(const FrostbiteServerInfo &serverInfo);
     void onListPlayersCommand(const QList<BF4PlayerEntry> &playerList);
 
     /* User Interface */

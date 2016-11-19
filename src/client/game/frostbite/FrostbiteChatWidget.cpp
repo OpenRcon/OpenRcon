@@ -172,15 +172,15 @@ void FrostbiteChatWidget::onCurrentLevelCommand(const QString &levelName)
     // Get the list of teams depending on game.
     switch (gameType) {
     case GameTypeEnum::BFBC2:
-        teamList = BFBC2LevelDictionary::getTeams(BFBC2LevelDictionary::getLevel(levelName).getTeamList());
+        teamList = BFBC2LevelDictionary::getTeams(BFBC2LevelDictionary::getLevel(levelName));
         break;
 
     case GameTypeEnum::BF3:
-        teamList = BF3LevelDictionary::getTeams(BF3LevelDictionary::getLevel(levelName).getTeamList());
+        teamList = BF3LevelDictionary::getTeams(BF3LevelDictionary::getLevel(levelName));
         break;
 
     case GameTypeEnum::BF4:
-        teamList = BF4LevelDictionary::getTeams(BF4LevelDictionary::getLevel(levelName).getTeamList());
+        teamList = BF4LevelDictionary::getTeams(BF4LevelDictionary::getLevel(levelName));
         break;
 
     default:
