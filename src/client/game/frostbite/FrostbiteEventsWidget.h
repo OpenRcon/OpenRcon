@@ -22,6 +22,8 @@
 
 #include "FrostbiteWidget.h"
 
+#include "LevelEntry.h"
+
 class QString;
 class QAbstractSocket;
 
@@ -39,6 +41,7 @@ public:
 
 private:
     Ui::FrostbiteEventsWidget *ui;
+    LevelEntry levelEntry;
 
     void logEvent(const QString &event, const QString &message);
 
@@ -65,6 +68,9 @@ private slots:
     void onServerRoundOverEvent(int winningTeamId);
     void onServerRoundOverPlayersEvent(const QString &playerInfo);
     void onServerRoundOverTeamScoresEvent(const QString &teamScores);
+
+    /* Commands */
+    void onCurrentLevelCommand(const QString &levelName);
 
 };
 

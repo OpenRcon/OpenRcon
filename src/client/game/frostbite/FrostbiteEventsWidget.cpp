@@ -30,9 +30,10 @@
 #include "PlayerSubset.h"
 #include "WeaponEntry.h"
 #include "TeamEntry.h"
-#include "LevelEntry.h"
+#include "BFBC2LevelEntry.h"
 #include "GameModeEntry.h"
 #include "BF4GameModeEntry.h"
+#include "BFBC2LevelDictionary.h"
 #include "BF3WeaponDictionary.h"
 #include "BF3LevelDictionary.h"
 #include "BF4WeaponDictionary.h"
@@ -49,23 +50,23 @@ FrostbiteEventsWidget::FrostbiteEventsWidget(FrostbiteClient *client, QWidget *p
     ui->setupUi(this);
 
     /* Connection */
-    connect(getClient()->getConnection(),     &Connection::onConnected,                                    this, &FrostbiteEventsWidget::onConnected);
-    connect(getClient()->getConnection(),     &Connection::onDisconnected,                                 this, &FrostbiteEventsWidget::onDisconnected);
+    connect(getClient()->getConnection(),     &Connection::onConnected,                                   this, &FrostbiteEventsWidget::onConnected);
+    connect(getClient()->getConnection(),     &Connection::onDisconnected,                                this, &FrostbiteEventsWidget::onDisconnected);
 
     /* Client */
-    connect(getClient(),                      &Client::onAuthenticated,                                    this, &FrostbiteEventsWidget::onAuthenticated);
+    connect(getClient(),                      &Client::onAuthenticated,                                   this, &FrostbiteEventsWidget::onAuthenticated);
 
     /* Events */
     Frostbite2CommandHandler *frostbite2CommandHandler = dynamic_cast<Frostbite2CommandHandler*>(getClient()->getCommandHandler());
 
     if (frostbite2CommandHandler) {
-        connect(frostbite2CommandHandler,     &FrostbiteCommandHandler::onPlayerAuthenticatedEvent,       this, &FrostbiteEventsWidget::onPlayerAuthenticatedEvent);
+        connect(frostbite2CommandHandler,     &Frostbite2CommandHandler::onPlayerAuthenticatedEvent,      this, &FrostbiteEventsWidget::onPlayerAuthenticatedEvent);
     }
 
     BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(getClient()->getCommandHandler());
 
     if (bf4CommandHandler) {
-        connect(bf4CommandHandler,            &BF4CommandHandler::onPlayerDisconnectEvent,                 this, &FrostbiteEventsWidget::onPlayerDisconnectEvent);
+        connect(bf4CommandHandler,            &BF4CommandHandler::onPlayerDisconnectEvent,                this, &FrostbiteEventsWidget::onPlayerDisconnectEvent);
     }
 
     connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerJoinEvent,                this, &FrostbiteEventsWidget::onPlayerJoinEvent);
@@ -77,13 +78,16 @@ FrostbiteEventsWidget::FrostbiteEventsWidget(FrostbiteClient *client, QWidget *p
     connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onPlayerTeamChangeEvent,          this, &FrostbiteEventsWidget::onPlayerTeamChangeEvent);
 
     if (frostbite2CommandHandler) {
-        connect(frostbite2CommandHandler, &Frostbite2CommandHandler::onServerMaxPlayerCountChangeEvent,    this, &FrostbiteEventsWidget::onServerMaxPlayerCountChangeEvent);
-        connect(frostbite2CommandHandler, &Frostbite2CommandHandler::onServerLevelLoadedEvent,             this, &FrostbiteEventsWidget::onServerLevelLoadedEvent);
+        connect(frostbite2CommandHandler, &Frostbite2CommandHandler::onServerMaxPlayerCountChangeEvent,   this, &FrostbiteEventsWidget::onServerMaxPlayerCountChangeEvent);
+        connect(frostbite2CommandHandler, &Frostbite2CommandHandler::onServerLevelLoadedEvent,            this, &FrostbiteEventsWidget::onServerLevelLoadedEvent);
     }
 
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverEvent,           this, &FrostbiteEventsWidget::onServerRoundOverEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverPlayersEvent,    this, &FrostbiteEventsWidget::onServerRoundOverPlayersEvent);
-    connect(getClient()->getCommandHandler(), &Frostbite2CommandHandler::onServerRoundOverTeamScoresEvent, this, &FrostbiteEventsWidget::onServerRoundOverTeamScoresEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onServerRoundOverEvent,           this, &FrostbiteEventsWidget::onServerRoundOverEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onServerRoundOverPlayersEvent,    this, &FrostbiteEventsWidget::onServerRoundOverPlayersEvent);
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onServerRoundOverTeamScoresEvent, this, &FrostbiteEventsWidget::onServerRoundOverTeamScoresEvent);
+
+    /* Commands */
+    connect(getClient()->getCommandHandler(), &FrostbiteCommandHandler::onCurrentLevelCommand,            this, &FrostbiteEventsWidget::onCurrentLevelCommand);
 }
 
 FrostbiteEventsWidget::~FrostbiteEventsWidget()
@@ -118,6 +122,7 @@ void FrostbiteEventsWidget::onAuthenticated()
 {
     logEvent("Authenticated", tr("Authenticated."));
 
+    getClient()->getCommandHandler()->sendServerInfoCommand();
     getClient()->getCommandHandler()->sendAdminEventsEnabledCommand(true);
 }
 
@@ -146,7 +151,27 @@ void FrostbiteEventsWidget::onPlayerLeaveEvent(const QString &player, const QStr
 
 void FrostbiteEventsWidget::onPlayerSpawnEvent(const QString &player, int teamId)
 {
-    logEvent("PlayerSpawn", tr("Player %1 spawned, and is on team %2.").arg(player).arg(BF4LevelDictionary::getTeam(teamId - 1).getName()));
+    GameTypeEnum gameType = getClient()->getServerEntry()->getGameType();
+    TeamEntry teamEntry;
+
+    switch (gameType) {
+    case GameTypeEnum::BFBC2:
+        teamEntry = BFBC2LevelDictionary::getTeam(static_cast<const BFBC2LevelEntry&>(levelEntry), teamId);
+        break;
+
+    case GameTypeEnum::BF3:
+        teamEntry = BF3LevelDictionary::getTeam(levelEntry, teamId);
+        break;
+
+    case GameTypeEnum::BF4:
+        teamEntry = BF4LevelDictionary::getTeam(levelEntry, teamId);
+        break;
+
+    default:
+        break;
+    }
+
+    logEvent("PlayerSpawn", tr("Player %1 spawned, and is on team %2.").arg(player, teamEntry.getName()));
 }
 
 void FrostbiteEventsWidget::onPlayerKillEvent(const QString &killerPlayer, const QString &victimPlayer, const QString &weapon, bool headshot)
@@ -170,9 +195,9 @@ void FrostbiteEventsWidget::onPlayerKillEvent(const QString &killerPlayer, const
 
     if (killerPlayer != victimPlayer) {
         if (headshot) {
-            message = tr("Player %1 shot player %2 in the head using %3.").arg(killerPlayer).arg(victimPlayer).arg(weaponEntry.getName());
+            message = tr("Player %1 shot player %2 in the head using %3.").arg(killerPlayer, victimPlayer, weaponEntry.getName());
         } else {
-            message = tr("Player %1 killed player %2 with %3.").arg(killerPlayer).arg(victimPlayer).arg(weaponEntry.getName());
+            message = tr("Player %1 killed player %2 with %3.").arg(killerPlayer, victimPlayer, weaponEntry.getName());
         }
     } else {
         message = tr("Player %1 commited sucide using %2.").arg(killerPlayer).arg(weapon);
@@ -213,25 +238,29 @@ void FrostbiteEventsWidget::onServerLevelLoadedEvent(const QString &levelName, c
     Q_UNUSED(roundsTotal);
 
     GameTypeEnum gameType = getClient()->getServerEntry()->getGameType();
-    LevelEntry level;
-    GameModeEntry gameMode;
+    GameModeEntry gameModeEntry;
 
     switch (gameType) {
+    case GameTypeEnum::BFBC2:
+        levelEntry = BFBC2LevelDictionary::getLevel(levelName);
+        gameModeEntry = BFBC2LevelDictionary::getGameMode(gameModeName);
+        break;
+
     case GameTypeEnum::BF3:
-        level = BF3LevelDictionary::getLevel(levelName);
-        gameMode = BF3LevelDictionary::getGameMode(gameModeName);
+        levelEntry = BF3LevelDictionary::getLevel(levelName);
+        gameModeEntry = BF3LevelDictionary::getGameMode(gameModeName);
         break;
 
     case GameTypeEnum::BF4:
-        level = BF4LevelDictionary::getLevel(levelName);
-        gameMode = BF4LevelDictionary::getGameMode(gameModeName);
+        levelEntry = BF4LevelDictionary::getLevel(levelName);
+        gameModeEntry = BF4LevelDictionary::getGameMode(gameModeName);
         break;
 
     default:
         break;
     }
 
-    logEvent("ServerLevelLoaded", tr("Loading level %1 with gamemode %2.").arg(level.getName()).arg(gameMode.getName()));
+    logEvent("ServerLevelLoaded", tr("Loading level %1 with gamemode %2.").arg(levelEntry.getName()).arg(gameModeEntry.getName()));
 }
 
 void FrostbiteEventsWidget::onServerRoundOverEvent(int winningTeamId)
@@ -247,4 +276,27 @@ void FrostbiteEventsWidget::onServerRoundOverPlayersEvent(const QString &playerI
 void FrostbiteEventsWidget::onServerRoundOverTeamScoresEvent(const QString &teamScores)
 {
     logEvent("ServerRoundOverTeamScores", tr("The round has just ended, and %1 is the final ticket/kill/life count for each team.").arg(teamScores)); // TODO: Check what this actually outputs.
+}
+
+/* Commands */
+void FrostbiteEventsWidget::onCurrentLevelCommand(const QString &levelName)
+{
+    GameTypeEnum gameType = getClient()->getServerEntry()->getGameType();
+
+    switch (gameType) {
+    case GameTypeEnum::BFBC2:
+        levelEntry = BFBC2LevelDictionary::getLevel(levelName);
+        break;
+
+    case GameTypeEnum::BF3:
+        levelEntry = BF3LevelDictionary::getLevel(levelName);
+        break;
+
+    case GameTypeEnum::BF4:
+        levelEntry = BF4LevelDictionary::getLevel(levelName);
+        break;
+
+    default:
+        break;
+    }
 }
