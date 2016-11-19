@@ -29,7 +29,7 @@ class LevelEntry
 {
 public:
     LevelEntry();
-    LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile);
+    LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath = QString(), const QString &imageFile = QString());
     ~LevelEntry();
 
     QString getEngineName() const;

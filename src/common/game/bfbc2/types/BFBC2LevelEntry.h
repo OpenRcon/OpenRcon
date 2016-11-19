@@ -22,13 +22,14 @@
 
 #include "LevelEntry.h"
 
-enum class BFBC2ModEnum;
+#include "BFBC2Mod.h"
 
 class BFBC2LevelEntry : public LevelEntry
 {
 public:
-    BFBC2LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath, const QString &imageFile, BFBC2ModEnum mod);
     BFBC2LevelEntry();
+    BFBC2LevelEntry(const QString &engineName, const QString &name, const QList<int> &teamList, const QString &imagePath = QString(), const QString &imageFile = QString(), BFBC2ModEnum mod = BFBC2ModEnum::BC2);
+
     ~BFBC2LevelEntry();
 
     BFBC2ModEnum getMod() const;
