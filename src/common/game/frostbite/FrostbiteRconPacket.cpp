@@ -22,9 +22,9 @@
 #include "FrostbiteRconPacket.h"
 #include "FrostbiteRconPacketOrigin.h"
 #include "FrostbiteRconPacketType.h"
-#include "FrostbiteRconWord.h"
+#include "FrostbiteRconPacketWord.h"
 
-FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : QObject(parent),
+FrostbiteRconPacket::FrostbiteRconPacket(QObject *parent) : Packet(parent),
     sequence(0),
     size(0),
     wordCount(0)
@@ -83,9 +83,9 @@ void FrostbiteRconPacket::clear()
     words.clear();
 }
 
-const FrostbiteRconWord &FrostbiteRconPacket::getWord(unsigned int index) const
+const FrostbiteRconPacketWord &FrostbiteRconPacket::getWord(unsigned int index) const
 {
-    static FrostbiteRconWord emptyWord;
+    static FrostbiteRconPacketWord emptyWord;
 
     // TODO: Use Q_ASSERT here?
     if (index < wordCount) {
@@ -97,7 +97,7 @@ const FrostbiteRconWord &FrostbiteRconPacket::getWord(unsigned int index) const
     return emptyWord;
 }
 
-void FrostbiteRconPacket::packWord(const FrostbiteRconWord &word)
+void FrostbiteRconPacket::packWord(const FrostbiteRconPacketWord &word)
 {
     size += word.getFullSize();
     words.push_back(word);
@@ -183,7 +183,7 @@ QDataStream &operator >>(QDataStream &in, FrostbiteRconPacket &packet)
 
     packet.setSequence(sequence);
 
-    FrostbiteRconWord word;
+    FrostbiteRconPacketWord word;
 
     for (unsigned int i = 0; i < wordCount; i++) {
         in >> word;

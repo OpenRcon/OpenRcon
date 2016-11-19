@@ -57,7 +57,7 @@ private:
     };
 
 private slots:
-    void readyRead();
+    void readyRead() final;
 
 };
 

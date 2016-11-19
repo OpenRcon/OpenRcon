@@ -62,7 +62,7 @@ void FrostbiteConnection::sendCommand(const QString &command)
         wordList.replaceInStrings("\"", "", Qt::CaseSensitive);
 
         for (QString word : wordList) {
-            packet.packWord(FrostbiteRconWord(word.toLatin1().constData()));
+            packet.packWord(FrostbiteRconPacketWord(word.toLatin1().constData()));
         }
 
         sendPacket(packet);

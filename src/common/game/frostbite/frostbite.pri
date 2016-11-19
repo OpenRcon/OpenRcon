@@ -7,10 +7,10 @@ HEADERS += $$PWD/FrostbiteClient.h \
     $$PWD/FrostbiteRconPacket.h \
     $$PWD/FrostbiteRconPacketOrigin.h \
     $$PWD/FrostbiteRconPacketType.h \
-    $$PWD/FrostbiteRconWord.h \
     $$PWD/FrostbiteUtils.h \
     $$PWD/LevelDictionary.h \
-    $$PWD/WeaponDictionary.h
+    $$PWD/WeaponDictionary.h \
+    $$PWD/FrostbiteRconPacketWord.h
 
 SOURCES += $$PWD/FrostbiteClient.cpp \
     $$PWD/FrostbiteCommandHandler.cpp \

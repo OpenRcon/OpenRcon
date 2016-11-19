@@ -26,6 +26,7 @@
 class QString;
 
 class ServerEntry;
+class Packet;
 
 class Connection : public QObject
 {
@@ -45,6 +46,9 @@ protected:
 
     void responseDataSent(const QString &request);
     void responseDataReceived(const QString &response);
+
+protected slots:
+    virtual void readyRead() = 0;
 
 private slots:
     void connected();

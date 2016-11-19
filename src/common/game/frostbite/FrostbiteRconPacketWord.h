@@ -17,23 +17,24 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FROSTBITERCONWORD_H
-#define FROSTBITERCONWORD_H
+#ifndef FROSTBITERCONPACKETWORD_H
+#define FROSTBITERCONPACKETWORD_H
 
-#include <QObject>
 #include <QDataStream>
 
-class FrostbiteRconWord : public QObject
+#include "PacketWord.h"
+
+class FrostbiteRconPacketWord : public PacketWord
 {
     Q_OBJECT
 
 public:
-    FrostbiteRconWord(QObject *parent = nullptr);
-    FrostbiteRconWord(const char *word, QObject *parent = nullptr);
-    FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent = nullptr);
-    ~FrostbiteRconWord();
+    FrostbiteRconPacketWord(QObject *parent = nullptr);
+    FrostbiteRconPacketWord(const char *word, QObject *parent = nullptr);
+    FrostbiteRconPacketWord(const FrostbiteRconPacketWord &word, QObject *parent = nullptr);
+    ~FrostbiteRconPacketWord();
 
-    FrostbiteRconWord &operator =(const FrostbiteRconWord &word);
+    FrostbiteRconPacketWord &operator =(const FrostbiteRconPacketWord &word);
     void clear();
     void loadData(const char *data, unsigned int size);
     unsigned int getSize() const;
@@ -48,7 +49,7 @@ private:
 
 };
 
-QDataStream &operator <<(QDataStream &out, const FrostbiteRconWord &word);
-QDataStream &operator >>(QDataStream &in, FrostbiteRconWord &word);
+QDataStream &operator <<(QDataStream &out, const FrostbiteRconPacketWord &word);
+QDataStream &operator >>(QDataStream &in, FrostbiteRconPacketWord &word);
 
-#endif // FROSTBITERCONWORD_H
+#endif // FROSTBITERCONPACKETWORD_H

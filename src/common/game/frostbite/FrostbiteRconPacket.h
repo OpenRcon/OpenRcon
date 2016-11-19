@@ -23,14 +23,16 @@
 #include <QVector>
 #include <QDataStream>
 
-#include "FrostbiteRconWord.h"
+#include "Packet.h"
+
+#include "FrostbiteRconPacketWord.h"
 
 #define MAX_PACKET_SIZE 16384
 
 enum class FrostbiteRconPacketOriginEnum;
 enum class FrostbiteRconPacketTypeEnum;
 
-class FrostbiteRconPacket : public QObject
+class FrostbiteRconPacket : public Packet
 {
     Q_OBJECT
 
@@ -42,8 +44,8 @@ public:
 
     FrostbiteRconPacket &operator =(const FrostbiteRconPacket &packet);
     void clear();
-    const FrostbiteRconWord &getWord(unsigned int index) const;
-    void packWord(const FrostbiteRconWord &word);
+    const FrostbiteRconPacketWord &getWord(unsigned int index) const;
+    void packWord(const FrostbiteRconPacketWord &word);
     unsigned int getSequence() const;
     void setSequence(int sequence);
     unsigned int getSequenceNum() const;
@@ -58,7 +60,7 @@ private:
     unsigned int sequence;
     unsigned int size; // Total size of packet, in bytes
     unsigned int wordCount; // Number of words following the packet header
-    QVector<FrostbiteRconWord> words; // RconWord packetWords[MAX_WORDS];
+    QVector<FrostbiteRconPacketWord> words; // RconWord packetWords[MAX_WORDS];
 
 };
 

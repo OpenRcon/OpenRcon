@@ -17,14 +17,19 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "FrostbiteRconWord.h"
+#include "FrostbiteRconPacketWord.h"
 
-FrostbiteRconWord::FrostbiteRconWord(QObject *parent) : QObject(parent), wordSize(0), wordContent(0), wordTerminator(0)
+FrostbiteRconPacketWord::FrostbiteRconPacketWord(QObject *parent) :
+    PacketWord(parent),
+    wordSize(0),
+    wordContent(0),
+    wordTerminator(0)
 {
 
 }
 
-FrostbiteRconWord::FrostbiteRconWord(const char *word, QObject *parent) : QObject(parent), wordSize(0), wordContent(0), wordTerminator(0)
+FrostbiteRconPacketWord::FrostbiteRconPacketWord(const char *word, QObject *parent) :
+    FrostbiteRconPacketWord(parent)
 {
     clear();
     wordTerminator = 0;
@@ -37,7 +42,8 @@ FrostbiteRconWord::FrostbiteRconWord(const char *word, QObject *parent) : QObjec
     }
 }
 
-FrostbiteRconWord::FrostbiteRconWord(const FrostbiteRconWord &word, QObject *parent) : QObject(parent), wordSize(0), wordContent(0), wordTerminator(0)
+FrostbiteRconPacketWord::FrostbiteRconPacketWord(const FrostbiteRconPacketWord &word, QObject *parent) :
+    FrostbiteRconPacketWord(parent)
 {
     wordTerminator = word.getTerminator();
     wordSize = word.getSize();
@@ -49,12 +55,12 @@ FrostbiteRconWord::FrostbiteRconWord(const FrostbiteRconWord &word, QObject *par
     }
 }
 
-FrostbiteRconWord::~FrostbiteRconWord()
+FrostbiteRconPacketWord::~FrostbiteRconPacketWord()
 {
     clear();
 }
 
-FrostbiteRconWord &FrostbiteRconWord::operator =(const FrostbiteRconWord &word)
+FrostbiteRconPacketWord &FrostbiteRconPacketWord::operator =(const FrostbiteRconPacketWord &word)
 {
     if (&word != this) {
         clear();
@@ -71,7 +77,7 @@ FrostbiteRconWord &FrostbiteRconWord::operator =(const FrostbiteRconWord &word)
     return *this;
 }
 
-void FrostbiteRconWord::clear()
+void FrostbiteRconPacketWord::clear()
 {
     wordSize = 0;
 
@@ -83,7 +89,7 @@ void FrostbiteRconWord::clear()
     wordTerminator = 0;
 }
 
-void FrostbiteRconWord::loadData(const char *data, unsigned int size)
+void FrostbiteRconPacketWord::loadData(const char *data, unsigned int size)
 {
     clear();
     wordTerminator = 0;
@@ -96,27 +102,27 @@ void FrostbiteRconWord::loadData(const char *data, unsigned int size)
     }
 }
 
-unsigned int FrostbiteRconWord::getSize() const
+unsigned int FrostbiteRconPacketWord::getSize() const
 {
     return wordSize;
 }
 
-unsigned int FrostbiteRconWord::getFullSize() const
+unsigned int FrostbiteRconPacketWord::getFullSize() const
 {
     return 4 + wordSize + 1;
 }
 
-const char* FrostbiteRconWord::getContent() const
+const char* FrostbiteRconPacketWord::getContent() const
 {
     return wordContent;
 }
 
-char FrostbiteRconWord::getTerminator() const
+char FrostbiteRconPacketWord::getTerminator() const
 {
     return wordTerminator;
 }
 
-QDataStream &operator <<(QDataStream &out, const FrostbiteRconWord &word)
+QDataStream &operator <<(QDataStream &out, const FrostbiteRconPacketWord &word)
 {
     if (out.byteOrder() != QDataStream::LittleEndian) {
         out.setByteOrder(QDataStream::LittleEndian);
@@ -129,7 +135,7 @@ QDataStream &operator <<(QDataStream &out, const FrostbiteRconWord &word)
     return out;
 }
 
-QDataStream &operator >>(QDataStream &in, FrostbiteRconWord &word)
+QDataStream &operator >>(QDataStream &in, FrostbiteRconPacketWord &word)
 {
     if (in.byteOrder() != QDataStream::LittleEndian) {
         in.setByteOrder(QDataStream::LittleEndian);
