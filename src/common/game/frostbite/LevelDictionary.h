@@ -20,12 +20,12 @@
 #ifndef LEVELDICTIONARY_H
 #define LEVELDICTIONARY_H
 
+#include <QStringList>
 #include <QMultiHash>
 
 class QString;
 template<class T>
 class QList;
-class QStringList;
 
 enum class GameTypeEnum;
 class TeamEntry;
