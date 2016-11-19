@@ -146,25 +146,23 @@ public:
         return list;
     }
 
-    static const TeamEntryType &getTeam(int teamIndex) {
-        static const TeamEntryType empty;
-
-        if (teamIndex < teamList.length()) {
-            return teamList.at(teamIndex);
+    static const TeamEntryType &getTeam(const LevelEntryType &levelEntry, int teamIndex) {
+        if (teamIndex > 0 && teamIndex < teamList.length()) {
+            return teamList.at(levelEntry.getTeamList().at(--teamIndex));
         }
 
-        return empty;
+        return teamList.at(teamIndex);
     }
 
     static const QList<TeamEntryType> &getTeams() {
         return teamList;
     }
 
-    static const QList<TeamEntryType> &getTeams(const QList<int> teamIdList) {
+    static const QList<TeamEntryType> &getTeams(const LevelEntryType &levelEntry) {
         static QList<TeamEntryType> teamList;
 
-        for (int teamId : teamIdList) {
-            teamList.append(getTeam(teamId));
+        for (int index : levelEntry.getTeamList()) {
+            teamList.append(LevelDictionary::teamList.at(index));
         }
 
         return teamList;
