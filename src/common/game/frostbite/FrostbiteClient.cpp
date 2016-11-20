@@ -47,7 +47,7 @@ FrostbiteClient::~FrostbiteClient()
 
 void FrostbiteClient::connectToHost()
 {
-    connection->hostConnect(serverEntry);
+    connection->hostConnect(*serverEntry);
 }
 
 void FrostbiteClient::disconnectFromHost()

@@ -36,7 +36,7 @@ public:
     Connection(QObject *parent);
     virtual ~Connection();
 
-    virtual void hostConnect(ServerEntry *serverEntry);
+    virtual void hostConnect(const ServerEntry &serverEntry);
     void hostDisconnect();
     bool isConnected();
     virtual void sendCommand(const QString &command) = 0;

@@ -32,6 +32,7 @@ Connection::Connection(QObject *parent) :
     connect(socket, &QAbstractSocket::connected,                                                                   this, &Connection::connected);
     connect(socket, &QAbstractSocket::disconnected,                                                                this, &Connection::disconnected);
     connect(socket, static_cast<void (QAbstractSocket::*)(QAbstractSocket::SocketError)>(&QAbstractSocket::error), this, &Connection::displayError);
+    connect(socket, &QIODevice::readyRead,                                                                         this, &Connection::readyRead);
 }
 
 Connection::~Connection()
@@ -39,12 +40,12 @@ Connection::~Connection()
 
 }
 
-void Connection::hostConnect(ServerEntry *serverEntry)
+void Connection::hostConnect(const ServerEntry &serverEntry)
 {
     if (socket->state() == QAbstractSocket::UnconnectedState) {
-        socket->connectToHost(serverEntry->getHost(), serverEntry->getPort());
+        socket->connectToHost(serverEntry.getHost(), serverEntry.getPort());
     } else {
-        qDebug() << tr("Already connected to %1:%2.").arg(serverEntry->getHost()).arg(serverEntry->getPort());
+        qDebug() << tr("Already connected to %1:%2.").arg(serverEntry.getHost()).arg(serverEntry.getPort());
     }
 }
 

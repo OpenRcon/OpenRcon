@@ -35,8 +35,6 @@ FrostbiteConnection::FrostbiteConnection(FrostbiteCommandHandler *commandHandler
     if (commandHandler) {
         commandHandler->setConnection(this);
     }
-
-    connect(socket, &QIODevice::readyRead, this, &FrostbiteConnection::readyRead);
 }
 
 FrostbiteConnection::~FrostbiteConnection()
@@ -44,7 +42,7 @@ FrostbiteConnection::~FrostbiteConnection()
 
 }
 
-void FrostbiteConnection::hostConnect(ServerEntry *serverEntry)
+void FrostbiteConnection::hostConnect(const ServerEntry &serverEntry)
 {
     if (!socket->isOpen()) {
         clear();
