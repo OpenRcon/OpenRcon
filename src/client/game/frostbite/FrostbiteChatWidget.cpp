@@ -59,8 +59,8 @@ FrostbiteChatWidget::FrostbiteChatWidget(FrostbiteClient *client, QWidget *paren
     // Hide duration label by default.
     ui->label_duration->setVisible(false);
 
-    for (QString squadName : Squad::asList()) {
-        ui->comboBox_squad->addItem(squadName, QVariant::fromValue(Squad::fromString(squadName)));
+    for (SquadEnum squad : Squad::asList()) {
+        ui->comboBox_squad->addItem(Squad::toString(squad), QVariant::fromValue(squad));
     }
 
     /* Client */

@@ -23,7 +23,12 @@
 #include "BFBC2Mod.h"
 #include "FrostbiteUtils.h"
 
-QStringList BFBC2Mod::list = {
+QList<BFBC2ModEnum> BFBC2Mod::list = {
+    BFBC2ModEnum::BC2,
+    BFBC2ModEnum::VIETNAM
+};
+
+QStringList BFBC2Mod::stringList = {
     "BC2",
     "VIETNAM"
 };
@@ -33,9 +38,7 @@ BFBC2ModEnum BFBC2Mod::fromString(const QString &modName)
     QString modNameUpperCase = modName.toUpper();
     BFBC2ModEnum mod = BFBC2ModEnum::BC2;
 
-    if (modNameUpperCase == "BC2") {
-        mod = BFBC2ModEnum::BC2;
-    } else if (modNameUpperCase == "VIETNAM") {
+    if (modNameUpperCase == "VIETNAM") {
         mod = BFBC2ModEnum::VIETNAM;
     }
 
@@ -49,7 +52,7 @@ QString BFBC2Mod::toString(const BFBC2ModEnum &mod)
 
 QString BFBC2Mod::toString(int modId)
 {
-    return list.at(modId);
+    return stringList.at(modId);
 }
 
 BFBC2ModEnum BFBC2Mod::fromInt(int modId)
@@ -62,7 +65,12 @@ int BFBC2Mod::toInt(const BFBC2ModEnum &mod)
     return static_cast<int>(mod);
 }
 
-QStringList BFBC2Mod::asList()
+QList<BFBC2ModEnum> BFBC2Mod::asList()
 {
     return list;
+}
+
+QStringList BFBC2Mod::asStringList()
+{
+    return stringList;
 }

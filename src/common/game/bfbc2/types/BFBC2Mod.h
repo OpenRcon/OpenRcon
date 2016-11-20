@@ -21,6 +21,8 @@
 #define BFBC2MOD_H
 
 class QString;
+template<class T>
+class QList;
 class QStringList;
 
 enum class BFBC2ModEnum {
@@ -36,10 +38,12 @@ public:
     static QString toString(int modId);
     static BFBC2ModEnum fromInt(int modId);
     static int toInt(const BFBC2ModEnum &mod);
-    static QStringList asList();
+    static QList<BFBC2ModEnum> asList();
+    static QStringList asStringList();
 
 private:
-    static QStringList list;
+    static QList<BFBC2ModEnum> list;
+    static QStringList stringList;
 
 };
 

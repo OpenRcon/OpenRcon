@@ -23,6 +23,8 @@
 #include <QMetaType>
 
 class QString;
+template<class T>
+class QList;
 class QStringList;
 
 enum class BF4PresetEnum {
@@ -41,10 +43,12 @@ public:
     static QString toString(const BF4PresetEnum &preset);
     static BF4PresetEnum fromInt(int presetId);
     static int toInt(const BF4PresetEnum &preset);
-    static QStringList asList();
+    static QList<BF4PresetEnum> asList();
+    static QStringList asStringList();
 
 private:
-    static QStringList list;
+    static QList<BF4PresetEnum> list;
+    static QStringList stringList;
 
 };
 

@@ -18,13 +18,22 @@
 */
 
 #include <QString>
+#include <QList>
 #include <QStringList>
 
 #include "PlayerSubset.h"
 
 #include "FrostbiteUtils.h"
 
-QStringList PlayerSubset::list = {
+QList<PlayerSubsetEnum> PlayerSubset::list = {
+    PlayerSubsetEnum::All,
+    PlayerSubsetEnum::Team,
+    PlayerSubsetEnum::Squad,
+    PlayerSubsetEnum::Player,
+    PlayerSubsetEnum::Unknown
+};
+
+QStringList PlayerSubset::stringList = {
     "All",
     "Team",
     "Squad",
@@ -45,8 +54,6 @@ PlayerSubsetEnum PlayerSubset::fromString(const QString &playerSubsetName)
         playerSubset = PlayerSubsetEnum::Squad;
     } else if (playerSubsetNameCamelCase == "Player") {
         playerSubset = PlayerSubsetEnum::Player;
-    } else if (playerSubsetNameCamelCase == "Unknown") {
-        playerSubset = PlayerSubsetEnum::Unknown;
     }
 
     return playerSubset;
@@ -54,7 +61,7 @@ PlayerSubsetEnum PlayerSubset::fromString(const QString &playerSubsetName)
 
 QString PlayerSubset::toString(const PlayerSubsetEnum &playerSubset)
 {
-    return list.at(toInt(playerSubset));
+    return stringList.at(toInt(playerSubset));
 }
 
 PlayerSubsetEnum PlayerSubset::fromInt(int playuerSubsetId)
@@ -67,7 +74,12 @@ int PlayerSubset::toInt(const PlayerSubsetEnum &playerSubset)
     return static_cast<int>(playerSubset);
 }
 
-QStringList PlayerSubset::asList()
+QList<PlayerSubsetEnum> PlayerSubset::asList()
 {
     return list;
+}
+
+QStringList PlayerSubset::asStringList()
+{
+    return stringList;
 }

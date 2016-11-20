@@ -18,12 +18,20 @@
  */
 
 #include <QString>
+#include <QList>
 #include <QStringList>
 
 #include "Frostbite2UnlockMode.h"
 #include "FrostbiteUtils.h"
 
-QStringList Frostbite2UnlockMode::list = {
+QList<Frostbite2UnlockModeEnum> Frostbite2UnlockMode::list = {
+    Frostbite2UnlockModeEnum::All,
+    Frostbite2UnlockModeEnum::Common,
+    Frostbite2UnlockModeEnum::Stats,
+    Frostbite2UnlockModeEnum::None
+};
+
+QStringList Frostbite2UnlockMode::stringList = {
     "All",
     "Common",
     "Stats",
@@ -41,8 +49,6 @@ Frostbite2UnlockModeEnum Frostbite2UnlockMode::fromString(const QString &unlockM
         unlockMode = Frostbite2UnlockModeEnum::Common;
     } else if (unlockModeNameCamelCase == "Stats") {
         unlockMode = Frostbite2UnlockModeEnum::Stats;
-    } else if (unlockModeNameCamelCase == "None") {
-        unlockMode = Frostbite2UnlockModeEnum::None;
     }
 
     return unlockMode;
@@ -55,7 +61,7 @@ QString Frostbite2UnlockMode::toString(const Frostbite2UnlockModeEnum &unlockMod
 
 QString Frostbite2UnlockMode::toString(int unlockModeId)
 {
-    return list.at(unlockModeId);
+    return stringList.at(unlockModeId);
 }
 
 Frostbite2UnlockModeEnum Frostbite2UnlockMode::fromInt(int unlockModeId)
@@ -68,7 +74,12 @@ int Frostbite2UnlockMode::toInt(const Frostbite2UnlockModeEnum &unlockMode)
     return static_cast<int>(unlockMode);
 }
 
-QStringList Frostbite2UnlockMode::asList()
+QList<Frostbite2UnlockModeEnum> Frostbite2UnlockMode::asList()
 {
     return list;
+}
+
+QStringList Frostbite2UnlockMode::asStringList()
+{
+    return stringList;
 }

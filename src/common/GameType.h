@@ -23,6 +23,8 @@
 #include <QMetaType>
 
 class QString;
+template<class T>
+class QList;
 class QStringList;
 
 enum class GameTypeEnum {
@@ -35,14 +37,16 @@ enum class GameTypeEnum {
 class GameType
 {
 public:
-    static GameTypeEnum fromString(const QString &game);
+    static GameTypeEnum fromString(const QString &gameName);
     static QString toString(const GameTypeEnum &gameType);
     static GameTypeEnum fromInt(int gameTypeId);
     static int toInt(const GameTypeEnum &gameType);
-    static QStringList asList();
+    static QList<GameTypeEnum> asList();
+    static QStringList asStringList();
 
 private:
-    static QStringList list;
+    static QList<GameTypeEnum> list;
+    static QStringList stringList;
 
 };
 

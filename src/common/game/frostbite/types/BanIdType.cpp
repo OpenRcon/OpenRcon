@@ -17,8 +17,8 @@
 * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <QList>
 #include <QString>
+#include <QList>
 #include <QStringList>
 
 #include "BanIdType.h"
@@ -42,9 +42,7 @@ BanIdTypeEnum BanIdType::fromString(const QString &banIdTypeString)
     QString banIdTypeStringCamelCase = FrostbiteUtils::toCamelCase(banIdTypeString);
     BanIdTypeEnum banIdType = BanIdTypeEnum::Name;
 
-    if (banIdTypeStringCamelCase == "Name") {
-        banIdType = BanIdTypeEnum::Name;
-    } else if (banIdTypeStringCamelCase == "IP") {
+    if (banIdTypeStringCamelCase == "IP") {
         banIdType = BanIdTypeEnum::IP;
     } else if (banIdTypeStringCamelCase == "GUID") {
         banIdType = BanIdTypeEnum::GUID;

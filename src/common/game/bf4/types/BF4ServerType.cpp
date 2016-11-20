@@ -17,14 +17,23 @@
  * along with OpenRcon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QStringList>
 #include <QString>
+#include <QList>
+#include <QStringList>
 
 #include "BF4ServerType.h"
 
 #include "FrostbiteUtils.h"
 
-QStringList BF4ServerType::list = {
+QList<BF4ServerTypeEnum> BF4ServerType::list = {
+    BF4ServerTypeEnum::Official,
+    BF4ServerTypeEnum::Ranked,
+    BF4ServerTypeEnum::Unranked,
+    BF4ServerTypeEnum::Private,
+    BF4ServerTypeEnum::Unknown
+};
+
+QStringList BF4ServerType::stringList = {
     "Official",
     "Ranked",
     "Unranked",
@@ -52,7 +61,7 @@ BF4ServerTypeEnum BF4ServerType::fromString(const QString &serverTypeName)
 
 QString BF4ServerType::toString(const BF4ServerTypeEnum &serverType)
 {
-    return list.at(toInt(serverType));
+    return stringList.at(toInt(serverType));
 }
 
 BF4ServerTypeEnum BF4ServerType::fromInt(int serverTypeId)
@@ -65,7 +74,12 @@ int BF4ServerType::toInt(const BF4ServerTypeEnum &serverType)
     return static_cast<int>(serverType);
 }
 
-QStringList BF4ServerType::asList()
+QList<BF4ServerTypeEnum> BF4ServerType::asList()
 {
     return list;
+}
+
+QStringList BF4ServerType::asStringList()
+{
+    return stringList;
 }

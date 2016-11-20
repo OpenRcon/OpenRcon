@@ -23,6 +23,8 @@
 #include <QMetaType>
 
 class QString;
+template<class T>
+class QList;
 class QStringList;
 
 enum class Frostbite2UnlockModeEnum {
@@ -40,10 +42,12 @@ public:
     static QString toString(int unlockModeId);
     static Frostbite2UnlockModeEnum fromInt(int unlockModeId);
     static int toInt(const Frostbite2UnlockModeEnum &unlockMode);
-    static QStringList asList();
+    static QList<Frostbite2UnlockModeEnum> asList();
+    static QStringList asStringList();
 
 private:
-    static QStringList list;
+    static QList<Frostbite2UnlockModeEnum> list;
+    static QStringList stringList;
 
 };
 

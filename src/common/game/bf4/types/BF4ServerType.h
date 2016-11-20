@@ -21,6 +21,8 @@
 #define SERVERTYPE_H
 
 class QString;
+template<class T>
+class QList;
 class QStringList;
 
 enum class BF4ServerTypeEnum {
@@ -38,10 +40,12 @@ public:
     static QString toString(const BF4ServerTypeEnum &serverType);
     static BF4ServerTypeEnum fromInt(int serverTypeId);
     static int toInt(const BF4ServerTypeEnum &serverType);
-    static QStringList asList();
+    static QList<BF4ServerTypeEnum> asList();
+    static QStringList asStringList();
 
 private:
-    static QStringList list;
+    static QList<BF4ServerTypeEnum> list;
+    static QStringList stringList;
 
 };
 

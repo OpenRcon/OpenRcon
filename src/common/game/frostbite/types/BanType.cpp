@@ -18,13 +18,20 @@
 */
 
 #include <QString>
+#include <QList>
 #include <QStringList>
 
 #include "BanType.h"
 
 #include "FrostbiteUtils.h"
 
-QStringList BanType::list = {
+QList<BanTypeEnum> BanType::list = {
+    BanTypeEnum::Perm,
+    BanTypeEnum::Rounds,
+    BanTypeEnum::Seconds
+};
+
+QStringList BanType::stringList = {
     "Perm",
     "Rounds",
     "Seconds"
@@ -35,9 +42,7 @@ BanTypeEnum BanType::fromString(const QString &banTypeString)
     QString banTypeStringCamelCase = FrostbiteUtils::toCamelCase(banTypeString);
     BanTypeEnum banType = BanTypeEnum::Perm;
 
-    if (banTypeStringCamelCase == "Perm") {
-        banType = BanTypeEnum::Perm;
-    } else if (banTypeStringCamelCase == "Rounds") {
+    if (banTypeStringCamelCase == "Rounds") {
         banType = BanTypeEnum::Rounds;
     } else if (banTypeStringCamelCase == "Seconds") {
         banType = BanTypeEnum::Seconds;
@@ -48,7 +53,7 @@ BanTypeEnum BanType::fromString(const QString &banTypeString)
 
 QString BanType::toString(const BanTypeEnum &banType)
 {
-    return list.at(toInt(banType));
+    return stringList.at(toInt(banType));
 }
 
 BanTypeEnum BanType::fromInt(int banTypeId)
@@ -61,7 +66,12 @@ int BanType::toInt(const BanTypeEnum &banType)
     return static_cast<int>(banType);
 }
 
-QStringList BanType::asList()
+QList<BanTypeEnum> BanType::asList()
 {
     return list;
+}
+
+QStringList BanType::asStringList()
+{
+    return stringList;
 }

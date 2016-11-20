@@ -31,13 +31,13 @@ BF4OptionsWidget::BF4OptionsWidget(BF4Client *client, QWidget *parent) :
     ui->setupUi(this);
 
     // Initialize preset comboBox with preset types.
-    for (QString presetName : BF4Preset::asList()) {
-        ui->comboBox_gameplay_preset->addItem(presetName, QVariant::fromValue(BF4Preset::fromString(presetName)));
+    for (BF4PresetEnum preset : BF4Preset::asList()) {
+        ui->comboBox_gameplay_preset->addItem(BF4Preset::toString(preset), QVariant::fromValue(preset));
     }
 
     // Initialize unlock mode comboBox with unlock modes.
-    for (QString unlockModeName : Frostbite2UnlockMode::asList()) {
-        ui->comboBox_gameplay_unlockMode->addItem(unlockModeName, QVariant::fromValue(Frostbite2UnlockMode::fromString(unlockModeName)));
+    for (Frostbite2UnlockModeEnum unlockMode : Frostbite2UnlockMode::asList()) {
+        ui->comboBox_gameplay_unlockMode->addItem(Frostbite2UnlockMode::toString(unlockMode), QVariant::fromValue(unlockMode));
     }
 
     /* Client */

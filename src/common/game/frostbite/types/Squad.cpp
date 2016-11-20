@@ -18,12 +18,49 @@
  */
 
 #include <QString>
+#include <QList>
 #include <QStringList>
 
 #include "Squad.h"
 #include "FrostbiteUtils.h"
 
-QStringList Squad::list = {
+QList<SquadEnum> Squad::list = {
+    SquadEnum::None,
+    SquadEnum::Alpha,
+    SquadEnum::Bravo,
+    SquadEnum::Charlie,
+    SquadEnum::Delta,
+    SquadEnum::Echo,
+    SquadEnum::Foxtrot,
+    SquadEnum::Golf,
+    SquadEnum::Hotel,
+    SquadEnum::India,
+    SquadEnum::Juliet,
+    SquadEnum::Kilo,
+    SquadEnum::Lima,
+    SquadEnum::Mike,
+    SquadEnum::November,
+    SquadEnum::Oscar,
+    SquadEnum::Papa,
+    SquadEnum::Quebec,
+    SquadEnum::Romeo,
+    SquadEnum::Sierra,
+    SquadEnum::Tango,
+    SquadEnum::Uniform,
+    SquadEnum::Victor,
+    SquadEnum::Whiskey,
+    SquadEnum::Xray,
+    SquadEnum::Yankee,
+    SquadEnum::Zulu,
+    SquadEnum::Haggard,
+    SquadEnum::Sweetwater,
+    SquadEnum::Preston,
+    SquadEnum::Redford,
+    SquadEnum::Faith,
+    SquadEnum::Celeste
+};
+
+QStringList Squad::stringList = {
     "None",
     "Alpha",
     "Bravo",
@@ -64,9 +101,7 @@ SquadEnum Squad::fromString(const QString &squadName)
     QString squadNameCamelCase = FrostbiteUtils::toCamelCase(squadName);
     SquadEnum squad = SquadEnum::None;
 
-    if (squadNameCamelCase == "None") {
-        squad = SquadEnum::None;
-    } else if (squadNameCamelCase == "Alpha") {
+    if (squadNameCamelCase == "Alpha") {
         squad = SquadEnum::Alpha;
     } else if (squadNameCamelCase == "Bravo") {
         squad = SquadEnum::Bravo;
@@ -142,7 +177,7 @@ QString Squad::toString(const SquadEnum &squad)
 
 QString Squad::toString(int squadId)
 {
-    return list.at(squadId);
+    return stringList.at(squadId);
 }
 
 SquadEnum Squad::fromInt(int squadId)
@@ -155,7 +190,12 @@ int Squad::toInt(const SquadEnum &squad)
     return static_cast<int>(squad);
 }
 
-QStringList Squad::asList()
+QList<SquadEnum> Squad::asList()
 {
     return list;
+}
+
+QStringList Squad::asStringList()
+{
+    return stringList;
 }

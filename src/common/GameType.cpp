@@ -22,21 +22,30 @@
 
 #include "GameType.h"
 
-QStringList GameType::list = {
-    "BFBC2",
-    "BF3",
-    "BF4"
+QList<GameTypeEnum> GameType::list = {
+    GameTypeEnum::BFBC2,
+    GameTypeEnum::BF3,
+    GameTypeEnum::BF4,
+    GameTypeEnum::Unsupported
 };
 
-GameTypeEnum GameType::fromString(const QString &game)
+QStringList GameType::stringList = {
+    "BFBC2",
+    "BF3",
+    "BF4",
+    "Unsupported"
+};
+
+GameTypeEnum GameType::fromString(const QString &gameName)
 {
+    QString gameNameUpperCase = gameName.toUpper();
     GameTypeEnum gameType = GameTypeEnum::Unsupported;
 
-    if (game == "BFBC2") {
+    if (gameNameUpperCase == "BFBC2") {
         gameType = GameTypeEnum::BFBC2;
-    } else if (game == "BF3") {
+    } else if (gameNameUpperCase == "BF3") {
         gameType = GameTypeEnum::BF3;
-    } else if (game == "BF4") {
+    } else if (gameNameUpperCase == "BF4") {
         gameType = GameTypeEnum::BF4;
     }
 
@@ -45,7 +54,7 @@ GameTypeEnum GameType::fromString(const QString &game)
 
 QString GameType::toString(const GameTypeEnum &gameType)
 {
-    return list.at(toInt(gameType));
+    return stringList.at(toInt(gameType));
 }
 
 GameTypeEnum GameType::fromInt(int gameTypeId)
@@ -58,7 +67,12 @@ int GameType::toInt(const GameTypeEnum &gameType)
     return static_cast<int>(gameType);
 }
 
-QStringList GameType::asList()
+QList<GameTypeEnum> GameType::asList()
 {
     return list;
+}
+
+QStringList GameType::asStringList()
+{
+    return stringList;
 }
