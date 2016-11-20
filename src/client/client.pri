@@ -1,23 +1,22 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
+VPATH += $$PWD
 
-HEADERS += $$PWD/OpenRcon.h \
-    $$PWD/Constants.h \
-    $$PWD/ServerEntry.h \
-    $$PWD/ServerManager.h \
-    $$PWD/LanguageEntry.h \
-    $$PWD/LanguageManager.h \
-    $$PWD/SessionManager.h
+HEADERS += OpenRcon.h \
+    Constants.h \
+    ServerManager.h \
+    LanguageEntry.h \
+    LanguageManager.h \
+    SessionManager.h
 
-SOURCES += $$PWD/Main.cpp \
-    $$PWD/OpenRcon.cpp \
-    $$PWD/ServerEntry.cpp \
-    $$PWD/ServerManager.cpp \
-    $$PWD/LanguageManager.cpp \
-    $$PWD/SessionManager.cpp \
-    $$PWD/LanguageEntry.cpp
+SOURCES += Main.cpp \
+    OpenRcon.cpp \
+    ServerManager.cpp \
+    LanguageManager.cpp \
+    SessionManager.cpp \
+    LanguageEntry.cpp
 
-RESOURCES += $$PWD/OpenRcon.qrc
+RESOURCES += OpenRcon.qrc
 
 RC_ICONS = $$PWD/images/icons/openrcon.ico
 
