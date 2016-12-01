@@ -54,6 +54,7 @@ private:
     /* User Interface */
     // Players
     QTimer *timer;
+    bool updateLock;
     QClipboard *clipboard;
     QMenu *menu_player;
     QAction *action_player_kill;

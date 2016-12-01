@@ -216,77 +216,80 @@ void BF4PlayerListWidget::onAuthenticated()
 /* Commands */
 void BF4PlayerListWidget::onListPlayersCommand(const QList<BF4PlayerEntry> &playerList)
 {
-    // Clear the QTreeWidget and item.
-    clear();
+    if (!updateLock) {
 
-    // Create a list of all players as QTreeWidgetItem's.
-    QSet<QTreeWidgetItem*> playerItemList;
-    QSet<int> teamIdList;
+        // Clear the QTreeWidget and item.
+        clear();
 
-    BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(client->getCommandHandler());
+        // Create a list of all players as QTreeWidgetItem's.
+        QSet<QTreeWidgetItem*> playerItemList;
+        QSet<int> teamIdList;
 
-    // Create player items and adding them to the list.
-    for (BF4PlayerEntry playerEntry : playerList) {
-        QTreeWidgetItem *playerItem = new QTreeWidgetItem();
-        playerItem->setData(0, Qt::UserRole, playerEntry.getTeamId());
-        playerItem->setIcon(0, FrostbiteUtils::getRankIcon(client->getServerEntry()->getGameType(), playerEntry.getRank()));
-        playerItem->setText(0, playerEntry.getName());
-        playerItem->setToolTip(0, tr("Rank %1").arg(playerEntry.getRank()));
-        playerItem->setData(1, Qt::UserRole, playerEntry.getSquadId());
-        playerItem->setText(1, Squad::toString(playerEntry.getSquadId()));
-        playerItem->setText(2, QString::number(playerEntry.getKills()));
-        playerItem->setText(3, QString::number(playerEntry.getDeaths()));
-        playerItem->setText(4, QString::number(playerEntry.getScore()));
+        BF4CommandHandler *bf4CommandHandler = dynamic_cast<BF4CommandHandler*>(client->getCommandHandler());
 
-        if (bf4CommandHandler) {
-            playerItem->setText(5, QString::number(playerEntry.getPing()));
-        }
+        // Create player items and adding them to the list.
+        for (BF4PlayerEntry playerEntry : playerList) {
+            QTreeWidgetItem *playerItem = new QTreeWidgetItem();
+            playerItem->setData(0, Qt::UserRole, playerEntry.getTeamId());
+            playerItem->setIcon(0, FrostbiteUtils::getRankIcon(client->getServerEntry()->getGameType(), playerEntry.getRank()));
+            playerItem->setText(0, playerEntry.getName());
+            playerItem->setToolTip(0, tr("Rank %1").arg(playerEntry.getRank()));
+            playerItem->setData(1, Qt::UserRole, playerEntry.getSquadId());
+            playerItem->setText(1, Squad::toString(playerEntry.getSquadId()));
+            playerItem->setText(2, QString::number(playerEntry.getKills()));
+            playerItem->setText(3, QString::number(playerEntry.getDeaths()));
+            playerItem->setText(4, QString::number(playerEntry.getScore()));
 
-        playerItem->setText(6, playerEntry.getGuid());
-        playerItem->setText(7, QString::number(playerEntry.getDeaths() <= 0 ? (double) playerEntry.getKills() : (double) playerEntry.getKills() / (double) playerEntry.getDeaths(), 'f', 2));
-
-        // Add player item and team id to lists.
-        playerItemList.insert(playerItem);
-        teamIdList.insert(playerEntry.getTeamId());
-    }
-
-    for (int teamId : teamIdList) {
-        TeamEntry team = BF4LevelDictionary::getTeam(levelEntry, teamId);
-        QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
-        teamItem->setData(0, Qt::UserRole, teamId);
-        teamItem->setIcon(0, team.getImage());
-        teamItem->setText(0, team.getName());
-
-        // Add players to the teamItem.
-        for (QTreeWidgetItem *playerItem : playerItemList) {
-            if (teamId == playerItem->data(0, Qt::UserRole).toInt()) {
-                teamItem->addChild(playerItem);
+            if (bf4CommandHandler) {
+                playerItem->setText(5, QString::number(playerEntry.getPing()));
             }
+
+            playerItem->setText(6, playerEntry.getGuid());
+            playerItem->setText(7, QString::number(playerEntry.getDeaths() <= 0 ? (double) playerEntry.getKills() : (double) playerEntry.getKills() / (double) playerEntry.getDeaths(), 'f', 2));
+
+            // Add player item and team id to lists.
+            playerItemList.insert(playerItem);
+            teamIdList.insert(playerEntry.getTeamId());
         }
 
-        // Add the team to the menu_player_move menu.
-        action_player_move_team = new QAction(team.getImage(), tr("Team %1").arg(team.getName()), menu_player_move);
-        action_player_move_team->setCheckable(true);
-        action_player_move_team->setData(teamId);
+        for (int teamId : teamIdList) {
+            TeamEntry team = BF4LevelDictionary::getTeam(levelEntry, teamId);
+            QTreeWidgetItem *teamItem = new QTreeWidgetItem(this);
+            teamItem->setData(0, Qt::UserRole, teamId);
+            teamItem->setIcon(0, team.getImage());
+            teamItem->setText(0, team.getName());
 
-        menu_player_move->addAction(action_player_move_team);
+            // Add players to the teamItem.
+            for (QTreeWidgetItem *playerItem : playerItemList) {
+                if (teamId == playerItem->data(0, Qt::UserRole).toInt()) {
+                    teamItem->addChild(playerItem);
+                }
+            }
+
+            // Add the team to the menu_player_move menu.
+            action_player_move_team = new QAction(team.getImage(), tr("Team %1").arg(team.getName()), menu_player_move);
+            action_player_move_team->setCheckable(true);
+            action_player_move_team->setData(teamId);
+
+            menu_player_move->addAction(action_player_move_team);
+        }
+
+        menu_player_move->addSeparator();
+
+        for (int squadId = 0; squadId <= 8; squadId++) {
+            action_player_move_squad = new QAction(tr("Squad %1").arg(Squad::toString(squadId)), menu_player_move);
+            action_player_move_squad->setCheckable(true);
+            action_player_move_squad->setData(squadId + 5);
+
+            menu_player_move->addAction(action_player_move_squad);
+        }
+
+        // Expand all items.
+        expandAll();
+
+        // Resize columns to content.
+        resizeColumnsToContents();
     }
-
-    menu_player_move->addSeparator();
-
-    for (int squadId = 0; squadId <= 8; squadId++) {
-        action_player_move_squad = new QAction(tr("Squad %1").arg(Squad::toString(squadId)), menu_player_move);
-        action_player_move_squad->setCheckable(true);
-        action_player_move_squad->setData(squadId + 5);
-
-        menu_player_move->addAction(action_player_move_squad);
-    }
-
-    // Expand all items.
-    expandAll();
-
-    // Resize columns to content.
-    resizeColumnsToContents();
 }
 
 void BF4PlayerListWidget::onServerInfoCommand(const FrostbiteServerInfo &serverInfo)
@@ -300,6 +303,8 @@ void BF4PlayerListWidget::customContextMenuRequested(const QPoint &pos)
     QTreeWidgetItem *item = itemAt(pos);
 
     if (item && item->parent()) {
+        updateLock = true;
+
         int teamIndex = item->data(0, Qt::UserRole).toInt() - 1;
         int squadIndex = item->data(1, Qt::UserRole).toInt() + topLevelItemCount() + 1;
 
@@ -320,6 +325,8 @@ void BF4PlayerListWidget::customContextMenuRequested(const QPoint &pos)
         }
 
         menu_player->exec(QCursor::pos());
+
+        updateLock = false;
     }
 }
 
