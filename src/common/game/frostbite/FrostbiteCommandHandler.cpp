@@ -311,7 +311,7 @@ void FrostbiteCommandHandler::sendAdminListPlayersCommand(const PlayerSubsetEnum
 
 void FrostbiteCommandHandler::sendAdminMovePlayerCommand(const QString &player, int teamId, int squadId, bool forceKill)
 {
-    connection->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId, squadId).arg(FrostbiteUtils::toString(forceKill)));
+    connection->sendCommand(QString("\"admin.movePlayer\" \"%1\" \"%2\" \"%3\" \"%4\"").arg(player).arg(teamId).arg(squadId).arg(FrostbiteUtils::toString(forceKill)));
 }
 
 void FrostbiteCommandHandler::sendAdminSayCommand(const QString &message, const PlayerSubsetEnum &playerSubset, const QString &player)
