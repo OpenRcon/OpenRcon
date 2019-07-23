@@ -759,18 +759,20 @@ void FrostbiteCommandHandler::parsePlayerChatEvent(const FrostbiteRconPacket &pa
         int squadId = 0;
 
         switch (playerSubset) {
-        case PlayerSubsetEnum::Player:
-            player = packet.getWord(4).getContent();
-            break;
+            case PlayerSubsetEnum::Player:
+                player = packet.getWord(4).getContent();
+                break;
 
-        case PlayerSubsetEnum::Squad:
-            squadId = FrostbiteUtils::toInt(packet.getWord(5).getContent());
-        case PlayerSubsetEnum::Team:
-            teamId = FrostbiteUtils::toInt(packet.getWord(4).getContent());
-            break;
+            case PlayerSubsetEnum::Squad:
+                squadId = FrostbiteUtils::toInt(packet.getWord(5).getContent());
+                break;
 
-        default:
-            break;
+            case PlayerSubsetEnum::Team:
+                teamId = FrostbiteUtils::toInt(packet.getWord(4).getContent());
+                break;
+
+            default:
+                break;
         }
 
         emit (onPlayerChatEvent(sender, message, playerSubset, player, teamId, squadId));
@@ -893,19 +895,19 @@ void FrostbiteCommandHandler::parseServerInfoCommand(const FrostbiteRconPacket &
 
     if (response == "OK" && packet.getWordCount() >= 1) {
         QString serverName = packet.getWord(1).getContent();
-        int playerCount = FrostbiteUtils::toInt(packet.getWord(2).getContent());
-        int maxPlayerCount = FrostbiteUtils::toInt(packet.getWord(3).getContent());
+        unsigned int playerCount = FrostbiteUtils::toInt(packet.getWord(2).getContent());
+        unsigned int maxPlayerCount = FrostbiteUtils::toInt(packet.getWord(3).getContent());
         QString gamemode = packet.getWord(4).getContent();
         QString currentMap = packet.getWord(5).getContent();
-        int roundsPlayed = FrostbiteUtils::toInt(packet.getWord(6).getContent());
-        int roundsTotal = FrostbiteUtils::toInt(packet.getWord(7).getContent());
+        unsigned int roundsPlayed = FrostbiteUtils::toInt(packet.getWord(6).getContent());
+        unsigned int roundsTotal = FrostbiteUtils::toInt(packet.getWord(7).getContent());
 
         // Parsing team scores.
-        int entries = FrostbiteUtils::toInt(packet.getWord(8).getContent());
-        int entriesIndex = 9 + entries;
+        unsigned int entries = FrostbiteUtils::toInt(packet.getWord(8).getContent());
+        unsigned int entriesIndex = 9 + entries;
         QList<int> scoreList;
 
-        for (int i = 9; i <= entriesIndex; i++) {
+        for (unsigned int i = 9; i <= entriesIndex; i++) {
             scoreList.append(FrostbiteUtils::toInt(packet.getWord(i).getContent()));
         }
 

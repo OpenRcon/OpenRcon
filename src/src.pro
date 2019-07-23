@@ -3,7 +3,7 @@ QT += core \
     gui \
     widgets
 
-CONFIG += c++14
+CONFIG += c++17
 
 TARGET = openrcon
 TEMPLATE = app

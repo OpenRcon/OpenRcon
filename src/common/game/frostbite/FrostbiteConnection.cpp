@@ -160,12 +160,11 @@ void FrostbiteConnection::readyRead()
                     exit = true;
 
                     qDebug() << tr("Error while reading header.");
-                    break;
                 }
             } else {
                 exit = true;
-                break;
             }
+            break;
         case PacketReadingData:
             QDataStream hdrstream(QByteArray(lastHeader, MIN_PACKET_SIZE));
             hdrstream.setByteOrder(QDataStream::LittleEndian);
